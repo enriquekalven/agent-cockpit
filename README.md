@@ -37,6 +37,18 @@ npm run dev
 
 The application will be available at `http://localhost:5173`.
 
+## 🚀 Deployment
+
+The project includes one-line deployment commands via the `Makefile`.
+
+| Platform | Command |
+| :--- | :--- |
+| **Cloud Run** | `make deploy-cloud-run` |
+| **Firebase** | `make deploy-firebase` |
+| **GKE** | `make deploy-gke` |
+
+For more options and configuration details, see the [Deployment Guide](./DEPLOYMENT.md).
+
 ## 🏗️ Architecture & Frameworks
 
 ### Web Components (Lit)
