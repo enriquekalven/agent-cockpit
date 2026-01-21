@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight, BookOpen, Terminal, Rocket, Cpu } from 'lucide-react';
+import { Menu, X, ChevronRight, BookOpen, Terminal, Rocket, Cpu, Layout } from 'lucide-react';
 
 interface DocLayoutProps {
   children: React.ReactNode;
 }
 
 const DOC_NAV = [
-  { id: 'readme', label: 'Getting Started', path: '/docs/readme', icon: <Rocket size={18} /> },
+  { id: 'readme', label: 'Getting Started', path: '/', icon: <Rocket size={18} /> },
   { id: 'a2a', label: 'A2A Protocol', path: '/docs/a2a', icon: <Cpu size={18} /> },
   { id: 'deployment', label: 'Deployment', path: '/docs/deployment', icon: <Terminal size={18} /> },
 ];
@@ -44,6 +44,14 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
                 <ChevronRight size={14} className="chevron" />
               </Link>
             ))}
+          </div>
+
+          <div className="nav-group">
+            <div className="nav-group-title">Sandbox</div>
+            <Link to="/playground" className="nav-item">
+              <Layout size={18} />
+              <span>A2UI Playground</span>
+            </Link>
           </div>
           
           <div className="nav-group">

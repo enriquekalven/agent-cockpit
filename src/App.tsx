@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
 import { DocLayout } from './docs/DocLayout';
 import { DocPage } from './docs/DocPage';
@@ -50,7 +50,7 @@ function Playground() {
           <span className="status-text">Agent Online</span>
         </div>
         <nav className="header-nav">
-          <Link to="/docs/readme" className="nav-link">Documentation</Link>
+          <Link to="/" className="nav-link">Documentation</Link>
           <a href="https://github.com/enriquekalven/agent-ui-starter-pack" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
         </nav>
       </header>
@@ -64,10 +64,18 @@ function Playground() {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Playground />} />
-      <Route path="/docs" element={<DocLayout><DocPage /></DocLayout>}>
-        <Route path=":docId" element={<DocPage />} />
+      {/* Docs as HomePage */}
+      <Route path="/" element={<DocLayout><DocPage /></DocLayout>}>
+        <Route index element={<DocPage />} />
+        <Route path="docs/:docId" element={<DocPage />} />
       </Route>
+      
+      {/* Playground moved to /playground */}
+      <Route path="/playground" element={<Playground />} />
+      
+      {/* Legacy /docs redirect to / */}
+      <Route path="/docs" element={<Navigate to="/" replace />} />
+      
       {/* Fallback */}
       <Route path="*" element={<Link to="/">Go Home</Link>} />
     </Routes>
