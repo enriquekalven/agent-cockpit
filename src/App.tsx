@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
+import { DocLayout } from './docs/DocLayout';
+import { DocPage } from './docs/DocPage';
 import './index.css';
 
 const SAMPLE_A2UI_SURFACE = {
@@ -29,28 +32,45 @@ const SAMPLE_A2UI_SURFACE = {
       children: [
         {
           type: 'Text',
-          props: { text: 'No recent agent actions detected. Try prompting your agent to generate a new surface.', variant: 'body' },
+          props: { text: 'No recent agent activity detected.', variant: 'body' },
         },
       ],
     },
   ],
 };
 
-function App() {
+function Playground() {
   const [surface] = useState(SAMPLE_A2UI_SURFACE);
 
   return (
     <div className="App">
-      <header style={{ padding: '2rem', textAlign: 'center' }}>
-        <div className="agent-status" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+      <header className="app-header">
+        <div className="agent-status">
           <span className="agent-pulse"></span>
-          <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>Agent Online</span>
+          <span className="status-text">Agent Online</span>
         </div>
+        <nav className="header-nav">
+          <Link to="/docs/readme" className="nav-link">Documentation</Link>
+          <a href="https://github.com/enriquekalven/agent-ui-starter-pack" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+        </nav>
       </header>
       <main>
         <A2UISurfaceRenderer surface={surface} />
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Playground />} />
+      <Route path="/docs" element={<DocLayout><DocPage /></DocLayout>}>
+        <Route path=":docId" element={<DocPage />} />
+      </Route>
+      {/* Fallback */}
+      <Route path="*" element={<Link to="/">Go Home</Link>} />
+    </Routes>
   );
 }
 
