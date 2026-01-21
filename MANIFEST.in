@@ -1,6 +1,7 @@
 include README.md
 include A2A_GUIDE.md
 include DEPLOYMENT.md
+include BE_INTEGRATION_GUIDE.md
 include firebase.json
 include Makefile
 include Dockerfile

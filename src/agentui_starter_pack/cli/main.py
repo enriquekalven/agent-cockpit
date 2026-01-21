@@ -14,7 +14,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Agent UI Starter Pack CLI."""
-    console.print("[bold cyan]agentui-starter-pack CLI v0.1.1[/bold cyan]")
+    console.print("[bold cyan]agentui-starter-pack CLI v0.1.2[/bold cyan]")
 
 @app.command()
 def create(

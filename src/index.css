@@ -35,6 +35,76 @@ body {
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+.a2-image-container {
+  margin: 1rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.a2-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.a2-caption {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-align: center;
+  background: rgba(0,0,0,0.2);
+}
+
+.a2-list-container {
+  margin: 1rem 0;
+}
+
+.a2-list-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.a2-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.a2-list-item {
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.a2-stat-bar-container {
+  margin: 1rem 0;
+}
+
+.a2-stat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.a2-stat-bar-track {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.a2-stat-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+
 .a2-card:hover {
   border-color: var(--accent-glow);
   transform: translateY(-2px);
@@ -471,6 +541,25 @@ body {
   opacity: 0.9;
 }
 
+.backend-settings {
+  padding: 10px 20px;
+  background: rgba(15, 23, 42, 0.5);
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.backend-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.backend-settings input[type="checkbox"] {
+  accent-color: var(--accent-color);
+}
+
 /* --- Playground & Editor --- */
 .playground-container {
   display: flex;
@@ -514,6 +603,22 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
+}
+
+.random-btn {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.random-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #60a5fa;
 }
 
 .json-textarea {

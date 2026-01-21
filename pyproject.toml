@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentui-starter-pack"
-version = "0.1.1"
+version = "0.1.2"
 description = "Scaffolding CLI for Agent UI Starter Pack"
 readme = "README.md"
 authors = [
@@ -39,6 +39,7 @@ include = [
     "README.md",
     "A2A_GUIDE.md",
     "DEPLOYMENT.md",
+    "BE_INTEGRATION_GUIDE.md",
     "firebase.json",
     "Makefile",
     "Dockerfile",

@@ -39,6 +39,64 @@ const SAMPLE_A2UI_SURFACE = {
   ],
 };
 
+const RANDOM_TEMPLATES = [
+  {
+    name: 'Shopping Cart',
+    json: {
+      surfaceId: 'shopping-cart',
+      content: [
+        { type: 'Text', props: { text: '🛒 Your Shopping Cart', variant: 'h1' } },
+        {
+          type: 'Card',
+          props: { title: 'Agent-Enhanced Checkout' },
+          children: [
+            { type: 'Image', props: { src: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400', alt: 'Smart Watch', caption: '✨ Premium Smart Watch - $299.00' } },
+            { type: 'List', props: { title: 'Order Summary', items: ['⌚ Smart Watch: $299.00', '🚚 Shipping: $0.00', '💸 Tax: $24.50'] } },
+            { type: 'Button', props: { label: 'Confirm Order ($323.50) 💳', variant: 'primary' } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    name: 'Weather Forecast',
+    json: {
+      surfaceId: 'weather-forecast',
+      content: [
+        { type: 'Text', props: { text: '🌉 San Francisco Weather', variant: 'h1' } },
+        {
+          type: 'Card',
+          props: { title: 'Weekly Outlook' },
+          children: [
+            { type: 'Text', props: { text: 'Currently: 62°F | Partly Cloudy ⛅', variant: 'h2' } },
+            { type: 'StatBar', props: { label: 'Humidity', value: 78, color: '#3b82f6' } },
+            { type: 'StatBar', props: { label: 'UV Index', value: 45, color: '#f59e0b' } },
+            { type: 'List', props: { items: ['Monday: ☀️ 72°F', 'Tuesday: 🌤️ 68°F', 'Wednesday: ☁️ 64°F', 'Thursday: 🌧️ 58°F', 'Friday: ⛅ 62°F'] } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    name: 'Server Dashboard',
+    json: {
+      surfaceId: 'server-dashboard',
+      content: [
+        { type: 'Text', props: { text: '🖥️ Infrastructure Overview', variant: 'h1' } },
+        {
+          type: 'Card',
+          props: { title: 'Global Traffic' },
+          children: [
+            { type: 'Image', props: { src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600', alt: 'World Map', caption: 'Live Global Data Mesh' } },
+            { type: 'StatBar', props: { label: 'Traffic Load', value: 65, color: '#10b981' } },
+            { type: 'StatBar', props: { label: 'Error Rate', value: 2, color: '#ef4444' } }
+          ]
+        }
+      ]
+    }
+  }
+];
+
 function Playground() {
   const [jsonText, setJsonText] = useState(JSON.stringify(SAMPLE_A2UI_SURFACE, null, 2));
   const [surface, setSurface] = useState(SAMPLE_A2UI_SURFACE);
@@ -59,6 +117,13 @@ function Playground() {
     }
   };
 
+  const generateRandomJson = () => {
+    const template = RANDOM_TEMPLATES[Math.floor(Math.random() * RANDOM_TEMPLATES.length)];
+    setSurface(template.json as any);
+    setJsonText(JSON.stringify(template.json, null, 2));
+    setError(null);
+  };
+
   const handleSendMessage = () => {
     if (!chatInput.trim()) return;
     
@@ -67,22 +132,66 @@ function Playground() {
     setChatInput('');
 
     // Simulate agent response
-    setTimeout(() => {
-      const agentMsg = { role: 'agent', text: "I've updated your view based on your request." };
-      setMessages(prev => [...prev, agentMsg]);
-      
-      // Mock A2UI Update
-      if (chatInput.toLowerCase().includes('chart') || chatInput.toLowerCase().includes('stats')) {
-        const update = {
-          ...SAMPLE_A2UI_SURFACE,
-          content: [
-            ...SAMPLE_A2UI_SURFACE.content,
-            { type: 'Card', props: { title: 'Agent Insights' }, children: [{ type: 'Text', props: { text: 'Showing specialized metrics for your request.', variant: 'body' }}]}
-          ]
-        };
-        setSurface(update);
-        setJsonText(JSON.stringify(update, null, 2));
+    setTimeout(async () => {
+      const lowerInput = chatInput.toLowerCase();
+      let responseText = "I've updated your view based on your request.";
+      let newSurface = { ...surface };
+
+      if ((window as any).USE_REAL_BE) {
+        try {
+          const res = await fetch(`http://localhost:8000/agent/query?q=${encodeURIComponent(chatInput)}`);
+          if (res.ok) {
+            newSurface = await res.json();
+            responseText = "Received live A2UI from your ADK agent.";
+          }
+        } catch (err) {
+          responseText = "Error connecting to local backend at port 8000. Is the agent running?";
+        }
+      } else {
+        if (lowerInput.includes('chart') || lowerInput.includes('stats') || lowerInput.includes('metrics')) {
+          responseText = "📊 I've generated a real-time system health report with visual diagnostics.";
+          newSurface = {
+            surfaceId: 'system-report',
+            content: [
+              { type: 'Text', props: { text: '⚡ Infrastructure Health Metrics', variant: 'h1' } },
+              { 
+                type: 'Card', 
+                props: { title: 'Live Performance 📈' }, 
+                children: [
+                  { type: 'StatBar', props: { label: 'Network Load', value: 45, color: '#3b82f6' } },
+                  { type: 'StatBar', props: { label: 'CPU Usage', value: 12, color: '#10b981' } },
+                  { type: 'StatBar', props: { label: 'Memory Reserved', value: 72, color: '#f59e0b' } },
+                  { type: 'List', props: { items: ['Pod-A: ✅ Ready', 'Pod-B: ✅ Ready', 'Pod-C: 🔄 Scaling'] } }
+                ]
+              },
+              {
+                type: 'Card',
+                props: { title: 'Node Status 🏢' },
+                children: [
+                  { type: 'Image', props: { src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400', alt: 'Server', caption: 'Primary Cluster Node' } },
+                  { type: 'Text', props: { text: 'All systems operational in us-central1.', variant: 'body' } }
+                ]
+              }
+            ]
+          } as any;
+        } else if (lowerInput.includes('dark') || lowerInput.includes('theme')) {
+          responseText = "🌙 Switching to dark mode patterns.";
+        } else {
+          responseText = `🤖 I understand you want to: ${chatInput}. I've updated the canvas.`;
+          newSurface = {
+            ...surface,
+            content: [
+              ...surface.content,
+              { type: 'Card', props: { title: 'Dynamic Response ✨' }, children: [{ type: 'Text', props: { text: `Simulated response for: ${chatInput}`, variant: 'body' }}]}
+            ]
+          };
+        }
       }
+      
+      const agentMsg = { role: 'agent', text: responseText };
+      setMessages(prev => [...prev, agentMsg]);
+      setSurface(newSurface);
+      setJsonText(JSON.stringify(newSurface, null, 2));
     }, 1000);
   };
 
@@ -91,7 +200,7 @@ function Playground() {
       <header className="app-header">
         <div className="agent-status">
           <span className="agent-pulse"></span>
-          <span className="status-text">A2UI Sandbox</span>
+          <span className="status-text">Agent UI Starter Pack</span>
         </div>
         <div className="mode-toggle">
           <button className={mode === 'editor' ? 'active' : ''} onClick={() => setMode('editor')}>Editor</button>
@@ -108,6 +217,7 @@ function Playground() {
           <div className="editor-pane">
             <div className="pane-header">
               <h3>JSON Blueprint</h3>
+              <button className="random-btn" onClick={generateRandomJson}>Generate Random JSON</button>
               {error && <span className="error-badge">Invalid JSON</span>}
             </div>
             <textarea
@@ -142,6 +252,12 @@ function Playground() {
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               />
               <button onClick={handleSendMessage}>Send</button>
+            </div>
+            <div className="backend-settings">
+              <label>
+                <input type="checkbox" onChange={(e) => (window as any).USE_REAL_BE = e.target.checked} />
+                Connect to Local ADK Agent (localhost:8000)
+              </label>
             </div>
           </div>
         )}

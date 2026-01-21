@@ -22,3 +22,42 @@ export const Card: React.FC<{ children: React.ReactNode; title?: string }> = ({ 
     </div>
   );
 };
+
+export const Image: React.FC<{ src: string; alt?: string; caption?: string }> = ({ src, alt, caption }) => {
+  return (
+    <div className="a2-image-container">
+      <img src={src} alt={alt} className="a2-image" />
+      {caption && <p className="a2-caption">{caption}</p>}
+    </div>
+  );
+};
+
+export const List: React.FC<{ items: string[]; title?: string }> = ({ items, title }) => {
+  return (
+    <div className="a2-list-container">
+      {title && <h4 className="a2-list-title">{title}</h4>}
+      <ul className="a2-list">
+        {items.map((item, i) => (
+          <li key={i} className="a2-list-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export const StatBar: React.FC<{ label: string; value: number; color?: string }> = ({ label, value, color = '#3b82f6' }) => {
+  return (
+    <div className="a2-stat-bar-container">
+      <div className="a2-stat-bar-label">
+        <span>{label}</span>
+        <span>{value}%</span>
+      </div>
+      <div className="a2-stat-bar-track">
+        <div 
+          className="a2-stat-bar-fill" 
+          style={{ width: `${value}%`, backgroundColor: color }}
+        />
+      </div>
+    </div>
+  );
+};

@@ -35,6 +35,24 @@ ADK agents can be wrapped in a FastAPI server that exposes these streams.
 
 ---
 
+## 🎮 Interactive Local Playground
+
+The **A2UI Playground** now supports a "Real Backend" mode. To use it:
+
+1. **Start the Sample Agent**:
+   ```bash
+   python3 src/backend/agent.py
+   ```
+   *This starts a FastAPI server on port 8000.*
+
+2. **Enable Connection**:
+   In the Playground header, switch to **Agent Mode**, then check the **"Connect to Local ADK Agent"** box at the bottom.
+
+3. **Interact**:
+   Type messages in the chat. The React frontend will now fetch real A2UI JSON from your Python backend instead of using the mock logic.
+
+---
+
 ## 🤖 ADK Backend Setup
 
 To send A2UI from an ADK agent, use the `SendA2uiToClientToolset`:

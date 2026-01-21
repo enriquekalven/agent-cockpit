@@ -1,11 +1,14 @@
 import React from 'react';
 import { A2UIComponent } from './types';
-import { Text, Button, Card } from './components';
+import { Text, Button, Card, Image, List, StatBar } from './components';
 
 const Registry: Record<string, React.FC<any>> = {
   Text,
   Button,
   Card,
+  Image,
+  List,
+  StatBar,
   Container: Card, // Alias for common A2UI convention
 };
 
