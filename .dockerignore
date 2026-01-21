@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.npm
+README.md
+A2A_GUIDE.md
+DEPLOYMENT.md
+Dockerfile
+firebase.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+*.log
