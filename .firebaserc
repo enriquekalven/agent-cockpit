@@ -6,7 +6,7 @@
     "esai-31177": {
       "hosting": {
         "agent-ui": [
-          "agentui-starter-pack"
+          "agent-cockpit"
         ]
       }
     }

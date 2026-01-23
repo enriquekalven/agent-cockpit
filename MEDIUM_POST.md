@@ -75,7 +75,7 @@ Whether you’re building an internal tool or a public-facing product, we’ve m
 - 🔥 **Firebase Hosting** (for lightweight SPA distribution)
 - ☸️ **Kubernetes (GKE)** (for enterprise scaling)
 
-Check out the live demo at: [https://agentui-starter-pack.web.app](https://agentui-starter-pack.web.app)
+Check out the live demo at: [https://agent-cockpit.web.app](https://agent-cockpit.web.app)
 
 ---
 
