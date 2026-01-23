@@ -3,7 +3,7 @@
 This repository is optimized for **Gemini CLI** and agentic development. AI agents should use this file as the primary source of truth for understanding the architecture, tools, and constraints of this project.
 
 ## 🚀 Project Overview
-The **Agent Ops Starter Pack** is a modern, high-performance foundation for building and testing agent-driven user interfaces. It supports multiple interface protocols including **A2UI** (Agent-to-User Interface) and **GenUI**.
+The **Optimized Agent Stack** is a modern, high-performance foundation for building and testing agent-driven user interfaces. It supports multiple interface protocols including **A2UI** (Agent-to-User Interface) and **GenUI**.
 
 ## 🛠️ Tech Stack
 - **Frontend**: React (Vite), TypeScript, Vanilla CSS (Modern aesthetic).

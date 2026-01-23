@@ -1,4 +1,4 @@
-# Building the Future of Agentic Interfaces: Introducing the Agent Ops Starter Pack
+# Building the Future of Agentic Interfaces: Introducing the Optimized Agent Stack
 
 **How to give your AI agents the power to generate professional, adaptive interfaces on the fly.**
 
@@ -8,7 +8,7 @@ The rise of AI agents—autonomous entities that can reason, use tools, and solv
 
 Traditional, static UIs are built for human-defined workflows. But when an agent decides to pivot from analyzing a financial spreadsheet to generating a global infrastructure health report, it needs an interface that can pivot with it.
 
-Today, I’m excited to share the **Agent Ops Starter Pack** (v0.1.2), a declarative, zero-install toolkit designed to bridge the gap between LLM reasoning and professional React interfaces.
+Today, I’m excited to share the **Optimized Agent Stack** (v0.2.0), a declarative, zero-install toolkit designed to bridge the gap between LLM reasoning and professional React interfaces.
 
 ---
 
@@ -20,7 +20,7 @@ It’s like Markdown, but for complex, interactive components like dashboards, s
 
 ---
 
-### The Agent Ops Starter Pack: What’s Inside?
+### The Optimized Agent Stack: What’s Inside?
 
 The starter pack is designed to get you from "Hello World" to "Agent-Generated Dashboard" in under 60 seconds.
 

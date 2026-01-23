@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Agent Ops Starter Pack: Production Setup Script
+# Optimized Agent Stack: Production Setup Script
 # This script configures the "Day 2 Operations" stack on GCP.
 
 set -e

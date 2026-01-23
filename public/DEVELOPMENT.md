@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide covers how to extend and customize the Agent Ops Starter Pack for your specific agentic applications.
+This guide covers how to extend and customize the Optimized Agent Stack for your specific agentic applications.
 
 ## 🏗️ Architecture Overview
 

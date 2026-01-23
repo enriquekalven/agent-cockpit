@@ -1,6 +1,6 @@
 # CLI Reference
 
-The Agent Ops Starter Pack includes both scaffolding commands and **Agent Ops** operational commands.
+The **Optimized Agent Stack** includes both scaffolding commands and **Agent Ops** operational commands.
 
 ## Scaffolding (uvx)
 

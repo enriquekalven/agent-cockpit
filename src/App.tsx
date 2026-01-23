@@ -14,7 +14,7 @@ const SAMPLE_A2UI_SURFACE = {
   content: [
     {
       type: 'Text',
-      props: { text: 'Agent Ops Starter Pack', variant: 'h1' },
+      props: { text: 'Optimized Agent Stack', variant: 'h1' },
     },
     {
       type: 'Card',
@@ -204,7 +204,7 @@ function Playground() {
       <header className="app-header">
         <div className="agent-status">
           <span className="agent-pulse"></span>
-          <span className="status-text">Agent Ops Starter Pack</span>
+          <span className="status-text">Optimized Agent Stack</span>
         </div>
         <div className="mode-toggle">
           <button className={mode === 'editor' ? 'active' : ''} onClick={() => setMode('editor')}>Editor</button>

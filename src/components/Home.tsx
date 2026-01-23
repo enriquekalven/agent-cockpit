@@ -8,14 +8,14 @@ export function Home() {
       <header className="home-header">
         <div className="logo-section">
           <span className="agent-pulse"></span>
-          <span className="logo-text">AgentOps Starter Pack</span>
+          <span className="logo-text">Optimized Agent Stack</span>
         </div>
         <nav className="home-nav">
-          <Link to="/docs" className="nav-item">Documentation</Link>
+          <Link to="/docs" className="nav-item">How it Works</Link>
+          <Link to="/docs/getting-started" className="nav-item">Documentation</Link>
           <Link to="/playground" className="nav-item">Playground</Link>
-          <a href="https://github.com/google/A2UI" target="_blank" rel="noopener noreferrer" className="nav-item">Community</a>
           <ThemeToggle />
-          <Link to="/playground" className="nav-cta">Deploy Now</Link>
+          <Link to="/docs/getting-started" className="nav-cta">Get Started</Link>
         </nav>
       </header>
 
@@ -277,7 +277,7 @@ export function Home() {
         <div className="footer-content">
           <div className="footer-logo">
             <span className="agent-pulse"></span>
-            <span>AgentOps Starter Pack</span>
+            <span>Optimized Agent Stack</span>
           </div>
           <p>© 2026 Agentic Systems Inc. All rights reserved.</p>
         </div>

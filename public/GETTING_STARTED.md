@@ -1,6 +1,6 @@
 # Getting Started Guide
 
-Welcome to the **Agent Ops Starter Pack**! This guide will help you set up your environment and launch your first agentic interface.
+Welcome to the **Optimized Agent Stack**! This guide will help you set up your environment and launch your first agentic interface.
 
 ## 🧩 Demystifying the Agentic Stack
 

@@ -1,6 +1,6 @@
-# Agent Ops Starter Pack - LLM Context
+# Optimized Agent Stack - LLM Context
 
-This file provides a machine-readable summary of the Agent Ops Starter Pack for LLMs and AI Agents.
+This file provides a machine-readable summary of the **Optimized Agent Stack** for LLMs and AI Agents.
 
 ## Purpose
 A rapid-development framework for creating agentic interfaces with built-in **Agent Ops** (Day 2 operations) for Google Cloud.

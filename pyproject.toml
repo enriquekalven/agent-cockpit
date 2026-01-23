@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "agentops-starter-pack"
 version = "0.2.0"
-description = "Scaffolding CLI for Agent Ops Starter Pack"
+description = "Scaffolding CLI for Optimized Agent Stack"
 readme = "README.md"
 authors = [
     { name = "Enrique", email = "enrique@example.com" }

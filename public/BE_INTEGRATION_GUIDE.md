@@ -1,6 +1,6 @@
 # Backend Agent Integration Guide
 
-This guide explains how to connect your **Agent Ops Starter Pack** to a live backend agent powered by **ADK (Agent Development Kit)** and **Vertex AI Agent Engine**.
+This guide explains how to connect your **Optimized Agent Stack** to a live backend agent powered by **ADK (Agent Development Kit)** and **Vertex AI Agent Engine**.
 
 ## 🏗️ Architecture
 

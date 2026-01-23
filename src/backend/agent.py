@@ -8,7 +8,7 @@ from .cache.semantic_cache import hive_mind, global_cache
 from .shadow.router import ShadowRouter
 from .ops.mcp_hub import global_mcp_hub
 
-app = FastAPI(title="Agent Ops Starter Pack")
+app = FastAPI(title="Optimized Agent Stack")
 
 class A2UIComponent(BaseModel):
     type: str

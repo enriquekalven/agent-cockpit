@@ -1,6 +1,6 @@
 # Getting Started
 
-Welcome to the Agent Ops Starter Pack. This pack is designed to help you build and test AI-driven user experiences.
+Welcome to the **Optimized Agent Stack**. This pack is designed to help you build and test AI-driven user experiences.
 
 ## Installation
 
