@@ -27,7 +27,7 @@ The starter pack is designed to get you from "Hello World" to "Agent-Generated D
 #### 1. Zero-Install Scaffolding
 Using Python’s `uvx`, you can scaffold a complete A2UI project without installing a single package:
 ```bash
-uvx agentui-starter-pack create my-agent-ui
+uvx agent-starter-pack create my-agent-ui
 ```
 This sets up a modern React/Vite project pre-configured with the A2UI rendering engine.
 
@@ -84,7 +84,7 @@ Check out the live demo at: [https://agent-cockpit.web.app](https://agent-cockpi
 The "Agent Era" demands a new way of thinking about the frontend. We’re just scratchng the surface of what’s possible with adaptive UIs. 
 
 - **GitHub**: [enriquekalven/agent-ui-starter-pack](https://github.com/enriquekalven/agent-ui-starter-pack)
-- **PyPI**: `pip install agentui-starter-pack`
+- **PyPI**: `pip install agent-starter-pack`
 - **NPM**: `npm install @a2ui/renderer` (coming soon)
 
 Let’s build interfaces that think as fast as our agents do.

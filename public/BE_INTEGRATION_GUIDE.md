@@ -1,14 +1,14 @@
-# Backend Agent Integration Guide
+# Backend Engine Integration Guide
 
 This guide explains how to connect your **Optimized Agent Stack** to a live backend agent powered by **ADK (Agent Development Kit)** and **Vertex AI Agent Engine**.
 
-## 🏗️ Architecture
+## 🏗️ Architecture: The Engine (Day 0)
 
 The A2UI flow typically follows this pattern:
 1. **User Input**: Client sends a message to the Agent.
-2. **Execution**: Agent executes tools and decides on the UI response.
+2. **Execution**: The **Engine** (fastapi backend) executes tools and decides on the UI response.
 3. **A2UI Response**: Agent returns a JSON object following the `A2UISurface` schema.
-4. **Rendering**: The React frontend receives the JSON and renders it via `A2UISurfaceRenderer`.
+4. **Rendering**: The **Face** (React frontend) receives the JSON and renders it instantly.
 
 ---
 
@@ -28,55 +28,65 @@ useEffect(() => {
 }, [sessionId]);
 ```
 
-### 2. Event-Driven (WebSocket / SSE)
-For real-time streaming interfaces (e.g., watching an agent think), use WebSockets or Server-Sent Events (SSE).
+---
 
-ADK agents can be wrapped in a FastAPI server that exposes these streams.
+## 🎮 Interactive Local Playground
+
+The **A2UI Playground** supports a "Real Backend" mode to test your Engine logic locally.
+
+1. **Start the Engine**:
+   ```bash
+   make dev
+   ```
+   *This starts the FastAPI server (agent.py) on port 8000.*
+
+2. **Enable Connection**:
+   In the Playground header, switch to **Agent Mode**, then check the **"Connect to Local ADK Agent"** box at the bottom.
 
 ---
 
-## 🤖 ADK Backend Setup
+## 🤖 Engine Setup (Python ADK)
 
-To send A2UI from an ADK agent, use the `SendA2uiToClientToolset`:
+To send A2UI from an ADK agent, use the `A2UISurface` model provided in `src/backend/agent.py`.
 
 ```python
-from adk import LlmAgent, tool
-from a2ui_tools import SendA2uiToClientToolset
+from .agent import A2UISurface, A2UIComponent
 
-# 1. Define your agent
-agent = LlmAgent(
-    name="DashboardAgent",
-    instructions="Generate a system dashboard based on the user's query.",
-    tools=[...my_tools]
-)
-
-# 2. Add the A2UI toolset
-agent.use(SendA2uiToClientToolset())
-
-# 3. Use it in a tool
-@tool
-def update_view(tool_context):
-    """Updates the user's dashboard."""
-    surface = {
-        "surfaceId": "dynamic-dashboard",
-        "content": [
-            {"type": "Text", "props": {"text": "Updated via ADK!", "variant": "h1"}}
+# 1. Define your tool
+async def generate_mcp_report(query: str):
+    return A2UISurface(
+        surfaceId="mcp-report",
+        content=[
+            A2UIComponent(type="Text", props={"text": "⚡ MCP Health", "variant": "h1"}),
+            A2UIComponent(type="Card", props={"title": "Connectivity Status"})
         ]
-    }
-    tool_context.send_a2ui(surface)
+    )
+```
+
+### Tool Usage Optimization (MCP Hub)
+Instead of using fragmented Tool APIs, the **Optimized Agent Stack** recommends using the **MCP Hub**:
+
+```python
+from .ops.mcp_hub import global_mcp_hub
+
+# Execute tools via standardized MCP protocol
+result = await global_mcp_hub.execute_tool("search", {"q": query})
 ```
 
 ---
 
-## 🚀 Deployment to Agent Engine
+## 🚀 Deployment to Google Cloud
 
-Once your agent is ready, deploy it to **Vertex AI Agent Engine**:
+When you are ready to ship the **Engine**, use the **Cockpit** deployment command:
 
 ```bash
-agent-starter-pack deploy --project YOUR_PROJECT_ID
+make deploy-prod
 ```
 
-Your React frontend can then call the Agent Engine API using the `RemoteA2aAgent` pattern or a custom bridge.
+This will:
+1.  Containerize your Python Engine logic.
+2.  Deploy to **Google Cloud Run**.
+3.  Configure IAM and Cloud Trace automatically.
 
 ## 🔗 Resources
 - [A2A Guide](./A2A_GUIDE.md)

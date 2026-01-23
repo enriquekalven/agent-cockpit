@@ -1,74 +1,39 @@
-# Getting Started Guide
+# Getting Started: The Agentic Trinity
 
-Welcome to the **Optimized Agent Stack**! This guide will help you set up your environment and launch your first agentic interface.
+Welcome to the **Optimized Agent Stack**. This guide will take you from zero to a production-ready agent in three phases.
 
-## 🧩 Demystifying the Agentic Stack
+## Phase 0: The Engine (Backend)
+1.  **Initialize the Environment**:
+    ```bash
+    chmod +x setup_gcp.sh
+    ./setup_gcp.sh
+    ```
+2.  **Understand `agent.py`**:
+    Open `src/backend/agent.py`. This is where your agent's reasoning lives. It uses the **ADK** (Agent Development Kit) to communicate with Gemini.
 
-To understand where this starter pack fits, it's important to distinguish between the different layers of the ecosystem:
+## Phase 1: The Face (Frontend)
+1.  **Launch the Development Stack**:
+    ```bash
+    make dev
+    ```
+2.  **The Playground**:
+    Navigate to `localhost:5173/playground`. Here you can hand-craft A2UI blueprints or test real agent logic by selecting "ADK Backend".
 
-*   **CopilotKit (The Foundation):** The open-source framework for building AI copilots. It handles the backend logic, LLM streaming, and core state synchronization.
-*   **A2UI (The Specification):** A Google-originated declarative JSON schema. It defines UI components so agents can describe interfaces without writing code.
-*   **AG-UI (The Protocol):** The communication standard for Agent-User Interaction. It ensures agents and UIs speak the same language for human-in-the-loop flows.
-*   **Agent UI (The Implementation):** This starter pack. A high-fidelity, production-ready renderer and playground that brings these standards together into a single, deployable toolkit.
+## Phase 2: The Cockpit (Operations)
+Once your agent is running, you need to manage it.
+
+1.  **Optimization**:
+    Run `make audit` to see how the **Interactive Optimizer** can save you up to 40% on token costs.
+2.  **Security**:
+    Run `make red-team` to simulate white-hat attacks against your agent.
+3.  **Governance**:
+    Open the **Ops Dashboard** at `localhost:5173/ops` to monitor Shadow Mode comparisons and the Flight Recorder.
 
 ---
 
-## 🏁 Prerequisites
-
-Before you begin, ensure you have the following installed:
-- **Node.js** (v18 or higher)
-- **NPM** or **Yarn**
-- **Python 3.10+** (if you plan to use the backend)
-- **Conda** or **venv** (recommended for backend)
-
-## 🚀 Quick Launch
-
-You can get a project running in seconds using our standard command:
-
+## Deployment
+When you are ready for production:
 ```bash
-uvx agent-ui-starter setup
+make deploy-prod
 ```
-
-Alternatively, clone the repository and run:
-
-```bash
-git clone https://github.com/enriquekalven/agent-ui-starter-pack.git
-cd agent-ui-starter-pack
-npm install
-npm run dev
-```
-
-## 🛠️ Environment Setup
-
-### 1. Frontend Development
-The frontend is built with **Vite** and **React**. To start the development server:
-```bash
-npm run dev
-```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-### 2. Backend (Optional)
-Navigate to the `src/backend` directory to set up the Python ADK agent:
-```bash
-cd src/backend
-pip install -r requirements.txt
-python agent.py
-```
-
-## 🧪 Testing the Playground
-Once the frontend is running, navigate to the **Playground** tab. Here you can paste A2UI JSON snippets to see how the agent transforms data into user interfaces.
-
-### Example A2UI Payload
-```json
-{
-  "surfaceId": "welcome",
-  "content": [
-    { "type": "Text", "props": { "text": "Hello Agent!", "variant": "h1" } }
-  ]
-}
-```
-
-## 📚 Next Steps
-- [Development Guide](/docs/development)
-- [Deployment Guide](/docs/deployment)
-- [CLI Reference](/docs/cli-commands)
+This 1-click command optimizes your code, builds the assets, and deploys everything to **Google Cloud (Cloud Run + Firebase)**.

@@ -11,6 +11,7 @@ const DOC_FILES: Record<string, string> = {
   'cli-commands': '/CLI_COMMANDS.md',
   a2a: '/A2A_GUIDE.md',
   'be-integration': '/BE_INTEGRATION_GUIDE.md',
+  story: '/AGENT_OPS_STORY.md',
 };
 
 export const DocPage: React.FC = () => {

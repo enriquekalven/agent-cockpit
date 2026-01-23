@@ -53,5 +53,8 @@ config = A2aAgentExecutorConfig(
 executor = A2aAgentExecutor(config)
 ```
 
-## 🌐 Enterprise Mesh
-In a production environment, A2A agents can be registered in the **Vertex AI MCP Registry**, allowing for dynamic discovery and secure, authenticated cross-project communication.
+## 🌐 Enterprise Mesh & MCP
+In a production environment, A2A agents are registered and optimized via the **MCP Tool Hub**. Using the **Model Context Protocol (MCP)** ensures that cross-agent calls are standardized, secure, and audited by the Cockpit.
+
+*   **Discovery**: The MCP Hub automatically discovers registered A2A agents.
+*   **Optimization**: The Cockpit's Interactive Optimizer flags high-latency A2A calls and suggests tool-caching strategies.

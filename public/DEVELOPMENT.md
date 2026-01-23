@@ -1,52 +1,55 @@
-# Development Guide
+# Development Guide: Extending the Stack
 
-This guide covers how to extend and customize the Optimized Agent Stack for your specific agentic applications.
+The **Optimized Agent Stack** is built to be modular. You can extend the Engine (Backend), the Face (Frontend), or the Cockpit (Ops).
 
-## 🏗️ Architecture Overview
+## 📁 Project Structure
 
-The project is structured into three main layers:
-1. **Core Renderer**: Located in `src/a2ui`, it processes JSON to React components.
-2. **Component Library**: Located in `src/components`, contains the logic for Playground and Documentation.
-3. **Design System**: Driven by `src/index.css`, using CSS variables for high-fidelity theming.
+### ⚙️ The Engine (Backend)
+- `src/backend/agent.py`: The main FastAPI server and agent logic.
+- `src/backend/cost_control.py`: Budget management middleware.
+- `src/backend/cache/`: Semantic caching logic and vector store connectors.
+- `src/backend/shadow/`: Traffic routing for Shadow Mode.
 
-## 🎨 Customizing the UI
+### 🎭 The Face (Frontend)
+- `src/a2ui/`: The core JSON ↔ React rendering engine.
+- `src/components/`: Shared UI components (Dashboard, StatusBars, etc.).
+- `src/docs/`: Documentation site logic.
 
-### Adding New Components
-To add a new A2UI component:
-1. Define the component in `src/a2ui/A2UIRenderer.tsx`.
-2. Update the `COMPONENT_MAP` to include your new type.
-3. Add any necessary styles to `index.css`.
+### 🕹️ The Cockpit (Ops)
+- `src/backend/optimizer.py`: The Interactive Optimizer CLI.
+- `src/backend/eval/red_team.py`: Adversarial security testing logic.
 
-### Theming
-The app supports light and dark modes out of the box. Modify the `--accent-color` and other variables in `:root` and `[data-theme="light"]` in `index.css` to match your brand.
+---
 
-## 🤖 Integrating Agents
+## 🎨 Adding New A2UI Components
 
-### Using ADK (Agent Development Kit)
-We recommend using the ADK for Python-based agents. The starter pack includes a sample in `src/backend`.
+To add a new visual component that the agent can "render":
 
-```python
-from a2ui import Surface, Card, Text
+1.  **Create the Component**: Add a new React component in `src/a2ui/components/`.
+2.  **Register the Type**: Add the component to the mapping in `src/a2ui/A2UIRenderer.tsx`.
+3.  **Update the Schema**: Add the new `props` definition to the `A2UIComponent` model in `src/backend/agent.py`.
 
-def get_welcome_ui():
-    surface = Surface(surface_id="welcome")
-    surface.add(Text("Dynamic Agent UI", variant="h1"))
-    return surface.to_json()
+---
+
+## 🔍 Extending the Optimizer
+
+You can add your own optimization heuristics to `src/backend/optimizer.py`. Common extensions include:
+*   Checking for specific PII patterns in prompts.
+*   Enforcing brand voice consistency.
+*   Suggesting tool-offloading for specific logic blocks.
+
+---
+
+## 🧪 Testing
+
+### Local Cockpit
+Start the full stack locally:
+```bash
+make dev
 ```
 
-### Protocol Standards
-- **A2UI**: Best for structured, predictable interfaces.
-- **GenUI**: Best for generative, fluid interfaces.
-
-## 🛠️ Testing Workflows
-
-Use the Playground to test individual components before integrating them with your agent's backend.
-
-1. Open Playground.
-2. Toggle "Agent Mode" to simulate real-time chat interactions.
-3. Use "Editor Mode" for precise JSON crafting.
-
-## 📜 Best Practices
-- **Security**: Always sanitize agent-generated content.
-- **Performance**: Keep A2UI payloads small to minimize latency.
-- **State**: Prefer stateless components where possible; handle state in the agent logic.
+### Adversarial Audit
+Run the security suite:
+```bash
+make red-team
+```

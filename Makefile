@@ -3,8 +3,8 @@
 # Project Variables
 PROJECT_ID ?= $(shell gcloud config get-value project)
 REGION ?= us-central1
-SERVICE_NAME = agent-ui-starter
-IMAGE_TAG = gcr.io/$(PROJECT_ID)/$(SERVICE_NAME):latest
+SERVICE_NAME = agent-ops-backend
+IMAGE_TAG = us-central1-docker.pkg.dev/$(PROJECT_ID)/agent-repo/$(SERVICE_NAME):latest
 
 .PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit deploy-prod
 

@@ -213,7 +213,7 @@ function Playground() {
         <nav className="header-nav">
           <Link to="/docs" className="nav-link">← Back to Docs</Link>
           <Link to="/ops" className="nav-link special-alt" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <Activity size={14} /> Agent Ops Dashboard
+            <Activity size={14} /> The Cockpit
           </Link>
           <ThemeToggle />
           <a href="/docs/be-integration" className="nav-link special">Connect to Agent →</a>

@@ -11,6 +11,7 @@ A rapid-development framework for creating agentic interfaces with built-in **Ag
 - Shadow Mode: `src/backend/shadow/router.py` - Side-by-side agent comparison.
 - Semantic Cache: `src/backend/cache/semantic_cache.py` - "Hive Mind" cost reduction.
 - Red Team Eval: `src/backend/eval/red_team.py` - Adversarial security audit.
+- MCP Hub: `src/backend/ops/mcp_hub.py` - Standardized tool connectivity hub.
 - Ops Dashboard: `src/components/OpsDashboard.tsx` - Visual control room / Flight Recorder.
 
 ## Key Viral Features
@@ -18,7 +19,8 @@ A rapid-development framework for creating agentic interfaces with built-in **Ag
 2. **Hive Mind Cache**: Drop-in semantic caching to cut LLM costs and latency.
 3. **Red Team CI/CD**: Automatic security vetting to prevent prompt injections.
 4. **Flight Recorder**: Visual scrubbable debugging of agent thought chains.
-5. **Zero-Code RAG**: Auto-indexing of the `src/knowledge/` folder.
+5. **MCP Tool Hub**: Standardized tool connectivity and usage optimization.
+6. **Zero-Code RAG**: Auto-indexing of the `src/knowledge/` folder.
 
 ## Quick Start
 1. `npm install`

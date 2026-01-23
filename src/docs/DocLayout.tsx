@@ -12,6 +12,7 @@ const PILLAR_NAV = [
   {
     title: 'The Engine (Day 0)',
     items: [
+      { id: 'story', label: 'The Trinity Vision', path: '/docs/story', icon: <BookOpen size={18} /> },
       { id: 'getting-started', label: 'Backend Setup', path: '/docs/getting-started', icon: <Cpu size={18} /> },
       { id: 'be-integration', label: 'ADK Integration', path: '/docs/be-integration', icon: <Terminal size={18} /> },
     ]
@@ -26,7 +27,7 @@ const PILLAR_NAV = [
   {
     title: 'The Cockpit (Day 2)',
     items: [
-      { id: 'ops', label: 'Ops Dashboard', path: '/ops', icon: <Activity size={18} /> },
+      { id: 'ops', label: 'The Cockpit', path: '/ops', icon: <Activity size={18} /> },
       { id: 'cli-commands', label: 'Optimizer CLI', path: '/docs/cli-commands', icon: <Terminal size={18} /> },
       { id: 'deployment', label: 'Cloud Deployment', path: '/docs/deployment', icon: <Rocket size={18} /> },
     ]

@@ -1,128 +1,85 @@
-## ⚡️ One-Liner Deployments (Makefile)
+# Deployment: Shipping the Optimized Agent Stack
 
-The project includes a `Makefile` that simplifies deployment to a single command. Ensure you have the respective CLIs installed and authenticated.
+The **Optimized Agent Stack** is designed for high-fidelity, cost-optimized deployment on **Google Cloud**.
+
+## ⚡️ 1-Click Operations (The Cockpit)
+
+The built-in `Makefile` handles the entire production deployment flow.
 
 | Target | Command | Platform |
 | :--- | :--- | :--- |
-| **Cloud Run** | `make deploy-cloud-run` | Google Cloud (Serverless) |
-| **Firebase** | `make deploy-firebase` | Firebase Hosting |
-| **GKE** | `make deploy-gke` | Google Kubernetes Engine |
+| **Full Stack** | `make deploy-prod` | Cloud Run (Engine) + Firebase (Face) |
+| **The Engine** | `make deploy-cloud-run` | Google Cloud Run (Backend) |
+| **The Face** | `make deploy-firebase` | Firebase Hosting (Frontend) |
 
 ---
 
-## 🏗️ Scaffolding Options
+## 1. Initial GCP Setup
 
-You can scaffold specialized versions of the Agent UI using `uvx`. Select the implementation standard that matches your tech stack:
+Before your first deployment, run the setup script to configure your project, enable APIs, and create the Artifact Registry repo.
 
-### A2UI (Standard React)
-The default template, optimized for performance and zero-dependency rendering.
 ```bash
-uvx agentui-starter-pack create my-app
-```
-
-### AG UI (High-Fidelity)
-Uses the **AG UI** standard (CopilotKit) for high-end React implementations.
-```bash
-uvx agentui-starter-pack create my-app --ui agui
-```
-
-### GenUI SDK (Flutter)
-Scaffolds the project with the **GenUI SDK bridge**, ideal for cross-platform mobile and web apps.
-```bash
-uvx agentui-starter-pack create my-app --ui flutter
-```
-
-### Lit (Web Components)
-Standardized Web Components that can be embedded into any framework (Angular, Vue, etc).
-```bash
-uvx agentui-starter-pack create my-app --ui lit
+chmod +x setup_gcp.sh
+./setup_gcp.sh
 ```
 
 ---
 
-## 1. Google Cloud Run (Recommended)
+## 2. Google Cloud Run (The Engine)
 
-Cloud Run is the best platform for serving the A2UI renderer as it offers serverless scaling and zero-config TLS.
+The backend agent is served via Cloud Run, offering serverless scaling and native integration with **Vertex AI** and **Cloud Trace**.
 
-### Prerequisites
-- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed and authenticated.
-- A Google Cloud Project.
-
-### Deployment Steps
+### Manual Deployment Steps
 ```bash
 # Set your project
 gcloud config set project YOUR_PROJECT_ID
 
-# Deploy using the included Dockerfile
-gcloud run deploy agent-ui-renderer \
+# Deploy the backend (Engine)
+# The setup_gcp.sh script handles this, but here is the manual command:
+gcloud run deploy agent-ops-backend \
   --source . \
+  --dockerfile Dockerfile.backend \
   --region us-central1 \
   --allow-unauthenticated
 ```
 
 ---
 
-## 2. Firebase Hosting
+## 3. Firebase Hosting (The Face)
 
-Ideal for developers already using Firebase for their frontend assets.
-
-### Prerequisites
-- [Firebase CLI](https://firebase.google.com/docs/cli) installed (`npm install -g firebase-tools`).
+Firebase is used for hosting the static A2UI renderer assets. This ensures your users get the fastest possible bundle delivery.
 
 ### Deployment Steps
 ```bash
-# Initialize Firebase (if not already done)
-firebase init hosting
+# Set up hosting target (one-time)
+firebase target:apply hosting agent-ui agent-cockpit
 
-# Build production assets
+# Build and Deploy
 npm run build
-
-# Deploy to Firebase
-firebase deploy --only hosting
+firebase deploy --only hosting:agent-ui
 ```
 
 ---
 
-## 3. Google Kubernetes Engine (GKE)
+## 🏗️ Scaffolding New Projects
 
-For enterprise environments requiring strict networking or integration with an existing Kubernetes mesh.
+You can use the **Optimized Agent Stack** CLI to scaffold new specialized projects:
 
-### Deployment Steps
-1. **Build and Push Image**:
-   ```bash
-   IMAGE_TAG=gcr.io/YOUR_PROJECT_ID/a2ui-renderer:v1
-   docker build -t $IMAGE_TAG .
-   docker push $IMAGE_TAG
-   ```
+```bash
+# Standard React Template
+uvx agent-starter-pack create my-app
 
-2. **Deploy to GKE**:
-   Create a `deployment.yaml`:
-   ```yaml
-   apiVersion: apps/v1
-   kind: Deployment
-   metadata:
-     name: a2ui-renderer
-   spec:
-     replicas: 3
-     selector:
-       matchLabels:
-         app: a2ui-renderer
-     template:
-       metadata:
-         labels:
-           app: a2ui-renderer
-       spec:
-         containers:
-         - name: a2ui-renderer
-           image: gcr.io/YOUR_PROJECT_ID/a2ui-renderer:v1
-           ports:
-           - containerPort: 80
-   ```
-   Apply it: `kubectl apply -f deployment.yaml`
+# High-End AG-UI (CopilotKit)
+uvx agent-starter-pack create my-app --ui agui
+
+# Mobile Integration (Flutter)
+uvx agent-starter-pack create my-app --ui flutter
+```
 
 ---
 
-## 🛠️ Infrastructure Patterns
+## 🛡️ CI/CD & Security
 
-- **CI/CD**: Use `agent-starter-pack setup-cicd` to automatically scaffold GitHub Actions or Cloud Build triggers.
-- **Observability**: Ensure **Cloud Trace** is enabled to follow requests from the UI into the agent backend.
+*   **GitHub Actions**: Integrated with `make red-team` to prevent unsafe code from reaching production.
+*   **Shadow Mode**: Configured during deployment to allow safe v1/v2 traffic splitting.
+*   **Observability**: **Google Cloud Trace** is pre-configured to track "Thought Chains" from the frontend into the backend agent.

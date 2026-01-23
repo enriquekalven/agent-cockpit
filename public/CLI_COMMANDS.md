@@ -1,51 +1,65 @@
-# CLI Reference
+# Optimized Agent Stack: CLI & Cockpit Reference
 
-The Optimized Agent Stack provides several CLI tools and NPM scripts to streamline your workflow.
+The **Optimized Agent Stack** provides a comprehensive set of tools for both building (Scaffolding) and managing (Operations) AI agents.
 
-## 📦 NPM Scripts
+## 1. Scaffolding (Day 0)
 
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Start the local development server (Vite). |
-| `npm run build` | Build the optimized production bundle. |
-| `npm run preview` | Preview the local build. |
-| `npm run deploy` | Deploy to Firebase Hosting. |
-| `npm run lint` | Run ESLint to check for code quality. |
+Use `uvx` to create new projects without local installation:
 
-## 🛠️ Gemini CLI Integration
-
-The project is fully compatible with **Gemini CLI**.
-
-### Context Discovery
-Gemini CLI uses the `GEMINI.md` and `llm.txt` files to understand your repository.
-- `GEMINI.md`: Context for AI agents.
-- `llm.txt`: Machine-readable summary.
-
-### Proposed CLI Tool (`agent-ui-starter`)
-We are developing a specialized CLI for easier initialization:
+### `create`
+Scaffold a new project with a specific UI flavor.
 ```bash
-# Setup a project
-uvx agent-ui-starter setup
-
-# Generate a new A2UI component
-uvx agent-ui-starter generate component [name]
-
-# Deploy directly to Cloud Run
-uvx agent-ui-starter deploy --platform cloudrun
+uvx agent-starter-pack create my-agent --ui a2ui
 ```
 
-## 🐋 Docker Commands
+---
 
-Deploy your agent backend or the frontend using Docker:
+## 2. The Cockpit: Agent Operations (Makefile)
+
+Use the included `Makefile` for Day 2 production management.
+
+### `make audit`
+Runs the **Interactive Agent Optimizer**.
+*   **Scanning**: Scans `agent.py` for cost/perf waste.
+*   **Proposals**: Suggests Gemini Context Caching, Prompt Compression, and MCP Migration.
+*   **Approval**: Interactive `approve/reject` workflow.
+
+### `make red-team`
+Unleashes a security audit against your agent.
+*   **Adversarial Eval**: Prompt injection, PII extraction, and jailbreak simulation.
+*   **Safety Lock**: Fails deployment if vulnerabilities are found.
+
+### `make dev`
+Starts the local development stack (Vite frontend + FastAPI backend).
 ```bash
-docker build -t agent-ui-starter .
-docker run -p 8080:8080 agent-ui-starter
+make dev
 ```
 
-## ☁️ Firebase CLI
+### `make deploy-prod`
+The "Golden Path" to production.
+1.  **Optimization**: Runs a fresh audit.
+2.  **Build**: Compiles the React frontend.
+3.  **Engine**: Deploys the backend to **Google Cloud Run**.
+4.  **Face**: Deploys the frontend to **Firebase Hosting**.
 
-Manage your deployment to Firebase:
+---
+
+## 3. Operations Dashboard (Cockpit UI)
+
+Navigate to `/ops` on your deployed or local instance to access the **Control Plane**.
+
+*   **Shadow Mode Router**: Compare v1 vs v2 responses in real-time.
+*   **Flight Recorder**: Step-through visual scrubber for agent thought chains.
+*   **Semantic Cache Stats**: Real-time visualization of cost savings from the "Hive Mind" cache.
+*   **MCP Hub Status**: Monitor the health of standardized tool connections.
+
+---
+
+## 4. Google Cloud Setup
+
+To initialize the environment for the first time, use the setup script:
 ```bash
-firebase init
-firebase deploy --only hosting
+chmod +x setup_gcp.sh
+./setup_gcp.sh
 ```
+This configures Artifact Registry, enables APIs, and runs the initial security evaluation.
