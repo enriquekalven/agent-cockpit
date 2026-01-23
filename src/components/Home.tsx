@@ -26,10 +26,10 @@ export function Home() {
             v1.0.0 Now Available
           </div>
           <h1 className="hero-title">
-            The Agent Ops <span className="highlight-text">Control Plane.</span>
+            The <span className="highlight-text">Optimized</span> Agent Stack.
           </h1>
           <p className="hero-subtitle">
-            The "Cockpit" for Google Cloud Agents. 1-click deployment for Shadow Mode, Semantic Caching, Red Team Audits, and Real-time Debugging.
+            Google Cloud gives you the infrastructure. We give you the <strong>Intelligence</strong>. The professional distribution for App Developers building on Gemini.
           </p>
           <div className="cta-group">
             <Link to="/docs/getting-started" className="cta-button primary">
@@ -94,40 +94,35 @@ export function Home() {
           <div className="ecosystem-card full-width">
             <div className="glass-content story-mode">
               <div className="text-side">
-                <div className="accent-label">The Evolution</div>
-                <h3>The Agentic Trinity</h3>
-                <p>A production-grade agent requires a synchronized stack of three distinct technologies. We've built the "Cockpit" to master them all.</p>
+                <div className="accent-label">The Strategy</div>
+                <h3>Infrastructure vs. Intelligence</h3>
+                <p>Google Cloud Official Pack gives you the pipes. We give you the High-Speed state sync and Cost Control your application needs.</p>
 
-                <div className="pillar-timeline">
-                  <div className="pillar">
-                    <div className="pillar-dot"></div>
-                    <div className="pillar-info">
-                      <div className="flex items-center gap-2">
-                        <strong>Day 0: The Engine</strong>
-                        <span className="platform-tag">Agent Starter Pack</span>
-                      </div>
-                      <p>Focus on intelligence. Reasoning engine, toolsets, and GCloud tracing functionality.</p>
-                    </div>
+                <div className="comparison-table-mini">
+                  <div className="table-row table-header-row">
+                    <span className="col-1">Feature</span>
+                    <span className="col-2">GCP Official</span>
+                    <span className="col-3 highlight">Optimized Stack</span>
                   </div>
-                  <div className="pillar">
-                    <div className="pillar-dot"></div>
-                    <div className="pillar-info">
-                      <div className="flex items-center gap-2">
-                        <strong>Day 1: The Face</strong>
-                        <span className="platform-tag">Agent UI Starter</span>
-                      </div>
-                      <p>Focus on experience. Generative A2UI surfaces and adaptive component rendering.</p>
-                    </div>
+                  <div className="table-row">
+                    <span className="col-1">Frontend Layer</span>
+                    <span className="col-2">Generic / None</span>
+                    <span className="col-3 highlight">A2UI + State Sync</span>
                   </div>
-                  <div className="pillar active">
-                    <div className="pillar-dot highlighted"></div>
-                    <div className="pillar-info">
-                      <div className="flex items-center gap-2">
-                        <strong style={{ color: 'var(--primary-color)' }}>Day 2: The Cockpit</strong>
-                        <span className="platform-tag active">AgentOps Starter Pack</span>
-                      </div>
-                      <p>Focus on operations. Shadow Mode, Semantic Caching, and Security hardening.</p>
-                    </div>
+                  <div className="table-row">
+                    <span className="col-1">Cost Control</span>
+                    <span className="col-2">"Dumb Pipes"</span>
+                    <span className="col-3 highlight">Semantic Cache</span>
+                  </div>
+                  <div className="table-row">
+                    <span className="col-1">Security Audit</span>
+                    <span className="col-2">IAM/VPCs</span>
+                    <span className="col-3 highlight">Red Team CI/CD</span>
+                  </div>
+                  <div className="table-row">
+                    <span className="col-1">Optimization</span>
+                    <span className="col-2">Manual</span>
+                    <span className="col-3 highlight">Interactive Linter</span>
                   </div>
                 </div>
               </div>
@@ -487,6 +482,35 @@ export function Home() {
         .trinity-item:hover {
           transform: translateY(-5px);
           border-color: var(--primary-color);
+        }
+
+        /* Comparison Table Styles */
+        .comparison-table-mini {
+          margin-top: 2rem;
+          background: rgba(var(--bg-color-rgb), 0.2);
+          border: 1px solid var(--border-color);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .table-row {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr 1fr;
+          padding: 0.75rem 1.25rem;
+          border-bottom: 1px solid var(--border-color);
+          font-size: 0.85rem;
+          align-items: center;
+        }
+        .table-row:last-child { border-bottom: none; }
+        .table-header-row {
+          background: rgba(0,0,0,0.02);
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-size: 0.7rem;
+        }
+        .col-3.highlight {
+          color: var(--primary-color);
+          font-weight: 700;
         }
 
         .home-container {
