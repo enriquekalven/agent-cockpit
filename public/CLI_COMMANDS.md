@@ -1,6 +1,6 @@
 # CLI Reference
 
-The Agent UI Starter Pack provides several CLI tools and NPM scripts to streamline your workflow.
+The Agent Ops Starter Pack provides several CLI tools and NPM scripts to streamline your workflow.
 
 ## 📦 NPM Scripts
 

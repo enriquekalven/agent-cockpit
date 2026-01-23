@@ -1,4 +1,4 @@
-# Agent UI Starter Pack
+# Agent Ops Starter Pack
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/enriquekalven/agent-ui-starter-pack)
 
@@ -8,7 +8,7 @@ A high-performance, zero-dependency A2UI (Agentic-Adaptive User Interface) rende
 
 ## Overview
 
-The Agent UI Starter Pack provides a foundational implementation of the **A2UI protocol**, allowing AI agents to dynamically generate and update user interfaces using a declarative JSON schema. It is designed to be lightweight, premium, and easy to extend.
+The Agent Ops Starter Pack provides a foundational implementation of the **A2UI protocol**, allowing AI agents to dynamically generate and update user interfaces using a declarative JSON schema. It is designed to be lightweight, premium, and easy to extend.
 
 ---
 

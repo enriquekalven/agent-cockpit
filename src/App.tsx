@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
+import { Activity } from 'lucide-react';
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
 import { DocLayout } from './docs/DocLayout';
 import { DocPage } from './docs/DocPage';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Home } from './components/Home';
+import { OpsDashboard } from './components/OpsDashboard';
 import './index.css';
 
 const SAMPLE_A2UI_SURFACE = {
@@ -12,7 +14,7 @@ const SAMPLE_A2UI_SURFACE = {
   content: [
     {
       type: 'Text',
-      props: { text: 'Agent UI Starter Pack', variant: 'h1' },
+      props: { text: 'Agent Ops Starter Pack', variant: 'h1' },
     },
     {
       type: 'Card',
@@ -202,7 +204,7 @@ function Playground() {
       <header className="app-header">
         <div className="agent-status">
           <span className="agent-pulse"></span>
-          <span className="status-text">Agent UI Starter Pack</span>
+          <span className="status-text">Agent Ops Starter Pack</span>
         </div>
         <div className="mode-toggle">
           <button className={mode === 'editor' ? 'active' : ''} onClick={() => setMode('editor')}>Editor</button>
@@ -210,6 +212,9 @@ function Playground() {
         </div>
         <nav className="header-nav">
           <Link to="/docs" className="nav-link">← Back to Docs</Link>
+          <Link to="/ops" className="nav-link special-alt" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Activity size={14} /> Agent Ops Dashboard
+          </Link>
           <ThemeToggle />
           <a href="/docs/be-integration" className="nav-link special">Connect to Agent →</a>
         </nav>
@@ -300,6 +305,7 @@ function App() {
       </Route>
 
       <Route path="/playground" element={<Playground />} />
+      <Route path="/ops" element={<OpsDashboard />} />
       
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

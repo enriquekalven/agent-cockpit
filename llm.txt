@@ -1,6 +1,6 @@
-# Agent UI Starter Pack - LLM Context
+# Agent Ops Starter Pack - LLM Context
 
-This file provides a machine-readable summary of the Agent UI Starter Pack for LLMs and AI Agents.
+This file provides a machine-readable summary of the Agent Ops Starter Pack for LLMs and AI Agents.
 
 ## Purpose
 A rapid-development framework for creating agentic interfaces with built-in **Agent Ops** (Day 2 operations) for Google Cloud.
@@ -8,20 +8,26 @@ A rapid-development framework for creating agentic interfaces with built-in **Ag
 ## Core Modules
 - Renderer: `src/a2ui/A2UIRenderer.tsx` - Handles JSON-to-UI conversion.
 - Optimizer: `src/backend/optimizer.py` - Interactive CLI for cost & perf audit.
-- Cost Control: `src/backend/cost_control.py` - Middleware for budget guardrails and model routing (Gemini 2.0).
-- Deployment: `setup_gcp.sh` - 1-click GCP infrastructure setup.
+- Shadow Mode: `src/backend/shadow/router.py` - Side-by-side agent comparison.
+- Semantic Cache: `src/backend/cache/semantic_cache.py` - "Hive Mind" cost reduction.
+- Red Team Eval: `src/backend/eval/red_team.py` - Adversarial security audit.
+- Ops Dashboard: `src/components/OpsDashboard.tsx` - Visual control room / Flight Recorder.
 
-## Key Features
-1. **Interactive Optimizer**: Run `make audit` to review and approve/reject cost-saving suggestions (Context Caching, Compression, Routing).
-2. **Standardized Schema**: Native A2UI and AG UI support.
-3. **Cloud Native**: Designed for Cloud Run, Vertex AI, Firestore, and Cloud Trace.
+## Key Viral Features
+1. **Shadow Mode**: Deploy experimental models (v2) in parallel with production (v1) with zero user impact.
+2. **Hive Mind Cache**: Drop-in semantic caching to cut LLM costs and latency.
+3. **Red Team CI/CD**: Automatic security vetting to prevent prompt injections.
+4. **Flight Recorder**: Visual scrubbable debugging of agent thought chains.
+5. **Zero-Code RAG**: Auto-indexing of the `src/knowledge/` folder.
 
 ## Quick Start
 1. `npm install`
-2. `make audit` - Audit your agent.
-3. `make dev` - Start local environment.
-4. `make deploy-prod` - Full GCP deployment.
+2. `make audit` - Run optimization audit.
+3. `make red-team` - Run security audit.
+4. `make dev` - Start local environment.
+5. `make deploy-prod` - Full GCP deployment (Cloud Run).
 
 ## Connectivity
 The playground can connect to a local ADK agent running on `localhost:8000`.
 To enable, toggle "Connect to Local ADK Agent" in the Playground.
+The Ops Dashboard is available at `/ops`.

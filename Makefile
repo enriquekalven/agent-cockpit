@@ -12,7 +12,8 @@ help:
 	@echo "Available commands:"
 	@echo "  make dev               - Start local development server"
 	@echo "  make build             - Build production assets"
-	@echo "  make audit             - Run Agent Optimizer audit on your agent code"
+	@echo "  make audit             - Run Agent Optimizer audit"
+	@echo "  make red-team          - Run adversarial security audit"
 	@echo "  make deploy-prod       - Deploy to production (Cloud Run + Firebase)"
 	@echo "  make deploy-cloud-run  - Deploy to Google Cloud Run"
 	@echo "  make deploy-firebase   - Deploy to Firebase Hosting"
@@ -26,6 +27,10 @@ build:
 # 🔍 The Optimizer: Audit your agent for waste
 audit:
 	@python3 src/backend/optimizer.py src/backend/agent.py
+
+# 🔥 Red Team: Unleash self-hacking security audit
+red-team:
+	@python3 src/backend/eval/red_team.py src/backend/agent.py
 
 # 🚀 Production: The Vercel-style 1-click deploy
 deploy-prod: audit build

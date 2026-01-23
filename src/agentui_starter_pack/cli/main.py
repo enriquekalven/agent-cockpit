@@ -6,15 +6,15 @@ from rich.console import Console
 from rich.panel import Panel
 from typing import Optional
 
-app = typer.Typer(help="Agent UI Starter Pack CLI", no_args_is_help=True)
+app = typer.Typer(help="Agent Ops Starter Pack CLI", no_args_is_help=True)
 console = Console()
 
 REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 
 @app.command()
 def version():
-    """Show the version of the Agent UI Starter Pack CLI."""
-    console.print("[bold cyan]agentui-starter-pack CLI v0.1.2[/bold cyan]")
+    """Show the version of the Agent Ops Starter Pack CLI."""
+    console.print("[bold cyan]agentops-starter-pack CLI v0.2.0[/bold cyan]")
 
 @app.command()
 def create(

@@ -1,4 +1,4 @@
-# Agent UI Starter Pack: Production-Ready Agent Ops
+# Agent Ops Starter Pack (A2UI)
 
 The world's first **Agent Ops Platform** for Google Cloud. Moving beyond "Hello World" to cost-optimized, security-hardened, and production-ready agent infrastructure.
 
@@ -22,6 +22,27 @@ Most agent templates give you a chat window and leave you to figure out the rest
 | **Memory** | In-memory array | **Firestore / AlloyDB** |
 | **Caching** | None | **Gemini Context Caching** |
 | **Ops** | `print()` statements | **Google Cloud Trace** |
+
+---
+
+## 🔥 Viral & Production-First Features
+
+Solve the "unsexy" problems that break agents in the real world. This isn't just a chat UI; it's a **Day 2 Operations Platform**.
+
+### 1. 🕵️ Shadow Mode Deployment
+**The Confidence Builder.** Traffic is sent to your production agent (v1), while asynchronously sending the same request to an experimental version (v2) in the background. Compare responses side-by-side in the Ops Dashboard before promoting.
+
+### 2. 🧠 The "Hive Mind" Semantic Cache
+**Cut costs by 40%.** Drop-in middleware that checks a Vector Store (Memorystore/AlloyDB AI) before calling the LLM. If a similar question was asked recently, it returns the cached answer in 0.1s.
+
+### 3. 🚩 "Red Team" CI/CD Pipeline
+**The Self-Hacking Starter Pack.** A pre-deployment GitHub Action that unleashes an aggressive LLM to try and jailbreak your agent or extract PII. If it succeeds, the deployment fails.
+
+### 4. 📟 "The Black Box" Flight Recorder
+**Debug like a Video Game.** A visual replay tool in the `/ops` dashboard that records the entire chain of thought, tool inputs/outputs, and state changes. Scrub through executions to find exactly where logic failed.
+
+### 5. 📥 "Zero-Code" RAG Dropzone
+**Drag, Drop, Deploy.** Any PDF, CSV, or Doc dropped into the `src/knowledge/` folder is automatically indexed into a Vertex AI Search data store upon deployment.
 
 ---
 

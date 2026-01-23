@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { Menu, X, ChevronRight, BookOpen, Terminal, Rocket, Cpu, Layout } from 'lucide-react';
+import { Menu, X, ChevronRight, BookOpen, Terminal, Rocket, Cpu, Layout, Activity, ShieldCheck } from 'lucide-react';
 
 import { ThemeToggle } from '../components/ThemeToggle';
 
@@ -39,7 +39,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
         <div className="doc-sidebar-header">
           <Link to="/" className="doc-logo">
             <span className="agent-pulse mini"></span>
-            Agent UI Starter Pack
+            Agent Ops Starter Pack
           </Link>
           <button className="mobile-toggle" onClick={() => setSidebarOpen(!isSidebarOpen)}>
             {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
@@ -102,6 +102,18 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
             </Link>
           </div>
           
+          <div className="nav-group">
+            <div className="nav-group-title">Agent Ops (Day 2)</div>
+            <Link to="/ops" className="nav-item">
+              <Activity size={18} />
+              <span>Ops Dashboard</span>
+            </Link>
+            <div className="nav-item disabled" style={{ opacity: 0.5 }}>
+              <ShieldCheck size={18} />
+              <span>Red Team Audit</span>
+            </div>
+          </div>
+
           <div className="nav-group">
             <div className="nav-group-title">Resources</div>
             <a href="https://a2ui.org" target="_blank" rel="noopener noreferrer" className="nav-item">

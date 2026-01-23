@@ -1,6 +1,6 @@
 # CLI Reference
 
-The Agent UI Starter Pack includes both scaffolding commands and **Agent Ops** operational commands.
+The Agent Ops Starter Pack includes both scaffolding commands and **Agent Ops** operational commands.
 
 ## Scaffolding (uvx)
 
@@ -9,7 +9,7 @@ Use `uvx` to create new projects without local installation:
 ### `create`
 Scaffold a new project with a specific UI flavor.
 ```bash
-uvx agentui-starter-pack create my-agent --ui a2ui
+uvx agentops-starter-pack create my-agent --ui a2ui
 ```
 
 ---
@@ -22,6 +22,11 @@ Once a project is created, use the included `Makefile` for production operations
 Runs the **Interactive Agent Optimizer**. This tool scans your `agent.py` and proposes optimizations.
 - **Interactive Flow**: Proposes changes (Context Caching, Compression, Routing).
 - **Approval System**: Allows you to `approve` or `reject` each suggestion.
+
+### `make red-team`
+Unleashes a security audit against your agent.
+- **Vulnerability Checks**: Prompt injection, PII extraction, and jailbreak simulation.
+- **Fail-Safe**: Fails the build if vulnerabilities are detected.
 
 ### `make dev`
 Starts the local development stack (Vite + FastAPI).

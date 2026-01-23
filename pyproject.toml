@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agentui-starter-pack"
-version = "0.1.2"
-description = "Scaffolding CLI for Agent UI Starter Pack"
+name = "agentops-starter-pack"
+version = "0.2.0"
+description = "Scaffolding CLI for Agent Ops Starter Pack"
 readme = "README.md"
 authors = [
     { name = "Enrique", email = "enrique@example.com" }
@@ -27,7 +27,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/enriquekalven/agent-ui-starter-pack/issues"
 
 [project.scripts]
-agentui-starter-pack = "agentui_starter_pack.cli.main:app"
+agentops-starter-pack = "agentui_starter_pack.cli.main:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agentui_starter_pack"]
