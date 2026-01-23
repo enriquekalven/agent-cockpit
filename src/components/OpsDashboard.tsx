@@ -108,6 +108,25 @@ export const OpsDashboard: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* MCP Connectivity Hub */}
+        <div className="ops-card glass-panel" style={{ borderLeft: '4px solid #3b82f6' }}>
+          <div className="card-header">
+            <Search className="text-blue-400" size={24} />
+            <h3>MCP Tool Hub</h3>
+          </div>
+          <div className="card-body">
+            <div className="stat-row">
+              <span>Connected Tools</span>
+              <span className="font-mono">12/12</span>
+            </div>
+            <div className="stat-row">
+              <span>Legacy APIs</span>
+              <span className="font-mono text-red-400">1 Warning</span>
+            </div>
+            <p className="text-xs opacity-50 mt-4">Migrate 'Legacy CRM' to MCP to remove bottleneck.</p>
+          </div>
+        </div>
       </div>
 
       {/* Flight Recorder - Taking full width */}

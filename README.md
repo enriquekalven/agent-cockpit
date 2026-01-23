@@ -44,6 +44,9 @@ Solve the "unsexy" problems that break agents in the real world. This isn't just
 ### 5. 📥 "Zero-Code" RAG Dropzone
 **Drag, Drop, Deploy.** Any PDF, CSV, or Doc dropped into the `src/knowledge/` folder is automatically indexed into a Vertex AI Search data store upon deployment.
 
+### 6. 🛠️ MCP Tool Hub (Optimization)
+**Unified Tool Connectivity.** Standardize your agent's connection to external data using the **Model Context Protocol (MCP)**. Our built-in auditor detects legacy, high-latency Tool APIs and recommends 1-click migrations to MCP tools.
+
 ---
 
 ## Usage

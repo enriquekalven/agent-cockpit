@@ -32,5 +32,7 @@ In this repository, we've implemented the world's first **1-Click Agent Ops depl
 2.  **🧠 Semantic Cache**: Turn expensive LLM calls into 14ms cache hits.
 3.  **🚩 Red Team Audit**: Attack your own agent in CI/CD to prevent prompt injection.
 4.  **📟 Flight Recorder**: Debug every single thought chain with a visual scrubber.
+5.  **🛠️ MCP Hub**: Standardize tool connectivity and remove slow legacy APIs.
+6.  **📥 RAG Dropzone**: 1-click document indexing into Vertex AI Search.
 
 **The result?** A production agent that is faster, cheaper, and safer.

@@ -51,6 +51,14 @@ def audit_agent(file_path):
             "savings": "10x lower latency & cost",
             "description": "Current routing logic maps simple queries to Pro. Swapping to Flash for these turns is recommended.",
             "diff": "@@ -41,1 +41,1 @@\n- model = 'gemini-1.5-pro'\n+ model = 'gemini-1.5-flash'"
+        },
+        {
+            "id": "mcp_migration",
+            "title": "MCP Tool Chain Optimization",
+            "impact": "HIGH",
+            "savings": "Reduced Latency & Unified Connectivity",
+            "description": "Found legacy tool usage patterns. Migrating to Model Context Protocol (MCP) provides better security and standardized connectivity.",
+            "diff": "- tools = [legacy_tool_api('search')]\n+ tools = [MCPHub.get_tool('search')]"
         }
     ]
 

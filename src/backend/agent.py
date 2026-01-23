@@ -6,6 +6,7 @@ import asyncio
 from .cost_control import cost_guard, model_router
 from .cache.semantic_cache import hive_mind, global_cache
 from .shadow.router import ShadowRouter
+from .ops.mcp_hub import global_mcp_hub
 
 app = FastAPI(title="Agent Ops Starter Pack")
 
@@ -22,6 +23,9 @@ class A2UISurface(BaseModel):
 
 async def agent_v1_logic(query: str, context: dict = None) -> A2UISurface:
     """Production Agent (v1) - Reliable & Fast."""
+    # Simulate MCP tool usage
+    if "search" in query.lower():
+        await global_mcp_hub.execute_tool("search", {"q": query})
     return generate_dashboard(query, version="v1-stable")
 
 async def agent_v2_logic(query: str, context: dict = None) -> A2UISurface:
