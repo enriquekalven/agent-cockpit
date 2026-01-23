@@ -19,11 +19,11 @@ def version():
 @app.command()
 def create(
     project_name: str = typer.Argument(..., help="The name of the new project"),
-    ui: str = typer.Option("typescript", "-ui", "--ui", help="UI Template (typescript, agui, flutter, lit)"),
-    copilotkit: bool = typer.Option(False, "--copilotkit", help="Enable CopilotKit integration"),
+    ui: str = typer.Option("a2ui", "-ui", "--ui", help="UI Template (a2ui, agui, flutter, lit)"),
+    copilotkit: bool = typer.Option(False, "--copilotkit", help="Enable extra CopilotKit features for AGUI"),
 ):
     """
-    Scaffold a new Agent UI project.
+    Scaffold a new Agent UI project. Defaults to A2UI (React/Vite).
     """
     console.print(Panel(f"🚀 Creating project: [bold cyan]{project_name}[/bold cyan]", expand=False))
     
@@ -33,7 +33,7 @@ def create(
         
     try:
         if ui == "agui" or copilotkit:
-            console.print("✨ [bold yellow]Note:[/bold yellow] AGUI/CopilotKit selected. Using the high-fidelity React template.")
+            console.print("✨ [bold yellow]Note:[/bold yellow] AG UI / CopilotKit selected. Using high-fidelity template.")
         elif ui == "flutter":
             console.print("💙 [bold blue]Note:[/bold blue] Flutter selected. Scaffolding GenUI SDK bridge logic.")
         elif ui == "lit":

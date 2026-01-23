@@ -21,9 +21,9 @@ uvx agentui-starter-pack create my-app
 ```
 
 ### AG UI (High-Fidelity)
-Uses **CopilotKit** for a full-stack React implementation with pre-built streaming pipes.
+Uses the **AG UI** standard (CopilotKit) for high-end React implementations.
 ```bash
-uvx agentui-starter-pack create my-app --ui agui --copilotkit
+uvx agentui-starter-pack create my-app --ui agui
 ```
 
 ### GenUI SDK (Flutter)

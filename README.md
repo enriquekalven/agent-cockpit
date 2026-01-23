@@ -30,11 +30,11 @@ This starter pack is designed to support the leading agentic UI standards:
 
 
 ```bash
-# A2UI Standard (React + TypeScript)
+# Standard Setup (A2UI / React / Vite)
 uvx agentui-starter-pack create my-ui
 
-# AG UI (CopilotKit / High-Fidelity React)
-uvx agentui-starter-pack create my-ui --ui agui --copilotkit
+# High-Fidelity Setup (AG UI / CopilotKit)
+uvx agentui-starter-pack create my-ui --ui agui
 
 # GenUI SDK (Flutter / Cross-Platform)
 uvx agentui-starter-pack create my-ui --ui flutter
