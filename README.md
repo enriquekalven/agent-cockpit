@@ -6,6 +6,8 @@
 
 <div align="center">
   <br />
+  <a href="https://agent-cockpit.web.app" target="_blank"><strong>🌐 Official Website & Live Demo</strong></a>
+  <br /><br />
   <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
     <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
   </a>
@@ -134,9 +136,9 @@ make deploy-prod   # 🚀 1-click deploy to Google Cloud
 ---
 
 ## 🧭 Roadmap
-- [ ] **One-Click GitHub Action**: Automated audits on every PR.
-- [ ] **Multi-Agent Orchestrator**: Support for Swarm/Coordinator patterns.
-- [ ] **Visual Mission Control**: Real-time observability dashboard.
+- [x] **One-Click GitHub Action**: Automated governance audits on every PR.
+- [x] **Multi-Agent Orchestrator**: Standardized A2A Swarm/Coordinator patterns.
+- [ ] **Visual Mission Control**: Real-time cockpit observability dashboard.
 
 [View full roadmap →](/ROADMAP.md)
 
