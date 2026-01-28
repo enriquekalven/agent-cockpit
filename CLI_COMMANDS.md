@@ -37,6 +37,11 @@ Executes the **Adversarial Security Evaluator**.
 - **Checks**: Prompt injections, PII extraction, and safety filter bypasses.
 - **Goal**: Production hardening. Any breach will **fail the build**.
 
+### `make load-test`
+Executes the **Base Load Tester**.
+- **Metrics**: Latency, success rate, and concurrency handling.
+- **Goal**: Performance validation for high-traffic agents.
+
 ### `make dev`
 Starts the local development stack.
 - **Backend**: FastAPI running at `localhost:8000`.

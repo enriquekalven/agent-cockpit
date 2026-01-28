@@ -17,6 +17,7 @@ The **AgentOps Cockpit** is for "Day 2" Artificial Intelligence Operations. It i
 4. **Hive Mind (`cache/semantic_cache.py`)**: Semantic caching layer for 40%+ cost reduction.
 5. **Memory Optimizer (`ops/memory_optimizer.py`)**: Manages the "Leaky Bucket" conversation context to prevent system instruction bloat.
 6. **Cost Tracker (`ops/cost_optimizer.py`)**: Provides real-time budget auditing and savings recommendations.
+7. **Load Tester (`eval/load_test.py`)**: Concurrency-based stress testing for performance validation.
 
 ## 🏗️ Architecture: The Trinity
 - **Engine**: The Python backend reasoning (managed by this repo's `agent.py`).

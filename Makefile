@@ -14,6 +14,7 @@ help:
 	@echo "  make build             - Build production assets"
 	@echo "  make audit             - Run Agent Optimizer audit"
 	@echo "  make red-team          - Run adversarial security audit"
+	@echo "  make load-test         - Run base load test"
 	@echo "  make deploy-prod       - Deploy to production (Cloud Run + Firebase)"
 	@echo "  make deploy-cloud-run  - Deploy to Google Cloud Run"
 	@echo "  make deploy-firebase   - Deploy to Firebase Hosting"
@@ -31,6 +32,10 @@ audit:
 # 🔥 Red Team: Unleash self-hacking security audit
 red-team:
 	@python3 src/backend/eval/red_team.py src/backend/agent.py
+
+# ⚡ Load Test: Stress test your agent endpoint
+load_test:
+	@python3 src/backend/eval/load_test.py run
 
 # 🚀 Production: The Vercel-style 1-click deploy
 deploy-prod: audit build

@@ -28,6 +28,7 @@ dependencies = [
 
 [project.scripts]
 agent-ops = "agent_ops_cockpit.cli.main:app"
+agent-ops-cockpit = "agent_ops_cockpit.cli.main:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agent_ops_cockpit"]

@@ -26,9 +26,11 @@ A production agent requires three synchronized pillars. This repository serves a
 ### 🚩 "Red Team" Adversarial Audit
 **The Self-Hacking Auditor.** A pre-deployment security engine that unleashes an aggressive LLM to try and jailbreak your agent, extract PII, or override system instructions.
 
-### 📉 Cost & Memory Optimizers
-- **CostOptimizer**: Real-time token tracking with intelligent "Pro vs Flash" routing recommendations.
-- **MemoryOptimizer**: Leaky-bucket eviction policies to prevent long-context memory bloat and reduce recursive token costs.
+### 📉 Cost, Memory & Load Optimizers
+**Production Efficiency.**
+- **CostOptimizer**: Real-time token tracking with "Pro vs Flash" savings recommendations.
+- **MemoryOptimizer**: Leaky-bucket eviction policies to prevent long-context memory bloat.
+- **LoadTester**: Concurrency-based stress testing to ensure sub-second UI responsiveness.
 
 ---
 
@@ -45,6 +47,7 @@ The most important commands for your workflow:
 ```bash
 make audit      # 🔍 Run the Interactive Agent Optimizer
 make red-team   # 🚩 Run the Red Team security audit
+make load-test  # ⚡ Run the Base Load Test
 make dev        # 💻 Start local dev stack (FastAPI + Vite)
 make deploy-prod # 🚀 1-click deploy to Cloud Run + Firebase
 ```

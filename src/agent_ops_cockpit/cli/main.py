@@ -17,6 +17,78 @@ def version():
     console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
+def audit(
+    file_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
+):
+    """
+    Run the Interactive Agent Optimizer audit.
+    """
+    console.print("🔍 [bold blue]Running Agent Operations Audit...[/bold blue]")
+    # Run the optimizer module
+    subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", file_path], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
+def red_team(
+    agent_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
+):
+    """
+    Run the Red Team adversarial security evaluation.
+    """
+    console.print("🚩 [bold red]Launching Red Team Evaluation...[/bold red]")
+    subprocess.run([sys.executable, "-m", "backend.eval.red_team", "audit", agent_path], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
+def load_test(
+    url: str = typer.Option("http://localhost:8000/agent/query?q=healthcheck", help="URL to stress test"),
+    requests: int = typer.Option(50, help="Total number of requests"),
+    concurrency: int = typer.Option(5, help="Simultaneous requests"),
+):
+    """
+    Stress test agent endpoints for performance and reliability.
+    """
+    console.print("⚡ [bold yellow]Launching Base Load Test...[/bold yellow]")
+    subprocess.run([
+        sys.executable, "-m", "backend.eval.load_test", "run", 
+        "--url", url, 
+        "--requests", str(requests), 
+        "--concurrency", str(concurrency)
+    ], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
+def deploy(
+    service_name: str = typer.Option("agent-ops-backend", "--name", help="Cloud Run service name"),
+    region: str = typer.Option("us-central1", "--region", help="GCP region"),
+):
+    """
+    One-click production deployment (Audit + Build + Deploy).
+    """
+    console.print(Panel.fit("🚀 [bold green]AGENT COCKPIT: 1-CLICK DEPLOY[/bold green]", border_style="green"))
+    
+    # 1. Audit
+    console.print("\n[bold]Step 1: Code Optimization Audit[/bold]")
+    audit_res = subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", "--no-interactive"], env={**os.environ, "PYTHONPATH": "src"})
+    
+    # 2. Build Frontend
+    console.print("\n[bold]Step 2: Building Frontend Assets[/bold]")
+    subprocess.run(["npm", "run", "build"], check=True)
+    
+    # 3. Deploy to Cloud Run
+    console.print(f"\n[bold]Step 3: Deploying Engine to Cloud Run ({region})[/bold]")
+    deploy_cmd = [
+        "gcloud", "run", "deploy", service_name,
+        "--source", ".",
+        "--region", region,
+        "--allow-unauthenticated"
+    ]
+    subprocess.run(deploy_cmd, check=True)
+    
+    # 4. Deploy to Firebase
+    console.print("\n[bold]Step 4: Deploying Face to Firebase Hosting[/bold]")
+    subprocess.run(["firebase", "deploy", "--only", "hosting"], check=True)
+    
+    console.print("\n✅ [bold green]Deployment Complete![/bold green]")
+
+@app.command()
 def create(
     project_name: str = typer.Argument(..., help="The name of the new project"),
     ui: str = typer.Option("a2ui", "-ui", "--ui", help="UI Template (a2ui, agui, flutter, lit)"),
@@ -59,7 +131,8 @@ def create(
             f"[bold]Quick Start:[/bold]\n"
             f"  1. [dim]cd[/dim] {project_name}\n"
             f"  2. [dim]{'npm install' if ui != 'flutter' else 'flutter pub get'}[/dim]\n"
-            f"  3. [dim]{start_cmd}[/dim]\n\n"
+            f"  3. [dim]uvx agent-ops-cockpit audit[/dim]\n"
+            f"  4. [dim]{start_cmd}[/dim]\n\n"
             f"Configuration: UI=[bold cyan]{ui}[/bold cyan], CopilotKit=[bold cyan]{'Enabled' if copilotkit else 'Disabled'}[/bold cyan]",
             title="[bold green]Project Scaffolding Complete[/bold green]",
             expand=False,
