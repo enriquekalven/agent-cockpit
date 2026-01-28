@@ -32,7 +32,8 @@ def audit(path: str = "."):
                 try:
                     with open(os.path.join(root, file), 'r') as f:
                         code_content += f.read() + "\n"
-                except: pass
+                except Exception:
+                    pass
 
     total_checks = 0
     passed_checks = 0
@@ -93,7 +94,7 @@ def audit(path: str = "."):
     if score >= 80:
         console.print(f"✅ [bold green]Architecture Review Complete.[/bold green] Your agent is well-aligned with {framework_name} patterns.")
     else:
-        console.print(f"⚠️ [bold yellow]Review Complete with warnings.[/bold yellow] Your agent has gaps in best practices. See results above.")
+        console.print("⚠️ [bold yellow]Review Complete with warnings.[/bold yellow] Your agent has gaps in best practices. See results above.")
 
 if __name__ == "__main__":
     app()

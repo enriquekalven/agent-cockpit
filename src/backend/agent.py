@@ -3,14 +3,10 @@ from pydantic import BaseModel
 from typing import List, Optional
 import uvicorn
 import asyncio
-from .cost_control import cost_guard, model_router
+from .cost_control import cost_guard
 from .cache.semantic_cache import hive_mind, global_cache
 from .shadow.router import ShadowRouter
 from .ops.mcp_hub import global_mcp_hub
-from .ops.cost_optimizer import CostOptimizer
-from .ops.memory_optimizer import MemoryOptimizer
-from .ops.pii_scrubber import PIIScrubber
-from .ops.evidence import AgentEvidencePacket, EvidenceNode
 
 app = FastAPI(title="Optimized Agent Stack")
 

@@ -25,7 +25,7 @@ jobs:
     - name: Run Architecture Design Review
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-        python3 src/backend/ops/arch_review.py audit
+        python3 src/backend/ops/arch_review.py --path .
         
     - name: Run Security Red Team Audit
       run: |
@@ -35,4 +35,4 @@ jobs:
     - name: Run Token Optimizer
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-        python3 src/backend/optimizer.py audit src/backend/agent.py --no-interactive
+        python3 src/backend/optimizer.py src/backend/agent.py --no-interactive

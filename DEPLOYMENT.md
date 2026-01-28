@@ -63,6 +63,21 @@ We recommend using Cloud Run **Revisions** for canary deployments:
 - Monitor the **Cockpit Dashboard** for error rate anomalies.
 - Promote to 100% when satisfied.
 
+## 🤖 Automated CI/CD (GitHub Actions)
+
+The AgentOps Cockpit is designed for "Policy-as-Code." Every commit to `main` triggers an automated governance pipeline that ensures your agent never regresses in quality or security.
+
+![CI/CD Workflow](/public/cicd-workflow.png)
+
+### The Automated Pipeline:
+1.  **Architecture Audit**: Scans for design alignment with the detected framework (LangGraph, ADK, etc.).
+2.  **Red Team Evaluation**: Automatically tests for prompt injection and instruction overrides on every PR.
+3.  **Token Optimization**: Identifies non-cached prompts and expensive model routing before deployment.
+4.  **Reliability Suite**: Runs all unit tests and regression checks against the core engine.
+
+Refer to `.github/workflows/agent-ops-audit.yml` for the full pipeline definition.
+
+
 ## 🔑 Secret Management
 Never commit `.env` files. Use **Google Cloud Secret Manager**:
 - Store your `GOOGLE_API_KEY` and third-party tool tokens.

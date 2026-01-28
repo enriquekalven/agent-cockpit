@@ -1,10 +1,10 @@
-import typer
 import os
+import sys
 import shutil
 import subprocess
 from rich.console import Console
 from rich.panel import Panel
-from typing import Optional
+import typer
 
 app = typer.Typer(help="AgentOps Cockpit: The AI Agent Operations Platform", no_args_is_help=True)
 console = Console()
@@ -98,7 +98,7 @@ def deploy(
     
     # 1. Audit
     console.print("\n[bold]Step 1: Code Optimization Audit[/bold]")
-    audit_res = subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", "--no-interactive"], env={**os.environ, "PYTHONPATH": "src"})
+    subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", "--no-interactive"], env={**os.environ, "PYTHONPATH": "src"})
     
     # 2. Build Frontend
     console.print("\n[bold]Step 2: Building Frontend Assets[/bold]")

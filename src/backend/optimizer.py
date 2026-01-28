@@ -237,12 +237,12 @@ def audit(
         console.print(syntax)
         
         if interactive:
-            choice = typer.confirm(f"\nDo you want to apply this optimization?", default=True)
+            choice = typer.confirm("\nDo you want to apply this optimization?", default=True)
             if choice:
-                console.print(f"✅ [APPROVED] queued for deployment.")
+                console.print("✅ [APPROVED] queued for deployment.")
                 applied += 1
             else:
-                console.print(f"❌ [REJECTED] skipping optimization.")
+                console.print("❌ [REJECTED] skipping optimization.")
                 rejected += 1
         else:
             console.print("ℹ️ Auto-skipping in non-interactive mode.")

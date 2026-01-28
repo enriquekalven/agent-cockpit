@@ -3,7 +3,7 @@ import hashlib
 from typing import Optional, Dict
 import time
 
-# Semantic Cache Middleware: The "Hive Mind"
+# Production-Ready Cost Control for Google Cloud Agents
 # In production, use GCP Memorystore for Redis (Vector Search) or AlloyDB AI
 
 class HiveMindCache:
@@ -39,14 +39,14 @@ def hive_mind(cache: HiveMindCache):
             match = cache.get_match(query)
             
             if match:
-                print(f"🧠 [HIVE MIND] Semantic Hit! Latency Reduced to 0.1s.")
+                print("🧠 [HIVE MIND] Semantic Hit! Latency Reduced to 0.1s.")
                 # Add metadata to response
                 resp = match["response"]
                 if isinstance(resp, dict):
                     resp["_metadata"] = {"source": "hive-mind-cache", "savings": "100% tokens"}
                 return resp
             
-            print(f"🧪 [HIVE MIND] Cache Miss. Calling LLM...")
+            print("🧪 [HIVE MIND] Cache Miss. Calling LLM...")
             response = await func(query, *args, **kwargs)
             
             # Cache the new intelligence
