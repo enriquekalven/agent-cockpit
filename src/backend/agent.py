@@ -8,7 +8,17 @@ from .cache.semantic_cache import hive_mind, global_cache
 from .shadow.router import ShadowRouter
 from .ops.mcp_hub import global_mcp_hub
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Optimized Agent Stack")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class A2UIComponent(BaseModel):
     type: str

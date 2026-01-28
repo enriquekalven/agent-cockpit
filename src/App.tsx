@@ -7,6 +7,7 @@ import { DocPage } from './docs/DocPage';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Home } from './components/Home';
 import { OpsDashboard } from './components/OpsDashboard';
+import { Playground } from './components/Playground';
 import './index.css';
 
 // AgentOps Cockpit version: Playground removed.
@@ -22,7 +23,7 @@ function App() {
         <Route path=":docId" element={<DocPage />} />
       </Route>
 
-      {/* Playground Route Removed */}
+      <Route path="/playground" element={<Playground />} />
       <Route path="/ops" element={<OpsDashboard />} />
       
       <Route path="*" element={<Navigate to="/" replace />} />

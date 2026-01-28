@@ -37,7 +37,7 @@ export function Home() {
               <Github size={20} />
             </a>
             <ThemeToggle />
-            <Link to="/ops" className="nav-cta-btn">Launch Dashboard</Link>
+            <Link to="/playground" className="nav-cta-btn">Live Preview</Link>
           </nav>
         </header>
 
@@ -54,8 +54,8 @@ export function Home() {
               Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents on Google Cloud.
             </p>
             <div className="hero-actions">
-              <Link to="/docs/getting-started" className="btn-primary">
-                Get Started Free
+              <Link to="/playground" className="btn-primary">
+                Explore Live Demo
                 <ChevronRight size={18} />
               </Link>
               <Link to="/docs/google-architecture" className="btn-secondary">
