@@ -24,4 +24,5 @@ The Cockpit dashboard provides a real-time data flow of:
 ## 🚦 Human-in-the-Loop (HITL)
 For high-stakes actions, the Cockpit allows you to define "Gatekeeper" tools.
 - When an agent calls a gated tool, the Cockpit pauses execution and requests human approval via the **Face (A2UI)**.
+- **A2UI v0.8 Features**: Leverage new components like `Tabs`, `MultipleChoice`, and `TextField` for structured human feedback during the approval flow.
 - Approval can be granted directly from the operations terminal or the user-facing app.

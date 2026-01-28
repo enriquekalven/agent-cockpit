@@ -12,6 +12,7 @@ CHECKLIST = [
         "checks": [
             ("Runtime: Is the agent running on Cloud Run or GKE?", "Critical for scalability and cost."),
             ("Framework: Is ADK used for tool orchestration?", "Google-standard for agent-tool communication."),
+            ("Sandbox: Is Code Execution running in Vertex AI Sandbox?", "Prevents malicious code execution using `AgentEngineSandboxCodeExecutor`."),
             ("Backend: Is FastAPI used for the Engine layer?", "Industry-standard for high-concurrency agent apps.")
         ]
     },

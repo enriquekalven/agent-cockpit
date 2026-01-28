@@ -23,8 +23,10 @@ make load_test REQUESTS=100 CONCURRENCY=10
 ```
 
 ## 🎯 Model Routing
-The Cockpit recommends using **Gemini 2.0 Flash** for high-volume tasks like:
+The Cockpit recommends using **Gemini 2.0 Flash Lite** (`gemini-2.0-flash-lite-001`) for ultra-low latency, high-volume tasks like:
 - Query classification
 - Output formatting
 - Simple data extraction
+
+Use the **ADK Rewind** feature to allow agents to backtrack and self-correct when a tool output is suboptimal.
 Reserved **Gemini Pro** only for tasks requiring deep reasoning or multi-step tool orchestration.
