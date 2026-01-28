@@ -110,12 +110,29 @@ export function Home() {
         </div>
       </section>
 
+      {/* Supported Frameworks Bar */}
+      <section className="frameworks-bar">
+        <div className="container">
+          <div className="frameworks-label">Governance for every major framework</div>
+          <div className="frameworks-grid">
+            <div className="framework-badge copilot">CopilotKit</div>
+            <div className="framework-badge crew">CrewAI</div>
+            <div className="framework-badge langgraph">LangGraph</div>
+            <div className="framework-badge llamaindex">LlamaIndex</div>
+            <div className="framework-badge openai">OpenAI Agentkit</div>
+            <div className="framework-badge langchain">LangChain</div>
+            <div className="framework-badge autogen">AutoGen</div>
+            <div className="framework-badge adk">Google ADK</div>
+          </div>
+        </div>
+      </section>
+
       {/* Philosophy Section */}
       <section className="crew-philosophy">
         <div className="container">
           <div className="philosophy-header">
-            <h2>The Trinity of <span className="text-primary">Agentic Success</span></h2>
-            <p>We divide the complexity of production agents into three focused pillars.</p>
+            <h2>Framework <span className="text-primary">Agnostic Governance</span></h2>
+            <p>Whether you use ADK, CrewAI, or OpenAI, we provide the architectural blueprints and executable safety audits to move your agents into production.</p>
           </div>
 
           <div className="trinity-grid-v2">
@@ -761,6 +778,58 @@ export function Home() {
           .hero-visual-v2 { display: none; }
           .trinity-grid-v2 { grid-template-columns: 1fr; }
         }
+
+        /* Frameworks Bar Styling */
+        .frameworks-bar {
+          padding: 4rem 0;
+          border-bottom: 1px solid var(--border-color);
+          background: rgba(var(--bg-secondary-rgb), 0.3);
+          position: relative;
+          z-index: 10;
+        }
+        .frameworks-label {
+          text-align: center;
+          font-size: 0.75rem;
+          font-weight: 850;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: var(--text-secondary);
+          margin-bottom: 2.5rem;
+          opacity: 0.7;
+        }
+        .frameworks-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.25rem;
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+        .framework-badge {
+          padding: 0.6rem 1.5rem;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          font-weight: 800;
+          border: 1px solid var(--border-color);
+          background: var(--bg-color);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: default;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .framework-badge:hover {
+          transform: translateY(-4px);
+          border-color: var(--primary-color);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .framework-badge.copilot { border-bottom: 3px solid #6366f1; }
+        .framework-badge.crew { border-bottom: 3px solid #ff4b4b; }
+        .framework-badge.langgraph { border-bottom: 3px solid #2c3e50; }
+        .framework-badge.llamaindex { border-bottom: 3px solid #00d1b2; }
+        .framework-badge.openai { border-bottom: 3px solid #412991; }
+        .framework-badge.langchain { border-bottom: 3px solid #1C3C3C; }
+        .framework-badge.autogen { border-bottom: 3px solid #0078d4; }
+        .framework-badge.adk { border-bottom: 3px solid #4285F4; }
       `}</style>
     </div>
   );
