@@ -61,8 +61,10 @@ uvx agent-ops-cockpit create my-agent --ui a2ui
 ---
 
 ## 📊 Local Development
+The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
 
 ```bash
+make audit-all     # 🕹️ Run ALL audits and generate a Final Report
 make dev           # Start the local Engine + Face stack
 make arch-review   # 🏛️ Run the Google Well-Architected design review
 make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit

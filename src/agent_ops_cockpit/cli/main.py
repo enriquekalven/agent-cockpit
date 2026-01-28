@@ -17,6 +17,14 @@ def version():
     console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
+def report():
+    """
+    Launch full AgentOps audit (Arch, Quality, Security, Cost) and generate a final report.
+    """
+    console.print("🕹️ [bold blue]Launching Full System Audit...[/bold blue]")
+    subprocess.run([sys.executable, "-m", "backend.ops.orchestrator"], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
 def quality_baseline():
     """
     Run iterative 'Hill Climbing' quality audit against a golden dataset.

@@ -12,6 +12,7 @@ help:
 	@echo "Available commands:"
 	@echo "  make dev               - Start local development server"
 	@echo "  make build             - Build production assets"
+	@echo "  make audit-all         - Run ALL audits and generate Final Report"
 	@echo "  make audit             - Run Agent Optimizer audit"
 	@echo "  make arch-review       - Run Google Well-Architected design review"
 	@echo "  make quality-baseline  - Start iterative Quality Hill Climbing"
@@ -26,6 +27,10 @@ dev:
 
 build:
 	npm run build
+
+# 🏁 Master Audit: Run all modules and generate report
+audit-all:
+	@python3 src/backend/ops/orchestrator.py
 
 # 🔍 The Optimizer: Audit your agent for waste
 audit:
