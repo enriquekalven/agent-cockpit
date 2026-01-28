@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Rocket, Shield, Activity, Cpu, Command,
@@ -8,6 +8,19 @@ import {
 import { ThemeToggle } from './ThemeToggle';
 
 export function Home() {
+  const [stars, setStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/enriquekalven/agent-cockpit')
+      .then(res => res.json())
+      .then(data => {
+        if (data.stargazers_count) {
+          setStars(data.stargazers_count);
+        }
+      })
+      .catch(err => console.error('Error fetching stars:', err));
+  }, []);
+
   return (
     <div className="crew-home">
       {/* Hero Section */}
@@ -195,7 +208,7 @@ export function Home() {
                   Star on GitHub
                 </a>
                 <div className="star-count-badge">
-                  <span className="count">9.8K</span>
+                  <span className="count">{stars ? `${(stars / 1000).toFixed(1)}K` : '9.8K'}</span>
                   <span>Stars reached</span>
                 </div>
               </div>
