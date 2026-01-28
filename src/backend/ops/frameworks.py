@@ -230,6 +230,19 @@ GENERIC_CHECKLIST = [
     }
 ]
 
+FIREBASE_CHECKLIST = [
+    {
+        "category": "🏗️ Firebase Infrastructure",
+        "checks": [
+            ("Hosting: Are security headers (HSTS, CSP) configured in firebase.json?", "Prevents cross-site scripting and hijacking."),
+            ("Firestore: Are composite indexes used for complex agent queries?", "Ensures high-performance data retrieval for RAG."),
+            ("Functions: Is 'Minimum Instances' set for critical agent tools?", "Reduces cold-start latency for backend tool execution."),
+            ("Rules: Are security rules locked down to 'request.auth'?", "Prevents unauthorized database access.")
+        ]
+    }
+]
+
+
 # --- MULTI-LANGUAGE / FRONTEND CHECKLISTS ---
 
 STREAMLIT_CHECKLIST = [
@@ -352,7 +365,13 @@ FRAMEWORKS = {
         "checklist": GO_CHECKLIST,
         "indicators": [r"go\.mod", r"goroutine", r"golang"]
     },
+    "firebase": {
+        "name": "Firebase / Google Cloud Hosting",
+        "checklist": FIREBASE_CHECKLIST,
+        "indicators": [r"firebase\.json", r"\.firebaserc", r"firestore"]
+    },
     "generic": {
+
         "name": "Generic Agentic Stack",
         "checklist": GENERIC_CHECKLIST,
         "indicators": []
@@ -369,8 +388,9 @@ def detect_framework(path: str = ".") -> str:
         with open(readme_path, "r") as f:
             content += f.read()
             
-    # Check requirements.txt, pyproject.toml, package.json, or go.mod
-    for filename in ["requirements.txt", "pyproject.toml", "package.json", "go.mod"]:
+    # Check requirements.txt, pyproject.toml, package.json, go.mod, or firebase.json
+    for filename in ["requirements.txt", "pyproject.toml", "package.json", "go.mod", "firebase.json", ".firebaserc"]:
+
 
         file_path = os.path.join(path, filename)
         if os.path.exists(file_path):

@@ -93,3 +93,10 @@ def test_detect_angular_framework(tmp_path):
     readme = d / "README.md"
     readme.write_text("Enterprise agent with @angular/core.")
     assert detect_framework(str(d)) == "angular"
+
+def test_detect_firebase_framework(tmp_path):
+    d = tmp_path / "firebase_project"
+    d.mkdir()
+    fb = d / "firebase.json"
+    fb.write_text("{}")
+    assert detect_framework(str(d)) == "firebase"
