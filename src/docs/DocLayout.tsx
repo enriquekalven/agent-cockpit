@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import {
-  Menu, X, ChevronRight, BookOpen, Terminal, Rocket,
+  Menu, X, ChevronRight, BookOpen, Terminal, Rocket, 
   Cpu, Layout, Activity, ShieldCheck, Search, Github,
-  Command, ExternalLink, Slack, Twitter
+  Command, ExternalLink, Slack, Twitter, Zap, Lock, Shield
 } from 'lucide-react';
 
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -18,24 +18,27 @@ const PILLAR_NAV = [
     ]
   },
   {
-    title: 'The Engine',
+    title: 'The Cockpit (Operations)',
     items: [
-      { id: 'be-integration', label: 'Backend Setup', path: '/docs/be-integration', icon: <Cpu size={18} /> },
-      { id: 'optimization', label: 'Token Optimization', path: '/docs/cli-commands', icon: <Terminal size={18} /> },
+      { id: 'cockpit', label: 'Dashboard & Caching', path: '/docs/cockpit', icon: <Activity size={18} /> },
+      { id: 'optimization', label: 'Cost & Performance', path: '/docs/optimization', icon: <Zap size={18} /> },
+      { id: 'security', label: 'Red Team Security', path: '/docs/security', icon: <Shield size={18} /> },
+      { id: 'governance', label: 'Privacy & Governance', path: '/docs/governance', icon: <Lock size={18} /> },
     ]
   },
   {
-    title: 'The Face',
+    title: 'Development',
     items: [
-      { id: 'development', label: 'UI Components', path: '/docs/development', icon: <Layout size={18} /> },
+      { id: 'be-integration', label: 'The Engine (Backend)', path: '/docs/be-integration', icon: <Cpu size={18} /> },
+      { id: 'development', label: 'The Face (UI)', path: '/docs/development', icon: <Layout size={18} /> },
+      { id: 'cli-commands', label: 'CLI Reference', path: '/docs/cli-commands', icon: <Terminal size={18} /> },
+    ]
+  },
+  {
+    title: 'Standards',
+    items: [
       { id: 'a2a', label: 'A2UI Protocol', path: '/docs/a2a', icon: <Command size={18} /> },
-    ]
-  },
-  {
-    title: 'Operations',
-    items: [
-      { id: 'ops', label: 'The Cockpit Dashboard', path: '/ops', icon: <Activity size={18} /> },
-      { id: 'security', label: 'Red Team Audits', path: '/docs/cli-commands', icon: <ShieldCheck size={18} /> },
+      { id: 'production-checklist', label: 'Launch Checklist', path: '/docs/production-checklist', icon: <ShieldCheck size={18} /> },
       { id: 'deployment', label: 'Cloud Deployment', path: '/docs/deployment', icon: <Rocket size={18} /> },
     ]
   }

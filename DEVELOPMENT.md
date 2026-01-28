@@ -1,49 +1,35 @@
-# 🛠️ Development Guide: Building the Cockpit
+# 🎭 UI Development: The Face
 
-This repository is optimized for **AgentOps** development. Use this guide to extend the platform's optimization and governance capabilities.
+The **Face** layer of our stack is built on the **A2UI (Agent-to-User Interface)** protocol. This transforms raw text responses into rich, interactive application surfaces.
 
-## 📁 Repository Structure
+## 🚀 The A2UI Advantage
+Stop building custom UI for every agent tool. Our renderer dynamically manifests components based on the **Agentic JSON** returned by the Engine.
 
-### 🕹️ The Cockpit (Core Operations)
-- `src/backend/optimizer.py`: The **Interactive Auditor**. Analyzes agent code for waste.
-- `src/backend/eval/red_team.py`: The **Security Evaluator**. Simulates attacks.
-- `src/backend/ops/`: Advanced optimization modules.
-    - `cost_optimizer.py`: Token tracking and "Flash vs Pro" routing logic.
-    - `memory_optimizer.py`: Leaky-bucket eviction and TTL management.
-    - `mcp_hub.py`: Centralized tool connectivity.
+| Feature | Description |
+| :--- | :--- |
+| **Adaptive Surfaces** | UIs that change layout based on tool outputs. |
+| **HITL Integration** | Built-in approval buttons for sensitive agent actions. |
+| **Evidence Display** | One-click "Show Sources" visibility via Evidence Packets. |
+| **Real-time Sync** | WebSocket/SSE streaming for "thought" visibility. |
 
-### ⚙️ The Engine (Logic Layer)
-- `src/backend/agent.py`: Entry point for agentic reasoning and middleware.
-- `src/backend/cache/`: Semantic caching implementations (Hive Mind).
-- `src/backend/shadow/`: Parallel traffic routing logic.
+## 🎨 Design System
+We adhere to a high-fidelity, sleek aesthetic:
+- **Style**: Dark-mode primary with neon accent glows (Purple/Teal).
+- **Icons**: Standardized `lucide-react` set.
+- **Glassmorphism**: Heavy use of translucent panels and frosted backgrounds.
 
-### 🎭 The Face (Internal Dashboard)
-- `src/a2ui/`: A2UI rendering protocol and core surfaces.
-- `src/components/OpsDashboard.tsx`: High-fidelity operations monitoring.
+## 🧱 Component Library
+Common pre-built components in `src/components/a2ui/`:
+- `ActionCard`: For tool approvals.
+- `SourceList`: For grounding evidence.
+- `ThoughtChain`: For showing the agent's internal reasoning.
+- `StatusRibbon`: For cost/latency transparency.
 
----
-
-## 🔍 Extending the Agent Optimizer
-The `optimizer.py` script uses heuristic analysis to find waste. To add a new check:
-1. Open `src/backend/optimizer.py`.
-2. Add a matching pattern to the `analyze_code` function.
-3. Define the `OptimizationIssue` with a clear `impact`, `savings`, and `diff`.
-
-## 🛡️ Hardening with Red Team
-The `red_team.py` CLI simulates adversarial payloads.
-- **Payrolls**: Defined in the `attacks` list.
-- **Goal**: Fail the CI pipeline if a breach is detected.
-- **Best Practice**: Add a Red Team test for every new tool or capability you add to the Engine.
-
-## 🚢 CI/CD Workflow (Code Lime)
-GitHub Actions are configured in `.github/workflows/main.yml`.
-- **Linting**: Uses `ruff` for ultra-fast Python checks.
-- **Agent Audit**: Runs `make audit` on every PR.
-- **Red Team**: Runs adversarial tests before any deployment.
+## 🏗️ Building Custom Components
+To add a new visual surface:
+1. Define the schema in `src/backend/agent.py`.
+2. Create the React component in `src/components/a2ui/custom/`.
+3. Map the JSON `surfaceId` to your new component in the `A2UIRenderer`.
 
 ---
-
-## 🧪 Local Testing
-1. **Frontend + Backend**: `make dev`
-2. **Optimizer Only**: `python src/backend/optimizer.py`
-3. **Red Team Only**: `python src/backend/eval/red_team.py`
+*Reference: [A2UI Official Specification](https://github.com/google/A2UI)*

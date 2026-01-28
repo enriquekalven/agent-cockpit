@@ -1,0 +1,30 @@
+# 📉 Optimization: Cost & Performance
+
+Efficiency is the difference between a successful agent and an expensive prototype. The Cockpit provides three specialized optimizers to tune your stack.
+
+## 💰 Cost Optimizer
+The `CostOptimizer` analyzes your prompt structure and token usage.
+- **Context Caching**: Identifies static portions of your prompt (System Instructions + Document Context) greater than 32k tokens and recommends **Vertex AI Context Caching**.
+- **Savings**: Context caching can reduce input token costs by up to 90% for long-running sessions.
+
+## 🧠 Memory Optimizer
+Large context windows are expensive and slow. The `MemoryOptimizer` implements a **"Leaky Bucket"** eviction policy.
+- **Dynamic Summarization**: When context exceeds a threshold, the optimizer summarizes earlier parts of the conversation.
+- **Pruning**: Removes low-intent "chatter" tokens while preserving core reasoning context.
+
+## ⚡ Load Tester
+Ensures your agent can handle high-traffic production environments.
+- **Concurrency**: Simulate 10, 50, or 100 concurrent users (`Concurrent Users`).
+- **SLA Validation**: Measures **p90 Latency** to ensure 90% of your users receive a response within your target threshold (e.g., <2 seconds).
+
+```bash
+# Run a stress test
+make load_test REQUESTS=100 CONCURRENCY=10
+```
+
+## 🎯 Model Routing
+The Cockpit recommends using **Gemini 2.0 Flash** for high-volume tasks like:
+- Query classification
+- Output formatting
+- Simple data extraction
+Reserved **Gemini Pro** only for tasks requiring deep reasoning or multi-step tool orchestration.

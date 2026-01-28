@@ -14,6 +14,10 @@ const DOC_FILES: Record<string, string> = {
   story: '/AGENT_OPS_STORY.md',
   'production-checklist': '/PRODUCTION_CHECKLIST.md',
   'google-architecture': '/GOOGLE_ARCHITECTURE.md',
+  cockpit: '/COCKPIT_GUIDE.md',
+  optimization: '/OPTIMIZATION_GUIDE.md',
+  security: '/SECURITY_GUIDE.md',
+  governance: '/GOVERNANCE_GUIDE.md',
 };
 
 export const DocPage: React.FC = () => {
