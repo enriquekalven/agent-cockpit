@@ -17,6 +17,14 @@ def version():
     console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
+def reliability():
+    """
+    Run reliability audit (Unit Tests + Regression Suite coverage).
+    """
+    console.print("🛡️ [bold green]Launching Reliability Audit...[/bold green]")
+    subprocess.run([sys.executable, "-m", "backend.ops.reliability", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
 def report():
     """
     Launch full AgentOps audit (Arch, Quality, Security, Cost) and generate a final report.

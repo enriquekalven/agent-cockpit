@@ -93,8 +93,11 @@ def run_full_audit():
     # 3. Security Red Team
     orchestrator.run_step("Adversarial Security (Red Team)", [sys.executable, "src/backend/eval/red_team.py", "src/backend/agent.py"])
     
-    # 4. Token Optimization
+    # 4. Token Optimization Audit
     orchestrator.run_step("Token Optimization Audit", [sys.executable, "src/backend/optimizer.py", "audit", "src/backend/agent.py", "--no-interactive"])
+
+    # 5. Reliability Audit (Unit + Regression)
+    orchestrator.run_step("Reliability (Unit + Regression)", [sys.executable, "-m", "backend.ops.reliability", "audit"])
 
     orchestrator.generate_report()
 
