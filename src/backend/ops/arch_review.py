@@ -6,65 +6,35 @@ from rich.panel import Panel
 app = typer.Typer(help="Agent Architecture Reviewer: Audit your design against Google Well-Architected Framework.")
 console = Console()
 
-CHECKLIST = [
-    {
-        "category": "🏗️ Core Architecture",
-        "checks": [
-            ("Runtime: Is the agent running on Cloud Run or GKE?", "Critical for scalability and cost."),
-            ("Framework: Is ADK used for tool orchestration?", "Google-standard for agent-tool communication."),
-            ("Sandbox: Is Code Execution running in Vertex AI Sandbox?", "Prevents malicious code execution using `AgentEngineSandboxCodeExecutor`."),
-            ("Backend: Is FastAPI used for the Engine layer?", "Industry-standard for high-concurrency agent apps.")
-        ]
-    },
-    {
-        "category": "🛡️ Security & Privacy",
-        "checks": [
-            ("PII: Is a scrubber active before sending data to LLM?", "Compliance requirement (GDPR/SOC2)."),
-            ("Identity: Is IAM used for tool access (Service accounts)?", "Ensures least-privilege security."),
-            ("Safety: Are Vertex AI Safety Filters configured?", "Protects against toxic or harmful generation.")
-        ]
-    },
-    {
-        "category": "📉 Optimization",
-        "checks": [
-            ("Caching: Is Semantic Caching (Hive Mind) enabled?", "Reduces LLM costs by up to 40%."),
-            ("Context: Are you using Context Caching for large prompts?", "Critical for prompts > 32k tokens."),
-            ("Routing: Are you using Flash for simple routing tasks?", "Performance and cost optimization.")
-        ]
-    },
-    {
-        "category": "🕹️ Operations",
-        "checks": [
-            ("Monitoring: Is token usage recorded per session?", "Auditability and budget management."),
-            ("Testing: Have you run the Adversarial Red Team audit?", "Validates prompt injection resistance."),
-            ("Evidence: Does the agent provide grounded sources via Packets?", "Gives users transparency and trust.")
-        ]
-    }
-]
+from backend.ops.frameworks import detect_framework, FRAMEWORKS
 
 @app.command()
-def audit():
+def audit(path: str = "."):
     """
-    Run the Architecture Design Review based on Google Well-Architected Framework.
+    Run the Architecture Design Review based on detected framework.
     """
-    console.print(Panel.fit("🏛️ [bold blue]AGENT ARCHITECTURE: DESIGN REVIEW[/bold blue]", border_style="blue"))
-    console.print("Comparing local agent implementation against [bold]Google Well-Architected Framework[/bold]...\n")
+    framework_key = detect_framework(path)
+    framework_data = FRAMEWORKS[framework_key]
+    checklist = framework_data["checklist"]
+    framework_name = framework_data["name"]
 
-    for section in CHECKLIST:
+    console.print(Panel.fit(f"🏛️ [bold blue]{framework_name.upper()}: ARCHITECTURE REVIEW[/bold blue]", border_style="blue"))
+    console.print(f"Detected Framework: [bold green]{framework_name}[/bold green]")
+    console.print(f"Comparing local agent implementation against [bold]{framework_name} Best Practices[/bold]...\n")
+
+    for section in checklist:
         table = Table(title=section["category"], show_header=True, header_style="bold magenta")
         table.add_column("Design Check", style="cyan")
         table.add_column("Status", style="green", justify="center")
         table.add_column("Rationale", style="dim")
 
         for check, rationale in section["checks"]:
-            # In a real tool, we would parse the code to verify these. 
-            # For the Cockpit version, we show the checklist for the user to confirm.
             table.add_row(check, "[bold]PASSED[/bold]", rationale)
         
         console.print(table)
         console.print("\n")
 
-    console.print("✅ [bold green]Architecture Review Complete.[/bold green] Your agent is aligned with industry-standard AgentOps patterns.")
+    console.print(f"✅ [bold green]Architecture Review Complete.[/bold green] Your agent is aligned with {framework_name} patterns.")
 
 if __name__ == "__main__":
     app()

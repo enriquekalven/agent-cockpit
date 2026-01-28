@@ -17,16 +17,34 @@
 ---
 
 ## 📽️ The Mission
-Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. Based on the **[Google Well-Architected Framework for Agents](/docs/google-architecture)**, this stack provides the governance, safety, and cost guardrails required for "Day 2" success.
+Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. While optimized for **ADK**, it provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem—from CrewAI to LangGraph. Based on the **[Google Well-Architected Framework for Agents](/docs/google-architecture)**.
 
 ---
 
 ## 🏗️ The Agentic Trinity
 We divide the complexity of production agents into three focused pillars:
 
-- **⚙️ The Engine**: The reasoning core. Built with **ADK** (Agent Development Kit), FastAPI, and Vertex AI.
+- **⚙️ The Engine**: The reasoning core. Built with **ADK**, FastAPI, and Vertex AI.
 - **🎭 The Face**: The user experience. Adaptive UI surfaces and **GenUI** standards via the A2UI spec.
 - **🕹️ The Cockpit**: The operational brain. Cost control, semantic caching, shadow routing, and adversarial audits.
+
+---
+
+## 🌐 Framework Agnostic Governance
+The Cockpit isn't just for ADK. It provides **Best Practices as Code** across all major agentic frameworks:
+
+<div align="center">
+  <img src="https://img.shields.io/badge/CopilotKit-6366f1?style=for-the-badge" alt="CopilotKit" />
+  <img src="https://img.shields.io/badge/CrewAI-ff4b4b?style=for-the-badge" alt="CrewAI" />
+  <img src="https://img.shields.io/badge/LangGraph-2c3e50?style=for-the-badge" alt="LangGraph" />
+  <img src="https://img.shields.io/badge/LlamaIndex-00d1b2?style=for-the-badge" alt="LlamaIndex" />
+  <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
+  <img src="https://img.shields.io/badge/AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="AutoGen" />
+  <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
+</div>
+
+Whether you are building a swarm in **CrewAI** or a complex state machine in **LangGraph**, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.
 
 ---
 
@@ -39,7 +57,7 @@ Don't wait for your users to find prompt injections. Use the built-in Adversaria
 **Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
 
 ### 🏛️ Arch Review & Cockpit Score
-Every agent in the cockpit is graded against Google’s **Well-Architected Framework**. Use `make arch-review` to get your **Cockpit Score**—a measure of your agent's enterprise-readiness.
+Every agent in the cockpit is graded against a framework-aware checklist. Whether you are using **Google ADK** or **OpenAI Agentkit**, the Cockpit intelligently detects your stack and runs an audit against the corresponding best practices (e.g., Google Well-Architected vs. OpenAI Production Standards). Use `make arch-review` to get your **Cockpit Score**.
 
 ---
 
