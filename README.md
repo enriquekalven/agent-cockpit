@@ -34,17 +34,27 @@ We divide the complexity of production agents into three focused pillars:
 The Cockpit isn't just for ADK. It provides **Best Practices as Code** across all major agentic frameworks:
 
 <div align="center">
-  <img src="https://img.shields.io/badge/CopilotKit-6366f1?style=for-the-badge" alt="CopilotKit" />
-  <img src="https://img.shields.io/badge/CrewAI-ff4b4b?style=for-the-badge" alt="CrewAI" />
-  <img src="https://img.shields.io/badge/LangGraph-2c3e50?style=for-the-badge" alt="LangGraph" />
-  <img src="https://img.shields.io/badge/LlamaIndex-00d1b2?style=for-the-badge" alt="LlamaIndex" />
   <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
+  <img src="https://img.shields.io/badge/Anthropic_Claude-D97757?style=for-the-badge&logo=anthropic" alt="Anthropic" />
+  <img src="https://img.shields.io/badge/Microsoft_AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="Microsoft" />
+  <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws" alt="AWS" />
+  <img src="https://img.shields.io/badge/CopilotKit.ai-6366f1?style=for-the-badge" alt="CopilotKit" />
   <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
-  <img src="https://img.shields.io/badge/AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="AutoGen" />
   <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
 </div>
 
-Whether you are building a swarm in **CrewAI** or a complex state machine in **LangGraph**, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.
+<div align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go" />
+  <img src="https://img.shields.io/badge/NodeJS-339933?style=flat-square&logo=node.js&logoColor=white" alt="NodeJS" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
+  <img src="https://img.shields.io/badge/Lit-324FFF?style=flat-square&logo=lit&logoColor=white" alt="Lit" />
+</div>
+
+Whether you are building a swarm in **CrewAI**, a Go-based high-perf engine, or a **Streamlit** dashboard, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.
+
 
 ---
 
@@ -56,8 +66,11 @@ Don't wait for your users to find prompt injections. Use the built-in Adversaria
 ### 🧠 Hive Mind (Semantic Caching)
 **Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
 
-### 🏛️ Arch Review & Cockpit Score
-Every agent in the cockpit is graded against a framework-aware checklist. Whether you are using **Google ADK** or **OpenAI Agentkit**, the Cockpit intelligently detects your stack and runs an audit against the corresponding best practices (e.g., Google Well-Architected vs. OpenAI Production Standards). Use `make arch-review` to get your **Cockpit Score**.
+### 🏛️ Arch Review & Framework Detection
+Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack—**Google ADK**, **OpenAI Agentkit**, **Anthropic Claude**, **Microsoft AutoGen/Semantic Kernel**, **AWS Bedrock Agents**, or **CopilotKit**—and runs a tailored audit against corresponding production standards. Use `make arch-review` to verify your **Governance-as-Code**.
+
+### 🧗 Quality Hill Climbing (ADK Evaluation)
+Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
 ---
 

@@ -6,9 +6,37 @@ Deploying a "Well-Architected" agent requires orchestration across two primary G
 The Python backend (FastAPI) is deployed as a serverless service.
 - **Scaling**: We default to scale-to-zero to minimize costs during idle time.
 - **Regions**: Always deploy to `us-central1` or your local equivalent for lowest latency to Vertex AI endpoints.
+- **Best Practice**: Enable **Startup CPU Boost** to reduce cold-start latency by up to 50%.
+
+## 🧠 Agent Engine (Vertex AI Reasoning Engine)
+Recommended for agents that require deep integration with the Google Cloud agentic ecosystem.
+- **Why**: Provides a managed runtime that handles serialization, versioning, and built-in tracing.
+- **Best Practice**: Use **Context Caching** for agents with extremely long system instructions (>32k tokens).
+
+## ☸️ Enterprise Engine (GKE)
+Recommended for agents with specialized isolation needs or high-intensity workloads.
+- **Why**: Provides the highest level of control over networking (Service Mesh) and compute resources (GPUs).
+- **Best Practice**: Use **Workload Identity** to assign fine-grained IAM roles to your K8s service accounts.
+
+---
+
+## 📊 Infrastructure Decision Matrix
+
+| Feature | Agent Engine | Cloud Run | GKE |
+| :--- | :--- | :--- | :--- |
+| **Orchestration** | Managed (ADK) | Custom (FastAPI) | Custom (K8s) |
+| **Scaling** | Automatic | Scale-to-Zero | Dynamic / GPU |
+| **Observability** | Vertex AI Traces | Cloud Logging/Trace | Prometheus / Istio |
+| **Best Case** | Fast ADK Prototyping | Standard Web Agents | High-Perf Enterprise |
+
+---
 
 ## 🎭 The Face (Firebase Hosting)
 The React/Vite frontend is deployed to Firebase for globally distributed edge performance.
+- **Protocol**: Ensure all components use the **A2UI Protocol** for consistent engine-driven rendering.
+- **Responsiveness**: Use mobile-first breakpoints to support iOS and Android high-density displays.
+- **Accessibility**: All interactive elements must have `aria-labels` to support automated testing in the Cockpit.
+- **Performance**: Split large components (>300 lines) to optimize React's virtual DOM reconciliation.
 
 ---
 

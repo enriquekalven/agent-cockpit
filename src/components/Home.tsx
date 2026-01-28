@@ -110,22 +110,38 @@ export function Home() {
         </div>
       </section>
 
-      {/* Supported Frameworks Bar */}
       <section className="frameworks-bar">
         <div className="container">
-          <div className="frameworks-label">Governance for every major framework</div>
-          <div className="frameworks-grid">
-            <div className="framework-badge copilot">CopilotKit</div>
-            <div className="framework-badge crew">CrewAI</div>
-            <div className="framework-badge langgraph">LangGraph</div>
-            <div className="framework-badge llamaindex">LlamaIndex</div>
-            <div className="framework-badge openai">OpenAI Agentkit</div>
-            <div className="framework-badge langchain">LangChain</div>
-            <div className="framework-badge autogen">AutoGen</div>
-            <div className="framework-badge adk">Google ADK</div>
+          <div className="framework-section">
+            <div className="frameworks-label">Orchestration Frameworks</div>
+            <div className="frameworks-grid">
+              <div className="framework-badge adk">Google ADK</div>
+              <div className="framework-badge crew">CrewAI</div>
+              <div className="framework-badge langgraph">LangGraph</div>
+              <div className="framework-badge autogen">AutoGen</div>
+              <div className="framework-badge openai">OpenAI Agentkit</div>
+              <div className="framework-badge copilot">CopilotKit</div>
+              <div className="framework-badge angular">Angular Face</div>
+              <div className="framework-badge streamlit">Streamlit</div>
+              <div className="framework-badge lit">Lit / Web Components</div>
+            </div>
+          </div>
+
+          <div className="framework-section mt-12">
+            <div className="frameworks-label">Programming Languages & Runtimes</div>
+            <div className="frameworks-grid">
+              <div className="framework-badge python">Python</div>
+              <div className="framework-badge go">Golang</div>
+              <div className="framework-badge nodejs">NodeJS</div>
+              <div className="framework-badge typescript">TypeScript</div>
+              <div className="framework-badge cloudrun">Cloud Run</div>
+              <div className="framework-badge gke">GKE</div>
+              <div className="framework-badge agentengine">Agent Engine</div>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Philosophy Section */}
       <section className="crew-philosophy">
@@ -828,8 +844,22 @@ export function Home() {
         .framework-badge.llamaindex { border-bottom: 3px solid #00d1b2; }
         .framework-badge.openai { border-bottom: 3px solid #412991; }
         .framework-badge.langchain { border-bottom: 3px solid #1C3C3C; }
-        .framework-badge.autogen { border-bottom: 3px solid #0078d4; }
+         .framework-badge.autogen { border-bottom: 3px solid #0078d4; }
         .framework-badge.adk { border-bottom: 3px solid #4285F4; }
+        .framework-badge.python { border-bottom: 3px solid #3776ab; }
+        .framework-badge.go { border-bottom: 3px solid #00add8; }
+        .framework-badge.nodejs { border-bottom: 3px solid #339933; }
+        .framework-badge.typescript { border-bottom: 3px solid #3178c6; }
+        .framework-badge.angular { border-bottom: 3px solid #dd0031; }
+        .framework-badge.streamlit { border-bottom: 3px solid #ff4b4b; }
+        .framework-badge.lit { border-bottom: 3px solid #324fff; }
+        .framework-badge.cloudrun { border-bottom: 3px solid #4285f4; }
+        .framework-badge.gke { border-bottom: 3px solid #326ce5; }
+        .framework-badge.agentengine { border-bottom: 3px solid #34a853; }
+
+        .framework-section { margin-bottom: 3rem; }
+        .mt-12 { margin-top: 3rem; }
+
       `}</style>
     </div>
   );

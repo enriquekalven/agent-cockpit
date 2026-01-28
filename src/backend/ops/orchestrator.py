@@ -22,11 +22,15 @@ class CockpitOrchestrator:
     def run_step(self, name: str, cmd: list):
         console.print(f"\n🚀 [bold]Step: {name}[/bold]")
         try:
+            env = os.environ.copy()
+            current_pp = env.get("PYTHONPATH", "")
+            env["PYTHONPATH"] = f"src:{current_pp}" if current_pp else "src"
+            
             result = subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
-                env={**os.environ, "PYTHONPATH": "src"}
+                env=env
             )
             success = result.returncode == 0
             self.results[name] = {
@@ -84,20 +88,24 @@ def run_full_audit():
         border_style="blue"
     ))
 
-    # 1. Architecture Design Review
-    orchestrator.run_step("Architecture Review", [sys.executable, "-m", "backend.ops.arch_review", "audit"])
+    # 1. Architecture Review
+    orchestrator.run_step("Architecture Review", [sys.executable, "-m", "backend.ops.arch_review"])
     
     # 2. Quality Baseline
-    orchestrator.run_step("Quality Baseline", [sys.executable, "-m", "backend.eval.quality_climber", "audit"])
+    orchestrator.run_step("Quality Baseline", [sys.executable, "-m", "backend.eval.quality_climber"])
     
-    # 3. Security Red Team
-    orchestrator.run_step("Adversarial Security (Red Team)", [sys.executable, "src/backend/eval/red_team.py", "src/backend/agent.py"])
+    # 3. Security & Secrets
+    orchestrator.run_step("Secret Scanner (Leak Detection)", [sys.executable, "-m", "backend.ops.secret_scanner"])
+    orchestrator.run_step("Adversarial Security (Red Team)", [sys.executable, "-m", "backend.eval.red_team", "src/backend/agent.py"])
     
-    # 4. Token Optimization Audit
-    orchestrator.run_step("Token Optimization Audit", [sys.executable, "src/backend/optimizer.py", "audit", "src/backend/agent.py", "--no-interactive"])
+    # 4. Face (UI/UX) Audit
+    orchestrator.run_step("UI/UX Quality (Face Auditor)", [sys.executable, "-m", "backend.ops.ui_auditor", "src"])
+    
+    # 5. Token Optimization Audit
+    orchestrator.run_step("Token Optimization Audit", [sys.executable, "-m", "backend.optimizer", "src/backend/agent.py", "--no-interactive"])
 
-    # 5. Reliability Audit (Unit + Regression)
-    orchestrator.run_step("Reliability (Unit + Regression)", [sys.executable, "-m", "backend.ops.reliability", "audit"])
+    # 6. Reliability Audit (Unit + Regression)
+    orchestrator.run_step("Reliability (Unit + Regression)", [sys.executable, "-m", "backend.ops.reliability"])
 
     orchestrator.generate_report()
 

@@ -6,7 +6,7 @@ REGION ?= us-central1
 SERVICE_NAME = agent-ops-backend
 IMAGE_TAG = us-central1-docker.pkg.dev/$(PROJECT_ID)/agent-repo/$(SERVICE_NAME):latest
 
-.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit deploy-prod
+.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit deploy-prod scan-secrets ui-audit audit-all
 
 help:
 	@echo "Available commands:"
@@ -14,14 +14,18 @@ help:
 	@echo "  make build             - Build production assets"
 	@echo "  make audit-all         - Run ALL audits and generate Final Report"
 	@echo "  make reliability       - Run unit tests and regression suite"
+	@echo "  make scan-secrets      - Scan for hardcoded API keys & credentials"
+	@echo "  make ui-audit          - Run Face Auditor (UI/UX best practices)"
 	@echo "  make audit             - Run Agent Optimizer audit"
 	@echo "  make arch-review       - Run Google Well-Architected design review"
 	@echo "  make quality-baseline  - Start iterative Quality Hill Climbing"
 	@echo "  make red-team          - Run adversarial security audit"
 	@echo "  make load-test         - Run base load test"
-	@echo "  make deploy-prod       - Deploy to production (Cloud Run + Firebase)"
+	@echo "  make deploy-prod       - Deploy to production (All Audits -> Cloud Run + Firebase)"
 	@echo "  make deploy-cloud-run  - Deploy to Google Cloud Run"
 	@echo "  make deploy-firebase   - Deploy to Firebase Hosting"
+
+
 
 dev:
 	npm run dev
@@ -47,14 +51,24 @@ arch-review:
 
 # 🧗 Quality: Iterative Hill Climbing optimization
 quality-baseline:
-	@python3 src/backend/eval/quality_climber.py audit
+	@python3 src/backend/eval/quality_climber.py climb
+
+# 🧪 Secrets: Scan for hardcoded credentials
+scan-secrets:
+	@python3 src/backend/ops/secret_scanner.py .
+
+# 🎨 UI/UX: Face Auditor for frontend quality
+ui-audit:
+	@python3 src/backend/ops/ui_auditor.py src
 
 # 🔥 Red Team: Unleash self-hacking security audit
+
 red-team:
 	@python3 src/backend/eval/red_team.py src/backend/agent.py
 
 # ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
 REQUESTS ?= 50
+
 CONCURRENCY ?= 5
 URL ?= http://localhost:8000/agent/query?q=healthcheck
 
@@ -62,7 +76,8 @@ load_test:
 	@python3 src/backend/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
 # 🚀 Production: The Vercel-style 1-click deploy
-deploy-prod: audit build
+deploy-prod: audit-all build
+
 	@echo "📦 Containerizing and deploying to Cloud Run..."
 	gcloud run deploy $(SERVICE_NAME) --source . --region $(REGION) --allow-unauthenticated --port 80
 	@echo "🔥 Deploying frontend to Firebase..."

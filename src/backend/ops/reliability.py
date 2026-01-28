@@ -40,8 +40,10 @@ def audit():
     if unit_result.returncode != 0:
         console.print("\n[red]❌ Unit test failures detected. Fix them before production deployment.[/red]")
         console.print(f"```\n{unit_result.stdout}\n```")
+        raise typer.Exit(code=1)
     else:
         console.print("\n✅ [bold green]System is stable. Quality regression coverage is 100%.[/bold green]")
+
 
 if __name__ == "__main__":
     app()
