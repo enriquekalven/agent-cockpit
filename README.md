@@ -11,7 +11,7 @@ A production agent requires three synchronized pillars. This repository serves a
 
 1. **⚙️ The Engine (The Brain)**: Reasoning and tool execution (via Python ADK & Vertex AI).
 2. **🎭 The Face (The Experience)**: Adaptive surfaces and GenUI (via A2UI Standard).
-3. **🕹️ The Cockpit (The Governance)**: Safety, scale, and profitability (Shadow Router, Hive Mind, Red Team).
+3. **🕹️ The Cockpit (The Governance)**: Safety, scale, and profitability (Shadow Router, Hive Mind, Red Team, PII Scrubber).
 
 ---
 
@@ -23,8 +23,10 @@ A production agent requires three synchronized pillars. This repository serves a
 ### 🧠 The "Hive Mind" Semantic Cache
 **Cut LLM costs by up to 40%.** A drop-in middleware that checks a Vector Store (Memorystore/AlloyDB AI) for semantically similar queries. If a match is found, returns the answer in 0.1s without calling the LLM.
 
-### 🚩 "Red Team" Adversarial Audit
-**The Self-Hacking Auditor.** A pre-deployment security engine that unleashes an aggressive LLM to try and jailbreak your agent, extract PII, or override system instructions.
+### 🛡️ PII Scrubber & Evidence Packet
+**Industrial-Grade Privacy & Trust.**
+- **PIIScrubber**: Automatic detection and masking of sensitive data (Emails, Credit Cards, SSNs) before it reaches the model.
+- **Evidence Packet**: Standardized output format that includes grounded sources and reasoning snippets for full auditability.
 
 ### 📉 Cost, Memory & Load Optimizers
 **Production Efficiency.**
