@@ -12,6 +12,7 @@ const DOC_FILES: Record<string, string> = {
   a2a: '/A2A_GUIDE.md',
   'be-integration': '/BE_INTEGRATION_GUIDE.md',
   story: '/AGENT_OPS_STORY.md',
+  'production-checklist': '/PRODUCTION_CHECKLIST.md',
 };
 
 export const DocPage: React.FC = () => {
@@ -23,15 +24,16 @@ export const DocPage: React.FC = () => {
     const fetchDoc = async () => {
       setLoading(true);
       try {
-        const file = DOC_FILES[docId || 'readme'] || DOC_FILES.readme;
+        const file = DOC_FILES[docId || 'getting-started'] || DOC_FILES['getting-started'];
         const response = await fetch(file);
         if (!response.ok) throw new Error('File not found');
         const text = await response.text();
         setContent(text);
       } catch (err) {
-        setContent('# Error\nDocument not found.');
+        setContent('# Error\nDocument not found. Please check the documentation path.');
       } finally {
-        setLoading(false);
+        // Add a slight delay for better transition feel
+        setTimeout(() => setLoading(false), 300);
       }
     };
 
@@ -39,7 +41,16 @@ export const DocPage: React.FC = () => {
   }, [docId]);
 
   if (loading) {
-    return <div className="doc-loading">Loading documentation...</div>;
+    return (
+      <div className="doc-loading-container">
+        <div className="skeleton-title" />
+        <div className="skeleton-line" style={{ width: '100%' }} />
+        <div className="skeleton-line" style={{ width: '90%' }} />
+        <div className="skeleton-line" style={{ width: '95%' }} />
+        <div className="skeleton-line" style={{ width: '85%' }} />
+        <div className="skeleton-line" style={{ width: '40%', marginTop: '2rem' }} />
+      </div>
+    );
   }
 
   return (
