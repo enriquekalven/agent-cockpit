@@ -1,60 +1,58 @@
-# A2A (Agent-to-Agent) Protocol Guide
+# 📡 Agent-to-Agent (A2A) Transmission Standard
 
-The **Agent-to-Agent (A2A) Protocol** is a core part of the ADK ecosystem, enabling distributed agent architectures and seamless communication between different agentic services.
+Building a single agent is easy. Building a **Swarm** of agents that communicate securely and efficiently is the next frontier of AgentOps. The Cockpit implements the **A2A Transmission Standard** to ensure that your "Agent Trinity" remains Well-Architected.
 
-## 📡 What is A2A?
+## 🏛️ The A2A Protocol Stack
 
-While A2UI focuses on how agents talk to *users*, A2A focuses on how agents talk to *each other*. It provides a standardized way for an agent to:
-1.  **Discover** other agents' capabilities.
-2.  **Call** other agents as tools.
-3.  **Stream** results (including A2UI payloads) back to a controller agent.
+| Layer | Responsibility | Protocol / Spec |
+| :--- | :--- | :--- |
+| **Surface** | Human-Agent Interaction | [A2UI Spec](/docs/a2ui) |
+| **Memory** | Cross-Agent Knowledge | [Vector Workspace (Hive Mind)](/src/backend/cache) |
+| **Logic** | Tool & Reasoning Handshake | [A2P Handshake](#a2p-handshake) |
+| **Security** | Identity & Permissions | [GCP Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) |
 
-## 🛠️ Implementation Patterns
+---
 
-### 1. Exposing an Agent as an A2A Service
-You can wrap any `LlmAgent` into a FastAPI-based A2A server using the `to_a2a` utility.
+## 🤝 The A2P Handshake (Agent-to-Proxy)
 
-```python
-from google.adk.a2a.utils.agent_to_a2a import to_a2a
-from my_project.agents import MyExpertAgent
+When one agent calls another tool, it shouldn't just send raw text. It must send a **Reasoning Evidence Packet**.
 
-expert_agent = MyExpertAgent(...)
-a2a_app = to_a2a(expert_agent, port=8001)
+### ❌ The "Old" Way (Brittle)
+```json
+{
+  "query": "What is the budget?",
+  "output": "The budget is $500k."
+}
 ```
 
-### 2. Communicating via RemoteA2aAgent
-A controller agent can interact with a remote A2A service as if it were a local tool.
-
-```python
-from google.adk.a2a.remote_a2a_agent import RemoteA2aAgent
-
-# Point to the remote agent's descriptor
-remote_expert = RemoteA2aAgent(
-    name="expert_proxy",
-    agent_card="http://expert-service:8001/a2a/expert/.well-known/agent.json"
-)
-
-# Add it to your main agent's toolset
-orchestrator = LlmAgent(
-    tools=[remote_expert],
-    ...
-)
+### ✅ The "Cockpit" Way (Well-Architected)
+```json
+{
+  "trace_id": "tr-9942-x",
+  "reasoning_path": ["Fetch Schema", "Query BigQuery", "Apply PIIScrubber"],
+  "evidence": [
+    { "source": "bq://finance.budget_2026", "assurance_score": 0.98 }
+  ],
+  "content": {
+    "text": "The approved budget is $500k.",
+    "a2ui_surface": "DynamicBudgetChart"
+  }
+}
 ```
 
-## 🔄 A2A + A2UI
-When a remote agent generates A2UI content, the `A2aAgentExecutor` automatically handles the conversion of tool outputs into A2A parts, ensuring the final client receives a correctly formatted UI.
+## 🛡️ Governance-as-Code for Swarms
 
-```python
-from a2ui.send_a2ui_to_client_toolset import convert_send_a2ui_to_client_genai_part_to_a2a_part
+On the Cockpit, every A2A transmission is automatically:
+1.  **Scrubbed**: PII is removed before leaving the Engine's VPC.
+2.  **Cached**: Similar cross-agent queries hit the **Hive Mind** instead of expensive LLM reasoning.
+3.  **Audited**: The `arch-review` tool verifies that your multi-agent graph doesn't have "Shadow Loops" (recursive infinite spend).
 
-config = A2aAgentExecutorConfig(
-    genai_part_converter=convert_send_a2ui_to_client_genai_part_to_a2a_part
-)
-executor = A2aAgentExecutor(config)
+---
+
+## ⚡ Get Started with A2A
+Use the Cockpit CLI to verify your multi-agent communication:
+```bash
+agent-ops audit --mode swarm --file multi_agent_entry.py
 ```
 
-## 🌐 Enterprise Mesh & MCP
-In a production environment, A2A agents are registered and optimized via the **MCP Tool Hub**. Using the **Model Context Protocol (MCP)** ensures that cross-agent calls are standardized, secure, and audited by the Cockpit.
-
-*   **Discovery**: The MCP Hub automatically discovers registered A2A agents.
-*   **Optimization**: The Cockpit's Interactive Optimizer flags high-latency A2A calls and suggests tool-caching strategies.
+*This standard is being proposed to the Google Well-Architected Framework for AI Agents committee.*

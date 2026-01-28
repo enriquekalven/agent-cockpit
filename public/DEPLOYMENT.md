@@ -1,85 +1,84 @@
-# Deployment: Shipping the Optimized Agent Stack
+# 🚀 Production Deployment
 
-The **Optimized Agent Stack** is designed for high-fidelity, cost-optimized deployment on **Google Cloud**.
+Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments.
 
-## ⚡️ 1-Click Operations (The Cockpit)
+## ⚙️ The Engine (Cloud Run)
+The Python backend (FastAPI) is deployed as a serverless service.
+- **Scaling**: We default to scale-to-zero to minimize costs during idle time.
+- **Regions**: Always deploy to `us-central1` or your local equivalent for lowest latency to Vertex AI endpoints.
+- **Best Practice**: Enable **Startup CPU Boost** to reduce cold-start latency by up to 50%.
 
-The built-in `Makefile` handles the entire production deployment flow.
+## 🧠 Agent Engine (Vertex AI Reasoning Engine)
+Recommended for agents that require deep integration with the Google Cloud agentic ecosystem.
+- **Why**: Provides a managed runtime that handles serialization, versioning, and built-in tracing.
+- **Best Practice**: Use **Context Caching** for agents with extremely long system instructions (>32k tokens).
 
-| Target | Command | Platform |
-| :--- | :--- | :--- |
-| **Full Stack** | `make deploy-prod` | Cloud Run (Engine) + Firebase (Face) |
-| **The Engine** | `make deploy-cloud-run` | Google Cloud Run (Backend) |
-| **The Face** | `make deploy-firebase` | Firebase Hosting (Frontend) |
+## ☸️ Enterprise Engine (GKE)
+Recommended for agents with specialized isolation needs or high-intensity workloads.
+- **Why**: Provides the highest level of control over networking (Service Mesh) and compute resources (GPUs).
+- **Best Practice**: Use **Workload Identity** to assign fine-grained IAM roles to your K8s service accounts.
 
 ---
 
-## 1. Initial GCP Setup
+## 📊 Infrastructure Decision Matrix
 
-Before your first deployment, run the setup script to configure your project, enable APIs, and create the Artifact Registry repo.
+| Feature | Agent Engine | Cloud Run | GKE |
+| :--- | :--- | :--- | :--- |
+| **Orchestration** | Managed (ADK) | Custom (FastAPI) | Custom (K8s) |
+| **Scaling** | Automatic | Scale-to-Zero | Dynamic / GPU |
+| **Observability** | Vertex AI Traces | Cloud Logging/Trace | Prometheus / Istio |
+| **Best Case** | Fast ADK Prototyping | Standard Web Agents | High-Perf Enterprise |
+
+---
+
+## 🎭 The Face (Firebase Hosting)
+The React/Vite frontend is deployed to Firebase for globally distributed edge performance.
+- **Protocol**: Ensure all components use the **A2UI Protocol** for consistent engine-driven rendering.
+- **Responsiveness**: Use mobile-first breakpoints to support iOS and Android high-density displays.
+- **Accessibility**: All interactive elements must have `aria-labels` to support automated testing in the Cockpit.
+- **Performance**: Split large components (>300 lines) to optimize React's virtual DOM reconciliation.
+
+---
+
+## 🏗️ Deployment Workflow
+
+We use a **1-click deployment** strategy that builds safety into the process:
 
 ```bash
-chmod +x setup_gcp.sh
-./setup_gcp.sh
+make deploy-prod
 ```
 
----
+### The "Safe-Build" Sequence:
+1. **Audit Phase**: The Cockpit runs `arch-review` (design) and `audit` (cost). 
+2. **Security Phase**: Executes `red-team` to ensure no public breaches exist in the latest code.
+3. **Build Phase**: Compiles the React application and optimizes static assets.
+4. **Push Phase**: 
+    - Containerizes the Engine and pushes to **Artifact Registry**.
+    - Deploys the container to **Cloud Run**.
+    - Deploys static assets to **Firebase Hosting**.
 
-## 2. Google Cloud Run (The Engine)
+## 🛡️ Staging & Traffic Splitting
+We recommend using Cloud Run **Revisions** for canary deployments:
+- Deploy 5% of traffic to your new Revision.
+- Monitor the **Cockpit Dashboard** for error rate anomalies.
+- Promote to 100% when satisfied.
 
-The backend agent is served via Cloud Run, offering serverless scaling and native integration with **Vertex AI** and **Cloud Trace**.
+## 🤖 Automated CI/CD (GitHub Actions)
 
-### Manual Deployment Steps
-```bash
-# Set your project
-gcloud config set project YOUR_PROJECT_ID
+The AgentOps Cockpit is designed for "Policy-as-Code." Every commit to `main` triggers an automated governance pipeline that ensures your agent never regresses in quality or security.
 
-# Deploy the backend (Engine)
-# The setup_gcp.sh script handles this, but here is the manual command:
-gcloud run deploy agent-ops-backend \
-  --source . \
-  --dockerfile Dockerfile.backend \
-  --region us-central1 \
-  --allow-unauthenticated
-```
+![CI/CD Workflow](/public/cicd-workflow.png)
 
----
+### The Automated Pipeline:
+1.  **Architecture Audit**: Scans for design alignment with the detected framework (LangGraph, ADK, etc.).
+2.  **Red Team Evaluation**: Automatically tests for prompt injection and instruction overrides on every PR.
+3.  **Token Optimization**: Identifies non-cached prompts and expensive model routing before deployment.
+4.  **Reliability Suite**: Runs all unit tests and regression checks against the core engine.
 
-## 3. Firebase Hosting (The Face)
+Refer to `.github/workflows/agent-ops-audit.yml` for the full pipeline definition.
 
-Firebase is used for hosting the static A2UI renderer assets. This ensures your users get the fastest possible bundle delivery.
 
-### Deployment Steps
-```bash
-# Set up hosting target (one-time)
-firebase target:apply hosting agent-ui agent-cockpit
-
-# Build and Deploy
-npm run build
-firebase deploy --only hosting:agent-ui
-```
-
----
-
-## 🏗️ Scaffolding New Projects
-
-You can use the **Optimized Agent Stack** CLI to scaffold new specialized projects:
-
-```bash
-# Standard React Template
-uvx agent-starter-pack create my-app
-
-# High-End AG-UI (CopilotKit)
-uvx agent-starter-pack create my-app --ui agui
-
-# Mobile Integration (Flutter)
-uvx agent-starter-pack create my-app --ui flutter
-```
-
----
-
-## 🛡️ CI/CD & Security
-
-*   **GitHub Actions**: Integrated with `make red-team` to prevent unsafe code from reaching production.
-*   **Shadow Mode**: Configured during deployment to allow safe v1/v2 traffic splitting.
-*   **Observability**: **Google Cloud Trace** is pre-configured to track "Thought Chains" from the frontend into the backend agent.
+## 🔑 Secret Management
+Never commit `.env` files. Use **Google Cloud Secret Manager**:
+- Store your `GOOGLE_API_KEY` and third-party tool tokens.
+- Map them as environment variables in your Cloud Run configuration.

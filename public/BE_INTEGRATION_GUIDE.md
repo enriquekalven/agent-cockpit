@@ -1,94 +1,35 @@
-# Backend Engine Integration Guide
+# ⚙️ Engine Integration: The Day 0 Brain
 
-This guide explains how to connect your **Optimized Agent Stack** to a live backend agent powered by **ADK (Agent Development Kit)** and **Vertex AI Agent Engine**.
+The **Engine** is the reasoning core of your Agentic Stack. We use **FastAPI** and Google’s **Agent Development Kit (ADK)** to build agents that are fast, tool-capable, and "Well-Architected."
 
-## 🏗️ Architecture: The Engine (Day 0)
+## 🧩 Middleware Components
+The Engine comes pre-installed with the **Cockpit Middleware Stack**:
 
-The A2UI flow typically follows this pattern:
-1. **User Input**: Client sends a message to the Agent.
-2. **Execution**: The **Engine** (fastapi backend) executes tools and decides on the UI response.
-3. **A2UI Response**: Agent returns a JSON object following the `A2UISurface` schema.
-4. **Rendering**: The **Face** (React frontend) receives the JSON and renders it instantly.
+1. **`CostOptimizer`**: Real-time token tracking and savings recommendations.
+2. **`PIIScrubber`**: Automatic masking of sensitive user data.
+3. **`SemanticCache`**: Integrated with the "Hive Mind" for 40%+ cost reduction.
+4. **`MemoryOptimizer`**: Automates context truncation and summarization.
 
----
-
-## 🔌 Connecting to an ADK Agent
-
-### 1. Simple POLLING (Fastest)
-In your `Playground` component, you can poll a backend endpoint that returns the latest surface for a session.
-
-```typescript
-useEffect(() => {
-  const interval = setInterval(async () => {
-    const res = await fetch(`https://your-agent-backend.com/surface/${sessionId}`);
-    const data = await res.json();
-    setSurface(data);
-  }, 2000);
-  return () => clearInterval(interval);
-}, [sessionId]);
-```
-
----
-
-## 🎮 Interactive Local Playground
-
-The **A2UI Playground** supports a "Real Backend" mode to test your Engine logic locally.
-
-1. **Start the Engine**:
-   ```bash
-   make dev
-   ```
-   *This starts the FastAPI server (agent.py) on port 8000.*
-
-2. **Enable Connection**:
-   In the Playground header, switch to **Agent Mode**, then check the **"Connect to Local ADK Agent"** box at the bottom.
-
----
-
-## 🤖 Engine Setup (Python ADK)
-
-To send A2UI from an ADK agent, use the `A2UISurface` model provided in `src/backend/agent.py`.
+## 🛠️ Tool Orchestration (ADK)
+We recommend building your tools as **MCP (Model Context Protocol)** or **ADK Extensions**. This ensures that the agent can discover and invoke them with high reliability.
 
 ```python
-from .agent import A2UISurface, A2UIComponent
+# Example Tool in src/backend/tools/search.py
+from adk import Tool
 
-# 1. Define your tool
-async def generate_mcp_report(query: str):
-    return A2UISurface(
-        surfaceId="mcp-report",
-        content=[
-            A2UIComponent(type="Text", props={"text": "⚡ MCP Health", "variant": "h1"}),
-            A2UIComponent(type="Card", props={"title": "Connectivity Status"})
-        ]
-    )
+@Tool
+def search_docs(query: str):
+    """Searches the knowledge base for agent-ops documentation."""
+    return get_search_results(query)
 ```
 
-### Tool Usage Optimization (MCP Hub)
-Instead of using fragmented Tool APIs, the **Optimized Agent Stack** recommends using the **MCP Hub**:
+## 🏗️ The Agentic Flow
+A "Well-Architected" flow always follows this sequence:
+1. **Sanitize**: Input passes through the `PIIScrubber`.
+2. **Cache Check**: `Hive Mind` checks for a semantic hit.
+3. **Reason**: Gemini 2.0 reasoning loop via Vertex AI.
+4. **Action**: Tool execution via ADK.
+5. **Pack**: Final output is wrapped in an `EvidencePacket` for transparency.
 
-```python
-from .ops.mcp_hub import global_mcp_hub
-
-# Execute tools via standardized MCP protocol
-result = await global_mcp_hub.execute_tool("search", {"q": query})
-```
-
----
-
-## 🚀 Deployment to Google Cloud
-
-When you are ready to ship the **Engine**, use the **Cockpit** deployment command:
-
-```bash
-make deploy-prod
-```
-
-This will:
-1.  Containerize your Python Engine logic.
-2.  Deploy to **Google Cloud Run**.
-3.  Configure IAM and Cloud Trace automatically.
-
-## 🔗 Resources
-- [A2A Guide](./A2A_GUIDE.md)
-- [Official A2UI Specs](https://a2ui.org)
-- [ADK Documentation](https://github.com/a2aproject/adk)
+## 🏛️ Grounding
+To prevent hallucinations, ensure all tool outputs are grounded in your data sources. Use the `EvidenceNode` class to report the sources used in your final response.

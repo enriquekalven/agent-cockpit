@@ -1,104 +1,151 @@
-# The Optimized Agent Stack for Google Cloud (A2UI)
+# 🕹️ AgentOps Cockpit
 
-### Infrastructure gives you the pipes. We give you the Intelligence.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/enriquekalven/agent-cockpit/main/public/og-image.png" alt="AgentOps Cockpit Social Preview" width="100%" />
+</div>
 
-The **Optimized Agent Stack** is the professional distribution for application developers building on Gemini. While the [official Google Cloud Agent Starter Pack](https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agent-starter-pack) focus on infrastructure (VPCs, IAM, Terraform), we focus on the **Application Layer**: State synchronization, Cost Control, Security Audits, and Premium UX.
+<div align="center">
+  <br />
+  <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
+    <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
+  </a>
+  <br />
+  <br />
+  <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
+  <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
+  <img src="https://img.shields.io/badge/Google-Well--Architected-4285F4?style=for-the-badge&logo=google-cloud" alt="Google Well-Architected" />
+  <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
+</div>
+
+<br />
+
+<div align="center">
+  <h3>"Infrastructure gives you the pipes. We give you the Intelligence."</h3>
+  <p>The developer distribution for building, optimizing, and securing AI agents on Google Cloud.</p>
+</div>
+
+---
+
+## 📽️ The Mission
+Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
+
+### Key Pillars:
+- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices.
+- **Agentic Trinity**: Dedicated layers for the Engine (Logic), Face (UX), and Cockpit (Ops).
+- **A2A Connectivity**: Implements the [Agent-to-Agent Transmission Standard](/A2A_GUIDE.md) for secure swarm orchestration.
 
 ---
 
 ## 🏗️ The Agentic Trinity
+We divide the complexity of production agents into three focused pillars:
 
-A production-grade agent requires three synchronized pillars. We've built the ultimate 1-click ecosystem to handle them all.
-
-### 1. ⚙️ The Engine (Day 0)
-**Role: The Brain.** Focuses on internal reasoning, tool execution, and state management.
-*   **Powered by**: Python ADK, Reasoning Engine (Vertex AI).
-*   **Feature**: Native Google Cloud Trace & Logging integration.
-
-### 2. 🎭 The Face (Day 1)
-**Role: The Experience.** Focuses on how the agent manifests to the user. Moving away from chat-bubbles to adaptive surfaces.
-*   **Powered by**: React, A2UI Standard, GenUI.
-*   **Feature**: Dynamic A2UI Renderer and Adaptive Component Library.
-
-### 3. 🕹️ The Cockpit (Day 2)
-**Role: The Governance.** Found in **AgentOps Starter Pack**. Focuses on safety, scale, and profitability.
-*   **Powered by**: Shadow Router, Hive Mind Cache, Red Team Evaluation.
-*   **Viral Hook**: "The only starter pack that hacks itself so your users can't."
+- **⚙️ The Engine**: The reasoning core. Built with **ADK**, FastAPI, and Vertex AI.
+- **🎭 The Face**: The user experience. Adaptive UI surfaces and **GenUI** standards via the A2UI spec.
+- **🕹️ The Cockpit**: The operational brain. Cost control, semantic caching, shadow routing, and adversarial audits.
 
 ---
 
-## 🚀 The Blue Ocean Opportunity
+## 🌐 Framework Agnostic Governance
+The Cockpit isn't just for ADK. It provides **Best Practices as Code** across all major agentic frameworks:
 
-We win by solving the features that application developers care about, not just sysadmins.
+<div align="center">
+  <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
+  <img src="https://img.shields.io/badge/Anthropic_Claude-D97757?style=for-the-badge&logo=anthropic" alt="Anthropic" />
+  <img src="https://img.shields.io/badge/Microsoft_AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="Microsoft" />
+  <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws" alt="AWS" />
+  <img src="https://img.shields.io/badge/CopilotKit.ai-6366f1?style=for-the-badge" alt="CopilotKit" />
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
+  <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
+</div>
 
-| Feature | Standard "Starter Pack" | **The Optimized Agent Stack** |
-| :--- | :--- | :--- |
-| **Frontend Layer** | Generic / None | **A2UI + State Sync Native** |
-| **Cost Control** | "Dumb Pipes" | **Semantic Cache (40% Savings)** |
-| **Assurance** | Staging Apps | **Shadow Mode Deployment** |
-| **Connectivity** | REST Callbacks | **MCP Tool Hub Native** |
-| **Optimization** | Manual Audit | **Interactive Agent Linter** |
+<div align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go" />
+  <img src="https://img.shields.io/badge/NodeJS-339933?style=flat-square&logo=node.js&logoColor=white" alt="NodeJS" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
+  <img src="https://img.shields.io/badge/Lit-324FFF?style=flat-square&logo=lit&logoColor=white" alt="Lit" />
+</div>
 
----
+Whether you are building a swarm in **CrewAI**, a Go-based high-perf engine, or a **Streamlit** dashboard, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.
 
-## 🔥 Key "Cockpit" Features
-
-### 🕵️ Shadow Mode Deployment
-**The Confidence Builder.** Traffic is sent to your production agent (v1), while asynchronously sending the same request to an experimental version (v2) in the background. Compare responses side-by-side in the Ops Dashboard before promoting.
-
-### 🧠 The "Hive Mind" Semantic Cache
-**Cut costs by 40%.** Drop-in middleware that checks a Vector Store (Memorystore/AlloyDB AI) before calling the LLM. If a similar question was asked recently, it returns the cached answer in 0.1s.
-
-### 🚩 "Red Team" CI/CD Audit
-**The Self-Hacking Starter Pack.** A pre-deployment security check that unleashes an aggressive LLM to try and jailbreak your agent or extract PII. If it succeeds, the deployment fails.
-
-### 📟 "The Black Box" Flight Recorder
-**Debug like a Video Game.** A visual replay tool in the `/ops` dashboard that records the entire chain of thought, tool inputs/outputs, and state changes. Scrub through executions to find exactly where logic failed.
-
-### 🛠️ MCP Tool Hub (Optimization)
-**Unified Tool Connectivity.** Standardize your agent's connection to external data using the **Model Context Protocol (MCP)**. Our built-in auditor detects legacy, high-latency Tool APIs and recommends 1-click migrations to MCP tools.
 
 ---
 
-## 🛠️ Usage
+## 🚀 Key Innovation: The "Intelligence" Layer
 
-### Scaffolding
-Use the CLI directly without installation:
+### 🛡️ Red Team Auditor (Self-Hacking)
+Don't wait for your users to find prompt injections. Use the built-in Adversarial Evaluator to launch self-attacks against your agent, testing for PII leaks, instruction overrides, and safety filter bypasses.
+
+### 🧠 Hive Mind (Semantic Caching)
+**Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
+
+### 🏛️ Arch Review & Framework Detection
+Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack—**Google ADK**, **OpenAI Agentkit**, **Anthropic Claude**, **Microsoft AutoGen/Semantic Kernel**, **AWS Bedrock Agents**, or **CopilotKit**—and runs a tailored audit against corresponding production standards. Use `make arch-review` to verify your **Governance-as-Code**.
+
+### 🕹️ MCP Connectivity Hub (Model Context Protocol)
+Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to Google Search, Slack, or your internal databases via the standardized Model Context Protocol for secure, audited tool execution.
+
+### 🧗 Quality Hill Climbing (ADK Evaluation)
+Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
+
+---
+
+## ⌨️ Quick Start
+
+The Cockpit is available as a first-class CLI on PyPI. 
+
 ```bash
-uvx agent-starter-pack create <project-name>
+# 1. Install the Cockpit globally
+pip install agentops-cockpit
+
+# 2. Audit your existing agent design
+agent-ops arch-review
+
+# 3. Stress test your endpoint
+agent-ops load-test --requests 100 --concurrency 10
+
+# 4. Scaffold a new Well-Architected app
+agent-ops create my-agent --ui a2ui
 ```
 
-### Operations (The Cockpit)
-Built-in `Makefile` commands for Day 2 management:
+You can also use `uvx` for one-off commands without installation:
 ```bash
-make audit      # Run the Interactive Agent Optimizer
-make red-team   # Unleash security self-hacking
-make dev        # Start local dev stack (Vite + FastAPI)
-make deploy-prod # 1-click deploy to Cloud Run + Firebase
+uvx agentops-cockpit arch-review
 ```
 
 ---
 
-## 🔍 The Optimizer (Interactive Agent Ops)
+## 📊 Local Development
+The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
 
-The `optimizer.py` CLI audits your agent code and proposes optimizations that you can interactively approve or reject.
-
-**What it checks:**
-1.  **Context Caching**: Identifies large static prompts and suggests Gemini Context Caching.
-2.  **Prompt Compression**: Finds redundant tokens in your A2UI blueprints.
-3.  **Model Routing**: Audits routing logic to ensure Gemini 2.0 Flash is used for simple tasks.
-4.  **MCP Migration**: Suggests moving legacy Tool APIs to the MCP Hub.
-
----
-
-## 🏗️ Architecture & Standards
-
-- **A2UI**: The core protocol for adaptive, JSON-driven interfaces.
-- **AG-UI**: State management and human-in-the-loop interaction layers.
-- **Optimized Agent Stack**: The production platform for scale and cost.
+```bash
+make audit-all         # 🕹️ Run ALL audits and generate a Final Report
+make reliability       # 🛡️ Run unit tests and regression suite
+make dev               # Start the local Engine + Face stack
+make arch-review   # 🏛️ Run the Google Well-Architected design review
+make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit
+make audit         # 🔍 Run the Interactive Agent Optimizer
+make red-team      # Execute a white-hat security audit
+make deploy-prod   # 🚀 1-click deploy to Google Cloud
+```
 
 ---
 
-## License
+## 🧭 Roadmap
+- [ ] **One-Click GitHub Action**: Automated audits on every PR.
+- [ ] **Multi-Agent Orchestrator**: Support for Swarm/Coordinator patterns.
+- [ ] **Visual Mission Control**: Real-time observability dashboard.
 
-MIT
+[View full roadmap →](/ROADMAP.md)
+
+---
+
+## 🤝 Community
+- **Star this repo** to help us build the future of AgentOps.
+- **Join the Discussion** for patterns on Google Cloud.
+- **Contribute**: Read our [Contributing Guide](/CONTRIBUTING.md).
+
+---
+*Reference: [Google Cloud Architecture Center - Agentic AI Overview](https://docs.cloud.google.com/architecture/agentic-ai-overview)*

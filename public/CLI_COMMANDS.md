@@ -2,45 +2,65 @@
 
 The **Optimized Agent Stack** provides a comprehensive set of tools for both building (Scaffolding) and managing (Operations) AI agents.
 
-## 1. Scaffolding (Day 0)
+## 1. Installation & Scaffolding (Day 0)
 
-Use `uvx` to create new projects without local installation:
+The AgentOps Cockpit is available as a professional CLI on PyPI.
 
-### `create`
-Scaffold a new project with a specific UI flavor.
+### Install globally:
 ```bash
-uvx agent-starter-pack create my-agent --ui a2ui
+pip install agentops-cockpit
+```
+
+### Scaffold a new project:
+```bash
+# Creates a new Well-Architected agent repo
+agent-ops create my-agent --ui a2ui
 ```
 
 ---
 
-## 2. The Cockpit: Agent Operations (Makefile)
+## 2. Operations & Auditing (The Cockpit)
 
-Use the included `Makefile` for Day 2 production management.
+Run these commands inside any agent repository to verify governance-as-code.
 
-### `make audit`
-Runs the **Interactive Agent Optimizer**.
-*   **Scanning**: Scans `agent.py` for cost/perf waste.
-*   **Proposals**: Suggests Gemini Context Caching, Prompt Compression, and MCP Migration.
-*   **Approval**: Interactive `approve/reject` workflow.
+### `agent-ops arch-review`
+Audits agent design against the **Google Well-Architected Framework**.
+*   **Detection**: Automatically detects frameworks (LangGraph, ADK, CrewAI).
+*   **Gap Analysis**: Identifies architectural weaknesses in security, cost, and reliability.
 
-### `make red-team`
-Unleashes a security audit against your agent.
-*   **Adversarial Eval**: Prompt injection, PII extraction, and jailbreak simulation.
-*   **Safety Lock**: Fails deployment if vulnerabilities are found.
+### `agent-ops audit`
+Runs the **Interactive Agent Optimizer** on specific logic files.
+*   **Scanning**: Checks for token waste, missing cache, or inefficient model routing.
+*   **Proposals**: Suggests localized code improvements with an interactive diff viewer.
+*   **Optimization**: Defaults to `agent.py`.
 
-### `make dev`
-Starts the local development stack (Vite frontend + FastAPI backend).
-```bash
-make dev
+### `agent-ops red-team`
+Unleashes adversarial security evaluations.
+*   **Stress Test**: Simulates prompt injections, PII leaks, and jailbreak attempts.
+*   **Safety Grade**: Provides a pass/fail grade for production readiness.
+
+### `agent-ops report`
+The "Full Mission Sweep". Runs all audits (Arch, Quality, Security, Cost) and generates a comprehensive `cockpit_final_report.md`.
+
+---
+
+### Tool Usage Optimization (MCP Hub)
+Instead of using fragmented Tool APIs, the **Optimized Agent Stack** provides a unified **MCP (Model Context Protocol) Hub**. This allows you to connect to any industry-standard tool server (Google Search, SQL, Slack) with a single interface.
+
+```python
+from agent_ops_cockpit.ops.mcp_hub import global_mcp_hub
+
+# 1. Register an MCP server (e.g., Google Search)
+global_mcp_hub.register_server(
+    "google-search", 
+    "npx", 
+    ["-y", "@modelcontextprotocol/server-google-search"]
+)
+
+# 2. Execute tools via standardized MCP protocol
+result = await global_mcp_hub.execute_tool("search", {"q": "Vertex AI updates"})
 ```
-
-### `make deploy-prod`
-The "Golden Path" to production.
-1.  **Optimization**: Runs a fresh audit.
-2.  **Build**: Compiles the React frontend.
-3.  **Engine**: Deploys the backend to **Google Cloud Run**.
-4.  **Face**: Deploys the frontend to **Firebase Hosting**.
+Govern all execution metrics via the Cockpit dashboard.
 
 ---
 
