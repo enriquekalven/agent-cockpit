@@ -76,17 +76,25 @@ Following **Google ADK Evaluation** best practices, the Cockpit provides an iter
 
 ## ⌨️ Quick Start
 
-You don't even need to clone the repo to start auditing.
+The Cockpit is available as a first-class CLI on PyPI. 
 
 ```bash
-# 1. Audit your existing agent design
-uvx agent-ops-cockpit arch-review
+# 1. Install the Cockpit globally
+pip install agentops-cockpit
 
-# 2. Stress test your endpoint
-uvx agent-ops-cockpit load-test --requests 100 --concurrency 10
+# 2. Audit your existing agent design
+agent-ops arch-review
 
-# 3. Scaffold a new Well-Architected app
-uvx agent-ops-cockpit create my-agent --ui a2ui
+# 3. Stress test your endpoint
+agent-ops load-test --requests 100 --concurrency 10
+
+# 4. Scaffold a new Well-Architected app
+agent-ops create my-agent --ui a2ui
+```
+
+You can also use `uvx` for one-off commands without installation:
+```bash
+uvx agentops-cockpit arch-review
 ```
 
 ---

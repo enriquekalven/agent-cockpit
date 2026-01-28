@@ -88,11 +88,12 @@ export function Home() {
                   <div className="terminal-title">agent-ops --audit</div>
                 </div>
                 <div className="terminal-body">
-                  <div className="line terminal-cmd">$ uvx agent-ops-cockpit arch-review</div>
+                  <div className="line terminal-cmd">$ pip install agentops-cockpit</div>
+                  <div className="line text-green-400">Successfully installed agentops-cockpit-0.2.2</div>
+                  <div className="line terminal-cmd">$ agent-ops arch-review</div>
                   <div className="line text-blue-400">🏛️ Launching Architecture Design Review...</div>
                   <div className="line text-gray-500">[1/4] Checking Core Architecture... [OK]</div>
                   <div className="line text-gray-500">[2/4] Verifying Privacy Middleware... [PII_SCRUBBER_ACTIVE]</div>
-                  <div className="line text-gray-500">[3/4] Auditing Token Optimization... [40%_SAVINGS_FOUND]</div>
                   <div className="line text-green-400">✅ Architecture aligned with Google Well-Architected Framework.</div>
                   <div className="line blink">_</div>
                 </div>
