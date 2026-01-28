@@ -6,6 +6,15 @@ from rich.console import Console
 from rich.panel import Panel
 import typer
 
+# Deep imports for portable CLI execution
+from agent_ops_cockpit.ops import arch_review as arch_mod
+from agent_ops_cockpit.ops import orchestrator as orch_mod
+from agent_ops_cockpit.ops import reliability as rel_mod
+from agent_ops_cockpit.eval import quality_climber as quality_mod
+from agent_ops_cockpit.eval import red_team as red_mod
+from agent_ops_cockpit.eval import load_test as load_mod
+from agent_ops_cockpit import optimizer as opt_mod
+
 app = typer.Typer(help="AgentOps Cockpit: The AI Agent Operations Platform", no_args_is_help=True)
 console = Console()
 
@@ -14,7 +23,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v0.2.2[/bold cyan]")
 
 @app.command()
 def reliability():
@@ -22,7 +31,7 @@ def reliability():
     Run reliability audit (Unit Tests + Regression Suite coverage).
     """
     console.print("🛡️ [bold green]Launching Reliability Audit...[/bold green]")
-    subprocess.run([sys.executable, "-m", "backend.ops.reliability", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+    rel_mod.run_tests()
 
 @app.command()
 def report():
@@ -30,34 +39,34 @@ def report():
     Launch full AgentOps audit (Arch, Quality, Security, Cost) and generate a final report.
     """
     console.print("🕹️ [bold blue]Launching Full System Audit...[/bold blue]")
-    subprocess.run([sys.executable, "-m", "backend.ops.orchestrator"], env={**os.environ, "PYTHONPATH": "src"})
+    orch_mod.run_full_audit()
 
 @app.command()
-def quality_baseline():
+def quality_baseline(path: str = "."):
     """
     Run iterative 'Hill Climbing' quality audit against a golden dataset.
     """
     console.print("🧗 [bold cyan]Launching Quality Hill Climber...[/bold cyan]")
-    subprocess.run([sys.executable, "-m", "backend.eval.quality_climber", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+    quality_mod.audit(path)
 
 @app.command()
-def arch_review():
+def arch_review(path: str = "."):
     """
     Audit agent design against Google Well-Architected Framework.
     """
     console.print("🏛️ [bold blue]Launching Architecture Design Review...[/bold blue]")
-    subprocess.run([sys.executable, "-m", "backend.ops.arch_review", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+    arch_mod.audit(path)
 
 @app.command()
 def audit(
     file_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
+    interactive: bool = typer.Option(True, "--interactive/--no-interactive", "-i", help="Run in interactive mode")
 ):
     """
     Run the Interactive Agent Optimizer audit.
     """
     console.print("🔍 [bold blue]Running Agent Operations Audit...[/bold blue]")
-    # Run the optimizer module
-    subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", file_path], env={**os.environ, "PYTHONPATH": "src"})
+    opt_mod.audit(file_path, interactive)
 
 @app.command()
 def red_team(
@@ -67,7 +76,7 @@ def red_team(
     Run the Red Team adversarial security evaluation.
     """
     console.print("🚩 [bold red]Launching Red Team Evaluation...[/bold red]")
-    subprocess.run([sys.executable, "-m", "backend.eval.red_team", "audit", agent_path], env={**os.environ, "PYTHONPATH": "src"})
+    red_mod.audit(agent_path)
 
 @app.command()
 def load_test(
@@ -79,12 +88,7 @@ def load_test(
     Stress test agent endpoints for performance and reliability.
     """
     console.print("⚡ [bold yellow]Launching Base Load Test...[/bold yellow]")
-    subprocess.run([
-        sys.executable, "-m", "backend.eval.load_test", "run", 
-        "--url", url, 
-        "--requests", str(requests), 
-        "--concurrency", str(concurrency)
-    ], env={**os.environ, "PYTHONPATH": "src"})
+    load_mod.run(url, requests, concurrency)
 
 @app.command()
 def deploy(
@@ -98,7 +102,7 @@ def deploy(
     
     # 1. Audit
     console.print("\n[bold]Step 1: Code Optimization Audit[/bold]")
-    subprocess.run([sys.executable, "-m", "backend.optimizer", "audit", "--no-interactive"], env={**os.environ, "PYTHONPATH": "src"})
+    opt_mod.audit("src/backend/agent.py", interactive=False)
     
     # 2. Build Frontend
     console.print("\n[bold]Step 2: Building Frontend Assets[/bold]")
@@ -163,7 +167,7 @@ def create(
             f"[bold]Quick Start:[/bold]\n"
             f"  1. [dim]cd[/dim] {project_name}\n"
             f"  2. [dim]{'npm install' if ui != 'flutter' else 'flutter pub get'}[/dim]\n"
-            f"  3. [dim]uvx agent-ops-cockpit audit[/dim]\n"
+            f"  3. [dim]agent-ops audit[/dim]\n"
             f"  4. [dim]{start_cmd}[/dim]\n\n"
             f"Configuration: UI=[bold cyan]{ui}[/bold cyan], CopilotKit=[bold cyan]{'Enabled' if copilotkit else 'Disabled'}[/bold cyan]",
             title="[bold green]Project Scaffolding Complete[/bold green]",

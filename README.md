@@ -1,10 +1,20 @@
 # 🕹️ AgentOps Cockpit
 
 <div align="center">
+  <img src="https://raw.githubusercontent.com/enriquekalven/agent-cockpit/main/public/og-image.png" alt="AgentOps Cockpit Social Preview" width="100%" />
+</div>
+
+<div align="center">
+  <br />
+  <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
+    <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
+  </a>
+  <br />
+  <br />
   <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
   <img src="https://img.shields.io/badge/Google-Well--Architected-4285F4?style=for-the-badge&logo=google-cloud" alt="Google Well-Architected" />
-  <img src="https://img.shields.io/badge/Status-Day%202%20Operations-10b981?style=for-the-badge" alt="Status" />
+  <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
 </div>
 
 <br />
@@ -17,7 +27,12 @@
 ---
 
 ## 📽️ The Mission
-Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. While optimized for **ADK**, it provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem—from CrewAI to LangGraph. Based on the **[Google Well-Architected Framework for Agents](/docs/google-architecture)**.
+Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
+
+### Key Pillars:
+- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices.
+- **Agentic Trinity**: Dedicated layers for the Engine (Logic), Face (UX), and Cockpit (Ops).
+- **A2A Connectivity**: Implements the [Agent-to-Agent Transmission Standard](/A2A_GUIDE.md) for secure swarm orchestration.
 
 ---
 
