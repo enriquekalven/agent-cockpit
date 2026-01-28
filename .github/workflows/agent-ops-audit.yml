@@ -1,0 +1,38 @@
+name: AgentOps Cockpit Audit
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install typer rich aiohttp pydantic fastapi
+        
+    - name: Run Architecture Design Review
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+        python3 src/backend/ops/arch_review.py audit
+        
+    - name: Run Security Red Team Audit
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+        python3 src/backend/eval/red_team.py src/backend/agent.py
+        
+    - name: Run Token Optimizer
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+        python3 src/backend/optimizer.py audit src/backend/agent.py --no-interactive

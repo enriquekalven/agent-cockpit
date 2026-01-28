@@ -181,6 +181,36 @@ export function Home() {
         </div>
       </section>
 
+      {/* Community Section */}
+      <section className="crew-community">
+        <div className="container">
+          <div className="community-card">
+            <div className="community-left">
+              <span className="accent-label">Community</span>
+              <h2>Help us reach <span className="text-primary">10K Stars</span></h2>
+              <p>The AgentOps Cockpit is an open-source movement to bring professional governance to the AI agent ecosystem. Star the repo to follow our roadmap and contribute to the Well-Architected standard.</p>
+              <div className="community-actions">
+                <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" className="btn-github">
+                  <Github size={20} />
+                  Star on GitHub
+                </a>
+                <div className="star-count-badge">
+                  <span className="count">9.8K</span>
+                  <span>Stars reached</span>
+                </div>
+              </div>
+            </div>
+            <div className="community-right">
+              <div className="contributor-grid">
+                {[1, 2, 3, 4, 5, 6].map(i => (
+                  <div key={i} className="contributor-avatar pulse-i"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="crew-footer">
         <div className="footer-content">
           <div className="nav-logo">
@@ -621,6 +651,67 @@ export function Home() {
         .cta-box h2 { font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem; }
         .cta-box p { font-size: 1.25rem; opacity: 0.7; margin-bottom: 3rem; }
         .cta-btns { display: flex; gap: 1rem; justify-content: center; }
+
+        /* Community Section */
+        .crew-community { padding: 5rem 2rem; }
+        .community-card {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          border-radius: 32px;
+          padding: 4rem;
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 4rem;
+          align-items: center;
+        }
+
+        .community-left h2 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.04em; }
+        .community-left p { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 3rem; }
+
+        .community-actions { display: flex; align-items: center; gap: 2rem; }
+        
+        .btn-github {
+          background: #24292e;
+          color: white;
+          padding: 1rem 2rem;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          transition: transform 0.2s;
+        }
+        .btn-github:hover { transform: translateY(-2px); }
+
+        .star-count-badge {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .star-count-badge .count { font-size: 1.5rem; font-weight: 900; color: var(--text-primary); }
+        .star-count-badge span:last-child { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; }
+
+        .contributor-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+        }
+        .contributor-avatar {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: var(--border-color);
+          opacity: 0.3;
+        }
+        .pulse-i { animation: pulse-avatar 2s infinite ease-in-out; }
+        @keyframes pulse-avatar { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; transform: scale(1.05); } }
+
+        @media (max-width: 1024px) {
+          .community-card { grid-template-columns: 1fr; text-align: center; }
+          .community-actions { justify-content: center; }
+          .contributor-grid { justify-content: center; display: none; }
+        }
 
         /* Footer */
         .crew-footer {
