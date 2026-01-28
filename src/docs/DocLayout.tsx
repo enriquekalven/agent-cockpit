@@ -13,6 +13,7 @@ const PILLAR_NAV = [
     title: 'Introduction',
     items: [
       { id: 'story', label: 'The Trinity Vision', path: '/docs/story', icon: <BookOpen size={18} /> },
+      { id: 'google-architecture', label: 'Google Well-Architected', path: '/docs/google-architecture', icon: <ShieldCheck size={18} /> },
       { id: 'getting-started', label: 'Quickstart Guide', path: '/docs/getting-started', icon: <Rocket size={18} /> },
     ]
   },

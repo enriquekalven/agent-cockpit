@@ -13,6 +13,7 @@ const DOC_FILES: Record<string, string> = {
   'be-integration': '/BE_INTEGRATION_GUIDE.md',
   story: '/AGENT_OPS_STORY.md',
   'production-checklist': '/PRODUCTION_CHECKLIST.md',
+  'google-architecture': '/GOOGLE_ARCHITECTURE.md',
 };
 
 export const DocPage: React.FC = () => {

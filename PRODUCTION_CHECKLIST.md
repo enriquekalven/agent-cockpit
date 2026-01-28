@@ -1,6 +1,6 @@
 # 🏁 AgentOps Production Readiness Checklist
 
-Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you have completed this checklist. This list incorporates best practices from **OpenAI**, **Anthropic**, and **Google Vertex AI**.
+Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you have completed this checklist. This list incorporates best practices from **OpenAI**, **Anthropic**, and the **[Google Well-Architected Framework for Agents](/docs/google-architecture)**.
 
 ## 🛡️ Security & Privacy
 - [ ] **PII Scrubbing**: Are you using the `PIIScrubber` middleware to mask sensitive data (SSNs, CCs, Emails) before sending to the LLM?

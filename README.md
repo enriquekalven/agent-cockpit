@@ -2,7 +2,7 @@
 
 ### "Infrastructure gives you the pipes. We give you the Intelligence."
 
-The **AgentOps Cockpit** is a production-grade distribution for managing, optimizing, and securing AI agents on Google Cloud. While standard templates focus on VPCs and IAM, the Cockpit focuses on **Day 2 Operations**: Cost Control, Semantic Caching, Shadow Deployments, and Adversarial Audits.
+The **Optimized Agent Stack** is a production-grade distribution for building AI agents on Google Cloud. It is built strictly on the **[Google Well-Architected Framework for Agents](/docs/google-architecture)** and focuses on high-performance, cost-effective, and secure "Day 2" Agent Operations: Cost Control, Semantic Caching, Shadow Deployments, and Adversarial Audits.
 
 ---
 

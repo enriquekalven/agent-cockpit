@@ -2,27 +2,23 @@
 
 This repository is the **Operations (Cockpit)** layer of the Optimized Agent Stack. Use this context to provide accurate code assistance and optimizations.
 
+## 🚀 Project Overview
+The **Optimized Agent Stack** is a production-grade distribution for building AI agents on Google Cloud. It follows the **Google Well-Architected Framework for Agents** and covers the **Agentic Trinity**: Engine (Backend), Face (Frontend), and Cockpit (Operations).
+
 ## 🎯 Primary Objective
 To manage, optimize, and secure AI agents in production. This includes:
-- **Shadow Mode**: Parallel execution of v1 and v2 agents.
-- **Semantic Caching**: Using `hive_mind` to cache LLM responses.
-- **Cost Control**: Budgeting and model routing (Pro vs Flash).
-- **Red Team**: Automated adversarial testing.
+1.  **Cost Control**: Semantic caching and token auditing.
+2.  **Safety**: Adversarial Red Team auditing.
+3.  **Governance**: PII Scrubbing and Evidence Packing.
+4.  **Optimization**: Memory and load testing.
 
-## 🧱 Key Components
-- `src/backend/agent.py`: The entry point for the agent logic.
-- `src/backend/optimizer.py`: The CLI tool for auditing agent waste.
-- `src/backend/ops/`: Contains specialized optimization modules (Memory, Cost, Tooling).
-- `src/a2ui/`: The React-based ops dashboard.
+## 🏗️ The Trinity
+- **Engine**: FastAPI backend powered by Vertex AI and ADK.
+- **Face**: React/Vite/TypeScript frontend adhering to A2UI schemas.
+- **Cockpit**: Python CLI and operations logic for "Day 2" success.
 
-## 🤝 Relationship to Other Repos
-- `agent-starter-pack`: The **Engine** (fastapi template).
-- `agentui-starter-pack`: The **Face** (component library).
-- `agent-ops-cockpit`: (This repo) The **Cockpit** (runtime ops).
-
-## 🚀 Optimization Patterns
-When writing code for this repo, prioritize:
-1. **Gemini 1.5 Flash** for high-volume, low-reasoning tasks.
-2. **Context Caching** for large system instructions.
-3. **Pydantic Models** for structured A2UI outputs.
-4. **FastAPI Dependencies** for auditing and cost guarding.
+## 🤖 Assistant Rules
+- Always prioritize **Day 2 Operations** over simple scaffolding.
+- Follow the **Google Well-Architected Framework for Agents**.
+- Ensure all UI responses follow the `src/backend/agent.py` A2UI schema.
+- Encourage the use of `make audit` and `make red-team`.
