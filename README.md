@@ -1,104 +1,82 @@
-# The Optimized Agent Stack for Google Cloud (A2UI)
+# 🕹️ AgentOps Cockpit: The AI Agent Operations Platform
 
-### Infrastructure gives you the pipes. We give you the Intelligence.
+### "Infrastructure gives you the pipes. We give you the Intelligence."
 
-The **Optimized Agent Stack** is the professional distribution for application developers building on Gemini. While the [official Google Cloud Agent Starter Pack](https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agent-starter-pack) focus on infrastructure (VPCs, IAM, Terraform), we focus on the **Application Layer**: State synchronization, Cost Control, Security Audits, and Premium UX.
+The **AgentOps Cockpit** is a production-grade distribution for managing, optimizing, and securing AI agents on Google Cloud. While standard templates focus on VPCs and IAM, the Cockpit focuses on **Day 2 Operations**: Cost Control, Semantic Caching, Shadow Deployments, and Adversarial Audits.
 
 ---
 
 ## 🏗️ The Agentic Trinity
+A production agent requires three synchronized pillars. This repository serves as the **Cockpit**.
 
-A production-grade agent requires three synchronized pillars. We've built the ultimate 1-click ecosystem to handle them all.
-
-### 1. ⚙️ The Engine (Day 0)
-**Role: The Brain.** Focuses on internal reasoning, tool execution, and state management.
-*   **Powered by**: Python ADK, Reasoning Engine (Vertex AI).
-*   **Feature**: Native Google Cloud Trace & Logging integration.
-
-### 2. 🎭 The Face (Day 1)
-**Role: The Experience.** Focuses on how the agent manifests to the user. Moving away from chat-bubbles to adaptive surfaces.
-*   **Powered by**: React, A2UI Standard, GenUI.
-*   **Feature**: Dynamic A2UI Renderer and Adaptive Component Library.
-
-### 3. 🕹️ The Cockpit (Day 2)
-**Role: The Governance.** Found in **AgentOps Starter Pack**. Focuses on safety, scale, and profitability.
-*   **Powered by**: Shadow Router, Hive Mind Cache, Red Team Evaluation.
-*   **Viral Hook**: "The only starter pack that hacks itself so your users can't."
+1. **⚙️ The Engine (The Brain)**: Reasoning and tool execution (via Python ADK & Vertex AI).
+2. **🎭 The Face (The Experience)**: Adaptive surfaces and GenUI (via A2UI Standard).
+3. **🕹️ The Cockpit (The Governance)**: Safety, scale, and profitability (Shadow Router, Hive Mind, Red Team).
 
 ---
 
-## 🚀 The Blue Ocean Opportunity
-
-We win by solving the features that application developers care about, not just sysadmins.
-
-| Feature | Standard "Starter Pack" | **The Optimized Agent Stack** |
-| :--- | :--- | :--- |
-| **Frontend Layer** | Generic / None | **A2UI + State Sync Native** |
-| **Cost Control** | "Dumb Pipes" | **Semantic Cache (40% Savings)** |
-| **Assurance** | Staging Apps | **Shadow Mode Deployment** |
-| **Connectivity** | REST Callbacks | **MCP Tool Hub Native** |
-| **Optimization** | Manual Audit | **Interactive Agent Linter** |
-
----
-
-## 🔥 Key "Cockpit" Features
+## 🚀 Key Features
 
 ### 🕵️ Shadow Mode Deployment
-**The Confidence Builder.** Traffic is sent to your production agent (v1), while asynchronously sending the same request to an experimental version (v2) in the background. Compare responses side-by-side in the Ops Dashboard before promoting.
+**The Confidence Builder.** Send traffic to your production agent (v1) while asynchronously testing an experimental version (v2) in the background. Compare responses side-by-side in the Ops Dashboard before promoting.
 
 ### 🧠 The "Hive Mind" Semantic Cache
-**Cut costs by 40%.** Drop-in middleware that checks a Vector Store (Memorystore/AlloyDB AI) before calling the LLM. If a similar question was asked recently, it returns the cached answer in 0.1s.
+**Cut LLM costs by up to 40%.** A drop-in middleware that checks a Vector Store (Memorystore/AlloyDB AI) for semantically similar queries. If a match is found, returns the answer in 0.1s without calling the LLM.
 
-### 🚩 "Red Team" CI/CD Audit
-**The Self-Hacking Starter Pack.** A pre-deployment security check that unleashes an aggressive LLM to try and jailbreak your agent or extract PII. If it succeeds, the deployment fails.
+### 🚩 "Red Team" Adversarial Audit
+**The Self-Hacking Auditor.** A pre-deployment security engine that unleashes an aggressive LLM to try and jailbreak your agent, extract PII, or override system instructions.
 
-### 📟 "The Black Box" Flight Recorder
-**Debug like a Video Game.** A visual replay tool in the `/ops` dashboard that records the entire chain of thought, tool inputs/outputs, and state changes. Scrub through executions to find exactly where logic failed.
-
-### 🛠️ MCP Tool Hub (Optimization)
-**Unified Tool Connectivity.** Standardize your agent's connection to external data using the **Model Context Protocol (MCP)**. Our built-in auditor detects legacy, high-latency Tool APIs and recommends 1-click migrations to MCP tools.
+### 📉 Cost & Memory Optimizers
+- **CostOptimizer**: Real-time token tracking with intelligent "Pro vs Flash" routing recommendations.
+- **MemoryOptimizer**: Leaky-bucket eviction policies to prevent long-context memory bloat and reduce recursive token costs.
 
 ---
 
-## 🛠️ Usage
+## 🛠️ Installation & Usage
 
-### Scaffolding
-Use the CLI directly without installation:
+### 📟 Installation
+Install the Cockpit CLI to manage your agent stack:
 ```bash
-uvx agent-starter-pack create <project-name>
+pip install agent-ops-cockpit
 ```
 
-### Operations (The Cockpit)
-Built-in `Makefile` commands for Day 2 management:
+### ⌨️ CLI Commands
+The most important commands for your workflow:
 ```bash
-make audit      # Run the Interactive Agent Optimizer
-make red-team   # Unleash security self-hacking
-make dev        # Start local dev stack (Vite + FastAPI)
-make deploy-prod # 1-click deploy to Cloud Run + Firebase
+make audit      # 🔍 Run the Interactive Agent Optimizer
+make red-team   # 🚩 Run the Red Team security audit
+make dev        # 💻 Start local dev stack (FastAPI + Vite)
+make deploy-prod # 🚀 1-click deploy to Cloud Run + Firebase
+```
+
+### 🧬 Scaffolding New Projects
+```bash
+agent-ops create <my-new-agent>
 ```
 
 ---
 
-## 🔍 The Optimizer (Interactive Agent Ops)
+## 🚢 Agent-First CI/CD (The "Code Lime" Standard)
+We implement a "Code Lime" (Clean, Lean, Integrated, Monitored, Evaluated) standard for all deployments. Our built-in GitHub Action handles the heavy lifting:
 
-The `optimizer.py` CLI audits your agent code and proposes optimizations that you can interactively approve or reject.
+1. **Linting**: Automated code quality checks via Ruff.
+2. **Optimization**: Runs `make audit` to block deployments with wasteful token usage.
+3. **Evaluation**: Runs `make red-team` to ensure security hardening.
+4. **Build**: Concurrent frontend (Vite) and backend (FastAPI) builds.
 
-**What it checks:**
-1.  **Context Caching**: Identifies large static prompts and suggests Gemini Context Caching.
-2.  **Prompt Compression**: Finds redundant tokens in your A2UI blueprints.
-3.  **Model Routing**: Audits routing logic to ensure Gemini 2.0 Flash is used for simple tasks.
-4.  **MCP Migration**: Suggests moving legacy Tool APIs to the MCP Hub.
+---
+
+## 🤝 Gemini Code Assist
+This repo is optimized for **Gemini Code Assist**. We provide a deep context layer in `.github/docs/GEMINI_CONTEXT.md` to ensure Gemini understands the Trinity Architecture and can provide high-fidelity optimization code.
 
 ---
 
 ## 🏗️ Architecture & Standards
-
-- **A2UI**: The core protocol for adaptive, JSON-driven interfaces.
-- **AG-UI**: State management and human-in-the-loop interaction layers.
-- **Optimized Agent Stack**: The production platform for scale and cost.
+- **A2UI**: The protocol for adaptive, JSON-driven interfaces.
+- **MCP**: Model Context Protocol for unified tool connectivity.
+- **GCP Native**: Built for Vertex AI, Cloud Run, and Firebase.
 
 ---
 
-## License
-
-MIT
+## 📄 License
+MIT © Enrique Kalven

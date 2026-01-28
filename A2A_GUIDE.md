@@ -1,60 +1,39 @@
-# A2A (Agent-to-Agent) Protocol Guide
+# 📡 A2A (Agent-to-Agent) & The Cockpit
 
-The **Agent-to-Agent (A2A) Protocol** is a core part of the ADK ecosystem, enabling distributed agent architectures and seamless communication between different agentic services.
+The **Agent-to-Agent (A2A) Protocol** enables distributed agent architectures. In the **AgentOps Cockpit**, A2A is managed as a first-class orchestration pattern.
 
-## 📡 What is A2A?
+## 🌉 The Cockpit's Role in A2A
+While A2A handles the communication, the Cockpit handles the **Intelligence of the Connection**:
+1. **Auditing**: The `make audit` command detects "Chatty A2A" patterns where too many turns occur between agents, suggesting tool-offloading or prompt-collapsing.
+2. **Security**: `make red-team` tests the trust boundaries between agents to prevent "Side-Channel Injections" (where a compromised agent hacks another agent).
+3. **Caching**: The **Hive Mind Cache** can cache results of expensive A2A sub-tasks across your entire agent mesh.
 
-While A2UI focuses on how agents talk to *users*, A2A focuses on how agents talk to *each other*. It provides a standardized way for an agent to:
-1.  **Discover** other agents' capabilities.
-2.  **Call** other agents as tools.
-3.  **Stream** results (including A2UI payloads) back to a controller agent.
+## 🛠️ Implementation
 
-## 🛠️ Implementation Patterns
-
-### 1. Exposing an Agent as an A2A Service
-You can wrap any `LlmAgent` into a FastAPI-based A2A server using the `to_a2a` utility.
-
+### 1. Exposing an Agent Service
+Wrap your agent as an A2A service for other agents in the Cockpit to consume:
 ```python
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
-from my_project.agents import MyExpertAgent
+from src.backend.agent import my_agent
 
-expert_agent = MyExpertAgent(...)
-a2a_app = to_a2a(expert_agent, port=8001)
+# Standardizing the A2A port to 8001 (Engine is 8000)
+a2a_app = to_a2a(my_agent, port=8001)
 ```
 
-### 2. Communicating via RemoteA2aAgent
-A controller agent can interact with a remote A2A service as if it were a local tool.
+### 2. Orchestration via MCP
+The Cockpit uses the **Model Context Protocol (MCP)** to manage A2A connections:
+- **Unified Tooling**: Remote agents appear as standard tools in `src/backend/ops/mcp_hub.py`.
+- **Latency Tracking**: The Cockpit monitors the round-trip time between agent calls to ensure sub-second UI responsiveness.
 
+## 🔄 A2UI + A2A Flow
+When Agent A calls Agent B, the A2UI content from Agent B is automatically passed through to the final surface if the **Cockpit Middleware** is enabled:
 ```python
-from google.adk.a2a.remote_a2a_agent import RemoteA2aAgent
-
-# Point to the remote agent's descriptor
-remote_expert = RemoteA2aAgent(
-    name="expert_proxy",
-    agent_card="http://expert-service:8001/a2a/expert/.well-known/agent.json"
-)
-
-# Add it to your main agent's toolset
-orchestrator = LlmAgent(
-    tools=[remote_expert],
-    ...
-)
+# In agent.py
+shadow_router = ShadowRouter(v1_func=agent_v1, v2_func=agent_v2)
+# Handles A2UI + A2A metadata automatically
 ```
 
-## 🔄 A2A + A2UI
-When a remote agent generates A2UI content, the `A2aAgentExecutor` automatically handles the conversion of tool outputs into A2A parts, ensuring the final client receives a correctly formatted UI.
-
-```python
-from a2ui.send_a2ui_to_client_toolset import convert_send_a2ui_to_client_genai_part_to_a2a_part
-
-config = A2aAgentExecutorConfig(
-    genai_part_converter=convert_send_a2ui_to_client_genai_part_to_a2a_part
-)
-executor = A2aAgentExecutor(config)
-```
-
-## 🌐 Enterprise Mesh & MCP
-In a production environment, A2A agents are registered and optimized via the **MCP Tool Hub**. Using the **Model Context Protocol (MCP)** ensures that cross-agent calls are standardized, secure, and audited by the Cockpit.
-
-*   **Discovery**: The MCP Hub automatically discovers registered A2A agents.
-*   **Optimization**: The Cockpit's Interactive Optimizer flags high-latency A2A calls and suggests tool-caching strategies.
+## 🏗️ Enterprise Mesh
+In large-scale deployments, the Cockpit allows you to:
+- **A/B Test Agents**: Split traffic between different expert agents using the Shadow Router.
+- **Cost Guarding**: Set per-agent budgets to prevent one agent in the mesh from exhausting your quota.

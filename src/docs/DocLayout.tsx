@@ -77,13 +77,7 @@ export const DocLayout: React.FC<DocLayoutProps> = ({ children }) => {
             </div>
           ))}
 
-          <div className="nav-group">
-            <div className="nav-group-title">Interactive</div>
-            <Link to="/playground" className="nav-item">
-              <Layout size={18} />
-              <span>A2UI Playground</span>
-            </Link>
-          </div>
+
 
           <div className="nav-group">
             <div className="nav-group-title">Resources</div>

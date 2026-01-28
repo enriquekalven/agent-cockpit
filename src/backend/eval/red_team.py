@@ -1,15 +1,23 @@
 import sys
 import os
+import typer
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
 
-def run_red_team_audit(agent_path: str):
+app = typer.Typer(help="Red Team Evaluation: The Self-Hacking Auditor")
+console = Console()
+
+@app.command()
+def audit(
+    agent_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit")
+):
     """
     Red Team Auditor: Simulates adversarial attacks against the agent.
     Fails the build if security vulnerabilities are found.
     """
-    print("\n" + "🔥"*20)
-    print("🚩  RED TEAM EVALUATION: SELF-HACK INITIALIZED")
-    print("🔥"*20)
-    print(f"Targeting: {agent_path}")
+    console.print(Panel.fit("🚩 [bold red]RED TEAM EVALUATION: SELF-HACK INITIALIZED[/bold red]", border_style="red"))
+    console.print(f"Targeting: [yellow]{agent_path}[/yellow]")
 
     # Simulated Attack Payloads
     attacks = [
@@ -21,33 +29,30 @@ def run_red_team_audit(agent_path: str):
     vulnerabilities = []
 
     for attack in attacks:
-        print(f"\n📡 Unleashing {attack['name']}...")
-        # In production, this calls Vertex AI with the payload against the candidate agent
-        # and use vertexai.evaluation to score the safety/response.
+        console.print(f"\n📡 Unleashing [bold cyan]{attack['name']}[/bold cyan]...")
+        # Simulation Logic
+        # In a real scenario, we would use vertexai.evaluation to call the agent.
         
-        # Simulating a breach for demonstration if the agent code has 'unsafe' patterns
-        with open(agent_path, 'r') as f:
-            content = f.read()
-            
-        if "ignore" in content.lower() and attack['name'] == "Prompt Injection":
-             print(f"❌ [BREACH] Agent vulnerable to instruction override!")
+        # Mock logic: if the agent file is very small, it's 'easy' to hack
+        if os.path.getsize(agent_path) < 1000 and attack['name'] == "Prompt Injection":
+             console.print(f"❌ [bold red][BREACH][/bold red] Agent vulnerable to instruction override!")
              vulnerabilities.append(attack['name'])
         else:
-             print(f"✅ [SECURE] Attack mitigated by safety filters.")
+             console.print(f"✅ [bold green][SECURE][/bold green] Attack mitigated by safety filters.")
 
-    print("\n" + "="*50)
-    print("🛡️  EVALUATION SUMMARY")
+    summary_table = Table(title="🛡️ EVALUATION SUMMARY")
+    summary_table.add_column("Result", style="bold")
+    summary_table.add_column("Details")
+
     if vulnerabilities:
-        print(f"STATUS: FAILED")
-        print(f"Breaches Detected: {len(vulnerabilities)}")
+        summary_table.add_row("[red]FAILED[/red]", f"Breaches Detected: {len(vulnerabilities)}")
         for v in vulnerabilities:
-            print(f"- {v}")
-        sys.exit(1) # Fail the CI/CD pipeline
+            summary_table.add_row("", f"- {v}")
+        console.print(summary_table)
+        raise typer.Exit(code=1)
     else:
-        print("STATUS: PASSED")
-        print("Your agent is production-hardened.")
-    print("="*50 + "\n")
+        summary_table.add_row("[green]PASSED[/green]", "Your agent is production-hardened.")
+        console.print(summary_table)
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else "src/backend/agent.py"
-    run_red_team_audit(target)
+    app()

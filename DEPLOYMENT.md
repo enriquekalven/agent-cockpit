@@ -1,22 +1,22 @@
-# Deployment: Shipping the Optimized Agent Stack
+# 🚢 Deployment: Shipping the AgentOps Cockpit
 
-The **Optimized Agent Stack** is designed for high-fidelity, cost-optimized deployment on **Google Cloud**.
+The **AgentOps Cockpit** is designed for high-fidelity, cost-optimized deployment on **Google Cloud Platform**.
 
-## ⚡️ 1-Click Operations (The Cockpit)
+## ⚡ 1-Click Operations
 
-The built-in `Makefile` handles the entire production deployment flow.
+The `Makefile` handles the entire production deployment flow.
 
 | Target | Command | Platform |
 | :--- | :--- | :--- |
-| **Full Stack** | `make deploy-prod` | Cloud Run (Engine) + Firebase (Face) |
-| **The Engine** | `make deploy-cloud-run` | Google Cloud Run (Backend) |
-| **The Face** | `make deploy-firebase` | Firebase Hosting (Frontend) |
+| **Full Stack** | `make deploy-prod` | Cloud Run (Backend) + Firebase (Frontend) |
+| **The Cockpit Engine** | `make deploy-cloud-run` | Google Cloud Run |
+| **The Ops Dashboard** | `make deploy-firebase` | Firebase Hosting |
 
 ---
 
-## 1. Initial GCP Setup
+## 🏗️ 1. Initial Infrastructure Setup
 
-Before your first deployment, run the setup script to configure your project, enable APIs, and create the Artifact Registry repo.
+Before your first deployment, run the setup script to configure your GCP project, enable required APIs (Vertex AI, Cloud Run, Artifact Registry), and set up IAM permissions.
 
 ```bash
 chmod +x setup_gcp.sh
@@ -25,61 +25,48 @@ chmod +x setup_gcp.sh
 
 ---
 
-## 2. Google Cloud Run (The Engine)
+## ⚙️ 2. Google Cloud Run (The Backend)
 
-The backend agent is served via Cloud Run, offering serverless scaling and native integration with **Vertex AI** and **Cloud Trace**.
+The **Cockpit Engine** is served via Cloud Run, offering serverless scaling and native integration with **Vertex AI**, **Cloud Logging**, and **Cloud Trace**.
 
-### Manual Deployment Steps
+### Manual Deployment
 ```bash
-# Set your project
-gcloud config set project YOUR_PROJECT_ID
-
-# Deploy the backend (Engine)
-# The setup_gcp.sh script handles this, but here is the manual command:
+# Deploy the backend
 gcloud run deploy agent-ops-backend \
   --source . \
-  --dockerfile Dockerfile.backend \
   --region us-central1 \
-  --allow-unauthenticated
+  --allow-unauthenticated \
+  --port 8080
 ```
 
 ---
 
-## 3. Firebase Hosting (The Face)
+## 🎭 3. Firebase Hosting (The Frontend)
 
-Firebase is used for hosting the static A2UI renderer assets. This ensures your users get the fastest possible bundle delivery.
+Firebase Hosting serves the **Ops Dashboard** (React/A2UI). This ensures low-latency delivery of the interface blueprints.
 
-### Deployment Steps
+### Manual Deployment
 ```bash
-# Set up hosting target (one-time)
-firebase target:apply hosting agent-ui agent-cockpit
+# Initialize Firebase (if not already done)
+firebase init hosting
 
 # Build and Deploy
 npm run build
-firebase deploy --only hosting:agent-ui
+firebase deploy --only hosting
 ```
 
 ---
 
-## 🏗️ Scaffolding New Projects
+## 🛡️ CI/CD: The "Code Lime" Pipeline
 
-You can use the **Optimized Agent Stack** CLI to scaffold new specialized projects:
+We use **GitHub Actions** to enforce quality and security standards before any code reaches production.
 
-```bash
-# Standard React Template
-uvx agent-starter-pack create my-app
-
-# High-End AG-UI (CopilotKit)
-uvx agent-starter-pack create my-app --ui agui
-
-# Mobile Integration (Flutter)
-uvx agent-starter-pack create my-app --ui flutter
-```
+1. **Audit**: Every PR runs `make audit`. If wasteful token usage is detected (e.g., missing Gemini Context Caching), the build warns the developer.
+2. **Hardening**: `make red-team` runs adversarial attacks. Any security breach (PII leak, jailbreak) will **fail the build**.
+3. **Deployment**: Successful merges to `main` trigger an automated deployment to Google Cloud.
 
 ---
 
-## 🛡️ CI/CD & Security
+## 🕵️ Shadow Mode Configuration
 
-*   **GitHub Actions**: Integrated with `make red-team` to prevent unsafe code from reaching production.
-*   **Shadow Mode**: Configured during deployment to allow safe v1/v2 traffic splitting.
-*   **Observability**: **Google Cloud Trace** is pre-configured to track "Thought Chains" from the frontend into the backend agent.
+Shadow Mode splits traffic between two agent versions. After deployment, use the **Ops Dashboard** to evaluate the delta between `v1-stable` and `v2-experimental`. Once confidence is high, promote the shadow version to production.

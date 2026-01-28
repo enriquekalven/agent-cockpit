@@ -13,7 +13,7 @@ export function Home() {
         <nav className="home-nav">
           <Link to="/docs" className="nav-item">How it Works</Link>
           <Link to="/docs/getting-started" className="nav-item">Documentation</Link>
-          <Link to="/playground" className="nav-item">Playground</Link>
+
           <ThemeToggle />
           <Link to="/docs/getting-started" className="nav-cta">Get Started</Link>
         </nav>
@@ -35,9 +35,7 @@ export function Home() {
             <Link to="/docs/getting-started" className="cta-button primary">
               Start Building
             </Link>
-            <Link to="/playground" className="cta-button secondary">
-              Try the Playground
-            </Link>
+
           </div>
           <div className="hero-meta">
             <p>Powering the next generation of <strong>Agentic Apps</strong>.</p>

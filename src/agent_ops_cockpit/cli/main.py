@@ -6,7 +6,7 @@ from rich.console import Console
 from rich.panel import Panel
 from typing import Optional
 
-app = typer.Typer(help="Optimized Agent Stack CLI", no_args_is_help=True)
+app = typer.Typer(help="AgentOps Cockpit: The AI Agent Operations Platform", no_args_is_help=True)
 console = Console()
 
 REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
@@ -14,7 +14,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-starter-pack CLI v0.2.0[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
 def create(

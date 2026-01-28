@@ -1,35 +1,38 @@
-# Optimized Agent Stack - LLM Context
+# 🕹️ AgentOps Cockpit - LLM Manifesto
 
-This file provides a machine-readable summary of the **Optimized Agent Stack** for LLMs and AI Agents.
+This file provides the explicit context for LLMs to assist in developing and operating the **AgentOps Cockpit**.
 
-## Purpose
-A rapid-development framework for creating agentic interfaces with built-in **Agent Ops** (Day 2 operations) for Google Cloud.
+## 🎯 The Purpose
+The **AgentOps Cockpit** is for "Day 2" Artificial Intelligence Operations. It is the governance layer that ensures agents are **Cost-Efficient**, **Secure**, and **Optimized** after the initial prototyping phase is over.
 
-## Core Modules
-- Renderer: `src/a2ui/A2UIRenderer.tsx` - Handles JSON-to-UI conversion.
-- Optimizer: `src/backend/optimizer.py` - Interactive CLI for cost & perf audit.
-- Shadow Mode: `src/backend/shadow/router.py` - Side-by-side agent comparison.
-- Semantic Cache: `src/backend/cache/semantic_cache.py` - "Hive Mind" cost reduction.
-- Red Team Eval: `src/backend/eval/red_team.py` - Adversarial security audit.
-- MCP Hub: `src/backend/ops/mcp_hub.py` - Standardized tool connectivity hub.
-- Ops Dashboard: `src/components/OpsDashboard.tsx` - Visual control room / Flight Recorder.
+## 🧱 The agent-ops-cockpit Package
+- **Package Name**: `agent-ops-cockpit`
+- **CLI Command**: `agent-ops`
+- **Primary Goal**: To take an agent from "demo" to "production" by adding auditing, safety, and efficiency middlewares.
 
-## Key Viral Features
-1. **Shadow Mode**: Deploy experimental models (v2) in parallel with production (v1) with zero user impact.
-2. **Hive Mind Cache**: Drop-in semantic caching to cut LLM costs and latency.
-3. **Red Team CI/CD**: Automatic security vetting to prevent prompt injections.
-4. **Flight Recorder**: Visual scrubbable debugging of agent thought chains.
-5. **MCP Tool Hub**: Standardized tool connectivity and usage optimization.
-6. **Zero-Code RAG**: Auto-indexing of the `src/knowledge/` folder.
+## 🛠️ Core Capabilities (The "Cockpit" Features)
+1. **The Optimizer (`optimizer.py`)**: A heuristic code analyzer that prevents "Token Waste". It suggests Gemini Context Caching and Flash-first routing.
+2. **Red Team (`red_team.py`)**: A security gatekeeper that runs adversarial payloads (Injection, PII leaks) against the agent.
+3. **Shadow Mode (`shadow/router.py`)**: Parallel v1/v2 execution logic for safe model promotion.
+4. **Hive Mind (`cache/semantic_cache.py`)**: Semantic caching layer for 40%+ cost reduction.
+5. **Memory Optimizer (`ops/memory_optimizer.py`)**: Manages the "Leaky Bucket" conversation context to prevent system instruction bloat.
+6. **Cost Tracker (`ops/cost_optimizer.py`)**: Provides real-time budget auditing and savings recommendations.
 
-## Quick Start
-1. `npm install`
-2. `make audit` - Run optimization audit.
-3. `make red-team` - Run security audit.
-4. `make dev` - Start local environment.
-5. `make deploy-prod` - Full GCP deployment (Cloud Run).
+## 🏗️ Architecture: The Trinity
+- **Engine**: The Python backend reasoning (managed by this repo's `agent.py`).
+- **Face**: The A2UI frontend (managed by `src/a2ui/`).
+- **Cockpit**: The glue that binds everything with operational intelligence (managed by `src/backend/ops/`).
 
-## Connectivity
-The playground can connect to a local ADK agent running on `localhost:8000`.
-To enable, toggle "Connect to Local ADK Agent" in the Playground.
-The Ops Dashboard is available at `/ops`.
+## 🚢 CI/CD Standard: Code Lime
+Deployment requires passing the "Code Lime" standard:
+- **Clean**: Code passes `ruff` linting.
+- **Lean**: Passes `make audit` for token efficiency.
+- **Integrated**: Uses MCP for tool connections.
+- **Monitored**: Integrated with Cloud Trace/Logging.
+- **Evaluated**: Passes `make red-team` security audit.
+
+## ⌨️ CLI Usage
+- `agent-ops version`: Get current version.
+- `agent-ops create <name>`: Scaffold a new agent project.
+- `make audit`: Run the optimization auditor.
+- `make red-team`: Run the adversarial security evaluator.

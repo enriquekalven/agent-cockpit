@@ -3,8 +3,8 @@ FROM python:3.11-slim
 WORKDIR /app
 
 COPY pyproject.toml .
-# Install dependencies if needed. Since we are using standard libs mostly, we might just need fastapi/uvicorn
-RUN pip install fastapi uvicorn pydantic vertexai google-cloud-aiplatform google-cloud-logging google-cloud-trace
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY src/ ./src/
 

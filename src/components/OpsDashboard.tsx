@@ -7,9 +7,9 @@ export const OpsDashboard: React.FC = () => {
   return (
     <div className="ops-dashboard">
       <header className="ops-header">
-        <Link to="/playground" className="back-link">
+        <Link to="/" className="back-link">
           <ArrowLeft size={20} />
-          <span>Back to Playground</span>
+          <span>Back to Home</span>
         </Link>
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold tracking-tight">Agent Ops Control Room</h1>

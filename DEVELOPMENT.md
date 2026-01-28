@@ -1,55 +1,49 @@
-# Development Guide: Extending the Stack
+# 🛠️ Development Guide: Building the Cockpit
 
-The **Optimized Agent Stack** is built to be modular. You can extend the Engine (Backend), the Face (Frontend), or the Cockpit (Ops).
+This repository is optimized for **AgentOps** development. Use this guide to extend the platform's optimization and governance capabilities.
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
-### ⚙️ The Engine (Backend)
-- `src/backend/agent.py`: The main FastAPI server and agent logic.
-- `src/backend/cost_control.py`: Budget management middleware.
-- `src/backend/cache/`: Semantic caching logic and vector store connectors.
-- `src/backend/shadow/`: Traffic routing for Shadow Mode.
+### 🕹️ The Cockpit (Core Operations)
+- `src/backend/optimizer.py`: The **Interactive Auditor**. Analyzes agent code for waste.
+- `src/backend/eval/red_team.py`: The **Security Evaluator**. Simulates attacks.
+- `src/backend/ops/`: Advanced optimization modules.
+    - `cost_optimizer.py`: Token tracking and "Flash vs Pro" routing logic.
+    - `memory_optimizer.py`: Leaky-bucket eviction and TTL management.
+    - `mcp_hub.py`: Centralized tool connectivity.
 
-### 🎭 The Face (Frontend)
-- `src/a2ui/`: The core JSON ↔ React rendering engine.
-- `src/components/`: Shared UI components (Dashboard, StatusBars, etc.).
-- `src/docs/`: Documentation site logic.
+### ⚙️ The Engine (Logic Layer)
+- `src/backend/agent.py`: Entry point for agentic reasoning and middleware.
+- `src/backend/cache/`: Semantic caching implementations (Hive Mind).
+- `src/backend/shadow/`: Parallel traffic routing logic.
 
-### 🕹️ The Cockpit (Ops)
-- `src/backend/optimizer.py`: The Interactive Optimizer CLI.
-- `src/backend/eval/red_team.py`: Adversarial security testing logic.
-
----
-
-## 🎨 Adding New A2UI Components
-
-To add a new visual component that the agent can "render":
-
-1.  **Create the Component**: Add a new React component in `src/a2ui/components/`.
-2.  **Register the Type**: Add the component to the mapping in `src/a2ui/A2UIRenderer.tsx`.
-3.  **Update the Schema**: Add the new `props` definition to the `A2UIComponent` model in `src/backend/agent.py`.
+### 🎭 The Face (Internal Dashboard)
+- `src/a2ui/`: A2UI rendering protocol and core surfaces.
+- `src/components/OpsDashboard.tsx`: High-fidelity operations monitoring.
 
 ---
 
-## 🔍 Extending the Optimizer
+## 🔍 Extending the Agent Optimizer
+The `optimizer.py` script uses heuristic analysis to find waste. To add a new check:
+1. Open `src/backend/optimizer.py`.
+2. Add a matching pattern to the `analyze_code` function.
+3. Define the `OptimizationIssue` with a clear `impact`, `savings`, and `diff`.
 
-You can add your own optimization heuristics to `src/backend/optimizer.py`. Common extensions include:
-*   Checking for specific PII patterns in prompts.
-*   Enforcing brand voice consistency.
-*   Suggesting tool-offloading for specific logic blocks.
+## 🛡️ Hardening with Red Team
+The `red_team.py` CLI simulates adversarial payloads.
+- **Payrolls**: Defined in the `attacks` list.
+- **Goal**: Fail the CI pipeline if a breach is detected.
+- **Best Practice**: Add a Red Team test for every new tool or capability you add to the Engine.
+
+## 🚢 CI/CD Workflow (Code Lime)
+GitHub Actions are configured in `.github/workflows/main.yml`.
+- **Linting**: Uses `ruff` for ultra-fast Python checks.
+- **Agent Audit**: Runs `make audit` on every PR.
+- **Red Team**: Runs adversarial tests before any deployment.
 
 ---
 
-## 🧪 Testing
-
-### Local Cockpit
-Start the full stack locally:
-```bash
-make dev
-```
-
-### Adversarial Audit
-Run the security suite:
-```bash
-make red-team
-```
+## 🧪 Local Testing
+1. **Frontend + Backend**: `make dev`
+2. **Optimizer Only**: `python src/backend/optimizer.py`
+3. **Red Team Only**: `python src/backend/eval/red_team.py`
