@@ -13,6 +13,7 @@ help:
 	@echo "  make dev               - Start local development server"
 	@echo "  make build             - Build production assets"
 	@echo "  make audit             - Run Agent Optimizer audit"
+	@echo "  make arch-review       - Run Google Well-Architected design review"
 	@echo "  make red-team          - Run adversarial security audit"
 	@echo "  make load-test         - Run base load test"
 	@echo "  make deploy-prod       - Deploy to production (Cloud Run + Firebase)"
@@ -28,6 +29,10 @@ build:
 # 🔍 The Optimizer: Audit your agent for waste
 audit:
 	@python3 src/backend/optimizer.py src/backend/agent.py
+
+# 🏛️ Architecture: Design review against Google Well-Architected Framework
+arch-review:
+	@python3 src/backend/ops/arch_review.py
 
 # 🔥 Red Team: Unleash self-hacking security audit
 red-team:

@@ -27,6 +27,11 @@ agent-ops create <project_name> [--ui a2ui|agui|flutter]
 
 Use these commands for Day 2 management and CI/CD automation.
 
+### `make arch-review`
+Executes the **Google Well-Architected Design Review**.
+- **Checks**: Runtime, Caching, PII Scrubbing, and Operational readiness.
+- **Goal**: Full alignment with Google's production agent standards.
+
 ### `make audit`
 Runs the **Interactive Agent Optimizer**.
 - **Checks**: Context caching, prompt compression, model routing (Flash vs Pro).

@@ -17,6 +17,14 @@ def version():
     console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
+def arch_review():
+    """
+    Audit agent design against Google Well-Architected Framework.
+    """
+    console.print("🏛️ [bold blue]Launching Architecture Design Review...[/bold blue]")
+    subprocess.run([sys.executable, "-m", "backend.ops.arch_review", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
 def audit(
     file_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
 ):
