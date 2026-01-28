@@ -14,6 +14,7 @@ help:
 	@echo "  make build             - Build production assets"
 	@echo "  make audit             - Run Agent Optimizer audit"
 	@echo "  make arch-review       - Run Google Well-Architected design review"
+	@echo "  make quality-baseline  - Start iterative Quality Hill Climbing"
 	@echo "  make red-team          - Run adversarial security audit"
 	@echo "  make load-test         - Run base load test"
 	@echo "  make deploy-prod       - Deploy to production (Cloud Run + Firebase)"
@@ -33,6 +34,10 @@ audit:
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
 	@python3 src/backend/ops/arch_review.py
+
+# 🧗 Quality: Iterative Hill Climbing optimization
+quality-baseline:
+	@python3 src/backend/eval/quality_climber.py audit
 
 # 🔥 Red Team: Unleash self-hacking security audit
 red-team:

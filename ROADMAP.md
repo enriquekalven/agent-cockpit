@@ -8,6 +8,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **PII Scrubber**: Enterprise-grade data privacy middleware.
 - [x] **Evidence Packer**: Grounded reasoning and source transparency.
 - [x] **Load Tester**: Concurrency-based performance validation.
+- [x] **Quality Hill Climber**: Iterative prompt quality baselining.
 - [ ] **Agent Hub**: A registry of pre-built "Well-Architected" agent templates.
 - [ ] **One-Click GitHub Action**: A plug-and-play `.yml` to audit any agent repo on every PR.
 

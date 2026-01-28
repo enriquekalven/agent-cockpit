@@ -17,6 +17,14 @@ def version():
     console.print("[bold cyan]agent-ops CLI v0.1.0[/bold cyan]")
 
 @app.command()
+def quality_baseline():
+    """
+    Run iterative 'Hill Climbing' quality audit against a golden dataset.
+    """
+    console.print("🧗 [bold cyan]Launching Quality Hill Climber...[/bold cyan]")
+    subprocess.run([sys.executable, "-m", "backend.eval.quality_climber", "audit"], env={**os.environ, "PYTHONPATH": "src"})
+
+@app.command()
 def arch_review():
     """
     Audit agent design against Google Well-Architected Framework.

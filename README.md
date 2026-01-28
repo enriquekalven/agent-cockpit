@@ -64,8 +64,9 @@ uvx agent-ops-cockpit create my-agent --ui a2ui
 
 ```bash
 make dev           # Start the local Engine + Face stack
-make arch-review    # Run the Google Well-Architected audit
-make audit         # Identify LLM waste and caching opportunities
+make arch-review   # 🏛️ Run the Google Well-Architected design review
+make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit
+make audit         # 🔍 Run the Interactive Agent Optimizer
 make red-team      # Execute a white-hat security audit
 make deploy-prod   # 🚀 1-click deploy to Google Cloud
 ```
