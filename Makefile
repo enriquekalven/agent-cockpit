@@ -33,9 +33,13 @@ audit:
 red-team:
 	@python3 src/backend/eval/red_team.py src/backend/agent.py
 
-# ⚡ Load Test: Stress test your agent endpoint
+# ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
+REQUESTS ?= 50
+CONCURRENCY ?= 5
+URL ?= http://localhost:8000/agent/query?q=healthcheck
+
 load_test:
-	@python3 src/backend/eval/load_test.py run
+	@python3 src/backend/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
 # 🚀 Production: The Vercel-style 1-click deploy
 deploy-prod: audit build

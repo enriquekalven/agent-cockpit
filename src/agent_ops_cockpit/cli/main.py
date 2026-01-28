@@ -41,8 +41,8 @@ def red_team(
 def load_test(
     url: str = typer.Option("http://localhost:8000/agent/query?q=healthcheck", help="URL to stress test"),
     requests: int = typer.Option(50, help="Total number of requests"),
-    concurrency: int = typer.Option(5, help="Simultaneous requests"),
-):
+    concurrency: int = typer.Option(5, help="Number of Concurrent Users"),
+) -> None:
     """
     Stress test agent endpoints for performance and reliability.
     """

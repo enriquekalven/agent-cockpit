@@ -41,6 +41,7 @@ Executes the **Adversarial Security Evaluator**.
 Executes the **Base Load Tester**.
 - **Metrics**: Latency, success rate, and concurrency handling.
 - **Goal**: Performance validation for high-traffic agents.
+- **Usage**: `make load_test REQUESTS=200 CONCURRENCY=20`
 
 ### `make dev`
 Starts the local development stack.
