@@ -91,6 +91,16 @@ def load_test(
     load_mod.run(url, requests, concurrency)
 
 @app.command()
+def mcp_server():
+    """
+    Launch the Cockpit as a Model Context Protocol (MCP) server.
+    """
+    console.print("📡 [bold blue]Launching AgentOps Cockpit MCP Server...[/bold blue]")
+    from agent_ops_cockpit import mcp_server as mcp_mod
+    import asyncio
+    asyncio.run(mcp_mod.main())
+
+@app.command()
 def deploy(
     service_name: str = typer.Option("agent-ops-backend", "--name", help="Cloud Run service name"),
     region: str = typer.Option("us-central1", "--region", help="GCP region"),

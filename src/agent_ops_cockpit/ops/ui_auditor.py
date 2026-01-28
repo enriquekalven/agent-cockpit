@@ -5,116 +5,70 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
-app = typer.Typer(help="UI/UX Auditor: Governance and optimization for the Agent Face.")
+app = typer.Typer(help="Face Auditor: Scan frontend code for A2UI alignment.")
 console = Console()
 
-class UIFinding:
-    def __init__(self, id: str, category: str, severity: str, message: str, file: str, suggestion: str):
-        self.id = id
-        self.category = category
-        self.severity = severity
-        self.message = message
-        self.file = file
-        self.suggestion = suggestion
+def audit(path: str = "src"):
+    """
+    Step 4: Frontend / A2UI Auditing.
+    Ensures frontend components are properly mapping surfaceId and detecting triggers.
+    """
+    console.print(Panel.fit("🎭 [bold blue]FACE AUDITOR: A2UI COMPONENT SCAN[/bold blue]", border_style="blue"))
+    console.print(f"Scanning directory: [yellow]{path}[/yellow]")
 
-def audit_ui_best_practices(src_path: str):
-    findings = []
-    
-    for root, dirs, files in os.walk(src_path):
-        if "node_modules" in root or ".venv" in root: continue
-        
-        for file in files:
-            path = os.path.join(root, file)
-            rel_path = os.path.relpath(path, src_path)
+    files_scanned = 0
+    issues = []
+
+    # Heuristic Patterns
+    surface_id_pattern = re.compile(r"surfaceId|['\"]surface-id['\"]")
+    registry_pattern = re.compile(r"A2UIRegistry|registerComponent")
+    trigger_pattern = re.compile(r"onTrigger|handleTrigger|agentAction")
+
+    for root, dirs, files in os.walk(path):
+        if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
+            continue
             
-            if file.endswith((".tsx", ".jsx", ".ts", ".js")):
+        for file in files:
+            if file.endswith((".tsx", ".ts", ".js", ".jsx")):
+                files_scanned += 1
+                file_path = os.path.join(root, file)
                 try:
-                    with open(path, "r", errors="ignore") as f:
+                    with open(file_path, 'r') as f:
                         content = f.read()
                         
-                        # 1. A2UI Compliance: Missing surface IDs
-                        if "a2-surface" in content and "surfaceId" not in content:
-                            findings.append(UIFinding(
-                                "a2ui_surface_id", "A2UI Protocol", "HIGH",
-                                "Detected A2UI surface without unique surfaceId.",
-                                rel_path, "Add `surfaceId` for automated browser testing."
-                            ))
-                            
-                        # 2. Accessibility: Missing ARIA
-                        if "<button" in content.lower() and "aria-label" not in content.lower() and "children" not in content.lower():
-                            findings.append(UIFinding(
-                                "aria_label", "Accessibility", "MEDIUM",
-                                "Interactive button lacks description.",
-                                rel_path, "Add `aria-label` for screen readers."
-                            ))
-
-                        # 3. Optimization: Large Component Detection
-                        if len(content.splitlines()) > 300:
-                            findings.append(UIFinding(
-                                "large_component", "Refactor", "MEDIUM",
-                                f"Component file is very large ({len(content.splitlines())} lines).",
-                                rel_path, "Split into smaller sub-components for better performance."
-                            ))
-
-                        # 4. Streamlit: Hardcoded Secrets
-                        if "st.secrets" not in content and (".env" in content or "API_KEY" in content):
-                            findings.append(UIFinding(
-                                "st_secrets", "Streamlit Security", "HIGH",
-                                "Detected likely hardcoded keys instead of st.secrets.",
-                                rel_path, "Move tokens to .streamlit/secrets.toml."
-                            ))
-
-                        # 5. Angular: Reactive Pattern
-                        if "@Component" in content and "signal" not in content.lower() and "Observable" not in content:
-                             findings.append(UIFinding(
-                                "angular_reactivity", "Angular Performance", "MEDIUM",
-                                "Component lacks reactive patterns (Signals/Observables).",
-                                rel_path, "Use Signals for low-latency Agent output sync."
-                            ))
-
-                except: continue
-
-            if file.endswith(".css"):
-                try:
-                    with open(path, "r", errors="ignore") as f:
-                        content = f.read()
+                    findings = []
+                    if not surface_id_pattern.search(content):
+                        findings.append("Missing 'surfaceId' mapping")
+                    if not registry_pattern.search(content) and "Registry" in file:
+                        findings.append("Registry component without A2UIRegistry registration")
+                    if "Button" in file and not trigger_pattern.search(content):
+                        findings.append("Interactive component without Tool/Agent triggers")
                         
-                        # 4. Responsive: Missing Media Queries
-                        if "@media" not in content:
-                            findings.append(UIFinding(
-                                "missing_media_queries", "UX / Responsive", "HIGH",
-                                "No media queries detected in CSS file.",
-                                rel_path, "Implement mobile-first responsive design."
-                            ))
-                except: continue
-                
-    return findings
+                    if findings:
+                        issues.append({"file": file, "findings": findings})
+                except:
+                    pass
 
-@app.command()
-def audit(path: str = typer.Argument("src", help="Path to the frontend source code")):
-    """
-    Runs a comprehensive UI/UX best practice audit on the codebase.
-    """
-    console.print(Panel.fit("🎨 [bold magenta]FACE AUDITOR: UI/UX GOVERNANCE[/bold magenta]", border_style="magenta"))
-    
-    findings = audit_ui_best_practices(path)
-    
-    table = Table(title="🎨 UI/UX Audit Results")
-    table.add_column("Category", style="cyan")
-    table.add_column("Severity", style="bold")
-    table.add_column("Message", style="white")
-    table.add_column("File", style="dim")
-    table.add_column("Suggestion", style="green")
+    console.print(f"📝 Scanned [bold]{files_scanned}[/bold] frontend files.")
 
-    if findings:
-        for f in findings:
-            severity_style = "red" if f.severity == "HIGH" else "yellow"
-            table.add_row(f.category, f"[{severity_style}]{f.severity}[/{severity_style}]", f.message, f.file, f.suggestion)
-        
-        console.print(table)
-        console.print(f"\n⚠️ Found {len(findings)} UI/UX improvement opportunities.")
+    table = Table(title="🔍 A2UI Audit Findings")
+    table.add_column("File", style="cyan")
+    table.add_column("Issue", style="red")
+
+    if not issues:
+        table.add_row("All Files", "[green]A2UI Ready[/green]")
     else:
-        console.print("✅ [bold green]PASS:[/bold green] UI/UX architecture aligns with Agent Ops standards.")
+        for issue in issues:
+            for finding in issue["findings"]:
+                table.add_row(issue["file"], finding)
+
+    console.print(table)
+    
+    if len(issues) > 5:
+        console.print("\n⚠️  [yellow]Recommendation:[/yellow] Your 'Face' layer has fragmented A2UI surface mappings.")
+        console.print("💡 Use the A2UI Registry to unify how your agent logic triggers visual surfaces.")
+    else:
+        console.print("\n✅ [bold green]Frontend is Well-Architected for GenUI interactions.[/bold green]")
 
 if __name__ == "__main__":
     app()
