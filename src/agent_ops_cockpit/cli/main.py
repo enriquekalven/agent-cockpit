@@ -27,7 +27,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-ops CLI v0.8.0[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v0.9.8[/bold cyan]")
 
 
 @app.command()
@@ -47,12 +47,22 @@ def report(
         "-m",
         help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks",
     ),
+    path: str = typer.Option(
+        ".",
+        "--path",
+        "-p",
+        help="Path to the agent or workspace to audit",
+    ),
 ):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
-    console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
-    orch_mod.run_audit(mode=mode)
+    workspace_flag = ""
+    if os.path.isdir(path) and not any(f.endswith(".py") for f in os.listdir(path) if f != "__init__.py"):
+         workspace_flag = " (Workspace Mode)"
+    
+    console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit{workspace_flag}...[/bold blue]")
+    orch_mod.run_audit(mode=mode, path=path)
 
 
 @app.command()
