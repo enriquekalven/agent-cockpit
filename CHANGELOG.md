@@ -2,6 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.0.0] - 2026-01-29
+
+### 🛸 The Autonomous Fleet Update (v4 Global Audit)
+- **Multi-Stack SME Intelligence (Polyglot Support)**: Full architectural and reliability support for Python, Go, and TypeScript. Auditors now automatically detect `go.mod` and `package.json`.
+- **High-Velocity Parallel Orchestration**: Switched fleet auditing to `ProcessPoolExecutor` for true multi-core execution. Audited 50+ agents in under 3 minutes.
+- **Agentic GPT-AutoRepair (--apply-fixes)**: Introduced an autonomous remediation engine that uses Gemini to automatically fix detected architectural gaps and security breaches.
+- **Executive "Risk Scorecard"**: Technical findings are now aggregated into business-impact summaries, providing stakeholders with clear ROI and risk visibility.
+- **Unified "Flight Deck" Dashboard**: A single interactive HTML hub for the entire fleet, with real-time status, failure filtering, and ROI sorting.
+- **Smart Quota Awareness**: Implemented a global token-bucket rate limiter to prevent API throttling during massive parallel audits.
+
 ## [0.9.8] - 2026-01-29
 
 ### 🏢 The Enterprise Fleet Update
