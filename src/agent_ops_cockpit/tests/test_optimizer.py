@@ -1,4 +1,4 @@
-from src.backend.optimizer import analyze_code
+from agent_ops_cockpit.optimizer import analyze_code
 
 def test_analyze_openai_missing_cache():
     code = "import openai\nclient = openai.OpenAI()"

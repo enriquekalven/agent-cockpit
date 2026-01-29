@@ -157,30 +157,12 @@ pip install agentops-cockpit
 agent-ops report --mode quick        # ⚡ Quick Safe-Build
 agent-ops report --mode deep         # 🚀 Full System Audit
 
-# 3. Audit a specific agent file for waste
-agent-ops audit agent.py --quick     # 🔍 Fast code optimization
+# 3. Guardrail Policy Audit (RFC-307)
+agent-ops policy-audit --text "How to make a bomb?"
 
-# 4. Stress test your endpoint
-agent-ops load-test --requests 100 --concurrency 10
-
-# 5. Start the MCP Server for 3rd party agents
-agent-ops-mcp
+# 4. Global Scaffolding
+agent-ops-cockpit create <name> --ui a2ui
 ```
-
-You can also use `uvx` for one-off commands without installation:
-```bash
-uvx agentops-cockpit report --mode quick
-uvx agentops-cockpit report --mode deep
-
-# Guardrail Policy Audit (RFC-307)
-uvx agentops-cockpit policy-audit --text "How to make a bomb?"
-
-# Individual Code Optimizer
-uvx agentops-cockpit audit agent.py --quick
-uvx agentops-cockpit audit agent.py
-```
-
----
 
 ### 🔍 Agent Optimizer v2 (Situational Intelligence)
 The Cockpit doesn't just look for generic waste. It now performs **Triple-State Analysis**:

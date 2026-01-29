@@ -7,7 +7,7 @@ The **Agent Optimizer** is a code-level auditor that identifies waste, legacy pa
 ### Local Installation
 ```bash
 make audit         # Interactive audit
-agent-ops audit src/backend/agent.py --quick
+agent-ops audit src/agent_ops_cockpit/agent.py --quick
 ```
 
 ### Portable (Zero-Install)

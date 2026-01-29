@@ -20,5 +20,5 @@ To manage, optimize, and secure AI agents in production. This includes:
 ## 🤖 Assistant Rules
 - Always prioritize **Day 2 Operations** over simple scaffolding.
 - Follow the **Google Well-Architected Framework for Agents**.
-- Ensure all UI responses follow the `src/backend/agent.py` A2UI schema.
+- Ensure all UI responses follow the `src/agent_ops_cockpit/agent.py` A2UI schema.
 - Encourage the use of `make audit` and `make red-team`.

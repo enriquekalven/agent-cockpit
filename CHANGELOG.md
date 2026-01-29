@@ -2,6 +2,18 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.8.0] - 2026-01-29
+
+### 🛡️ The Governance Update
+- **Principal SME Persona Approvals**: Every audit result is now reviewed and framed by specialized SME personas (Platform, Security, Legal, FinOps, UX).
+- **Face Auditor (UI Audit)**: New auditor for frontend code to ensure A2UI protocol alignment, accessibility (i18n), and UX feedback (Skeleton/Spinners).
+- **Professional Reporting**:
+    - **Printable HTML Reports**: Premium formatting for stakeholder presentations.
+    - **Email Integration**: Send Persona-Approved audit results directly from the CLI.
+- **Mandatory Build Gates**: Updated CLI and `Dockerfile` to enforce "Well-Architected" status as a blocking gate for production deployments.
+- **Package Unification**: Consolidated codebase into the `agent_ops_cockpit` package, simplifying imports and distribution.
+- **Agentic Pair Programming**: Full support for pairing with **Antigravity** or **Claude Code** to maximize finding resolution.
+
 ## [0.7.0] - 2026-01-28
 
 ### ☁️ The Multi-Cloud Update

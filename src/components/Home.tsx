@@ -28,7 +28,10 @@ export function Home() {
         <div className="banner-content">
           <span className="banner-tag">NEW v0.8.0</span>
           <span className="banner-text">The Governance Update: Principal SME Persona Approvals, Legal/Marketing Audits, and PDF Reporting are now active.</span>
-          <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
+          <div className="flex gap-4">
+            <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
+            <a href="/sample-report.html" target="_blank" className="banner-link">Sample Report <ExternalLink size={14} /></a>
+          </div>
         </div>
       </div>
 
@@ -71,9 +74,10 @@ export function Home() {
                 Get Started
                 <ChevronRight size={18} />
               </Link>
-              <Link to="/docs/google-architecture" className="btn-secondary">
-                Explore the Framework
-              </Link>
+              <a href="/sample-report.html" target="_blank" className="btn-secondary">
+                <Shield size={18} />
+                Sample Report
+              </a>
             </div>
 
             <div className="hero-features-preview">
@@ -221,7 +225,12 @@ export function Home() {
               <div className="card-icon green"><Activity /></div>
               <h3>The Cockpit</h3>
               <p>The operational brain. Real-time cost control, semantic caching, and security auditing for "Day 2" success.</p>
-              <Link to="/ops" className="card-link">Launch the Cockpit →</Link>
+              <div className="flex flex-col gap-2">
+                <Link to="/ops" className="card-link">Launch the Cockpit →</Link>
+                <a href="/sample-report.html" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  View Sample Audit Report <ExternalLink size={14} />
+                </a>
+              </div>
             </div>
             <div className="trinity-card">
               <div className="card-icon purple"><Layers /></div>
@@ -298,6 +307,13 @@ export function Home() {
               <div>
                 <h4>Tiered Governance</h4>
                 <p>Choose between a 15s "Safe-Build" for dev agility or a deep 5m audit for production-gate benchmarking.</p>
+              </div>
+            </div>
+            <div className="capability-item glass-highlight">
+              <div className="item-icon text-blue-500"><Command size={24} /></div>
+              <div>
+                <h4>Agentic Pair Programming</h4>
+                <p>Pair with <strong>Antigravity</strong> or <strong>Claude Code</strong> to maximize findings and iteratively fix them upon your approval.</p>
               </div>
             </div>
           </div>

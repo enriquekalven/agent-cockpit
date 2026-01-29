@@ -7,7 +7,7 @@ Building a single agent is easy. Building a **Swarm** of agents that communicate
 | Layer | Responsibility | Protocol / Spec |
 | :--- | :--- | :--- |
 | **Surface** | Human-Agent Interaction | [A2UI Spec](/docs/a2ui) |
-| **Memory** | Cross-Agent Knowledge | [Vector Workspace (Hive Mind)](/src/backend/cache) |
+| **Memory** | Cross-Agent Knowledge | [Vector Workspace (Hive Mind)](/src/agent_ops_cockpit/cache) |
 | **Logic** | Tool & Reasoning Handshake | [A2P Handshake](#a2p-handshake) |
 | **Security** | Identity & Permissions | [GCP Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) |
 

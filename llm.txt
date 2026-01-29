@@ -22,7 +22,7 @@ The **AgentOps Cockpit** is for "Day 2" Artificial Intelligence Operations. It i
 ## 🏗️ Architecture: The Trinity
 - **Engine**: The Python backend reasoning (managed by this repo's `agent.py`).
 - **Face**: The A2UI frontend (managed by `src/a2ui/`).
-- **Cockpit**: The glue that binds everything with operational intelligence (managed by `src/backend/ops/`).
+- **Cockpit**: The glue that binds everything with operational intelligence (managed by `src/agent_ops_cockpit/ops/`).
 
 ## 🚢 CI/CD Standard: Code Lime
 Deployment requires passing the "Code Lime" standard:

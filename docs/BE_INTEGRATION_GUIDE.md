@@ -14,7 +14,7 @@ The Engine comes pre-installed with the **Cockpit Middleware Stack**:
 We recommend building your tools as **MCP (Model Context Protocol)** or **ADK Extensions**. This ensures that the agent can discover and invoke them with high reliability.
 
 ```python
-# Example Tool in src/backend/tools/search.py
+# Example Tool in src/agent_ops_cockpit/tools/search.py
 from adk import Tool
 
 @Tool

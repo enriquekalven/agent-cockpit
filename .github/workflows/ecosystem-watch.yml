@@ -33,7 +33,7 @@ jobs:
         continue-on-error: true
         run: |
           # We use a temp file to capture the output for the issue body
-          python src/backend/ops/watcher.py > watch_output.txt 2>&1
+          python src/agent_ops_cockpit/ops/watcher.py > watch_output.txt 2>&1
           EXIT_CODE=$?
           echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
           cat watch_output.txt

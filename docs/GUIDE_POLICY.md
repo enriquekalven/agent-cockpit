@@ -18,7 +18,7 @@ uvx agentops-cockpit policy-audit --text "User query here"
 
 ## 📁 Configuration (`policies.json`)
 
-The engine is driven by a central policy file located in `src/backend/ops/policies.json`:
+The engine is driven by a central policy file located in `src/agent_ops_cockpit/ops/policies.json`:
 
 ```json
 {

@@ -15,7 +15,7 @@ We follow the **Trinity** model:
 4. Ensure your agent logic passes the `red-team` eval.
 
 ## 🔍 Agent Optimizer Standards
-All new agent components should be auditable via `src/backend/optimizer.py`. If you add a new pattern (e.g., a new caching strategy), update the analyzer logic in `optimizer.py` to recognize it.
+All new agent components should be auditable via `src/agent_ops_cockpit/optimizer.py`. If you add a new pattern (e.g., a new caching strategy), update the analyzer logic in `optimizer.py` to recognize it.
 
 ## 🚢 Deployment
 We use a **1-click deployment** strategy via `Makefile`:

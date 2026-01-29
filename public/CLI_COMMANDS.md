@@ -78,7 +78,7 @@ Starts the local development stack:
 ### `agent-ops create <name>`
 **The Project Generator.**
 - **Options**:
-    - `--ui`: Choose your template (`a2ui`, `streamlit`, `angular`, `lit`).
-    - `--lang`: Choose your engine language (`python`, `go`, `nodejs`).
-- **Usage**: `uvx agent-ops-cockpit create my-new-agent --lang go`
+    - `--ui`: Choose your template (`a2ui`, `agui`, `flutter`, `lit`).
+    - `--copilotkit`: Enable high-fidelity features for AGUI.
+- **Usage**: `uvx agentops-cockpit create my-new-agent --ui a2ui`
 

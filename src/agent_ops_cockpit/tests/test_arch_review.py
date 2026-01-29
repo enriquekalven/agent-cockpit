@@ -1,5 +1,5 @@
 from typer.testing import CliRunner
-from src.backend.ops.arch_review import app
+from agent_ops_cockpit.ops.arch_review import app
 
 runner = CliRunner()
 

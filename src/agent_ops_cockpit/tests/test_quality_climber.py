@@ -1,5 +1,5 @@
 from typer.testing import CliRunner
-from src.backend.eval.quality_climber import app
+from agent_ops_cockpit.eval.quality_climber import app
 
 runner = CliRunner()
 

@@ -27,7 +27,7 @@ Common pre-built components in `src/components/a2ui/`:
 
 ## 🏗️ Building Custom Components
 To add a new visual surface:
-1. Define the schema in `src/backend/agent.py`.
+1. Define the schema in `src/agent_ops_cockpit/agent.py`.
 2. Create the React component in `src/components/a2ui/custom/`.
 3. Map the JSON `surfaceId` to your new component in the `A2UIRenderer`.
 

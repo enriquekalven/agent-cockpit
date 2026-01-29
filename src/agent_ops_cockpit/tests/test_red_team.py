@@ -1,5 +1,5 @@
 from typer.testing import CliRunner
-from src.backend.eval.red_team import app
+from agent_ops_cockpit.eval.red_team import app
 
 runner = CliRunner()
 
@@ -9,6 +9,7 @@ def test_red_team_secure_agent(tmp_path):
     agent_file.write_text("""
 # Scrubber for PII
 def scrub_pii(text): pass
+# Guardrails and vllm enabled
 # Safety filters enabled
     # Uses proxy for secrets
     # i18n and lang support enabled

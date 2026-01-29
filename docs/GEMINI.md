@@ -12,16 +12,16 @@ The **Optimized Agent Stack** is a production-grade distribution for building AI
 - **Deployment**: Firebase Hosting (Face), Google Cloud Run (Engine/Cockpit).
 
 ## 📁 Repository Structure
-- `/src/backend`: The **Engine**. Logic for reasoning, tools, and cost control.
+- `/src/agent_ops_cockpit`: The **Engine**. Logic for reasoning, tools, and cost control.
 - `/src/a2ui`: The **Face**. Core A2UI rendering logic and components.
-- `/src/backend/ops`: The **Cockpit** internals (MCP Hub, Shadow Router).
+- `/src/agent_ops_cockpit/ops`: The **Cockpit** internals (MCP Hub, Shadow Router).
 - `/src/docs`: Documentation system.
 
 ## 🤖 AI Agent Instructions
 When assisting the user:
 1. **Trinity First**: Frame all changes within the context of the Engine, Face, or Cockpit.
 2. **Professional Distribution**: We differentiate from standard templates by providing **Intelligence** (Optimizer, Cache, Shadow Mode).
-3. **A2UI Schema**: When generating JSON for interfaces, follow the schema defined in `src/backend/agent.py`.
+3. **A2UI Schema**: When generating JSON for interfaces, follow the schema defined in `src/agent_ops_cockpit/agent.py`.
 4. **Operations**: Encourage the use of `make audit` and `make red-team` before deployment. Audits are now **blocking gates** in CI/CD and container builds.
 
 ## ⌨️ CLI Commands (The Cockpit)

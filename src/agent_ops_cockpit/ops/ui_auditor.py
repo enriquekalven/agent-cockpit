@@ -8,6 +8,7 @@ from rich.panel import Panel
 app = typer.Typer(help="Face Auditor: Scan frontend code for A2UI alignment.")
 console = Console()
 
+@app.command()
 def audit(path: str = "src"):
     """
     Step 4: Frontend / A2UI Auditing.

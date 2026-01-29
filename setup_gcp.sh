@@ -47,7 +47,7 @@ fi
 
 # 5. Red Team Security Evaluation (Viral Idea #3)
 echo "🔥 Running Red Team CI/CD Security Audit..."
-python3 src/backend/eval/red_team.py
+python3 src/agent_ops_cockpit/eval/red_team.py
 
 # 6. Shadow Mode Configuration (Viral Idea #1)
 echo "🕵️  Configuring Shadow Mode Traffic Split..."
@@ -56,7 +56,7 @@ echo "✅ Shadow Mode initialized. Comparison logs routing to BigQuery."
 
 # 7. Initial Optimization Audit
 echo "🔍 Running Agent Optimizer CLI..."
-python3 src/backend/optimizer.py src/backend/agent.py --auto-approve
+python3 src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py --auto-approve
 
 # 8. Deploy to Cloud Run
 echo "⚡ Deploying Production Agent Ops Stack..."

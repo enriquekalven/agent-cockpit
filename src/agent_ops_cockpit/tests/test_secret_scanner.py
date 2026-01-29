@@ -1,5 +1,5 @@
 import re
-from src.backend.ops.secret_scanner import SECRET_PATTERNS
+from agent_ops_cockpit.ops.secret_scanner import SECRET_PATTERNS
 
 def test_google_api_key_pattern():
     key = "AIzaSyD-1234567890abcdefghijklmnopqrstuv"

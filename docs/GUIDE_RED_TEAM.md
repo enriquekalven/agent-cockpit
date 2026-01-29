@@ -6,13 +6,13 @@ The **Red Team Auditor** is an adversarial evaluator that launches ethical "self
 
 ### Local Installation
 ```bash
-make red-team      # Audit the default src/backend/agent.py
+make red-team      # Audit the default src/agent_ops_cockpit/agent.py
 agent-ops red-team path/to/agent.py
 ```
 
 ### Portable (Zero-Install)
 ```bash
-uvx agentops-cockpit red-team src/backend/agent.py
+uvx agentops-cockpit red-team src/agent_ops_cockpit/agent.py
 ```
 
 ---

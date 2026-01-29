@@ -24,7 +24,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-ops CLI v0.7.0[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v0.8.0[/bold cyan]")
 
 @app.command()
 def reliability():
@@ -95,7 +95,7 @@ def audit(
 
 @app.command()
 def red_team(
-    agent_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
+    agent_path: str = typer.Argument("src/agent_ops_cockpit/agent.py", help="Path to the agent code to audit"),
 ):
     """
     Run the Red Team adversarial security evaluation.
@@ -137,7 +137,7 @@ def deploy(
     
     # 1. Audit
     console.print("\n[bold]Step 1: Code Optimization Audit[/bold]")
-    opt_mod.audit("src/backend/agent.py", interactive=False)
+    opt_mod.audit("src/agent_ops_cockpit/agent.py", interactive=False)
     
     # 2. Build Frontend
     console.print("\n[bold]Step 2: Building Frontend Assets[/bold]")
@@ -219,7 +219,7 @@ def diagnose():
         table.add_row("LLM API Keys", "[red]NONE[/red]", "Ensure keys are in .env or exported")
 
     # 4. Check for A2UI components
-    if os.path.exists("src/a2ui") or os.path.exists("src/backend/agent.py"):
+    if os.path.exists("src/a2ui") or os.path.exists("src/agent_ops_cockpit/agent.py"):
         table.add_row("Trinity Structure", "[green]VERIFIED[/green]", "Engine/Face folders present")
     else:
         table.add_row("Trinity Structure", "[red]MISSING[/red]", "Run from root of AgentOps project")

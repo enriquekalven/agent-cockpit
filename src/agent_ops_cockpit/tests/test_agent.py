@@ -1,7 +1,7 @@
 import os
 import json
 import pytest
-from src.backend.agent import agent_v1_logic
+from agent_ops_cockpit.agent import agent_v1_logic
 
 def load_golden_set():
     path = os.path.join(os.path.dirname(__file__), "golden_set.json")

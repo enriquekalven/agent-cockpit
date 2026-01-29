@@ -37,15 +37,15 @@ build:
 
 # 🏁 Master Audit: Safe-Build (Essential for dev velocity)
 audit:
-	@$(PYTHON) src/backend/ops/orchestrator.py --mode quick
+	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode quick
 
 # 🚀 Deep Master Audit: Full benchmarks and stress tests
 audit-deep:
-	@$(PYTHON) src/backend/ops/orchestrator.py --mode deep
+	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode deep
 
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
-	@$(PYTHON) src/backend/ops/reliability.py
+	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py
 
 # 🩺 Diagnose: DevEx system check
 diagnose:
@@ -53,32 +53,32 @@ diagnose:
 
 # 🔍 The Optimizer: Audit specific agent file for code-level waste
 optimizer-audit:
-	@$(PYTHON) src/backend/optimizer.py src/backend/agent.py --quick
+	@$(PYTHON) src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py --quick
 
 # 🔍 Deep Optimizer: Fetch live SDK evidence
 optimizer-audit-deep:
-	@$(PYTHON) src/backend/optimizer.py src/backend/agent.py
+	@$(PYTHON) src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py
 
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
-	@$(PYTHON) src/backend/ops/arch_review.py
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py
 
 # 🧗 Quality: Iterative Hill Climbing optimization
 quality-baseline:
-	@$(PYTHON) src/backend/eval/quality_climber.py climb
+	@$(PYTHON) src/agent_ops_cockpit/eval/quality_climber.py climb
 
 # 🧪 Secrets: Scan for hardcoded credentials
 scan-secrets:
-	@$(PYTHON) src/backend/ops/secret_scanner.py .
+	@$(PYTHON) src/agent_ops_cockpit/ops/secret_scanner.py .
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
-	@$(PYTHON) src/backend/ops/ui_auditor.py src
+	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py src
 
 # 🔥 Red Team: Unleash self-hacking security audit
 
 red-team:
-	@$(PYTHON) src/backend/eval/red_team.py src/backend/agent.py
+	@$(PYTHON) src/agent_ops_cockpit/eval/red_team.py src/agent_ops_cockpit/agent.py
 
 # ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
 REQUESTS ?= 50
@@ -87,7 +87,7 @@ CONCURRENCY ?= 5
 URL ?= http://localhost:8000/agent/query?q=healthcheck
 
 load_test:
-	@$(PYTHON) src/backend/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
+	@$(PYTHON) src/agent_ops_cockpit/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
 # 🚀 Production: The Vercel-style 1-click deploy (using Quick Audit for speed)
 deploy-prod: audit build
@@ -115,7 +115,7 @@ deploy-gke:
 
 # 📡 Watch: Ecosystem sync check
 watch:
-	@$(PYTHON) src/backend/ops/watcher.py
+	@$(PYTHON) src/agent_ops_cockpit/ops/watcher.py
 
 # 🔌 MCP: Start the Model Context Protocol server
 mcp-serve:

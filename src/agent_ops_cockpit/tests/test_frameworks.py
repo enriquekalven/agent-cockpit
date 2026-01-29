@@ -1,4 +1,4 @@
-from src.backend.ops.frameworks import detect_framework
+from agent_ops_cockpit.ops.frameworks import detect_framework
 
 def test_detect_google_framework(tmp_path):
     # Create a mock README with Google indicators

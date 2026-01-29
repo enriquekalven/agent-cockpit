@@ -1,4 +1,5 @@
 import asyncio
+import os
 import typer
 import random
 from rich.console import Console
@@ -42,9 +43,9 @@ async def run_iteration(iteration: int, prompt_variant: str) -> float:
     """Run a single evaluation pass against the golden dataset."""
     import json
     dataset = GOLDEN_DATASET
-    if os.path.exists("src/backend/tests/golden_set.json"):
+    if os.path.exists("src/agent_ops_cockpit/tests/golden_set.json"):
         try:
-            with open("src/backend/tests/golden_set.json", "r") as f:
+            with open("src/agent_ops_cockpit/tests/golden_set.json", "r") as f:
                 dataset = json.load(f)
         except Exception:
             pass

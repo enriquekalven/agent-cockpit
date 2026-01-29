@@ -12,6 +12,6 @@ COPY src/ ./src/
 ENV PYTHONPATH=/app/src
 
 # Run mandatory AgentOps Audit during build
-RUN python src/backend/ops/orchestrator.py --mode quick
+RUN python src/agent_ops_cockpit/ops/orchestrator.py --mode quick
 
-CMD ["python", "src/backend/agent.py"]
+CMD ["python", "src/agent_ops_cockpit/agent.py"]
