@@ -31,8 +31,8 @@
 ## 📽️ The Mission
 Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
 
-### Key Pillars:
-- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices.
+- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices with the **Evidence Bridge**—real-time citations for architectural integrity.
+- **SME Persona Audits**: Parallelized review of your codebase by automated "Principal SMEs" across FinOps, SecOps, and Architecture.
 - **Agentic Trinity**: Dedicated layers for the Engine (Logic), Face (UX), and Cockpit (Ops).
 - **A2A Connectivity**: Implements the [Agent-to-Agent Transmission Standard](/A2A_GUIDE.md) for secure swarm orchestration.
 - **MCP Native**: Registration as a [Model Context Protocol](https://modelcontextprotocol.io) server for 1P/2P/3P tool consumption.

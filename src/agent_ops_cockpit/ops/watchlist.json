@@ -78,5 +78,11 @@
       "incompatible_with": [],
       "reason": "MCP is a universal standard and thrives in multi-framework environments."
     }
-  ]
+  ],
+  "research_sources": {
+    "well_architected": "https://cloud.google.com/architecture/framework",
+    "security_best_practices": "https://cloud.google.com/architecture/framework/security",
+    "cost_optimization": "https://cloud.google.com/architecture/framework/cost-optimization",
+    "operational_excellence": "https://cloud.google.com/architecture/framework/operational-excellence"
+  }
 }

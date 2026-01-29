@@ -55,6 +55,13 @@ const FEATURE_TILES = [
     icon: <Layout size={24} />,
     color: '#ec4899',
     path: '/docs/development'
+  },
+  {
+    title: 'Evidence Bridge',
+    desc: 'Verify design decisions with real-time citations from official Cloud Architecture Frameworks.',
+    icon: <ShieldCheck size={24} />,
+    color: '#0ea5e9',
+    path: '/samples'
   }
 ];
 

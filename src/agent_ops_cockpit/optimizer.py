@@ -440,6 +440,8 @@ def audit(
                 border_style="red" if ev.get("upgrade_required") else "dim"
             )
             console.print(ev_panel)
+            # Orchestrator parsing
+            console.print(f"SOURCE: {opt.title} | {ev['source_url']} | {ev['best_practice_context'].replace('\\n', ' ')}")
 
         syntax = Syntax(opt.diff, "python", theme="monokai", line_numbers=False)
         console.print(syntax)

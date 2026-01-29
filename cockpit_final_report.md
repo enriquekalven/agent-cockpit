@@ -1,5 +1,5 @@
 # 🕹️ AgentOps Cockpit: QUICK SAFE-BUILD
-**Timestamp**: 2026-01-29 09:48:51
+**Timestamp**: 2026-01-29 11:01:21
 **Status**: ❌ FAIL
 
 ---
@@ -28,6 +28,7 @@ The following specific fixes are required to achieve a passing 'Well-Architected
 | `src/docs/DocLayout.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root |
 | `src/docs/DocLayout.tsx:1` | Missing Legal Disclaimer or Privacy Policy link | Add a footer link |
 | `src/docs/DocHome.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root |
+| `src/components/ReportSamples.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the |
 | `src/components/FlightRecorder.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the |
 | `src/components/Home.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root |
 | `src/components/OpsDashboard.tsx:1` | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the |
@@ -50,10 +51,49 @@ The following specific fixes are required to achieve a passing 'Well-Architected
 | `codebase` | Architecture Gap: Vibrancy | Prevents ad-hoc branding in autonomous UIs. |
 | `codebase` | Architecture Gap: CTA | Drives conversion and user engagement. |
 
-## 🔍 System Artifacts & Evidence
+## 📜 Evidence Bridge: Research & Citations
+Cross-verified architectural patterns and SDK best-practices mapped to official cloud standards.
+| Knowledge Pillar | SDK/Pattern Citation | Evidence & Best Practice |
+| :--- | :--- | :--- |
+| Declarative Guardrails | [Source Citation](https://cloud.google.com/architecture/framework/security) | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL |
+| Runtime | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Runtime: Is |
+| Framework | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Framework: |
+| Sandbox | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Backend | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Backend: Is |
+| Outputs | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| PII | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture Framework: 🛡️ |
+| Identity | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Safety | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture Framework: |
+| Policies | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Caching | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Context | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Context: Are |
+| Routing | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Agent Engine | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Agent |
+| Cloud Run | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| GKE | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture Framework: 🌐 |
+| VPC | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture Framework: 🌐 |
+| A2UI | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture Framework: |
+| Responsive | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Accessibility | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Triggers | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Resiliency | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Prompts | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Sessions | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Retrieval | [Source Citation](https://cloud.google.com/architecture/framework) | Google Cloud Architecture |
+| Copyright | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Copyright: |
+| License | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: License: Is |
+| Disclaimer | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Disclaimer: |
+| Data Residency | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Data |
+| Tone | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Tone: Is the |
+| SEO | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: SEO: Are OpenGraph |
+| Vibrancy | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: Vibrancy: |
+| CTA | [Source Citation](https://cloud.google.com/architecture/framework) | Recommended Pattern: CTA: Is there a |
+
+## 🔍 Raw System Artifacts
 
 ### Policy Enforcement
 ```text
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
 Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
 
 ```
@@ -93,9 +133,9 @@ Targeting: src/agent_ops_cockpit/agent.py
 
 ### Face Auditor
 ```text
-     │ Missing Legal Disclaimer or     │ Add a footer link to the        │
-│                                 │ Privacy Policy link             │ mandatory Privacy Policy / TOS. │
-│ src/docs/DocHome.tsx:1          │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+     │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/ReportSamples.t… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
 │                                 │                                 │ root component or exported      │
 │                                 │                                 │ interface.                      │
 │ src/components/FlightRecorder.… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
@@ -169,14 +209,14 @@ Use BQ Vector Search for cost-effective RAG over massive datasets without moving
 
 ### Architecture Review
 ```text
-                        │        │                                              │
-└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
-
-
-ACTION: codebase | Architecture Gap: Tone | Consistency in agent personality.
-ACTION: codebase | Architecture Gap: SEO | Critical for discoverability and social sharing.
+raph
+and meta-tags present in the Face layer?
 ACTION: codebase | Architecture Gap: Vibrancy | Prevents ad-hoc branding in autonomous UIs.
+SOURCE: Vibrancy | https://cloud.google.com/architecture/framework | Recommended Pattern: Vibrancy: 
+Does the UI use the standard corporate color palette?
 ACTION: codebase | Architecture Gap: CTA | Drives conversion and user engagement.
+SOURCE: CTA | https://cloud.google.com/architecture/framework | Recommended Pattern: CTA: Is there a 
+clear Call-to-Action for every agent proposing a tool?
                                          📢 Marketing & Brand                                          
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃

@@ -3,38 +3,60 @@
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>AgentOps Audit: DEEP SYSTEM AUDIT</title>
+            <title>AgentOps Audit: QUICK SAFE-BUILD</title>
             <style>
-                body { font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 900px; margin: 0 auto; padding: 40px; }
-                h1 { color: #1e3a8a; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; }
-                h2 { color: #2563eb; margin-top: 40px; }
-                .status-badge { display: inline-block; padding: 8px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+                body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f1f5f9; }
+                .report-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
+                header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }
+                .mascot-container { text-align: center; background: #fff; border: 1px solid #e2e8f0; padding: 10px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+                .mascot { width: 80px; height: 80px; border-radius: 12px; object-fit: contain; }
+                .mascot-name { font-size: 0.6rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.1em; }
+                h1 { color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; font-weight: 900; }
+                h2 { color: #0f172a; margin-top: 48px; font-size: 1.25rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+                .status-badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; margin-top: 10px; }
                 .pass { background: #dcfce7; color: #166534; }
                 .fail { background: #fee2e2; color: #991b1b; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e5e7eb; }
-                th { background: #f8fafc; font-weight: 600; color: #64748b; }
-                pre { background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
-                .sme-badge { font-size: 0.75rem; color: #64748b; font-weight: 500; }
+                table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+                th, td { text-align: left; padding: 16px; border-bottom: 1px solid #e2e8f0; }
+                th { background: #f8fafc; font-weight: 700; color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+                .action-table th { background: #eff6ff; color: #1e40af; }
+                .source-table th { background: #f0f9ff; color: #0369a1; }
+                code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+                pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }
+                .source-link { color: #3b82f6; text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+                .source-link:hover { border-bottom-color: #3b82f6; }
+                .footer { margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; padding-top: 20px; }
             </style>
         </head>
         <body>
-            <h1>🕹️ AgentOps Cockpit: DEEP SYSTEM AUDIT</h1>
-            <p><strong>Timestamp</strong>: 2026-01-29 08:45:37</p>
-            <p><strong>Status</strong>: <span class="status-badge fail">
-                FAILED
-            </span></p>
+            <div class="report-card">
+                <header>
+                    <div>
+                        <h1>🕹️ AgentOps Cockpit</h1>
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Report: QUICK SAFE-BUILD</p>
+                        <span class="status-badge fail">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="mascot-container">
+                        <img src="public/kokpi_branded.jpg" class="mascot" alt="Kokpi">
+                        <div class="mascot-name">KOKPI APPROVED</div>
+                    </div>
+                </header>
 
-            <h2>🧑‍💼 Principal SME Persona Approvals</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>SME Persona</th>
-                        <th>Module</th>
-                        <th>Verdict</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <p style="font-size: 0.875rem; color: #64748b;"><strong>Timestamp</strong>: 2026-01-29 11:01:21</p>
+
+                <h2>🧑‍💼 SME Persona Approvals</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
         
                 <tr>
                     <td>⚖️ Governance & Compliance SME</td>
@@ -43,32 +65,14 @@
                 </tr>
             
                 <tr>
-                    <td>🚩 Red Team Principal (White-Hat)</td>
-                    <td>Red Team Security (Full)</td>
+                    <td>🚩 Security Architect</td>
+                    <td>Red Team (Fast)</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
                 <tr>
                     <td>🎭 UX/UI Principal Designer</td>
                     <td>Face Auditor</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td>🚀 SRE & Performance Principal</td>
-                    <td>Load Test (Baseline)</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td>📜 Legal & Transparency SME</td>
-                    <td>Evidence Packing Audit</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td>🏛️ Principal Platform Engineer</td>
-                    <td>Architecture Review</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
@@ -81,7 +85,13 @@
                 <tr>
                     <td>🔐 SecOps Principal</td>
                     <td>Secret Scanner</td>
-                    <td><span class="status-badge fail">REJECTED</span></td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td>🏛️ Principal Platform Engineer</td>
+                    <td>Architecture Review</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
                 <tr>
@@ -90,17 +100,425 @@
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
-                <tr>
-                    <td>🧗 AI Quality SME</td>
-                    <td>Quality Hill Climbing</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
+                    </tbody>
+                </table>
+        
+                <h2>🛠️ Developer Action Plan</h2>
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th>Location (File:Line)</th>
+                            <th>Issue Detected</th>
+                            <th>Recommended Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
             
-                </tbody>
-            </table>
-            <h2>🔍 Detailed Findings</h2>
-        <h3>Policy Enforcement</h3><pre>Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
-</pre><h3>Red Team Security (Full)</h3><pre>╭───────────────────────────────────────────────╮
+                        <tr>
+                            <td><code>src/App.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/App.tsx:1</code></td>
+                            <td>Missing Branding (Logo) or SEO Metadata (OG/Description)</td>
+                            <td style="color: #059669; font-weight: 600;">Add meta tags</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/main.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/a2ui/components/index.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/a2ui/components/lit-component-example.ts:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId'</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/docs/DocPage.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/docs/DocPage.tsx:1</code></td>
+                            <td>Missing Legal Disclaimer or Privacy Policy link</td>
+                            <td style="color: #059669; font-weight: 600;">Add a footer link to</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/docs/DocLayout.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/docs/DocLayout.tsx:1</code></td>
+                            <td>Missing Legal Disclaimer or Privacy Policy link</td>
+                            <td style="color: #059669; font-weight: 600;">Add a footer link</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/docs/DocHome.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/components/ReportSamples.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/components/FlightRecorder.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/components/Home.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/components/OpsDashboard.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/components/ThemeToggle.tsx:1</code></td>
+                            <td>Missing 'surfaceId' mapping</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/agent_ops_cockpit/agent.py:1</code></td>
+                            <td>Optimization: Smart Model Routing</td>
+                            <td style="color: #059669; font-weight: 600;">Route simple queries to</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/agent_ops_cockpit/agent.py:1</code></td>
+                            <td>Optimization: Externalize System Prompts</td>
+                            <td style="color: #059669; font-weight: 600;">Keeping large</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/agent_ops_cockpit/agent.py:1</code></td>
+                            <td>Optimization: AlloyDB Columnar Engine</td>
+                            <td style="color: #059669; font-weight: 600;">AlloyDB detected.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/agent_ops_cockpit/agent.py:1</code></td>
+                            <td>Optimization: BigQuery Vector Search</td>
+                            <td style="color: #059669; font-weight: 600;">BigQuery detected.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Runtime</td>
+                            <td style="color: #059669; font-weight: 600;">Critical for scalability and cost.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Framework</td>
+                            <td style="color: #059669; font-weight: 600;">Google-standard for agent-tool communication.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Backend</td>
+                            <td style="color: #059669; font-weight: 600;">Industry-standard for high-concurrency agent apps.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Context</td>
+                            <td style="color: #059669; font-weight: 600;">Critical for prompts > 32k tokens.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Agent Engine</td>
+                            <td style="color: #059669; font-weight: 600;">Managed orchestration with built-in versioning and</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Copyright</td>
+                            <td style="color: #059669; font-weight: 600;">IP protection and enterprise policy.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: License</td>
+                            <td style="color: #059669; font-weight: 600;">Mandatory for legal distribution.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Disclaimer</td>
+                            <td style="color: #059669; font-weight: 600;">Liability mitigation for AI hallucinations.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Data Residency</td>
+                            <td style="color: #059669; font-weight: 600;">Ensures data stays within geofenced boundaries.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Tone</td>
+                            <td style="color: #059669; font-weight: 600;">Consistency in agent personality.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: SEO</td>
+                            <td style="color: #059669; font-weight: 600;">Critical for discoverability and social sharing.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Vibrancy</td>
+                            <td style="color: #059669; font-weight: 600;">Prevents ad-hoc branding in autonomous UIs.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: CTA</td>
+                            <td style="color: #059669; font-weight: 600;">Drives conversion and user engagement.</td>
+                        </tr>
+                    </tbody></table>
+                <h2>📜 Evidence Bridge: Research & Citations</h2>
+                <table class="source-table">
+                    <thead>
+                        <tr>
+                            <th>Knowledge Pillar</th>
+                            <th>SDK/Pattern Citation</th>
+                            <th>Evidence & Best Practice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td style="font-weight: 700;">Declarative Guardrails</td>
+                            <td><a href="https://cloud.google.com/architecture/framework/security" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Governance Best Practices: Input Sanitization & Tool HITL</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Runtime</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Runtime: Is</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Framework</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Framework:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Sandbox</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Backend</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Backend: Is</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Outputs</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">PII</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Identity</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Safety</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Policies</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Caching</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Context</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Context: Are</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Routing</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Agent Engine</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Agent</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Cloud Run</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">GKE</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">VPC</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">A2UI</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Responsive</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Accessibility</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Triggers</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Resiliency</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Prompts</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Sessions</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Retrieval</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Copyright</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Copyright:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">License</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: License: Is</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Disclaimer</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Disclaimer:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Data Residency</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Data</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Tone</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Tone: Is the</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">SEO</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: SEO: Are OpenGraph</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">Vibrancy</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Vibrancy:</td>
+                        </tr>
+                    
+                        <tr>
+                            <td style="font-weight: 700;">CTA</td>
+                            <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: CTA: Is there a</td>
+                        </tr>
+                    </tbody></table>
+                <h2>🔍 Audit Evidence</h2>
+        <h3>Policy Enforcement</h3><pre>SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+</pre><h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
 │ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
 ╰───────────────────────────────────────────────╯
 Targeting: src/agent_ops_cockpit/agent.py
@@ -132,316 +550,143 @@ Targeting: src/agent_ops_cockpit/agent.py
 │ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
 ╰──────────────────────────────────────╯
 Scanning directory: src
-📝 Scanned 13 frontend files.
-                                🔍 A2UI Audit Findings                                 
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ File                     ┃ Issue                                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ App.tsx                  │ Missing 'surfaceId' mapping                              │
-│ App.tsx                  │ Missing Branding (Logo) or SEO Metadata (OG/Description) │
-│ main.tsx                 │ Missing 'surfaceId' mapping                              │
-│ index.tsx                │ Missing 'surfaceId' mapping                              │
-│ index.tsx                │ Missing Branding (Logo) or SEO Metadata (OG/Description) │
-│ lit-component-example.ts │ Missing 'surfaceId' mapping                              │
-│ DocPage.tsx              │ Missing 'surfaceId' mapping                              │
-│ DocPage.tsx              │ Missing Legal Disclaimer or Privacy Policy link          │
-│ DocLayout.tsx            │ Missing 'surfaceId' mapping                              │
-│ DocLayout.tsx            │ Missing Legal Disclaimer or Privacy Policy link          │
-│ DocHome.tsx              │ Missing 'surfaceId' mapping                              │
-│ FlightRecorder.tsx       │ Missing 'surfaceId' mapping                              │
-│ Home.tsx                 │ Missing 'surfaceId' mapping                              │
-│ OpsDashboard.tsx         │ Missing 'surfaceId' mapping                              │
-│ ThemeToggle.tsx          │ Missing 'surfaceId' mapping                              │
-└──────────────────────────┴──────────────────────────────────────────────────────────┘
+📝 Scanned 14 frontend files.
+
+🛠️  DEVELOPER ACTIONS REQUIRED:
+ACTION: src/App.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or 
+exported interface.
+ACTION: src/App.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | Add meta tags 
+(og:image, description) and project logo.
+ACTION: src/main.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or 
+exported interface.
+ACTION: src/a2ui/components/index.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
+root component or exported interface.
+ACTION: src/a2ui/components/index.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | 
+Add meta tags (og:image, description) and project logo.
+ACTION: src/a2ui/components/lit-component-example.ts:1 | Missing 'surfaceId' mapping | Add 'surfaceId' 
+prop to the root component or exported interface.
+ACTION: src/docs/DocPage.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
+component or exported interface.
+ACTION: src/docs/DocPage.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link to
+the mandatory Privacy Policy / TOS.
+ACTION: src/docs/DocLayout.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
+component or exported interface.
+ACTION: src/docs/DocLayout.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link 
+to the mandatory Privacy Policy / TOS.
+ACTION: src/docs/DocHome.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
+component or exported interface.
+ACTION: src/components/ReportSamples.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
+root component or exported interface.
+ACTION: src/components/FlightRecorder.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the
+root component or exported interface.
+ACTION: src/components/Home.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
+component or exported interface.
+ACTION: src/components/OpsDashboard.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
+root component or exported interface.
+ACTION: src/components/ThemeToggle.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
+root component or exported interface.
+
+
+                                        🔍 A2UI Audit Findings                                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ File:Line                       ┃ Issue                           ┃ Recommended Fix                 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ src/App.tsx:1                   │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/App.tsx:1                   │ Missing Branding (Logo) or SEO  │ Add meta tags (og:image,        │
+│                                 │ Metadata (OG/Description)       │ description) and project logo.  │
+│ src/main.tsx:1                  │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/a2ui/components/index.tsx:1 │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/a2ui/components/index.tsx:1 │ Missing Branding (Logo) or SEO  │ Add meta tags (og:image,        │
+│                                 │ Metadata (OG/Description)       │ description) and project logo.  │
+│ src/a2ui/components/lit-compon… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/docs/DocPage.tsx:1          │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/docs/DocPage.tsx:1          │ Missing Legal Disclaimer or     │ Add a footer link to the        │
+│                                 │ Privacy Policy link             │ mandatory Privacy Policy / TOS. │
+│ src/docs/DocLayout.tsx:1        │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/docs/DocLayout.tsx:1        │ Missing Legal Disclaimer or     │ Add a footer link to the        │
+│                                 │ Privacy Policy link             │ mandatory Privacy Policy / TOS. │
+│ src/docs/DocHome.tsx:1          │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/ReportSamples.t… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/FlightRecorder.… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/Home.tsx:1       │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/OpsDashboard.ts… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+│ src/components/ThemeToggle.tsx… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
+│                                 │                                 │ root component or exported      │
+│                                 │                                 │ interface.                      │
+└─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 
 ⚠️  Recommendation: Your 'Face' layer has fragmented A2UI surface mappings.
 💡 Use the A2UI Registry to unify how your agent logic triggers visual surfaces.
-</pre><h3>Load Test (Baseline)</h3><pre>🚀 Starting load test on http://localhost:8000/agent/query?q=healthcheck
-Total Requests: 50 | Concurrency: 5
-
-  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-
-
-        📊 Agentic Performance & Load Summary        
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Metric           ┃ Value          ┃ SLA Threshold ┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ Total Requests   │ 50             │ -             │
-│ Throughput (RPS) │ 14306.20 req/s │ > 5.0         │
-│ Success Rate     │ 0.0%           │ > 99%         │
-│ Avg Latency      │ 0.003s         │ < 2.0s        │
-│ Est. TTFT        │ 0.001s         │ < 0.5s        │
-│ p90 Latency      │ 0.025s         │ < 3.5s        │
-│ Total Errors     │ 50             │ 0             │
-└──────────────────┴────────────────┴───────────────┘
-</pre><h3>Evidence Packing Audit</h3><pre>╭────────────────────────────────────────────────╮
-│ 🏛️ GOOGLE VERTEX AI / ADK: ARCHITECTURE REVIEW │
-╰────────────────────────────────────────────────╯
-Detected Framework: Google Vertex AI / ADK
-Comparing local agent implementation against Google Vertex AI / ADK Best Practices...
-
-                                                     🏗️ Core Architecture (Google)                                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                         ┃ Status ┃ Rationale                                           ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Runtime: Is the agent running on Cloud Run or GKE?                   │  FAIL  │ Critical for scalability and cost.                  │
-│ Framework: Is ADK used for tool orchestration?                       │  FAIL  │ Google-standard for agent-tool communication.       │
-│ Sandbox: Is Code Execution running in Vertex AI Sandbox?             │ PASSED │ Prevents malicious code execution.                  │
-│ Backend: Is FastAPI used for the Engine layer?                       │  FAIL  │ Industry-standard for high-concurrency agent apps.  │
-│ Outputs: Are Pydantic or Response Schemas used for structured        │ PASSED │ Ensures data integrity and reliable tool execution. │
-│ output?                                                              │        │                                                     │
-└──────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────────┘
-
-
-                                                         🛡️ Security & Privacy                                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                ┃ Status ┃ Rationale                                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ PII: Is a scrubber active before sending data to LLM?       │ PASSED │ Compliance requirement (GDPR/SOC2).                          │
-│ Identity: Is IAM used for tool access?                      │ PASSED │ Ensures least-privilege security.                            │
-│ Safety: Are Vertex AI Safety Filters configured?            │ PASSED │ Protects against toxic generation.                           │
-│ Policies: Is 'policies.json' used for declarative           │ PASSED │ Enforces RFC-307 standards for forbidden topics and tool     │
-│ guardrails?                                                 │        │ HITL.                                                        │
-└─────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────────────┘
-
-
-                                          📉 Optimization                                          
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                      ┃ Status ┃ Rationale                          ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Caching: Is Semantic Caching (Hive Mind) enabled? │ PASSED │ Reduces LLM costs.                 │
-│ Context: Are you using Context Caching?           │  FAIL  │ Critical for prompts > 32k tokens. │
-│ Routing: Are you using Flash for simple tasks?    │ PASSED │ Performance and cost optimization. │
-└───────────────────────────────────────────────────┴────────┴────────────────────────────────────┘
-
-
-                                                      🌐 Infrastructure & Runtime                                                      
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                 ┃ Status ┃ Rationale                                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Agent Engine: Are you using Vertex AI Reasoning Engine for   │  FAIL  │ Managed orchestration with built-in versioning and traces.  │
-│ deployment?                                                  │        │                                                             │
-│ Cloud Run: Is 'Startup CPU Boost' enabled?                   │ PASSED │ Critical for reducing cold-start latency in Python agents.  │
-│ GKE: Is Workload Identity used for IAM?                      │ PASSED │ Google-standard for secure service-to-service               │
-│                                                              │        │ communication.                                              │
-│ VPC: Is VPC Service Controls (VPC SC) active?                │ PASSED │ Prevents data exfiltration by isolating the agent           │
-│                                                              │        │ environment.                                                │
-└──────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────────────────┘
-
-
-                                                          🎭 Face (UI/UX)                                                           
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                     ┃ Status ┃ Rationale                                            ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ A2UI: Are components registered in the A2UIRenderer?             │ PASSED │ Ensures engine-driven UI protocol compliance.        │
-│ Responsive: Are mobile-first media queries present in index.css? │ PASSED │ Ensures usability across devices (iOS/Android).      │
-│ Accessibility: Do interactive elements have aria-labels?         │ PASSED │ Critical for inclusive design and automated testing. │
-│ Triggers: Are you using interactive triggers for state changes?  │ PASSED │ Improves 'Agentic Feel' through reactive UI.         │
-└──────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────┘
-
-
-                                                    🧗 Resiliency & Best Practices                                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                ┃ Status ┃ Rationale                                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Resiliency: Are retries with exponential backoff used for   │ PASSED │ Prevents cascading failures during downtime (e.g., using     │
-│ API/DB calls?                                               │        │ tenacity).                                                   │
-│ Prompts: Are prompts stored in external '.md' or '.yaml'    │ PASSED │ Best practice for separation of concerns and versioning.     │
-│ files?                                                      │        │                                                              │
-│ Sessions: Is there a session/conversation management layer? │ PASSED │ Ensures context continuity and user state tracking.          │
-│ Retrieval: Are you using RAG or Efficient Context Caching   │ PASSED │ Optimizes performance vs. cost for retrieval-heavy agents.   │
-│ for large datasets?                                         │        │                                                              │
-└─────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────────────┘
-
-
-                                                         ⚖️ Legal & Compliance                                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                             ┃ Status ┃ Rationale                                       ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Copyright: Does every source file have a legal copyright header?         │  FAIL  │ IP protection and enterprise policy.            │
-│ License: Is there a LICENSE file in the root?                            │  FAIL  │ Mandatory for legal distribution.               │
-│ Disclaimer: Does the agent provide a clear LLM-usage disclaimer?         │  FAIL  │ Liability mitigation for AI hallucinations.     │
-│ Data Residency: Is the agent region-restricted to us-central1 or         │  FAIL  │ Ensures data stays within geofenced boundaries. │
-│ equivalent?                                                              │        │                                                 │
-└──────────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────┘
-
-
-                                                         📢 Marketing & Brand                                                          
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                            ┃ Status ┃ Rationale                                        ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Tone: Is the system prompt aligned with brand voice                     │  FAIL  │ Consistency in agent personality.                │
-│ (Helpful/Professional)?                                                 │        │                                                  │
-│ SEO: Are OpenGraph and meta-tags present in the Face layer?             │  FAIL  │ Critical for discoverability and social sharing. │
-│ Vibrancy: Does the UI use the standard corporate color palette?         │  FAIL  │ Prevents ad-hoc branding in autonomous UIs.      │
-│ CTA: Is there a clear Call-to-Action for every agent proposing a tool?  │  FAIL  │ Drives conversion and user engagement.           │
-└─────────────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────┘
-
-
-📊 Review Score: 58/100
-⚠️ Review Complete with warnings. Your agent has gaps in best practices. See results above.
-</pre><h3>Architecture Review</h3><pre>╭────────────────────────────────────────────────╮
-│ 🏛️ GOOGLE VERTEX AI / ADK: ARCHITECTURE REVIEW │
-╰────────────────────────────────────────────────╯
-Detected Framework: Google Vertex AI / ADK
-Comparing local agent implementation against Google Vertex AI / ADK Best Practices...
-
-                                                     🏗️ Core Architecture (Google)                                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                         ┃ Status ┃ Rationale                                           ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Runtime: Is the agent running on Cloud Run or GKE?                   │  FAIL  │ Critical for scalability and cost.                  │
-│ Framework: Is ADK used for tool orchestration?                       │  FAIL  │ Google-standard for agent-tool communication.       │
-│ Sandbox: Is Code Execution running in Vertex AI Sandbox?             │ PASSED │ Prevents malicious code execution.                  │
-│ Backend: Is FastAPI used for the Engine layer?                       │  FAIL  │ Industry-standard for high-concurrency agent apps.  │
-│ Outputs: Are Pydantic or Response Schemas used for structured        │ PASSED │ Ensures data integrity and reliable tool execution. │
-│ output?                                                              │        │                                                     │
-└──────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────────┘
-
-
-                                                         🛡️ Security & Privacy                                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                ┃ Status ┃ Rationale                                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ PII: Is a scrubber active before sending data to LLM?       │ PASSED │ Compliance requirement (GDPR/SOC2).                          │
-│ Identity: Is IAM used for tool access?                      │ PASSED │ Ensures least-privilege security.                            │
-│ Safety: Are Vertex AI Safety Filters configured?            │ PASSED │ Protects against toxic generation.                           │
-│ Policies: Is 'policies.json' used for declarative           │ PASSED │ Enforces RFC-307 standards for forbidden topics and tool     │
-│ guardrails?                                                 │        │ HITL.                                                        │
-└─────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────────────┘
-
-
-                                          📉 Optimization                                          
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                      ┃ Status ┃ Rationale                          ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Caching: Is Semantic Caching (Hive Mind) enabled? │ PASSED │ Reduces LLM costs.                 │
-│ Context: Are you using Context Caching?           │  FAIL  │ Critical for prompts > 32k tokens. │
-│ Routing: Are you using Flash for simple tasks?    │ PASSED │ Performance and cost optimization. │
-└───────────────────────────────────────────────────┴────────┴────────────────────────────────────┘
-
-
-                                                      🌐 Infrastructure & Runtime                                                      
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                 ┃ Status ┃ Rationale                                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Agent Engine: Are you using Vertex AI Reasoning Engine for   │  FAIL  │ Managed orchestration with built-in versioning and traces.  │
-│ deployment?                                                  │        │                                                             │
-│ Cloud Run: Is 'Startup CPU Boost' enabled?                   │ PASSED │ Critical for reducing cold-start latency in Python agents.  │
-│ GKE: Is Workload Identity used for IAM?                      │ PASSED │ Google-standard for secure service-to-service               │
-│                                                              │        │ communication.                                              │
-│ VPC: Is VPC Service Controls (VPC SC) active?                │ PASSED │ Prevents data exfiltration by isolating the agent           │
-│                                                              │        │ environment.                                                │
-└──────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────────────────┘
-
-
-                                                          🎭 Face (UI/UX)                                                           
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                     ┃ Status ┃ Rationale                                            ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ A2UI: Are components registered in the A2UIRenderer?             │ PASSED │ Ensures engine-driven UI protocol compliance.        │
-│ Responsive: Are mobile-first media queries present in index.css? │ PASSED │ Ensures usability across devices (iOS/Android).      │
-│ Accessibility: Do interactive elements have aria-labels?         │ PASSED │ Critical for inclusive design and automated testing. │
-│ Triggers: Are you using interactive triggers for state changes?  │ PASSED │ Improves 'Agentic Feel' through reactive UI.         │
-└──────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────┘
-
-
-                                                    🧗 Resiliency & Best Practices                                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                ┃ Status ┃ Rationale                                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Resiliency: Are retries with exponential backoff used for   │ PASSED │ Prevents cascading failures during downtime (e.g., using     │
-│ API/DB calls?                                               │        │ tenacity).                                                   │
-│ Prompts: Are prompts stored in external '.md' or '.yaml'    │ PASSED │ Best practice for separation of concerns and versioning.     │
-│ files?                                                      │        │                                                              │
-│ Sessions: Is there a session/conversation management layer? │ PASSED │ Ensures context continuity and user state tracking.          │
-│ Retrieval: Are you using RAG or Efficient Context Caching   │ PASSED │ Optimizes performance vs. cost for retrieval-heavy agents.   │
-│ for large datasets?                                         │        │                                                              │
-└─────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────────────┘
-
-
-                                                         ⚖️ Legal & Compliance                                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                             ┃ Status ┃ Rationale                                       ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Copyright: Does every source file have a legal copyright header?         │  FAIL  │ IP protection and enterprise policy.            │
-│ License: Is there a LICENSE file in the root?                            │  FAIL  │ Mandatory for legal distribution.               │
-│ Disclaimer: Does the agent provide a clear LLM-usage disclaimer?         │  FAIL  │ Liability mitigation for AI hallucinations.     │
-│ Data Residency: Is the agent region-restricted to us-central1 or         │  FAIL  │ Ensures data stays within geofenced boundaries. │
-│ equivalent?                                                              │        │                                                 │
-└──────────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────┘
-
-
-                                                         📢 Marketing & Brand                                                          
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                                            ┃ Status ┃ Rationale                                        ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Tone: Is the system prompt aligned with brand voice                     │  FAIL  │ Consistency in agent personality.                │
-│ (Helpful/Professional)?                                                 │        │                                                  │
-│ SEO: Are OpenGraph and meta-tags present in the Face layer?             │  FAIL  │ Critical for discoverability and social sharing. │
-│ Vibrancy: Does the UI use the standard corporate color palette?         │  FAIL  │ Prevents ad-hoc branding in autonomous UIs.      │
-│ CTA: Is there a clear Call-to-Action for every agent proposing a tool?  │  FAIL  │ Drives conversion and user engagement.           │
-└─────────────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────┘
-
-
-📊 Review Score: 58/100
-⚠️ Review Complete with warnings. Your agent has gaps in best practices. See results above.
 </pre><h3>Token Optimization</h3><pre>╭───────────────────────────────────╮
 │ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
 ╰───────────────────────────────────╯
+⚡ Running in Quick Mode (skipping live evidence fetches)
 Target: src/agent_ops_cockpit/agent.py
 📊 Token Metrics: ~729 prompt tokens detected.
-╭────────────────────────────────────────────────────── Financial Optimization ───────────────────────────────────────────────────────╮
-│ 💰 FinOps Projection (Est. 10k req/mo)                                                                                              │
-│ Current Monthly Spend: $72.90                                                                                                       │
-│ Projected Savings: $36.45                                                                                                           │
-│ New Monthly Spend: $36.45                                                                                                           │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭────────────────────────────────────── Financial Optimization ───────────────────────────────────────╮
+│ 💰 FinOps Projection (Est. 10k req/mo)                                                              │
+│ Current Monthly Spend: $72.90                                                                       │
+│ Projected Savings: $36.45                                                                           │
+│ New Monthly Spend: $36.45                                                                           │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
  --- [HIGH IMPACT] Smart Model Routing --- 
 Benefit: 70% cost savings
 Reason: Route simple queries to Flash models to minimize consumption.
-╭────────────────────────────────────────────────────── SDK Citation & Evidence ──────────────────────────────────────────────────────╮
-│ 🔗 Source: https://github.com/googleapis/python-aiplatform/releases                                                                 │
-│ 📅 Latest Release: 2026-01-28                                                                                                       │
-│ 📝 Note: 1.135.0 (2026-01-27)                                                                                                       │
-│ Features                                                                                                                            │
-│                                                                                                                                     │
-│ Add ComputationBasedMetricSpec to support metrics like EXACT_MATCH, BLEU, and ROUGE in EvaluationRun configurations. (9d32dd5)      │
-│ Add autoscaling_target_dcgm_fi_dev_gpu_util, autoscaling_target_vllm_gpu_cache_usage_perc,                                          │
-│ autoscaling_target_vllm_num_requests_waiting options in model deployment on Endpoint &amp; Model classes. (0179aa5)                 │
-│ Add optimize and launch_optimization_job methods to prompts module (044c3fa)                                                        │
-│ List all Model Garden models (54260fd)                                                                                              │
-│ RAG - Add Serverles...                                                                                                              │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-Proposed Code-Level Change (Apply now):
-+ if is_simple(q): model = 'gemini-1.5-flash'                                                                                          
++ if is_simple(q): model = 'gemini-1.5-flash'                                                          
+ACTION: src/agent_ops_cockpit/agent.py:1 | Optimization: Smart Model Routing | Route simple queries to 
+Flash models to minimize consumption. (Est. 70% cost savings)
 ❌ [REJECTED] skipping optimization.
 
  --- [MEDIUM IMPACT] Externalize System Prompts --- 
 Benefit: Architectural Debt Reduction
-Reason: Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and load dynamically.
-
-Proposed Code-Level Change (Apply now):
-+ with open('system_prompt.md', 'r') as f:                                                                                             
-+     SYSTEM_PROMPT = f.read()                                                                                                         
+Reason: Keeping large system prompts in code makes them hard to version and test. Move them to 
+'system_prompt.md' and load dynamically.
++ with open('system_prompt.md', 'r') as f:                                                             
++     SYSTEM_PROMPT = f.read()                                                                         
+ACTION: src/agent_ops_cockpit/agent.py:1 | Optimization: Externalize System Prompts | Keeping large 
+system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and load 
+dynamically. (Est. Architectural Debt Reduction)
 ❌ [REJECTED] skipping optimization.
 
  --- [HIGH IMPACT] AlloyDB Columnar Engine --- 
 Benefit: 100x Query Speedup
 Reason: AlloyDB detected. Enable the Columnar Engine for analytical and AI-driven vector queries.
-
-Proposed Code-Level Change (Apply now):
-+ # Enable AlloyDB Columnar Engine for vector scaling                                                                                  
++ # Enable AlloyDB Columnar Engine for vector scaling                                                  
+ACTION: src/agent_ops_cockpit/agent.py:1 | Optimization: AlloyDB Columnar Engine | AlloyDB detected. 
+Enable the Columnar Engine for analytical and AI-driven vector queries. (Est. 100x Query Speedup)
 ❌ [REJECTED] skipping optimization.
 
  --- [HIGH IMPACT] BigQuery Vector Search --- 
 Benefit: FinOps: Serverless RAG
-Reason: BigQuery detected. Use BQ Vector Search for cost-effective RAG over massive datasets without moving data to a separate DB.
-
-Proposed Code-Level Change (Apply now):
-+ SELECT * FROM VECTOR_SEARCH(TABLE my_dataset.embeddings, ...)                                                                        
+Reason: BigQuery detected. Use BQ Vector Search for cost-effective RAG over massive datasets without 
+moving data to a separate DB.
++ SELECT * FROM VECTOR_SEARCH(TABLE my_dataset.embeddings, ...)                                        
+ACTION: src/agent_ops_cockpit/agent.py:1 | Optimization: BigQuery Vector Search | BigQuery detected. 
+Use BQ Vector Search for cost-effective RAG over massive datasets without moving data to a separate DB.
+(Est. FinOps: Serverless RAG)
 ❌ [REJECTED] skipping optimization.
          🎯 AUDIT SUMMARY         
 ┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
@@ -456,69 +701,210 @@ Proposed Code-Level Change (Apply now):
 </pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
 │ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
 ╰──────────────────────────────────────────────╯
-                                            🛡️ Security Findings: Hardcoded Secrets                                            
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ File                                                                    ┃ Line  ┃ Type             ┃ Suggestion             ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ node_modules/@types/ms/package.json                                     │ 24    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/ms/index.d.ts                                       │ 20    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/hast/package.json                                   │ 40    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__template/package.json                        │ 41    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/react-dom/package.json                              │ 86    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__generator/package.json                       │ 41    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/trusted-types/package.json                          │ 43    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__traverse/package.json                        │ 61    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__traverse/index.d.ts                          │ 402   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/prop-types/package.json                             │ 34    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/mdast/package.json                                  │ 45    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/estree/package.json                                 │ 24    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/unist/package.json                                  │ 58    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__core/package.json                            │ 49    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/babel__core/index.d.ts                              │ 491   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/react/package.json                                  │ 204   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/debug/package.json                                  │ 55    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/@types/estree-jsx/package.json                             │ 25    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/micromark-extension-gfm-autolink-literal/lib/syntax.js     │ 370   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/micromark-extension-gfm-autolink-literal/dev/lib/syntax.js │ 409   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/typescript/package.json                                    │ 119   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/scheduler/umd/scheduler-unstable_mock.development.js       │ 112   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/scheduler/cjs/scheduler.development.js                     │ 140   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/scheduler/cjs/scheduler-unstable_mock.development.js       │ 113   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/vite/dist/node/chunks/dep-Dnp7gl8U.js                      │ 2284  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/vite/dist/node/chunks/dep-Dnp7gl8U.js                      │ 2292  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js                      │ 25536 │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js                      │ 44708 │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js                      │ 44711 │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/parse-entities/node_modules/@types/unist/package.json      │ 53    │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/rollup.js                                      │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/parseAst.js                                    │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/loadConfigFile.js                              │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/getLogFilter.js                                │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/watch-cli.js                            │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/rollup.js                               │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/parseAst.js                             │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/index.js                                │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/index.js                                │ 8896  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/index.js                                │ 8899  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/fsevents-importer.js                    │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/watch.js                                │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/shared/loadConfigFile.js                       │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/rollup.js                                   │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/parseAst.js                                 │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/getLogFilter.js                             │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/shared/parseAst.js                          │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/shared/watch.js                             │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/shared/watch.js                             │ 8900  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/shared/watch.js                             │ 8903  │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/rollup/dist/es/shared/node-entry.js                        │ 4     │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/set-cookie-parser/lib/set-cookie.js                        │ 160   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/set-cookie-parser/lib/set-cookie.js                        │ 163   │ Azure OpenAI Key │ Move to Secret Manager │
-│ node_modules/react/umd/react.development.js                             │ 2527  │ Azure OpenAI Key │ Move to Secret Manager │
-└─────────────────────────────────────────────────────────────────────────┴───────┴──────────────────┴────────────────────────┘
+✅ PASS: No hardcoded credentials detected in matched patterns.
+</pre><h3>Architecture Review</h3><pre>╭────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ARCHITECTURE REVIEW │
+╰────────────────────────────────────────────────╯
+Detected Framework: Google Vertex AI / ADK
+Comparing local agent implementation against Google Vertex AI / ADK Best Practices...
 
-❌ FAIL: Found 54 potential credential leaks.
-💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all tokens.
+ACTION: codebase | Architecture Gap: Runtime | Critical for scalability and cost.
+SOURCE: Runtime | https://cloud.google.com/architecture/framework | Recommended Pattern: Runtime: Is 
+the agent running on Cloud Run or GKE?
+ACTION: codebase | Architecture Gap: Framework | Google-standard for agent-tool communication.
+SOURCE: Framework | https://cloud.google.com/architecture/framework | Recommended Pattern: Framework: 
+Is ADK used for tool orchestration?
+SOURCE: Sandbox | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🏗️ Core Architecture (Google)
+ACTION: codebase | Architecture Gap: Backend | Industry-standard for high-concurrency agent apps.
+SOURCE: Backend | https://cloud.google.com/architecture/framework | Recommended Pattern: Backend: Is 
+FastAPI used for the Engine layer?
+SOURCE: Outputs | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🏗️ Core Architecture (Google)
+                                     🏗️ Core Architecture (Google)                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Runtime: Is the agent running on Cloud Run  │  FAIL  │ Critical for scalability and cost.           │
+│ or GKE?                                     │        │                                              │
+│ Framework: Is ADK used for tool             │  FAIL  │ Google-standard for agent-tool               │
+│ orchestration?                              │        │ communication.                               │
+│ Sandbox: Is Code Execution running in       │ PASSED │ Prevents malicious code execution.           │
+│ Vertex AI Sandbox?                          │        │                                              │
+│ Backend: Is FastAPI used for the Engine     │  FAIL  │ Industry-standard for high-concurrency agent │
+│ layer?                                      │        │ apps.                                        │
+│ Outputs: Are Pydantic or Response Schemas   │ PASSED │ Ensures data integrity and reliable tool     │
+│ used for structured output?                 │        │ execution.                                   │
+└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
 
+
+SOURCE: PII | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️
+Security & Privacy
+SOURCE: Identity | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🛡️ Security & Privacy
+SOURCE: Safety | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework:
+🛡️ Security & Privacy
+SOURCE: Policies | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🛡️ Security & Privacy
+                                         🛡️ Security & Privacy                                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ PII: Is a scrubber active before sending    │ PASSED │ Compliance requirement (GDPR/SOC2).          │
+│ data to LLM?                                │        │                                              │
+│ Identity: Is IAM used for tool access?      │ PASSED │ Ensures least-privilege security.            │
+│ Safety: Are Vertex AI Safety Filters        │ PASSED │ Protects against toxic generation.           │
+│ configured?                                 │        │                                              │
+│ Policies: Is 'policies.json' used for       │ PASSED │ Enforces RFC-307 standards for forbidden     │
+│ declarative guardrails?                     │        │ topics and tool HITL.                        │
+└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+
+
+SOURCE: Caching | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 📉 Optimization
+ACTION: codebase | Architecture Gap: Context | Critical for prompts > 32k tokens.
+SOURCE: Context | https://cloud.google.com/architecture/framework | Recommended Pattern: Context: Are 
+you using Context Caching?
+SOURCE: Routing | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 📉 Optimization
+                                          📉 Optimization                                          
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                      ┃ Status ┃ Rationale                          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Caching: Is Semantic Caching (Hive Mind) enabled? │ PASSED │ Reduces LLM costs.                 │
+│ Context: Are you using Context Caching?           │  FAIL  │ Critical for prompts > 32k tokens. │
+│ Routing: Are you using Flash for simple tasks?    │ PASSED │ Performance and cost optimization. │
+└───────────────────────────────────────────────────┴────────┴────────────────────────────────────┘
+
+
+ACTION: codebase | Architecture Gap: Agent Engine | Managed orchestration with built-in versioning and 
+traces.
+SOURCE: Agent Engine | https://cloud.google.com/architecture/framework | Recommended Pattern: Agent 
+Engine: Are you using Vertex AI Reasoning Engine for deployment?
+SOURCE: Cloud Run | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🌐 Infrastructure & Runtime
+SOURCE: GKE | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐
+Infrastructure & Runtime
+SOURCE: VPC | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐
+Infrastructure & Runtime
+                                      🌐 Infrastructure & Runtime                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Agent Engine: Are you using Vertex AI        │  FAIL  │ Managed orchestration with built-in         │
+│ Reasoning Engine for deployment?             │        │ versioning and traces.                      │
+│ Cloud Run: Is 'Startup CPU Boost' enabled?   │ PASSED │ Critical for reducing cold-start latency in │
+│                                              │        │ Python agents.                              │
+│ GKE: Is Workload Identity used for IAM?      │ PASSED │ Google-standard for secure                  │
+│                                              │        │ service-to-service communication.           │
+│ VPC: Is VPC Service Controls (VPC SC)        │ PASSED │ Prevents data exfiltration by isolating the │
+│ active?                                      │        │ agent environment.                          │
+└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+
+
+SOURCE: A2UI | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 
+🎭 Face (UI/UX)
+SOURCE: Responsive | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🎭 Face (UI/UX)
+SOURCE: Accessibility | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🎭 Face (UI/UX)
+SOURCE: Triggers | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🎭 Face (UI/UX)
+                                            🎭 Face (UI/UX)                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ A2UI: Are components registered in the       │ PASSED │ Ensures engine-driven UI protocol           │
+│ A2UIRenderer?                                │        │ compliance.                                 │
+│ Responsive: Are mobile-first media queries   │ PASSED │ Ensures usability across devices            │
+│ present in index.css?                        │        │ (iOS/Android).                              │
+│ Accessibility: Do interactive elements have  │ PASSED │ Critical for inclusive design and automated │
+│ aria-labels?                                 │        │ testing.                                    │
+│ Triggers: Are you using interactive triggers │ PASSED │ Improves 'Agentic Feel' through reactive    │
+│ for state changes?                           │        │ UI.                                         │
+└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+
+
+SOURCE: Resiliency | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🧗 Resiliency & Best Practices
+SOURCE: Prompts | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🧗 Resiliency & Best Practices
+SOURCE: Sessions | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🧗 Resiliency & Best Practices
+SOURCE: Retrieval | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
+Framework: 🧗 Resiliency & Best Practices
+                                    🧗 Resiliency & Best Practices                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Resiliency: Are retries with exponential    │ PASSED │ Prevents cascading failures during downtime  │
+│ backoff used for API/DB calls?              │        │ (e.g., using tenacity).                      │
+│ Prompts: Are prompts stored in external     │ PASSED │ Best practice for separation of concerns and │
+│ '.md' or '.yaml' files?                     │        │ versioning.                                  │
+│ Sessions: Is there a session/conversation   │ PASSED │ Ensures context continuity and user state    │
+│ management layer?                           │        │ tracking.                                    │
+│ Retrieval: Are you using RAG or Efficient   │ PASSED │ Optimizes performance vs. cost for           │
+│ Context Caching for large datasets?         │        │ retrieval-heavy agents.                      │
+└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+
+
+ACTION: codebase | Architecture Gap: Copyright | IP protection and enterprise policy.
+SOURCE: Copyright | https://cloud.google.com/architecture/framework | Recommended Pattern: Copyright: 
+Does every source file have a legal copyright header?
+ACTION: codebase | Architecture Gap: License | Mandatory for legal distribution.
+SOURCE: License | https://cloud.google.com/architecture/framework | Recommended Pattern: License: Is 
+there a LICENSE file in the root?
+ACTION: codebase | Architecture Gap: Disclaimer | Liability mitigation for AI hallucinations.
+SOURCE: Disclaimer | https://cloud.google.com/architecture/framework | Recommended Pattern: Disclaimer:
+Does the agent provide a clear LLM-usage disclaimer?
+ACTION: codebase | Architecture Gap: Data Residency | Ensures data stays within geofenced boundaries.
+SOURCE: Data Residency | https://cloud.google.com/architecture/framework | Recommended Pattern: Data 
+Residency: Is the agent region-restricted to us-central1 or equivalent?
+                                         ⚖️ Legal & Compliance                                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Copyright: Does every source file have a    │  FAIL  │ IP protection and enterprise policy.         │
+│ legal copyright header?                     │        │                                              │
+│ License: Is there a LICENSE file in the     │  FAIL  │ Mandatory for legal distribution.            │
+│ root?                                       │        │                                              │
+│ Disclaimer: Does the agent provide a clear  │  FAIL  │ Liability mitigation for AI hallucinations.  │
+│ LLM-usage disclaimer?                       │        │                                              │
+│ Data Residency: Is the agent                │  FAIL  │ Ensures data stays within geofenced          │
+│ region-restricted to us-central1 or         │        │ boundaries.                                  │
+│ equivalent?                                 │        │                                              │
+└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+
+
+ACTION: codebase | Architecture Gap: Tone | Consistency in agent personality.
+SOURCE: Tone | https://cloud.google.com/architecture/framework | Recommended Pattern: Tone: Is the 
+system prompt aligned with brand voice (Helpful/Professional)?
+ACTION: codebase | Architecture Gap: SEO | Critical for discoverability and social sharing.
+SOURCE: SEO | https://cloud.google.com/architecture/framework | Recommended Pattern: SEO: Are OpenGraph
+and meta-tags present in the Face layer?
+ACTION: codebase | Architecture Gap: Vibrancy | Prevents ad-hoc branding in autonomous UIs.
+SOURCE: Vibrancy | https://cloud.google.com/architecture/framework | Recommended Pattern: Vibrancy: 
+Does the UI use the standard corporate color palette?
+ACTION: codebase | Architecture Gap: CTA | Drives conversion and user engagement.
+SOURCE: CTA | https://cloud.google.com/architecture/framework | Recommended Pattern: CTA: Is there a 
+clear Call-to-Action for every agent proposing a tool?
+                                         📢 Marketing & Brand                                          
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Tone: Is the system prompt aligned with      │  FAIL  │ Consistency in agent personality.           │
+│ brand voice (Helpful/Professional)?          │        │                                             │
+│ SEO: Are OpenGraph and meta-tags present in  │  FAIL  │ Critical for discoverability and social     │
+│ the Face layer?                              │        │ sharing.                                    │
+│ Vibrancy: Does the UI use the standard       │  FAIL  │ Prevents ad-hoc branding in autonomous UIs. │
+│ corporate color palette?                     │        │                                             │
+│ CTA: Is there a clear Call-to-Action for     │  FAIL  │ Drives conversion and user engagement.      │
+│ every agent proposing a tool?                │        │                                             │
+└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+
+
+📊 Review Score: 58/100
+⚠️ Review Complete with warnings. Your agent has gaps in best practices. See results above.
 </pre><h3>Reliability (Quick)</h3><pre>╭──────────────────────────────╮
 │ 🛡️ RELIABILITY AUDIT (QUICK) │
 ╰──────────────────────────────╯
@@ -534,34 +920,12 @@ Proposed Code-Level Change (Apply now):
 └────────────────────────────┴──────────┴──────────────────────────────────┘
 
 ✅ System is stable. Quality regression coverage is 100%.
-</pre><h3>Quality Hill Climbing</h3><pre>╭────────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING: ADK EVALUATION SUITE                 │
-│ Iteratively optimizing for Response Match & Tool Trajectory... │
-╰────────────────────────────────────────────────────────────────╯
-  Iteration 10: Optimizing Prompt Variant... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-   📈 Hill Climbing Optimization History   
-┏━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
-┃ Iter ┃ Score ┃   Status   ┃ Improvement ┃
-┡━━━━━━╇━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
-│  1   │ 89.0% │  IMPROVED  │      +14.0% │
-│  2   │ 88.1% │ REGRESSION │       -0.9% │
-│  3   │ 87.4% │ REGRESSION │       -1.6% │
-│  4   │ 86.6% │ REGRESSION │       -2.4% │
-│  5   │ 88.0% │ REGRESSION │       -1.0% │
-│  6   │ 88.4% │ REGRESSION │       -0.5% │
-│  7   │ 88.0% │ REGRESSION │       -1.0% │
-│  8   │ 86.9% │ REGRESSION │       -2.0% │
-│  9   │ 87.2% │ REGRESSION │       -1.8% │
-│  10  │ 88.4% │ REGRESSION │       -0.5% │
-└──────┴───────┴────────────┴─────────────┘
-
-⚠️ WARNING: Failed to reach global peak. Current quality: 89.0%.
-💡 Try expanding the Golden Dataset or using a stronger Judge LLM.
 </pre>
-            <hr>
-            <p style="text-align: center; color: #94a3b8; font-size: 0.8rem;">
-                Generated by the AgentOps Cockpit Orchestrator. 
-            </p>
+                <div class="footer">
+                    Generated by AgentOps Cockpit Orchestrator v0.9.0. 
+                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.
+                </div>
+            </div>
         </body>
         </html>
         

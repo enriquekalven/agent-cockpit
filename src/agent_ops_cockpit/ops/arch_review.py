@@ -136,10 +136,15 @@ def audit(path: str = "."):
                 if matched:
                     check_status = "[bold green]PASSED[/bold green]"
                     passed_checks += weight
+                    # Output source for evidence bridge
+                    if "Google" in framework_name:
+                        console.print(f"SOURCE: {check_key} | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: {section['category']}")
                 else:
                     check_status = "[bold red]FAIL[/bold red]"
                     # Output action for report
                     console.print(f"ACTION: codebase | Architecture Gap: {check_key} | {rationale}")
+                    if "Google" in framework_name:
+                         console.print(f"SOURCE: {check_key} | https://cloud.google.com/architecture/framework | Recommended Pattern: {check_text}")
                 
                 total_checks += weight
                 

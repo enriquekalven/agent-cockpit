@@ -78,6 +78,8 @@ if __name__ == "__main__":
     # Quick Test
     engine = GuardrailPolicyEngine()
     try:
+        # Output citation for evidence bridge
+        print(f"SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL")
         engine.validate_input("Tell me about medical advice for drugs.")
     except PolicyViolation as e:
         print(f"Caught Expected Violation: {e.category} - {e.message}")

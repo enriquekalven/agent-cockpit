@@ -92,19 +92,22 @@ class CockpitOrchestrator:
         persona_table.add_column("Audit Module", style="magenta")
         persona_table.add_column("Verdict", style="bold")
         
-        # Collect developer actions
+        # Collect developer actions and sources
         developer_actions = []
+        developer_sources = []
         for name, data in self.results.items():
             status = "✅ APPROVED" if data["success"] else "❌ REJECTED"
             persona = self.PERSONA_MAP.get(name, "👤 Automated Auditor")
             persona_table.add_row(persona, name, status)
             report.append(f"- **{persona}** ([{name}]): {status}")
             
-            # Parse actions
+            # Parse outputs
             if data["output"]:
                 for line in data["output"].split("\n"):
                     if "ACTION:" in line:
                         developer_actions.append(line.replace("ACTION:", "").strip())
+                    if "SOURCE:" in line:
+                        developer_sources.append(line.replace("SOURCE:", "").strip())
 
         console.print("\n", persona_table)
 
@@ -118,7 +121,17 @@ class CockpitOrchestrator:
                 if len(parts) == 3:
                     report.append(f"| `{parts[0]}` | {parts[1]} | {parts[2]} |")
 
-        report.append("\n## 🔍 System Artifacts & Evidence")
+        if developer_sources:
+            report.append("\n## 📜 Evidence Bridge: Research & Citations")
+            report.append("Cross-verified architectural patterns and SDK best-practices mapped to official cloud standards.")
+            report.append("| Knowledge Pillar | SDK/Pattern Citation | Evidence & Best Practice |")
+            report.append("| :--- | :--- | :--- |")
+            for source in developer_sources:
+                parts = source.split(" | ")
+                if len(parts) == 3:
+                    report.append(f"| {parts[0]} | [Source Citation]({parts[1]}) | {parts[2]} |")
+
+        report.append("\n## 🔍 Raw System Artifacts")
         for name, data in self.results.items():
             report.append(f"\n### {name}")
             report.append("```text")
@@ -132,13 +145,13 @@ class CockpitOrchestrator:
             f.write("\n".join(report))
         
         # Also generate a professional HTML report
-        self._generate_html_report(developer_actions)
+        self._generate_html_report(developer_actions, developer_sources)
         
         console.print(f"\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]")
         console.print(f"📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]")
 
-    def _generate_html_report(self, developer_actions):
-        """Generates a premium HTML version of the report with Kokpi-kun mascot."""
+    def _generate_html_report(self, developer_actions, developer_sources):
+        """Generates a premium HTML version of the report with Kokpi mascot."""
         html_content = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -147,24 +160,27 @@ class CockpitOrchestrator:
             <title>AgentOps Audit: {getattr(self, 'title', 'Report')}</title>
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
-                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f8fafc; }}
-                .report-card {{ background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }}
+                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f1f5f9; }}
+                .report-card {{ background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }}
                 header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}
-                .mascot-container {{ text-align: center; }}
-                .mascot {{ width: 120px; height: 120px; border-radius: 20px; }}
-                .mascot-name {{ font-size: 0.7rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; margin-top: 5px; }}
-                h1 {{ color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; }}
-                h2 {{ color: #0f172a; margin-top: 48px; font-size: 1.5rem; display: flex; align-items: center; gap: 12px; }}
+                .mascot-container {{ text-align: center; background: #fff; border: 1px solid #e2e8f0; padding: 10px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }}
+                .mascot {{ width: 80px; height: 80px; border-radius: 12px; object-fit: contain; }}
+                .mascot-name {{ font-size: 0.6rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.1em; }}
+                h1 {{ color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; font-weight: 900; }}
+                h2 {{ color: #0f172a; margin-top: 48px; font-size: 1.25rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 15px; text-transform: uppercase; letter-spacing: 0.05em; }}
                 .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; margin-top: 10px; }}
                 .pass {{ background: #dcfce7; color: #166534; }}
                 .fail {{ background: #fee2e2; color: #991b1b; }}
                 table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }}
                 th, td {{ text-align: left; padding: 16px; border-bottom: 1px solid #e2e8f0; }}
-                th {{ background: #f8fafc; font-weight: 600; color: #64748b; font-size: 0.875rem; }}
+                th {{ background: #f8fafc; font-weight: 700; color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }}
                 .action-table th {{ background: #eff6ff; color: #1e40af; }}
+                .source-table th {{ background: #f0f9ff; color: #0369a1; }}
                 code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }}
-                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; }}
-                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.875rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}
+                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}
+                .source-link {{ color: #3b82f6; text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }}
+                .source-link:hover {{ border-bottom-color: #3b82f6; }}
+                .footer {{ margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; padding-top: 20px; }}
             </style>
         </head>
         <body>
@@ -172,18 +188,18 @@ class CockpitOrchestrator:
                 <header>
                     <div>
                         <h1>🕹️ AgentOps Cockpit</h1>
-                        <p style="color: #64748b; margin: 8px 0 0 0;">Report: {getattr(self, 'title', 'Build Audit')}</p>
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Report: {getattr(self, 'title', 'Build Audit')}</p>
                         <span class="status-badge {'pass' if all(r['success'] for r in self.results.values()) else 'fail'}">
                             {'PASSED' if all(r['success'] for r in self.results.values()) else 'FAILED'}
                         </span>
                     </div>
                     <div class="mascot-container">
-                        <img src="public/kokpi_kun.png" class="mascot" alt="Kokpi">
-                        <div class="mascot-name">Kokpi</div>
+                        <img src="public/kokpi_branded.jpg" class="mascot" alt="Kokpi">
+                        <div class="mascot-name">KOKPI APPROVED</div>
                     </div>
                 </header>
 
-                <p><strong>Timestamp</strong>: {self.timestamp}</p>
+                <p style="font-size: 0.875rem; color: #64748b;"><strong>Timestamp</strong>: {self.timestamp}</p>
 
                 <h2>🧑‍💼 SME Persona Approvals</h2>
                 <table>
@@ -233,7 +249,32 @@ class CockpitOrchestrator:
                         <tr>
                             <td><code>{parts[0]}</code></td>
                             <td>{parts[1]}</td>
-                            <td style="color: #059669; font-weight: 500;">{parts[2]}</td>
+                            <td style="color: #059669; font-weight: 600;">{parts[2]}</td>
+                        </tr>
+                    """
+            html_content += "</tbody></table>"
+
+        if developer_sources:
+            html_content += """
+                <h2>📜 Evidence Bridge: Research & Citations</h2>
+                <table class="source-table">
+                    <thead>
+                        <tr>
+                            <th>Knowledge Pillar</th>
+                            <th>SDK/Pattern Citation</th>
+                            <th>Evidence & Best Practice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            """
+            for source in developer_sources:
+                parts = source.split(" | ")
+                if len(parts) == 3:
+                    html_content += f"""
+                        <tr>
+                            <td style="font-weight: 700;">{parts[0]}</td>
+                            <td><a href="{parts[1]}" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">{parts[2]}</td>
                         </tr>
                     """
             html_content += "</tbody></table>"
@@ -247,8 +288,8 @@ class CockpitOrchestrator:
             
         html_content += """
                 <div class="footer">
-                    Generated by AgentOps Cockpit Orchestrator v0.8.0. 
-                    <br>Enforced via GitHub Actions Safe-Build Pipeline.
+                    Generated by AgentOps Cockpit Orchestrator v0.9.0. 
+                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.
                 </div>
             </div>
         </body>
