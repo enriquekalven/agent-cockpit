@@ -10,7 +10,8 @@ GOOGLE_CHECKLIST = [
             ("Runtime: Is the agent running on Cloud Run or GKE?", "Critical for scalability and cost."),
             ("Framework: Is ADK used for tool orchestration?", "Google-standard for agent-tool communication."),
             ("Sandbox: Is Code Execution running in Vertex AI Sandbox?", "Prevents malicious code execution."),
-            ("Backend: Is FastAPI used for the Engine layer?", "Industry-standard for high-concurrency agent apps.")
+            ("Backend: Is FastAPI used for the Engine layer?", "Industry-standard for high-concurrency agent apps."),
+            ("Outputs: Are Pydantic or Response Schemas used for structured output?", "Ensures data integrity and reliable tool execution.")
         ]
     },
     {

@@ -7,14 +7,15 @@ import os
 import logging
 
 # --- Configure Structured Logging ---
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger("agent-cockpit")
 from .cost_control import cost_guard
 from .cache.semantic_cache import hive_mind, global_cache
 from .shadow.router import ShadowRouter
 from .ops.mcp_hub import global_mcp_hub
-
 from fastapi.middleware.cors import CORSMiddleware
+
+# --- Configure Structured Logging ---
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("agent-cockpit")
 
 app = FastAPI(title="Optimized Agent Stack")
 

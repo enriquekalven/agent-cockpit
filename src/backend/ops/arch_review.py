@@ -128,7 +128,7 @@ def audit(path: str = "."):
     score = (passed_checks / total_checks) * 100 if total_checks > 0 else 0
     console.print(f"📊 [bold]Review Score: {score:.0f}/100[/bold]")
     if score >= 80:
-        console.print(f"✅ [bold green]Architecture Review Complete.[/bold green] Your agent is well-aligned with optimized patterns.")
+        console.print("✅ [bold green]Architecture Review Complete.[/bold green] Your agent is well-aligned with optimized patterns.")
     else:
         if framework_key == "generic":
             console.print("💡 [bold yellow]Self-Learning Note:[/bold yellow] Found unknown tech. I have mapped your code structure to universal agentic pillars (Reasoning/Tools/Safety).")
