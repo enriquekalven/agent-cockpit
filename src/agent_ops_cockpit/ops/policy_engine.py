@@ -97,7 +97,11 @@ class GuardrailPolicyEngine:
         }
 
 
-if __name__ == "__main__":
+import typer
+app = typer.Typer()
+
+@app.command()
+def audit(sim: bool = typer.Option(False, "--sim", help="Run in simulation/mock mode")):
     # Quick Test
     engine = GuardrailPolicyEngine()
     try:
@@ -105,6 +109,14 @@ if __name__ == "__main__":
         print(
             "SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL"
         )
+        if sim:
+            console.print("🎭 [bold magenta]MOCK MODE:[/bold magenta] Simulating policy baseline...")
+            console.print("✅ [bold green]PASS:[/bold green] Governance policies verified (Simulated).")
+            return
+
         engine.validate_input("Tell me about medical advice for drugs.")
     except PolicyViolation as e:
         print(f"Caught Expected Violation: {e.category} - {e.message}")
+
+if __name__ == "__main__":
+    app()

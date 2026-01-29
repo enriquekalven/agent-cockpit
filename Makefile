@@ -49,7 +49,8 @@ audit-deep:
 # Usage: make audit-all TARGET=/path/to/your/agent
 TARGET ?= .
 audit-all:
-	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode quick --path $(TARGET)
+	@SIM_FLAG=$$( [ "$(SIM)" = "true" ] && echo "--sim" || echo "" ); \
+	AUDIT_VERSION=$(AUDIT_VERSION) $(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --workspace --path $(TARGET) --mode quick $$SIM_FLAG
 
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:

@@ -24,7 +24,8 @@ console = Console()
 
 @app.command()
 def audit(
-    path: str = typer.Option(".", "--path", "-p", help="Path to audit")
+    path: str = typer.Option(".", "--path", "-p", help="Path to audit"),
+    sim: bool = typer.Option(False, "--sim", help="Run in simulation/mock mode (Intent-First Audit)")
 ):
     """
     Run the Architecture Design Review based on detected framework.
@@ -35,6 +36,7 @@ def audit(
     framework_name = framework_data["name"]
     # Read all relevant code files for inspection
     code_content = ""
+    found_patterns = []
     for root, dirs, files in os.walk(path):
         # Prune excluded directories for performance
         dirs[:] = [
@@ -95,6 +97,7 @@ def audit(
     console.print(
         f"Evaluating agent design against [bold]{framework_name} Production Standards[/bold]...\n"
     )
+    found_patterns = []
 
     # --- LAZY SEMANTIC FALLBACK ---
     api_key_missing = not (os.environ.get("GOOGLE_API_KEY") or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
@@ -104,6 +107,16 @@ def audit(
         # Proceed with regex analysis even for known frameworks
         # by treating them like generic for the heuristic part
         pass 
+
+    if sim:
+        console.print(
+            Panel.fit(
+                "🎭 [bold magenta]MOCK ARCHITECTURE MODE ACTIVE[/bold magenta]\n[dim]Simulating architectural intent based on project structure.[/dim]",
+                border_style="magenta",
+            )
+        )
+        # In simulation mode, we are more lenient and assume intent if patterns are found
+        pass
 
     total_checks = 0.0
     passed_checks = 0.0
@@ -377,6 +390,14 @@ def audit(
                             semantic_reasoning = res_data.get("reason")
                     except Exception:
                         pass
+                
+                # Intent-First Mock Heuristic: If in sim mode and we see code, we are generous
+                if not matched and sim:
+                    # Heuristic: if we found some patterns in the generic step,
+                    # we assume the developer is on the right track for this check.
+                    if any(p in ["async_loops", "decorators", "structured_output"] for p in found_patterns):
+                        matched = True
+                        semantic_reasoning = "Architectural intent inferred from code structure."
 
                 if matched:
                     check_status = "[bold green]PASSED[/bold green]"

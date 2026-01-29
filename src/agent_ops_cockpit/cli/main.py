@@ -133,6 +133,18 @@ def fix(
 
 
 @app.command()
+def pen_test(
+    path: str = typer.Argument(".", help="Path to the agent or workspace to pen-test"),
+    sim: bool = typer.Option(False, "--sim", help="Run in simulation mode"),
+):
+    """
+    🚩 Dynamic Pen-Testing: Run live adversarial probing against an agent.
+    """
+    console.print(f"🔥 [bold red]Launching Dynamic Pen-Test:[/bold red] {path}...")
+    red_mod.audit(agent_path=path, sim=sim, live=True)
+
+
+@app.command()
 def fix_fleet(
     path: str = typer.Argument(".", help="Root directory to scan and fix"),
     issue: str = typer.Option("PII", "--issue", help="Specific issue type to bulk-fix (PII, SECRETS, ARCH)"),

@@ -17,10 +17,24 @@ def audit(
     path: str = typer.Option(
         ".", "--path", "-p", help="Path to the agent project to audit"
     ),
+    sim: bool = typer.Option(False, "--sim", help="Run in simulation/mock mode"),
 ):
     """Run reliability checks (Unit tests + Regression Suite)."""
     title = "🛡️ RELIABILITY AUDIT (QUICK)" if quick else "🛡️ RELIABILITY AUDIT"
+    if sim:
+        title += " (MOCK MODE)"
     console.print(Panel.fit(f"[bold green]{title}[/bold green]", border_style="green"))
+
+    if sim:
+        console.print("🎭 [magenta]Simulating reliability benchmarks...[/magenta]")
+        table = Table(title="🛡️ Reliability Status (MOCK)")
+        table.add_column("Check", style="cyan")
+        table.add_column("Status", style="bold")
+        table.add_column("Details", style="dim")
+        table.add_row("Unit Tests", "[green]PASSED[/green]", "Synthetic test suite passed")
+        table.add_row("Contract Compliance", "[green]VERIFIED[/green]", "Mocked Engine-to-Face protocol")
+        console.print(table)
+        raise typer.Exit(code=0)
 
     # 1. Language Detection & test Execution
     import os

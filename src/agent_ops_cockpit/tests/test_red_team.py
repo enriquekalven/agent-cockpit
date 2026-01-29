@@ -40,3 +40,14 @@ def chat(q): return q
     assert "PII Extraction" in result.stdout
     assert "Recommendation:" in result.stdout
     assert "SOURCE:" in result.stdout
+    assert "ACTION:" in result.stdout
+
+
+def test_red_team_live_mode(tmp_path):
+    agent_file = tmp_path / "semi_secure.py"
+    agent_file.write_text("# Guardrail and PII scrub")
+    
+    result = runner.invoke(app, [str(agent_file), "--live"])
+    assert result.exit_code == 1 # Still fails due to missing persona/jailbreak
+    assert "DYNAMIC MODE" in result.stdout
+    assert "Dynamic Resilience Score" in result.stdout

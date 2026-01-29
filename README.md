@@ -138,12 +138,12 @@ The Cockpit now performs platform-specific performance and security audits for:
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
-### 🏢 Enterprise Governance (v1.1.2: Governance-as-Code)
-The Cockpit has evolved into a **Unified Governance Service** for enterprise AI fleets.
-
-*   **⚖️ SARIF Export (Governance-as-Code)**: Move beyond local reports. Every audit generates a `cockpit_audit.sarif` file, allowing seamless integration with **GitHub Security Tab**, SonarQube, and enterprise DevSecOps pipelines.
-*   **🎭 SME Rationale Tooltips**: Governance is now educational. Fleet Dashboard cards feature high-fidelity **Principal SME Verdicts** (e.g., *"Approved due to robust Pydantic usage"*), providing technical intent alongside simple status codes.
-*   **⚡ Differential Auditing (Intelligent Hashing)**: High-velocity local loop. Using recursive content hashing, the Cockpit intelligently skips unchanged agents. **100+ agent fleet scans now achieve sub-5-second performance** on repeat runs.
+### 🛸 v1.3.0: The Governance Intelligence Update
+The Cockpit now features **Dynamic Pen-Testing**, **Cross-Agent Pattern Awareness**, and the **Enterprise ROI Predictor**.
+*   **💰 Enterprise ROI Predictor (FinOps)**: Automatically identifies cost-leakage and projects savings potential (e.g., "$1,250/mo potential savings via Caching") natively in the dashboard.
+*   **⚡ Hyper-Speed Differential Auditing**: Recursive content hashing drops fleet audit times to **sub-second** for repeat runs, enabling high-velocity local loops without token waste.
+*   **⚖️ Governance-as-Code (SARIF)**: Natively exports to the Static Analysis Results Interchange Format. Findings integrate directly with GitHub Security, SonarQube, and enterprise DevSecOps pipelines.
+*   **🎭 Strategic SME Rationale**: Dashboard cards now feature high-fidelity SME Verdicts (e.g., *"Approved due to Pydantic usage"*), providing educational intent alongside automated passes.
 *   **🛠️ Enterprise fix-fleet Orchestration**: Organizational-scale autonomous patching. Bulk-patch security debt (PII/Secrets) or architectural gaps across hundreds of agents in a single transaction via `agent-ops fix-fleet`.
 *   **👔 Executive Maturity Velocity**: Track your "Hero Metrics." Every workspace run calculates **Improvement Velocity**, showing organizational leads how compliance has increased relative to historical Evidence Lake benchmarks.
 

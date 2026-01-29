@@ -21,12 +21,23 @@ def apply_remediation(target_path: str, issue: str, fix: str):
     console.print(f"🛠️ [bold blue]Applying Auto-Remediation:[/bold blue] {issue}")
     
     # 1. Read the target file
-    if not os.path.exists(target_path):
-        # If the gap is at the codebase level, we target the main entry point
-        if target_path == "codebase":
-            for f in ["agent.py", "main.py", "app.py"]:
-                if os.path.exists(f):
-                    target_path = f
+    if not os.path.exists(target_path) or os.path.isdir(target_path):
+        # Use heuristic to find entry point
+        priorities = ["agent.py", "main.py", "app.py", "index.ts", "index.js", "main.ts", "main.js"]
+        found = False
+        search_dir = target_path if os.path.isdir(target_path) else "."
+        for p in priorities:
+            if os.path.exists(os.path.join(search_dir, p)):
+                target_path = os.path.join(search_dir, p)
+                found = True
+                break
+        
+        if not found and os.path.isdir(target_path):
+            # Fallback: find any source file
+            for f in os.listdir(target_path):
+                if f.endswith((".py", ".ts", ".js")):
+                    target_path = os.path.join(target_path, f)
+                    found = True
                     break
     
     if not os.path.exists(target_path) or os.path.isdir(target_path):
@@ -49,14 +60,16 @@ def apply_remediation(target_path: str, issue: str, fix: str):
         vertexai.init()
         model = GenerativeModel("gemini-1.5-flash")
         
+        lang = "python" if target_path.endswith(".py") else "javascript" if target_path.endswith((".js", ".ts")) else "text"
+        
         prompt = f"""
         As an Agentic DevRel Engineer, apply the following fix to the provided code.
         
         ISSUE: {issue}
         RECOMMENDED FIX: {fix}
         
-        Original Code:
-        ```python
+        Original Code ({lang}):
+        ```{lang}
         {original_code}
         ```
         
@@ -64,7 +77,7 @@ def apply_remediation(target_path: str, issue: str, fix: str):
         """
         
         response = model.generate_content(prompt)
-        new_code = response.text.strip().replace("```python", "").replace("```", "")
+        new_code = response.text.strip().replace("```python", "").replace("```javascript", "").replace("```typescript", "").replace("```", "")
         
         # 3. Write back the fixed code
         with open(target_path, "w") as f:

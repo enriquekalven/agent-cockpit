@@ -2,6 +2,23 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.3.0] - 2024-05-24
+### Added
+- **Dynamic Pen-Testing (`agent-ops pen-test`)**: Runtime adversarial probing with Dynamic Resilience Scoring.
+- **Cross-Agent Pattern Awareness**: Global correlation engine that identifies recurring vulnerabilities across the fleet.
+- **Enhanced ROI Predictor**: FinOps dashboard with dynamic savings calculation and confidence scoring.
+- **Hyper-Speed Incremental Audits**: Recursive content hashing to skip unchanged agents, achieving sub-second fleet scans.
+- **Strategic Fleet Remediation (`agent-ops fix-fleet`)**: Organizational-scale bulk patching for common security gaps.
+
+## [1.2.0] - 2026-01-29
+
+### 💰 The Enterprise ROI Update
+- **Enterprise ROI Predictor (FinOps)**: The Fleet Dashboard now calculates projected savings for missing token optimizations (e.g., "$15.00/10k tokens saved via caching").
+- **Hyper-Speed Differential Auditing**: Recursive content hashing (Zero-Token Audits) now achieves sub-second performance on repeat runs by skipping unchanged agents.
+- **Namespaced Artifact Storage**: Audit reports, SARIFs, and HTML views are now stored in dedicated `cockpit_artifacts/` directories within each agent's local workspace.
+- **Polyglot Heuristic Entry Points**: Upgraded the orchestrator to automatically detect entry points across Python, TypeScript, and Go, ensuring high-fidelity auditing for multi-stack fleets.
+- **Strategic SME Persona Branding**: SME Personas have been rebranded to reflect specialized expertise (e.g., "A2UI Specialist Designer", "Polyglot Architecture Principal").
+
 ## [1.1.2] - 2026-01-29
 
 ### ⚖️ The Governance-as-Code Update

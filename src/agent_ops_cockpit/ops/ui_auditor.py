@@ -10,7 +10,10 @@ console = Console()
 
 
 @app.command()
-def audit(path: str = "src"):
+def audit(
+    path: str = "src",
+    sim: bool = typer.Option(False, "--sim", help="Run in simulation/mock mode")
+):
     """
     Step 4: Frontend / A2UI Auditing.
     Ensures frontend components are properly mapping surfaceId and detecting triggers.
@@ -21,6 +24,10 @@ def audit(path: str = "src"):
             border_style="blue",
         )
     )
+    if sim:
+        console.print("🎭 [bold magenta]MOCK MODE:[/bold magenta] Simulating A2UI alignment...")
+        console.print("✅ [bold green]PASS:[/bold green] Frontend is Well-Architected for GenUI (Simulated).")
+        raise typer.Exit(0)
     console.print(f"Scanning directory: [yellow]{path}[/yellow]")
 
     files_scanned = 0

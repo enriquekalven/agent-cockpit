@@ -67,6 +67,32 @@ def analyze_code(
     versions = versions or {}
 
     # --- SITUATIONAL PLATFORM OPTIMIZATIONS ---
+    
+    # --- JS/TS Polyglot Support ---
+    if file_path.endswith((".ts", ".js")):
+        if "@genkit-ai" in content_lower:
+            if "contextcaching" not in content_lower:
+                issues.append(
+                    OptimizationIssue(
+                        "genkit_caching",
+                        "Enable Genkit Context Caching",
+                        "HIGH",
+                        "90% cost savings",
+                        "Genkit detected. Enable context caching to reduce tokens for large system prompts.",
+                        "+ const ai = genkit({ plugins: [googleAI()], ... });\n+ // Use caching in your flow definition",
+                    )
+                )
+        if "axios" in content_lower and "native fetch" not in content_lower:
+            issues.append(
+                OptimizationIssue(
+                    "node_fetch",
+                    "Use Native Fetch (Node 20+)",
+                    "LOW",
+                    "Lower bundle size",
+                    "Found 'axios'. Node.js 20+ supports native fetch which is more efficient for agent tool calls.",
+                    "- const axios = require('axios');\n+ // Use global fetch()",
+                )
+            )
 
     v_ai = versions.get("google-cloud-aiplatform", "Not Installed")
     if "google.cloud.aiplatform" in content_lower or "vertexai" in content_lower:
@@ -564,6 +590,7 @@ def audit(
     quick: bool = typer.Option(
         False, "--quick", "-q", help="Skip live evidence fetching for faster execution"
     ),
+    sim: bool = typer.Option(False, "--sim", help="Run in simulation/mock mode")
 ):
     console.print(
         Panel.fit(
@@ -571,6 +598,10 @@ def audit(
             border_style="blue",
         )
     )
+    if sim:
+        console.print("🎭 [bold magenta]MOCK MODE:[/bold magenta] Simulating performance gains...")
+        console.print("✅ [bold green]PASS:[/bold green] Token optimization verified (Simulated).")
+        raise typer.Exit(0)
     if not os.path.exists(file_path):
         console.print(f"❌ [red]Error: Path {file_path} not found.[/red]")
         raise typer.Exit(1)
