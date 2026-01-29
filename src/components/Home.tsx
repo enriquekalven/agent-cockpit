@@ -57,8 +57,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.9.8</span>
-          <span className="banner-text">The Enterprise Fleet Update: Native Workspace Audits, Semantic SMEs (Gemini Flash), and Centralized Evidence Lake are now live.</span>
+          <span className="banner-tag">NEW v1.3.0</span>
+          <span className="banner-text">The Governance Intelligence Update: Dynamic Pen-Testing, Cross-Agent Pattern Awareness, and Enterprise ROI Predictor are now live.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ export function Home() {
               <span className="hero-headline-text">The Professional Logic Layer for <span className="gradient-text">Agentic Apps</span></span>
             </h1>
             <p className="hero-description">
-              Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
+              Infrastructure is the plumbing. The Cockpit is the Intelligence. Move beyond basic prompt engineering with the definitive production distribution for building, securing, and governing AI agents on Google Cloud.
             </p>
             <div className="hero-actions flex-wrap">
               <Link to="/docs/getting-started" className="btn-primary">
