@@ -1,29 +1,29 @@
 # 🕹️ AgentOps Cockpit
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/enriquekalven/agent-cockpit/main/public/og-image.png" alt="AgentOps Cockpit Social Preview" width="100%" />
+  <img src="public/assets/trinity.png" alt="AgentOps Cockpit Trinity" width="100%" />
 </div>
 
 <div align="center">
-  <br />
-  <a href="https://agent-cockpit.web.app" target="_blank"><strong>🌐 Official Website & Live Demo</strong></a>
-  <br /><br />
-  <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
-    <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
-  </a>
-  <br />
-  <br />
-  <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
-  <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
-  <img src="https://img.shields.io/badge/Google-Well--Architected-4285F4?style=for-the-badge&logo=google-cloud" alt="Google Well-Architected" />
-  <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
+ <br />
+ <a href="https://agent-cockpit.web.app" target="_blank"><strong>🌐 Official Website & Live Demo</strong></a>
+ <br /><br />
+ <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
+   <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
+ </a>
+ <br />
+ <br />
+ <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
+ <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
+ <img src="https://img.shields.io/badge/Google-Well--Architected-4285F4?style=for-the-badge&logo=google-cloud" alt="Google Well-Architected" />
+ <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
 </div>
 
 <br />
 
 <div align="center">
-  <h3>"Infrastructure gives you the pipes. We give you the Intelligence."</h3>
-  <p>The developer distribution for building, optimizing, and securing AI agents on Google Cloud.</p>
+ <h3>"Infrastructure gives you the pipes. We give you the Intelligence."</h3>
+ <p>The developer distribution for building, optimizing, and securing AI agents on Google Cloud.</p>
 </div>
 
 ---
@@ -41,9 +41,26 @@ Most AI agent templates stop at a single Python file and an API key. **The Agent
 ## 🏗️ The Agentic Trinity
 We divide the complexity of production agents into three focused pillars:
 
+```mermaid
+graph LR
+   subgraph Trinity [The Agentic Trinity]
+       E(The Engine: Reasoning)
+       F(The Face: Interface)
+       C(The Cockpit: Operations)
+   end
+   E <--> C
+   F <--> C
+   E <--> F
+   style Trinity fill:#f9f9f9,stroke:#333,stroke-width:2px
+```
+
 - **⚙️ The Engine**: The reasoning core. Built with **ADK**, FastAPI, and Vertex AI.
 - **🎭 The Face**: The user experience. Adaptive UI surfaces and **GenUI** standards via the A2UI spec.
 - **🕹️ The Cockpit**: The operational brain. Cost control, semantic caching, shadow routing, and adversarial audits.
+
+<div align="center">
+ <img src="public/assets/ecosystem.png" alt="Ecosystem Integrations" width="100%" />
+</div>
 
 ---
 
@@ -51,23 +68,44 @@ We divide the complexity of production agents into three focused pillars:
 The Cockpit isn't just for ADK. It provides **Best Practices as Code** across all major agentic frameworks:
 
 <div align="center">
-  <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
-  <img src="https://img.shields.io/badge/Anthropic_Claude-D97757?style=for-the-badge&logo=anthropic" alt="Anthropic" />
-  <img src="https://img.shields.io/badge/Microsoft_AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="Microsoft" />
-  <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws" alt="AWS" />
-  <img src="https://img.shields.io/badge/CopilotKit.ai-6366f1?style=for-the-badge" alt="CopilotKit" />
-  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
-  <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
+ <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
+ <img src="https://img.shields.io/badge/Anthropic_Claude-D97757?style=for-the-badge&logo=anthropic" alt="Anthropic" />
+ <img src="https://img.shields.io/badge/Microsoft_AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="Microsoft" />
+ <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws" alt="AWS" />
+ <img src="https://img.shields.io/badge/CopilotKit.ai-6366f1?style=for-the-badge" alt="CopilotKit" />
+ <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
+ <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
+ <img src="public/assets/workflow.png" alt="Operational Workflow" width="100%" />
 </div>
 
+## 🛠️ Operational Flow
+
+```mermaid
+sequenceDiagram
+   participant U as User
+   participant C as Cockpit
+   participant E as Engine
+   participant F as Face
+   
+   U->>C: Prompt / Input
+   C->>C: Policy Audit (RFC-307)
+   C->>E: Execute Logic / Tools
+   E->>C: Action Proposals
+   C->>E: Approve (HITL)
+   E->>F: GenUI Metadata
+   F->>U: Reactive Surface (A2UI)
+```
+
+<br />
+
 <div align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go" />
-  <img src="https://img.shields.io/badge/NodeJS-339933?style=flat-square&logo=node.js&logoColor=white" alt="NodeJS" />
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
-  <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
-  <img src="https://img.shields.io/badge/Lit-324FFF?style=flat-square&logo=lit&logoColor=white" alt="Lit" />
+ <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+ <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go" />
+ <img src="https://img.shields.io/badge/NodeJS-339933?style=flat-square&logo=node.js&logoColor=white" alt="NodeJS" />
+ <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+ <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+ <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
+ <img src="https://img.shields.io/badge/Lit-324FFF?style=flat-square&logo=lit&logoColor=white" alt="Lit" />
 </div>
 
 Whether you are building a swarm in **CrewAI**, a Go-based high-perf engine, or a **Streamlit** dashboard, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.

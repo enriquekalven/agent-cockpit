@@ -2,6 +2,10 @@
 
 The **Master Audit** is the primary entry point for verifying the production-readiness of your AI agent. It orchestrates multiple specialized auditors to provide a high-level "Cockpit Score."
 
+<div align="center">
+  <img src="diagrams/workflow.png" alt="Operational Workflow" width="100%" />
+</div>
+
 ## 🚀 Commands
 
 ### Local Installation

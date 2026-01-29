@@ -166,6 +166,27 @@ export function Home() {
         </div>
       </section>
 
+      {/* Visual: Agentic Trinity */}
+      <section className="ecosystem-section bg-trinity">
+        <div className="ecosystem-card full-width glass-trinity">
+          <div className="glass-content">
+            <div className="text-side">
+              <span className="accent-label">Core Architecture</span>
+              <h3>The Agentic <span className="gradient-text">Trinity</span></h3>
+              <p>We divide production complexity into three specialized layers. This isolation allows you to optimize reasoning, interface, and governance independently.</p>
+              <ul className="accent-list">
+                <li><strong>The Engine</strong>: Reasoning trajectories and tool orchestrations.</li>
+                <li><strong>The Face</strong>: Reactive UX surfaces and A2UI protocols.</li>
+                <li><strong>The Cockpit</strong>: Governance, cost control, and policy enforcement.</li>
+              </ul>
+            </div>
+            <div className="visual-side">
+              <img src="/assets/trinity.png" alt="Agentic Trinity" className="ecosystem-img shadow-vibrant" />
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Philosophy Section */}
       <section className="crew-philosophy">
@@ -193,6 +214,36 @@ export function Home() {
               <h3>The Face</h3>
               <p>The user experience. Adaptive surfaces and GenUI standards (A2UI) that transform text into interactive applications.</p>
               <Link to="/docs/development" className="card-link">Build the Face →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual: Ecosystem Integrations */}
+      <section className="ecosystem-section">
+        <div className="ecosystem-card full-width reverse">
+          <div className="glass-content">
+            <div className="visual-side">
+              <img src="/assets/ecosystem.png" alt="Ecosystem Integration" className="ecosystem-img" />
+            </div>
+            <div className="text-side">
+              <span className="accent-label">Enterprise Ready</span>
+              <h3>Native <span className="text-primary">Ecosystem</span> Handshake</h3>
+              <p>The Cockpit isn't a silo. It acts as the intelligent orchestration layer between your agents and the Google Cloud ecosystem.</p>
+              <div className="value-stats">
+                <div className="value-stat">
+                  <h4>90%+</h4>
+                  <p>Cost Reduction</p>
+                </div>
+                <div className="value-stat">
+                  <h4>&lt;50ms</h4>
+                  <p>Cache Latency</p>
+                </div>
+                <div className="value-stat">
+                  <h4>100%</h4>
+                  <p>Identity Sync</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -234,6 +285,22 @@ export function Home() {
                 <h4>Tiered Governance</h4>
                 <p>Choose between a 15s "Safe-Build" for dev agility or a deep 5m audit for production-gate benchmarking.</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual: Operational Flow */}
+      <section className="ecosystem-section bg-dark-flow">
+        <div className="container">
+          <div className="philosophy-header">
+            <span className="accent-label">Execution Pipeline</span>
+            <h2 className="text-white">The Operational <span className="gradient-text">Safe-Build</span></h2>
+          </div>
+          <div className="workflow-visual-container">
+            <img src="/assets/workflow.png" alt="Operational Workflow" className="workflow-img" />
+            <div className="workflow-overlay-text">
+              Each cycle in the Cockpit goes through a multi-stage validation: Situational Audit → Conflict Guard → Quality Hill Climbing → Automated Red Teaming.
             </div>
           </div>
         </div>
@@ -921,6 +988,42 @@ export function Home() {
 
         .framework-section { margin-bottom: 3rem; }
         .mt-12 { margin-top: 3rem; }
+
+        /* Expanded Visual Styles */
+        .glass-trinity {
+          border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+          background: radial-gradient(circle at 100% 0%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 50%);
+        }
+        .bg-trinity { background: linear-gradient(to bottom, transparent, rgba(var(--primary-color-rgb), 0.02)); }
+        .shadow-vibrant { box-shadow: 0 40px 80px rgba(var(--primary-color-rgb), 0.15); }
+        
+        .bg-dark-flow {
+          background: #050505;
+          padding: 10rem 2rem;
+          border-radius: 40px;
+          margin: 0 2rem;
+          color: white;
+        }
+        .text-white { color: white !important; }
+        .workflow-visual-container {
+          margin-top: 4rem;
+          position: relative;
+          text-align: center;
+        }
+        .workflow-img {
+          width: 100%;
+          max-width: 1100px;
+          border-radius: 20px;
+        }
+        .workflow-overlay-text {
+          margin-top: 2rem;
+          font-size: 1.1rem;
+          color: #A1A1AA;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+          line-height: 1.6;
+        }
 
       `}</style>
     </div>

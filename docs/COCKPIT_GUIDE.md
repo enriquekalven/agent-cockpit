@@ -2,6 +2,10 @@
 
 The **Cockpit** is the mission control for your AI agents. While the "Engine" handles reasoning, the Cockpit ensures that reasoning is safe, cost-effective, and auditable.
 
+<div align="center">
+  <img src="diagrams/ecosystem.png" alt="Google Ecosystem Integrations" width="100%" />
+</div>
+
 ## 🛰️ Shadow Routing (The Side-by-Side)
 Shadow Mode allows you to deploy a new version of your agent (v2) alongside your production version (v1).
 - **How it works**: The Cockpit routes incoming queries to both models.

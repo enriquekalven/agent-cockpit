@@ -2,6 +2,10 @@
 
 **Quality Hill Climbing** is an iterative optimization process to ensure your agent's reasoning trajectory remains accurate as you update prompts and tools.
 
+<div align="center">
+  <img src="diagrams/workflow.png" alt="Operational Workflow" width="100%" />
+</div>
+
 ## 🚀 Commands
 
 ### Local Installation

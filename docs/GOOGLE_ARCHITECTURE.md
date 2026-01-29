@@ -1,9 +1,8 @@
-# 🏛️ The Agentic Trinity
-### Bridging the Gap between Reasoning and Experience
-
-Standard AI apps often treat the "Agent" as a black box. **The AgentOps Cockpit** enforces the **Agentic Trinity** architecture, aligning every developer build with the standards used in Google’s mission-critical AI systems.
-
 ---
+
+<div align="center">
+  <img src="diagrams/ecosystem.png" alt="Google Ecosystem Integrations" width="100%" />
+</div>
 
 ## 🏗️ The Three Pillars
 
@@ -49,6 +48,10 @@ By using the Cockpit, you are automatically building toward four critical pillar
 ---
 
 ## ⚡ The Architectural Verdict
+<div align="center">
+  <img src="diagrams/workflow.png" alt="Operational Workflow" width="100%" />
+</div>
+
 Run the Architecture Review now to see how your current repo stacks up:
 ```bash
 agent-ops arch-review --path .

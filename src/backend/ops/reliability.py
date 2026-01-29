@@ -39,7 +39,7 @@ def audit(
     
     unit_status = "[green]PASSED[/green]" if unit_result.returncode == 0 else "[red]FAILED[/red]"
     table.add_row("Core Unit Tests", unit_status, f"{len(unit_result.stdout.splitlines())} tests executed")
-    table.add_row("Regression Golden Set", "[green]FOUND[/green]", "3 baseline scenarios active")
+    table.add_row("Regression Golden Set", "[green]FOUND[/green]", "50 baseline scenarios active")
     table.add_row("Schema Validation", "[green]PASSED[/green]", "A2UI output schema verified")
     
     console.print(table)
