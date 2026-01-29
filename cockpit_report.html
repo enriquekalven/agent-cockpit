@@ -45,7 +45,10 @@
                     </div>
                 </header>
 
-                <p style="font-size: 0.875rem; color: #64748b;"><strong>Timestamp</strong>: 2026-01-29 12:15:57</p>
+                <p style="font-size: 0.875rem; color: #64748b;">
+                    <strong>Timestamp</strong>: 2026-01-29 12:34:58<br>
+                    <strong>Total Duration</strong>: 27.55s
+                </p>
 
                 <h2>🧑‍💼 SME Persona Approvals</h2>
                 <table>
@@ -54,6 +57,7 @@
                             <th>SME Persona</th>
                             <th>Module</th>
                             <th>Verdict</th>
+                            <th>Duration</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,42 +66,49 @@
                     <td>⚖️ Governance & Compliance SME</td>
                     <td>Policy Enforcement</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.3s</code></td>
                 </tr>
             
                 <tr>
                     <td>💰 FinOps Principal Architect</td>
                     <td>Token Optimization</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.61s</code></td>
                 </tr>
             
                 <tr>
                     <td>🚩 Security Architect</td>
                     <td>Red Team (Fast)</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>1.56s</code></td>
                 </tr>
             
                 <tr>
                     <td>🎭 UX/UI Principal Designer</td>
                     <td>Face Auditor</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>1.59s</code></td>
                 </tr>
             
                 <tr>
                     <td>🔐 SecOps Principal</td>
                     <td>Secret Scanner</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>1.76s</code></td>
                 </tr>
             
                 <tr>
                     <td>🏛️ Principal Platform Engineer</td>
                     <td>Architecture Review</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>4.14s</code></td>
                 </tr>
             
                 <tr>
                     <td>🛡️ QA & Reliability Principal</td>
                     <td>Reliability (Quick)</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>17.59s</code></td>
                 </tr>
             
                     </tbody>
@@ -117,97 +128,103 @@
                         <tr>
                             <td><code>vite.config.ts:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/App.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/App.tsx:1</code></td>
                             <td>Missing Branding (Logo) or SEO Metadata (OG/Description)</td>
-                            <td style="color: #059669; font-weight: 600;">Add meta tags</td>
+                            <td style="color: #059669; font-weight: 600;">Add meta tags (og:image, description) and project logo.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/main.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/a2ui/components/index.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>src/a2ui/components/index.tsx:1</code></td>
+                            <td>Missing Branding (Logo) or SEO Metadata (OG/Description)</td>
+                            <td style="color: #059669; font-weight: 600;">Add meta tags (og:image, description) and project logo.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/a2ui/components/lit-component-example.ts:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId'</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/docs/DocPage.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/docs/DocPage.tsx:1</code></td>
                             <td>Missing Legal Disclaimer or Privacy Policy link</td>
-                            <td style="color: #059669; font-weight: 600;">Add a footer link to</td>
+                            <td style="color: #059669; font-weight: 600;">Add a footer link to the mandatory Privacy Policy / TOS.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/docs/DocLayout.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/docs/DocLayout.tsx:1</code></td>
                             <td>Missing Legal Disclaimer or Privacy Policy link</td>
-                            <td style="color: #059669; font-weight: 600;">Add a footer link</td>
+                            <td style="color: #059669; font-weight: 600;">Add a footer link to the mandatory Privacy Policy / TOS.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/docs/DocHome.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/components/ReportSamples.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/components/FlightRecorder.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/components/Home.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/components/OpsDashboard.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
                             <td><code>src/components/ThemeToggle.tsx:1</code></td>
                             <td>Missing 'surfaceId' mapping</td>
-                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the</td>
+                            <td style="color: #059669; font-weight: 600;">Add 'surfaceId' prop to the root component or exported interface.</td>
                         </tr>
                     
                         <tr>
@@ -237,7 +254,7 @@
                         <tr>
                             <td><code>codebase</code></td>
                             <td>Architecture Gap: Agent Engine</td>
-                            <td style="color: #059669; font-weight: 600;">Managed orchestration with built-in versioning and</td>
+                            <td style="color: #059669; font-weight: 600;">Managed orchestration with built-in versioning and traces.</td>
                         </tr>
                     
                         <tr>
@@ -308,199 +325,199 @@
                         <tr>
                             <td style="font-weight: 700;">Runtime</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Runtime: Is</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Runtime: Is the agent running on Cloud Run or GKE?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Framework</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Framework:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Framework: Is ADK used for tool orchestration?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Sandbox</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Backend</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Backend: Is</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Backend: Is FastAPI used for the Engine layer?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Outputs</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Heritage</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">PII</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️ Security & Privacy</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Identity</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️ Security & Privacy</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Safety</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️ Security & Privacy</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Policies</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🛡️ Security & Privacy</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Caching</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 📉 Optimization</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Context</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Context: Are</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Context: Are you using Context Caching?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Routing</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 📉 Optimization</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Agent Engine</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Agent</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Agent Engine: Are you using Vertex AI Reasoning Engine for</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Cloud Run</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">GKE</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">VPC</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">A2UI</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🎭 Face (UI/UX)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Responsive</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🎭 Face (UI/UX)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Accessibility</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🎭 Face (UI/UX)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Triggers</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🎭 Face (UI/UX)</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Resiliency</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Prompts</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Sessions</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Retrieval</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Copyright</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Copyright:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Copyright: Does every source file have a legal copyright header?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">License</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: License: Is</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: License: Is there a LICENSE file in the root?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Disclaimer</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Disclaimer:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Disclaimer: Does the agent provide a clear LLM-usage disclaimer?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Data Residency</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Data</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Data Residency: Is the agent region-restricted to us-central1</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Tone</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Tone: Is the</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Tone: Is the system prompt aligned with brand voice</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">SEO</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: SEO: Are OpenGraph</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: SEO: Are OpenGraph and meta-tags present in the Face layer?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">Vibrancy</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Vibrancy:</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: Vibrancy: Does the UI use the standard corporate color palette?</td>
                         </tr>
                     
                         <tr>
                             <td style="font-weight: 700;">CTA</td>
                             <td><a href="https://cloud.google.com/architecture/framework" class="source-link" target="_blank">View Citation &rarr;</a></td>
-                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: CTA: Is there a</td>
+                            <td style="font-size: 0.85rem; color: #475569;">Recommended Pattern: CTA: Is there a clear Call-to-Action for every agent proposing a tool?</td>
                         </tr>
                     </tbody></table>
                 <h2>🔍 Audit Evidence</h2>
@@ -510,7 +527,7 @@ Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical
 │ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
 ╰───────────────────────────────────╯
 Target: ./src/agent_ops_cockpit/agent.py
-📊 Token Metrics: ~766 prompt tokens detected.
+📊 Token Metrics: ~782 prompt tokens detected.
 
 ✅ No immediate code-level optimizations found. Your agent is lean!
 </pre><h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
@@ -548,94 +565,64 @@ Scanning directory: .
 📝 Scanned 15 frontend files.
 
 🛠️  DEVELOPER ACTIONS REQUIRED:
-ACTION: vite.config.ts:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or 
-exported interface.
-ACTION: src/App.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or 
-exported interface.
-ACTION: src/App.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | Add meta tags 
-(og:image, description) and project logo.
-ACTION: src/main.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or 
-exported interface.
-ACTION: src/a2ui/components/index.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
-root component or exported interface.
-ACTION: src/a2ui/components/index.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | 
-Add meta tags (og:image, description) and project logo.
-ACTION: src/a2ui/components/lit-component-example.ts:1 | Missing 'surfaceId' mapping | Add 'surfaceId' 
-prop to the root component or exported interface.
-ACTION: src/docs/DocPage.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
-component or exported interface.
-ACTION: src/docs/DocPage.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link to
-the mandatory Privacy Policy / TOS.
-ACTION: src/docs/DocLayout.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
-component or exported interface.
-ACTION: src/docs/DocLayout.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link 
-to the mandatory Privacy Policy / TOS.
-ACTION: src/docs/DocHome.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
-component or exported interface.
-ACTION: src/components/ReportSamples.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
-root component or exported interface.
-ACTION: src/components/FlightRecorder.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the
-root component or exported interface.
-ACTION: src/components/Home.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root 
-component or exported interface.
-ACTION: src/components/OpsDashboard.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
-root component or exported interface.
-ACTION: src/components/ThemeToggle.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the 
-root component or exported interface.
+ACTION: vite.config.ts:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/App.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/App.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | Add meta tags (og:image, description) and project logo.
+ACTION: src/main.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/a2ui/components/index.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/a2ui/components/index.tsx:1 | Missing Branding (Logo) or SEO Metadata (OG/Description) | Add meta tags (og:image, description) and project logo.
+ACTION: src/a2ui/components/lit-component-example.ts:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/docs/DocPage.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/docs/DocPage.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link to the mandatory Privacy Policy / TOS.
+ACTION: src/docs/DocLayout.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/docs/DocLayout.tsx:1 | Missing Legal Disclaimer or Privacy Policy link | Add a footer link to the mandatory Privacy Policy / TOS.
+ACTION: src/docs/DocHome.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/components/ReportSamples.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/components/FlightRecorder.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/components/Home.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/components/OpsDashboard.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
+ACTION: src/components/ThemeToggle.tsx:1 | Missing 'surfaceId' mapping | Add 'surfaceId' prop to the root component or exported interface.
 
 
-                                        🔍 A2UI Audit Findings                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ File:Line                       ┃ Issue                           ┃ Recommended Fix                 ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ vite.config.ts:1                │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/App.tsx:1                   │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/App.tsx:1                   │ Missing Branding (Logo) or SEO  │ Add meta tags (og:image,        │
-│                                 │ Metadata (OG/Description)       │ description) and project logo.  │
-│ src/main.tsx:1                  │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/a2ui/components/index.tsx:1 │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/a2ui/components/index.tsx:1 │ Missing Branding (Logo) or SEO  │ Add meta tags (og:image,        │
-│                                 │ Metadata (OG/Description)       │ description) and project logo.  │
-│ src/a2ui/components/lit-compon… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/docs/DocPage.tsx:1          │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/docs/DocPage.tsx:1          │ Missing Legal Disclaimer or     │ Add a footer link to the        │
-│                                 │ Privacy Policy link             │ mandatory Privacy Policy / TOS. │
-│ src/docs/DocLayout.tsx:1        │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/docs/DocLayout.tsx:1        │ Missing Legal Disclaimer or     │ Add a footer link to the        │
-│                                 │ Privacy Policy link             │ mandatory Privacy Policy / TOS. │
-│ src/docs/DocHome.tsx:1          │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/components/ReportSamples.t… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/components/FlightRecorder.… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/components/Home.tsx:1       │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/components/OpsDashboard.ts… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-│ src/components/ThemeToggle.tsx… │ Missing 'surfaceId' mapping     │ Add 'surfaceId' prop to the     │
-│                                 │                                 │ root component or exported      │
-│                                 │                                 │ interface.                      │
-└─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
+                                                                    🔍 A2UI Audit Findings                                                                     
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ File:Line                                      ┃ Issue                                                ┃ Recommended Fix                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ vite.config.ts:1                               │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/App.tsx:1                                  │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/App.tsx:1                                  │ Missing Branding (Logo) or SEO Metadata              │ Add meta tags (og:image, description) and project   │
+│                                                │ (OG/Description)                                     │ logo.                                               │
+│ src/main.tsx:1                                 │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/a2ui/components/index.tsx:1                │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/a2ui/components/index.tsx:1                │ Missing Branding (Logo) or SEO Metadata              │ Add meta tags (og:image, description) and project   │
+│                                                │ (OG/Description)                                     │ logo.                                               │
+│ src/a2ui/components/lit-component-example.ts:1 │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/docs/DocPage.tsx:1                         │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/docs/DocPage.tsx:1                         │ Missing Legal Disclaimer or Privacy Policy link      │ Add a footer link to the mandatory Privacy Policy / │
+│                                                │                                                      │ TOS.                                                │
+│ src/docs/DocLayout.tsx:1                       │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/docs/DocLayout.tsx:1                       │ Missing Legal Disclaimer or Privacy Policy link      │ Add a footer link to the mandatory Privacy Policy / │
+│                                                │                                                      │ TOS.                                                │
+│ src/docs/DocHome.tsx:1                         │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/components/ReportSamples.tsx:1             │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/components/FlightRecorder.tsx:1            │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/components/Home.tsx:1                      │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/components/OpsDashboard.tsx:1              │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+│ src/components/ThemeToggle.tsx:1               │ Missing 'surfaceId' mapping                          │ Add 'surfaceId' prop to the root component or       │
+│                                                │                                                      │ exported interface.                                 │
+└────────────────────────────────────────────────┴──────────────────────────────────────────────────────┴─────────────────────────────────────────────────────┘
 
 ⚠️  Recommendation: Your 'Face' layer has fragmented A2UI surface mappings.
 💡 Use the A2UI Registry to unify how your agent logic triggers visual surfaces.
@@ -650,68 +637,47 @@ Detected Framework: Google Vertex AI / ADK
 Comparing local agent implementation against Google Vertex AI / ADK Best Practices...
 
 ACTION: codebase | Architecture Gap: Runtime | Critical for scalability and cost.
-SOURCE: Runtime | https://cloud.google.com/architecture/framework | Recommended Pattern: Runtime: Is 
-the agent running on Cloud Run or GKE?
+SOURCE: Runtime | https://cloud.google.com/architecture/framework | Recommended Pattern: Runtime: Is the agent running on Cloud Run or GKE?
 ACTION: codebase | Architecture Gap: Framework | Google-standard for agent-tool communication.
-SOURCE: Framework | https://cloud.google.com/architecture/framework | Recommended Pattern: Framework: 
-Is ADK used for tool orchestration?
-SOURCE: Sandbox | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🏗️ Core Architecture (Google)
+SOURCE: Framework | https://cloud.google.com/architecture/framework | Recommended Pattern: Framework: Is ADK used for tool orchestration?
+SOURCE: Sandbox | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)
 ACTION: codebase | Architecture Gap: Backend | Industry-standard for high-concurrency agent apps.
-SOURCE: Backend | https://cloud.google.com/architecture/framework | Recommended Pattern: Backend: Is 
-FastAPI used for the Engine layer?
-SOURCE: Outputs | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🏗️ Core Architecture (Google)
-SOURCE: Heritage | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🏗️ Core Architecture (Google)
-                                     🏗️ Core Architecture (Google)                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Runtime: Is the agent running on Cloud Run   │  FAIL  │ Critical for scalability and cost.          │
-│ or GKE?                                      │        │                                             │
-│ Framework: Is ADK used for tool              │  FAIL  │ Google-standard for agent-tool              │
-│ orchestration?                               │        │ communication.                              │
-│ Sandbox: Is Code Execution running in Vertex │ PASSED │ Prevents malicious code execution.          │
-│ AI Sandbox?                                  │        │                                             │
-│ Backend: Is FastAPI used for the Engine      │  FAIL  │ Industry-standard for high-concurrency      │
-│ layer?                                       │        │ agent apps.                                 │
-│ Outputs: Are Pydantic or Response Schemas    │ PASSED │ Ensures data integrity and reliable tool    │
-│ used for structured output?                  │        │ execution.                                  │
-│ Heritage: Does the agent utilize any Google  │ PASSED │ Verifies grounding in the Google Cloud      │
-│ GenAI SDK (Preview or GA)?                   │        │ ecosystem even for legacy/heritage stacks.  │
-└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+SOURCE: Backend | https://cloud.google.com/architecture/framework | Recommended Pattern: Backend: Is FastAPI used for the Engine layer?
+SOURCE: Outputs | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)
+SOURCE: Heritage | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🏗️ Core Architecture (Google)
+                                                                 🏗️ Core Architecture (Google)                                                                 
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                           ┃ Status ┃ Rationale                                                                 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Runtime: Is the agent running on Cloud Run or GKE?                     │  FAIL  │ Critical for scalability and cost.                                        │
+│ Framework: Is ADK used for tool orchestration?                         │  FAIL  │ Google-standard for agent-tool communication.                             │
+│ Sandbox: Is Code Execution running in Vertex AI Sandbox?               │ PASSED │ Prevents malicious code execution.                                        │
+│ Backend: Is FastAPI used for the Engine layer?                         │  FAIL  │ Industry-standard for high-concurrency agent apps.                        │
+│ Outputs: Are Pydantic or Response Schemas used for structured output?  │ PASSED │ Ensures data integrity and reliable tool execution.                       │
+│ Heritage: Does the agent utilize any Google GenAI SDK (Preview or GA)? │ PASSED │ Verifies grounding in the Google Cloud ecosystem even for legacy/heritage │
+│                                                                        │        │ stacks.                                                                   │
+└────────────────────────────────────────────────────────────────────────┴────────┴───────────────────────────────────────────────────────────────────────────┘
 
 
-SOURCE: PII | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️
-Security & Privacy
-SOURCE: Identity | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🛡️ Security & Privacy
-SOURCE: Safety | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework:
-🛡️ Security & Privacy
-SOURCE: Policies | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🛡️ Security & Privacy
-                                         🛡️ Security & Privacy                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ PII: Is a scrubber active before sending    │ PASSED │ Compliance requirement (GDPR/SOC2).          │
-│ data to LLM?                                │        │                                              │
-│ Identity: Is IAM used for tool access?      │ PASSED │ Ensures least-privilege security.            │
-│ Safety: Are Vertex AI Safety Filters        │ PASSED │ Protects against toxic generation.           │
-│ configured?                                 │        │                                              │
-│ Policies: Is 'policies.json' used for       │ PASSED │ Enforces RFC-307 standards for forbidden     │
-│ declarative guardrails?                     │        │ topics and tool HITL.                        │
-└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+SOURCE: PII | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️ Security & Privacy
+SOURCE: Identity | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️ Security & Privacy
+SOURCE: Safety | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️ Security & Privacy
+SOURCE: Policies | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🛡️ Security & Privacy
+                                                           🛡️ Security & Privacy                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                  ┃ Status ┃ Rationale                                                      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ PII: Is a scrubber active before sending data to LLM?         │ PASSED │ Compliance requirement (GDPR/SOC2).                            │
+│ Identity: Is IAM used for tool access?                        │ PASSED │ Ensures least-privilege security.                              │
+│ Safety: Are Vertex AI Safety Filters configured?              │ PASSED │ Protects against toxic generation.                             │
+│ Policies: Is 'policies.json' used for declarative guardrails? │ PASSED │ Enforces RFC-307 standards for forbidden topics and tool HITL. │
+└───────────────────────────────────────────────────────────────┴────────┴────────────────────────────────────────────────────────────────┘
 
 
-SOURCE: Caching | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 📉 Optimization
+SOURCE: Caching | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 📉 Optimization
 ACTION: codebase | Architecture Gap: Context | Critical for prompts > 32k tokens.
-SOURCE: Context | https://cloud.google.com/architecture/framework | Recommended Pattern: Context: Are 
-you using Context Caching?
-SOURCE: Routing | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 📉 Optimization
+SOURCE: Context | https://cloud.google.com/architecture/framework | Recommended Pattern: Context: Are you using Context Caching?
+SOURCE: Routing | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 📉 Optimization
                                           📉 Optimization                                          
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Design Check                                      ┃ Status ┃ Rationale                          ┃
@@ -722,130 +688,92 @@ Framework: 📉 Optimization
 └───────────────────────────────────────────────────┴────────┴────────────────────────────────────┘
 
 
-ACTION: codebase | Architecture Gap: Agent Engine | Managed orchestration with built-in versioning and 
-traces.
-SOURCE: Agent Engine | https://cloud.google.com/architecture/framework | Recommended Pattern: Agent 
-Engine: Are you using Vertex AI Reasoning Engine for deployment?
-SOURCE: Cloud Run | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🌐 Infrastructure & Runtime
-SOURCE: GKE | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐
-Infrastructure & Runtime
-SOURCE: VPC | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐
-Infrastructure & Runtime
-                                      🌐 Infrastructure & Runtime                                      
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Agent Engine: Are you using Vertex AI        │  FAIL  │ Managed orchestration with built-in         │
-│ Reasoning Engine for deployment?             │        │ versioning and traces.                      │
-│ Cloud Run: Is 'Startup CPU Boost' enabled?   │ PASSED │ Critical for reducing cold-start latency in │
-│                                              │        │ Python agents.                              │
-│ GKE: Is Workload Identity used for IAM?      │ PASSED │ Google-standard for secure                  │
-│                                              │        │ service-to-service communication.           │
-│ VPC: Is VPC Service Controls (VPC SC)        │ PASSED │ Prevents data exfiltration by isolating the │
-│ active?                                      │        │ agent environment.                          │
-└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+ACTION: codebase | Architecture Gap: Agent Engine | Managed orchestration with built-in versioning and traces.
+SOURCE: Agent Engine | https://cloud.google.com/architecture/framework | Recommended Pattern: Agent Engine: Are you using Vertex AI Reasoning Engine for 
+deployment?
+SOURCE: Cloud Run | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime
+SOURCE: GKE | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime
+SOURCE: VPC | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🌐 Infrastructure & Runtime
+                                                            🌐 Infrastructure & Runtime                                                             
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                           ┃ Status ┃ Rationale                                                      ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Agent Engine: Are you using Vertex AI Reasoning Engine for deployment? │  FAIL  │ Managed orchestration with built-in versioning and traces.     │
+│ Cloud Run: Is 'Startup CPU Boost' enabled?                             │ PASSED │ Critical for reducing cold-start latency in Python agents.     │
+│ GKE: Is Workload Identity used for IAM?                                │ PASSED │ Google-standard for secure service-to-service communication.   │
+│ VPC: Is VPC Service Controls (VPC SC) active?                          │ PASSED │ Prevents data exfiltration by isolating the agent environment. │
+└────────────────────────────────────────────────────────────────────────┴────────┴────────────────────────────────────────────────────────────────┘
 
 
-SOURCE: A2UI | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 
-🎭 Face (UI/UX)
-SOURCE: Responsive | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🎭 Face (UI/UX)
-SOURCE: Accessibility | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🎭 Face (UI/UX)
-SOURCE: Triggers | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🎭 Face (UI/UX)
-                                            🎭 Face (UI/UX)                                            
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ A2UI: Are components registered in the       │ PASSED │ Ensures engine-driven UI protocol           │
-│ A2UIRenderer?                                │        │ compliance.                                 │
-│ Responsive: Are mobile-first media queries   │ PASSED │ Ensures usability across devices            │
-│ present in index.css?                        │        │ (iOS/Android).                              │
-│ Accessibility: Do interactive elements have  │ PASSED │ Critical for inclusive design and automated │
-│ aria-labels?                                 │        │ testing.                                    │
-│ Triggers: Are you using interactive triggers │ PASSED │ Improves 'Agentic Feel' through reactive    │
-│ for state changes?                           │        │ UI.                                         │
-└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+SOURCE: A2UI | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🎭 Face (UI/UX)
+SOURCE: Responsive | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🎭 Face (UI/UX)
+SOURCE: Accessibility | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🎭 Face (UI/UX)
+SOURCE: Triggers | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🎭 Face (UI/UX)
+                                                          🎭 Face (UI/UX)                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                     ┃ Status ┃ Rationale                                            ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ A2UI: Are components registered in the A2UIRenderer?             │ PASSED │ Ensures engine-driven UI protocol compliance.        │
+│ Responsive: Are mobile-first media queries present in index.css? │ PASSED │ Ensures usability across devices (iOS/Android).      │
+│ Accessibility: Do interactive elements have aria-labels?         │ PASSED │ Critical for inclusive design and automated testing. │
+│ Triggers: Are you using interactive triggers for state changes?  │ PASSED │ Improves 'Agentic Feel' through reactive UI.         │
+└──────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────────┘
 
 
-SOURCE: Resiliency | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🧗 Resiliency & Best Practices
-SOURCE: Prompts | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🧗 Resiliency & Best Practices
-SOURCE: Sessions | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🧗 Resiliency & Best Practices
-SOURCE: Retrieval | https://cloud.google.com/architecture/framework | Google Cloud Architecture 
-Framework: 🧗 Resiliency & Best Practices
-                                    🧗 Resiliency & Best Practices                                     
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Resiliency: Are retries with exponential    │ PASSED │ Prevents cascading failures during downtime  │
-│ backoff used for API/DB calls?              │        │ (e.g., using tenacity).                      │
-│ Prompts: Are prompts stored in external     │ PASSED │ Best practice for separation of concerns and │
-│ '.md' or '.yaml' files?                     │        │ versioning.                                  │
-│ Sessions: Is there a session/conversation   │ PASSED │ Ensures context continuity and user state    │
-│ management layer?                           │        │ tracking.                                    │
-│ Retrieval: Are you using RAG or Efficient   │ PASSED │ Optimizes performance vs. cost for           │
-│ Context Caching for large datasets?         │        │ retrieval-heavy agents.                      │
-└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+SOURCE: Resiliency | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices
+SOURCE: Prompts | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices
+SOURCE: Sessions | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices
+SOURCE: Retrieval | https://cloud.google.com/architecture/framework | Google Cloud Architecture Framework: 🧗 Resiliency & Best Practices
+                                                                🧗 Resiliency & Best Practices                                                                 
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                                 ┃ Status ┃ Rationale                                                           ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Resiliency: Are retries with exponential backoff used for API/DB calls?      │ PASSED │ Prevents cascading failures during downtime (e.g., using tenacity). │
+│ Prompts: Are prompts stored in external '.md' or '.yaml' files?              │ PASSED │ Best practice for separation of concerns and versioning.            │
+│ Sessions: Is there a session/conversation management layer?                  │ PASSED │ Ensures context continuity and user state tracking.                 │
+│ Retrieval: Are you using RAG or Efficient Context Caching for large          │ PASSED │ Optimizes performance vs. cost for retrieval-heavy agents.          │
+│ datasets?                                                                    │        │                                                                     │
+└──────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────────────────────────┘
 
 
 ACTION: codebase | Architecture Gap: Copyright | IP protection and enterprise policy.
-SOURCE: Copyright | https://cloud.google.com/architecture/framework | Recommended Pattern: Copyright: 
-Does every source file have a legal copyright header?
+SOURCE: Copyright | https://cloud.google.com/architecture/framework | Recommended Pattern: Copyright: Does every source file have a legal copyright header?
 ACTION: codebase | Architecture Gap: License | Mandatory for legal distribution.
-SOURCE: License | https://cloud.google.com/architecture/framework | Recommended Pattern: License: Is 
-there a LICENSE file in the root?
+SOURCE: License | https://cloud.google.com/architecture/framework | Recommended Pattern: License: Is there a LICENSE file in the root?
 ACTION: codebase | Architecture Gap: Disclaimer | Liability mitigation for AI hallucinations.
-SOURCE: Disclaimer | https://cloud.google.com/architecture/framework | Recommended Pattern: Disclaimer:
-Does the agent provide a clear LLM-usage disclaimer?
+SOURCE: Disclaimer | https://cloud.google.com/architecture/framework | Recommended Pattern: Disclaimer: Does the agent provide a clear LLM-usage disclaimer?
 ACTION: codebase | Architecture Gap: Data Residency | Ensures data stays within geofenced boundaries.
-SOURCE: Data Residency | https://cloud.google.com/architecture/framework | Recommended Pattern: Data 
-Residency: Is the agent region-restricted to us-central1 or equivalent?
-                                         ⚖️ Legal & Compliance                                         
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                ┃ Status ┃ Rationale                                    ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Copyright: Does every source file have a    │  FAIL  │ IP protection and enterprise policy.         │
-│ legal copyright header?                     │        │                                              │
-│ License: Is there a LICENSE file in the     │  FAIL  │ Mandatory for legal distribution.            │
-│ root?                                       │        │                                              │
-│ Disclaimer: Does the agent provide a clear  │  FAIL  │ Liability mitigation for AI hallucinations.  │
-│ LLM-usage disclaimer?                       │        │                                              │
-│ Data Residency: Is the agent                │  FAIL  │ Ensures data stays within geofenced          │
-│ region-restricted to us-central1 or         │        │ boundaries.                                  │
-│ equivalent?                                 │        │                                              │
-└─────────────────────────────────────────────┴────────┴──────────────────────────────────────────────┘
+SOURCE: Data Residency | https://cloud.google.com/architecture/framework | Recommended Pattern: Data Residency: Is the agent region-restricted to us-central1 
+or equivalent?
+                                                           ⚖️ Legal & Compliance                                                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                                 ┃ Status ┃ Rationale                                       ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Copyright: Does every source file have a legal copyright header?             │  FAIL  │ IP protection and enterprise policy.            │
+│ License: Is there a LICENSE file in the root?                                │  FAIL  │ Mandatory for legal distribution.               │
+│ Disclaimer: Does the agent provide a clear LLM-usage disclaimer?             │  FAIL  │ Liability mitigation for AI hallucinations.     │
+│ Data Residency: Is the agent region-restricted to us-central1 or equivalent? │  FAIL  │ Ensures data stays within geofenced boundaries. │
+└──────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────────────────────────────────────┘
 
 
 ACTION: codebase | Architecture Gap: Tone | Consistency in agent personality.
-SOURCE: Tone | https://cloud.google.com/architecture/framework | Recommended Pattern: Tone: Is the 
-system prompt aligned with brand voice (Helpful/Professional)?
+SOURCE: Tone | https://cloud.google.com/architecture/framework | Recommended Pattern: Tone: Is the system prompt aligned with brand voice 
+(Helpful/Professional)?
 ACTION: codebase | Architecture Gap: SEO | Critical for discoverability and social sharing.
-SOURCE: SEO | https://cloud.google.com/architecture/framework | Recommended Pattern: SEO: Are OpenGraph
-and meta-tags present in the Face layer?
+SOURCE: SEO | https://cloud.google.com/architecture/framework | Recommended Pattern: SEO: Are OpenGraph and meta-tags present in the Face layer?
 ACTION: codebase | Architecture Gap: Vibrancy | Prevents ad-hoc branding in autonomous UIs.
-SOURCE: Vibrancy | https://cloud.google.com/architecture/framework | Recommended Pattern: Vibrancy: 
-Does the UI use the standard corporate color palette?
+SOURCE: Vibrancy | https://cloud.google.com/architecture/framework | Recommended Pattern: Vibrancy: Does the UI use the standard corporate color palette?
 ACTION: codebase | Architecture Gap: CTA | Drives conversion and user engagement.
-SOURCE: CTA | https://cloud.google.com/architecture/framework | Recommended Pattern: CTA: Is there a 
-clear Call-to-Action for every agent proposing a tool?
-                                         📢 Marketing & Brand                                          
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Design Check                                 ┃ Status ┃ Rationale                                   ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Tone: Is the system prompt aligned with      │  FAIL  │ Consistency in agent personality.           │
-│ brand voice (Helpful/Professional)?          │        │                                             │
-│ SEO: Are OpenGraph and meta-tags present in  │  FAIL  │ Critical for discoverability and social     │
-│ the Face layer?                              │        │ sharing.                                    │
-│ Vibrancy: Does the UI use the standard       │  FAIL  │ Prevents ad-hoc branding in autonomous UIs. │
-│ corporate color palette?                     │        │                                             │
-│ CTA: Is there a clear Call-to-Action for     │  FAIL  │ Drives conversion and user engagement.      │
-│ every agent proposing a tool?                │        │                                             │
-└──────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┘
+SOURCE: CTA | https://cloud.google.com/architecture/framework | Recommended Pattern: CTA: Is there a clear Call-to-Action for every agent proposing a tool?
+                                                           📢 Marketing & Brand                                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                                                ┃ Status ┃ Rationale                                        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Tone: Is the system prompt aligned with brand voice (Helpful/Professional)? │  FAIL  │ Consistency in agent personality.                │
+│ SEO: Are OpenGraph and meta-tags present in the Face layer?                 │  FAIL  │ Critical for discoverability and social sharing. │
+│ Vibrancy: Does the UI use the standard corporate color palette?             │  FAIL  │ Prevents ad-hoc branding in autonomous UIs.      │
+│ CTA: Is there a clear Call-to-Action for every agent proposing a tool?      │  FAIL  │ Drives conversion and user engagement.           │
+└─────────────────────────────────────────────────────────────────────────────┴────────┴──────────────────────────────────────────────────┘
 
 
 📊 Review Score: 59/100
