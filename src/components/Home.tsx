@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Rocket, Shield, Activity, Cpu, Command,
   Terminal, ChevronRight, Github, ExternalLink,
-  Layers, Zap, Search, Globe, Lock
+  Layers, Zap, Search, Globe, Lock, Server, CheckCircle
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -30,7 +30,11 @@ export function Home() {
           <span className="banner-text">The Governance Update: Principal SME Persona Approvals, Legal/Marketing Audits, and PDF Reporting are now active.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
-            <a href="/sample-report.html" target="_blank" className="banner-link">Sample Report <ExternalLink size={14} /></a>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] opacity-70">SAMPLES:</span>
+              <a href="/sample-report.html" target="_blank" className="banner-link">Report (HTML) <ExternalLink size={14} /></a>
+              <a href="/sample-report.md" target="_blank" className="banner-link">Report (MD) <ExternalLink size={14} /></a>
+            </div>
           </div>
         </div>
       </div>
@@ -61,22 +65,26 @@ export function Home() {
           <div className="hero-content-v2">
             <div className="pill-badge">
               <span className="pulsing-dot"></span>
-              Google Well-Architected Framework for Agents
+              Multi-Cloud Well-Architected Framework for Agents
             </div>
             <h1 className="hero-headline">
               The Professional Logic Layer for <span className="gradient-text">Agentic Apps</span>
             </h1>
             <p className="hero-description">
-              Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents on Google Cloud.
+              Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
             </p>
-            <div className="hero-actions">
+            <div className="hero-actions flex-wrap">
               <Link to="/docs/getting-started" className="btn-primary">
                 Get Started
                 <ChevronRight size={18} />
               </Link>
               <a href="/sample-report.html" target="_blank" className="btn-secondary">
                 <Shield size={18} />
-                Sample Report
+                Report (HTML)
+              </a>
+              <a href="/sample-report.md" target="_blank" className="btn-secondary">
+                <Terminal size={18} />
+                Report (MD)
               </a>
             </div>
 
@@ -147,6 +155,32 @@ export function Home() {
                 <Shield size={16} />
                 <span>100% Red Team Pass</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ecosystem Logos Bar */}
+      <section className="ecosystem-logos-bar">
+        <div className="container">
+          <div className="ecosystem-logos-container">
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Google Cloud" />
+            </div>
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white" alt="Azure" />
+            </div>
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI" />
+            </div>
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/CopilotKit-6366f1?style=for-the-badge" alt="CopilotKit" />
+            </div>
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS" />
+            </div>
+            <div className="ecosystem-item">
+              <img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" />
             </div>
           </div>
         </div>
@@ -227,9 +261,14 @@ export function Home() {
               <p>The operational brain. Real-time cost control, semantic caching, and security auditing for "Day 2" success.</p>
               <div className="flex flex-col gap-2">
                 <Link to="/ops" className="card-link">Launch the Cockpit →</Link>
-                <a href="/sample-report.html" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  View Sample Audit Report <ExternalLink size={14} />
-                </a>
+                <div className="flex gap-4">
+                  <a href="/sample-report.html" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    Audit (HTML) <ExternalLink size={14} />
+                  </a>
+                  <a href="/sample-report.md" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    Audit (MD) <ExternalLink size={14} />
+                  </a>
+                </div>
               </div>
             </div>
             <div className="trinity-card">
@@ -309,11 +348,25 @@ export function Home() {
                 <p>Choose between a 15s "Safe-Build" for dev agility or a deep 5m audit for production-gate benchmarking.</p>
               </div>
             </div>
-            <div className="capability-item glass-highlight">
+            <div className="capability-item glass-highlight border-blue-500/30">
               <div className="item-icon text-blue-500"><Command size={24} /></div>
               <div>
                 <h4>Agentic Pair Programming</h4>
                 <p>Pair with <strong>Antigravity</strong> or <strong>Claude Code</strong> to maximize findings and iteratively fix them upon your approval.</p>
+              </div>
+            </div>
+            <div className="capability-item">
+              <div className="item-icon text-orange-500"><Server size={24} /></div>
+              <div>
+                <h4>MCP Connectivity Hub</h4>
+                <p>Native Model Context Protocol (MCP) server support. Connect your agent to any 1P/3P tool ecosystem with audited execution.</p>
+              </div>
+            </div>
+            <div className="capability-item">
+              <div className="item-icon text-green-500"><CheckCircle size={24} /></div>
+              <div>
+                <h4>CI/CD Build Gates</h4>
+                <p>Automated GitHub Actions that block production deployments if security vulnerabilities or cost overruns are detected.</p>
               </div>
             </div>
           </div>
@@ -330,7 +383,7 @@ export function Home() {
           <div className="workflow-visual-container">
             <img src="/assets/workflow.png" alt="Operational Workflow" className="workflow-img" />
             <div className="workflow-overlay-text">
-              Each cycle in the Cockpit goes through a multi-stage validation: Situational Audit → Conflict Guard → Quality Hill Climbing → Automated Red Teaming.
+              Each cycle in the Cockpit goes through a multi-stage validation: Situational Audit → Conflict Guard → Quality Hill Climbing → Automated Red Teaming. <strong>Enforced via GitHub Actions on every PR.</strong>
             </div>
           </div>
         </div>

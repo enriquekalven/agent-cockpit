@@ -12,6 +12,9 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
     - **Email Integration**: Send Persona-Approved audit results directly from the CLI.
 - **Mandatory Build Gates**: Updated CLI and `Dockerfile` to enforce "Well-Architected" status as a blocking gate for production deployments.
 - **Package Unification**: Consolidated codebase into the `agent_ops_cockpit` package, simplifying imports and distribution.
+- **Multi-Cloud Branding**: Broadened scope from Google-only to all major providers (AWS, Azure, OpenAI, Anthropic, CopilotKit) with native branding on the landing page.
+- **CI/CD Build Gates**: Integrated GitHub Actions visibility showing mandatory governance gates for production.
+- **Sample Reporting**: Added both HTML and Markdown (MD) audit reports to the public site for transparency.
 - **Agentic Pair Programming**: Full support for pairing with **Antigravity** or **Claude Code** to maximize finding resolution.
 
 ## [0.7.0] - 2026-01-28
