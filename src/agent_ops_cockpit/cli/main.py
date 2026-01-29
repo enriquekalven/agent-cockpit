@@ -34,12 +34,14 @@ def reliability():
     rel_mod.run_tests()
 
 @app.command()
-def report():
+def report(
+    mode: str = typer.Option("quick", "--mode", "-m", help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks")
+):
     """
-    Launch full AgentOps audit (Arch, Quality, Security, Cost) and generate a final report.
+    Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
-    console.print("🕹️ [bold blue]Launching Full System Audit...[/bold blue]")
-    orch_mod.run_full_audit()
+    console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
+    orch_mod.run_audit(mode=mode)
 
 @app.command()
 def quality_baseline(path: str = "."):
@@ -59,14 +61,15 @@ def arch_review(path: str = "."):
 
 @app.command()
 def audit(
-    file_path: str = typer.Argument("src/backend/agent.py", help="Path to the agent code to audit"),
-    interactive: bool = typer.Option(True, "--interactive/--no-interactive", "-i", help="Run in interactive mode")
+    file_path: str = typer.Argument("agent.py", help="Path to the agent code to audit"),
+    interactive: bool = typer.Option(True, "--interactive/--no-interactive", "-i", help="Run in interactive mode"),
+    quick: bool = typer.Option(False, "--quick", "-q", help="Skip live evidence fetching for faster execution")
 ):
     """
     Run the Interactive Agent Optimizer audit.
     """
     console.print("🔍 [bold blue]Running Agent Operations Audit...[/bold blue]")
-    opt_mod.audit(file_path, interactive)
+    opt_mod.audit(file_path, interactive, quick=quick)
 
 @app.command()
 def red_team(
