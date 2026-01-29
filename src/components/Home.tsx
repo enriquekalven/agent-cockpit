@@ -7,6 +7,37 @@ import {
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
+// SVG Logos for Ecosystem Bar
+const GoogleCloudLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
+    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.92 3.32-2.12 4.52-1.36 1.36-3.44 2.84-7.56 2.84-6.72 0-11.92-5.44-11.92-12.16S3.88 0 10.6 0c3.64 0 6.28 1.44 8.28 3.32l2.32-2.32C18.96 1.12 15.68 0 10.6 0 4.8 0 0 4.8 0 10.6s4.8 10.6 10.6 10.6c3.12 0 5.48-1.04 7.44-3.08 1.92-1.92 2.52-4.64 2.52-6.88 0-.68-.04-1.36-.16-2.04h-9.8z" />
+  </svg>
+);
+
+const azureLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
+    <path d="M5.483 21.3h15.115l-6.198-8.914-4.814 2.684L5.483 21.3zm13.111-13.844L8.761 18.067l4.633-2.583 5.2-10.3zm5.406 13.844L14.714 3.012l-3.322 3.355 7.108 11.577 5.501 3.355h.001zM0 21.3h5.483l3.279-3.233L2.203 9.412 0 21.3z" />
+  </svg>
+);
+
+const openAILogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
+    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5153-4.9022 6.0462 6.0462 0 0 0-4.3412-2.7355 5.9803 5.9803 0 0 0-5.1328 1.3427 5.9928 5.9928 0 0 0-4.4365-2.0076 6.0521 6.0521 0 0 0-5.2277 3.0336 5.973 5.973 0 0 0-1.0545 5.5003 5.985 5.985 0 0 0 .5153 4.9022 6.053 6.053 0 0 0 4.3412 2.7355 5.981 5.981 0 0 0 5.1328-1.3427 5.992 5.992 0 0 0 4.4365 2.0076 6.0461 6.0461 0 0 0 5.2277-3.0336 5.973 5.973 0 0 0 1.0545-5.5003zm-9.3153 9.136a4.4828 4.4828 0 0 1-2.9034-1.0768l.1569-.0901 4.5452-2.6176a.443.443 0 0 0 .2215-.3836V8.6279l1.6214.936a.042.042 0 0 1 .0207.0315v5.3934a4.5028 4.5028 0 0 1-3.6623 4.3683zm-7.6534-1.928a4.4756 4.4756 0 0 1-.9013-3.1151l.1569.0901 4.5452 2.6176a.4434.4434 0 0 0 .4382-.0045l6.1664-3.5552-1.6214-.936a.0416.0416 0 0 1-.0259-.0281l-4.668-2.6953a4.5056 4.5056 0 0 1-4.0901-3.9735zM4.686 6.3194a4.4796 4.4796 0 0 1 2.0021-2.4285l-.014.1037-1.1214 6.4716a.4434.4434 0 0 0 .2166.4282l6.1664 3.5552-.003-1.872a.0416.0416 0 0 1 .012-.034l4.671-2.6934a4.5126 4.5126 0 0 1 .4278-5.3417zM11.0335 5.043a4.4827 4.4827 0 0 1 2.9034 1.0768l-.1569.0901-4.5452 2.6176a.443.443 0 0 0-.2215.3836V15.372l-1.6214-.936a.0416.0416 0 0 1-.0207-.0315V9.0111a4.5027 4.5027 0 0 1 3.6623-4.3683zm7.6534 1.928a4.4756 4.4756 0 0 1 .9013 3.115l-.1569-.0901-4.5452-2.6176a.4432.4432 0 0 0-.4382.0045l-6.1664 3.5552 1.6214.936a.042.042 0 0 1 .0259.0281l4.668 2.6953a4.5056 4.5056 0 0 1 4.0901 3.9735zm1.5312 10.1502a4.4795 4.4795 0 0 1-2.0021 2.4285l.014-.1037 1.1214-6.4716a.443.443 0 0 0-.2166-.4282l-6.1664-3.5552.003 1.872a.0416.0416 0 0 1-.012.034l-4.671 2.6934a4.5126 4.5126 0 0 1-.4278 5.3417zM12 10.7431L14.1818 12 12 13.2569 9.8182 12 12 10.7431z" />
+  </svg>
+);
+
+const awsLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
+    <path d="M12.915 5.8s.09.435.09.83c0 .87-.51 1.695-1.5 2.13-1.005.42-2.31.54-3.375.54h-1.5c-1.125 0-2.4-.105-3.3-.855-.84-.705-1.11-1.74-1.11-2.91 0-1.89.78-3.03 2.19-3.795C5.835 1.095 8.01 1.02 10.035 1.02c1.92 0 4.14.21 5.385 1.86.63.84.81 1.845.81 2.895v2.85c0 1.275.075 2.505.48 3.42.345.81.99 1.485 1.815 1.755.765.24 1.545.24 2.325.21v.96c-1.17.165-2.295.075-3.39-.42-1.02-.45-1.635-1.29-1.92-2.34-.6 1.08-1.53 1.875-2.7 2.34-1.29.495-2.73.57-4.11.51-2.31-.105-4.44-.81-5.61-3.045-.525-.975-.54-2.145-.54-3.21 0-1.44.3-2.655 1.2-3.66C5.64.12 7.425 0 9.21 0c2.16 0 4.41.045 6.06 1.65.645.63.885 1.575.885 2.46V5.8h-3.24zm-1.875 3.3c-.945-.045-1.545-.465-1.545-1.5 0-.96.48-1.575 1.41-1.695.885-.12 1.785-.09 2.67-.09h.735v2.025s-.57.69-1.77.81c-.51.045-1.02.48-1.5.45zM12 18.06c-3.15 0-6.105.81-8.52 2.295-.345.21-.555.57-.45.96.105.39.465.585.81.42C6.18 20.37 9.045 19.65 12 19.65c2.955 0 5.82.72 8.16 2.085.345.195.705 0 .81-.39.105-.39-.105-.75-.45-.96-2.415-1.485-5.37-2.325-8.52-2.325zm9.33-1.14c-.18-.21-.495-.195-.72-.06-1.995 1.23-4.395 1.95-6.915 1.95-2.52 0-4.92-.72-6.915-1.95-.225-.135-.54-.15-.72.06-.18.21-.135.54.09.69 2.175 1.35 4.785 2.145 7.545 2.145 2.76 0 5.37-.795 7.545-2.145.225-.15.27-.48.09-.69z" />
+  </svg>
+);
+
+const anthropicLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
+    <path d="M16.903 0H7.097L0 24h3.742l1.677-5.806h13.161L20.258 24H24L16.903 0zm-1.161 14.71H8.258l4.323-14.71L15.742 14.71z" />
+  </svg>
+);
+
 export function Home() {
   const [stars, setStars] = useState<number | null>(null);
 
@@ -164,23 +195,29 @@ export function Home() {
       <section className="ecosystem-logos-bar">
         <div className="container">
           <div className="ecosystem-logos-container">
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Google Cloud" />
+            <div className="ecosystem-item-v2" title="Google Cloud">
+              <img src="https://cdn.simpleicons.org/googlecloud" alt="Google Cloud" className="logo-img" />
+              <span>Google Cloud</span>
             </div>
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white" alt="Azure" />
+            <div className="ecosystem-item-v2" title="Azure">
+              <img src="https://cdn.simpleicons.org/microsoftazure" alt="Azure" className="logo-img" />
+              <span>Azure</span>
             </div>
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI" />
+            <div className="ecosystem-item-v2" title="OpenAI">
+              <img src="https://cdn.simpleicons.org/openai" alt="OpenAI" className="logo-img" />
+              <span>OpenAI</span>
             </div>
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/CopilotKit-6366f1?style=for-the-badge" alt="CopilotKit" />
+            <div className="ecosystem-item-v2" title="AWS">
+              <img src="https://cdn.simpleicons.org/amazonwebservices" alt="AWS" className="logo-img" />
+              <span>AWS</span>
             </div>
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS" />
+            <div className="ecosystem-item-v2" title="Anthropic">
+              <img src="https://cdn.simpleicons.org/anthropic" alt="Anthropic" className="logo-img" />
+              <span>Anthropic</span>
             </div>
-            <div className="ecosystem-item">
-              <img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" />
+            <div className="ecosystem-item-v2" title="CopilotKit">
+              <img src="https://cdn.simpleicons.org/copilotkit" alt="CopilotKit" className="logo-img" />
+              <span>CopilotKit</span>
             </div>
           </div>
         </div>
