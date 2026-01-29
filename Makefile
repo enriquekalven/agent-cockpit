@@ -43,6 +43,12 @@ audit:
 audit-deep:
 	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode deep
 
+# 🌐 Global Audit: Point the Cockpit at an external repository
+# Usage: make audit-all TARGET=/path/to/your/agent
+TARGET ?= .
+audit-all:
+	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode quick --path $(TARGET)
+
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
 	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py

@@ -27,9 +27,10 @@ class CockpitOrchestrator:
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f"[cyan]Running {name}...")
         
+        # Use absolute path for the cockpit source code
+        cockpit_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         env = os.environ.copy()
-        current_pp = env.get("PYTHONPATH", "")
-        env["PYTHONPATH"] = f"src:{current_pp}" if current_pp else "src"
+        env["PYTHONPATH"] = f"{cockpit_root}{os.pathsep}{env.get('PYTHONPATH', '')}"
         
         try:
             # We use Popen to potentially stream output if we wanted, 
@@ -337,8 +338,9 @@ class CockpitOrchestrator:
             console.print(f"[red]❌ Email failed: {e}[/red]")
             return False
 
-def run_audit(mode: str = "quick"):
+def run_audit(mode: str = "quick", target_path: str = "."):
     orchestrator = CockpitOrchestrator()
+    target_path = os.path.abspath(target_path)
     
     title = "QUICK SAFE-BUILD" if mode == "quick" else "DEEP SYSTEM AUDIT"
     subtitle = "Essential checks for dev-velocity" if mode == "quick" else "Full benchmarks & stress-testing"
@@ -361,30 +363,30 @@ def run_audit(mode: str = "quick"):
         base_mod = "agent_ops_cockpit"
 
         # 1. Essential "Safe-Build" Steps (Fast)
-        token_opt_cmd = [sys.executable, "-m", f"{base_mod}.optimizer", "src/agent_ops_cockpit/agent.py", "--no-interactive"]
+        token_opt_cmd = [sys.executable, "-m", f"{base_mod}.optimizer", target_path, "--no-interactive"]
         if mode == "quick":
             token_opt_cmd.append("--quick")
 
         steps = [
-            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review"]),
-            ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]),
-            ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner"]),
+            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review", target_path]),
+            ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]), # Policy is global to cockpit
+            ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner", target_path]),
             ("Token Optimization", token_opt_cmd),
             ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"]),
-            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor"])
+            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor", target_path])
         ]
 
         # 2. Add "Deep" steps if requested
         if mode == "deep":
             steps.extend([
                 ("Quality Hill Climbing", [sys.executable, "-m", f"{base_mod}.eval.quality_climber", "--steps", "10"]),
-                ("Red Team Security (Full)", [sys.executable, "-m", f"{base_mod}.eval.red_team", "src/agent_ops_cockpit/agent.py"]),
+                ("Red Team Security (Full)", [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path]),
                 ("Load Test (Baseline)", [sys.executable, "-m", f"{base_mod}.eval.load_test", "--requests", "50", "--concurrency", "5"]),
-                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review"])
+                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review", target_path])
             ])
         else:
             # Quick mode still needs a fast security check
-            steps.append(("Red Team (Fast)", [sys.executable, "-m", f"{base_mod}.eval.red_team", "src/agent_ops_cockpit/agent.py"]))
+            steps.append(("Red Team (Fast)", [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path]))
         
         # Add tasks to progress bar
         tasks = {name: progress.add_task(f"[white]Waiting: {name}", total=100) for name, cmd in steps}
@@ -409,6 +411,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["quick", "deep"], default="quick")
+    parser.add_argument("--path", default=".")
     args = parser.parse_args()
-    success = run_audit(mode=args.mode)
+    success = run_audit(mode=args.mode, target_path=args.path)
     sys.exit(0 if success else 1)
