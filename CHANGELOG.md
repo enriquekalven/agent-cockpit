@@ -2,6 +2,19 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.8] - 2026-01-29
+
+### 🏢 The Enterprise Fleet Update
+- **Native Workspace Hub (Fleet Orchestration)**: The Cockpit now natively supports a "Workspace Mode" to audit 40+ agents simultaneously with parallel execution and quota management.
+- **Semantic SME (Intent-based Reasoning)**: Replaced regex-based heuristics with a **Principal Architect Persona** powered by Gemini 2.0 Flash for semantic validation of architectural intent.
+- **Enterprise Evidence Lake**: Centralized JSON/Database logging of all audit artifacts for organization-wide tracking and compliance visibility.
+- **Maturity Velocity (Historical Analysis)**: Automatically calculates "Improvement Deltas" (v1 vs v2) by comparing current results against historical benchmarks in the Evidence Lake.
+- **Heritage & Legacy Resiliency**:
+    - **Structural Auditing**: Graceful handling of environment gaps (`ModuleNotFoundError`) in external repositories.
+    - **SDK Parity**: Rewarded "Heritage" patterns for older Google SDKs and experimental frameworks.
+- **Shadow Mode Fixes**: Resolved JSON serialization errors for Pydantic/Complex models in traffic routing traces.
+- **UI/UX Polishing**: Updated the main landing page with v0.9.8 release details and enhanced the HTML audit reports.
+
 ## [0.8.0] - 2026-01-29
 
 ### 🛡️ The Governance Update
