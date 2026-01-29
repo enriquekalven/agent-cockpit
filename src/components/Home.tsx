@@ -62,9 +62,7 @@ export function Home() {
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] opacity-70">SAMPLES:</span>
-              <a href="/sample-report.html" target="_blank" className="banner-link">Report (HTML) <ExternalLink size={14} /></a>
-              <a href="/sample-report.md" target="_blank" className="banner-link">Report (MD) <ExternalLink size={14} /></a>
+              <Link to="/samples" className="banner-link">View Sample Reports <ChevronRight size={14} /></Link>
             </div>
           </div>
         </div>
@@ -108,14 +106,10 @@ export function Home() {
                 Get Started
                 <ChevronRight size={18} />
               </Link>
-              <a href="/sample-report.html" target="_blank" className="btn-secondary">
+              <Link to="/samples" className="btn-secondary">
                 <Shield size={18} />
-                Report (HTML)
-              </a>
-              <a href="/sample-report.md" target="_blank" className="btn-secondary">
-                <Terminal size={18} />
-                Report (MD)
-              </a>
+                View Sample Reports
+              </Link>
             </div>
 
             <div className="hero-features-preview">

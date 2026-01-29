@@ -8,6 +8,7 @@ import { DocHome } from './docs/DocHome';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Home } from './components/Home';
 import { OpsDashboard } from './components/OpsDashboard';
+import { ReportSamples } from './components/ReportSamples';
 
 import './index.css';
 
@@ -27,6 +28,8 @@ function App() {
 
       <Route path="/ops" element={<OpsDashboard />} />
       
+      <Route path="/samples" element={<ReportSamples />} />
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
