@@ -72,6 +72,7 @@ export function Home() {
       <section className="crew-hero">
         <header className="crew-home-nav">
           <div className="nav-logo">
+            <img src="/kokpi_branded.jpg" alt="Kokpi" className="nav-mascot" />
             <span>AgentOps Cockpit</span>
           </div>
           <nav className="nav-links">
@@ -96,7 +97,6 @@ export function Home() {
             </div>
             <h1 className="hero-headline">
               <span className="hero-headline-text">The Professional Logic Layer for <span className="gradient-text">Agentic Apps</span></span>
-              <img src="/kokpi_branded.jpg" alt="Kokpi" className="hero-mascot" />
             </h1>
             <p className="hero-description">
               Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
@@ -558,10 +558,20 @@ export function Home() {
         .nav-logo {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.75rem;
           font-weight: 800;
-          font-size: 1.25rem;
+          font-size: 1.15rem;
           letter-spacing: -0.02em;
+          color: var(--text-primary);
+        }
+
+        .nav-mascot {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          object-fit: cover;
+          border: 1px solid var(--border-color);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .nav-links {
