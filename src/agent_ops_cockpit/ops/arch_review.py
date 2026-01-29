@@ -23,7 +23,9 @@ console = Console()
 
 
 @app.command()
-def audit(path: str = "."):
+def audit(
+    path: str = typer.Option(".", "--path", "-p", help="Path to audit")
+):
     """
     Run the Architecture Design Review based on detected framework.
     """
@@ -43,7 +45,7 @@ def audit(path: str = "."):
         ]
 
         for file in files:
-            if file.endswith((".py", ".ts", ".tsx", ".js")):
+            if file.endswith((".py", ".ts", ".tsx", ".js", ".go")):
                 try:
                     with open(os.path.join(root, file), "r") as f:
                         code_content += f.read() + "\n"
@@ -65,9 +67,9 @@ def audit(path: str = "."):
         structural_indicators = {
             "decorators": r"@[\w\.]+",
             "async_loops": r"async\s+def.*await|func.*async|await\s+fetch",
-            "class_hierarchy": r"class\s+\w+\(\w*\):|interface\s+\w+\s+\{|type\s+\w+\s+=",
+            "class_hierarchy": r"class\s+\w+\(\w*\):|interface\s+\w+\s*\{|type\s+\w+\s+interface|type\s+\w+\s+=",
             "environment_vars": r"os\.environ|process\.env|os\.Getenv",
-            "structured_output": r"Pydantic|BaseModel|zod|interface|type\s+guard|struct\s+\w+\s+\{",
+            "structured_output": r"Pydantic|BaseModel|zod|interface|type\s+guard|struct\s+\w+\s*\{",
         }
 
         found_patterns = []

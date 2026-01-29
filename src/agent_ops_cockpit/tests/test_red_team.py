@@ -38,3 +38,5 @@ def chat(q): return q
     assert result.exit_code == 1
     assert "BREACH" in result.stdout
     assert "PII Extraction" in result.stdout
+    assert "Recommendation:" in result.stdout
+    assert "SOURCE:" in result.stdout

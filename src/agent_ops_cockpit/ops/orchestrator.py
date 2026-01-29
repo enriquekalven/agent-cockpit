@@ -18,10 +18,11 @@ class CockpitOrchestrator:
     Main orchestrator for AgentOps audits.
     Optimized for concurrency and real-time progress visibility.
     """
-
     def __init__(self):
         self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.report_path = "cockpit_final_report.md"
+        self.version = os.environ.get("AUDIT_VERSION", "v1")
+        self.report_path = f"cockpit_final_report_{self.version}.md"
+        self.html_report_path = f"cockpit_report_{self.version}.html"
         self.results = {}
         self.total_steps = 7
         self.completed_steps = 0
@@ -456,7 +457,7 @@ class CockpitOrchestrator:
         </html>
         """
 
-        with open("cockpit_report.html", "w") as f:
+        with open(self.html_report_path, "w") as f:
             f.write(html_content)
 
     def send_email_report(
@@ -711,15 +712,18 @@ def workspace_audit(root_path: str = ".", mode: str = "quick"):
     )
 
     agents = []
-    for entry in os.listdir(root_path):
-        full_path = os.path.join(root_path, entry)
-        if os.path.isdir(full_path) and not entry.startswith("."):
-            # Heuristic: must contain agentic patterns
-            if any(
-                os.path.exists(os.path.join(full_path, f))
-                for f in ["agent.py", "README.md", "pyproject.toml"]
-            ):
-                agents.append(full_path)
+    # Identify agents recursively (up to 3 levels deep)
+    for root, dirs, files in os.walk(root_path):
+        # Skip hidden directories and .venv/node_modules
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ["venv", ".venv", "node_modules", "dist"]]
+        
+        # Heuristic: must contain agentic patterns
+        if any(f in files for f in ["agent.py", "__main__.py", "main.py", "app.py"]):
+             # Also check for pyproject.toml or README.md to avoid every script being called an agent
+             if any(f in files for f in ["pyproject.toml", "README.md", "requirements.txt", "package.json"]):
+                 # Avoid double counting if we are already in an agent's subdirectory
+                 agents.append(root)
+                 dirs[:] = [] # Stop recursion once agent found
 
     if not agents:
         console.print("[yellow]⚠️ No agents found in workspace.[/yellow]")

@@ -95,7 +95,7 @@ def audit(
         ]
 
         for file in files:
-            if file.endswith((".py", ".ts", ".tsx", ".js")):
+            if file.endswith((".py", ".ts", ".tsx", ".js", ".go")):
                 try:
                     with open(os.path.join(root, file), "r") as f:
                         content = f.read()

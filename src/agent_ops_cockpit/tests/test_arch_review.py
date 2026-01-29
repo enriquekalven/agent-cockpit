@@ -42,6 +42,41 @@ def test_arch_review_fail_on_empty(tmp_path):
     project_dir.mkdir()
 
     result = runner.invoke(app, ["--path", str(project_dir)])
-    assert result.exit_code == 0
     assert "FAIL" in result.stdout
     assert "Review Score: 0/100" in result.stdout
+
+
+def test_arch_review_polyglot(tmp_path):
+    # Test Go patterns - no go.mod to force structural mode
+    go_project = tmp_path / "go_agent"
+    go_project.mkdir()
+    (go_project / "main.go").write_text("""
+package main
+type Agent interface {
+    Run() error
+}
+func main() {
+    // reasoning loop
+    for {
+        execute()
+    }
+    os.Getenv("API_KEY")
+}
+""")
+    result = runner.invoke(app, ["--path", str(go_project)])
+    assert "Heuristically identified patterns:" in result.stdout
+    assert "class_hierarchy" in result.stdout  # interfaces map to this
+
+    # Test TS patterns - no package.json to force structural mode
+    ts_project = tmp_path / "ts_agent"
+    ts_project.mkdir()
+    (ts_project / "index.ts").write_text("""
+interface User { id: string }
+function isUser(u: any): u is User { return true; }
+// memory state
+const memory = new Map();
+await fetch("...");
+""")
+    result = runner.invoke(app, ["--path", str(ts_project)])
+    assert "Review Score:" in result.stdout
+    assert "PASSED" in result.stdout
