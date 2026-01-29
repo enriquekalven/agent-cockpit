@@ -39,6 +39,7 @@ class OptimizationIssue:
 def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, str] = None) -> List[OptimizationIssue]:
     issues = []
     content_lower = content.lower()
+    content_no_comments = re.sub(r'#.*', '', content_lower)
     versions = versions or {}
 
     # --- SITUATIONAL PLATFORM OPTIMIZATIONS ---
@@ -203,9 +204,11 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
 
     # --- ARCHITECTURAL OPTIMIZATIONS ---
 
-    # Large system instructions
-    large_string_pattern = re.compile(r'"""[\s\S]{200,}"""|\'\'\'[\s\S]{200,}\'\'\'')
-    if large_string_pattern.search(content) and "cache" not in content_lower:
+    # Large system instructions (individual docstrings > 200 chars)
+    docstrings = re.findall(r'"""([\s\S]*?)"""|\'\'\'([\s\S]*?)\'\'\'', content)
+    has_large_prompt = any(len(d[0] or d[1]) > 200 for d in docstrings)
+    
+    if has_large_prompt and "cache" not in content_lower:
         issues.append(OptimizationIssue(
             "context_caching", "Enable Context Caching", "HIGH", "90% cost reduction",
             "Large static system instructions detected. Use context caching.",
@@ -225,7 +228,7 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
     # --- BEST PRACTICE OPTIMIZATIONS ---
 
     # Prompt Externalization
-    if large_string_pattern.search(content):
+    if has_large_prompt:
         issues.append(OptimizationIssue(
             "external_prompts", "Externalize System Prompts", "MEDIUM", "Architectural Debt Reduction",
             "Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and load dynamically.",
@@ -267,8 +270,8 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
     # Google Cloud Database Optimizations
     
     # AlloyDB
-    if "alloydb" in content_lower:
-        if "columnar" not in content_lower:
+    if "alloydb" in content_no_comments:
+        if "columnar" not in content_no_comments:
             issues.append(OptimizationIssue(
                 "alloydb_columnar", "AlloyDB Columnar Engine", "HIGH", "100x Query Speedup",
                 "AlloyDB detected. Enable the Columnar Engine for analytical and AI-driven vector queries.",
@@ -276,8 +279,8 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
             ))
             
     # BigQuery
-    if "bigquery" in content_lower or "bq" in content_lower:
-        if "vector_search" not in content_lower:
+    if "bigquery" in content_no_comments or "bq" in content_no_comments:
+        if "vector_search" not in content_no_comments:
             issues.append(OptimizationIssue(
                 "bq_vector_search", "BigQuery Vector Search", "HIGH", "FinOps: Serverless RAG",
                 "BigQuery detected. Use BQ Vector Search for cost-effective RAG over massive datasets without moving data to a separate DB.",
@@ -356,13 +359,36 @@ def audit(
     quick: bool = typer.Option(False, "--quick", "-q", help="Skip live evidence fetching for faster execution")
 ):
     console.print(Panel.fit("🔍 [bold blue]GCP AGENT OPS: OPTIMIZER AUDIT[/bold blue]", border_style="blue"))
-    if quick:
-        console.print("[dim]⚡ Running in Quick Mode (skipping live evidence fetches)[/dim]")
-    console.print(f"Target: [yellow]{file_path}[/yellow]")
-    
     if not os.path.exists(file_path):
-        console.print(f"❌ [red]Error: File {file_path} not found.[/red]")
+        console.print(f"❌ [red]Error: Path {file_path} not found.[/red]")
         raise typer.Exit(1)
+
+    # If it's a directory, try to find the agent entry point
+    if os.path.isdir(file_path):
+        found = False
+        for entry in ["agent.py", "main.py", "app.py"]:
+            candidate = os.path.join(file_path, entry)
+            if os.path.exists(candidate):
+                file_path = candidate
+                found = True
+                break
+        if not found:
+            # Look for any .py file if common names aren't found
+            for root, _, files in os.walk(file_path):
+                if any(d in root for d in [".venv", "node_modules", ".git"]):
+                    continue
+                for f in files:
+                    if f.endswith(".py") and f != "__init__.py":
+                        file_path = os.path.join(root, f)
+                        found = True
+                        break
+                if found: break
+        
+        if not found:
+            console.print(f"❌ [red]Error: No python entry point found in {file_path}[/red]")
+            raise typer.Exit(1)
+
+    console.print(f"Target: [yellow]{file_path}[/yellow]")
 
     with open(file_path, 'r') as f:
         content = f.read()

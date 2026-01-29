@@ -90,6 +90,11 @@ async def agent_v1_logic(query: str, session_id: str = "default") -> A2UISurface
 
 async def agent_v2_logic(query: str, session_id: str = "default") -> A2UISurface:
     """Experimental Agent (v2) - High Reasoning/Shadow Mode."""
+    # Smart routing: Use Flash for simple greetings to save tokens
+    if len(query) < 10:
+        logger.info("⚡ Using Gemini Flash for simple query")
+        return generate_dashboard(query, version="v2-shadow-flash")
+    
     # Simulate slightly different behavior or better reasoning
     await asyncio.sleep(0.5) # Simulate Pro model latency
     return generate_dashboard(query, version="v2-shadow-pro")

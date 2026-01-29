@@ -368,12 +368,12 @@ def run_audit(mode: str = "quick", target_path: str = "."):
             token_opt_cmd.append("--quick")
 
         steps = [
-            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review", target_path]),
+            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review", "--path", target_path]),
             ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]), # Policy is global to cockpit
             ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner", target_path]),
             ("Token Optimization", token_opt_cmd),
-            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"]),
-            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor", target_path])
+            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick", "--path", target_path]),
+            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor", "--path", target_path])
         ]
 
         # 2. Add "Deep" steps if requested
@@ -382,7 +382,7 @@ def run_audit(mode: str = "quick", target_path: str = "."):
                 ("Quality Hill Climbing", [sys.executable, "-m", f"{base_mod}.eval.quality_climber", "--steps", "10"]),
                 ("Red Team Security (Full)", [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path]),
                 ("Load Test (Baseline)", [sys.executable, "-m", f"{base_mod}.eval.load_test", "--requests", "50", "--concurrency", "5"]),
-                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review", target_path])
+                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review", "--path", target_path])
             ])
         else:
             # Quick mode still needs a fast security check
