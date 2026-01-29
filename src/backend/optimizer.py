@@ -1,7 +1,7 @@
 from __future__ import annotations
 import os
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 import typer
 from rich.console import Console
 from rich.table import Table

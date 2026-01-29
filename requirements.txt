@@ -9,3 +9,6 @@ asyncio
 ruff
 pytest
 tenacity>=8.0.0
+aiohttp>=3.9.0
+packaging>=23.0
+mcp>=0.1.0
