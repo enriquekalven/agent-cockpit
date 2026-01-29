@@ -1038,3 +1038,30 @@ body {
   letter-spacing: 0.05em;
   opacity: 0.8;
 }
+/* Kokpi Mascot Bubble */
+.kokpi-bubble {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--primary-color);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-left: 0.5rem;
+}
+
+.kokpi-bubble:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.kokpi-bubble img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

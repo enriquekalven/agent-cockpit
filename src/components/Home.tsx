@@ -89,6 +89,11 @@ export function Home() {
             </a>
             <ThemeToggle />
 
+            {/* Kokpi Mascot Bubble */}
+            <div className="kokpi-bubble" title="Hi, I'm Kokpi!">
+              <img src="/kokpi_kun.png" alt="Kokpi Mascot" />
+            </div>
+
           </nav>
         </header>
 
