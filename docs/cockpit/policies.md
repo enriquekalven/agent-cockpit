@@ -1,6 +1,6 @@
 # 🛡️ Technical Guide: Guardrail Policy Engine (`policy-audit`)
 
-The **Policy Engine** implements the **Declarative Agent Policy Enforcement** standard (RFC-307). It allows you to govern agent behavior without complex prompt engineering.
+The **Policy Engine** implements the **Declarative Agent Policy Enforcement** standard. It allows you to govern agent behavior without complex prompt engineering.
 
 ## 🚀 Commands
 

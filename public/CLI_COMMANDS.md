@@ -31,8 +31,20 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ### `make red-team`
 **The Adversarial Evaluator.**
-- **Action**: Launches a self-hacking attack on your agent's system instructions.
+- **Action**: Launches a self-hacking attack on your agent's system instructions using static analysis.
 - **Goal**: Detect prompt injections, PII leaks, and instruction overrides.
+
+### `agent-ops pen-test` (New!)
+**🚩 Dynamic Pen-Testing: The Runtime Prober.**
+- **Action**: Launches sequential adversarial probing against an agent's runtime.
+- **Intelligence**: Calculates a **Dynamic Resilience Score** (0-100) based on mitigate levels for Prompt Injection, PII Extraction, and Multilingual attacks.
+- **When to use**: Mandatory before productionizing any user-facing agent.
+
+### `agent-ops fix-fleet` (New!)
+**🛠️ Strategic Fleet Remediation.**
+- **Action**: Orchestrates organizational-scale autonomous patching across a workspace.
+- **Usage**: `agent-ops fix-fleet ./my-fleet --issue PII`
+- **Why use it**: Bulk-patch security and architectural debt (PII/Secrets/Design Gaps) across hundreds of agents in a single governed transaction.
 
 ### `make ui-audit` (New!)
 **The Face Auditor.**

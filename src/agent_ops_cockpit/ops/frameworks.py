@@ -50,7 +50,7 @@ GOOGLE_CHECKLIST = [
             ),
             (
                 "Policies: Is 'policies.json' used for declarative guardrails?",
-                "Enforces RFC-307 standards for forbidden topics and tool HITL.",
+                "Enforces enterprise standards for forbidden topics and tool HITL.",
             ),
         ],
     },

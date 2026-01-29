@@ -86,7 +86,7 @@ The following specific fixes are required to achieve a passing 'Well-Architected
 | `codebase` | Architecture Gap: Runtime | Critical for scalability and cost. |
 | `codebase` | Architecture Gap: Framework | Google-standard for agent-tool communication. |
 | `codebase` | Architecture Gap: Backend | Industry-standard for high-concurrency agent apps. |
-| `codebase` | Architecture Gap: Policies | Enforces RFC-307 standards for forbidden topics and tool HITL. |
+| `codebase` | Architecture Gap: Policies | Enforces enterprise standards for forbidden topics and tool HITL. |
 | `codebase` | Architecture Gap: Context | Critical for prompts > 32k tokens. |
 | `codebase` | Architecture Gap: Agent Engine | Managed orchestration with built-in versioning and traces. |
 | `codebase` | Architecture Gap: Copyright | IP protection and enterprise policy. |

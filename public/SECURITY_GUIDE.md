@@ -10,11 +10,23 @@ We don't rely on a single guardrail. Safety is enforced through overlapping laye
 4.  **Deterministic Logic**: Hardcoded routers for high-risk branches.
 5.  **Human Review**: Manual approval for non-reversible tool actions.
 
-## ⚔️ The Adversarial Evaluator
-The `red-team` command launches a specialized "Attacker" LLM against your agent logic.
-- **Payload Generation**: The evaluator creates thousands of permutations of "jailbreak" prompts.
-- **Defense Validation**: It tests if your system instructions can be overridden or if your PII filters can be bypassed.
-- **Reporting**: Provides a score (0-100) on how robust your agent is against social engineering.
+## ⚔️ The Adversarial Evaluator (Red Team)
+The `red-team` command launches a specialized "Attacker" LLM against your agent logic using static heuristic analysis and behavioral pattern matching.
+
+## 🚩 Dynamic Pen-Testing (v1.3.0)
+New in v1.3.0, the `pen-test` command shifts from static analysis to **Live Adversarial Probing**. 
+
+- **Conversational Attacks**: Simulates a sequential session where the attacker attempts to steer the agent away from its persona.
+- **Dynamic Resilience Score**: Unlike a pass/fail audit, the pen-test provides a 0-100 score based on how many adversarial payloads the agent successfully neutralized.
+- **Multilingual Resistance**: Specifically tests for the "Cantonese Injection" and "Spanish Context Override" patterns common in global agent deployments.
+
+```bash
+# Launch a dynamic pen-test against an agent
+agent-ops pen-test agent.py
+
+# Launch in simulation mode for local testing
+agent-ops pen-test agent.py --sim
+```
 
 ## 📦 Sandboxed Tooling
 Following Anthropic best practices, all autonomous tools should run in an isolated environment:

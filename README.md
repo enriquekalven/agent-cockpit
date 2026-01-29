@@ -89,7 +89,7 @@ sequenceDiagram
    participant F as Face
    
    U->>C: Prompt / Input
-   C->>C: Policy Audit (RFC-307)
+   C->>C: Policy Audit (Enterprise)
    C->>E: Execute Logic / Tools
    E->>C: Action Proposals
    C->>E: Approve (HITL)

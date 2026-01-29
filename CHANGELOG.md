@@ -101,7 +101,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **MCP Server Registration**: The Cockpit can now be exposed as a Model Context Protocol (MCP) server, allowing 1P (Google/Anthropic) and 3P agents to call Cockpit tools natively.
 - **Tool Suite Exposure**: Tools like `optimize_code`, `policy_audit`, and `red_team_attack` available to external agentic swarms.
 
-### 🛡️ Guardrail Intelligence (RFC-307)
+### 🛡️ Guardrail Intelligence (Enterprise)
 - **Declarative Policy Engine**: Introduced `policies.json` for managing agentic guardrails without prompt engineering.
 - **Forbidden Topics Enforcement**: Real-time input validation against customizable restricted domains.
 - **HITL (Human-in-the-Loop) Tooling**: Declaratively flag sensitive tools for manual approval.
