@@ -18,12 +18,24 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 - **Output**: Generates the `cockpit_final_report.md` master benchmarking log.
 - **When to use**: Production-gate audits and final compliance checks.
 
-### `make audit-all` (New!)
+### `make audit-all`
 **The Hub Orchestrator: Auditing External Repositories.**
 - **Action**: Runs a Quick Safe-Build against a repository *outside* of the Cockpit project.
 - **Usage**: `make audit-all TARGET=/path/to/your/agent-repo`
 - **Why use it**: Use the Cockpit's centralized intelligence and SME personas to audit any agentic project in your local filesystem without moving code.
-- **Output**: Generates a consolidated report in the Cockpit repo based on the target repo's architecture.
+- **Intelligence**: Features **Hyper-Speed Incremental Audits** using recursive content hashing to skip unchanged agents.
+
+### `agent-ops pen-test` (New!)
+**🚩 Dynamic Pen-Testing: The Runtime Prober.**
+- **Action**: Launches sequential adversarial probing against an agent's runtime.
+- **Intelligence**: Calculates a **Dynamic Resilience Score** (0-100) based on mitigate levels for Prompt Injection, PII Extraction, and Multilingual attacks.
+- **When to use**: Mandatory before productionizing any user-facing agent.
+
+### `agent-ops fix-fleet` (New!)
+**🛠️ Strategic Fleet Remediation.**
+- **Action**: Orchestrates organizational-scale autonomous patching across a workspace.
+- **Usage**: `agent-ops fix-fleet ./my-fleet --issue PII`
+- **Why use it**: Bulk-patch security and architectural debt (PII/Secrets/Design Gaps) across hundreds of agents in a single governed transaction.
 
 ### `make arch-review`
 **The Google Well-Architected Auditor.**

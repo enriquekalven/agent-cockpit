@@ -1,0 +1,222 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AgentOps Cockpit",
+          "informationUri": "https://agent-cockpit.web.app",
+          "version": "1.1.1",
+          "rules": [
+            {
+              "id": "optimization:_go_native_concurrency",
+              "shortDescription": {
+                "text": "Optimization: Go Native Concurrency"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "optimization:_implement_semantic_caching",
+              "shortDescription": {
+                "text": "Optimization: Implement Semantic Caching"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "optimization:_implement_exponential_backoff",
+              "shortDescription": {
+                "text": "Optimization: Implement Exponential Backoff"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "optimization:_add_session_tracking",
+              "shortDescription": {
+                "text": "Optimization: Add Session Tracking"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_concurrency",
+              "shortDescription": {
+                "text": "Architecture Gap: Concurrency"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_validation",
+              "shortDescription": {
+                "text": "Architecture Gap: Validation"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_tracing",
+              "shortDescription": {
+                "text": "Architecture Gap: Tracing"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "optimization:_go_native_concurrency",
+          "level": "warning",
+          "message": {
+            "text": "Optimization: Go Native Concurrency: Leveraging Goroutines"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./samples/go_agent/main.go"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "optimization:_implement_semantic_caching",
+          "level": "warning",
+          "message": {
+            "text": "Optimization: Implement Semantic Caching: No caching layer"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./samples/go_agent/main.go"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "optimization:_implement_exponential_backoff",
+          "level": "warning",
+          "message": {
+            "text": "Optimization: Implement Exponential Backoff: Your agent calls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./samples/go_agent/main.go"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "optimization:_add_session_tracking",
+          "level": "warning",
+          "message": {
+            "text": "Optimization: Add Session Tracking: No session tracking"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "./samples/go_agent/main.go"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_concurrency",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Concurrency: Leverages Go's performance for multi-agent"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_validation",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Validation: Standard for ensuring engine-face protocol"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_tracing",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Tracing: Mandatory for observability in complex Go agents."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

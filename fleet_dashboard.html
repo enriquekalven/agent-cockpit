@@ -34,32 +34,49 @@
             <div class="stats">
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Total Agents Scanned</div>
-                    <div class="stat-value">36</div>
+                    <div class="stat-value">3</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Production Ready</div>
-                    <div class="stat-value" style="color: #059669;">34</div>
+                    <div class="stat-value" style="color: #059669;">0</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
-                    <div class="stat-value">94.4%</div>
+                    <div class="stat-value">0.0%</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Maturity Velocity</div>
-                    <div class="stat-value" style="color: #059669;">📈 +0.0%</div>
+                    <div class="stat-value" style="color: #dc2626;">📉 -94.4%</div>
                 </div>
             </div>
 
             <div class="debt-panel">
                 <h2 style="margin-top: 0; color: #991b1b; font-size: 1.25rem;">🏢 Fleet-Wide Common Debt Analyzer</h2>
                 <p style="font-size: 0.875rem; color: #b91c1c; margin-bottom: 16px;">The following architectural gaps are prevalent across your workspace. Recommendation: Bulk remediate using <code>agent-ops fix-fleet</code>.</p>
-                <p>No common debt detected. Your fleet is following best practices.</p>
+                
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div>
+                        <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">Hardcoded Secret</strong>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects 100% of fleet (3 agents)</span>
+                    </div>
+                    <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue SECRETS')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
+                </div>
+            
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div>
+                        <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">Safety Filters</strong>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects 67% of fleet (2 agents)</span>
+                    </div>
+                    <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue ARCH')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
+                </div>
+            
             </div>
 
             <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 24px; border-radius: 16px; margin-bottom: 40px;">
                 <h2 style="margin-top: 0; color: #1e40af; font-size: 1.25rem;">💰 Enterprise ROI Predictor (FinOps)</h2>
-                <p style="font-size: 0.875rem; color: #1e3a8a; margin-bottom: 16px;">Strategic opportunities for cost reduction across the fleet. Enabling **Context Caching** and **Semantic Routing** could save an estimated **$1,250/month** based on current scan volume.</p>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">Total Fleet Savings Potential: $15.00 / 10k requests</div>
+                <p style="font-size: 0.875rem; color: #1e3a8a; margin-bottom: 16px;">Strategic opportunities for cost reduction across the fleet. Enabling **Context Caching** and **Semantic Routing** could save an estimated monthly amount based on current scan volume.</p>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">Total Fleet Savings Potential: $25.00 / 10k requests</div>
+                <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 8px;">Confidence Score: High (Based on 3 audited agents)</div>
             </div>
 
             <h2>📡 Real-time Agent Status</h2>
@@ -67,470 +84,41 @@
     
                 <div class="agent-card">
                     <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">hosts</h3>
+                    <h3 style="margin-top: 0; font-size: 1rem;">go_agent</h3>
                     <div class="status-fail">FAILED</div>
                     
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/hosts</div>
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/go_agent</div>
                     <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Audit baseline established....
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
                     </div>
-                    
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Token Optimization, Red Team (Fast), Reliability (Quick)</div>
                 </div>
         
                 <div class="agent-card">
                     <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">content-editor</h3>
+                    <h3 style="margin-top: 0; font-size: 1rem;">ts_agent</h3>
                     <div class="status-fail">FAILED</div>
                     
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/js/src/agents/content-editor</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Audit baseline established....
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">go</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/go</div>
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/ts_agent</div>
                     <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
                         <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
                     </div>
-                    
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team (Fast), Token Optimization, Reliability (Quick)</div>
                 </div>
         
                 <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">beeai-chat</h3>
-                    <div class="status-pass">PASSED</div>
+                    <div class="priority-badge priority-mission-critical">mission-critical</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">python_agent</h3>
+                    <div class="status-fail">FAILED</div>
                     
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/beeai-chat</div>
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/python_agent</div>
                     <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
                         <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
                     </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">semantickernel</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/semantickernel</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">crewai</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/crewai</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">adk_facts</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/adk_facts</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">helloworld</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/helloworld</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">llama_index_file_chat</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/llama_index_file_chat</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">calendar_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/birthday_planner_adk/calendar_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">birthday_planner</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/birthday_planner_adk/birthday_planner</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">content_planner</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/content_planner</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">dice_agent_grpc</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/dice_agent_grpc</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">adk_cloud_run</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/adk_cloud_run</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">headless_agent_auth</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/headless_agent_auth</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">github-agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/github-agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">marvin</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/marvin</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">airbnb_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/airbnb_planner_multiagent/airbnb_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">weather_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/airbnb_planner_multiagent/weather_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">veo_video_gen</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/veo_video_gen</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">host_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/airbnb_planner_multiagent/host_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">travel_planner_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/travel_planner_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">any_agent_adversarial_multiagent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/any_agent_adversarial_multiagent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">tool_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/azureaifoundry_sdk/multi_agent/remote_agents/tool_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">host_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/azureaifoundry_sdk/multi_agent/host_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">playwright_agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/azureaifoundry_sdk/multi_agent/remote_agents/playwright_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">adk_expense_reimbursement</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/adk_expense_reimbursement</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">currencyagent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/azureaifoundry_sdk/currencyagentdemo/currencyagent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">dice_agent_rest</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/dice_agent_rest</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">azurefoundryagent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/azureaifoundry_sdk/azurefoundryagent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">a2a_telemetry</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/a2a_telemetry</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">analytics</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/analytics</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">mindsdb</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/mindsdb</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">movie-agent</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/js/src/agents/movie-agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">signing_and_verifying</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/python/agents/signing_and_verifying</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">coder</h3>
-                    <div class="status-pass">PASSED</div>
-                    
-                    
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: /Users/enriq/Documents/git/a2a-samples/samples/js/src/agents/coder</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
                 </div>
         
             </div>

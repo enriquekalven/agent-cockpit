@@ -1,0 +1,211 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AgentOps Cockpit",
+          "informationUri": "https://agent-cockpit.web.app",
+          "version": "1.1.1",
+          "rules": [
+            {
+              "id": "architecture_gap:_reasoning",
+              "shortDescription": {
+                "text": "Architecture Gap: Reasoning"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_state",
+              "shortDescription": {
+                "text": "Architecture Gap: State"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_tools",
+              "shortDescription": {
+                "text": "Architecture Gap: Tools"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_safety",
+              "shortDescription": {
+                "text": "Architecture Gap: Safety"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "architecture_gap:_reasoning",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal Agentic Loop."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_state",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: State: Ensures session continuity even in custom stacks."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_tools",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Tools: Standard for tool-enabled agents."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_safety",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Safety: Basic security hygiene for any AI application."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_reasoning",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal Agentic Loop."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_state",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: State: Ensures session continuity even in custom stacks."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_tools",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Tools: Standard for tool-enabled agents."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_safety",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Safety: Basic security hygiene for any AI application."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
