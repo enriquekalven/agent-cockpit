@@ -30,3 +30,13 @@ For high-stakes actions, the Cockpit allows you to define "Gatekeeper" tools.
 - When an agent calls a gated tool, the Cockpit pauses execution and requests human approval via the **Face (A2UI)**.
 - **A2UI v0.8 Features**: Leverage new components like `Tabs`, `MultipleChoice`, and `TextField` for structured human feedback during the approval flow.
 - Approval can be granted directly from the operations terminal or the user-facing app.
+<br />
+
+## 🌐 Global Governance Hub
+The Cockpit is not limited to its own repository. It can act as a **Centralized Auditor** for any agentic codebase in your environment.
+
+### External Repo Auditing
+By using the **Global Route** pattern, you can point the Cockpit's SME personas at other repositories to verify their design, security, and cost-efficiency without needing to install the Cockpit in every project.
+
+- **Command**: `make audit-all TARGET=/path/to/remote-repo`
+- **Result**: The Cockpit performs an "Intelligence Sweep" of the remote directory, identifying architecture gaps and security vulnerabilities, and generates a unified report back in the Cockpit control center.

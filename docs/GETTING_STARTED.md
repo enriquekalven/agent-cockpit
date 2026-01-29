@@ -24,10 +24,14 @@ agent-ops create my-agent --ui a2ui
 
 ## 🔍 2. The "Aha!" Moment: Your First Audit
 
-Navigate to any existing agent repository (LangGraph, CrewAI, or simple scripts) and run the Mission Report.
+Navigate to your Cockpit repository and run the Mission Report against any of your agentic projects.
 
 ```bash
+# Audit the current cockpit project
 make audit
+
+# Audit an EXTERNAL project located anywhere on your disk
+make audit-all TARGET=/path/to/other-agent-repo
 ```
 
 ### What happens?

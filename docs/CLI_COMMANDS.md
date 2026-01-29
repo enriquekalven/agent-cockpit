@@ -18,6 +18,13 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 - **Output**: Generates the `cockpit_final_report.md` master benchmarking log.
 - **When to use**: Production-gate audits and final compliance checks.
 
+### `make audit-all` (New!)
+**The Hub Orchestrator: Auditing External Repositories.**
+- **Action**: Runs a Quick Safe-Build against a repository *outside* of the Cockpit project.
+- **Usage**: `make audit-all TARGET=/path/to/your/agent-repo`
+- **Why use it**: Use the Cockpit's centralized intelligence and SME personas to audit any agentic project in your local filesystem without moving code.
+- **Output**: Generates a consolidated report in the Cockpit repo based on the target repo's architecture.
+
 ### `make arch-review`
 **The Google Well-Architected Auditor.**
 - **Action**: Audits your design against Google's best practices.
