@@ -126,7 +126,14 @@ Don't wait for your users to find prompt injections. Use the built-in Adversaria
 Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack—**Google ADK**, **OpenAI Agentkit**, **Anthropic Claude**, **Microsoft AutoGen/Semantic Kernel**, **AWS Bedrock Agents**, or **CopilotKit**—and runs a tailored audit against corresponding production standards. Use `make arch-review` to verify your **Governance-as-Code**.
 
 ### 🕹️ MCP Connectivity Hub (Model Context Protocol)
-Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to Google Search, Slack, or your internal databases via the standardized Model Context Protocol for secure, audited tool execution.
+Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to Google Search, Slack, or your internal databases via the standardized Model Context Protocol for secure, audited tool execution. Start the server with `make mcp-serve`.
+
+### 🗄️ Situational Database Audits
+The Cockpit now performs platform-specific performance and security audits for:
+- **AlloyDB**: Optimizes for the **Columnar Engine** (100x query speedup).
+- **Pinecone**: Suggests **gRPC** and **Namespace Isolation** for high-perf RAG.
+- **BigQuery**: Suggests **BQ Vector Search** for serverless, cost-effective grounding.
+- **Cloud SQL**: Enforces **IAM-based authentication** via the official Python Connector.
 
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
@@ -150,6 +157,9 @@ agent-ops audit agent.py --quick     # 🔍 Fast code optimization
 
 # 4. Stress test your endpoint
 agent-ops load-test --requests 100 --concurrency 10
+
+# 5. Start the MCP Server for 3rd party agents
+agent-ops-mcp
 ```
 
 You can also use `uvx` for one-off commands without installation:

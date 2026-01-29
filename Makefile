@@ -111,3 +111,7 @@ deploy-gke:
 watch:
 	@$(PYTHON) src/backend/ops/watcher.py
 
+# 🔌 MCP: Start the Model Context Protocol server
+mcp-serve:
+	@$(PYTHON) src/agent_ops_cockpit/mcp_server.py
+
