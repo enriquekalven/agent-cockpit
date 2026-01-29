@@ -12,6 +12,9 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Heritage & Legacy Resiliency**:
     - **Structural Auditing**: Graceful handling of environment gaps (`ModuleNotFoundError`) in external repositories.
     - **SDK Parity**: Rewarded "Heritage" patterns for older Google SDKs and experimental frameworks.
+- **Audit Execution Timing**: Integrated real-time duration tracking for individual SME modules and total audit time across CLI, Markdown, and HTML reports.
+- **Actionable Security Guidance**: Enhanced Red Team Auditor to provide specific "Fix Recommendations" and authoritative documentation citations for detected breaches.
+- **Evidence Lake Performance Logs**: The Evidence Lake now persistently stores execution durations for historical performance benchmarking.
 - **Shadow Mode Fixes**: Resolved JSON serialization errors for Pydantic/Complex models in traffic routing traces.
 - **UI/UX Polishing**: Updated the main landing page with v0.9.8 release details and enhanced the HTML audit reports.
 
