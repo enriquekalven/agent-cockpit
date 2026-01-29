@@ -5,7 +5,6 @@ fastapi
 uvicorn
 pydantic
 vertexai
-asyncio
 ruff
 pytest
 tenacity>=8.0.0

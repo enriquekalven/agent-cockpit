@@ -765,9 +765,9 @@ def workspace_audit(root_path: str = ".", mode: str = "quick"):
         dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ["venv", ".venv", "node_modules", "dist"]]
         
         # Heuristic: must contain agentic patterns
-        if any(f in files for f in ["agent.py", "__main__.py", "main.py", "app.py"]):
+        if any(f in files for f in ["agent.py", "__main__.py", "main.py", "app.py", "main.go", "index.ts", "go.mod"]):
              # Also check for pyproject.toml or README.md to avoid every script being called an agent
-             if any(f in files for f in ["pyproject.toml", "README.md", "requirements.txt", "package.json"]):
+             if any(f in files for f in ["pyproject.toml", "README.md", "requirements.txt", "package.json", "go.mod"]):
                  # Avoid double counting if we are already in an agent's subdirectory
                  agents.append(root)
                  dirs[:] = [] # Stop recursion once agent found

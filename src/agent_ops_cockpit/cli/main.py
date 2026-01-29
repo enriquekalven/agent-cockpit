@@ -132,35 +132,6 @@ def fix(
         console.print("❌ [red]Remediation failed or skipped.[/red]")
 
 
-@app.command()
-def diagnose():
-    """
-    🔍 Pre-flight Check: Diagnose environment blockers before auditing.
-    """
-    console.print("🔍 [bold cyan]AgentOps Pre-flight Diagnosis...[/bold cyan]\n")
-    
-    # 1. Check Credentials
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        console.print("⚠️  [yellow]GOOGLE_API_KEY Missing[/yellow]: Audit will skip Semantic Reasoning and use 'Regex-Only' fallback.")
-    else:
-        console.print("✅ [green]GOOGLE_API_KEY Detected[/green]: Full SME Intelligence enabled.")
-
-    # 2. Check Repositories
-    if not os.path.exists(".git"):
-        console.print("⚠️  [yellow]No Git Repo Detected[/yellow]: Workspace scanning and change-tracking might be degraded.")
-    else:
-        console.print("✅ [green]Git Repository Active[/green]: Fleet change tracking enabled.")
-
-    # 3. Check Dependencies
-    try:
-        import vertexai
-        console.print("✅ [green]Vertex AI SDK Installed[/green].")
-    except ImportError:
-        console.print("❌ [red]Vertex AI SDK Missing[/red]: Remediation and Deep Audits will FAIL. Please run `pip install google-cloud-aiplatform`.")
-
-    console.print("\n🏁 [bold]Diagnosis Complete.[/bold] Ready to launch `agent-ops report`.")
-
 
 @app.command()
 def arch_review(path: str = "."):
@@ -359,7 +330,7 @@ def diagnose():
         )
     else:
         table.add_row(
-            "LLM API Keys", "[red]NONE[/red]", "Ensure keys are in .env or exported"
+            "LLM API Keys", "[red]NONE[/red]", "GOOGLE_API_KEY Missing. Audit will fallback to Regex mode."
         )
 
     # 4. Check for A2UI components
@@ -374,6 +345,20 @@ def diagnose():
             "Trinity Structure",
             "[red]MISSING[/red]",
             "Run from root of AgentOps project",
+        )
+
+    # 5. Check Git Repository
+    if os.path.exists(".git"):
+        table.add_row(
+            "Git Repository",
+            "[green]ACTIVE[/green]",
+            "Fleet change tracking enabled",
+        )
+    else:
+        table.add_row(
+            "Git Repository",
+            "[red]NONE[/red]",
+            "No Git Repo Detected. Change tracking degraded.",
         )
 
     console.print(table)

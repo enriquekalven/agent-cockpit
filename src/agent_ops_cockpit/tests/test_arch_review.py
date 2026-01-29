@@ -80,3 +80,20 @@ await fetch("...");
     result = runner.invoke(app, ["--path", str(ts_project)])
     assert "Review Score:" in result.stdout
     assert "PASSED" in result.stdout
+
+
+def test_arch_review_fallback(tmp_path):
+    # Set up a mock project directory
+    project_dir = tmp_path / "fallback_agent"
+    project_dir.mkdir()
+    (project_dir / "README.md").write_text("Uses Google Cloud")
+    (project_dir / "agent.py").write_text("def chat(): pass")
+
+    # Force API key to be missing
+    import os
+    from unittest.mock import patch
+    
+    with patch.dict(os.environ, {}, clear=True):
+        result = runner.invoke(app, ["--path", str(project_dir)])
+        assert "Credential Gap Detected" in result.stdout
+        assert "degrading to 'Regex-Only'" in result.stdout
