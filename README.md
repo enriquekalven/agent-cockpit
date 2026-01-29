@@ -149,58 +149,64 @@ The Cockpit has evolved from a local auditor into a **Global Intelligence Engine
 
 ---
 
-## ⌨️ Quick Start
+## ⌨️ Command Reference: The Operations Manual
 
-The Cockpit is available as a first-class CLI on PyPI. 
+The AgentOps Cockpit provides multiple interfaces for governance. Use **`make`** for local development, **`agent-ops`** for global Python installs, or **`uvx`** for ad-hoc orchestration without installation.
 
-```bash
-# 1. Install the Cockpit globally
-pip install agentops-cockpit
+### 🏛️ Governance & Compliance (The Audit Suite)
+Ensure your agent maps to the [Google Well-Architected Framework](/docs/google-architecture).
 
-# 2. Run Global Audit (Produces unified report)
-agent-ops report --mode quick        # ⚡ Quick Safe-Build (0.2s)
-agent-ops report --mode deep         # 🚀 Full System Audit (LLM-as-a-Judge)
+| Scenario | Local (`make`) | Global (`agent-ops`) | Ad-hoc (`uvx`) |
+| :--- | :--- | :--- | :--- |
+| **Quick Safe-Build** | `make audit` | `agent-ops report --mode quick` | `uvx agentops-cockpit report --mode quick` |
+| **Deep System Audit**| `make audit-deep` | `agent-ops report --mode deep` | `uvx agentops-cockpit report --mode deep` |
+| **Arch Design Review**| `make arch-review` | `agent-ops arch-review` | `uvx agentops-cockpit arch-review` |
 
-# 3. Fleet Orchestration (Audit & Fix)
-agent-ops report --workspace --path ./my-fleet
-agent-ops fix-fleet --path ./my-fleet --issue PII
+### 🚩 Security & Adversarial Hardening
+Protect against prompt injection, PII leaks, and context escapes.
 
-# 4. Global Scaffolding
-agent-ops-cockpit create <name> --ui a2ui
-```
+| Scenario | Local (`make`) | Global (`agent-ops`) | Ad-hoc (`uvx`) |
+| :--- | :--- | :--- | :--- |
+| **Dynamic Pen-Test** | — | `agent-ops pen-test agent.py` | `uvx agentops-cockpit pen-test agent.py` |
+| **Red Team Audit**   | `make red-team` | `agent-ops red-team agent.py` | `uvx agentops-cockpit red-team agent.py` |
+| **Secret Scanning**  | `make scan-secrets` | `agent-ops scan-secrets .` | `uvx agentops-cockpit scan-secrets .` |
+
+### 🧗 Quality & Optimization (FinOps)
+Climb the quality curve and reduce token waste/latency.
+
+| Scenario | Local (`make`) | Global (`agent-ops`) | Ad-hoc (`uvx`) |
+| :--- | :--- | :--- | :--- |
+| **Quality Climbing** | `make quality-baseline`| `agent-ops quality climb` | `uvx agentops-cockpit quality climb` |
+| **Code Optimizer**    | `make optimizer-audit` | `agent-ops audit . --quick`| `uvx agentops-cockpit audit . --quick` |
+| **Load Testing**      | `make load-test` | `agent-ops load-test` | `uvx agentops-cockpit load-test` |
+
+### 🏢 Fleet & Global Orchestration
+Manage hundreds of agents across various repositories using the Hub pattern.
+
+| Scenario | Local (`make`) | Global (`agent-ops`) | Ad-hoc (`uvx`) |
+| :--- | :--- | :--- | :--- |
+| **Workspace Audit**  | `make audit-all TARGET=./fleet`| `agent-ops report --workspace` | `uvx agentops-cockpit report --workspace` |
+| **Bulk Remediation** | — | `agent-ops fix-fleet --issue PII` | `uvx agentops-cockpit fix-fleet --issue PII` |
+| **Project Scaffold** | — | `agent-ops create my-agent` | `uvx agentops-cockpit create my-agent` |
+
+### ⚓ Infrastructure & Ecosystem
+Bridge the gap between local dev and global production.
+
+- **MCP Tool Hub**: Connect to the Model Context Protocol ecosystem via `uvx agentops-cockpit mcp-serve`.
+- **System Diagnosis**: Validate environment and SDK alignment using `make diagnose` or `agent-ops diagnose`.
+- **Stakeholder Sync**: Email the latest Persona-Approved report using `make email-report`.
+- **Production Push**: Execute 1-click CI/CD to Cloud Run + Firebase via `make deploy-prod`.
+
+---
 
 ### 🧑‍💼 Principal SME Persona Approvals
-The Cockpit features a **Multi-Persona Governance Board**. Every audit is framed through:
+Every audit is framed through a **Multi-Persona Governance Board**:
 - **🏛️ Principal Platform Engineer** (Architecture & Design)
 - **⚖️ Governance & Compliance SME** (Policy Enforcement)
 - **🔐 SecOps Principal** (Security & Secret Scanning)
 - **💰 FinOps Principal Architect** (Token & Cost Optimization)
 - **🛡️ QA & Reliability Principal** (Test Coverage & Regression)
 - **🎭 UX/UI Principal Designer** (Face/GenUI Compliance)
-
-### 📄 Export & Reporting
-*   **Maturity Delta**: Automatic comparison against the **Evidence Lake** to show improvement over time.
-*   **HTML/PDF Export**: Every audit generates `cockpit_report.html`, a premium, printable report.
-*   **Centralized Lake**: Audit metadata is saved to `evidence_lake.json` for organization-wide tracking.
-
----
-
-## 📊 Local Development
-The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
-
-```bash
-make audit         # 🕹️ Run Master Audit (Persona Approved)
-make audit-deep    # 🚀 Run Deep Audit (Full SME Verdicts)
-make email-report  # 📧 Email the latest result to a stakeholder
-make diagnose      # 🩺 Run environment health check
-make optimizer-audit # 🔍 Run Optimizer on specific agent files
-make reliability   # 🛡️ Run unit tests and regression suite
-make dev           # Start the local Engine + Face stack
-make arch-review   # 🏛️ Run the Google Well-Architected design review
-make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit
-make red-team      # Execute a white-hat security audit
-make deploy-prod   # 🚀 1-click deploy to Google Cloud
-```
 
 ---
 
