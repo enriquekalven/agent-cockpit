@@ -1048,9 +1048,14 @@ body {
 
 .hero-mascot {
   width: 120px;
-  height: auto;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  height: 120px;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
   animation: float 6s ease-in-out infinite;
+  object-fit: contain;
 }
 
 @keyframes float {
