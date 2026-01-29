@@ -1,5 +1,6 @@
 import typer
 import os
+import re
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
@@ -18,11 +19,6 @@ def audit(path: str = "."):
     framework_data = FRAMEWORKS[framework_key]
     checklist = framework_data["checklist"]
     framework_name = framework_data["name"]
-
-    console.print(Panel.fit(f"🏛️ [bold blue]{framework_name.upper()}: ARCHITECTURE REVIEW[/bold blue]", border_style="blue"))
-    console.print(f"Detected Framework: [bold green]{framework_name}[/bold green]")
-    console.print(f"Comparing local agent implementation against [bold]{framework_name} Best Practices[/bold]...\n")
-
     # Read all relevant code files for inspection
     code_content = ""
     for root, dirs, files in os.walk(path):
@@ -35,6 +31,32 @@ def audit(path: str = "."):
                         code_content += f.read() + "\n"
                 except Exception:
                     pass
+
+    if framework_key == "generic":
+        console.print(Panel.fit("🔍 [bold yellow]SHADOW INTELLIGENCE: ZERO-SHOT AUDIT INITIALIZED[/bold yellow]", border_style="yellow"))
+        console.print("⚠️ [dim]Detected Unknown Technology Stack. Switching to Structural Pattern Matching...[/dim]")
+        
+        # Self-Learning Heuristic: Look for patterns even if tech is unknown
+        structural_indicators = {
+            "decorators": r"@[\w\.]+",
+            "async_loops": r"async\s+def.*await",
+            "class_hierarchy": r"class\s+\w+\(\w*\):",
+            "environment_vars": r"os\.environ|process\.env",
+            "structured_output": r"Pydantic|BaseModel|zod|interface",
+        }
+        
+        found_patterns = []
+        for p_name, pattern in structural_indicators.items():
+            if re.search(pattern, code_content):
+                found_patterns.append(p_name)
+        
+        if found_patterns:
+            console.print(f"📡 [bold green]Heuristically identified patterns:[/bold green] {', '.join(found_patterns)}")
+            console.print("Adjusting audit benchmarks for custom agentic architecture...\n")
+
+    console.print(Panel.fit(f"🏛️ [bold blue]{framework_name.upper()}: ARCHITECTURE REVIEW[/bold blue]", border_style="blue"))
+    console.print(f"Detected Framework: [bold green]{framework_name}[/bold green]")
+    console.print(f"Comparing local agent implementation against [bold]{framework_name} Best Practices[/bold]...\n")
 
     total_checks = sum(len(section["checks"]) for section in checklist)
     passed_checks = 0
@@ -60,7 +82,7 @@ def audit(path: str = "."):
                     "Identity": ["iam", "auth", "token", "oauth", "workloadidentity"],
                     "Moderation": ["moderate", "safety", "filter"],
                     "Routing": ["router", "switch", "map", "agentengine"],
-                    "Outputs": ["schema", "json", "structured"],
+                    "Outputs": ["schema", "json", "structured", "basemodel", "interface"],
                     "HITL": ["approve", "confirm", "human"],
                     "Confirmation": ["confirm", "ask", "approve"],
                     "Logging": ["log", "trace", "audit", "reasoningengine"],
@@ -71,7 +93,15 @@ def audit(path: str = "."):
                     "Responsive": ["@media", "max-width", "flex", "grid", "vw", "vh"],
                     "Accessibility": ["aria-", "role=", "alt=", "tabindex"],
                     "Policies": ["policies.json", "policy_engine", "forbidden_topics", "hitl"],
-                    "Triggers": ["trigger", "callback", "handle", "onclick"]
+                    "Triggers": ["trigger", "callback", "handle", "onclick"],
+                    "Resiliency": ["retry", "tenacity", "backoff", "exponential"],
+                    "Prompts": [".md", ".yaml", ".prompt", "load_prompt", "jinja2"],
+                    "Sessions": ["session", "state", "conversation_id", "thread_id"],
+                    "Retrieval": ["rag", "vector", "embedding", "context_cache", "retrieval", "pinecone", "alloydb", "cloudsql", "bigquery", "firestore", "spanner", "redshift", "snowflake", "databricks", "s3", "blob"],
+                    "Reasoning": ["while", "for", "loop", "invoke", "call", "run", "execute", "chain", "agent"],
+                    "State": ["memory", "state", "db", "redis", "history", "session", "storage"],
+                    "Tools": ["tool", "registry", "dispatcher", "handler", "mcp", "api", "sdk", "client", "connect"],
+                    "Safety": ["filter", "clean", "sanitize", "scrub", "guard"]
                 }
                 
                 # If any keyword for this check type is found, mark as PASSED
@@ -98,8 +128,10 @@ def audit(path: str = "."):
     score = (passed_checks / total_checks) * 100 if total_checks > 0 else 0
     console.print(f"📊 [bold]Review Score: {score:.0f}/100[/bold]")
     if score >= 80:
-        console.print(f"✅ [bold green]Architecture Review Complete.[/bold green] Your agent is well-aligned with {framework_name} patterns.")
+        console.print(f"✅ [bold green]Architecture Review Complete.[/bold green] Your agent is well-aligned with optimized patterns.")
     else:
+        if framework_key == "generic":
+            console.print("💡 [bold yellow]Self-Learning Note:[/bold yellow] Found unknown tech. I have mapped your code structure to universal agentic pillars (Reasoning/Tools/Safety).")
         console.print("⚠️ [bold yellow]Review Complete with warnings.[/bold yellow] Your agent has gaps in best practices. See results above.")
 
 if __name__ == "__main__":

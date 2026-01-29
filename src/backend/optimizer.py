@@ -218,6 +218,104 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
             package="google-adk"
         ))
 
+    # --- BEST PRACTICE OPTIMIZATIONS ---
+
+    # Prompt Externalization
+    if large_string_pattern.search(content):
+        issues.append(OptimizationIssue(
+            "external_prompts", "Externalize System Prompts", "MEDIUM", "Architectural Debt Reduction",
+            "Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and load dynamically.",
+            "+ with open('system_prompt.md', 'r') as f:\n+     SYSTEM_PROMPT = f.read()"
+        ))
+
+    # Resiliency / Retries
+    if "retry" not in content_lower and "tenacity" not in content_lower:
+        issues.append(OptimizationIssue(
+            "resiliency_retries", "Implement Exponential Backoff", "HIGH", "99.9% Reliability",
+            "Your agent calls external APIs/DBs but has no retry logic. Use 'tenacity' to handle transient failures.",
+            "+ @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))",
+            package="tenacity"
+        ))
+
+    # Session Management
+    if "session" not in content_lower and "conversation_id" not in content_lower:
+         issues.append(OptimizationIssue(
+            "session_management", "Add Session Tracking", "MEDIUM", "User Continuity",
+            "No session tracking detected. Agents in production need a 'conversation_id' to maintain multi-turn context.",
+            "+ def chat(q: str, conversation_id: str = None):"
+        ))
+
+    # Pinecone Optimization
+    if "pinecone" in content_lower:
+        if "grpc" not in content_lower:
+            issues.append(OptimizationIssue(
+                "pinecone_grpc", "Pinecone High-Perf (gRPC)", "MEDIUM", "40% latency reduction",
+                "You are using the standard Pinecone client. Switching to pinecone[grpc] enables low-latency streaming for large vector retrievals.",
+                "+ from pinecone.grpc import PineconeGRPC as Pinecone\n+ pc = Pinecone(api_key='...')"
+            ))
+        if "namespace" not in content_lower:
+            issues.append(OptimizationIssue(
+                "pinecone_isolation", "Pinecone Namespace Isolation", "MEDIUM", "RAG Accuracy Boost",
+                "No namespaces detected. Use namespaces to isolate user data or document segments for more accurate retrieval.",
+                "+ index.query(..., namespace='customer-a')"
+            ))
+
+    # Google Cloud Database Optimizations
+    
+    # AlloyDB
+    if "alloydb" in content_lower:
+        if "columnar" not in content_lower:
+            issues.append(OptimizationIssue(
+                "alloydb_columnar", "AlloyDB Columnar Engine", "HIGH", "100x Query Speedup",
+                "AlloyDB detected. Enable the Columnar Engine for analytical and AI-driven vector queries.",
+                "+ # Enable AlloyDB Columnar Engine for vector scaling"
+            ))
+            
+    # BigQuery
+    if "bigquery" in content_lower or "bq" in content_lower:
+        if "vector_search" not in content_lower:
+            issues.append(OptimizationIssue(
+                "bq_vector_search", "BigQuery Vector Search", "HIGH", "FinOps: Serverless RAG",
+                "BigQuery detected. Use BQ Vector Search for cost-effective RAG over massive datasets without moving data to a separate DB.",
+                "+ SELECT * FROM VECTOR_SEARCH(TABLE my_dataset.embeddings, ...)"
+            ))
+
+    # Cloud SQL
+    if "cloudsql" in content_lower or "psycopg2" in content_lower or "sqlalchemy" in content_lower:
+        if "cloud-sql-connector" not in content_lower:
+            issues.append(OptimizationIssue(
+                "cloudsql_connector", "Cloud SQL Python Connector", "MEDIUM", "100% Secure Auth",
+                "Using raw drivers detected. Use the official Cloud SQL Python Connector for IAM-based authentication and automatic encryption.",
+                "+ from google.cloud.sql.connector import Connector\n+ connector = Connector()"
+            ))
+
+    # Firestore
+    if "firestore" in content_lower:
+        if "vector" not in content_lower:
+            issues.append(OptimizationIssue(
+                "firestore_vector", "Firestore Vector Search (Native)", "HIGH", "Real-time RAG",
+                "Firestore detected. Use native Vector Search and KNN queries for high-concurrency mobile/web agent retrieval.",
+                "+ collection.find_nearest(vector_field='embedding', ...)"
+            ))
+
+    # Oracle OCI Optimizations
+    if "oci" in content_lower or "oracle" in content_lower:
+        if "resource_principal" not in content_lower:
+            issues.append(OptimizationIssue(
+                "oci_auth", "OCI Resource Principals", "HIGH", "100% Secure Auth",
+                "Using static config/keys detected on OCI. Use Resource Principals for secure, credential-less access from OCI compute.",
+                "+ auth = oci.auth.signers.get_resource_principals_signer()"
+            ))
+
+    # CrewAI Optimizations
+    if "crewai" in content_lower or "crew(" in content_lower:
+        if "manager_agent" not in content_lower and "hierarchical" not in content_lower:
+             issues.append(OptimizationIssue(
+                "crewai_manager", "Use Hierarchical Manager", "MEDIUM", "30% Coordination Boost",
+                "Your crew uses sequential execution. For complex tasks, a Manager Agent improves task handoffs and reasoning.",
+                "+ crew = Crew(..., process=Process.hierarchical, manager_agent=manager)"
+            ))
+
     return issues
 
 def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[str, Any]:

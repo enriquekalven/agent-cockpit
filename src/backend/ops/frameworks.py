@@ -47,6 +47,15 @@ GOOGLE_CHECKLIST = [
             ("Accessibility: Do interactive elements have aria-labels?", "Critical for inclusive design and automated testing."),
             ("Triggers: Are you using interactive triggers for state changes?", "Improves 'Agentic Feel' through reactive UI.")
         ]
+    },
+    {
+        "category": "🧗 Resiliency & Best Practices",
+        "checks": [
+            ("Resiliency: Are retries with exponential backoff used for API/DB calls?", "Prevents cascading failures during downtime (e.g., using tenacity)."),
+            ("Prompts: Are prompts stored in external '.md' or '.yaml' files?", "Best practice for separation of concerns and versioning."),
+            ("Sessions: Is there a session/conversation management layer?", "Ensures context continuity and user state tracking."),
+            ("Retrieval: Are you using RAG or Efficient Context Caching for large datasets?", "Optimizes performance vs. cost for retrieval-heavy agents.")
+        ]
     }
 ]
 
@@ -214,18 +223,49 @@ LANGCHAIN_CHECKLIST = [
 
 GENERIC_CHECKLIST = [
     {
-        "category": "🏗️ General Agent Architecture",
+        "category": "🏗️ Zero-Shot Discovery (Unknown Tech)",
         "checks": [
-            ("Tooling: Does the agent use structured tool calling?", "Essential for reliable interactions."),
-            ("Orchestration: Is there a clear reason-act loop?", "Ensures agentic behavior."),
-            ("Observability: Are traces/logs being captured?", "Critical for debugging production agents.")
+            ("Reasoning: Does the code exhibit a core reasoning/execution loop?", "Detected Structural Pattern: Universal Agentic Loop."),
+            ("State: Is there an identifiable state management or memory pattern?", "Ensures session continuity even in custom stacks."),
+            ("Tools: Are external functions being called via a registry or dispatcher?", "Standard for tool-enabled agents."),
+            ("Safety: Are there any input/output sanitization blocks?", "Basic security hygiene for any AI application.")
+        ]
+    }
+]
+
+ORACLE_CHECKLIST = [
+    {
+        "category": "🏗️ Oracle Cloud Architecture",
+        "checks": [
+            ("Platform: Using OCI Generative AI or AI Agents?", "OCI-native managed agent orchestration."),
+            ("Data: Is Oracle Database 23ai (Vector Search) used?", "Enterprise-grade vector grounding for RAG."),
+            ("Compute: Is the agent running on OCI Container Instances or OCI Functions?", "Scale-to-zero and high-performance OCI compute options.")
         ]
     },
     {
-        "category": "🛡️ Security",
+        "category": "🛡️ Security & Governance (Oracle)",
         "checks": [
-            ("Sandbox: Are tools running in an isolated environment?", "Protects the host system."),
-            ("Input Validation: Are tool arguments validated?", "Prevents local execution attacks.")
+            ("Identity: Is OCI IAM with dynamic groups enabled?", "Ensures secure, credential-less access to OCI resources."),
+            ("Secrets: Using OCI Vault for API/DB secrets?", "Production standard for key management on OCI."),
+            ("Network: Is the agent isolated in an OCI VCN with Private Endpoints?", "Prevents internet exposure of internal agent tools.")
+        ]
+    }
+]
+
+CREWAI_CHECKLIST = [
+    {
+        "category": "🏗️ CrewAI Multi-Agent Architecture",
+        "checks": [
+            ("Orchestration: Is the 'Process' defined (Sequential/Hierarchical)?", "CrewAI best practice for complex team coordination."),
+            ("Memory: Is Short-term or Long-term memory enabled?", "Critical for maintaining context across multi-agent tasks."),
+            ("Tools: Are tools shared across the Crew or specific to Agents?", "Promotes agent specialization and efficiency.")
+        ]
+    },
+    {
+        "category": "🛡️ Security & Reliability",
+        "checks": [
+            ("Manager: Is a 'Manager Agent' used for hierarchical crews?", "Provides a central governance layer for agent handoffs."),
+            ("Delegation: Is 'allow_delegation' configured per agent?", "Controls the communication flow between autonomous agents.")
         ]
     }
 ]
@@ -369,6 +409,16 @@ FRAMEWORKS = {
         "name": "Firebase / Google Cloud Hosting",
         "checklist": FIREBASE_CHECKLIST,
         "indicators": [r"firebase\.json", r"\.firebaserc", r"firestore"]
+    },
+    "oracle": {
+        "name": "Oracle Cloud Infrastructure (OCI)",
+        "checklist": ORACLE_CHECKLIST,
+        "indicators": [r"oci", r"oracle", r"23ai"]
+    },
+    "crewai": {
+        "name": "CrewAI",
+        "checklist": CREWAI_CHECKLIST,
+        "indicators": [r"crewai", r"Agent\(", r"Task\(", r"Crew\("]
     },
     "generic": {
 

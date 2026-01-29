@@ -35,6 +35,7 @@ Most AI agent templates stop at a single Python file and an API key. **The Agent
 - **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices.
 - **Agentic Trinity**: Dedicated layers for the Engine (Logic), Face (UX), and Cockpit (Ops).
 - **A2A Connectivity**: Implements the [Agent-to-Agent Transmission Standard](/A2A_GUIDE.md) for secure swarm orchestration.
+- **MCP Native**: Registration as a [Model Context Protocol](https://modelcontextprotocol.io) server for 1P/2P/3P tool consumption.
 
 ---
 

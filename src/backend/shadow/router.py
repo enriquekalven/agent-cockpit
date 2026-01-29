@@ -14,17 +14,17 @@ class ShadowRouter:
         self.v1 = v1_func
         self.v2 = v2_func
 
-    async def route(self, query: str, context: Dict[str, Any] = None):
+    async def route(self, query: str, **kwargs):
         trace_id = str(uuid.uuid4())
         
         # 1. Primary Call (Production v1) - Sequential/Blocking
         start_v1 = datetime.now()
-        v1_resp = await self.v1(query, context)
+        v1_resp = await self.v1(query, **kwargs)
         v1_latency = (datetime.now() - start_v1).total_seconds()
 
         # 2. Shadow Call (Experimental v2) - Asynchronous/Non-blocking
         # We fire and forget this, or use a background task
-        asyncio.create_task(self._run_shadow(trace_id, query, context, v1_resp, v1_latency))
+        asyncio.create_task(self._run_shadow(trace_id, query, v1_resp, v1_latency, **kwargs))
 
         return {
             "response": v1_resp,
@@ -32,14 +32,14 @@ class ShadowRouter:
             "latency": v1_latency
         }
 
-    async def _run_shadow(self, trace_id: str, query: str, context: Dict[str, Any], v1_resp: Any, v1_latency: float):
+    async def _run_shadow(self, trace_id: str, query: str, v1_resp: Any, v1_latency: float, **kwargs):
         """
         Runs the v2 agent in the 'shadow' without user impact.
         Logs the comparison to BigQuery/Cloud Logging.
         """
         try:
             start_v2 = datetime.now()
-            v2_resp = await self.v2(query, context)
+            v2_resp = await self.v2(query, **kwargs)
             v2_latency = (datetime.now() - start_v2).total_seconds()
 
             comparison = {
