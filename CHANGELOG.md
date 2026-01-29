@@ -2,13 +2,13 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.3.0] - 2024-05-24
-### Added
-- **Dynamic Pen-Testing (`agent-ops pen-test`)**: Runtime adversarial probing with Dynamic Resilience Scoring.
-- **Cross-Agent Pattern Awareness**: Global correlation engine that identifies recurring vulnerabilities across the fleet.
-- **Enhanced ROI Predictor**: FinOps dashboard with dynamic savings calculation and confidence scoring.
-- **Hyper-Speed Incremental Audits**: Recursive content hashing to skip unchanged agents, achieving sub-second fleet scans.
-- **Strategic Fleet Remediation (`agent-ops fix-fleet`)**: Organizational-scale bulk patching for common security gaps.
+## [1.3.0] - 2026-01-29
+### 🧠 The Governance Intelligence Update
+- **Dynamic Pen-Testing (`agent-ops pen-test`)**: Upgraded the Red Team Auditor to support **Live Adversarial Probing**. The auditor now calculates a **Dynamic Resilience Score** based on resistance to sequential conversational attacks.
+- **Cross-Agent Pattern Awareness**: Introduced a global correlation engine that identifies recurring security debt and architectural anti-patterns across the entire agent fleet.
+- **Enhanced ROI Predictor (FinOps)**: The dashboard now features a dynamic savings projection engine with confidence scoring based on fleet-wide audited agents.
+- **Hyper-Speed Incremental Audits**: Implemented recursive content hashing ("Zero-Token Scaling") to skip unchanged agents, achieving sub-second fleet scans for massive repositories.
+- **Autonomous Fleet Remediation**: Enhanced `fix-fleet` logic to handle high-velocity, organizational-scale bulk patching for common security gaps (PII, Secrets, Architecture).
 
 ## [1.2.0] - 2026-01-29
 

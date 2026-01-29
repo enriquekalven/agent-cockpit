@@ -22,8 +22,8 @@
 <br />
 
 <div align="center">
- <h3>"Infrastructure gives you the pipes. We give you the Intelligence."</h3>
- <p>The developer distribution for building, optimizing, and securing AI agents on Google Cloud.</p>
+ <h3>"Infrastructure is the plumbing. The Cockpit is the Intelligence."</h3>
+ <p>The definitive production distribution for building, securing, and governing AI agents on Google Cloud.</p>
 </div>
 
 ---
@@ -139,13 +139,13 @@ The Cockpit now performs platform-specific performance and security audits for:
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
 ### 🛸 v1.3.0: The Governance Intelligence Update
-The Cockpit now features **Dynamic Pen-Testing**, **Cross-Agent Pattern Awareness**, and the **Enterprise ROI Predictor**.
-*   **💰 Enterprise ROI Predictor (FinOps)**: Automatically identifies cost-leakage and projects savings potential (e.g., "$1,250/mo potential savings via Caching") natively in the dashboard.
-*   **⚡ Hyper-Speed Differential Auditing**: Recursive content hashing drops fleet audit times to **sub-second** for repeat runs, enabling high-velocity local loops without token waste.
-*   **⚖️ Governance-as-Code (SARIF)**: Natively exports to the Static Analysis Results Interchange Format. Findings integrate directly with GitHub Security, SonarQube, and enterprise DevSecOps pipelines.
-*   **🎭 Strategic SME Rationale**: Dashboard cards now feature high-fidelity SME Verdicts (e.g., *"Approved due to Pydantic usage"*), providing educational intent alongside automated passes.
-*   **🛠️ Enterprise fix-fleet Orchestration**: Organizational-scale autonomous patching. Bulk-patch security debt (PII/Secrets) or architectural gaps across hundreds of agents in a single transaction via `agent-ops fix-fleet`.
-*   **👔 Executive Maturity Velocity**: Track your "Hero Metrics." Every workspace run calculates **Improvement Velocity**, showing organizational leads how compliance has increased relative to historical Evidence Lake benchmarks.
+The Cockpit has evolved from a local auditor into a **Global Intelligence Engine**.
+*   **🚩 Dynamic Pen-Testing**: Shift from static analysis to **Live Adversarial Probing**. The Red Team now simulates sequential conversational attacks with real-time **Resilience Scoring**.
+*   **🧠 Cross-Agent Pattern Awareness**: The Orchestrator now correlates intelligence across your entire agent fleet, identifying recurring security debt and architectural anti-patterns.
+*   **💰 Enterprise ROI Predictor**: A built-in FinOps engine that moves beyond "cost tracking" to **proactive savings forecasting** (e.g., "$1,250/mo potential savings via Caching").
+*   **⚡ Hyper-Speed "Zero-Token" Audits**: Using recursive content hashing, the Cockpit intelligently skips unchanged agents, dropping fleet scan times to **sub-second** targets.
+*   **⚖️ Governance-as-Code (SARIF)**: Natively integrate with enterprise security pipelines (GitHub Advanced Security, SonarQube) via the SARIF standard.
+*   **🛠️ Strategy-First fix-fleet**: Orchestrate organizational-scale autonomous patching across hundreds of agents in a single, governed transaction.
 
 ---
 

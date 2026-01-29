@@ -689,7 +689,7 @@ class Orchestrator:
 def run_audit(
     mode: str = "quick", target_path: str = ".", title: str = "QUICK SAFE-BUILD", apply_fixes: bool = False, sim: bool = False
 ):
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     orchestrator.target_path = target_path
     orchestrator.apply_fixes = apply_fixes
     orchestrator.sim = sim
@@ -964,7 +964,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
     # Use ThreadPool for skipping checks, ProcessPool for actual audits
     agents_to_audit = []
     
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     for agent_info in prioritized_agents:
         agent_path = agent_info["path"]
         abs_path = os.path.abspath(agent_path)

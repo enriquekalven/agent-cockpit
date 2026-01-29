@@ -2,10 +2,10 @@
 import os
 import json
 import pytest
-from agent_ops_cockpit.ops.orchestrator import CockpitOrchestrator
+from agent_ops_cockpit.ops.orchestrator import Orchestrator
 
 def test_orchestrator_token_bucket(tmp_path):
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     orchestrator.rate_limit_tokens = 5000
     
     # Use some tokens
@@ -23,7 +23,7 @@ def test_orchestrator_token_bucket(tmp_path):
 
 def test_evidence_lake_persistence(tmp_path):
     os.chdir(tmp_path)
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     orchestrator.results = {
         "Module A": {"success": True, "duration": 1.2, "output": "OK"}
     }
@@ -38,7 +38,7 @@ def test_evidence_lake_persistence(tmp_path):
         assert data[abs_path]["summary"]["total_duration"] == 1.2
 
 def test_executive_scorecard_generation(tmp_path):
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     orchestrator.target_path = str(tmp_path)
     # Mock a failure to trigger the "Risk Alert"
     orchestrator.results = {
@@ -60,7 +60,7 @@ def test_orchestrator_skipping(tmp_path):
     os.chdir(tmp_path)
     (tmp_path / "agent.py").write_text("print('hello')")
     
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     h1 = orchestrator.get_dir_hash(str(tmp_path))
     
     # Write another file
@@ -75,7 +75,7 @@ def test_orchestrator_skipping(tmp_path):
 
 def test_sarif_export(tmp_path):
     os.chdir(tmp_path)
-    orchestrator = CockpitOrchestrator()
+    orchestrator = Orchestrator()
     orchestrator.target_path = str(tmp_path)
     developer_actions = [
         "agent.py:10 | Security Breach | Hardcoded API Key"
@@ -91,3 +91,35 @@ def test_sarif_export(tmp_path):
         assert len(results) == 1
         assert results[0]["ruleId"] == "security_breach"
         assert results[0]["level"] == "error"
+
+def test_fleet_intelligence_correlation(tmp_path):
+    os.chdir(tmp_path)
+    orchestrator = Orchestrator()
+    # Mock workspace results
+    orchestrator.workspace_results = {
+        "/path/to/agent1": {
+            "results": {
+                "Security": {"success": False, "output": "PII Extraction breach detected"}
+            }
+        },
+        "/path/to/agent2": {
+            "results": {
+                "Security": {"success": False, "output": "PII Extraction breach detected"}
+            }
+        }
+    }
+    
+    # Create a mock evidence lake to update
+    with open("evidence_lake.json", "w") as f:
+        json.dump({}, f)
+        
+    orchestrator._correlate_fleet_intelligence()
+    
+    assert orchestrator.common_debt["PII Extraction"] == 2
+    
+    with open("evidence_lake.json", "r") as f:
+        lake = json.load(f)
+        patterns = lake["global_summary"]["patterns"]
+        pii_pattern = next(p for p in patterns if p["issue"] == "PII Extraction")
+        assert pii_pattern["count"] == 2
+        assert pii_pattern["pct"] == 100.0

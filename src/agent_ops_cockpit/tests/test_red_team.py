@@ -22,7 +22,7 @@ def scrub_pii(text): pass
 
     result = runner.invoke(app, [str(agent_file)])
     assert result.exit_code == 0
-    assert "Your agent is production-hardened" in result.stdout
+    assert "PASSED (Production Hardened)" in result.stdout
 
 
 def test_red_team_vulnerable_agent(tmp_path):

@@ -13,22 +13,28 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [ ] **Agent Hub**: A registry of pre-built "Well-Architected" agent templates.
 
 ## 🚀 Phase 2: Intelligence & Scale (Quarter 2) - "Optimal Operations"
-*Focus: Cost-reduction and high-fidelity reasoning.*
+*Focus: Cost-reduction, high-fidelity reasoning, and reliability.*
 - [x] **Audit-to-Action (Auto-Fix)**: Direct code injection of production best-practices via CLI.
 - [x] **FinOps Savings Projection**: Dollar-amount financial forecasting for token optimization.
 - [x] **Triple-State Situational Analysis**: Version-aware optimization for Legacy vs Modern SDKs.
 - [x] **Agent "Cockpit Score"**: A single grade (A-F) for production-readiness based on Well-Architected principles.
 - [x] **Multi-Agent Orchestrator & Conflict Guard**: Support for Swarm patterns with cross-framework stability checks.
+- [ ] **🛡️ AST-Based "Safe" Remediation**: Integrate `libcst` and `jscodeshift` to guarantee syntactic correctness for bulk patches.
+- [ ] **📂 Database-Backed Evidence Lake**: Migrate from JSON to SQLite/Firestore for complex SQL-based Maturity Velocity tracking.
+- [ ] **🧠 LLM-Agnostic SME Personas**: Implement a provider-agnostic interface (via LiteLLM) to support Llama 3, Claude, and GPT-4o.
 - [ ] **VPC-Native Hive Mind**: Managed semantic caching for AlloyDB and Memorystore.
 - [ ] **Dynamic Model Routing**: Automatic switching between Flash and Pro based on prompt complexity and budget.
 
 ## 🎭 Phase 3: The Ecosystem (Quarter 3) - "Widespread Adoption"
-*Focus: Interoperability and community growth.*
+*Focus: Interoperability, security, and developer experience.*
 - [x] **Framework Connectors**: Governed audits for LangChain, CrewAI, AutoGen, and CopilotKit.
 - [x] **Native MCP Server Export**: Launch the Cockpit as a Model Context Protocol server.
-- [ ] **Visual "Mission Control" UI**: Real-time log streaming and token usage graphs in a cinematic dashboard.
+- [ ] **🧩 Pluggable Auditor Registry**: Implement a plugin system for "Custom Compliance" checks (e.g., internal auth-proxy).
+- [ ] **🐳 Sandboxed Audit Execution**: Run sub-auditors inside disposable Docker containers for "Zero-Trust" auditing.
+- [ ] **🚦 Real-time Web Dashboard**: Launch a FastAPI/Socket.io server for live monitoring of thousands of agents.
+- [ ] **🏷️ Declarative Policy Language**: Support Rego (Open Policy Agent) for complex governance logic.
+- [ ] **📦 Automated "Agent Scaffold" Sync**: Fleet-wide infrastructure updates to keep all agents on the latest standards.
 - [ ] **GCP Marketplace Integration**: Deploy the Cockpit as a managed service on Google Cloud.
-- [ ] **Plugin System**: Community-contributed tools and auditors.
 
 ## 🧠 Phase 4: Autonomous Resilience (Quarter 4) - "The Sentient Service"
 *Focus: AIOps, Self-healing, and Global Scaling.*
