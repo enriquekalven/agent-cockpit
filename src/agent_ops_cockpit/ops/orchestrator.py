@@ -782,15 +782,31 @@ def workspace_audit(root_path: str = ".", mode: str = "quick"):
         console.print("[yellow]⚠️ No agents found in workspace.[/yellow]")
         return
 
+    # Sort agents by priority (Heuristic: mission-critical in metadata.json)
+    prioritized_agents = []
+    for agent in agents:
+        meta_path = os.path.join(agent, "metadata.json")
+        priority = "utility"
+        if os.path.exists(meta_path):
+            try:
+                with open(meta_path, "r") as f:
+                    meta = json.load(f)
+                    priority = meta.get("priority", "utility")
+            except: pass
+        prioritized_agents.append({"path": agent, "priority": priority})
+    
+    # Process mission-critical first
+    prioritized_agents.sort(key=lambda x: x["priority"] == "mission-critical", reverse=True)
+
     console.print(
-        f"🔍 Identified [bold]{len(agents)} agents[/bold]. Initializing high-speed parallel fleet audit...\n"
+        f"🔍 Identified [bold]{len(agents)} agents[/bold]. Initializing high-speed prioritized fleet audit...\n"
     )
 
     results = {}
-    # Upgraded to ProcessPoolExecutor for true multi-core fleet orchestration
     with ProcessPoolExecutor(max_workers=min(10, len(agents))) as executor:
         future_map = {
-            executor.submit(run_audit, mode, agent): agent for agent in agents
+            executor.submit(run_audit, "deep" if a["priority"] == "mission-critical" else mode, a["path"]): a["path"] 
+            for a in prioritized_agents
         }
 
         for future in as_completed(future_map):
@@ -822,8 +838,70 @@ def workspace_audit(root_path: str = ".", mode: str = "quick"):
         f"\n🚀 [bold]Fleet Score: {passed_count}/{len(agents)} Agents Production Ready.[/bold]\n"
     )
 
+    # 🏛️ Update Evidence Lake with Global Fleet Summary
+    lake_path = "evidence_lake.json"
+    fleet_velocity = 0
+    if os.path.exists(lake_path):
+        try:
+            with open(lake_path, "r") as f:
+                lake_data = json.load(f)
+            prev_compliance = lake_data.get("global_summary", {}).get("compliance", 0)
+            current_compliance = (passed_count / len(agents)) * 100
+            fleet_velocity = current_compliance - prev_compliance
+            
+            lake_data["global_summary"] = {
+                "compliance": current_compliance,
+                "velocity": fleet_velocity,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            with open(lake_path, "w") as f:
+                json.dump(lake_data, f, indent=4)
+        except: pass
+
     # 🏢 Generate Unified Fleet Dashboard
     generate_fleet_dashboard(results)
+
+def workspace_fix(root_path: str = ".", issue: str = "PII"):
+    """
+    Strategic Fleet Remediation: Bulk-patches the entire fleet for a specific issue.
+    """
+    console.print(
+        Panel(
+            f"🛠️ [bold blue]FLEET REMEDIATION MODE: {issue}[/bold blue]\n"
+            f"Targeting root: [dim]{root_path}[/dim]",
+            border_style="red",
+        )
+    )
+
+    from agent_ops_cockpit.ops.remediation import apply_remediation
+    
+    # Discovery (same as audit)
+    agents = []
+    for root, dirs, files in os.walk(root_path):
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ["venv", ".venv", "node_modules", "dist"]]
+        if any(f in files for f in ["agent.py", "__main__.py", "main.py", "app.py", "main.go", "index.ts", "go.mod"]):
+             if any(f in files for f in ["pyproject.toml", "README.md", "requirements.txt", "package.json", "go.mod"]):
+                  agents.append(root)
+                  dirs[:] = []
+
+    if not agents:
+        console.print("[yellow]⚠️ No agents found to fix.[/yellow]")
+        return
+
+    console.print(f"🔧 Applying fixes to [bold]{len(agents)} agents[/bold] specifically for [bold cyan]{issue}[/bold cyan]...\n")
+
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(apply_remediation, agent, issue, "Apply standard safety and architectural patterns"): agent for agent in agents}
+        for future in as_completed(futures):
+            agent = futures[future]
+            try:
+                success = future.result()
+                status = "[green]FIXED[/green]" if success else "[yellow]SKIPPED/FAIL[/yellow]"
+                console.print(f"✅ {agent} -> {status}")
+            except Exception as e:
+                console.print(f"❌ Error fixing {agent}: {e}")
+
+    console.print("\n✨ [bold green]Fleet-wide remediation complete.[/bold green] Recommend running `make audit-all` to verify.")
 
 def generate_fleet_dashboard(results: dict):
     """Generates a premium unified HTML dashboard with deep-link drilldowns."""
@@ -863,6 +941,11 @@ def generate_fleet_dashboard(results: dict):
                 </div>
             """
 
+    # 🏛️ Extract Global Velocity
+    global_velocity = fleet_data.get("global_summary", {}).get("velocity", 0)
+    velocity_color = "#059669" if global_velocity >= 0 else "#dc2626"
+    velocity_icon = "📈" if global_velocity >= 0 else "📉"
+
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -872,26 +955,28 @@ def generate_fleet_dashboard(results: dict):
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
             body {{ font-family: 'Inter', sans-serif; background: #f8fafc; padding: 40px; color: #1e293b; }}
-            .container {{ max-width: 1200px; margin: 0 auto; }}
+            .container {{ max-width: 1400px; margin: 0 auto; }}
             .header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }}
-            .stats {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }}
+            .stats {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }}
             .stat-card {{ background: white; padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }}
             .stat-value {{ font-size: 2rem; font-weight: 700; color: #3b82f6; }}
             .debt-panel {{ background: #fee2e2; padding: 24px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #fecaca; }}
             .agent-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }}
-            .agent-card {{ background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; transition: transform 0.2s; position: relative; }}
+            .agent-card {{ background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; transition: transform 0.2s; position: relative; overflow: hidden; }}
             .agent-card:hover {{ transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }}
             .status-pass {{ color: #059669; font-weight: 700; }}
             .status-fail {{ color: #dc2626; font-weight: 700; }}
             .drilldown {{ font-size: 0.75rem; color: #64748b; margin-top: 12px; border-top: 1px solid #f1f5f9; padding-top: 8px; }}
             .velocity {{ font-size: 0.75rem; color: #059669; font-weight: 600; margin-top: 4px; }}
+            .priority-badge {{ position: absolute; top: 0; right: 0; padding: 4px 12px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: #3b82f6; color: white; border-bottom-left-radius: 12px; }}
+            .priority-mission-critical {{ background: #ef4444; }}
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
                 <h1>🛸 AgentOps Fleet Flight Deck</h1>
-                <div style="text-align: right; color: #64748b;">Enterprise Governance v1.0.0</div>
+                <div style="text-align: right; color: #64748b;">Enterprise Governance v1.1.0</div>
             </div>
             
             <div class="stats">
@@ -906,6 +991,10 @@ def generate_fleet_dashboard(results: dict):
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
                     <div class="stat-value">{(passed_count/total)*100:.1f}%</div>
+                </div>
+                <div class="stat-card">
+                    <div style="color: #64748b; font-size: 0.875rem;">Maturity Velocity</div>
+                    <div class="stat-value" style="color: {velocity_color};">{velocity_icon} {global_velocity:+.1f}%</div>
                 </div>
             </div>
 
@@ -926,6 +1015,19 @@ def generate_fleet_dashboard(results: dict):
         agent_data = fleet_data.get(abs_target, {})
         delta = agent_data.get("summary", {}).get("improvement_delta", 0)
         
+        # Priority Extraction
+        meta_path = os.path.join(agent, "metadata.json")
+        priority = "utility"
+        if os.path.exists(meta_path):
+            try:
+                with open(meta_path, "r") as f:
+                    meta = json.load(f)
+                    priority = meta.get("priority", "utility")
+            except: pass
+        
+        priority_class = "priority-mission-critical" if priority == "mission-critical" else ""
+        priority_badge = f'<div class="priority-badge {priority_class}">{priority}</div>'
+
         # Extract top failures
         failures = []
         if not success:
@@ -939,6 +1041,7 @@ def generate_fleet_dashboard(results: dict):
 
         html += f"""
                 <div class="agent-card">
+                    {priority_badge}
                     <h3 style="margin-top: 0; font-size: 1rem;">{os.path.basename(agent)}</h3>
                     <div class="{status_class}">{status}</div>
                     {velocity_html}

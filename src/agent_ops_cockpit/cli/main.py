@@ -132,6 +132,18 @@ def fix(
         console.print("❌ [red]Remediation failed or skipped.[/red]")
 
 
+@app.command()
+def fix_fleet(
+    path: str = typer.Argument(".", help="Root directory to scan and fix"),
+    issue: str = typer.Option("PII", "--issue", help="Specific issue type to bulk-fix (PII, SECRETS, ARCH)"),
+):
+    """
+    🛸 Strategic Fleet Remediation: Automatically repair all agents in a workspace.
+    """
+    from agent_ops_cockpit.ops.orchestrator import workspace_fix
+    workspace_fix(root_path=path, issue=issue)
+
+
 
 @app.command()
 def arch_review(path: str = "."):

@@ -31,7 +31,7 @@ def chat():
 
     result = runner.invoke(app, ["--path", str(project_dir)])
     assert result.exit_code == 0
-    assert "ARCHITECTURE REVIEW" in result.stdout
+    assert "STATIC DESIGN AUDIT" in result.stdout
     assert "Review Score:" in result.stdout
     # We expect some checks to pass because of the keywords
     assert "PASSED" in result.stdout

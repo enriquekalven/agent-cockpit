@@ -2,6 +2,15 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.1.1] - 2026-01-29
+
+### 🛡️ The Fleet Resilience Update
+- **Strategic Fleet Remediation (`agent-ops fix-fleet`)**: Organizational-scale autonomous patching. Bulk-patch PII gaps, security breaches, or architectural debt across 100+ agents in a single transaction.
+- **Enterprise Maturity Velocity**: The Fleet Dashboard now features a "Hero Metric" tracking organization-wide compliance gains (e.g., "Maturity increased 15% since v5").
+- **Priority-Aware Orchestration**: Mission-critical agents (tagged in metadata.json) now receive deep-audit priority, while utility agents use high-speed heuristic paths to optimize token usage.
+- **Explainable SME Rationale**: Fleet drilldowns now include "Strategic Advice" mapping failures directly to Well-Architected "Golden Standards."
+- **Localized Evidence Persistence**: Fixed race conditions in parallel fleet mode; reports are now saved directly within localized agent directories.
+
 ## [1.1.0] - 2026-01-29
 
 ### 🧠 The Strategic Intelligence Update

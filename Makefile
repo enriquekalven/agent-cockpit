@@ -17,6 +17,8 @@ help:
 	@echo "  make optimizer-audit           - [CODE] Quick code audit (uvx agentops-cockpit audit --quick)"
 	@echo "  make optimizer-audit-deep      - [CODE] Deep code audit (uvx agentops-cockpit audit)"
 	@echo "  make reliability               - Run unit tests and regression suite"
+	@echo "  make smoke-test               - [QA] Quick 5-second environment validation"
+	@echo "  make profile                  - [PERF] Run performance profile on fleet auditor"
 	@echo "  make diagnose                  - [DevEx] System health check and env diagnosis"
 	@echo "  make email-report              - [GOV] Email the latest Persona-Approved report"
 	@echo "  make red-team                  - Run adversarial security audit"
@@ -131,4 +133,15 @@ mcp-serve:
 email-report:
 	@read -p "Enter recipient email: " email; \
 	$(PYTHON) -m agent_ops_cockpit.cli.main email-report $$email
+
+# 🧪 Smoke Test: Quick verification of the audit pipeline
+smoke-test:
+	@mkdir -p .tmp_smoke && echo "print('hello')" > .tmp_smoke/agent.py && echo "uses google cloud" > .tmp_smoke/README.md
+	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --path .tmp_smoke --mode quick
+	@rm -rf .tmp_smoke
+	@echo "✅ Smoke test passed."
+
+# 📈 Profile: Identify bottlenecks in the parallel auditor
+profile:
+	@PYTHONPATH=src $(PYTHON) -m cProfile -s cumulative src/agent_ops_cockpit/ops/orchestrator.py --workspace --path samples --mode quick | head -n 50
 

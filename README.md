@@ -161,8 +161,9 @@ pip install agentops-cockpit
 agent-ops report --mode quick        # ⚡ Quick Safe-Build (0.2s)
 agent-ops report --mode deep         # 🚀 Full System Audit (LLM-as-a-Judge)
 
-# 3. Fleet Orchestration (Audit all agents in a workspace)
-agent-ops report --workspace --path ./my-agent-fleet
+# 3. Fleet Orchestration (Audit & Fix)
+agent-ops report --workspace --path ./my-fleet
+agent-ops fix-fleet --path ./my-fleet --issue PII
 
 # 4. Global Scaffolding
 agent-ops-cockpit create <name> --ui a2ui

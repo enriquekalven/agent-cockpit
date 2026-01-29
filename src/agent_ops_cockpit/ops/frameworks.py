@@ -828,12 +828,12 @@ FRAMEWORKS = {
 def detect_framework(path: str = ".") -> str:
     """Detects the framework based on project files (Priority) then README."""
     # 1. High-Fidelity Project File Detection (Priority)
+    # package.json and go.mod are very strong language indicators
+    # firebase.json is a strong platform indicator
     project_files = {
         "package.json": "nodejs",
         "go.mod": "go",
         "firebase.json": "firebase",
-        "pyproject.toml": "google",
-        "requirements.txt": "google",
     }
     for filename, key in project_files.items():
         if os.path.exists(os.path.join(path, filename)):
@@ -841,10 +841,14 @@ def detect_framework(path: str = ".") -> str:
 
     # 2. Heuristic Keyword Matching (Fallback)
     content = ""
-    readme_path = os.path.join(path, "README.md")
-    if os.path.exists(readme_path):
-        with open(readme_path, "r") as f:
-            content = f.read()
+    # Collect information from various manifest/config files
+    for filename in ["README.md", "requirements.txt", "pyproject.toml", "package.json", "go.mod"]:
+        file_path = os.path.join(path, filename)
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, "r") as f:
+                    content += f"\n--- {filename} ---\n" + f.read()
+            except Exception: pass
 
     # Match indicators
     for framework, data in FRAMEWORKS.items():
