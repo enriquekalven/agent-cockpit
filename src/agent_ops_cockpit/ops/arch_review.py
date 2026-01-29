@@ -22,8 +22,9 @@ def audit(path: str = "."):
     # Read all relevant code files for inspection
     code_content = ""
     for root, dirs, files in os.walk(path):
-        if any(d in root for d in [".venv", "node_modules", ".git"]):
-            continue
+        # Prune excluded directories for performance
+        dirs[:] = [d for d in dirs if d not in [".venv", "node_modules", ".git", "__pycache__", "dist", "build"]]
+        
         for file in files:
             if file.endswith((".py", ".ts", ".tsx", ".js")):
                 try:

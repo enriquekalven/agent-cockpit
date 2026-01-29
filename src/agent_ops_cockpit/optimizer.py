@@ -374,9 +374,10 @@ def audit(
                 break
         if not found:
             # Look for any .py file if common names aren't found
-            for root, _, files in os.walk(file_path):
-                if any(d in root for d in [".venv", "node_modules", ".git"]):
-                    continue
+            for root, dirs, files in os.walk(file_path):
+                # Prune excluded directories for performance
+                dirs[:] = [d for d in dirs if d not in [".venv", "node_modules", ".git", "__pycache__", "dist", "build"]]
+                
                 for f in files:
                     if f.endswith(".py") and f != "__init__.py":
                         file_path = os.path.join(root, f)
