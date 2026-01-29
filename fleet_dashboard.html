@@ -36,57 +36,45 @@
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Production Ready</div>
-                    <div class="stat-value" style="color: #059669;">0</div>
+                    <div class="stat-value" style="color: #059669;">3</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
-                    <div class="stat-value">0.0%</div>
+                    <div class="stat-value">100.0%</div>
                 </div>
             </div>
 
             <div class="debt-panel">
                 <h2 style="margin-top: 0; color: #991b1b; font-size: 1.25rem;">🏢 Fleet-Wide Common Debt Analyzer</h2>
                 <p style="font-size: 0.875rem; color: #b91c1c; margin-bottom: 16px;">The following architectural gaps are prevalent across your workspace. Recommendation: Bulk remediate using <code>agent-ops fix-fleet</code>.</p>
-                
-                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 8px;">
-                    <strong>PII Scrubber</strong>: Affects 33% of fleet (1 agents)
-                </div>
-            
-                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 8px;">
-                    <strong>Hardcoded Secret</strong>: Affects 100% of fleet (3 agents)
-                </div>
-            
-                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 8px;">
-                    <strong>Safety Filters</strong>: Affects 67% of fleet (2 agents)
-                </div>
-            
+                <p>No common debt detected. Your fleet is following best practices.</p>
             </div>
 
             <h2>📡 Real-time Agent Status</h2>
             <div class="agent-grid">
     
                 <div class="agent-card">
-                    <h3 style="margin-top: 0; font-size: 1rem;">python_agent</h3>
-                    <div class="status-fail">FAILED</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">ts_agent</h3>
+                    <div class="status-pass">PASSED</div>
                     
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/python_agent</div>
-                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team (Fast), Token Optimization</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: samples/ts_agent</div>
+                    
                 </div>
         
                 <div class="agent-card">
-                    <h3 style="margin-top: 0; font-size: 1rem;">ts_agent</h3>
-                    <div class="status-fail">FAILED</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">python_agent</h3>
+                    <div class="status-pass">PASSED</div>
                     
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/ts_agent</div>
-                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team (Fast), Token Optimization, Reliability (Quick)</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: samples/python_agent</div>
+                    
                 </div>
         
                 <div class="agent-card">
                     <h3 style="margin-top: 0; font-size: 1rem;">go_agent</h3>
-                    <div class="status-fail">FAILED</div>
+                    <div class="status-pass">PASSED</div>
                     
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/go_agent</div>
-                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team (Fast), Token Optimization, Reliability (Quick)</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: samples/go_agent</div>
+                    
                 </div>
         
             </div>

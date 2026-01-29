@@ -1,0 +1,431 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>AgentOps Audit: Report</title>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+                body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f1f5f9; }
+                .report-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
+                header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }
+                .mascot-container { text-align: center; background: #fff; border: 1px solid #e2e8f0; padding: 10px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+                .mascot { width: 80px; height: 80px; border-radius: 12px; object-fit: contain; }
+                .mascot-name { font-size: 0.6rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.1em; }
+                h1 { color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; font-weight: 900; }
+                h2 { color: #0f172a; margin-top: 48px; font-size: 1.25rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+                .status-badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; margin-top: 10px; }
+                .pass { background: #dcfce7; color: #166534; }
+                .fail { background: #fee2e2; color: #991b1b; }
+                table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+                th, td { text-align: left; padding: 16px; border-bottom: 1px solid #e2e8f0; }
+                th { background: #f8fafc; font-weight: 700; color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+                .action-table th { background: #eff6ff; color: #1e40af; }
+                .source-table th { background: #f0f9ff; color: #0369a1; }
+                code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+                pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }
+                .source-link { color: #3b82f6; text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+                .source-link:hover { border-bottom-color: #3b82f6; }
+                .footer { margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="report-card">
+                <header>
+                    <div>
+                        <h1>🕹️ AgentOps: go_agent</h1>
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Type: Build Audit</p>
+                        <span class="status-badge fail">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="mascot-container">
+                        <img src="public/kokpi_branded.jpg" class="mascot" alt="Kokpi">
+                        <div class="mascot-name">KOKPI APPROVED</div>
+                    </div>
+                </header>
+
+                <p style="font-size: 0.875rem; color: #64748b;">
+                    <strong>Timestamp</strong>: 2026-01-29 13:49:40<br>
+                    <strong>Total Duration</strong>: 5.13s
+                </p>
+
+                <div style="background: #fdf2f8; border: 1px solid #fbcfe8; padding: 24px; border-radius: 16px; margin-bottom: 32px;">
+                    <h2 style="margin-top: 0; border: none; padding: 0; color: #9d174d;">👔 Executive Risk Scorecard</h2>
+                    <p style="margin-bottom: 0; font-weight: 500;">
+                        **Risk Alert**: 3 governance gates REJECTED (including Red Team (Fast), Token Optimization). Remediation estimated to take 2-4 hours. Production deployment currently BLOCKED.
+                    </p>
+                </div>
+
+                <div class="filter-controls" style="margin-bottom: 24px; display: flex; gap: 10px;">
+                    <button onclick="filterActions('all')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; background: #fff;">Show All</button>
+                    <button onclick="filterActions('security')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #fee2e2; cursor: pointer; color: #991b1b; background: #fff;">Security Breaches</button>
+                    <button onclick="filterActions('optimization')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #dcfce7; cursor: pointer; color: #166534; background: #fff;">Optimizations</button>
+                </div>
+
+                <h2>🧑‍💼 SME Persona Approvals</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                <tr>
+                    <td>⚖️ Governance & Compliance SME</td>
+                    <td>Policy Enforcement</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.28s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🔐 SecOps Principal</td>
+                    <td>Secret Scanner</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.32s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🚩 Security Architect</td>
+                    <td>Red Team (Fast)</td>
+                    <td><span class="status-badge fail">REJECTED</span></td>
+                    <td><code>0.37s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🎭 UX/UI Principal Designer</td>
+                    <td>Face Auditor</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.44s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>💰 FinOps Principal Architect</td>
+                    <td>Token Optimization</td>
+                    <td><span class="status-badge fail">REJECTED</span></td>
+                    <td><code>0.55s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🛡️ QA & Reliability Principal</td>
+                    <td>Reliability (Quick)</td>
+                    <td><span class="status-badge fail">REJECTED</span></td>
+                    <td><code>0.78s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🏛️ Principal Platform Engineer</td>
+                    <td>Architecture Review</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>2.39s</code></td>
+                </tr>
+            
+                    </tbody>
+                </table>
+        
+                <h2>🛠️ Developer Action Plan</h2>
+                <table class="action-table" id="actionTable">
+                    <thead>
+                        <tr>
+                            <th>Location (File:Line)</th>
+                            <th>Issue Detected</th>
+                            <th>Recommended Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr class="action-row architecture">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Concurrency</td>
+                            <td style="color: #059669; font-weight: 600;">Leverages Go's performance for multi-agent</td>
+                        </tr>
+                    
+                        <tr class="action-row architecture">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Validation</td>
+                            <td style="color: #059669; font-weight: 600;">Standard for ensuring engine-face protocol</td>
+                        </tr>
+                    
+                        <tr class="action-row architecture">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Tracing</td>
+                            <td style="color: #059669; font-weight: 600;">Mandatory for observability in complex Go agents.</td>
+                        </tr>
+                    </tbody></table>
+                <h2>📜 Evidence Bridge: Research & Citations</h2>
+                <table class="source-table">
+                    <thead>
+                        <tr>
+                            <th>Knowledge Pillar</th>
+                            <th>SDK/Pattern Citation</th>
+                            <th>Evidence & Best Practice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td style="font-weight: 700;">Declarative Guardrails</td>
+                            <td><a href="https://cloud.google.com/architecture/framework/security" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Governance Best Practices: Input Sanitization & Tool HITL</td>
+                        </tr>
+                    </tbody></table>
+                <h2>🔍 Audit Evidence</h2>
+        <h3>Policy Enforcement</h3><pre>SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+</pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched patterns.
+</pre><h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+❌ Error: No python entry point found in ./samples/go_agent
+
+</pre><h3>Face Auditor</h3><pre>╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: ./samples/go_agent
+📝 Scanned 0 frontend files.
+
+
+            🔍 A2UI Audit Findings            
+┏━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ File:Line ┃ Issue      ┃ Recommended Fix   ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ All Files │ A2UI Ready │ No action needed. │
+└───────────┴────────────┴───────────────────┘
+
+✅ Frontend is Well-Architected for GenUI interactions.
+</pre><h3>Token Optimization</h3><pre>╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+❌ Error: No python entry point found in ./samples/go_agent
+
+</pre><h3>Reliability (Quick)</h3><pre>╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🐹 Detected Go project. Running 'go test' in ./samples/go_agent...
+
+╭──────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+│ /Users/enriq/Documents/git/agent-ops-cockpit/src/agent_ops_cockpit/ops/reliability.py:35 in audit │
+│                                                                                                   │
+│    32 │   if os.path.exists(os.path.join(path, "go.mod")):                                        │
+│    33 │   │   lang = "Go"                                                                         │
+│    34 │   │   console.print(f"🐹 [bold]Detected Go project. Running 'go test' in {path}...[/bo    │
+│ ❱  35 │   │   unit_result = subprocess.run(                                                       │
+│    36 │   │   │   ["go", "test", "./..."], capture_output=True, text=True, cwd=path               │
+│    37 │   │   )                                                                                   │
+│    38 │   elif os.path.exists(os.path.join(path, "package.json")):                                │
+│                                                                                                   │
+│ ╭──────────────────────────────────────── locals ─────────────────────────────────────────╮       │
+│ │         env = {                                                                         │       │
+│ │               │   'PYTHONPATH': '/Users/enriq/Documents/git/agent-ops-cockpit/src:src', │       │
+│ │               │   'ANTIGRAVITY_AGENT': '1',                                             │       │
+│ │               │   'GOOGLE_LOG_DIR': '/var/log/google',                                  │       │
+│ │               │   'TERM_PROGRAM': 'vscode',                                             │       │
+│ │               │   'PYENV_ROOT': '/Users/enriq/.pyenv',                                  │       │
+│ │               │   'TERM': 'xterm-256color',                                             │       │
+│ │               │   'SHELL': '/bin/bash',                                                 │       │
+│ │               │   'HOMEBREW_REPOSITORY': '/opt/homebrew',                               │       │
+│ │               │   'TMPDIR': '/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/',        │       │
+│ │               │   'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1',                              │       │
+│ │               │   ... +38                                                               │       │
+│ │               }                                                                         │       │
+│ │        lang = 'Go'                                                                      │       │
+│ │          os = <module 'os' (frozen)>                                                    │       │
+│ │        path = './samples/go_agent'                                                      │       │
+│ │       quick = True                                                                      │       │
+│ │       title = '🛡️ RELIABILITY AUDIT (QUICK)'                                            │       │
+│ │ unit_result = None                                                                      │       │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────╯       │
+│                                                                                                   │
+│ /Users/enriq/.pyenv/versions/3.12.9/lib/python3.12/subprocess.py:550 in run                       │
+│                                                                                                   │
+│    547 │   │   kwargs['stdout'] = PIPE                                                            │
+│    548 │   │   kwargs['stderr'] = PIPE                                                            │
+│    549 │                                                                                          │
+│ ❱  550 │   with Popen(*popenargs, **kwargs) as process:                                           │
+│    551 │   │   try:                                                                               │
+│    552 │   │   │   stdout, stderr = process.communicate(input, timeout=timeout)                   │
+│    553 │   │   except TimeoutExpired as exc:                                                      │
+│                                                                                                   │
+│ ╭───────────────────────────────────────── locals ─────────────────────────────────────────╮      │
+│ │ capture_output = True                                                                    │      │
+│ │          check = False                                                                   │      │
+│ │          input = None                                                                    │      │
+│ │         kwargs = {'text': True, 'cwd': './samples/go_agent', 'stdout': -1, 'stderr': -1} │      │
+│ │      popenargs = (['go', 'test', './...'],)                                              │      │
+│ │        timeout = None                                                                    │      │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────╯      │
+│                                                                                                   │
+│ /Users/enriq/.pyenv/versions/3.12.9/lib/python3.12/subprocess.py:1028 in __init__                 │
+│                                                                                                   │
+│   1025 │   │   │   │   │   self.stderr = io.TextIOWrapper(self.stderr,                            │
+│   1026 │   │   │   │   │   │   │   encoding=encoding, errors=errors)                              │
+│   1027 │   │   │                                                                                  │
+│ ❱ 1028 │   │   │   self._execute_child(args, executable, preexec_fn, close_fds,                   │
+│   1029 │   │   │   │   │   │   │   │   pass_fds, cwd, env,                                        │
+│   1030 │   │   │   │   │   │   │   │   startupinfo, creationflags, shell,                         │
+│   1031 │   │   │   │   │   │   │   │   p2cread, p2cwrite,                                         │
+│                                                                                                   │
+│ ╭────────────────────────────────── locals ───────────────────────────────────╮                   │
+│ │               args = ['go', 'test', './...']                                │                   │
+│ │            bufsize = -1                                                     │                   │
+│ │            c2pread = 3                                                      │                   │
+│ │           c2pwrite = 4                                                      │                   │
+│ │          close_fds = True                                                   │                   │
+│ │      creationflags = 0                                                      │                   │
+│ │                cwd = './samples/go_agent'                                   │                   │
+│ │           encoding = 'UTF-8'                                                │                   │
+│ │                env = None                                                   │                   │
+│ │             errors = None                                                   │                   │
+│ │            errread = 5                                                      │                   │
+│ │           errwrite = 6                                                      │                   │
+│ │         executable = None                                                   │                   │
+│ │       extra_groups = None                                                   │                   │
+│ │                  f = <_io.TextIOWrapper name=5 encoding='UTF-8'>            │                   │
+│ │                gid = None                                                   │                   │
+│ │               gids = None                                                   │                   │
+│ │              group = None                                                   │                   │
+│ │     line_buffering = False                                                  │                   │
+│ │            p2cread = -1                                                     │                   │
+│ │           p2cwrite = -1                                                     │                   │
+│ │           pass_fds = ()                                                     │                   │
+│ │           pipesize = -1                                                     │                   │
+│ │         preexec_fn = None                                                   │                   │
+│ │      process_group = -1                                                     │                   │
+│ │    restore_signals = True                                                   │                   │
+│ │               self = <Popen: returncode: 255 args: ['go', 'test', './...']> │                   │
+│ │              shell = False                                                  │                   │
+│ │  start_new_session = False                                                  │                   │
+│ │        startupinfo = None                                                   │                   │
+│ │             stderr = -1                                                     │                   │
+│ │              stdin = None                                                   │                   │
+│ │             stdout = -1                                                     │                   │
+│ │               text = True                                                   │                   │
+│ │                uid = None                                                   │                   │
+│ │              umask = -1                                                     │                   │
+│ │ universal_newlines = None                                                   │                   │
+│ │               user = None                                                   │                   │
+│ ╰─────────────────────────────────────────────────────────────────────────────╯                   │
+│                                                                                                   │
+│ /Users/enriq/.pyenv/versions/3.12.9/lib/python3.12/subprocess.py:1963 in _execute_child           │
+│                                                                                                   │
+│   1960 │   │   │   │   │   if errno_num != 0:                                                     │
+│   1961 │   │   │   │   │   │   err_msg = os.strerror(errno_num)                                   │
+│   1962 │   │   │   │   │   if err_filename is not None:                                           │
+│ ❱ 1963 │   │   │   │   │   │   raise child_exception_type(errno_num, err_msg, err_filename)       │
+│   1964 │   │   │   │   │   else:                                                                  │
+│   1965 │   │   │   │   │   │   raise child_exception_type(errno_num, err_msg)                     │
+│   1966 │   │   │   │   raise child_exception_type(err_msg)                                        │
+│                                                                                                   │
+│ ╭────────────────────────────────── locals ──────────────────────────────────╮                    │
+│ │              args = ['go', 'test', './...']                                │                    │
+│ │           c2pread = 3                                                      │                    │
+│ │          c2pwrite = 4                                                      │                    │
+│ │         close_fds = True                                                   │                    │
+│ │     creationflags = 0                                                      │                    │
+│ │               cwd = './samples/go_agent'                                   │                    │
+│ │               env = None                                                   │                    │
+│ │          env_list = None                                                   │                    │
+│ │      err_filename = 'go'                                                   │                    │
+│ │           err_msg = 'No such file or directory'                            │                    │
+│ │         errno_num = 2                                                      │                    │
+│ │      errpipe_data = bytearray(b'OSError:2:')                               │                    │
+│ │      errpipe_read = 7                                                      │                    │
+│ │     errpipe_write = 8                                                      │                    │
+│ │           errread = 5                                                      │                    │
+│ │          errwrite = 6                                                      │                    │
+│ │    exception_name = bytearray(b'OSError')                                  │                    │
+│ │        executable = b'go'                                                  │                    │
+│ │   executable_list = (                                                      │                    │
+│ │                     │   b'/Users/enriq/.jetski/jetski/bin/go',             │                    │
+│ │                     │   b'/Users/enriq/.antigravity/antigravity/bin/go',   │                    │
+│ │                     │   b'/opt/homebrew/bin/go',                           │                    │
+│ │                     │   b'/opt/homebrew/sbin/go',                          │                    │
+│ │                     │   b'/Users/enriq/.pyenv/shims/go',                   │                    │
+│ │                     │   b'/Users/enriq/.pyenv/bin/go',                     │                    │
+│ │                     │   b'/path/to/pip3/go',                               │                    │
+│ │                     │   b'/usr/local/bin/go',                              │                    │
+│ │                     │   b'/usr/local/opt/python/libexec/bin/go',           │                    │
+│ │                     │   b'/usr/local/git/git-google/bin/go',               │                    │
+│ │                     │   ... +12                                            │                    │
+│ │                     )                                                      │                    │
+│ │       fds_to_keep = {8}                                                    │                    │
+│ │               gid = None                                                   │                    │
+│ │              gids = None                                                   │                    │
+│ │         hex_errno = bytearray(b'2')                                        │                    │
+│ │  low_fds_to_close = []                                                     │                    │
+│ │   orig_executable = 'go'                                                   │                    │
+│ │           p2cread = -1                                                     │                    │
+│ │          p2cwrite = -1                                                     │                    │
+│ │              part = b''                                                    │                    │
+│ │          pass_fds = ()                                                     │                    │
+│ │               pid = 73394                                                  │                    │
+│ │        preexec_fn = None                                                   │                    │
+│ │     process_group = -1                                                     │                    │
+│ │   restore_signals = True                                                   │                    │
+│ │              self = <Popen: returncode: 255 args: ['go', 'test', './...']> │                    │
+│ │             shell = False                                                  │                    │
+│ │ start_new_session = False                                                  │                    │
+│ │       startupinfo = None                                                   │                    │
+│ │               sts = 65280                                                  │                    │
+│ │               uid = None                                                   │                    │
+│ │             umask = -1                                                     │                    │
+│ ╰────────────────────────────────────────────────────────────────────────────╯                    │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+FileNotFoundError: [Errno 2] No such file or directory: 'go'
+</pre><h3>Architecture Review</h3><pre>╭─────────────────────────────────────────────╮
+│ 🏛️ GO HIGH-PERF ENGINE: ARCHITECTURE REVIEW │
+╰─────────────────────────────────────────────╯
+Detected Framework: Go High-Perf Engine
+Comparing local agent implementation against Go High-Perf Engine Best Practices...
+
+⚠️ Credential Gap Detected: Bypassing Semantic LLM Reasoning.
+🔄 SME Persona degrading to 'Regex-Only' structural mode...
+
+ACTION: codebase | Architecture Gap: Concurrency | Leverages Go's performance for multi-agent 
+orchestration.
+ACTION: codebase | Architecture Gap: Validation | Standard for ensuring engine-face protocol 
+compatibility.
+ACTION: codebase | Architecture Gap: Tracing | Mandatory for observability in complex Go agents.
+                                       🏗️ Go High-Perf Engine                                        
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                                ┃ Status ┃ Rationale                                  ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Concurrency: Using Goroutines for parallel  │  FAIL  │ Leverages Go's performance for multi-agent │
+│ tool execution?                             │        │ orchestration.                             │
+│ Validation: Using struct tags for JSON      │  FAIL  │ Standard for ensuring engine-face protocol │
+│ schema enforcement?                         │        │ compatibility.                             │
+│ Tracing: Using OpenTelemetry for multi-hop  │  FAIL  │ Mandatory for observability in complex Go  │
+│ agent traces?                               │        │ agents.                                    │
+└─────────────────────────────────────────────┴────────┴────────────────────────────────────────────┘
+
+
+📊 Review Score: 0/100
+⚠️ Review Complete with warnings. Your agent has gaps in best practices. See results above.
+</pre>
+                <div class="footer">
+                    Generated by AgentOps Cockpit Orchestrator v0.9.8. 
+                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.
+                </div>
+            </div>
+            <script>
+                function filterActions(type) {
+                    const rows = document.querySelectorAll('.action-row');
+                    rows.forEach(row => {
+                        if (type === 'all' || row.classList.contains(type)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
+        </body>
+        </html>
+        

@@ -826,28 +826,25 @@ FRAMEWORKS = {
 
 
 def detect_framework(path: str = ".") -> str:
-    """Detects the framework based on README or requirements.txt files."""
+    """Detects the framework based on project files (Priority) then README."""
+    # 1. High-Fidelity Project File Detection (Priority)
+    project_files = {
+        "package.json": "nodejs",
+        "go.mod": "go",
+        "firebase.json": "firebase",
+        "pyproject.toml": "google",
+        "requirements.txt": "google",
+    }
+    for filename, key in project_files.items():
+        if os.path.exists(os.path.join(path, filename)):
+            return key
+
+    # 2. Heuristic Keyword Matching (Fallback)
     content = ""
-    # Check README.md
     readme_path = os.path.join(path, "README.md")
     if os.path.exists(readme_path):
         with open(readme_path, "r") as f:
-            content += f.read()
-
-    # Check requirements.txt, pyproject.toml, package.json, go.mod, or firebase.json
-    for filename in [
-        "requirements.txt",
-        "pyproject.toml",
-        "package.json",
-        "go.mod",
-        "firebase.json",
-        ".firebaserc",
-    ]:
-        file_path = os.path.join(path, filename)
-        if os.path.exists(file_path):
-            content += f" {filename} "  # Include filename as indicator
-            with open(file_path, "r") as f:
-                content += f.read()
+            content = f.read()
 
     # Match indicators
     for framework, data in FRAMEWORKS.items():

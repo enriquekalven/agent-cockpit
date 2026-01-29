@@ -156,8 +156,13 @@ class CockpitOrchestrator:
 
     def generate_report(self):
         title = getattr(self, "title", "Audit Report")
+        target_path = getattr(self, "target_path", ".")
+        # Set localized report paths to avoid race conditions in Fleet Mode
+        self.report_path = os.path.join(target_path, f"cockpit_final_report_{self.version}.md")
+        self.html_report_path = os.path.join(target_path, f"cockpit_report_{self.version}.html")
+        
         total_duration = sum(r.get("duration", 0) for r in self.results.values())
-        repo_name = os.path.basename(os.path.abspath(getattr(self, "target_path", ".")))
+        repo_name = os.path.basename(os.path.abspath(target_path))
         report = [
             f"# 🕹️ AgentOps Cockpit: {repo_name} ({title})",
             f"**Timestamp**: {self.timestamp}",
@@ -846,9 +851,15 @@ def generate_fleet_dashboard(results: dict):
     for debt, count in debt_counts.items():
         if count > 0:
             pct = (count / total) * 100
+            # Map debt to CLI fix issue
+            fix_issue = "PII" if "PII" in debt else "SECRETS" if "Secret" in debt else "ARCH"
             common_debt_html += f"""
-                <div style="background: white; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 8px;">
-                    <strong>{debt}</strong>: Affects {pct:.0f}% of fleet ({count} agents)
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div>
+                        <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">{debt}</strong>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects {pct:.0f}% of fleet ({count} agents)</span>
+                    </div>
+                    <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue {fix_issue}')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
                 </div>
             """
 

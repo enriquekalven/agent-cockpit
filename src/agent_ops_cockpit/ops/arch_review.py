@@ -87,13 +87,13 @@ def audit(
 
     console.print(
         Panel.fit(
-            f"🏛️ [bold blue]{framework_name.upper()}: ARCHITECTURE REVIEW[/bold blue]",
+            f"🏛️ [bold blue]{framework_name.upper()}: STATIC DESIGN AUDIT[/bold blue]\n[dim]Mode: Architectural Intent Analysis[/dim]",
             border_style="blue",
         )
     )
     console.print(f"Detected Framework: [bold green]{framework_name}[/bold green]")
     console.print(
-        f"Comparing local agent implementation against [bold]{framework_name} Best Practices[/bold]...\n"
+        f"Evaluating agent design against [bold]{framework_name} Production Standards[/bold]...\n"
     )
 
     # --- LAZY SEMANTIC FALLBACK ---
