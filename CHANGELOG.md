@@ -11,6 +11,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Executive "Risk Scorecard"**: Technical findings are now aggregated into business-impact summaries, providing stakeholders with clear ROI and risk visibility.
 - **Unified "Flight Deck" Dashboard**: A single interactive HTML hub for the entire fleet, with real-time status, failure filtering, and ROI sorting.
 - **Smart Quota Awareness**: Implemented a global token-bucket rate limiter to prevent API throttling during massive parallel audits.
+- **Enterprise Regression Suite**: 100% coverage for autonomous features (Polyglot, Rate-Limiting, Repair) to ensure zero-regression in high-velocity fleet ops.
 
 ## [0.9.8] - 2026-01-29
 
