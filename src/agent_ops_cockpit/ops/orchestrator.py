@@ -120,10 +120,10 @@ def run_audit(mode: str = "quick"):
     ) as progress:
         
         # Detect if we are running from the installed package or from source
-        base_mod = "agent_ops_cockpit"
-        try:
-            import agent_ops_cockpit
-        except ImportError:
+        import importlib.util
+        if importlib.util.find_spec("agent_ops_cockpit"):
+            base_mod = "agent_ops_cockpit"
+        else:
             base_mod = "backend"
 
         # 1. Essential "Safe-Build" Steps (Fast)
