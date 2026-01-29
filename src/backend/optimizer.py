@@ -1,7 +1,7 @@
 from __future__ import annotations
 import os
 import re
-import typing
+from typing import List, Dict, Any, Optional
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -36,7 +36,7 @@ class OptimizationIssue:
         self.fix_pattern = fix_pattern
         self.evidence = None
 
-def analyze_code(content: str, file_path: str = "agent.py", versions: typing.Dict[str, str] = None) -> typing.List[OptimizationIssue]:
+def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, str] = None) -> List[OptimizationIssue]:
     issues = []
     content_lower = content.lower()
     versions = versions or {}
@@ -322,7 +322,7 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: typing.Dic
 
     return issues
 
-def estimate_savings(token_count: int, issues: typing.List[OptimizationIssue]) -> typing.Dict[str, typing.Any]:
+def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[str, Any]:
     baseline_cost_per_m = 10.0
     monthly_requests = 10000 
     current_cost = (token_count / 1_000_000) * baseline_cost_per_m * monthly_requests
