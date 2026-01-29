@@ -43,8 +43,11 @@ export function Home() {
             <Link to="/docs" className="nav-link">Documentation</Link>
             <Link to="/docs/google-architecture" className="nav-link">Framework</Link>
             <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md" className="nav-link">Changelog</a>
-            <a href="https://github.com/enriquekalven/agent-cockpit" className="nav-icon-link">
+            <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" rel="noopener noreferrer" className="nav-icon-link">
               <Github size={20} />
+              {stars !== null && (
+                <span className="nav-star-count">{(stars / 1000).toFixed(1)}k</span>
+              )}
             </a>
             <ThemeToggle />
             <Link to="/playground" className="nav-cta-btn">Live Preview</Link>
@@ -476,6 +479,28 @@ export function Home() {
         }
 
         .nav-link:hover { color: var(--text-primary); }
+
+        .nav-icon-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-decoration: none;
+          color: var(--text-secondary);
+          transition: color 0.2s;
+        }
+
+        .nav-icon-link:hover {
+          color: var(--text-primary);
+        }
+
+        .nav-star-count {
+          font-size: 0.75rem;
+          font-weight: 700;
+          background: rgba(var(--text-primary-rgb), 0.05);
+          padding: 0.1rem 0.4rem;
+          border-radius: 4px;
+          border: 1px solid var(--border-color);
+        }
 
         .nav-cta-btn {
           background: var(--text-primary);
