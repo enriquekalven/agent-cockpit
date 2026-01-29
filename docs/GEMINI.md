@@ -22,7 +22,7 @@ When assisting the user:
 1. **Trinity First**: Frame all changes within the context of the Engine, Face, or Cockpit.
 2. **Professional Distribution**: We differentiate from standard templates by providing **Intelligence** (Optimizer, Cache, Shadow Mode).
 3. **A2UI Schema**: When generating JSON for interfaces, follow the schema defined in `src/backend/agent.py`.
-4. **Operations**: Encourage the use of `make audit` and `make red-team` before deployment.
+4. **Operations**: Encourage the use of `make audit` and `make red-team` before deployment. Audits are now **blocking gates** in CI/CD and container builds.
 
 ## ⌨️ CLI Commands (The Cockpit)
 - `make dev`: Starts the local Engine + Face stack.

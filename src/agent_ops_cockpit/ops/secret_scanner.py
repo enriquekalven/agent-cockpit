@@ -12,6 +12,9 @@ console = Console()
 SECRET_PATTERNS = {
     "Google API Key": r"AIza[0-9A-Za-z-_]{35}",
     "AWS Access Key": r"AKIA[0-9A-Z]{16}",
+    "OpenAI API Key": r"sk-[a-zA-Z0-9]{20,}",
+    "Anthropic API Key": r"sk-ant-[a-zA-Z0-9]{20,}",
+    "Azure OpenAI Key": r"[0-9a-f]{32}",
     "Generic Bearer Token": r"Bearer\s+[0-9a-zA-Z._-]{20,}",
     "Hardcoded API Variable": r"(?i)(api_key|app_secret|client_secret|access_token)\s*=\s*['\"][0-9a-zA-Z_-]{16,}['\"]",
     "GCP Service Account": r"\"type\":\s*\"service_account\"",

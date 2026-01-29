@@ -330,13 +330,17 @@ def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[
     total_savings_pct = 0.0
     for issue in issues:
         if "90%" in issue.savings:
-            total_savings_pct += 0.4
-        if "50%" in issue.savings:
-            total_savings_pct += 0.2
-        if "40-60%" in issue.savings:
-            total_savings_pct += 0.25
+            total_savings_pct += 0.45  # Context Caching / Modern SDK
+        elif "70%" in issue.savings:
+            total_savings_pct += 0.35  # Smart Routing (Pro -> Flash)
+        elif "50%" in issue.savings:
+            total_savings_pct += 0.20  # Infrastructure / Startup Boost
+        elif "40-60%" in issue.savings:
+            total_savings_pct += 0.25  # Semantic Caching (Hive Mind)
+        else:
+            total_savings_pct += 0.05  # Standard Best Practices
 
-    projected_savings = current_cost * min(total_savings_pct, 0.8)
+    projected_savings = current_cost * min(total_savings_pct, 0.85)
     
     return {
         "current_monthly": current_cost,
@@ -467,6 +471,11 @@ def audit(
     summary_table.add_row("Optimizations Applied", str(applied))
     summary_table.add_row("Optimizations Rejected", str(rejected))
     console.print(summary_table)
+
+    # CI/CD Enforcement: Fail if high-impact issues remain in non-interactive mode
+    if not interactive and any(opt.impact == "HIGH" for opt in issues):
+        console.print("\n[bold red]❌ HIGH IMPACT issues detected. Optimization required for production.[/bold red]")
+        raise typer.Exit(code=1)
 
 if __name__ == "__main__":
     app()

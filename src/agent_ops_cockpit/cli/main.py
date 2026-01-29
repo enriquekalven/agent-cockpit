@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from rich.console import Console
 from rich.panel import Panel
+from rich.table import Table
 import typer
 
 # Deep imports for portable CLI execution
@@ -157,6 +158,74 @@ def deploy(
     subprocess.run(["firebase", "deploy", "--only", "hosting"], check=True)
     
     console.print("\n✅ [bold green]Deployment Complete![/bold green]")
+
+@app.command()
+def email_report(recipient: str = typer.Argument(..., help="Recipient email address")):
+    """
+    Email the latest audit report to a specified address.
+    """
+    console.print(f"📡 [bold blue]Preparing to email audit report to {recipient}...[/bold blue]")
+    from agent_ops_cockpit.ops.orchestrator import CockpitOrchestrator
+    orchestrator = CockpitOrchestrator()
+    # Check if report exists
+    if not os.path.exists("cockpit_final_report.md"):
+        console.print("[red]❌ Error: No audit report found. Run 'agent-ops report' first.[/red]")
+        return
+    
+    orchestrator.send_email_report(recipient)
+
+@app.command()
+def ui_audit(path: str = "src"):
+    """
+    Audit the Face (Frontend) for A2UI alignment and UX safety.
+    """
+    console.print("🎭 [bold blue]Launching Face Auditor...[/bold blue]")
+    from agent_ops_cockpit.ops import ui_auditor as ui_mod
+    ui_mod.audit(path)
+
+@app.command()
+def diagnose():
+    """
+    Diagnose your AgentOps environment for common issues (Env vars, SDKs, Paths).
+    """
+    console.print(Panel.fit("🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS[/bold blue]", border_style="blue"))
+    
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("Check", style="cyan")
+    table.add_column("Status", style="bold")
+    table.add_column("Recommendation", style="dim")
+
+    # 1. Check Vertex AI / Google Cloud
+    try:
+        import google.auth
+        _, project = google.auth.default()
+        table.add_row("GCP Project", f"[green]{project}[/green]", "Active")
+    except Exception:
+        table.add_row("GCP Project", "[red]NOT DETECTED[/red]", "Run 'gcloud auth application-default login'")
+
+    # 2. Check PYTHONPATH
+    pp = os.environ.get("PYTHONPATH", "")
+    if "src" in pp:
+        table.add_row("PYTHONPATH", "[green]OK[/green]", "Source tree visible")
+    else:
+        table.add_row("PYTHONPATH", "[yellow]WARNING[/yellow]", "Run 'export PYTHONPATH=$PYTHONPATH:src'")
+
+    # 3. Check for API Keys in Env
+    keys = ["OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GOOGLE_API_KEY"]
+    found_keys = [k for k in keys if os.environ.get(k)]
+    if found_keys:
+        table.add_row("LLM API Keys", f"[green]FOUND ({len(found_keys)})[/green]", f"Detected: {', '.join([k.split('_')[0] for k in found_keys])}")
+    else:
+        table.add_row("LLM API Keys", "[red]NONE[/red]", "Ensure keys are in .env or exported")
+
+    # 4. Check for A2UI components
+    if os.path.exists("src/a2ui") or os.path.exists("src/backend/agent.py"):
+        table.add_row("Trinity Structure", "[green]VERIFIED[/green]", "Engine/Face folders present")
+    else:
+        table.add_row("Trinity Structure", "[red]MISSING[/red]", "Run from root of AgentOps project")
+
+    console.print(table)
+    console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops report' for a deep audit.[/bold blue]")
 
 @app.command()
 def create(

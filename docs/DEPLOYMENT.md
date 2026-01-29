@@ -83,7 +83,7 @@ We recommend using Cloud Run **Revisions** for canary deployments:
 
 ## 🤖 Automated CI/CD (GitHub Actions)
 
-The AgentOps Cockpit is designed for "Policy-as-Code." Every commit to `main` triggers an automated governance pipeline that ensures your agent never regresses in quality or security.
+The AgentOps Cockpit is designed for "Policy-as-Code." Every commit to `main` triggers an automated governance pipeline that acts as a **Mandatory Blocking Gate**.
 
 ![CI/CD Workflow](/public/cicd-workflow.png)
 

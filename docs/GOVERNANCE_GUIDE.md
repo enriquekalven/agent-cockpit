@@ -42,7 +42,15 @@ We maintain a tamper-proof audit trail for every agent interaction:
 - **Identity mapping**: Attach a unique `AgentID` and `UserID` to every log entry.
 - **Persistence**: Exports logs to BigQuery for long-term governance and compliance reporting.
 
+## 🛑 Enforcement: Blocking Gates
+Governance is only effective if it can prevent regression. The Cockpit now enforces **Mandatory Governance-as-Code**:
+- **Build-Time Audit**: The `Dockerfile` includes a mandatory `RUN` step that executes a `quick` audit. If the agent fails the audit (e.g., hardcoded secrets or architecture violations), the container image will not build.
+- **CI Enforcement**: The GitHub Actions pipeline is configured to fail on audit failures.
+    - **Optimizer**: Fails on **High Impact** cost or performance issues.
+    - **Red Team**: Fails on any successful adversarial injection or safety bypass.
+    - **Secrets**: Fails if any unencrypted credentials are found.
 
+This ensures that every agent deployed to Google Cloud meets the "Well-Architected" standard by design.
 ```bash
 # Run the design review
 make arch-review

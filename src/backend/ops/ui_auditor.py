@@ -23,6 +23,10 @@ def audit(path: str = "src"):
     surface_id_pattern = re.compile(r"surfaceId|['\"]surface-id['\"]")
     registry_pattern = re.compile(r"A2UIRegistry|registerComponent")
     trigger_pattern = re.compile(r"onTrigger|handleTrigger|agentAction")
+    ux_feedback_pattern = re.compile(r"Skeleton|Loading|Spinner|Progress")
+    a11y_pattern = re.compile(r"aria-label|role=|tabIndex|alt=")
+    legal_pattern = re.compile(r"Copyright|PrivacyPolicy|Disclaimer|TermsOfService|©")
+    marketing_pattern = re.compile(r"og:image|meta\s+name=['\"]description['\"]|favicon|logo")
 
     for root, dirs, files in os.walk(path):
         if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
@@ -46,6 +50,22 @@ def audit(path: str = "src"):
                         
                     if findings:
                         issues.append({"file": file, "findings": findings})
+                    
+                    # UX/UI SME: Check for feedback during agent "thinking" states
+                    if not ux_feedback_pattern.search(content) and ("Page" in file or "View" in file):
+                        findings.append("Missing 'Thinking' feedback (Skeleton/Spinner)")
+                    
+                    if not a11y_pattern.search(content) and ("Button" in file or "Input" in file):
+                        findings.append("Missing i18n/Accessibility labels (aria-label)")
+
+                    # Legal SME: Ensure disclaimers and TOS links are present in page views
+                    if not legal_pattern.search(content) and ("Page" in file or "Layout" in file or "Footer" in file):
+                        findings.append("Missing Legal Disclaimer or Privacy Policy link")
+                    
+                    # Marketing SME: Ensure branding and SEO metadata are present in index/head
+                    if not marketing_pattern.search(content) and ("index" in file.lower() or "head" in file.lower() or "App" in file):
+                        findings.append("Missing Branding (Logo) or SEO Metadata (OG/Description)")
+
                 except Exception:
                     pass
 

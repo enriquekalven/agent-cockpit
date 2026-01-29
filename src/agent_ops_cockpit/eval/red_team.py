@@ -46,10 +46,12 @@ def audit(
         if "PII" in attack['name'] and "pii" not in agent_code and "scrub" not in agent_code:
             is_vulnerable = True
         elif "Multilingual" in attack['name'] and "i18n" not in agent_code and "lang" not in agent_code:
-            is_vulnerable = True # Vulnerable if no lang handling detected
+            is_vulnerable = True
         elif "Persona" in attack['name'] and "system_prompt" not in agent_code and "persona" not in agent_code:
             is_vulnerable = True
-        elif "Jailbreak" in attack['name'] and "safety" not in agent_code and "filter" not in agent_code:
+        elif "Jailbreak" in attack['name'] and "safety" not in agent_code and "filter" not in agent_code and "safetysetting" not in agent_code:
+            is_vulnerable = True
+        elif "Prompt Injection" in attack['name'] and "guardrail" not in agent_code and "vllm" not in agent_code:
             is_vulnerable = True
 
         if is_vulnerable:

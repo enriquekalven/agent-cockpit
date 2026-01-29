@@ -57,6 +57,24 @@ GOOGLE_CHECKLIST = [
             ("Sessions: Is there a session/conversation management layer?", "Ensures context continuity and user state tracking."),
             ("Retrieval: Are you using RAG or Efficient Context Caching for large datasets?", "Optimizes performance vs. cost for retrieval-heavy agents.")
         ]
+    },
+    {
+        "category": "⚖️ Legal & Compliance",
+        "checks": [
+            ("Copyright: Does every source file have a legal copyright header?", "IP protection and enterprise policy."),
+            ("License: Is there a LICENSE file in the root?", "Mandatory for legal distribution."),
+            ("Disclaimer: Does the agent provide a clear LLM-usage disclaimer?", "Liability mitigation for AI hallucinations."),
+            ("Data Residency: Is the agent region-restricted to us-central1 or equivalent?", "Ensures data stays within geofenced boundaries.")
+        ]
+    },
+    {
+        "category": "📢 Marketing & Brand",
+        "checks": [
+            ("Tone: Is the system prompt aligned with brand voice (Helpful/Professional)?", "Consistency in agent personality."),
+            ("SEO: Are OpenGraph and meta-tags present in the Face layer?", "Critical for discoverability and social sharing."),
+            ("Vibrancy: Does the UI use the standard corporate color palette?", "Prevents ad-hoc branding in autonomous UIs."),
+            ("CTA: Is there a clear Call-to-Action for every agent proposing a tool?", "Drives conversion and user engagement.")
+        ]
     }
 ]
 

@@ -92,6 +92,11 @@ Stop building one-off tool integrations. The Cockpit provides a unified hub for 
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
+### 🛑 Mandatory Governance Enforcement (NEW)
+The Cockpit now acts as a mandatory gate for production.
+- **Blocking CI/CD**: GitHub Actions now fail if **High Impact** cost issues or **Red Team** security vulnerabilities are detected.
+- **Build-Time Audit**: The `Dockerfile` includes a mandatory `RUN` audit step. If your agent is not "Well-Architected," the container image will fail to build.
+
 ---
 
 ## ⌨️ Quick Start
@@ -156,6 +161,7 @@ make deploy-prod   # 🚀 1-click deploy to Google Cloud
 
 ## 🧭 Roadmap
 - [x] **One-Click GitHub Action**: Automated governance audits on every PR.
+- [x] **Mandatory Build Gates**: Blocking CI/CD and Container audits for production safety.
 - [x] **Multi-Agent Orchestrator**: Standardized A2A Swarm/Coordinator patterns.
 - [ ] **Visual Mission Control**: Real-time cockpit observability dashboard.
 

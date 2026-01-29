@@ -26,8 +26,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.7.0</span>
-          <span className="banner-text">The Multi-Cloud Update: Native support for AWS Bedrock, OCI AI, and MCP registration is here.</span>
+          <span className="banner-tag">NEW v0.8.0</span>
+          <span className="banner-text">The Governance Update: Principal SME Persona Approvals, Legal/Marketing Audits, and PDF Reporting are now active.</span>
           <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function Home() {
               )}
             </a>
             <ThemeToggle />
-            <Link to="/playground" className="nav-cta-btn">Live Preview</Link>
+
           </nav>
         </header>
 
@@ -67,8 +67,8 @@ export function Home() {
               Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents on Google Cloud.
             </p>
             <div className="hero-actions">
-              <Link to="/playground" className="btn-primary">
-                Explore Live Demo
+              <Link to="/docs/getting-started" className="btn-primary">
+                Get Started
                 <ChevronRight size={18} />
               </Link>
               <Link to="/docs/google-architecture" className="btn-secondary">
@@ -126,10 +126,11 @@ export function Home() {
                 </div>
                 <div className="terminal-body">
                   <div className="line terminal-cmd">$ make audit</div>
-                  <div className="line text-blue-400">🕹️ Running Quick Safe-Build...</div>
-                  <div className="line text-green-400">✅ Arch Review: Well-Architected [PASSED]</div>
-                  <div className="line text-yellow-500">⚠ 1 Token Leak Opt found. Applied.</div>
-                  <div className="line text-green-400">✅ Red-Team: No critical breaches.</div>
+                  <div className="line text-blue-400">🕹️ Running Persona-Based Audit...</div>
+                  <div className="line text-green-400">🏛️ Platform SME: APPROVED</div>
+                  <div className="line text-green-400">⚖️ Legal SME: APPROVED</div>
+                  <div className="line text-green-400">💰 FinOps SME: APPROVED</div>
+                  <div className="line text-green-400">🎭 UX SME: APPROVED</div>
                   <div className="line blink">_</div>
                 </div>
               </div>

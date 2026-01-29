@@ -62,28 +62,46 @@ class CockpitOrchestrator:
             progress.update(task_id, description=f"[red]💥 {name} Error", completed=100)
             return name, False
 
+    PERSONA_MAP = {
+        "Architecture Review": "🏛️ Principal Platform Engineer",
+        "Policy Enforcement": "⚖️ Governance & Compliance SME",
+        "Secret Scanner": "🔐 SecOps Principal",
+        "Token Optimization": "💰 FinOps Principal Architect",
+        "Reliability (Quick)": "🛡️ QA & Reliability Principal",
+        "Quality Hill Climbing": "🧗 AI Quality SME",
+        "Red Team Security (Full)": "🚩 Red Team Principal (White-Hat)",
+        "Red Team (Fast)": "🚩 Security Architect",
+        "Load Test (Baseline)": "🚀 SRE & Performance Principal",
+        "Evidence Packing Audit": "📜 Legal & Transparency SME",
+        "Face Auditor": "🎭 UX/UI Principal Designer"
+    }
+
     def generate_report(self):
         title = getattr(self, "title", "Audit Report")
         report = [
-            f"# 🏁 AgentOps Cockpit: {title}",
+            f"# 🕹️ AgentOps Cockpit: {title}",
             f"**Timestamp**: {self.timestamp}",
-            f"**Status**: {'PASS' if all(r['success'] for r in self.results.values()) else 'FAIL'}",
+            f"**Status**: {'✅ PASS' if all(r['success'] for r in self.results.values()) else '❌ FAIL'}",
             "\n---",
-            "\n## 📊 Executive Summary"
+            "\n## 🧑‍💼 Principal SME Persona Approvals",
+            "Each pillar of your agent has been reviewed by a specialized SME persona."
         ]
         
-        summary_table = Table(show_header=True, header_style="bold magenta")
-        summary_table.add_column("Audit Type")
-        summary_table.add_column("Status")
+        persona_table = Table(title="🏛️ Persona Approval Matrix", show_header=True, header_style="bold blue")
+        persona_table.add_column("SME Persona", style="cyan")
+        persona_table.add_column("Audit Module", style="magenta")
+        persona_table.add_column("Verdict", style="bold")
         
         for name, data in self.results.items():
-            status = "✅ PASS" if data["success"] else "❌ FAIL"
-            summary_table.add_row(name, status)
-            report.append(f"- **{name}**: {status}")
- 
-        console.print("\n", summary_table)
+            status = "✅ APPROVED" if data["success"] else "❌ REJECTED"
+            persona = self.PERSONA_MAP.get(name, "👤 Automated Auditor")
+            persona_table.add_row(persona, name, status)
+            # Add to markdown report
+            report.append(f"- **{persona}** ([{name}]): {status}")
+
+        console.print("\n", persona_table)
         
-        report.append("\n## 🔍 Detailed Findings")
+        report.append("\n## 🔍 System Artifacts & Evidence")
         for name, data in self.results.items():
             report.append(f"\n### {name}")
             report.append("```text")
@@ -97,7 +115,121 @@ class CockpitOrchestrator:
         with open(self.report_path, "w") as f:
             f.write("\n".join(report))
         
+        # Also generate a professional HTML report for easy PDF printing
+        self._generate_html_report()
+        
         console.print(f"\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]")
+        console.print(f"📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]")
+
+    def _generate_html_report(self):
+        """Generates a premium HTML version of the report for PDF export."""
+        html_content = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>AgentOps Audit: {getattr(self, 'title', 'Report')}</title>
+            <style>
+                body {{ font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 900px; margin: 0 auto; padding: 40px; }}
+                h1 {{ color: #1e3a8a; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; }}
+                h2 {{ color: #2563eb; margin-top: 40px; }}
+                .status-badge {{ display: inline-block; padding: 8px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }}
+                .pass {{ background: #dcfce7; color: #166534; }}
+                .fail {{ background: #fee2e2; color: #991b1b; }}
+                table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
+                th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #e5e7eb; }}
+                th {{ background: #f8fafc; font-weight: 600; color: #64748b; }}
+                pre {{ background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }}
+                .sme-badge {{ font-size: 0.75rem; color: #64748b; font-weight: 500; }}
+            </style>
+        </head>
+        <body>
+            <h1>🕹️ AgentOps Cockpit: {getattr(self, 'title', 'Report')}</h1>
+            <p><strong>Timestamp</strong>: {self.timestamp}</p>
+            <p><strong>Status</strong>: <span class="status-badge {'pass' if all(r['success'] for r in self.results.values()) else 'fail'}">
+                {'PASSED' if all(r['success'] for r in self.results.values()) else 'FAILED'}
+            </span></p>
+
+            <h2>🧑‍💼 Principal SME Persona Approvals</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SME Persona</th>
+                        <th>Module</th>
+                        <th>Verdict</th>
+                    </tr>
+                </thead>
+                <tbody>
+        """
+        
+        for name, data in self.results.items():
+            persona = self.PERSONA_MAP.get(name, "Automated Auditor")
+            status = "APPROVED" if data["success"] else "REJECTED"
+            html_content += f"""
+                <tr>
+                    <td>{persona}</td>
+                    <td>{name}</td>
+                    <td><span class="status-badge {'pass' if data['success'] else 'fail'}">{status}</span></td>
+                </tr>
+            """
+            
+        html_content += """
+                </tbody>
+            </table>
+            <h2>🔍 Detailed Findings</h2>
+        """
+        
+        for name, data in self.results.items():
+            html_content += f"<h3>{name}</h3><pre>{data['output']}</pre>"
+            
+        html_content += """
+            <hr>
+            <p style="text-align: center; color: #94a3b8; font-size: 0.8rem;">
+                Generated by the AgentOps Cockpit Orchestrator. 
+            </p>
+        </body>
+        </html>
+        """
+        
+        with open("cockpit_report.html", "w") as f:
+            f.write(html_content)
+
+    def send_email_report(self, recipient: str, smtp_server: str = "smtp.gmail.com", port: int = 587):
+        """Sends the markdown report via email."""
+        import smtplib
+        from email.mime.text import MIMEText
+        from email.mime.multipart import MIMEMultipart
+
+        sender_email = os.environ.get("AGENT_OPS_SENDER_EMAIL")
+        sender_password = os.environ.get("AGENT_OPS_SME_TOKEN") # Custom auth token for the cockpit
+
+        if not sender_email or not sender_password:
+             console.print("[red]❌ Email failed: AGENT_OPS_SENDER_EMAIL or AGENT_OPS_SME_TOKEN not set.[/red]")
+             return False
+
+        try:
+            msg = MIMEMultipart()
+            msg['From'] = f"AgentOps Cockpit Audit <{sender_email}>"
+            msg['To'] = recipient
+            msg['Subject'] = f"🏁 Audit Report: {getattr(self, 'title', 'Agent Result')}"
+
+            # Use the markdown as content
+            with open(self.report_path, 'r') as f:
+                content = f.read()
+
+            msg.attach(MIMEText(content, 'plain'))
+
+            server = smtplib.SMTP(smtp_server, port)
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+            server.quit()
+            
+            console.print(f"📧 [bold green]Report emailed successfully to {recipient}![/bold green]")
+            return True
+        except Exception as e:
+            console.print(f"[red]❌ Email failed: {e}[/red]")
+            return False
 
 def run_audit(mode: str = "quick"):
     orchestrator = CockpitOrchestrator()
@@ -136,7 +268,8 @@ def run_audit(mode: str = "quick"):
             ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]),
             ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner"]),
             ("Token Optimization", token_opt_cmd),
-            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"])
+            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"]),
+            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor"])
         ]
 
         # 2. Add "Deep" steps if requested
@@ -166,10 +299,14 @@ def run_audit(mode: str = "quick"):
 
     orchestrator.title = title
     orchestrator.generate_report()
+    
+    # Return True if all steps passed
+    return all(r["success"] for r in orchestrator.results.values())
 
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["quick", "deep"], default="quick")
     args = parser.parse_args()
-    run_audit(mode=args.mode)
+    success = run_audit(mode=args.mode)
+    sys.exit(0 if success else 1)

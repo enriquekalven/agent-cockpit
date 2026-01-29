@@ -17,6 +17,8 @@ help:
 	@echo "  make optimizer-audit           - [CODE] Quick code audit (uvx agentops-cockpit audit --quick)"
 	@echo "  make optimizer-audit-deep      - [CODE] Deep code audit (uvx agentops-cockpit audit)"
 	@echo "  make reliability               - Run unit tests and regression suite"
+	@echo "  make diagnose                  - [DevEx] System health check and env diagnosis"
+	@echo "  make email-report              - [GOV] Email the latest Persona-Approved report"
 	@echo "  make red-team                  - Run adversarial security audit"
 	@echo "  make load-test                 - Run base load test"
 	@echo "  make deploy-prod       - Deploy to production (All Audits -> Cloud Run + Firebase)"
@@ -44,6 +46,10 @@ audit-deep:
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
 	@$(PYTHON) src/backend/ops/reliability.py
+
+# 🩺 Diagnose: DevEx system check
+diagnose:
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main diagnose
 
 # 🔍 The Optimizer: Audit specific agent file for code-level waste
 optimizer-audit:
@@ -114,4 +120,9 @@ watch:
 # 🔌 MCP: Start the Model Context Protocol server
 mcp-serve:
 	@$(PYTHON) src/agent_ops_cockpit/mcp_server.py
+
+# 📧 Reporting: Email the latest audit results
+email-report:
+	@read -p "Enter recipient email: " email; \
+	$(PYTHON) -m agent_ops_cockpit.cli.main email-report $$email
 

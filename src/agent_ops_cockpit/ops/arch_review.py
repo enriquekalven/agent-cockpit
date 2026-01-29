@@ -58,8 +58,8 @@ def audit(path: str = "."):
     console.print(f"Detected Framework: [bold green]{framework_name}[/bold green]")
     console.print(f"Comparing local agent implementation against [bold]{framework_name} Best Practices[/bold]...\n")
 
-    total_checks = sum(len(section["checks"]) for section in checklist)
-    passed_checks = 0
+    total_checks = 0.0
+    passed_checks = 0.0
     current_check_num = 0
 
     with console.status("[bold blue]Scanning architecture...") as status:
@@ -72,7 +72,7 @@ def audit(path: str = "."):
             for check_text, rationale in section["checks"]:
                 current_check_num += 1
                 check_key = check_text.split(":")[0].strip()
-                status.update(f"[bold blue][{current_check_num}/{total_checks}] Checking {check_key}...")
+                status.update(f"[bold blue]Step {current_check_num}: Checking {check_key}...")
                 
                 # Simple heuristic audit: check if certain keywords exist in the code
                 keywords = {
@@ -101,9 +101,30 @@ def audit(path: str = "."):
                     "Reasoning": ["while", "for", "loop", "invoke", "call", "run", "execute", "chain", "agent"],
                     "State": ["memory", "state", "db", "redis", "history", "session", "storage"],
                     "Tools": ["tool", "registry", "dispatcher", "handler", "mcp", "api", "sdk", "client", "connect"],
-                    "Safety": ["filter", "clean", "sanitize", "scrub", "guard"]
+                    "Safety": ["filter", "clean", "sanitize", "scrub", "guard"],
+                    "Shadow Mode": ["shadow", "router", "dual_rollout", "traffic_split", "version_v2"],
+                    "Orchestration": ["swarm", "coordinator", "manager_agent", "supervisor", "orchestrator", "worker_agent"],
+                    "VPC": ["vpc_sc", "service_control", "isolated_network", "private_endpoint"],
+                    "Observability": ["otel", "trace", "span", "telemetry", "opentelemetry", "cloud_trace"],
+                    "Governance": ["policies.json", "hitl", "approval", "policy_engine"],
+                    "Legal": ["copyright", "license", "disclaimer", "data_residency", "privacy", "tos", "terms_of_service"],
+                    "Marketing": ["brand", "tone", "vibrant", "consistent", "seo", "og:image", "description", "cta"]
                 }
                 
+                # Weighting: Security and Core Architecture are more important
+                weights = {
+                    "🏗️": 1.5,
+                    "🛡️": 2.0,
+                    "🎭": 1.0,
+                    "🧗": 1.2,
+                    "📉": 1.3,
+                    "⚖️": 1.8,  # Legal/Compliance
+                    "📢": 0.9   # Marketing/Brand
+                }
+                
+                category_prefix = section["category"][:2]
+                weight = weights.get(category_prefix, 1.0)
+
                 # If any keyword for this check type is found, mark as PASSED
                 matched = False
                 for k, words in keywords.items():
@@ -114,10 +135,11 @@ def audit(path: str = "."):
                 
                 if matched:
                     check_status = "[bold green]PASSED[/bold green]"
-                    passed_checks += 1
+                    passed_checks += weight
                 else:
                     check_status = "[bold red]FAIL[/bold red]"
                 
+                total_checks += weight
                 # time.sleep(0.1) # Simulate deep heuristic scan
                 
                 table.add_row(check_text, check_status, rationale)

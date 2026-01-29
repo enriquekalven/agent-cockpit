@@ -138,6 +138,11 @@ The Cockpit now performs platform-specific performance and security audits for:
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
+### 🛑 Mandatory Governance Enforcement (NEW)
+The Cockpit now acts as a mandatory gate for production.
+- **Blocking CI/CD**: GitHub Actions now fail if **High Impact** cost issues or **Red Team** security vulnerabilities are detected.
+- **Build-Time Audit**: The `Dockerfile` includes a mandatory `RUN` audit step. If your agent is not "Well-Architected," the container image will fail to build.
+
 ---
 
 ## ⌨️ Quick Start
@@ -188,12 +193,23 @@ Development velocity shouldn't sacrifice safety. The new `--quick` mode in the a
 
 ---
 
+### 🧑‍💼 Principal SME Persona Approvals
+The Cockpit now features a **Multi-Persona Governance Board**. Every audit result is framed through the lens of a Principal Engineer in that domain (Security, Legal, FinOps, UX), ensuring your agent is compliant with organizational standards.
+
+### 📄 Export & Reporting
+*   **HTML/PDF Export**: Every audit automatically generates `cockpit_report.html`, a premium, printable report ready for PDF export.
+*   **Email Reports**: Send audit results directly to stakeholders via the CLI.
+
+---
+
 ## 📊 Local Development
 The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
 
 ```bash
-make audit         # 🕹️ Run Master Audit (Quick Safe-Build Mode)
-make audit-deep    # 🚀 Run Deep Audit (Full SDK Evidence & Benchmarks)
+make audit         # 🕹️ Run Master Audit (Persona Approved)
+make audit-deep    # 🚀 Run Deep Audit (Full SME Verdicts)
+make email-report  # 📧 Email the latest result to a stakeholder
+make diagnose      # 🩺 Run environment health check
 make optimizer-audit # 🔍 Run Optimizer on specific agent files
 make reliability   # 🛡️ Run unit tests and regression suite
 make dev           # Start the local Engine + Face stack
@@ -207,6 +223,7 @@ make deploy-prod   # 🚀 1-click deploy to Google Cloud
 
 ## 🧭 Roadmap
 - [x] **One-Click GitHub Action**: Automated governance audits on every PR.
+- [x] **Mandatory Build Gates**: Blocking CI/CD and Container audits for production safety.
 - [x] **Multi-Agent Orchestrator**: Standardized A2A Swarm/Coordinator patterns.
 - [ ] **Visual Mission Control**: Real-time cockpit observability dashboard.
 

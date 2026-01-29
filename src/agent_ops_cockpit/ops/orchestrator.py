@@ -62,28 +62,46 @@ class CockpitOrchestrator:
             progress.update(task_id, description=f"[red]💥 {name} Error", completed=100)
             return name, False
 
+    PERSONA_MAP = {
+        "Architecture Review": "🏛️ Principal Platform Engineer",
+        "Policy Enforcement": "⚖️ Governance & Compliance SME",
+        "Secret Scanner": "🔐 SecOps Principal",
+        "Token Optimization": "💰 FinOps Principal Architect",
+        "Reliability (Quick)": "🛡️ QA & Reliability Principal",
+        "Quality Hill Climbing": "🧗 AI Quality SME",
+        "Red Team Security (Full)": "🚩 Red Team Principal (White-Hat)",
+        "Red Team (Fast)": "🚩 Security Architect",
+        "Load Test (Baseline)": "🚀 SRE & Performance Principal",
+        "Evidence Packing Audit": "📜 Legal & Transparency SME",
+        "Face Auditor": "🎭 UX/UI Principal Designer"
+    }
+
     def generate_report(self):
         title = getattr(self, "title", "Audit Report")
         report = [
-            f"# 🏁 AgentOps Cockpit: {title}",
+            f"# 🕹️ AgentOps Cockpit: {title}",
             f"**Timestamp**: {self.timestamp}",
-            f"**Status**: {'PASS' if all(r['success'] for r in self.results.values()) else 'FAIL'}",
+            f"**Status**: {'✅ PASS' if all(r['success'] for r in self.results.values()) else '❌ FAIL'}",
             "\n---",
-            "\n## 📊 Executive Summary"
+            "\n## 🧑‍💼 Principal SME Persona Approvals",
+            "Each pillar of your agent has been reviewed by a specialized SME persona."
         ]
         
-        summary_table = Table(show_header=True, header_style="bold magenta")
-        summary_table.add_column("Audit Type")
-        summary_table.add_column("Status")
+        persona_table = Table(title="🏛️ Persona Approval Matrix", show_header=True, header_style="bold blue")
+        persona_table.add_column("SME Persona", style="cyan")
+        persona_table.add_column("Audit Module", style="magenta")
+        persona_table.add_column("Verdict", style="bold")
         
         for name, data in self.results.items():
-            status = "✅ PASS" if data["success"] else "❌ FAIL"
-            summary_table.add_row(name, status)
-            report.append(f"- **{name}**: {status}")
- 
-        console.print("\n", summary_table)
+            status = "✅ APPROVED" if data["success"] else "❌ REJECTED"
+            persona = self.PERSONA_MAP.get(name, "👤 Automated Auditor")
+            persona_table.add_row(persona, name, status)
+            # Add to markdown report
+            report.append(f"- **{persona}** ([{name}]): {status}")
+
+        console.print("\n", persona_table)
         
-        report.append("\n## 🔍 Detailed Findings")
+        report.append("\n## 🔍 System Artifacts & Evidence")
         for name, data in self.results.items():
             report.append(f"\n### {name}")
             report.append("```text")
@@ -136,7 +154,8 @@ def run_audit(mode: str = "quick"):
             ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]),
             ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner"]),
             ("Token Optimization", token_opt_cmd),
-            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"])
+            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"]),
+            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor"])
         ]
 
         # 2. Add "Deep" steps if requested
@@ -166,10 +185,14 @@ def run_audit(mode: str = "quick"):
 
     orchestrator.title = title
     orchestrator.generate_report()
+    
+    # Return True if all steps passed
+    return all(r["success"] for r in orchestrator.results.values())
 
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["quick", "deep"], default="quick")
     args = parser.parse_args()
-    run_audit(mode=args.mode)
+    success = run_audit(mode=args.mode)
+    sys.exit(0 if success else 1)

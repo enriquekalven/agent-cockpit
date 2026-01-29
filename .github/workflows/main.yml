@@ -30,12 +30,10 @@ jobs:
       - name: Agent Optimization Audit
         run: |
           make audit
-        continue-on-error: true
 
       - name: Red Team Evaluation
         run: |
           make red-team
-        continue-on-error: true
 
   frontend:
     runs-on: ubuntu-latest

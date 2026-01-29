@@ -40,12 +40,30 @@ class QualityJudge:
 
 async def run_iteration(iteration: int, prompt_variant: str) -> float:
     """Run a single evaluation pass against the golden dataset."""
+    import json
+    dataset = GOLDEN_DATASET
+    if os.path.exists("src/backend/tests/golden_set.json"):
+        try:
+            with open("src/backend/tests/golden_set.json", "r") as f:
+                dataset = json.load(f)
+        except Exception:
+            pass
+
     scores = []
-    for item in GOLDEN_DATASET:
+    for item in dataset:
         # Simulate agent execution
         actual_response = f"Simulated response for: {item['query']}"
-        score = await QualityJudge.score_response(actual_response, item["expected"])
-        scores.append(score)
+        
+        # Tool Trajectory Check: If the query is tool-based, mock a trajectory score
+        trajectory_score = 1.0
+        if item.get("type") == "tool_execution":
+             trajectory_score = random.uniform(0.8, 1.0)
+             
+        match_score = await QualityJudge.score_response(actual_response, item["expected"])
+        
+        # 70% Match Score, 30% Trajectory Score
+        final_score = (match_score * 0.7) + (trajectory_score * 0.3)
+        scores.append(final_score)
     
     avg = sum(scores) / len(scores)
     return avg
