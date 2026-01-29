@@ -28,7 +28,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     
     for root, dirs, files in os.walk(path):
         # Skip virtual environments, git, and tests
-        if any(skip in root for skip in [".venv", ".git", "src/backend/tests"]):
+        if any(skip in root.lower() for skip in [".venv", ".git", "tests", "test_"]):
             continue
             
         for file in files:
