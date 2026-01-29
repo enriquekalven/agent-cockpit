@@ -1,5 +1,3 @@
-import pytest
-import os
 import re
 from src.backend.ops.secret_scanner import SECRET_PATTERNS
 

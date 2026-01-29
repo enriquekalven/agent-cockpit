@@ -1,5 +1,5 @@
 import re
-from typing import Dict, Any, List
+from typing import Dict, Any
 from rich.console import Console
 
 console = Console()

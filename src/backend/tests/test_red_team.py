@@ -1,4 +1,3 @@
-import pytest
 from typer.testing import CliRunner
 from src.backend.eval.red_team import app
 

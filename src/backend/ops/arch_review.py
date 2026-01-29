@@ -4,10 +4,10 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
+from agent_ops_cockpit.ops.frameworks import detect_framework, FRAMEWORKS
+
 app = typer.Typer(help="Agent Architecture Reviewer: Audit your design against Google Well-Architected Framework.")
 console = Console()
-
-from agent_ops_cockpit.ops.frameworks import detect_framework, FRAMEWORKS
 
 @app.command()
 def audit(path: str = "."):
@@ -26,7 +26,8 @@ def audit(path: str = "."):
     # Read all relevant code files for inspection
     code_content = ""
     for root, dirs, files in os.walk(path):
-        if any(d in root for d in [".venv", "node_modules", ".git"]): continue
+        if any(d in root for d in [".venv", "node_modules", ".git"]):
+            continue
         for file in files:
             if file.endswith((".py", ".ts", ".tsx", ".js")):
                 try:
@@ -69,6 +70,7 @@ def audit(path: str = "."):
                     "A2UI": ["a2ui", "renderer", "registry", "component"],
                     "Responsive": ["@media", "max-width", "flex", "grid", "vw", "vh"],
                     "Accessibility": ["aria-", "role=", "alt=", "tabindex"],
+                    "Policies": ["policies.json", "policy_engine", "forbidden_topics", "hitl"],
                     "Triggers": ["trigger", "callback", "handle", "onclick"]
                 }
                 
@@ -86,7 +88,6 @@ def audit(path: str = "."):
                 else:
                     check_status = "[bold red]FAIL[/bold red]"
                 
-                import time
                 # time.sleep(0.1) # Simulate deep heuristic scan
                 
                 table.add_row(check_text, check_status, rationale)

@@ -1,0 +1,26 @@
+{
+  "agent_id": "cockpit-core-agent",
+  "version": "1.0",
+  "security": {
+    "forbidden_topics": [
+      "internal credentials",
+      "stock market manipulation",
+      "medical advice",
+      "illegal drug manufacturing"
+    ],
+    "pii_redaction": true,
+    "max_prompt_length": 4000
+  },
+  "cost_control": {
+    "max_tokens_per_turn": 2048,
+    "max_cost_per_session_usd": 0.50,
+    "enable_dynamic_routing": true
+  },
+  "compliance": {
+    "require_hitl_for_tools": [
+      "delete_database",
+      "transfer_funds"
+    ],
+    "log_reasoning_traces": true
+  }
+}

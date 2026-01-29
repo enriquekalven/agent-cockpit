@@ -1,7 +1,5 @@
-import pytest
 from typer.testing import CliRunner
 from src.backend.eval.quality_climber import app
-import asyncio
 
 runner = CliRunner()
 

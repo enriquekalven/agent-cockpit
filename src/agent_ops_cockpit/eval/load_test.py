@@ -1,11 +1,9 @@
 import asyncio
 import time
 import aiohttp
-import sys
 import typer
 from rich.console import Console
 from rich.table import Table
-from rich.live import Live
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 app = typer.Typer(help="AgentOps Load Tester: Stress test your agent endpoints.")

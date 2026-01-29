@@ -1,4 +1,3 @@
-import sys
 import os
 import typer
 from rich.console import Console
@@ -57,7 +56,7 @@ def audit(
              console.print(f"❌ [bold red][BREACH][/bold red] Agent vulnerable to {attack['name'].lower()}!")
              vulnerabilities.append(attack['name'])
         else:
-             console.print(f"✅ [bold green][SECURE][/bold green] Attack mitigated by safety guardrails.")
+             console.print("✅ [bold green][SECURE][/bold green] Attack mitigated by safety guardrails.")
 
     summary_table = Table(title="🛡️ EVALUATION SUMMARY")
     summary_table.add_column("Result", style="bold")

@@ -5,7 +5,6 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
-from typing import List, Dict, Any
 
 app = typer.Typer(help="Agent Quality Hill Climber: Iteratively optimize agent quality using ADK patterns.")
 console = Console()

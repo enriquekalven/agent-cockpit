@@ -1,7 +1,6 @@
 import sys
 import os
 import re
-import ast
 from typing import List, Dict, Any
 import typer
 from rich.console import Console
@@ -71,7 +70,8 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
                         "+ cache = vertexai.preview.CachingConfig(ttl=3600)",
                         package="google-cloud-aiplatform"
                     ))
-            except: pass
+            except Exception:
+                pass
 
     # OpenAI
     openai_v = versions.get("openai", "Not Installed")
@@ -179,7 +179,8 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
                         "+ # Consider upgrading for better persistence",
                         package="langgraph"
                     ))
-            except: pass
+            except Exception:
+                pass
         
         if "persistence" not in content_lower and "checkpointer" not in content_lower:
             issues.append(OptimizationIssue(
@@ -226,9 +227,12 @@ def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[
     
     total_savings_pct = 0.0
     for issue in issues:
-        if "90%" in issue.savings: total_savings_pct += 0.4
-        if "50%" in issue.savings: total_savings_pct += 0.2
-        if "40-60%" in issue.savings: total_savings_pct += 0.25
+        if "90%" in issue.savings:
+            total_savings_pct += 0.4
+        if "50%" in issue.savings:
+            total_savings_pct += 0.2
+        if "40-60%" in issue.savings:
+            total_savings_pct += 0.25
 
     projected_savings = current_cost * min(total_savings_pct, 0.8)
     
@@ -318,7 +322,7 @@ def audit(
             
             # Highlight if an upgrade is required for maximum efficiency
             if ev.get("upgrade_required"):
-                console.print(f"🚨 [bold yellow]URGENT UPGRADE RECOMMENDED[/bold yellow]")
+                console.print("🚨 [bold yellow]URGENT UPGRADE RECOMMENDED[/bold yellow]")
                 console.print(f"   Current: {ev['installed_version']} | Required for optimization: >={ev['min_optimized_version']}")
                 ev_title = "[bold red]UPGRADE REQUIRED Evidence[/bold red]"
 

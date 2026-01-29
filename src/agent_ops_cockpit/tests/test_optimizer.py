@@ -1,4 +1,3 @@
-import pytest
 from src.backend.optimizer import analyze_code
 
 def test_analyze_openai_missing_cache():

@@ -102,19 +102,26 @@ The Cockpit is available as a first-class CLI on PyPI.
 # 1. Install the Cockpit globally
 pip install agentops-cockpit
 
-# 2. Audit your existing agent design
-agent-ops arch-review
+# 2. Run Global Audit (Produces unified report)
+agent-ops report --mode quick        # ⚡ Quick Safe-Build
+agent-ops report --mode deep         # 🚀 Full System Audit
 
-# 3. Stress test your endpoint
+# 3. Audit a specific agent file for waste
+agent-ops audit agent.py --quick     # 🔍 Fast code optimization
+
+# 4. Stress test your endpoint
 agent-ops load-test --requests 100 --concurrency 10
-
-# 4. Scaffold a new Well-Architected app
-agent-ops create my-agent --ui a2ui
 ```
 
 You can also use `uvx` for one-off commands without installation:
 ```bash
-uvx agentops-cockpit arch-review
+# Unified Master Audit (Master Orchestrator)
+uvx agentops-cockpit report --mode quick
+uvx agentops-cockpit report --mode deep
+
+# Individual Code Optimizer
+uvx agentops-cockpit audit agent.py --quick
+uvx agentops-cockpit audit agent.py
 ```
 
 ---

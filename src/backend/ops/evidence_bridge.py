@@ -61,7 +61,8 @@ def get_package_evidence(package_name: str) -> Dict[str, Any]:
 
     # Flatten categories to find the package
     for cat_name, cat in watchlist.items():
-        if cat_name == "compatibility_rules": continue
+        if cat_name == "compatibility_rules":
+            continue
         for name, info in cat.items():
             if info.get("package") == package_name or name == package_name:
                 latest = fetch_latest_from_atom(info["feed"])
@@ -73,7 +74,8 @@ def get_package_evidence(package_name: str) -> Dict[str, Any]:
                     try:
                         if version.parse(installed) < version.parse(min_v):
                             upgrade_required = True
-                    except: pass
+                    except Exception:
+                        pass
 
                 return {
                     "package": package_name,

@@ -47,7 +47,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                                         "type": secret_name,
                                         "content": line.strip()[:50] + "..."
                                     })
-                except Exception as e:
+                except Exception:
                     continue
 
     table = Table(title="🛡️ Security Findings: Hardcoded Secrets")

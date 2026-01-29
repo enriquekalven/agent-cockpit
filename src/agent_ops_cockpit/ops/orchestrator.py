@@ -1,13 +1,11 @@
 import os
 import sys
 import subprocess
-import time
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from rich.live import Live
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskID
 
 console = Console()
@@ -128,6 +126,7 @@ def run_audit(mode: str = "quick"):
 
         steps = [
             ("Architecture Review", [sys.executable, "-m", "backend.ops.arch_review"]),
+            ("Policy Enforcement", [sys.executable, "-m", "backend.ops.policy_engine"]),
             ("Secret Scanner", [sys.executable, "-m", "backend.ops.secret_scanner"]),
             ("Token Optimization", token_opt_cmd),
             ("Reliability (Quick)", [sys.executable, "-m", "backend.ops.reliability", "--quick"])

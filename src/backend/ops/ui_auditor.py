@@ -46,7 +46,7 @@ def audit(path: str = "src"):
                         
                     if findings:
                         issues.append({"file": file, "findings": findings})
-                except:
+                except Exception:
                     pass
 
     console.print(f"📝 Scanned [bold]{files_scanned}[/bold] frontend files.")

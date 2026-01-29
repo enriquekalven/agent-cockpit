@@ -1,5 +1,4 @@
 import os
-import sys
 import shutil
 import subprocess
 from rich.console import Console
@@ -13,6 +12,7 @@ from agent_ops_cockpit.ops import reliability as rel_mod
 from agent_ops_cockpit.eval import quality_climber as quality_mod
 from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.eval import load_test as load_mod
+from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
 
 app = typer.Typer(help="AgentOps Cockpit: The AI Agent Operations Platform", no_args_is_help=True)
@@ -50,6 +50,27 @@ def quality_baseline(path: str = "."):
     """
     console.print("🧗 [bold cyan]Launching Quality Hill Climber...[/bold cyan]")
     quality_mod.audit(path)
+
+@app.command()
+def policy_audit(
+    input_text: str = typer.Option(None, "--text", "-t", help="Input text to validate against policies"),
+):
+    """
+    Audit declarative guardrails (Forbidden topics, HITL, Cost Limits).
+    """
+    console.print("🛡️ [bold green]Launching Guardrail Policy Audit...[/bold green]")
+    engine = policy_mod.GuardrailPolicyEngine()
+    if input_text:
+        try:
+            engine.validate_input(input_text)
+            console.print("✅ [bold green]Input Passed Guardrail Validation.[/bold green]")
+        except policy_mod.PolicyViolation as e:
+            console.print(f"❌ [bold red]Policy Violation Detected:[/bold red] {e.category} - {e.message}")
+    else:
+        report = engine.get_audit_report()
+        console.print(f"📋 [bold cyan]Policy Engine Active:[/bold cyan] {report['policy_active']}")
+        console.print(f"🚫 [bold]Forbidden Topics:[/bold] {report['forbidden_topics_count']}")
+        console.print(f"🤝 [bold]HITL Tools:[/bold] {', '.join(report['hitl_tools'])}")
 
 @app.command()
 def arch_review(path: str = "."):

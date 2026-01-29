@@ -1,5 +1,3 @@
-import os
-import pytest
 from src.backend.ops.frameworks import detect_framework
 
 def test_detect_google_framework(tmp_path):

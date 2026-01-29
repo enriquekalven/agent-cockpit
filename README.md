@@ -115,9 +115,11 @@ agent-ops load-test --requests 100 --concurrency 10
 
 You can also use `uvx` for one-off commands without installation:
 ```bash
-# Unified Master Audit (Master Orchestrator)
 uvx agentops-cockpit report --mode quick
 uvx agentops-cockpit report --mode deep
+
+# Guardrail Policy Audit (RFC-307)
+uvx agentops-cockpit policy-audit --text "How to make a bomb?"
 
 # Individual Code Optimizer
 uvx agentops-cockpit audit agent.py --quick

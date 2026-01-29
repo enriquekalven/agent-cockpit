@@ -3,8 +3,9 @@ import os
 import urllib.request
 import xml.etree.ElementTree as ET
 import re
+import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, Optional
 import importlib.metadata
 from packaging import version
 from rich.console import Console
@@ -47,7 +48,7 @@ def fetch_latest_from_atom(url: str) -> Optional[Dict[str, str]]:
                     "date": updated,
                     "title": title
                 }
-    except Exception as e:
+    except Exception:
         # console.print(f"[dim red]Error fetching {url}: {e}[/dim red]")
         return None
     return None
@@ -87,12 +88,14 @@ def run_watch():
                 if local_v_raw and local_v_raw != "Not Installed":
                     try:
                         is_outdated = version.parse(latest_v) > version.parse(local_v_raw)
-                    except:
+                    except Exception:
                         is_outdated = latest_v > local_v_raw
 
                 status = "🚨 [bold red]UPDATE[/bold red]" if is_outdated else "✅ [green]OK[/green]"
-                if local_v == "Not Installed": status = "➕ [dim]NEW[/dim]"
-                if package is None: status = "🌐 [blue]SPEC[/blue]"
+                if local_v == "Not Installed":
+                    status = "➕ [dim]NEW[/dim]"
+                if package is None:
+                    status = "🌐 [blue]SPEC[/blue]"
 
                 display_local = local_v if local_v != "Not Installed" else "[dim]Not Installed[/dim]"
                 table.add_row(

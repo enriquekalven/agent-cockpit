@@ -1,6 +1,5 @@
 import os
 import re
-from typing import Dict, List, Any
 
 # --- CHECKLISTS ---
 
@@ -19,7 +18,8 @@ GOOGLE_CHECKLIST = [
         "checks": [
             ("PII: Is a scrubber active before sending data to LLM?", "Compliance requirement (GDPR/SOC2)."),
             ("Identity: Is IAM used for tool access?", "Ensures least-privilege security."),
-            ("Safety: Are Vertex AI Safety Filters configured?", "Protects against toxic generation.")
+            ("Safety: Are Vertex AI Safety Filters configured?", "Protects against toxic generation."),
+            ("Policies: Is 'policies.json' used for declarative guardrails?", "Enforces RFC-307 standards for forbidden topics and tool HITL.")
         ]
     },
     {

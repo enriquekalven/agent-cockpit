@@ -1,5 +1,3 @@
-import pytest
-import os
 from typer.testing import CliRunner
 from src.backend.ops.arch_review import app
 

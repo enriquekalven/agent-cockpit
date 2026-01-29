@@ -1,6 +1,7 @@
 import asyncio
 import json
 import uuid
+import os
 from typing import Dict, Any, Callable
 from datetime import datetime
 
@@ -71,5 +72,3 @@ class ShadowRouter:
         os.makedirs("traces", exist_ok=True)
         with open(f"traces/{data['traceId']}.json", "w") as f:
             json.dump(data, f)
-
-import os
