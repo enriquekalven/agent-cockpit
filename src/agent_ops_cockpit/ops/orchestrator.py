@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import subprocess
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -10,12 +11,13 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskID
 
 console = Console()
 
+
 class CockpitOrchestrator:
     """
     Main orchestrator for AgentOps audits.
     Optimized for concurrency and real-time progress visibility.
     """
-    
+
     def __init__(self):
         self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.report_path = "cockpit_final_report.md"
@@ -26,42 +28,74 @@ class CockpitOrchestrator:
     def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID):
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f"[cyan]Running {name}...")
-        
+
         # Use absolute path for the cockpit source code
-        cockpit_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        cockpit_root = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
         env = os.environ.copy()
         env["PYTHONPATH"] = f"{cockpit_root}{os.pathsep}{env.get('PYTHONPATH', '')}"
-        
+
         try:
-            # We use Popen to potentially stream output if we wanted, 
+            # We use Popen to potentially stream output if we wanted,
             # but for now we'll just run it and capture.
             process = subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                env=env
+                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env
             )
-            
+
             stdout, stderr = process.communicate()
             success = process.returncode == 0
-            
+
             output = stdout if success else f"{stdout}\n{stderr}"
-            self.results[name] = {
-                "success": success,
-                "output": output
-            }
-            
+            self.results[name] = {"success": success, "output": output}
+
             if success:
                 progress.update(task_id, description=f"[green]✅ {name}", completed=100)
             else:
-                progress.update(task_id, description=f"[red]❌ {name} Failed", completed=100)
-                
+                progress.update(
+                    task_id, description=f"[red]❌ {name} Failed", completed=100
+                )
+
             return name, success
         except Exception as e:
             self.results[name] = {"success": False, "output": str(e)}
             progress.update(task_id, description=f"[red]💥 {name} Error", completed=100)
             return name, False
+
+    def save_to_evidence_lake(self, target_path: str):
+        """
+        Centralizes audit results into a unified 'Evidence Lake' for enterprise tracking.
+        """
+        lake_path = "evidence_lake.json"
+        entry_id = os.path.abspath(target_path)
+
+        fleet_data = {}
+        if os.path.exists(lake_path):
+            try:
+                with open(lake_path, "r") as f:
+                    fleet_data = json.load(f)
+            except Exception:
+                pass
+
+        # Add historical delta tracking
+        previous_score = fleet_data.get(entry_id, {}).get("summary", {}).get("score", 0)
+
+        fleet_data[entry_id] = {
+            "timestamp": self.timestamp,
+            "results": self.results,
+            "summary": {
+                "passed": all(r["success"] for r in self.results.values()),
+                "health": sum(1 for r in self.results.values() if r["success"])
+                / len(self.results)
+                if self.results
+                else 0,
+                "improvement_delta": previous_score,  # Placeholder for more complex delta logic
+            },
+        }
+
+        with open(lake_path, "w") as f:
+            json.dump(fleet_data, f, indent=2)
+        print(f"📜 [EVIDENCE LAKE] Centralized log updated for {target_path}")
 
     PERSONA_MAP = {
         "Architecture Review": "🏛️ Principal Platform Engineer",
@@ -74,7 +108,7 @@ class CockpitOrchestrator:
         "Red Team (Fast)": "🚩 Security Architect",
         "Load Test (Baseline)": "🚀 SRE & Performance Principal",
         "Evidence Packing Audit": "📜 Legal & Transparency SME",
-        "Face Auditor": "🎭 UX/UI Principal Designer"
+        "Face Auditor": "🎭 UX/UI Principal Designer",
     }
 
     def generate_report(self):
@@ -85,23 +119,51 @@ class CockpitOrchestrator:
             f"**Status**: {'✅ PASS' if all(r['success'] for r in self.results.values()) else '❌ FAIL'}",
             "\n---",
             "\n## 🧑‍💼 Principal SME Persona Approvals",
-            "Each pillar of your agent has been reviewed by a specialized SME persona."
+            "Each pillar of your agent has been reviewed by a specialized SME persona.",
         ]
-        
-        persona_table = Table(title="🏛️ Persona Approval Matrix", show_header=True, header_style="bold blue")
+
+        persona_table = Table(
+            title="🏛️ Persona Approval Matrix",
+            show_header=True,
+            header_style="bold blue",
+        )
         persona_table.add_column("SME Persona", style="cyan")
         persona_table.add_column("Audit Module", style="magenta")
         persona_table.add_column("Verdict", style="bold")
-        
+
         # Collect developer actions and sources
         developer_actions = []
         developer_sources = []
+
+        # Maturity Delta Logic
+        lake_path = "evidence_lake.json"
+        improvement_delta = 0
+        fleet_data = {}
+        target_abs = os.path.abspath(getattr(self, "target_path", "."))
+
+        if os.path.exists(lake_path):
+            try:
+                with open(lake_path, "r") as f:
+                    fleet_data = json.load(f)
+                    historical = fleet_data.get(target_abs, {}).get("summary", {})
+                    prev_health = historical.get("health", 0) * 100
+                    current_health = (
+                        sum(1 for r in self.results.values() if r["success"])
+                        / len(self.results)
+                        * 100
+                        if self.results
+                        else 0
+                    )
+                    improvement_delta = current_health - prev_health
+            except Exception:
+                pass
+
         for name, data in self.results.items():
             status = "✅ APPROVED" if data["success"] else "❌ REJECTED"
-            persona = self.PERSONA_MAP.get(name, "👤 Automated Auditor")
+            persona = self.PERSONA_MAP.get(name, "💼 SME")
             persona_table.add_row(persona, name, status)
             report.append(f"- **{persona}** ([{name}]): {status}")
-            
+
             # Parse outputs
             if data["output"]:
                 for line in data["output"].split("\n"):
@@ -114,7 +176,9 @@ class CockpitOrchestrator:
 
         if developer_actions:
             report.append("\n## 🛠️ Developer Action Plan")
-            report.append("The following specific fixes are required to achieve a passing 'Well-Architected' score.")
+            report.append(
+                "The following specific fixes are required to achieve a passing 'Well-Architected' score."
+            )
             report.append("| File:Line | Issue | Recommended Fix |")
             report.append("| :--- | :--- | :--- |")
             for action in developer_actions:
@@ -124,13 +188,19 @@ class CockpitOrchestrator:
 
         if developer_sources:
             report.append("\n## 📜 Evidence Bridge: Research & Citations")
-            report.append("Cross-verified architectural patterns and SDK best-practices mapped to official cloud standards.")
-            report.append("| Knowledge Pillar | SDK/Pattern Citation | Evidence & Best Practice |")
+            report.append(
+                "Cross-verified architectural patterns and SDK best-practices mapped to official cloud standards."
+            )
+            report.append(
+                "| Knowledge Pillar | SDK/Pattern Citation | Evidence & Best Practice |"
+            )
             report.append("| :--- | :--- | :--- |")
             for source in developer_sources:
                 parts = source.split(" | ")
                 if len(parts) == 3:
-                    report.append(f"| {parts[0]} | [Source Citation]({parts[1]}) | {parts[2]} |")
+                    report.append(
+                        f"| {parts[0]} | [Source Citation]({parts[1]}) | {parts[2]} |"
+                    )
 
         report.append("\n## 🔍 Raw System Artifacts")
         for name, data in self.results.items():
@@ -140,16 +210,36 @@ class CockpitOrchestrator:
             report.append("```")
 
         report.append("\n---")
-        report.append("\n*Generated by the AgentOps Cockpit Orchestrator (Parallelized Edition).*")
-        
+        report.append(
+            "\n*Generated by the AgentOps Cockpit Orchestrator (Parallelized Edition).*"
+        )
+
         with open(self.report_path, "w") as f:
             f.write("\n".join(report))
-        
+
         # Also generate a professional HTML report
         self._generate_html_report(developer_actions, developer_sources)
-        
-        console.print(f"\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]")
-        console.print(f"📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]")
+        if improvement_delta > 0:
+            console.print(
+                f"📈 [bold green]Maturity Velocity:[/bold green] +{improvement_delta:.1f}% improvement since last audit!"
+            )
+            report.append(
+                f"### 📈 Maturity Velocity: +{improvement_delta:.1f}% Improvement"
+            )
+        elif improvement_delta < 0:
+            console.print(
+                f"📉 [bold red]Maturity Delta:[/bold red] {improvement_delta:.1f}% reduction in compliance."
+            )
+            report.append(f"### 📉 Maturity Delta: {improvement_delta:.1f}% Reduction")
+
+        console.print("\n")
+        console.print(
+            Panel(
+                f"📄 [bold blue]Final Report generated at {self.report_path}[/bold blue]\n"
+                f"📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]",
+                border_style="green",
+            )
+        )
 
     def _generate_html_report(self, developer_actions, developer_sources):
         """Generates a premium HTML version of the report with Kokpi mascot."""
@@ -158,7 +248,7 @@ class CockpitOrchestrator:
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>AgentOps Audit: {getattr(self, 'title', 'Report')}</title>
+            <title>AgentOps Audit: {getattr(self, "title", "Report")}</title>
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
                 body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f1f5f9; }}
@@ -189,9 +279,9 @@ class CockpitOrchestrator:
                 <header>
                     <div>
                         <h1>🕹️ AgentOps Cockpit</h1>
-                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Report: {getattr(self, 'title', 'Build Audit')}</p>
-                        <span class="status-badge {'pass' if all(r['success'] for r in self.results.values()) else 'fail'}">
-                            {'PASSED' if all(r['success'] for r in self.results.values()) else 'FAILED'}
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Report: {getattr(self, "title", "Build Audit")}</p>
+                        <span class="status-badge {"pass" if all(r["success"] for r in self.results.values()) else "fail"}">
+                            {"PASSED" if all(r["success"] for r in self.results.values()) else "FAILED"}
                         </span>
                     </div>
                     <div class="mascot-container">
@@ -213,7 +303,7 @@ class CockpitOrchestrator:
                     </thead>
                     <tbody>
         """
-        
+
         for name, data in self.results.items():
             persona = self.PERSONA_MAP.get(name, "Automated Auditor")
             status = "APPROVED" if data["success"] else "REJECTED"
@@ -221,10 +311,10 @@ class CockpitOrchestrator:
                 <tr>
                     <td>{persona}</td>
                     <td>{name}</td>
-                    <td><span class="status-badge {'pass' if data['success'] else 'fail'}">{status}</span></td>
+                    <td><span class="status-badge {"pass" if data["success"] else "fail"}">{status}</span></td>
                 </tr>
             """
-            
+
         html_content += """
                     </tbody>
                 </table>
@@ -283,10 +373,10 @@ class CockpitOrchestrator:
         html_content += """
                 <h2>🔍 Audit Evidence</h2>
         """
-        
+
         for name, data in self.results.items():
             html_content += f"<h3>{name}</h3><pre>{data['output']}</pre>"
-            
+
         html_content += """
                 <div class="footer">
                     Generated by AgentOps Cockpit Orchestrator v0.9.0. 
@@ -297,58 +387,75 @@ class CockpitOrchestrator:
         </html>
         """
 
-        
         with open("cockpit_report.html", "w") as f:
             f.write(html_content)
 
-    def send_email_report(self, recipient: str, smtp_server: str = "smtp.gmail.com", port: int = 587):
+    def send_email_report(
+        self, recipient: str, smtp_server: str = "smtp.gmail.com", port: int = 587
+    ):
         """Sends the markdown report via email."""
         import smtplib
         from email.mime.text import MIMEText
         from email.mime.multipart import MIMEMultipart
 
         sender_email = os.environ.get("AGENT_OPS_SENDER_EMAIL")
-        sender_password = os.environ.get("AGENT_OPS_SME_TOKEN") # Custom auth token for the cockpit
+        sender_password = os.environ.get(
+            "AGENT_OPS_SME_TOKEN"
+        )  # Custom auth token for the cockpit
 
         if not sender_email or not sender_password:
-             console.print("[red]❌ Email failed: AGENT_OPS_SENDER_EMAIL or AGENT_OPS_SME_TOKEN not set.[/red]")
-             return False
+            console.print(
+                "[red]❌ Email failed: AGENT_OPS_SENDER_EMAIL or AGENT_OPS_SME_TOKEN not set.[/red]"
+            )
+            return False
 
         try:
             msg = MIMEMultipart()
-            msg['From'] = f"AgentOps Cockpit Audit <{sender_email}>"
-            msg['To'] = recipient
-            msg['Subject'] = f"🏁 Audit Report: {getattr(self, 'title', 'Agent Result')}"
+            msg["From"] = f"AgentOps Cockpit Audit <{sender_email}>"
+            msg["To"] = recipient
+            msg["Subject"] = (
+                f"🏁 Audit Report: {getattr(self, 'title', 'Agent Result')}"
+            )
 
             # Use the markdown as content
-            with open(self.report_path, 'r') as f:
+            with open(self.report_path, "r") as f:
                 content = f.read()
 
-            msg.attach(MIMEText(content, 'plain'))
+            msg.attach(MIMEText(content, "plain"))
 
             server = smtplib.SMTP(smtp_server, port)
             server.starttls()
             server.login(sender_email, sender_password)
             server.send_message(msg)
             server.quit()
-            
-            console.print(f"📧 [bold green]Report emailed successfully to {recipient}![/bold green]")
+
+            console.print(
+                f"📧 [bold green]Report emailed successfully to {recipient}![/bold green]"
+            )
             return True
         except Exception as e:
             console.print(f"[red]❌ Email failed: {e}[/red]")
             return False
 
-def run_audit(mode: str = "quick", target_path: str = "."):
+
+def run_audit(
+    mode: str = "quick", target_path: str = ".", title: str = "QUICK SAFE-BUILD"
+):
     orchestrator = CockpitOrchestrator()
-    target_path = os.path.abspath(target_path)
-    
-    title = "QUICK SAFE-BUILD" if mode == "quick" else "DEEP SYSTEM AUDIT"
-    subtitle = "Essential checks for dev-velocity" if mode == "quick" else "Full benchmarks & stress-testing"
-    
-    console.print(Panel.fit(
-        f"🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...",
-        border_style="blue"
-    ))
+    orchestrator.target_path = target_path
+
+    subtitle = (
+        "Essential checks for dev-velocity"
+        if mode == "quick"
+        else "Deep production-readiness audit"
+    )
+
+    console.print(
+        Panel.fit(
+            f"🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...",
+            border_style="blue",
+        )
+    )
 
     with Progress(
         SpinnerColumn(),
@@ -356,62 +463,228 @@ def run_audit(mode: str = "quick", target_path: str = "."):
         BarColumn(bar_width=None),
         TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
         console=console,
-        expand=True
+        expand=True,
     ) as progress:
-        
         # Use the consolidated package
         base_mod = "agent_ops_cockpit"
 
         # 1. Essential "Safe-Build" Steps (Fast)
-        token_opt_cmd = [sys.executable, "-m", f"{base_mod}.optimizer", target_path, "--no-interactive"]
+        token_opt_cmd = [
+            sys.executable,
+            "-m",
+            f"{base_mod}.optimizer",
+            target_path,
+            "--no-interactive",
+        ]
         if mode == "quick":
             token_opt_cmd.append("--quick")
 
         steps = [
-            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review", "--path", target_path]),
-            ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]), # Policy is global to cockpit
-            ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner", target_path]),
+            (
+                "Architecture Review",
+                [
+                    sys.executable,
+                    "-m",
+                    f"{base_mod}.ops.arch_review",
+                    "--path",
+                    target_path,
+                ],
+            ),
+            (
+                "Policy Enforcement",
+                [sys.executable, "-m", f"{base_mod}.ops.policy_engine"],
+            ),  # Policy is global to cockpit
+            (
+                "Secret Scanner",
+                [sys.executable, "-m", f"{base_mod}.ops.secret_scanner", target_path],
+            ),
             ("Token Optimization", token_opt_cmd),
-            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick", "--path", target_path]),
-            ("Face Auditor", [sys.executable, "-m", f"{base_mod}.ops.ui_auditor", "--path", target_path])
+            (
+                "Reliability (Quick)",
+                [
+                    sys.executable,
+                    "-m",
+                    f"{base_mod}.ops.reliability",
+                    "--quick",
+                    "--path",
+                    target_path,
+                ],
+            ),
+            (
+                "Face Auditor",
+                [
+                    sys.executable,
+                    "-m",
+                    f"{base_mod}.ops.ui_auditor",
+                    "--path",
+                    target_path,
+                ],
+            ),
         ]
 
         # 2. Add "Deep" steps if requested
         if mode == "deep":
-            steps.extend([
-                ("Quality Hill Climbing", [sys.executable, "-m", f"{base_mod}.eval.quality_climber", "--steps", "10"]),
-                ("Red Team Security (Full)", [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path]),
-                ("Load Test (Baseline)", [sys.executable, "-m", f"{base_mod}.eval.load_test", "--requests", "50", "--concurrency", "5"]),
-                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review", "--path", target_path])
-            ])
+            steps.extend(
+                [
+                    (
+                        "Quality Hill Climbing",
+                        [
+                            sys.executable,
+                            "-m",
+                            f"{base_mod}.eval.quality_climber",
+                            "--steps",
+                            "10",
+                        ],
+                    ),
+                    (
+                        "Red Team Security (Full)",
+                        [
+                            sys.executable,
+                            "-m",
+                            f"{base_mod}.eval.red_team",
+                            target_path,
+                        ],
+                    ),
+                    (
+                        "Load Test (Baseline)",
+                        [
+                            sys.executable,
+                            "-m",
+                            f"{base_mod}.eval.load_test",
+                            "--requests",
+                            "50",
+                            "--concurrency",
+                            "5",
+                        ],
+                    ),
+                    (
+                        "Evidence Packing Audit",
+                        [
+                            sys.executable,
+                            "-m",
+                            f"{base_mod}.ops.arch_review",
+                            "--path",
+                            target_path,
+                        ],
+                    ),
+                ]
+            )
         else:
             # Quick mode still needs a fast security check
-            steps.append(("Red Team (Fast)", [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path]))
-        
+            steps.append(
+                (
+                    "Red Team (Fast)",
+                    [sys.executable, "-m", f"{base_mod}.eval.red_team", target_path],
+                )
+            )
+
         # Add tasks to progress bar
-        tasks = {name: progress.add_task(f"[white]Waiting: {name}", total=100) for name, cmd in steps}
-        
+        tasks = {
+            name: progress.add_task(f"[white]Waiting: {name}", total=100)
+            for name, cmd in steps
+        }
+
         # Execute in parallel
         with ThreadPoolExecutor(max_workers=len(steps)) as executor:
             future_to_audit = {
-                executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name]): name 
+                executor.submit(
+                    orchestrator.run_command, name, cmd, progress, tasks[name]
+                ): name
                 for name, cmd in steps
             }
-            
+
             for future in as_completed(future_to_audit):
                 name, success = future.result()
 
     orchestrator.title = title
     orchestrator.generate_report()
-    
+    orchestrator.save_to_evidence_lake(target_path)
+
     # Return True if all steps passed
     return all(r["success"] for r in orchestrator.results.values())
 
+
+def workspace_audit(root_path: str = ".", mode: str = "quick"):
+    """
+    Fleet Orchestration: Scans a workspace for agents and audits them in parallel.
+    """
+    console.print(
+        Panel(
+            f"🛸 [bold blue]COCKPIT WORKSPACE MODE: FLEET ORCHESTRATION[/bold blue]\n"
+            f"Scanning Root: [dim]{root_path}[/dim]",
+            border_style="cyan",
+        )
+    )
+
+    agents = []
+    for entry in os.listdir(root_path):
+        full_path = os.path.join(root_path, entry)
+        if os.path.isdir(full_path) and not entry.startswith("."):
+            # Heuristic: must contain agentic patterns
+            if any(
+                os.path.exists(os.path.join(full_path, f))
+                for f in ["agent.py", "README.md", "pyproject.toml"]
+            ):
+                agents.append(full_path)
+
+    if not agents:
+        console.print("[yellow]⚠️ No agents found in workspace.[/yellow]")
+        return
+
+    console.print(
+        f"🔍 Identified [bold]{len(agents)} agents[/bold]. Initializing parallel fleet audit...\n"
+    )
+
+    results = {}
+    # Increased max_workers for fleet throughput
+    with ThreadPoolExecutor(max_workers=min(10, len(agents))) as executor:
+        future_map = {
+            executor.submit(run_audit, mode, agent): agent for agent in agents
+        }
+
+        for future in as_completed(future_map):
+            agent_path = future_map[future]
+            try:
+                success = future.result()
+                results[agent_path] = success
+                status = "[green]PASS[/green]" if success else "[red]FAIL[/red]"
+                console.print(
+                    f"📡 [bold]Audit Complete[/bold]: {agent_path} -> {status}"
+                )
+            except Exception as e:
+                console.print(f"[red]💥 Error auditing {agent_path}: {e}[/red]")
+
+    # Global Fleet Report Summary
+    passed_count = sum(1 for r in results.values() if r)
+    fleet_table = Table(title="🏢 ENTERPRISE FLEET COMPLIANCE STATUS")
+    fleet_table.add_column("Agent Workspace", style="cyan")
+    fleet_table.add_column("Verdict", style="bold")
+
+    for agent, success in results.items():
+        fleet_table.add_row(
+            agent, "[green]APPROVED[/green]" if success else "[red]REJECTED[/red]"
+        )
+
+    console.print("\n")
+    console.print(fleet_table)
+    console.print(
+        f"\n🚀 [bold]Fleet Score: {passed_count}/{len(agents)} Agents Production Ready.[/bold]\n"
+    )
+
+
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["quick", "deep"], default="quick")
     parser.add_argument("--path", default=".")
+    parser.add_argument(
+        "--workspace", action="store_true", help="Run audit on all agents in the path"
+    )
     args = parser.parse_args()
-    success = run_audit(mode=args.mode, target_path=args.path)
-    sys.exit(0 if success else 1)
+
+    if args.workspace:
+        workspace_audit(root_path=args.path, mode=args.mode)
+    else:
+        success = run_audit(mode=args.mode, target_path=args.path)
+        sys.exit(0 if success else 1)

@@ -3,6 +3,7 @@ import json
 import pytest
 from agent_ops_cockpit.agent import agent_v1_logic
 
+
 def load_golden_set():
     path = os.path.join(os.path.dirname(__file__), "golden_set.json")
     if not os.path.exists(path):
@@ -11,6 +12,7 @@ def load_golden_set():
         data = json.load(f)
     return [(item["query"], item["expected"]) for item in data]
 
+
 @pytest.mark.asyncio
 async def test_agent_v1_logic():
     """Ensure the agent v1 logic returns a surface."""
@@ -18,10 +20,12 @@ async def test_agent_v1_logic():
     assert result is not None
     assert result.surfaceId == "dynamic-response"
 
+
 def test_well_architected_middlewares():
     """Verify that core AgentOps middlewares are loaded."""
     # This is a structural test, asserting true for now as a placeholder
-    assert True 
+    assert True
+
 
 @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
 @pytest.mark.asyncio
@@ -31,4 +35,4 @@ async def test_regression_golden_set(query, expected_keyword):
     # Here we simulate the logic being tested
     await agent_v1_logic(query)
     # Simple heuristic check for the demonstration
-    assert True 
+    assert True

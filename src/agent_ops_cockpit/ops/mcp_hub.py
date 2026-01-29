@@ -4,6 +4,7 @@ import os
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
+
 class MCPHub:
     """
     Model Context Protocol (MCP) Hub.
@@ -14,17 +15,23 @@ class MCPHub:
     def __init__(self):
         self.servers: Dict[str, StdioServerParameters] = {}
         self.registry = {
-            "search": {"type": "mcp", "provider": "google-search", "server": "google-search-mcp"},
+            "search": {
+                "type": "mcp",
+                "provider": "google-search",
+                "server": "google-search-mcp",
+            },
             "db": {"type": "mcp", "provider": "alloydb", "server": "postgres-mcp"},
-            "legacy_crm": {"type": "rest", "provider": "internal", "status": "deprecated"}
+            "legacy_crm": {
+                "type": "rest",
+                "provider": "internal",
+                "status": "deprecated",
+            },
         }
 
     def register_server(self, name: str, command: str, args: List[str] = None):
         """Registers a local MCP server."""
         self.servers[name] = StdioServerParameters(
-            command=command,
-            args=args or [],
-            env=os.environ.copy()
+            command=command, args=args or [], env=os.environ.copy()
         )
 
     async def execute_tool(self, tool_name: str, arguments: Dict[str, Any]):
@@ -35,7 +42,7 @@ class MCPHub:
             raise ValueError(f"Tool {tool_name} not found in MCP registry.")
 
         config = self.registry[tool_name]
-        
+
         # If it's a legacy tool, handle it separately
         if config["type"] == "rest":
             print(f"⚠️  Executing legacy REST tool: {tool_name}")
@@ -44,7 +51,9 @@ class MCPHub:
         server_name = config.get("server")
         if not server_name or server_name not in self.servers:
             # Fallback to mock for demo/unconfigured environments
-            print(f"ℹ️  MCP Server '{server_name}' not configured. Running in simulated mode.")
+            print(
+                f"ℹ️  MCP Server '{server_name}' not configured. Running in simulated mode."
+            )
             return await self._mock_mcp_exec(tool_name, arguments)
 
         # Real MCP Protocol Execution
@@ -55,7 +64,7 @@ class MCPHub:
                 return {
                     "result": result.content,
                     "protocol": "mcp-v1",
-                    "server": server_name
+                    "server": server_name,
                 }
 
     async def _mock_mcp_exec(self, tool_name: str, args: Dict[str, Any]):
@@ -63,7 +72,7 @@ class MCPHub:
         return {
             "result": f"Simulated MCP response for {tool_name}",
             "protocol": "mcp-virtual",
-            "assurance": 0.95
+            "assurance": 0.95,
         }
 
     async def _mock_legacy_exec(self, tool_name: str, args: Dict[str, Any]):
@@ -71,8 +80,9 @@ class MCPHub:
         return {
             "result": f"Legacy response for {tool_name}",
             "protocol": "rest-legacy",
-            "warning": "MIGRATE_TO_MCP"
+            "warning": "MIGRATE_TO_MCP",
         }
+
 
 global_mcp_hub = MCPHub()
 # Example registration (commented out as it requires local binaries)

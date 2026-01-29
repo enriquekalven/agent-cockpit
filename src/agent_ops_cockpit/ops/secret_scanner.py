@@ -20,20 +20,29 @@ SECRET_PATTERNS = {
     "GCP Service Account": r"\"type\":\s*\"service_account\"",
 }
 
+
 @app.command()
 def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     """
     Scans the codebase for hardcoded secrets, API keys, and credentials.
     """
-    console.print(Panel.fit("🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]", border_style="yellow"))
-    
+    console.print(
+        Panel.fit(
+            "🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]",
+            border_style="yellow",
+        )
+    )
+
     findings = []
-    
+
     for root, dirs, files in os.walk(path):
         # Skip virtual environments, git, and tests
-        if any(skip in root.lower() for skip in [".venv", ".git", "tests", "test_", "node_modules"]):
+        if any(
+            skip in root.lower()
+            for skip in [".venv", ".git", "tests", "test_", "node_modules"]
+        ):
             continue
-            
+
         for file in files:
             if file.endswith((".py", ".env", ".ts", ".js", ".json", ".yaml", ".yml")):
                 file_path = os.path.join(root, file)
@@ -44,12 +53,14 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                             for secret_name, pattern in SECRET_PATTERNS.items():
                                 match = re.search(pattern, line)
                                 if match:
-                                    findings.append({
-                                        "file": os.path.relpath(file_path, path),
-                                        "line": i + 1,
-                                        "type": secret_name,
-                                        "content": line.strip()[:50] + "..."
-                                    })
+                                    findings.append(
+                                        {
+                                            "file": os.path.relpath(file_path, path),
+                                            "line": i + 1,
+                                            "type": secret_name,
+                                            "content": line.strip()[:50] + "...",
+                                        }
+                                    )
                 except Exception:
                     continue
 
@@ -66,17 +77,26 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                 finding["file"],
                 str(finding["line"]),
                 finding["type"],
-                "Move to Secret Manager"
+                "Move to Secret Manager",
             )
             # Orchestrator parsing
-            console.print(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to Google Cloud Secret Manager or .env file.")
-            
+            console.print(
+                f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to Google Cloud Secret Manager or .env file."
+            )
+
         console.print("\n", table)
-        console.print(f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks.")
-        console.print("💡 [bold green]Recommendation:[/bold green] Use Google Cloud Secret Manager or environment variables for all tokens.")
+        console.print(
+            f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks."
+        )
+        console.print(
+            "💡 [bold green]Recommendation:[/bold green] Use Google Cloud Secret Manager or environment variables for all tokens."
+        )
         raise typer.Exit(code=1)
     else:
-        console.print("✅ [bold green]PASS:[/bold green] No hardcoded credentials detected in matched patterns.")
+        console.print(
+            "✅ [bold green]PASS:[/bold green] No hardcoded credentials detected in matched patterns."
+        )
+
 
 if __name__ == "__main__":
     app()

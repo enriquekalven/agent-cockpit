@@ -5,18 +5,20 @@ import os
 from typing import Any, Callable
 from datetime import datetime
 
+
 class ShadowRouter:
     """
     Shadow Mode Router: Orchestrates Production (v1) and Shadow (v2) agent calls.
     Logs comparisons for production confidence.
     """
+
     def __init__(self, v1_func: Callable, v2_func: Callable):
         self.v1 = v1_func
         self.v2 = v2_func
 
     async def route(self, query: str, **kwargs):
         trace_id = str(uuid.uuid4())
-        
+
         # 1. Primary Call (Production v1) - Sequential/Blocking
         start_v1 = datetime.now()
         v1_resp = await self.v1(query, **kwargs)
@@ -24,15 +26,15 @@ class ShadowRouter:
 
         # 2. Shadow Call (Experimental v2) - Asynchronous/Non-blocking
         # We fire and forget this, or use a background task
-        asyncio.create_task(self._run_shadow(trace_id, query, v1_resp, v1_latency, **kwargs))
+        asyncio.create_task(
+            self._run_shadow(trace_id, query, v1_resp, v1_latency, **kwargs)
+        )
 
-        return {
-            "response": v1_resp,
-            "trace_id": trace_id,
-            "latency": v1_latency
-        }
+        return {"response": v1_resp, "trace_id": trace_id, "latency": v1_latency}
 
-    async def _run_shadow(self, trace_id: str, query: str, v1_resp: Any, v1_latency: float, **kwargs):
+    async def _run_shadow(
+        self, trace_id: str, query: str, v1_resp: Any, v1_latency: float, **kwargs
+    ):
         """
         Runs the v2 agent in the 'shadow' without user impact.
         Logs the comparison to BigQuery/Cloud Logging.
@@ -49,21 +51,44 @@ class ShadowRouter:
                 "production": {
                     "response": v1_resp,
                     "latency": v1_latency,
-                    "model": "gemini-1.5-flash"
+                    "model": "gemini-1.5-flash",
                 },
                 "shadow": {
                     "response": v2_resp,
                     "latency": v2_latency,
-                    "model": "gemini-1.5-pro-experimental"
-                }
+                    "model": "gemini-1.5-pro-experimental",
+                },
             }
-            
+
             # In production, this goes to GCP BigQuery or Cloud Logging
             # For now, we simulate a 'Comparison Event'
             print(f"🕵️ [SHADOW MODE] Comparison Logged: {trace_id}")
+
+            # Ensure Pydantic models are converted to dict for JSON serialization
+            def serialize_model(obj):
+                if hasattr(obj, "model_dump"):
+                    return obj.model_dump()
+                return str(obj)
+
+            comparison_serializable = {
+                "traceId": trace_id,
+                "timestamp": comparison["timestamp"],
+                "query": comparison["query"],
+                "production": {
+                    "response": serialize_model(v1_resp),
+                    "latency": v1_latency,
+                    "model": comparison["production"]["model"],
+                },
+                "shadow": {
+                    "response": serialize_model(v2_resp),
+                    "latency": v2_latency,
+                    "model": comparison["shadow"]["model"],
+                },
+            }
+
             # Mock: save to a local json for the 'Flight Recorder' UI to consume
-            self._mock_save_trace(comparison)
-            
+            self._mock_save_trace(comparison_serializable)
+
         except Exception as e:
             print(f"❌ [SHADOW ERROR] {str(e)}")
 

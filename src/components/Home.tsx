@@ -57,8 +57,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.8.0</span>
-          <span className="banner-text">The Governance Update: Principal SME Persona Approvals, Legal/Marketing Audits, and PDF Reporting are now active.</span>
+          <span className="banner-tag">NEW v0.9.8</span>
+          <span className="banner-text">The Enterprise Fleet Update: Native Workspace Audits, Semantic SMEs (Gemini Flash), and Centralized Evidence Lake are now live.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">

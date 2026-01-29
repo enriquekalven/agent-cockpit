@@ -6,6 +6,7 @@ import time
 # Production-Ready Cost Control for Google Cloud Agents
 # In production, use GCP Memorystore for Redis (Vector Search) or AlloyDB AI
 
+
 class HiveMindCache:
     def __init__(self, threshold=0.95):
         self.threshold = threshold
@@ -26,34 +27,50 @@ class HiveMindCache:
         self.store[query_hash] = {
             "query": query,
             "response": response,
-            "cached_at": time.time()
+            "cached_at": time.time(),
         }
+
 
 def hive_mind(cache: HiveMindCache):
     """
     Middleware decorator for viral "one-line" semantic caching.
     """
+
     def decorator(func):
         @functools.wraps(func)
-        async def wrapper(query: str, *args, **kwargs):
+        async def wrapper(*args, **kwargs):
+            # Extract query from q, query, or the first positional argument
+            query = kwargs.get("q") or kwargs.get("query")
+            if not query and args:
+                query = args[0]
+
+            if not query:
+                return await func(*args, **kwargs)
+
             match = cache.get_match(query)
-            
+
             if match:
                 print("🧠 [HIVE MIND] Semantic Hit! Latency Reduced to 0.1s.")
                 # Add metadata to response
                 resp = match["response"]
                 if isinstance(resp, dict):
-                    resp["_metadata"] = {"source": "hive-mind-cache", "savings": "100% tokens"}
+                    resp["_metadata"] = {
+                        "source": "hive-mind-cache",
+                        "savings": "100% tokens",
+                    }
                 return resp
-            
+
             print("🧪 [HIVE MIND] Cache Miss. Calling LLM...")
-            response = await func(query, *args, **kwargs)
-            
+            response = await func(*args, **kwargs)
+
             # Cache the new intelligence
             cache.put(query, response)
             return response
+
         return wrapper
+
     return decorator
+
 
 # Global Instance
 global_cache = HiveMindCache()

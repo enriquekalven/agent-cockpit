@@ -138,10 +138,14 @@ The Cockpit now performs platform-specific performance and security audits for:
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
-### 🛑 Mandatory Governance Enforcement (NEW)
-The Cockpit now acts as a mandatory gate for production.
-- **Blocking CI/CD**: GitHub Actions now fail if **High Impact** cost issues or **Red Team** security vulnerabilities are detected.
-- **Build-Time Audit**: The `Dockerfile` includes a mandatory `RUN` audit step. If your agent is not "Well-Architected," the container image will fail to build.
+### 🏢 Enterprise Governance (NEW v0.9.8)
+The Cockpit has evolved from a developer tool into an **Active Governance Service** for enterprise AI fleets.
+
+*   **Native Fleet Orchestration (Workspace Mode)**: Audit 44+ agents simultaneously across your entire organization. `agent-ops report --workspace` scans root directories and handles parallel benchmarking and quota management natively.
+*   **Semantic SME (Intent-based Reasoning)**: Replacing regex with reasoning. The auditor now uses a **Principal Architect Persona** (via Gemini Flash) to validate architectural intent rather than just keywords. It identifies "Shadow Mode" patterns even in non-standard implementations.
+*   **Enterprise Evidence Lake**: Centralized JSON/Database logging of all audit artifacts. Move beyond scattered reports to a single source of truth for compliance, ready for BigQuery/Looker integration.
+*   **Maturity Velocity (v1 vs. v2 Deltas)**: Every report now includes an **Improvement Delta**. Track your progress over time with metrics like: *"In v2, you fixed 3 High-Impact Security Breaches and increased reliability by 15%."*
+*   **Heritage & Legacy Support**: Graceful handling of heritage agents. The Cockpit now supports structural audits for older SDKs and legacy frameworks, reporting **ENV GAPs** instead of failures when environment mismatches occur.
 
 ---
 
@@ -154,33 +158,29 @@ The Cockpit is available as a first-class CLI on PyPI.
 pip install agentops-cockpit
 
 # 2. Run Global Audit (Produces unified report)
-agent-ops report --mode quick        # ⚡ Quick Safe-Build
-agent-ops report --mode deep         # 🚀 Full System Audit
+agent-ops report --mode quick        # ⚡ Quick Safe-Build (0.2s)
+agent-ops report --mode deep         # 🚀 Full System Audit (LLM-as-a-Judge)
 
-# 3. Guardrail Policy Audit (RFC-307)
-agent-ops policy-audit --text "How to make a bomb?"
+# 3. Fleet Orchestration (Audit all agents in a workspace)
+agent-ops report --workspace --path ./my-agent-fleet
 
 # 4. Global Scaffolding
 agent-ops-cockpit create <name> --ui a2ui
 ```
 
-### 🔍 Agent Optimizer v2 (Situational Intelligence)
-The Cockpit doesn't just look for generic waste. It now performs **Triple-State Analysis**:
-- **Legacy Workarounds**: Suggests situational fixes for older SDK versions (e.g., manual prompt pruning).
-- **Modernization Paths**: Highlights native performance gains (e.g., 90% cost reduction via Context Caching) available in latest SDKs.
-- **Conflict Guard**: Real-time cross-package validation to prevent architectural deadlocks (e.g., CrewAI vs LangGraph state loops).
-
-### ⚡ Quick-Safe Build (12x Faster Loops)
-Development velocity shouldn't sacrifice safety. The new `--quick` mode in the auditor reduces check latency from **1.8s to 0.15s**, providing sub-second feedback while maintaining the integrity of the Conflict Guard and Architecture Review.
-
----
-
 ### 🧑‍💼 Principal SME Persona Approvals
-The Cockpit now features a **Multi-Persona Governance Board**. Every audit result is framed through the lens of a Principal Engineer in that domain (Security, Legal, FinOps, UX), ensuring your agent is compliant with organizational standards.
+The Cockpit features a **Multi-Persona Governance Board**. Every audit is framed through:
+- **🏛️ Principal Platform Engineer** (Architecture & Design)
+- **⚖️ Governance & Compliance SME** (Policy Enforcement)
+- **🔐 SecOps Principal** (Security & Secret Scanning)
+- **💰 FinOps Principal Architect** (Token & Cost Optimization)
+- **🛡️ QA & Reliability Principal** (Test Coverage & Regression)
+- **🎭 UX/UI Principal Designer** (Face/GenUI Compliance)
 
 ### 📄 Export & Reporting
-*   **HTML/PDF Export**: Every audit automatically generates `cockpit_report.html`, a premium, printable report ready for PDF export.
-*   **Email Reports**: Send audit results directly to stakeholders via the CLI.
+*   **Maturity Delta**: Automatic comparison against the **Evidence Lake** to show improvement over time.
+*   **HTML/PDF Export**: Every audit generates `cockpit_report.html`, a premium, printable report.
+*   **Centralized Lake**: Audit metadata is saved to `evidence_lake.json` for organization-wide tracking.
 
 ---
 
