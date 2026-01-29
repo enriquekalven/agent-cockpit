@@ -154,6 +154,70 @@ class CockpitOrchestrator:
         "Face Auditor": "🎭 UX/UI Principal Designer",
     }
 
+    def _generate_sarif_report(self, developer_actions):
+        """Generates a SARIF (Static Analysis Results Interchange Format) report."""
+        sarif = {
+            "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+            "version": "2.1.0",
+            "runs": [
+                {
+                    "tool": {
+                        "driver": {
+                            "name": "AgentOps Cockpit",
+                            "informationUri": "https://agent-cockpit.web.app",
+                            "version": "1.1.1",
+                            "rules": []
+                        }
+                    },
+                    "results": []
+                }
+            ]
+        }
+        
+        rules = {}
+        target_path = getattr(self, "target_path", ".")
+        for action in developer_actions:
+            parts = action.split(" | ")
+            if len(parts) == 3:
+                loc, issue, fix = parts
+                rule_id = issue.replace(" ", "_").lower()
+                if rule_id not in rules:
+                    rules[rule_id] = {
+                        "id": rule_id,
+                        "shortDescription": {"text": issue},
+                        "helpUri": "https://agent-cockpit.web.app/docs",
+                        "properties": {"category": "Agentic Governance"}
+                    }
+                
+                path = loc
+                line = 1
+                if ":" in loc:
+                    path, line_str = loc.split(":")
+                    try:
+                        line = int(line_str)
+                    except: pass
+                
+                sarif["runs"][0]["results"].append({
+                    "ruleId": rule_id,
+                    "level": "error" if "Security" in issue or "Breach" in issue else "warning",
+                    "message": {"text": f"{issue}: {fix}"},
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {"uri": path},
+                                "region": {"startLine": line}
+                            }
+                        }
+                    ]
+                })
+        
+        sarif["runs"][0]["tool"]["driver"]["rules"] = list(rules.values())
+        
+        sarif_path = os.path.join(target_path, "cockpit_audit.sarif")
+        with open(sarif_path, "w") as f:
+            json.dump(sarif, f, indent=4)
+        console.print(f"⚖️ [bold green]SARIF Export Complete:[/bold green] {sarif_path}")
+
     def generate_report(self):
         title = getattr(self, "title", "Audit Report")
         target_path = getattr(self, "target_path", ".")
@@ -288,6 +352,9 @@ class CockpitOrchestrator:
 
         with open(self.report_path, "w") as f:
             f.write("\n".join(report))
+
+        # Also generate SARIF
+        self._generate_sarif_report(developer_actions)
 
         # Also generate a professional HTML report
         self._generate_html_report(developer_actions, developer_sources)
@@ -1039,6 +1106,19 @@ def generate_fleet_dashboard(results: dict):
         failure_html = f"<div class='drilldown'><strong>Root Causes:</strong><br>{', '.join(failures[:3])}</div>" if failures else ""
         velocity_html = f"<div class='velocity'>📈 Velocity: +{delta:.1f}% improvement</div>" if delta > 0 else ""
 
+        # SME Verdict Extraction (Educational Tooltip)
+        verdicts = []
+        res = agent_data.get("results", {})
+        for m_name, m_data in res.items():
+            out = m_data.get("output", "")
+            for line in out.split("\n"):
+                if "SOURCE:" in line:
+                    parts = line.split(" | ")
+                    if len(parts) == 3:
+                        verdicts.append(parts[2].strip())
+        
+        verdict_summary = verdicts[0] if verdicts else "Audit baseline established."
+        
         html += f"""
                 <div class="agent-card">
                     {priority_badge}
@@ -1046,6 +1126,9 @@ def generate_fleet_dashboard(results: dict):
                     <div class="{status_class}">{status}</div>
                     {velocity_html}
                     <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: {agent}</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> {verdict_summary[:80]}...
+                    </div>
                     {failure_html}
                 </div>
         """
