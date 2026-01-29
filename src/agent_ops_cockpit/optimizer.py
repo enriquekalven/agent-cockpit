@@ -1,7 +1,8 @@
+from __future__ import annotations
 import sys
 import os
 import re
-from typing import List, Dict, Any
+import typing
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -11,11 +12,15 @@ from packaging import version
 
 # Import the evidence bridge
 try:
-    from backend.ops.evidence_bridge import get_package_evidence, get_compatibility_report
+    from agent_ops_cockpit.ops.evidence_bridge import get_package_evidence, get_compatibility_report
 except ImportError:
     # Fallback for local execution
-    sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-    from backend.ops.evidence_bridge import get_package_evidence, get_compatibility_report
+    try:
+        from backend.ops.evidence_bridge import get_package_evidence, get_compatibility_report
+    except ImportError:
+        # Final fallback
+        def get_package_evidence(pkg): return {}
+        def get_compatibility_report(imports): return []
 
 app = typer.Typer(help="AgentOps Cockpit: The Agent Optimizer CLI")
 console = Console()
@@ -32,7 +37,7 @@ class OptimizationIssue:
         self.fix_pattern = fix_pattern
         self.evidence = None
 
-def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, str] = None) -> List[OptimizationIssue]:
+def analyze_code(content: str, file_path: str = "agent.py", versions: typing.Dict[str, str] = None) -> typing.List[OptimizationIssue]:
     issues = []
     content_lower = content.lower()
     versions = versions or {}
@@ -54,7 +59,7 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
                      issues.append(OptimizationIssue(
                         "vertex_legacy_opt", "Situational Performance (Legacy SDK)", "MEDIUM", "20% cost savings",
                         f"Your SDK ({v_ai}) lacks native Context Caching. Optimize by using selective prompt pruning before execution.",
-                        "+ from backend.ops.cost_optimizer import situational_pruning\n+ pruned = situational_pruning(context)",
+                        "+ from agent_ops_cockpit.ops.cost_optimizer import situational_pruning\n+ pruned = situational_pruning(context)",
                         package="google-cloud-aiplatform"
                     ))
                      issues.append(OptimizationIssue(
@@ -318,7 +323,7 @@ def analyze_code(content: str, file_path: str = "agent.py", versions: Dict[str, 
 
     return issues
 
-def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[str, Any]:
+def estimate_savings(token_count: int, issues: typing.List[OptimizationIssue]) -> typing.Dict[str, typing.Any]:
     baseline_cost_per_m = 10.0
     monthly_requests = 10000 
     current_cost = (token_count / 1_000_000) * baseline_cost_per_m * monthly_requests
@@ -361,8 +366,8 @@ def audit(
     
     # Heuristic: Find all imported packages
     imports = re.findall(r"(?:from|import)\s+([\w\.-]+)", content)
-    # Pre-fetch version info for installed packages
-    from backend.ops.evidence_bridge import get_installed_version
+    
+    from agent_ops_cockpit.ops.evidence_bridge import get_installed_version
     package_versions = { pkg: get_installed_version(pkg) for pkg in ["google-cloud-aiplatform", "openai", "anthropic", "langgraph", "crewai"] }
     
     token_estimate = len(content.split()) * 1.5 

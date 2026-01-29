@@ -23,7 +23,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-ops CLI v0.2.2[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v0.7.0[/bold cyan]")
 
 @app.command()
 def reliability():

@@ -80,7 +80,7 @@ class CockpitOrchestrator:
             status = "✅ PASS" if data["success"] else "❌ FAIL"
             summary_table.add_row(name, status)
             report.append(f"- **{name}**: {status}")
-
+ 
         console.print("\n", summary_table)
         
         report.append("\n## 🔍 Detailed Findings")
@@ -119,30 +119,37 @@ def run_audit(mode: str = "quick"):
         expand=True
     ) as progress:
         
+        # Detect if we are running from the installed package or from source
+        base_mod = "agent_ops_cockpit"
+        try:
+            import agent_ops_cockpit
+        except ImportError:
+            base_mod = "backend"
+
         # 1. Essential "Safe-Build" Steps (Fast)
-        token_opt_cmd = [sys.executable, "-m", "backend.optimizer", "src/backend/agent.py", "--no-interactive"]
+        token_opt_cmd = [sys.executable, "-m", f"{base_mod}.optimizer", "src/backend/agent.py", "--no-interactive"]
         if mode == "quick":
             token_opt_cmd.append("--quick")
 
         steps = [
-            ("Architecture Review", [sys.executable, "-m", "backend.ops.arch_review"]),
-            ("Policy Enforcement", [sys.executable, "-m", "backend.ops.policy_engine"]),
-            ("Secret Scanner", [sys.executable, "-m", "backend.ops.secret_scanner"]),
+            ("Architecture Review", [sys.executable, "-m", f"{base_mod}.ops.arch_review"]),
+            ("Policy Enforcement", [sys.executable, "-m", f"{base_mod}.ops.policy_engine"]),
+            ("Secret Scanner", [sys.executable, "-m", f"{base_mod}.ops.secret_scanner"]),
             ("Token Optimization", token_opt_cmd),
-            ("Reliability (Quick)", [sys.executable, "-m", "backend.ops.reliability", "--quick"])
+            ("Reliability (Quick)", [sys.executable, "-m", f"{base_mod}.ops.reliability", "--quick"])
         ]
 
         # 2. Add "Deep" steps if requested
         if mode == "deep":
             steps.extend([
-                ("Quality Hill Climbing", [sys.executable, "-m", "backend.eval.quality_climber", "--steps", "10"]),
-                ("Red Team Security (Full)", [sys.executable, "-m", "backend.eval.red_team", "src/backend/agent.py"]),
-                ("Load Test (Baseline)", [sys.executable, "-m", "backend.eval.load_test", "run", "--requests", "50", "--concurrency", "5"]),
-                ("Evidence Packing Audit", [sys.executable, "-m", "backend.ops.arch_review", "--strict"])
+                ("Quality Hill Climbing", [sys.executable, "-m", f"{base_mod}.eval.quality_climber", "--steps", "10"]),
+                ("Red Team Security (Full)", [sys.executable, "-m", f"{base_mod}.eval.red_team", "src/backend/agent.py"]),
+                ("Load Test (Baseline)", [sys.executable, "-m", f"{base_mod}.eval.load_test", "run", "--requests", "50", "--concurrency", "5"]),
+                ("Evidence Packing Audit", [sys.executable, "-m", f"{base_mod}.ops.arch_review", "--strict"])
             ])
         else:
             # Quick mode still needs a fast security check
-            steps.append(("Red Team (Fast)", [sys.executable, "-m", "backend.eval.red_team", "src/backend/agent.py"]))
+            steps.append(("Red Team (Fast)", [sys.executable, "-m", f"{base_mod}.eval.red_team", "src/backend/agent.py"]))
         
         # Add tasks to progress bar
         tasks = {name: progress.add_task(f"[white]Waiting: {name}", total=100) for name, cmd in steps}
