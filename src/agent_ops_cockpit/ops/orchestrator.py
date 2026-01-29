@@ -178,8 +178,8 @@ class CockpitOrchestrator:
                         </span>
                     </div>
                     <div class="mascot-container">
-                        <img src="public/kokpi_kun.png" class="mascot" alt="Kokpi-kun">
-                        <div class="mascot-name">Kokpi-kun</div>
+                        <img src="public/kokpi_kun.png" class="mascot" alt="Kokpi">
+                        <div class="mascot-name">Kokpi</div>
                     </div>
                 </header>
 
