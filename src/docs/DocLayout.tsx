@@ -65,9 +65,17 @@ const STACK_OPTIONS = [
 export const DocLayout: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [activeStack, setActiveStack] = useState(STACK_OPTIONS[0]);
   const [isStackDropdownOpen, setStackDropdownOpen] = useState(false);
   const location = useLocation();
+
+  const searchResults = searchQuery.trim() === '' ? [] : PILLAR_NAV.flatMap(pillar =>
+    pillar.items.filter(item =>
+      item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pillar.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ).map(item => ({ ...item, category: pillar.title }))
+  ).slice(0, 8);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -100,10 +108,36 @@ export const DocLayout: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search documentation..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
+                onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
               />
               <kbd className="search-kbd">⌘K</kbd>
+
+              {searchFocused && searchResults.length > 0 && (
+                <div className="search-results-dropdown">
+                  <div className="search-results-header">Search Results</div>
+                  {searchResults.map(result => (
+                    <Link
+                      key={result.id}
+                      to={result.path}
+                      className="search-result-item"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setSearchFocused(false);
+                      }}
+                    >
+                      <div className="result-icon-mini">{result.icon}</div>
+                      <div className="result-info">
+                        <div className="result-label">{result.label}</div>
+                        <div className="result-category">{result.category}</div>
+                      </div>
+                      <ChevronRight size={14} className="result-arrow" />
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -616,6 +650,92 @@ export const DocLayout: React.FC = () => {
           display: flex;
           gap: 1.5rem;
           color: var(--text-secondary);
+        }
+
+        .search-results-dropdown {
+          position: absolute;
+          top: calc(100% + 12px);
+          left: 0;
+          right: 0;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          border-radius: 12px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          overflow: hidden;
+          z-index: 2000;
+          animation: slideUp 0.2s ease-out;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+
+        .search-results-header {
+          padding: 0.75rem 1rem;
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--text-secondary);
+          font-weight: 800;
+          border-bottom: 1px solid var(--border-color);
+          background: rgba(var(--text-primary-rgb), 0.02);
+        }
+
+        .search-result-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 0.85rem 1rem;
+          text-decoration: none;
+          color: var(--text-primary);
+          transition: all 0.2s;
+          border-bottom: 1px solid rgba(var(--text-primary-rgb), 0.05);
+        }
+
+        .search-result-item:last-child { border-bottom: none; }
+        
+        .search-result-item:hover {
+          background: rgba(var(--primary-color-rgb), 0.08);
+          transform: translateX(4px);
+        }
+
+        .result-icon-mini {
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background: rgba(var(--primary-color-rgb), 0.1);
+          border-radius: 6px;
+        }
+
+        .result-info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+        }
+
+        .result-label {
+          font-size: 0.9rem;
+          font-weight: 700;
+        }
+
+        .result-category {
+          font-size: 0.7rem;
+          color: var(--text-secondary);
+          opacity: 0.7;
+        }
+
+        .result-arrow {
+          color: var(--text-secondary);
+          opacity: 0.3;
+          transition: transform 0.2s;
+        }
+
+        .search-result-item:hover .result-arrow {
+          transform: translateX(2px);
+          opacity: 0.8;
+          color: var(--primary-color);
         }
 
         @media (max-width: 1024px) {
