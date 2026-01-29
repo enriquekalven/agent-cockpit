@@ -53,3 +53,20 @@ def test_executive_scorecard_generation(tmp_path):
         assert "## 👔 Executive Risk Scorecard" in content
         assert "Risk Alert" in content
         assert "Production deployment currently BLOCKED" in content
+
+def test_orchestrator_skipping(tmp_path):
+    os.chdir(tmp_path)
+    (tmp_path / "agent.py").write_text("print('hello')")
+    
+    orchestrator = CockpitOrchestrator()
+    h1 = orchestrator.get_dir_hash(str(tmp_path))
+    
+    # Write another file
+    (tmp_path / "other.py").write_text("print('other')")
+    h2 = orchestrator.get_dir_hash(str(tmp_path))
+    assert h1 != h2
+    
+    # Delete file, should change hash
+    os.remove(tmp_path / "other.py")
+    h3 = orchestrator.get_dir_hash(str(tmp_path))
+    assert h1 == h3

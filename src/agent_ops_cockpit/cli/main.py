@@ -27,7 +27,7 @@ REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print("[bold cyan]agent-ops CLI v0.9.8[/bold cyan]")
+    console.print("[bold cyan]agent-ops CLI v1.0.0[/bold cyan]")
 
 
 @app.command()
@@ -53,16 +53,24 @@ def report(
         "-p",
         help="Path to the agent or workspace to audit",
     ),
+    workspace: bool = typer.Option(
+        False, "--workspace", "-w", help="Scan and audit all agents in the workspace"
+    ),
+    apply_fixes: bool = typer.Option(
+        False, "--apply-fixes", "-f", help="Automatically apply recommended fixes"
+    ),
+    sim: bool = typer.Option(
+        False, "--sim", help="Run in simulation mode (Synthetic SME reasoning)"
+    ),
 ):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
-    workspace_flag = ""
-    if os.path.isdir(path) and not any(f.endswith(".py") for f in os.listdir(path) if f != "__init__.py"):
-         workspace_flag = " (Workspace Mode)"
-    
-    console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit{workspace_flag}...[/bold blue]")
-    orch_mod.run_audit(mode=mode, path=path)
+    console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
+    if workspace:
+        orch_mod.workspace_audit(root_path=path, mode=mode)
+    else:
+        orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim)
 
 
 @app.command()
@@ -104,6 +112,54 @@ def policy_audit(
             f"🚫 [bold]Forbidden Topics:[/bold] {report['forbidden_topics_count']}"
         )
         console.print(f"🤝 [bold]HITL Tools:[/bold] {', '.join(report['hitl_tools'])}")
+
+
+@app.command()
+def fix(
+    path: str = typer.Argument(".", help="Path to the file or agent to fix"),
+    issue: str = typer.Option(None, "--issue", help="Specific issue type to fix (e.g., PII_SCRUBBING)"),
+):
+    """
+    🛡️ One-Click Remediation: Automatically repair architectural or security gaps.
+    """
+    console.print(f"🛠️ [bold cyan]AgentOps Auto-Repair:[/bold cyan] Analyzing {path}...")
+    from agent_ops_cockpit.ops.remediation import apply_remediation
+    
+    success = apply_remediation(path, issue or "General Compliance Gap", "Apply standard safety and architectural patterns")
+    if success:
+        console.print("✅ [bold green]Remediation complete![/bold green]")
+    else:
+        console.print("❌ [red]Remediation failed or skipped.[/red]")
+
+
+@app.command()
+def diagnose():
+    """
+    🔍 Pre-flight Check: Diagnose environment blockers before auditing.
+    """
+    console.print("🔍 [bold cyan]AgentOps Pre-flight Diagnosis...[/bold cyan]\n")
+    
+    # 1. Check Credentials
+    api_key = os.environ.get("GOOGLE_API_KEY")
+    if not api_key:
+        console.print("⚠️  [yellow]GOOGLE_API_KEY Missing[/yellow]: Audit will skip Semantic Reasoning and use 'Regex-Only' fallback.")
+    else:
+        console.print("✅ [green]GOOGLE_API_KEY Detected[/green]: Full SME Intelligence enabled.")
+
+    # 2. Check Repositories
+    if not os.path.exists(".git"):
+        console.print("⚠️  [yellow]No Git Repo Detected[/yellow]: Workspace scanning and change-tracking might be degraded.")
+    else:
+        console.print("✅ [green]Git Repository Active[/green]: Fleet change tracking enabled.")
+
+    # 3. Check Dependencies
+    try:
+        import vertexai
+        console.print("✅ [green]Vertex AI SDK Installed[/green].")
+    except ImportError:
+        console.print("❌ [red]Vertex AI SDK Missing[/red]: Remediation and Deep Audits will FAIL. Please run `pip install google-cloud-aiplatform`.")
+
+    console.print("\n🏁 [bold]Diagnosis Complete.[/bold] Ready to launch `agent-ops report`.")
 
 
 @app.command()

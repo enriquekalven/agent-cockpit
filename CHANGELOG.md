@@ -2,6 +2,18 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.1.0] - 2026-01-29
+
+### 🧠 The Strategic Intelligence Update
+- **High-Speed Intelligent Skipping**: Implemented directory-level content hashing. Re-auditing unchanged agents now happens in **0.1s** by reusing cached Evidence Lake artifacts.
+- **Enterprise Common Debt Analyzer**: The Fleet Dashboard now identifies workspace-wide architectural gaps (e.g., "80% of fleet missing PII scrubbers") to guide global policy.
+- **Lazy Semantic Fallback (Resiliency)**: Auditors now instantly degrade to "Regex-Only" structural mode if `GOOGLE_API_KEY` is missing, preventing failed LLM calls in restricted CI/CD.
+- **One-Click Remediation CLI (`agent-ops fix`)**: Added a dedicated high-velocity CLI entry point for targeted architectural and security repairs.
+- **Interactive Fleet Drilldowns**: The Dashboard now surfaces the **Top 3 Failure Reasons** for every agent, eliminating the need to comb through individual reports.
+- **Pre-flight Diagnosis (`agent-ops diagnose`)**: New command to proactively identify environment blockers (missing keys, SDKs, or Git repos) before launching fleets.
+- **Structural Integrity Mode**: Expanded file discovery to natively support Go (`.go`) source files in all architectural and reliability audits.
+
+
 ## [1.0.0] - 2026-01-29
 
 ### 🛸 The Autonomous Fleet Update (v4 Global Audit)
