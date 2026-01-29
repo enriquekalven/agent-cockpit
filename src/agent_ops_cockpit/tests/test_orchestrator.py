@@ -50,6 +50,8 @@ def test_executive_scorecard_generation(tmp_path):
     assert os.path.exists(report_path)
     with open(report_path, "r") as f:
         content = f.read()
+        repo_name = os.path.basename(os.path.abspath(str(tmp_path)))
+        assert f"# 🕹️ AgentOps Cockpit: {repo_name} (Audit Report)" in content
         assert "## 👔 Executive Risk Scorecard" in content
         assert "Risk Alert" in content
         assert "Production deployment currently BLOCKED" in content

@@ -157,8 +157,9 @@ class CockpitOrchestrator:
     def generate_report(self):
         title = getattr(self, "title", "Audit Report")
         total_duration = sum(r.get("duration", 0) for r in self.results.values())
+        repo_name = os.path.basename(os.path.abspath(getattr(self, "target_path", ".")))
         report = [
-            f"# 🕹️ AgentOps Cockpit: {title}",
+            f"# 🕹️ AgentOps Cockpit: {repo_name} ({title})",
             f"**Timestamp**: {self.timestamp}",
             f"**Total Duration**: {total_duration:.2f}s",
             f"**Status**: {'✅ PASS' if all(r['success'] for r in self.results.values()) else '❌ FAIL'}",
@@ -344,8 +345,8 @@ class CockpitOrchestrator:
             <div class="report-card">
                 <header>
                     <div>
-                        <h1>🕹️ AgentOps Cockpit</h1>
-                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Report: {getattr(self, "title", "Build Audit")}</p>
+                        <h1>🕹️ AgentOps: {os.path.basename(os.path.abspath(getattr(self, "target_path", ".")))}</h1>
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Type: {getattr(self, "title", "Build Audit")}</p>
                         <span class="status-badge {"pass" if all(r["success"] for r in self.results.values()) else "fail"}">
                             {"PASSED" if all(r["success"] for r in self.results.values()) else "FAILED"}
                         </span>
