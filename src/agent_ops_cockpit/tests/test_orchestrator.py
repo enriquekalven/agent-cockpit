@@ -72,3 +72,22 @@ def test_orchestrator_skipping(tmp_path):
     os.remove(tmp_path / "other.py")
     h3 = orchestrator.get_dir_hash(str(tmp_path))
     assert h1 == h3
+
+def test_sarif_export(tmp_path):
+    os.chdir(tmp_path)
+    orchestrator = CockpitOrchestrator()
+    orchestrator.target_path = str(tmp_path)
+    developer_actions = [
+        "agent.py:10 | Security Breach | Hardcoded API Key"
+    ]
+    orchestrator._generate_sarif_report(developer_actions)
+    
+    sarif_path = os.path.join(str(tmp_path), "cockpit_audit.sarif")
+    assert os.path.exists(sarif_path)
+    with open(sarif_path, "r") as f:
+        data = json.load(f)
+        assert data["version"] == "2.1.0"
+        results = data["runs"][0]["results"]
+        assert len(results) == 1
+        assert results[0]["ruleId"] == "security_breach"
+        assert results[0]["level"] == "error"

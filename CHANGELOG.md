@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.1.2] - 2026-01-29
+
+### ⚖️ The Governance-as-Code Update
+- **Native SARIF Export**: Generated `cockpit_audit.sarif` for every audit run, enabling first-class integration with GitHub Security Tab, SonarQube, and enterprise DevSecOps pipelines.
+- **SME Rationale Tooltips**: Fleet Dashboard cards now feature high-fidelity SME Verdicts (e.g., "Approved due to Pydantic validation") to provide educational context and technical intent to developers.
+- **Intelligent Hashing (Optimization)**: Finalized differential auditing logic. Fleet scans now achieve sub-5-second performance on repeat runs via recursive content hashing.
+- **Enterprise Fix-Fleet Orchestration**: Operationalized the `agent-ops fix-fleet` command for organizational-scale autonomous patching of identified security and architectural debt.
+
 ## [1.1.1] - 2026-01-29
 
 ### 🛡️ The Fleet Resilience Update

@@ -24,11 +24,12 @@ To help you navigate, we have organized our guides by **Persona**. Choose the pa
 - **[Reactive Surfaces](face/a2a_protocol.md)**: Building dynamic UI components from agent metadata.
 
 ### 🕹️ I am an Operations or Security Lead (The Cockpit)
-*Focus: Governance, safety, fleet management, and production-readiness.*
+*Focus: Governance-as-Code, safety, fleet management, and production-readiness.*
 - **[Cockpit Overview](cockpit/overview.md)**: Navigating the Mission Control dashboard.
-- **[Enterprise Fleet Audits](cockpit/overview.md)**: Auditing 10+ agents in workspace mode.
-- **[Security & Red Teaming](cockpit/security.md)**: adversarial audits and PII scanning.
-- **[Governance-as-Code](cockpit/governance.md)**: Mapping to Google Well-Architected Framework.
+- **[Enterprise Fleet Audits](cockpit/overview.md)**: High-velocity orchestration for hundreds of agents.
+- **[Governance-as-Code](cockpit/governance.md)**: Standardized **SARIF** exports for GitHub/SonarQube integration.
+- **[SME Verdicts](cockpit/governance.md)**: Educational rationales from Principal SME Personas.
+- **[Security & Red Teaming](cockpit/security.md)**: Adversarial audits and PII scanning.
 - **[Production Checklist](cockpit/production_checklist.md)**: The final gate before `make deploy-prod`.
 
 ---

@@ -138,14 +138,14 @@ The Cockpit now performs platform-specific performance and security audits for:
 ### 🧗 Quality Hill Climbing (ADK Evaluation)
 Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
 
-### 🏢 Enterprise Governance (NEW v0.9.8)
-The Cockpit has evolved from a developer tool into an **Active Governance Service** for enterprise AI fleets.
+### 🏢 Enterprise Governance (v1.1.2: Governance-as-Code)
+The Cockpit has evolved into a **Unified Governance Service** for enterprise AI fleets.
 
-*   **Native Fleet Orchestration (Workspace Mode)**: Audit 44+ agents simultaneously across your entire organization. `agent-ops report --workspace` scans root directories and handles parallel benchmarking and quota management natively.
-*   **Semantic SME (Intent-based Reasoning)**: Replacing regex with reasoning. The auditor now uses a **Principal Architect Persona** (via Gemini Flash) to validate architectural intent rather than just keywords. It identifies "Shadow Mode" patterns even in non-standard implementations.
-*   **Enterprise Evidence Lake**: Centralized JSON/Database logging of all audit artifacts. Move beyond scattered reports to a single source of truth for compliance, ready for BigQuery/Looker integration.
-*   **Maturity Velocity (v1 vs. v2 Deltas)**: Every report now includes an **Improvement Delta**. Track your progress over time with metrics like: *"In v2, you fixed 3 High-Impact Security Breaches and increased reliability by 15%."*
-*   **Heritage & Legacy Support**: Graceful handling of heritage agents. The Cockpit now supports structural audits for older SDKs and legacy frameworks, reporting **ENV GAPs** instead of failures when environment mismatches occur.
+*   **⚖️ SARIF Export (Governance-as-Code)**: Move beyond local reports. Every audit generates a `cockpit_audit.sarif` file, allowing seamless integration with **GitHub Security Tab**, SonarQube, and enterprise DevSecOps pipelines.
+*   **🎭 SME Rationale Tooltips**: Governance is now educational. Fleet Dashboard cards feature high-fidelity **Principal SME Verdicts** (e.g., *"Approved due to robust Pydantic usage"*), providing technical intent alongside simple status codes.
+*   **⚡ Differential Auditing (Intelligent Hashing)**: High-velocity local loop. Using recursive content hashing, the Cockpit intelligently skips unchanged agents. **100+ agent fleet scans now achieve sub-5-second performance** on repeat runs.
+*   **🛠️ Enterprise fix-fleet Orchestration**: Organizational-scale autonomous patching. Bulk-patch security debt (PII/Secrets) or architectural gaps across hundreds of agents in a single transaction via `agent-ops fix-fleet`.
+*   **👔 Executive Maturity Velocity**: Track your "Hero Metrics." Every workspace run calculates **Improvement Velocity**, showing organizational leads how compliance has increased relative to historical Evidence Lake benchmarks.
 
 ---
 
