@@ -98,7 +98,7 @@ export function Home() {
             </div>
             <h1 className="hero-headline">
               <span className="hero-headline-text">The Professional Logic Layer for <span className="gradient-text">Agentic Apps</span></span>
-              <img src="/kokpi_kun.png" alt="Kokpi" className="hero-mascot" />
+              <img src="/kokpi_branded.jpg" alt="Kokpi" className="hero-mascot" />
             </h1>
             <p className="hero-description">
               Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
