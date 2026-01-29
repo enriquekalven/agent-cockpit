@@ -10,43 +10,63 @@ import { ThemeToggle } from '../components/ThemeToggle';
 
 const PILLAR_NAV = [
   {
-    title: 'Introduction',
+    title: 'Introductions',
     items: [
+      { id: 'docs-home', label: 'Documentation Home', path: '/docs', icon: <Activity size={18} /> },
       { id: 'story', label: 'The Trinity Vision', path: '/docs/story', icon: <BookOpen size={18} /> },
+    ]
+  },
+  {
+    title: 'The Mission (Architecture)',
+    items: [
       { id: 'google-architecture', label: 'Google Well-Architected', path: '/docs/google-architecture', icon: <ShieldCheck size={18} /> },
-      { id: 'getting-started', label: 'Quickstart Guide', path: '/docs/getting-started', icon: <Rocket size={18} /> },
+      { id: 'a2a', label: 'A2A Standard', path: '/docs/a2a', icon: <Command size={18} /> },
     ]
   },
   {
-    title: 'The Cockpit (Operations)',
+    title: 'Getting Started',
     items: [
-      { id: 'cockpit', label: 'Dashboard & Caching', path: '/docs/cockpit', icon: <Activity size={18} /> },
-      { id: 'optimization', label: 'Cost & Performance', path: '/docs/optimization', icon: <Zap size={18} /> },
-      { id: 'security', label: 'Red Team Security', path: '/docs/security', icon: <Shield size={18} /> },
-      { id: 'governance', label: 'Privacy & Governance', path: '/docs/governance', icon: <Lock size={18} /> },
-    ]
-  },
-  {
-    title: 'Development',
-    items: [
-      { id: 'be-integration', label: 'The Engine (Backend)', path: '/docs/be-integration', icon: <Cpu size={18} /> },
-      { id: 'development', label: 'The Face (UI)', path: '/docs/development', icon: <Layout size={18} /> },
+      { id: 'getting-started', label: 'Installation', path: '/docs/getting-started', icon: <Rocket size={18} /> },
       { id: 'cli-commands', label: 'CLI Reference', path: '/docs/cli-commands', icon: <Terminal size={18} /> },
     ]
   },
   {
-    title: 'Standards',
+    title: 'Operations (The Cockpit)',
     items: [
-      { id: 'a2a', label: 'A2UI Protocol', path: '/docs/a2a', icon: <Command size={18} /> },
-      { id: 'production-checklist', label: 'Launch Checklist', path: '/docs/production-checklist', icon: <ShieldCheck size={18} /> },
+      { id: 'optimization', label: 'FinOps & Optimization', path: '/docs/optimization', icon: <Zap size={18} /> },
+      { id: 'cockpit', label: 'Semantic Caching', path: '/docs/cockpit', icon: <Activity size={18} /> },
+      { id: 'governance', label: 'Governance & Privacy', path: '/docs/governance', icon: <Lock size={18} /> },
+    ]
+  },
+  {
+    title: 'Security (Red Team)',
+    items: [
+      { id: 'security', label: 'Adversarial Audits', path: '/docs/security', icon: <Shield size={18} /> },
+      { id: 'production-checklist', label: 'Launch Readiness', path: '/docs/production-checklist', icon: <ShieldCheck size={18} /> },
+    ]
+  },
+  {
+    title: 'Engineering',
+    items: [
+      { id: 'be-integration', label: 'Engine (Backend)', path: '/docs/be-integration', icon: <Cpu size={18} /> },
+      { id: 'development', label: 'Face (UI/A2UI)', path: '/docs/development', icon: <Layout size={18} /> },
       { id: 'deployment', label: 'Cloud Deployment', path: '/docs/deployment', icon: <Rocket size={18} /> },
     ]
   }
 ];
 
+const STACK_OPTIONS = [
+  { id: 'standalone', label: 'Standalone Python', icon: '🐍' },
+  { id: 'langgraph', label: 'LangGraph', icon: '🦜' },
+  { id: 'crewai', label: 'CrewAI / Swarm', icon: '🐝' },
+  { id: 'autogen', label: 'Microsoft AutoGen', icon: '🤖' },
+];
+
 export const DocLayout: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [activeStack, setActiveStack] = useState(STACK_OPTIONS[0]);
+  const [isStackDropdownOpen, setStackDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -101,6 +121,40 @@ export const DocLayout: React.FC = () => {
         {/* Sidebar */}
         <aside className={`crew-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
           <div className="sidebar-scroll">
+            {/* Stack Selector - Following CopilotKit pattern */}
+            <div className="stack-selector-container">
+              <label className="sidebar-label">Active Integration</label>
+              <div
+                className={`stack-dropdown ${isStackDropdownOpen ? 'active' : ''}`}
+                onClick={() => setStackDropdownOpen(!isStackDropdownOpen)}
+              >
+                <div className="active-stack">
+                  <span className="stack-icon">{activeStack.icon}</span>
+                  <span className="stack-label">{activeStack.label}</span>
+                  <ChevronRight size={14} className={`dropdown-arrow ${isStackDropdownOpen ? 'open' : ''}`} />
+                </div>
+
+                {isStackDropdownOpen && (
+                  <div className="stack-options-menu">
+                    {STACK_OPTIONS.map(opt => (
+                      <div
+                        key={opt.id}
+                        className={`stack-opt-item ${activeStack.id === opt.id ? 'current' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveStack(opt);
+                          setStackDropdownOpen(false);
+                        }}
+                      >
+                        <span className="stack-icon">{opt.icon}</span>
+                        <span className="stack-label">{opt.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
             <nav className="sidebar-nav">
               {PILLAR_NAV.map((group) => (
                 <div className="nav-section" key={group.title}>
@@ -135,9 +189,13 @@ export const DocLayout: React.FC = () => {
         <main className="crew-content">
           <div className="content-inner">
             <header className="content-breadcrumb">
-              <span>Docs</span>
-              <ChevronRight size={14} />
-              <span className="current">{location.pathname.split('/').pop()?.replace('-', ' ')}</span>
+              <Link to="/docs" style={{ color: 'inherit', textDecoration: 'none' }}>Docs</Link>
+              {location.pathname !== '/docs' && (
+                <>
+                  <ChevronRight size={14} />
+                  <span className="current">{location.pathname.split('/').pop()?.replace('-', ' ')}</span>
+                </>
+              )}
             </header>
 
             <div className="markdown-container">
@@ -147,7 +205,7 @@ export const DocLayout: React.FC = () => {
             <footer className="content-footer">
               <div className="footer-meta">
                 <span>Last updated: 2026-01-27</span>
-                <a href="#">Edit this page on GitHub</a>
+                <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank">Edit on GitHub</a>
               </div>
               <div className="footer-social">
                 <Slack size={18} />
@@ -156,18 +214,20 @@ export const DocLayout: React.FC = () => {
             </footer>
           </div>
 
-          {/* Table of Contents - Hidden on small screens */}
-          <aside className="crew-toc">
-            <div className="toc-inner">
-              <h4 className="toc-title">On this page</h4>
-              <nav className="toc-links">
-                <a href="#overview" className="toc-link active">Overview</a>
-                <a href="#setup" className="toc-link">Setup</a>
-                <a href="#usage" className="toc-link">Usage Examples</a>
-                <a href="#best-practices" className="toc-link">Best Practices</a>
-              </nav>
-            </div>
-          </aside>
+          {/* Table of Contents - Hidden on index page */}
+          {location.pathname !== '/docs' && (
+            <aside className="crew-toc">
+              <div className="toc-inner">
+                <h4 className="toc-title">On this page</h4>
+                <nav className="toc-links">
+                  <a href="#overview" className="toc-link active">Overview</a>
+                  <a href="#setup" className="toc-link">Setup</a>
+                  <a href="#usage" className="toc-link">Usage Examples</a>
+                  <a href="#best-practices" className="toc-link">Best Practices</a>
+                </nav>
+              </div>
+            </aside>
+          )}
         </main>
       </div>
 
@@ -283,6 +343,94 @@ export const DocLayout: React.FC = () => {
           display: flex;
           flex: 1;
           margin-top: 64px;
+        }
+
+        /* Stack Selector Style */
+        .stack-selector-container {
+          margin-bottom: 2rem;
+          padding: 0 0.5rem;
+        }
+        .sidebar-label {
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          color: var(--text-secondary);
+          opacity: 0.6;
+          margin-bottom: 0.5rem;
+          display: block;
+          font-weight: 800;
+        }
+        .stack-dropdown {
+          background: rgba(var(--text-primary-rgb), 0.05);
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          padding: 0.6rem 0.75rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          position: relative;
+        }
+        .stack-dropdown:hover {
+          background: rgba(var(--text-primary-rgb), 0.08);
+          border-color: var(--primary-color);
+        }
+        .stack-dropdown.active {
+          border-color: var(--primary-color);
+          background: var(--bg-secondary);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .active-stack {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+        .stack-icon { font-size: 1.1rem; }
+        .stack-label {
+          font-size: 0.85rem;
+          font-weight: 700;
+          flex: 1;
+        }
+        .dropdown-arrow { 
+          transition: transform 0.2s; 
+          opacity: 0.4;
+        }
+        .dropdown-arrow.open {
+          transform: rotate(90deg);
+          opacity: 1;
+          color: var(--primary-color);
+        }
+
+        .stack-options-menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          left: 0;
+          right: 0;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          border-radius: 12px;
+          padding: 0.5rem;
+          z-index: 1000;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+          animation: slideUp 0.2s ease-out;
+        }
+
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stack-opt-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.6rem 0.75rem;
+          border-radius: 6px;
+          transition: all 0.2s;
+        }
+        .stack-opt-item:hover {
+          background: rgba(var(--text-primary-rgb), 0.05);
+        }
+        .stack-opt-item.current {
+          background: rgba(var(--primary-color-rgb), 0.1);
+          color: var(--primary-color);
         }
 
         /* Sidebar Styling */

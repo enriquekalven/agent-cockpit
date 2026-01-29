@@ -23,9 +23,11 @@ export const OpsDashboard: React.FC = () => {
 
       <div className="ops-grid">
         {/* Shadow Mode Stats */}
-        <div className="ops-card glass-panel">
+        <div className="ops-card glass-panel shadow-vibrant">
           <div className="card-header">
-            <ShieldCheck className="text-primary-color" size={24} />
+            <div className="icon-box green-glow">
+              <ShieldCheck className="text-green-400" size={20} />
+            </div>
             <h3>Shadow Mode (v1 vs v2)</h3>
           </div>
           <div className="card-body">
@@ -39,19 +41,21 @@ export const OpsDashboard: React.FC = () => {
                 <span className="font-mono text-blue-400">99.1% Confidence</span>
               </div>
             </div>
-            <p className="text-xs opacity-50 mt-4">Shadow mode is currently evaluating Gemini 2.0 Pro against production traffic with zero-impact.</p>
+            <p className="text-xs opacity-50 mt-4">Evaluating Gemini 2.0 Pro with zero-impact.</p>
           </div>
         </div>
 
         {/* Semantic Cache Hit Rate */}
-        <div className="ops-card glass-panel">
+        <div className="ops-card glass-panel zap-vibrant">
           <div className="card-header">
-            <Zap className="text-yellow-400" size={24} />
+            <div className="icon-box yellow-glow">
+              <Zap className="text-yellow-400" size={20} />
+            </div>
             <h3>Hive Mind Cache</h3>
           </div>
           <div className="card-body">
             <div className="big-stat">
-              <span className="stat-value">42%</span>
+              <span className="stat-value text-gradient-yellow">42%</span>
               <span className="stat-label">Hit Rate</span>
             </div>
             <div className="mt-4">
@@ -60,7 +64,7 @@ export const OpsDashboard: React.FC = () => {
                 <span className="text-green-400">$24.50</span>
               </div>
               <div className="progress-bar">
-                <div className="progress-fill" style={{ width: '42%' }}></div>
+                <div className="progress-fill yellow-gradient" style={{ width: '42%' }}></div>
               </div>
             </div>
           </div>
@@ -86,9 +90,11 @@ export const OpsDashboard: React.FC = () => {
         </div>
 
         {/* RAG Dropzone Status */}
-        <div className="ops-card glass-panel">
+        <div className="ops-card glass-panel secure-vibrant">
           <div className="card-header">
-            <Database className="text-purple-400" size={24} />
+            <div className="icon-box purple-glow">
+              <Database className="text-purple-400" size={20} />
+            </div>
             <h3>RAG Dropzone</h3>
           </div>
           <div className="card-body">
@@ -102,9 +108,8 @@ export const OpsDashboard: React.FC = () => {
               </div>
             </div>
             <div className="rag-tags mt-4">
-              <span className="tag">policies/</span>
-              <span className="tag">docs/</span>
-              <span className="tag">knowledge/</span>
+              <span className="tag purple-tag">policies/</span>
+              <span className="tag purple-tag">docs/</span>
             </div>
           </div>
         </div>
@@ -247,6 +252,57 @@ export const OpsDashboard: React.FC = () => {
           height: 100%;
           background: var(--primary-color);
           border-radius: 3px;
+        }
+        .yellow-gradient {
+          background: linear-gradient(90deg, #facc15, #eab308);
+          box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+        }
+        .icon-box {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+        }
+        .green-glow { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); box-shadow: 0 8px 16px rgba(34, 197, 94, 0.1); }
+        .yellow-glow { background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.2); box-shadow: 0 8px 16px rgba(234, 179, 8, 0.1); }
+        .purple-glow { background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 8px 16px rgba(168, 85, 247, 0.1); }
+        .blue-glow { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 8px 16px rgba(59, 130, 246, 0.1); }
+        .red-glow { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: 0 8px 16px rgba(239, 68, 68, 0.1); }
+
+        .text-gradient-yellow {
+          background: linear-gradient(135deg, #fef08a, #eab308);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .purple-tag { border-color: rgba(168, 85, 247, 0.4); color: #a855f7; }
+
+        .shadow-vibrant { border-top: 3px solid #22c55e; position: relative; overflow: hidden; }
+        .shadow-vibrant::after {
+          content: ''; position: absolute; top: -20%; right: -20%; width: 50%; height: 50%;
+          background: radial-gradient(circle, rgba(34, 197, 94, 0.08), transparent 70%);
+          pointer-events: none;
+        }
+        .zap-vibrant { border-top: 3px solid #eab308; }
+        .zap-vibrant::after {
+          content: ''; position: absolute; top: -20%; right: -20%; width: 50%; height: 50%;
+          background: radial-gradient(circle, rgba(234, 179, 8, 0.08), transparent 70%);
+          pointer-events: none;
+        }
+        .secure-vibrant { border-top: 3px solid #a855f7; }
+        .secure-vibrant::after {
+          content: ''; position: absolute; top: -20%; right: -20%; width: 50%; height: 50%;
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.08), transparent 70%);
+          pointer-events: none;
+        }
+        
+        .ops-card {
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          background: rgba(var(--bg-secondary-rgb), 0.5);
+          position: relative;
         }
         .status-item {
           display: flex;

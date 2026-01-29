@@ -3,7 +3,7 @@
 This repository is optimized for **Gemini** and agentic development. AI agents should use this file as the primary source of truth for understanding the architecture, tools, and constraints of this project.
 
 ## 🚀 Project Overview
-The **Optimized Agent Stack** is a production-grade distribution for building AI agents on Google Cloud. It covers the **Agentic Trinity**: Engine (Backend), Face (Frontend), and Cockpit (Operations).
+The **Optimized Agent Stack** is a production-grade distribution for building AI agents on Google Cloud. It follows the **Google Well-Architected Framework for Agents** and covers the **Agentic Trinity**: Engine (Backend), Face (Frontend), and Cockpit (Operations).
 
 ## 🛠️ Tech Stack
 - **The Engine**: Python, FastAPI, Vertex AI SDK, ADK.

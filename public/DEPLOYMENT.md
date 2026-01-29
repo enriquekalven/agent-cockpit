@@ -42,15 +42,33 @@ The React/Vite frontend is deployed to Firebase for globally distributed edge pe
 
 ## 🏗️ Deployment Workflow
 
-We use a **1-click deployment** strategy that builds safety into the process:
+We use a **1-click deployment** strategy that builds safety into the process via tiered audits:
+
+### Tier 1: The Quick "Safe-Build"
+**Command**: `make audit` (or part of `make deploy-prod`)  
+**Speed**: ~15-30 seconds.  
+**Focus**: Essential development guardrails.
+- Architecture sanity check.
+- Secret leakage detection.
+- Token optimization audit.
+- Fast Red-Team (common injections).
+
+### Tier 2: The Deep System Audit
+**Command**: `make audit-deep`  
+**Speed**: ~2-5 minutes.  
+**Focus**: Production-gate benchmarking & stress testing.
+- Full Adversarial Red-Teaming (Multilingual/Jailbreaks).
+- Iterative Quality Hill Climbing (ADK Metrics).
+- Precision Load Testing & Latency Benchmarks.
+- Strict Evidence Packing Audit.
 
 ```bash
-make deploy-prod
+make deploy-prod  # Runs Safe-Build -> Build -> Deploy
 ```
 
-### The "Safe-Build" Sequence:
-1. **Audit Phase**: The Cockpit runs `arch-review` (design) and `audit` (cost). 
-2. **Security Phase**: Executes `red-team` to ensure no public breaches exist in the latest code.
+### The Deployment Sequence:
+1. **Audit Phase**: The Cockpit runs the **Quick Safe-Build** modules. 
+2. **Security Phase**: Ensures no PII or secrets exist in the latest code.
 3. **Build Phase**: Compiles the React application and optimizes static assets.
 4. **Push Phase**: 
     - Containerizes the Engine and pushes to **Artifact Registry**.

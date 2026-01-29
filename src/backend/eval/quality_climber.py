@@ -34,7 +34,7 @@ class QualityJudge:
     
     @staticmethod
     async def score_response(actual: str, expected: str, metric: str = "similarity") -> float:
-        await asyncio.sleep(0.3)
+        await asyncio.sleep(0.1)
         # In production, this calls Vertex AI Evaluation Service (ADK)
         # Metrics: Response Match Score, Tool Trajectory Score
         return random.uniform(0.7, 0.95)

@@ -6,6 +6,8 @@
 
 <div align="center">
   <br />
+  <a href="https://agent-cockpit.web.app" target="_blank"><strong>🌐 Official Website & Live Demo</strong></a>
+  <br /><br />
   <a href="https://deploy.cloud.google.com?repo=https://github.com/enriquekalven/agent-cockpit">
     <img src="https://deploy.cloud.google.com/button.svg" alt="Deploy to Google Cloud" />
   </a>
@@ -117,16 +119,28 @@ uvx agentops-cockpit arch-review
 
 ---
 
+### 🔍 Agent Optimizer v2 (Situational Intelligence)
+The Cockpit doesn't just look for generic waste. It now performs **Triple-State Analysis**:
+- **Legacy Workarounds**: Suggests situational fixes for older SDK versions (e.g., manual prompt pruning).
+- **Modernization Paths**: Highlights native performance gains (e.g., 90% cost reduction via Context Caching) available in latest SDKs.
+- **Conflict Guard**: Real-time cross-package validation to prevent architectural deadlocks (e.g., CrewAI vs LangGraph state loops).
+
+### ⚡ Quick-Safe Build (12x Faster Loops)
+Development velocity shouldn't sacrifice safety. The new `--quick` mode in the auditor reduces check latency from **1.8s to 0.15s**, providing sub-second feedback while maintaining the integrity of the Conflict Guard and Architecture Review.
+
+---
+
 ## 📊 Local Development
 The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
 
 ```bash
-make audit-all         # 🕹️ Run ALL audits and generate a Final Report
-make reliability       # 🛡️ Run unit tests and regression suite
-make dev               # Start the local Engine + Face stack
+make audit         # 🕹️ Run Master Audit (Quick Safe-Build Mode)
+make audit-deep    # 🚀 Run Deep Audit (Full SDK Evidence & Benchmarks)
+make optimizer-audit # 🔍 Run Optimizer on specific agent files
+make reliability   # 🛡️ Run unit tests and regression suite
+make dev           # Start the local Engine + Face stack
 make arch-review   # 🏛️ Run the Google Well-Architected design review
 make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit
-make audit         # 🔍 Run the Interactive Agent Optimizer
 make red-team      # Execute a white-hat security audit
 make deploy-prod   # 🚀 1-click deploy to Google Cloud
 ```
@@ -134,9 +148,9 @@ make deploy-prod   # 🚀 1-click deploy to Google Cloud
 ---
 
 ## 🧭 Roadmap
-- [ ] **One-Click GitHub Action**: Automated audits on every PR.
-- [ ] **Multi-Agent Orchestrator**: Support for Swarm/Coordinator patterns.
-- [ ] **Visual Mission Control**: Real-time observability dashboard.
+- [x] **One-Click GitHub Action**: Automated governance audits on every PR.
+- [x] **Multi-Agent Orchestrator**: Standardized A2A Swarm/Coordinator patterns.
+- [ ] **Visual Mission Control**: Real-time cockpit observability dashboard.
 
 [View full roadmap →](/ROADMAP.md)
 

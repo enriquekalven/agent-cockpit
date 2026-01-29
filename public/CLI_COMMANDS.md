@@ -1,85 +1,84 @@
-# Optimized Agent Stack: CLI & Cockpit Reference
+# ⌨️ CLI Reference Guide
 
-The **Optimized Agent Stack** provides a comprehensive set of tools for both building (Scaffolding) and managing (Operations) AI agents.
-
-## 1. Installation & Scaffolding (Day 0)
-
-The AgentOps Cockpit is available as a professional CLI on PyPI.
-
-### Install globally:
-```bash
-pip install agentops-cockpit
-```
-
-### Scaffold a new project:
-```bash
-# Creates a new Well-Architected agent repo
-agent-ops create my-agent --ui a2ui
-```
+The AgentOps Cockpit is designed for automation. Use these commands to manage your agent lifecycle from the terminal or your CI/CD pipeline.
 
 ---
 
-## 2. Operations & Auditing (The Cockpit)
+## 🏛️ Governance Commands
 
-Run these commands inside any agent repository to verify governance-as-code.
+### `make audit`
+**The Quick Safe-Build (15-30s).**
+- **Action**: Orchestrates all essential governance modules in parallel: Arch Review → Secrets → Token Optimization → Fast Red-Team.
+- **Output**: Generates a high-speed verification report.
+- **When to use**: Continuous development and local testing. Default for `make deploy-prod`.
 
-### `agent-ops arch-review`
-Audits agent design against the **Google Well-Architected Framework**.
-*   **Detection**: Automatically detects frameworks (LangGraph, ADK, CrewAI).
-*   **Gap Analysis**: Identifies architectural weaknesses in security, cost, and reliability.
+### `make audit-deep`
+**The Master Cockpit Auditor (2-5m).**
+- **Action**: Comprehensive benchmarking including full Red-Team, Quality Hill Climbing, and Load Testing.
+- **Output**: Generates the `cockpit_final_report.md` master benchmarking log.
+- **When to use**: Production-gate audits and final compliance checks.
 
-### `agent-ops audit`
-Runs the **Interactive Agent Optimizer** on specific logic files.
-*   **Scanning**: Checks for token waste, missing cache, or inefficient model routing.
-*   **Proposals**: Suggests localized code improvements with an interactive diff viewer.
-*   **Optimization**: Defaults to `agent.py`.
+### `make arch-review`
+**The Google Well-Architected Auditor.**
+- **Action**: Audits your design against Google's best practices.
+- **Intelligence**: Automatically detects your stack (**Go, Python, NodeJS, Streamlit, Angular, Lit**) and applies specialized checklists.
+- **Output**: A "Cockpit Score" validating your runtime, memory policy, and security guardrails.
 
-### `agent-ops red-team`
-Unleashes adversarial security evaluations.
-*   **Stress Test**: Simulates prompt injections, PII leaks, and jailbreak attempts.
-*   **Safety Grade**: Provides a pass/fail grade for production readiness.
+### `make scan-secrets`
+**The Credential Guard.**
+- **Action**: Scans the entire codebase for hardcoded API keys, tokens, and service accounts.
+- **Goal**: Prevent sensitive leakages before code is pushed to version control.
 
-### `agent-ops report`
-The "Full Mission Sweep". Runs all audits (Arch, Quality, Security, Cost) and generates a comprehensive `cockpit_final_report.md`.
+### `make red-team`
+**The Adversarial Evaluator.**
+- **Action**: Launches a self-hacking attack on your agent's system instructions.
+- **Goal**: Detect prompt injections, PII leaks, and instruction overrides.
 
----
-
-### Tool Usage Optimization (MCP Hub)
-Instead of using fragmented Tool APIs, the **Optimized Agent Stack** provides a unified **MCP (Model Context Protocol) Hub**. This allows you to connect to any industry-standard tool server (Google Search, SQL, Slack) with a single interface.
-
-```python
-from agent_ops_cockpit.ops.mcp_hub import global_mcp_hub
-
-# 1. Register an MCP server (e.g., Google Search)
-global_mcp_hub.register_server(
-    "google-search", 
-    "npx", 
-    ["-y", "@modelcontextprotocol/server-google-search"]
-)
-
-# 2. Execute tools via standardized MCP protocol
-result = await global_mcp_hub.execute_tool("search", {"q": "Vertex AI updates"})
-```
-Govern all execution metrics via the Cockpit dashboard.
+### `make ui-audit` (New!)
+**The Face Auditor.**
+- **Action**: Analyzes your frontend (React, Angular, Streamlit) for A2UI protocol compliance and accessibility.
+- **Goal**: Ensures your agentic interface is responsive and inclusive.
 
 ---
 
-## 3. Operations Dashboard (Cockpit UI)
+## 📉 Optimization Commands
 
-Navigate to `/ops` on your deployed or local instance to access the **Control Plane**.
+### `agent-ops audit` (CLI Tool)
+**The Heuristic Auditor.**
+- **Action**: Analyzes prompt length and identifies Context Caching opportunities.
+- **Language Aware**: Provides specific Go and NodeJS performance tips.
 
-*   **Shadow Mode Router**: Compare v1 vs v2 responses in real-time.
-*   **Flight Recorder**: Step-through visual scrubber for agent thought chains.
-*   **Semantic Cache Stats**: Real-time visualization of cost savings from the "Hive Mind" cache.
-*   **MCP Hub Status**: Monitor the health of standardized tool connections.
+### `make load-test`
+**The Performance Validator.**
+- **Action**: Executes concurrency-based stress tests against your agent endpoint.
+- **Variables**:
+    - `REQUESTS`: Total number of calls (Default: 50).
+    - `CONCURRENCY`: Number of simultaneous users (Default: 5).
 
 ---
 
-## 4. Google Cloud Setup
+## 🚀 Deployment Commands
 
-To initialize the environment for the first time, use the setup script:
-```bash
-chmod +x setup_gcp.sh
-./setup_gcp.sh
-```
-This configures Artifact Registry, enables APIs, and runs the initial security evaluation.
+### `make dev`
+Starts the local development stack:
+- **Backend (Engine)**: FastAPI/ADK running at `localhost:8000`.
+- **Frontend (Face)**: Vite dev server running at `localhost:5173`.
+
+### `make deploy-prod`
+**The 1-Click Production Pipeline.**
+1. Runs the Quick Safe-Build (`make audit`).
+2. Compiles production frontend assets.
+3. Deploys the Engine to **Google Cloud Run**.
+4. Deploys the Face to **Firebase Hosting**.
+
+---
+
+## 🧬 Scaffolding
+
+### `agent-ops create <name>`
+**The Project Generator.**
+- **Options**:
+    - `--ui`: Choose your template (`a2ui`, `streamlit`, `angular`, `lit`).
+    - `--lang`: Choose your engine language (`python`, `go`, `nodejs`).
+- **Usage**: `uvx agent-ops-cockpit create my-new-agent --lang go`
+

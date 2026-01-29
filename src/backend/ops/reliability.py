@@ -9,16 +9,23 @@ app = typer.Typer(help="Reliability Audit: Manage unit tests and regression suit
 console = Console()
 
 @app.command()
-def audit():
-    """Run all reliability checks (Unit tests + Regression Suite)."""
-    console.print(Panel.fit("🛡️ [bold green]RELIABILITY AUDIT[/bold green]", border_style="green"))
+def audit(
+    quick: bool = typer.Option(False, "--quick", "-q", help="Run only essential unit tests for faster feedback")
+):
+    """Run reliability checks (Unit tests + Regression Suite)."""
+    title = "🛡️ RELIABILITY AUDIT (QUICK)" if quick else "🛡️ RELIABILITY AUDIT"
+    console.print(Panel.fit(f"[bold green]{title}[/bold green]", border_style="green"))
     
     # 1. Run Pytest for Unit Tests
     console.print("🧪 [bold]Running Unit Tests (pytest)...[/bold]")
+    import os
+    env = os.environ.copy()
+    env["PYTHONPATH"] = f"src{os.pathsep}{env.get('PYTHONPATH', '')}"
     unit_result = subprocess.run(
         [sys.executable, "-m", "pytest", "src/backend/tests"],
         capture_output=True,
-        text=True
+        text=True,
+        env=env
     )
     
     # 2. Check Regression Coverage

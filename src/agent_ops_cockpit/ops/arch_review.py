@@ -87,7 +87,7 @@ def audit(path: str = "."):
                     check_status = "[bold red]FAIL[/bold red]"
                 
                 import time
-                time.sleep(0.1) # Simulate deep heuristic scan
+                # time.sleep(0.1) # Simulate deep heuristic scan
                 
                 table.add_row(check_text, check_status, rationale)
             

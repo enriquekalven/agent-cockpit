@@ -1,18 +1,20 @@
 # --- A2UI Starter Makefile ---
 
 # Project Variables
+PYTHON = $(shell if [ -f "./.venv/bin/python3.14" ]; then echo "./.venv/bin/python3.14"; elif [ -d ".venv" ]; then echo "./.venv/bin/python"; else echo "python3"; fi)
 PROJECT_ID ?= $(shell gcloud config get-value project)
 REGION ?= us-central1
 SERVICE_NAME = agent-ops-backend
 IMAGE_TAG = us-central1-docker.pkg.dev/$(PROJECT_ID)/agent-repo/$(SERVICE_NAME):latest
 
-.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit deploy-prod scan-secrets ui-audit audit-all
+.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit deploy-prod scan-secrets ui-audit audit-all watch
 
 help:
 	@echo "Available commands:"
 	@echo "  make dev               - Start local development server"
 	@echo "  make build             - Build production assets"
-	@echo "  make audit-all         - Run ALL audits and generate Final Report"
+	@echo "  make audit             - Run Quick Safe-Build (Essential for dev velocity)"
+	@echo "  make audit-deep        - Run Deep System Audit (Benchmarks & Stress Tests)"
 	@echo "  make reliability       - Run unit tests and regression suite"
 	@echo "  make scan-secrets      - Scan for hardcoded API keys & credentials"
 	@echo "  make ui-audit          - Run Face Auditor (UI/UX best practices)"
@@ -24,6 +26,8 @@ help:
 	@echo "  make deploy-prod       - Deploy to production (All Audits -> Cloud Run + Firebase)"
 	@echo "  make deploy-cloud-run  - Deploy to Google Cloud Run"
 	@echo "  make deploy-firebase   - Deploy to Firebase Hosting"
+	@echo "  make watch             - Track ecosystem updates (ADK, A2A, LangChain, etc.)"
+
 
 
 
@@ -33,38 +37,46 @@ dev:
 build:
 	npm run build
 
-# 🏁 Master Audit: Run all modules and generate report
-audit-all:
-	@python3 src/backend/ops/orchestrator.py
+# 🏁 Master Audit: Safe-Build (Essential for dev velocity)
+audit:
+	@$(PYTHON) src/backend/ops/orchestrator.py --mode quick
+
+# 🚀 Deep Master Audit: Full benchmarks and stress tests
+audit-deep:
+	@$(PYTHON) src/backend/ops/orchestrator.py --mode deep
 
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
-	@python3 src/backend/ops/reliability.py
+	@$(PYTHON) src/backend/ops/reliability.py
 
-# 🔍 The Optimizer: Audit your agent for waste
-audit:
-	@python3 src/backend/optimizer.py src/backend/agent.py
+# 🔍 The Optimizer: Audit specific agent file for code-level waste
+optimizer-audit:
+	@$(PYTHON) src/backend/optimizer.py src/backend/agent.py --quick
+
+# 🔍 Deep Optimizer: Fetch live SDK evidence
+optimizer-audit-deep:
+	@$(PYTHON) src/backend/optimizer.py src/backend/agent.py
 
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
-	@python3 src/backend/ops/arch_review.py
+	@$(PYTHON) src/backend/ops/arch_review.py
 
 # 🧗 Quality: Iterative Hill Climbing optimization
 quality-baseline:
-	@python3 src/backend/eval/quality_climber.py climb
+	@$(PYTHON) src/backend/eval/quality_climber.py climb
 
 # 🧪 Secrets: Scan for hardcoded credentials
 scan-secrets:
-	@python3 src/backend/ops/secret_scanner.py .
+	@$(PYTHON) src/backend/ops/secret_scanner.py .
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
-	@python3 src/backend/ops/ui_auditor.py src
+	@$(PYTHON) src/backend/ops/ui_auditor.py src
 
 # 🔥 Red Team: Unleash self-hacking security audit
 
 red-team:
-	@python3 src/backend/eval/red_team.py src/backend/agent.py
+	@$(PYTHON) src/backend/eval/red_team.py src/backend/agent.py
 
 # ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
 REQUESTS ?= 50
@@ -73,10 +85,10 @@ CONCURRENCY ?= 5
 URL ?= http://localhost:8000/agent/query?q=healthcheck
 
 load_test:
-	@python3 src/backend/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
+	@$(PYTHON) src/backend/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
-# 🚀 Production: The Vercel-style 1-click deploy
-deploy-prod: audit-all build
+# 🚀 Production: The Vercel-style 1-click deploy (using Quick Audit for speed)
+deploy-prod: audit build
 
 	@echo "📦 Containerizing and deploying to Cloud Run..."
 	gcloud run deploy $(SERVICE_NAME) --source . --region $(REGION) --allow-unauthenticated --port 80
@@ -98,3 +110,8 @@ deploy-gke:
 	@echo "Updating deployment.yaml..."
 	sed -i '' 's|image: .*|image: $(IMAGE_TAG)|' deployment.yaml || true
 	kubectl apply -f deployment.yaml || echo "No deployment.yaml found. Please create one based on DEPLOYMENT.md"
+
+# 📡 Watch: Ecosystem sync check
+watch:
+	@$(PYTHON) src/backend/ops/watcher.py
+

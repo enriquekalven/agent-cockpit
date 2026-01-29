@@ -82,29 +82,52 @@ export function Home() {
           <div className="hero-visual-v2">
             <div className="visual-container">
               <div className="visual-background-glow"></div>
+
+              <div className="mock-cockpit-preview">
+                <div className="cockpit-header">
+                  <Activity size={16} className="text-green-400" />
+                  <span>OP-CENTER CLUSTER: US-CENTRAL1</span>
+                </div>
+                <div className="cockpit-stats-grid">
+                  <div className="c-stat">
+                    <span className="c-label">COST SAVINGS</span>
+                    <span className="c-value text-green-400">92%</span>
+                  </div>
+                  <div className="c-stat">
+                    <span className="c-label">LATENCY</span>
+                    <span className="c-value text-blue-400">42ms</span>
+                  </div>
+                </div>
+                <div className="cockpit-graph">
+                  <div className="bar" style={{ height: '40%' }}></div>
+                  <div className="bar" style={{ height: '70%' }}></div>
+                  <div className="bar active" style={{ height: '90%' }}></div>
+                  <div className="bar" style={{ height: '60%' }}></div>
+                </div>
+              </div>
+
               <div className="mock-terminal">
                 <div className="terminal-header">
                   <div className="dots"><span></span><span></span><span></span></div>
-                  <div className="terminal-title">agent-ops --audit</div>
+                  <div className="terminal-title">agent-ops --safe-build</div>
                 </div>
                 <div className="terminal-body">
-                  <div className="line terminal-cmd">$ pip install agentops-cockpit</div>
-                  <div className="line text-green-400">Successfully installed agentops-cockpit-0.2.2</div>
-                  <div className="line terminal-cmd">$ agent-ops arch-review</div>
-                  <div className="line text-blue-400">🏛️ Launching Architecture Design Review...</div>
-                  <div className="line text-gray-500">[1/4] Checking Core Architecture... [OK]</div>
-                  <div className="line text-gray-500">[2/4] Verifying Privacy Middleware... [PII_SCRUBBER_ACTIVE]</div>
-                  <div className="line text-green-400">✅ Architecture aligned with Google Well-Architected Framework.</div>
+                  <div className="line terminal-cmd">$ make audit</div>
+                  <div className="line text-blue-400">🕹️ Running Quick Safe-Build...</div>
+                  <div className="line text-green-400">✅ Arch Review: Well-Architected [PASSED]</div>
+                  <div className="line text-yellow-500">⚠ 1 Token Leak Opt found. Applied.</div>
+                  <div className="line text-green-400">✅ Red-Team: No critical breaches.</div>
                   <div className="line blink">_</div>
                 </div>
               </div>
-              <div className="floating-stat stat-1">
+
+              <div className="floating-stat stat-1 green-vibrant">
                 <Zap size={16} />
-                <span>40% Cost Savings</span>
+                <span>$420 Saved Today</span>
               </div>
-              <div className="floating-stat stat-2">
+              <div className="floating-stat stat-2 purple-vibrant">
                 <Shield size={16} />
-                <span>100% Secure</span>
+                <span>100% Red Team Pass</span>
               </div>
             </div>
           </div>
@@ -206,10 +229,10 @@ export function Home() {
               </div>
             </div>
             <div className="capability-item">
-              <div className="item-icon"><Lock size={24} /></div>
+              <div className="item-icon"><Layers size={24} /></div>
               <div>
-                <h4>Compliance-First</h4>
-                <p>PII Scrubbing and Evidence Packing come standard to ensure enterprise-grade data handling.</p>
+                <h4>Tiered Governance</h4>
+                <p>Choose between a 15s "Safe-Build" for dev agility or a deep 5m audit for production-gate benchmarking.</p>
               </div>
             </div>
           </div>
@@ -346,7 +369,7 @@ export function Home() {
           margin: 0 auto;
           padding: 6rem 2rem;
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
+          grid-template-columns: 1fr 1fr;
           gap: 4rem;
           align-items: center;
           flex: 1;
@@ -381,8 +404,8 @@ export function Home() {
         }
 
         .hero-headline {
-          font-size: 4.5rem;
-          line-height: 1.1;
+          font-size: clamp(2.5rem, 8vw, 4.5rem);
+          line-height: 1;
           font-weight: 900;
           letter-spacing: -0.04em;
           margin-bottom: 2rem;
@@ -396,7 +419,7 @@ export function Home() {
         }
 
         .hero-description {
-          font-size: 1.4rem;
+          font-size: clamp(1rem, 2.5vw, 1.4rem);
           color: var(--text-secondary);
           line-height: 1.6;
           margin-bottom: 3rem;
@@ -459,11 +482,17 @@ export function Home() {
         .hero-visual-v2 {
           position: relative;
           z-index: 1;
+          display: flex;
+          justify-content: flex-end;
         }
 
         .visual-container {
           position: relative;
           perspective: 1000px;
+          display: flex;
+          justify-content: flex-end;
+          min-height: 400px;
+          width: 100%;
         }
 
         .visual-background-glow {
@@ -482,8 +511,9 @@ export function Home() {
           border: 1px solid rgba(255, 255, 255, 0.1);
           box-shadow: 0 30px 60px rgba(0,0,0,0.3);
           overflow: hidden;
-          width: 500px;
-          transform: rotateX(5deg) rotateY(-5deg);
+          width: 100%;
+          max-width: 500px;
+          transform: rotateX(5deg) rotateY(-8deg); /* Slightly steeper for better perspective */
         }
 
         .terminal-header {
@@ -535,7 +565,38 @@ export function Home() {
         }
 
         .stat-1 { top: -20px; right: 20px; animation: float-v2 5s infinite ease-in-out; }
-        .stat-2 { bottom: 20px; left: -20px; animation: float-v2 5s infinite ease-in-out 1s; }
+        .stat-2 { bottom: 20px; left: 10%; animation: float-v2 5s infinite ease-in-out 1s; } /* Moved left slightly */
+        .green-vibrant { border-color: rgba(34, 197, 94, 0.4); color: #22c55e; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2); }
+        .purple-vibrant { border-color: rgba(168, 85, 247, 0.4); color: #a855f7; box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2); }
+
+        .mock-cockpit-preview {
+          background: rgba(13, 13, 13, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 1.5rem;
+          width: 280px; 
+          position: absolute;
+          top: 220px; /* Moved lower to clear the prompt area */
+          left: -120px; /* Shifted further left for balance */
+          z-index: 10;
+          backdrop-filter: blur(20px);
+          transform: rotateX(10deg) rotateY(10deg);
+          box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+        }
+
+        .floating-stat.stat-2 {
+          bottom: -20px;
+          left: 15%;
+          animation: float-v2 5s infinite ease-in-out 1s;
+        }
+        .cockpit-header { display: flex; align-items: center; gap: 0.75rem; font-size: 0.7rem; font-weight: 800; opacity: 0.6; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+        .cockpit-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .c-stat { display: flex; flex-direction: column; gap: 0.25rem; }
+        .c-label { font-size: 0.6rem; font-weight: 800; opacity: 0.4; text-transform: uppercase; }
+        .c-value { font-size: 1.5rem; font-weight: 900; }
+        .cockpit-graph { display: flex; align-items: flex-end; gap: 4px; height: 40px; }
+        .bar { flex: 1; background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
+        .bar.active { background: var(--primary-color); box-shadow: 0 0 15px var(--primary-color); }
 
         @keyframes float-v2 {
           0%, 100% { transform: translateY(0); }
@@ -798,7 +859,7 @@ export function Home() {
 
         /* Frameworks Bar Styling */
         .frameworks-bar {
-          padding: 4rem 0;
+          padding: 4rem 1.5rem;
           border-bottom: 1px solid var(--border-color);
           background: rgba(var(--bg-secondary-rgb), 0.3);
           position: relative;

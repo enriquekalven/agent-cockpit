@@ -6,11 +6,17 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ## 🏛️ Governance Commands
 
-### `make audit-all`
-**The Master Cockpit Auditor.**
-- **Action**: Orchestrates all governance modules in sequence: Arch Review → Secrets → Red Team → UI/UX → Optimization → Reliability.
-- **Output**: Generates the `cockpit_final_report.md` master log.
-- **When to use**: Mandatory before any production deployment.
+### `make audit`
+**The Quick Safe-Build (15-30s).**
+- **Action**: Orchestrates all essential governance modules in parallel: Arch Review → Secrets → Token Optimization → Fast Red-Team.
+- **Output**: Generates a high-speed verification report.
+- **When to use**: Continuous development and local testing. Default for `make deploy-prod`.
+
+### `make audit-deep`
+**The Master Cockpit Auditor (2-5m).**
+- **Action**: Comprehensive benchmarking including full Red-Team, Quality Hill Climbing, and Load Testing.
+- **Output**: Generates the `cockpit_final_report.md` master benchmarking log.
+- **When to use**: Production-gate audits and final compliance checks.
 
 ### `make arch-review`
 **The Google Well-Architected Auditor.**
@@ -37,8 +43,8 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ## 📉 Optimization Commands
 
-### `make audit`
-**The Token Optimizer.**
+### `agent-ops audit` (CLI Tool)
+**The Heuristic Auditor.**
 - **Action**: Analyzes prompt length and identifies Context Caching opportunities.
 - **Language Aware**: Provides specific Go and NodeJS performance tips.
 
@@ -60,7 +66,7 @@ Starts the local development stack:
 
 ### `make deploy-prod`
 **The 1-Click Production Pipeline.**
-1. Runs the Full Suite Audit (`make audit-all`).
+1. Runs the Quick Safe-Build (`make audit`).
 2. Compiles production frontend assets.
 3. Deploys the Engine to **Google Cloud Run**.
 4. Deploys the Face to **Firebase Hosting**.

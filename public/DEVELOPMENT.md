@@ -1,55 +1,35 @@
-# Development Guide: Extending the Stack
+# 🎭 UI Development: The Face
 
-The **Optimized Agent Stack** is built to be modular. You can extend the Engine (Backend), the Face (Frontend), or the Cockpit (Ops).
+The **Face** layer of our stack is built on the **A2UI (Agent-to-User Interface)** protocol. This transforms raw text responses into rich, interactive application surfaces.
 
-## 📁 Project Structure
+## 🚀 The A2UI Advantage
+Stop building custom UI for every agent tool. Our renderer dynamically manifests components based on the **Agentic JSON** returned by the Engine.
 
-### ⚙️ The Engine (Backend)
-- `src/backend/agent.py`: The main FastAPI server and agent logic.
-- `src/backend/cost_control.py`: Budget management middleware.
-- `src/backend/cache/`: Semantic caching logic and vector store connectors.
-- `src/backend/shadow/`: Traffic routing for Shadow Mode.
+| Feature | Description |
+| :--- | :--- |
+| **Adaptive Surfaces** | UIs that change layout based on tool outputs. |
+| **HITL Integration** | Built-in approval buttons for sensitive agent actions. |
+| **Evidence Display** | One-click "Show Sources" visibility via Evidence Packets. |
+| **Real-time Sync** | WebSocket/SSE streaming for "thought" visibility. |
 
-### 🎭 The Face (Frontend)
-- `src/a2ui/`: The core JSON ↔ React rendering engine.
-- `src/components/`: Shared UI components (Dashboard, StatusBars, etc.).
-- `src/docs/`: Documentation site logic.
+## 🎨 Design System
+We adhere to a high-fidelity, sleek aesthetic:
+- **Style**: Dark-mode primary with neon accent glows (Purple/Teal).
+- **Icons**: Standardized `lucide-react` set.
+- **Glassmorphism**: Heavy use of translucent panels and frosted backgrounds.
 
-### 🕹️ The Cockpit (Ops)
-- `src/backend/optimizer.py`: The Interactive Optimizer CLI.
-- `src/backend/eval/red_team.py`: Adversarial security testing logic.
+## 🧱 Component Library
+Common pre-built components in `src/components/a2ui/`:
+- `ActionCard`: For tool approvals.
+- `SourceList`: For grounding evidence.
+- `ThoughtChain`: For showing the agent's internal reasoning.
+- `StatusRibbon`: For cost/latency transparency.
 
----
-
-## 🎨 Adding New A2UI Components
-
-To add a new visual component that the agent can "render":
-
-1.  **Create the Component**: Add a new React component in `src/a2ui/components/`.
-2.  **Register the Type**: Add the component to the mapping in `src/a2ui/A2UIRenderer.tsx`.
-3.  **Update the Schema**: Add the new `props` definition to the `A2UIComponent` model in `src/backend/agent.py`.
-
----
-
-## 🔍 Extending the Optimizer
-
-You can add your own optimization heuristics to `src/backend/optimizer.py`. Common extensions include:
-*   Checking for specific PII patterns in prompts.
-*   Enforcing brand voice consistency.
-*   Suggesting tool-offloading for specific logic blocks.
+## 🏗️ Building Custom Components
+To add a new visual surface:
+1. Define the schema in `src/backend/agent.py`.
+2. Create the React component in `src/components/a2ui/custom/`.
+3. Map the JSON `surfaceId` to your new component in the `A2UIRenderer`.
 
 ---
-
-## 🧪 Testing
-
-### Local Cockpit
-Start the full stack locally:
-```bash
-make dev
-```
-
-### Adversarial Audit
-Run the security suite:
-```bash
-make red-team
-```
+*Reference: [A2UI Official Specification](https://github.com/google/A2UI)*

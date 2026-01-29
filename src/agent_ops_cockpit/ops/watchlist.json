@@ -1,0 +1,82 @@
+{
+  "orchestration_frameworks": {
+    "google-adk": {
+      "feed": "https://github.com/google/adk-python/releases.atom",
+      "package": "google-adk",
+      "description": "Agent Development Kit - Core reasoning & tool orchestration",
+      "min_version_for_optimizations": "0.15.0"
+    },
+    "crewai": {
+      "feed": "https://github.com/crewAIInc/crewAI/releases.atom",
+      "package": "crewai",
+      "description": "CrewAI - Role-playing multi-agent systems",
+      "min_version_for_optimizations": "1.0.0"
+    },
+    "langgraph": {
+      "feed": "https://github.com/langchain-ai/langgraph/releases.atom",
+      "package": "langgraph",
+      "description": "LangGraph - Stateful multi-agent orchestration",
+      "min_version_for_optimizations": "0.1.0"
+    },
+    "autogen": {
+      "feed": "https://github.com/microsoft/autogen/releases.atom",
+      "package": "pyautogen",
+      "description": "Microsoft AutoGen - Conversational agent framework",
+      "min_version_for_optimizations": "0.4.0"
+    },
+    "openai-agents": {
+      "feed": "https://github.com/openai/openai-agents-python/releases.atom",
+      "package": "openai-agents",
+      "description": "OpenAI Agents SDK - Multi-agent workflows",
+      "min_version_for_optimizations": "0.5.0"
+    },
+    "copilotkit": {
+      "feed": "https://github.com/CopilotKit/CopilotKit/releases.atom",
+      "package": "@copilotkit/react-core",
+      "description": "In-app AI Copilots & UX components",
+      "min_version_for_optimizations": "1.20.0"
+    }
+  },
+  "platform_services": {
+    "agent-engine": {
+      "feed": "https://github.com/googleapis/python-aiplatform/releases.atom",
+      "package": "google-cloud-aiplatform",
+      "description": "Vertex AI Agent Engine - Managed agent execution",
+      "min_version_for_optimizations": "1.70.0"
+    }
+  },
+  "compatibility_rules": [
+    {
+      "component": "langgraph",
+      "works_well_with": [
+        "google-adk",
+        "openai-agents"
+      ],
+      "incompatible_with": [
+        "crewai"
+      ],
+      "reason": "CrewAI and LangGraph both attempt to manage the orchestration loop and state, leading to cyclic-dependency conflicts."
+    },
+    {
+      "component": "google-adk",
+      "works_well_with": [
+        "langgraph",
+        "mcp"
+      ],
+      "incompatible_with": [
+        "pyautogen"
+      ],
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration."
+    },
+    {
+      "component": "mcp",
+      "works_well_with": [
+        "google-adk",
+        "langgraph",
+        "openai-agents"
+      ],
+      "incompatible_with": [],
+      "reason": "MCP is a universal standard and thrives in multi-framework environments."
+    }
+  ]
+}
