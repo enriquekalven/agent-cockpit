@@ -4,11 +4,19 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [0.7.0] - 2026-01-28
 
+### ☁️ The Multi-Cloud Update
+- **AWS Bedrock Integration**: Situational audit and optimization for AWS Bedrock Agents, including Action Group validation and Bedrock Guardrail checks.
+- **Oracle OCI AI Agents**: First-class support for OCI Generative AI Agents and Oracle Database 23ai (Vector Search) audits.
+- **Situational Database Audits**: New high-perf audits for **AlloyDB** (Columnar Engine), **Pinecone** (gRPC & Namespaces), **BigQuery** (Vector Search), and **Cloud SQL** (Python Connector).
+
+### 🔌 MCP Native Consumption
+- **MCP Server Registration**: The Cockpit can now be exposed as a Model Context Protocol (MCP) server, allowing 1P (Google/Anthropic) and 3P agents to call Cockpit tools natively.
+- **Tool Suite Exposure**: Tools like `optimize_code`, `policy_audit`, and `red_team_attack` available to external agentic swarms.
+
 ### 🛡️ Guardrail Intelligence (RFC-307)
 - **Declarative Policy Engine**: Introduced `policies.json` for managing agentic guardrails without prompt engineering.
-- **Forbidden Topics Enforcement**: Real-time input validation against customizable restricted domains (e.g., medical advice, illegal activities).
-- **HITL (Human-in-the-Loop) Tooling**: Declaratively flag sensitive tools (e.g., `transfer_funds`) for manual approval.
-- **Dynamic Cost Guardrails**: Session-level budget and token-per-turn enforcement linked directly to the policy engine.
+- **Forbidden Topics Enforcement**: Real-time input validation against customizable restricted domains.
+- **HITL (Human-in-the-Loop) Tooling**: Declaratively flag sensitive tools for manual approval.
 
 ## [0.6.0] - 2026-01-28
 

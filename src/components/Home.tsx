@@ -23,6 +23,15 @@ export function Home() {
 
   return (
     <div className="crew-home">
+      {/* Latest Release Banner */}
+      <div className="release-banner">
+        <div className="banner-content">
+          <span className="banner-tag">NEW v0.7.0</span>
+          <span className="banner-text">The Multi-Cloud Update: Native support for AWS Bedrock, OCI AI, and MCP registration is here.</span>
+          <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="crew-hero">
         <header className="crew-home-nav">
@@ -33,6 +42,7 @@ export function Home() {
           <nav className="nav-links">
             <Link to="/docs" className="nav-link">Documentation</Link>
             <Link to="/docs/google-architecture" className="nav-link">Framework</Link>
+            <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md" className="nav-link">Changelog</a>
             <a href="https://github.com/enriquekalven/agent-cockpit" className="nav-icon-link">
               <Github size={20} />
             </a>
@@ -357,6 +367,7 @@ export function Home() {
           <div className="footer-links">
             <Link to="/docs">Documentation</Link>
             <Link to="/ops">Dashboard</Link>
+            <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md">Changelog</a>
             <a href="#">Privacy</a>
             <a href="#">Terms</a>
           </div>
@@ -371,6 +382,54 @@ export function Home() {
           background-color: var(--bg-color);
           color: var(--text-primary);
           overflow-x: hidden;
+          padding-top: 0;
+        }
+
+        .release-banner {
+          background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
+          color: white;
+          padding: 0.75rem 1rem;
+          text-align: center;
+          font-size: 0.85rem;
+          font-weight: 600;
+          position: relative;
+          z-index: 200;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .banner-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .banner-tag {
+          background: rgba(255, 255, 255, 0.2);
+          padding: 0.2rem 0.6rem;
+          border-radius: 999px;
+          font-size: 0.7rem;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+        }
+
+        .banner-link {
+          color: white;
+          text-decoration: underline;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          font-weight: 700;
+          transition: opacity 0.2s;
+        }
+
+        .banner-link:hover { opacity: 0.8; }
+
+        @media (max-width: 768px) {
+          .banner-text { display: none; }
+          .banner-content { gap: 0.5rem; }
         }
 
         /* Hero Styling */
