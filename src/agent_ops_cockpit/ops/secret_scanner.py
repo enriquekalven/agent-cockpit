@@ -31,7 +31,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     
     for root, dirs, files in os.walk(path):
         # Skip virtual environments, git, and tests
-        if any(skip in root.lower() for skip in [".venv", ".git", "tests", "test_"]):
+        if any(skip in root.lower() for skip in [".venv", ".git", "tests", "test_", "node_modules"]):
             continue
             
         for file in files:
@@ -60,6 +60,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     table.add_column("Suggestion", style="green")
 
     if findings:
+        console.print("\n[bold]🛠️  DEVELOPER ACTIONS REQUIRED:[/bold]")
         for finding in findings:
             table.add_row(
                 finding["file"],
@@ -67,7 +68,10 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                 finding["type"],
                 "Move to Secret Manager"
             )
-        console.print(table)
+            # Orchestrator parsing
+            console.print(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to Google Cloud Secret Manager or .env file.")
+            
+        console.print("\n", table)
         console.print(f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks.")
         console.print("💡 [bold green]Recommendation:[/bold green] Use Google Cloud Secret Manager or environment variables for all tokens.")
         raise typer.Exit(code=1)

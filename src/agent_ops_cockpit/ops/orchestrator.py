@@ -92,20 +92,36 @@ class CockpitOrchestrator:
         persona_table.add_column("Audit Module", style="magenta")
         persona_table.add_column("Verdict", style="bold")
         
+        # Collect developer actions
+        developer_actions = []
         for name, data in self.results.items():
             status = "✅ APPROVED" if data["success"] else "❌ REJECTED"
             persona = self.PERSONA_MAP.get(name, "👤 Automated Auditor")
             persona_table.add_row(persona, name, status)
-            # Add to markdown report
             report.append(f"- **{persona}** ([{name}]): {status}")
+            
+            # Parse actions
+            if data["output"]:
+                for line in data["output"].split("\n"):
+                    if "ACTION:" in line:
+                        developer_actions.append(line.replace("ACTION:", "").strip())
 
         console.print("\n", persona_table)
-        
+
+        if developer_actions:
+            report.append("\n## 🛠️ Developer Action Plan")
+            report.append("The following specific fixes are required to achieve a passing 'Well-Architected' score.")
+            report.append("| File:Line | Issue | Recommended Fix |")
+            report.append("| :--- | :--- | :--- |")
+            for action in developer_actions:
+                parts = action.split(" | ")
+                if len(parts) == 3:
+                    report.append(f"| `{parts[0]}` | {parts[1]} | {parts[2]} |")
+
         report.append("\n## 🔍 System Artifacts & Evidence")
         for name, data in self.results.items():
             report.append(f"\n### {name}")
             report.append("```text")
-            # Last 2000 chars for richer detail
             report.append(data["output"][-2000:] if data["output"] else "No output.")
             report.append("```")
 
@@ -115,14 +131,14 @@ class CockpitOrchestrator:
         with open(self.report_path, "w") as f:
             f.write("\n".join(report))
         
-        # Also generate a professional HTML report for easy PDF printing
-        self._generate_html_report()
+        # Also generate a professional HTML report
+        self._generate_html_report(developer_actions)
         
         console.print(f"\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]")
         console.print(f"📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]")
 
-    def _generate_html_report(self):
-        """Generates a premium HTML version of the report for PDF export."""
+    def _generate_html_report(self, developer_actions):
+        """Generates a premium HTML version of the report with Kokpi-kun mascot."""
         html_content = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -130,36 +146,55 @@ class CockpitOrchestrator:
             <meta charset="UTF-8">
             <title>AgentOps Audit: {getattr(self, 'title', 'Report')}</title>
             <style>
-                body {{ font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 900px; margin: 0 auto; padding: 40px; }}
-                h1 {{ color: #1e3a8a; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; }}
-                h2 {{ color: #2563eb; margin-top: 40px; }}
-                .status-badge {{ display: inline-block; padding: 8px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }}
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f8fafc; }}
+                .report-card {{ background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }}
+                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}
+                .mascot-container {{ text-align: center; }}
+                .mascot {{ width: 120px; height: 120px; border-radius: 20px; }}
+                .mascot-name {{ font-size: 0.7rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; margin-top: 5px; }}
+                h1 {{ color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; }}
+                h2 {{ color: #0f172a; margin-top: 48px; font-size: 1.5rem; display: flex; align-items: center; gap: 12px; }}
+                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; margin-top: 10px; }}
                 .pass {{ background: #dcfce7; color: #166534; }}
                 .fail {{ background: #fee2e2; color: #991b1b; }}
-                table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
-                th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #e5e7eb; }}
-                th {{ background: #f8fafc; font-weight: 600; color: #64748b; }}
-                pre {{ background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }}
-                .sme-badge {{ font-size: 0.75rem; color: #64748b; font-weight: 500; }}
+                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }}
+                th, td {{ text-align: left; padding: 16px; border-bottom: 1px solid #e2e8f0; }}
+                th {{ background: #f8fafc; font-weight: 600; color: #64748b; font-size: 0.875rem; }}
+                .action-table th {{ background: #eff6ff; color: #1e40af; }}
+                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }}
+                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; }}
+                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.875rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}
             </style>
         </head>
         <body>
-            <h1>🕹️ AgentOps Cockpit: {getattr(self, 'title', 'Report')}</h1>
-            <p><strong>Timestamp</strong>: {self.timestamp}</p>
-            <p><strong>Status</strong>: <span class="status-badge {'pass' if all(r['success'] for r in self.results.values()) else 'fail'}">
-                {'PASSED' if all(r['success'] for r in self.results.values()) else 'FAILED'}
-            </span></p>
+            <div class="report-card">
+                <header>
+                    <div>
+                        <h1>🕹️ AgentOps Cockpit</h1>
+                        <p style="color: #64748b; margin: 8px 0 0 0;">Report: {getattr(self, 'title', 'Build Audit')}</p>
+                        <span class="status-badge {'pass' if all(r['success'] for r in self.results.values()) else 'fail'}">
+                            {'PASSED' if all(r['success'] for r in self.results.values()) else 'FAILED'}
+                        </span>
+                    </div>
+                    <div class="mascot-container">
+                        <img src="public/kokpi_kun.png" class="mascot" alt="Kokpi-kun">
+                        <div class="mascot-name">Kokpi-kun</div>
+                    </div>
+                </header>
 
-            <h2>🧑‍💼 Principal SME Persona Approvals</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>SME Persona</th>
-                        <th>Module</th>
-                        <th>Verdict</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <p><strong>Timestamp</strong>: {self.timestamp}</p>
+
+                <h2>🧑‍💼 SME Persona Approvals</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
         """
         
         for name, data in self.results.items():
@@ -174,22 +209,52 @@ class CockpitOrchestrator:
             """
             
         html_content += """
-                </tbody>
-            </table>
-            <h2>🔍 Detailed Findings</h2>
+                    </tbody>
+                </table>
+        """
+
+        if developer_actions:
+            html_content += """
+                <h2>🛠️ Developer Action Plan</h2>
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th>Location (File:Line)</th>
+                            <th>Issue Detected</th>
+                            <th>Recommended Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            """
+            for action in developer_actions:
+                parts = action.split(" | ")
+                if len(parts) == 3:
+                    html_content += f"""
+                        <tr>
+                            <td><code>{parts[0]}</code></td>
+                            <td>{parts[1]}</td>
+                            <td style="color: #059669; font-weight: 500;">{parts[2]}</td>
+                        </tr>
+                    """
+            html_content += "</tbody></table>"
+
+        html_content += """
+                <h2>🔍 Audit Evidence</h2>
         """
         
         for name, data in self.results.items():
             html_content += f"<h3>{name}</h3><pre>{data['output']}</pre>"
             
         html_content += """
-            <hr>
-            <p style="text-align: center; color: #94a3b8; font-size: 0.8rem;">
-                Generated by the AgentOps Cockpit Orchestrator. 
-            </p>
+                <div class="footer">
+                    Generated by AgentOps Cockpit Orchestrator v0.8.0. 
+                    <br>Enforced via GitHub Actions Safe-Build Pipeline.
+                </div>
+            </div>
         </body>
         </html>
         """
+
         
         with open("cockpit_report.html", "w") as f:
             f.write(html_content)

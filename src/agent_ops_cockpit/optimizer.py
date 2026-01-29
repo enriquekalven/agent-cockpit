@@ -441,9 +441,11 @@ def audit(
             )
             console.print(ev_panel)
 
-        console.print("\nProposed Code-Level Change (Apply now):")
         syntax = Syntax(opt.diff, "python", theme="monokai", line_numbers=False)
         console.print(syntax)
+        
+        # Output ACTION: for report generation
+        console.print(f"ACTION: {file_path}:1 | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})")
         
         do_apply = False
         if apply_fix:

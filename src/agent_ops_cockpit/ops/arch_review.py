@@ -138,9 +138,10 @@ def audit(path: str = "."):
                     passed_checks += weight
                 else:
                     check_status = "[bold red]FAIL[/bold red]"
+                    # Output action for report
+                    console.print(f"ACTION: codebase | Architecture Gap: {check_key} | {rationale}")
                 
                 total_checks += weight
-                # time.sleep(0.1) # Simulate deep heuristic scan
                 
                 table.add_row(check_text, check_status, rationale)
             
