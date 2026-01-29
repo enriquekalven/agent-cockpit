@@ -22,22 +22,38 @@ def audit(
     title = "🛡️ RELIABILITY AUDIT (QUICK)" if quick else "🛡️ RELIABILITY AUDIT"
     console.print(Panel.fit(f"[bold green]{title}[/bold green]", border_style="green"))
 
-    # 1. Run Pytest for Unit Tests
-    console.print(f"🧪 [bold]Running Unit Tests (pytest) in {path}...[/bold]")
+    # 1. Language Detection & test Execution
     import os
-
     env = os.environ.copy()
-    # Add current path and target path to PYTHONPATH
-    env["PYTHONPATH"] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}"
-
-    unit_result = subprocess.run(
-        [sys.executable, "-m", "pytest", path], capture_output=True, text=True, env=env
-    )
+    
+    unit_result = None
+    lang = "Python"
+    
+    if os.path.exists(os.path.join(path, "go.mod")):
+        lang = "Go"
+        console.print(f"🐹 [bold]Detected Go project. Running 'go test' in {path}...[/bold]")
+        unit_result = subprocess.run(
+            ["go", "test", "./..."], capture_output=True, text=True, cwd=path
+        )
+    elif os.path.exists(os.path.join(path, "package.json")):
+        lang = "TypeScript/JS"
+        console.print(f"📦 [bold]Detected TS/JS project. Running 'npm test' in {path}...[/bold]")
+        unit_result = subprocess.run(
+            ["npm", "test"], capture_output=True, text=True, cwd=path, env=env
+        )
+    else:
+        # Default to Python/Pytest
+        console.print(f"🧪 [bold]Running Unit Tests (pytest) in {path}...[/bold]")
+        # Add current path and target path to PYTHONPATH
+        env["PYTHONPATH"] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}"
+        unit_result = subprocess.run(
+            [sys.executable, "-m", "pytest", path], capture_output=True, text=True, env=env
+        )
 
     # 2. Check Regression Coverage
     console.print("📈 [bold]Verifying Regression Suite Coverage...[/bold]")
 
-    table = Table(title="🛡️ Reliability Status")
+    table = Table(title=f"🛡️ Reliability Status ({lang})")
     table.add_column("Check", style="cyan")
     table.add_column("Status", style="bold")
     table.add_column("Details", style="dim")
@@ -49,9 +65,10 @@ def audit(
     if (
         "no tests ran" in unit_result.stdout.lower()
         or "collected 0 items" in unit_result.stdout.lower()
+        or (lang == "Go" and "no test files" in unit_result.stdout.lower())
     ):
         unit_status = "[yellow]SKIPPED[/yellow]"
-        details = "No tests found in target path"
+        details = f"No {lang} tests found in target path"
     elif (
         "ModuleNotFoundError" in unit_result.stdout
         or "ImportError" in unit_result.stdout
@@ -63,7 +80,7 @@ def audit(
     else:
         details = f"{len(unit_result.stdout.splitlines())} lines of output"
 
-    table.add_row("Core Unit Tests", unit_status, details)
+    table.add_row(f"{lang} Unit Tests", unit_status, details)
 
     # Contract Testing (Real Heuristic)
     has_renderer = False

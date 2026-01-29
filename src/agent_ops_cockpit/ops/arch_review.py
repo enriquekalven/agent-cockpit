@@ -64,10 +64,10 @@ def audit(path: str = "."):
         # Self-Learning Heuristic: Look for patterns even if tech is unknown
         structural_indicators = {
             "decorators": r"@[\w\.]+",
-            "async_loops": r"async\s+def.*await",
-            "class_hierarchy": r"class\s+\w+\(\w*\):",
-            "environment_vars": r"os\.environ|process\.env",
-            "structured_output": r"Pydantic|BaseModel|zod|interface",
+            "async_loops": r"async\s+def.*await|func.*async|await\s+fetch",
+            "class_hierarchy": r"class\s+\w+\(\w*\):|interface\s+\w+\s+\{|type\s+\w+\s+=",
+            "environment_vars": r"os\.environ|process\.env|os\.Getenv",
+            "structured_output": r"Pydantic|BaseModel|zod|interface|type\s+guard|struct\s+\w+\s+\{",
         }
 
         found_patterns = []
