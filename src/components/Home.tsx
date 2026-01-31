@@ -6,6 +6,7 @@ import {
   Layers, Zap, Search, Globe, Lock, Server, CheckCircle
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { OperationalJourneys } from './OperationalJourneys';
 
 // SVG Logos for Ecosystem Bar
 const GoogleCloudLogo = () => (
@@ -57,8 +58,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.8.0</span>
-          <span className="banner-text">The Governance Update: Principal SME Persona Approvals, Legal/Marketing Audits, and PDF Reporting are now active.</span>
+          <span className="banner-tag">NEW v0.9.7</span>
+          <span className="banner-text"><b>Antigravity Distribution:</b> Restored professional identity, MCP Hub integration, and Persona-Based Mission Control.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -247,6 +248,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Mission Control: Choose Your Journey */}
+      <OperationalJourneys />
 
       {/* Visual: Agentic Trinity */}
       <section className="ecosystem-section bg-trinity">
