@@ -43,14 +43,20 @@ make audit
 ---
 
 ## 🎮 5. Operational Mission Control
-Launch the local dashboard to monitor traces and manage the **Hive Mind Cache**.
+Explore persona-driven journeys and operational guides.
 
 ```bash
 make dev
 ```
-*Visit `localhost:5173/ops` to step into the flight deck.*
+*Visit `localhost:5173/docs/cockpit-guide` to explore the Sovereign Cockpit.*
 
 ---
+
+## 🛡️ v1.3.1 Sovereignty & Hardening
+The Cockpit now includes:
+- **Discovery Engine**: Automatically respects `.gitignore` and isolates library noise.
+- **Config-Driven**: Add a `cockpit.yaml` to standardize your agent's governance.
+- **Red Team v2**: Enhanced adversarial simulations for multilingual safety.
 
 ## 🏁 v1.3 Next Steps
 - [ ] **Lead Dev**: Integrate [**A2A Standards**](TECHNICAL_A2A_GUIDE.md).

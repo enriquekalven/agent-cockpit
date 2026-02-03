@@ -2,6 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.8] - 2026-02-03
+
+### 🏛️ The Cockpit Sovereignty & Hardening Update
+- **Dashboard Decoupling**: Removed the frontend dashboard to reinforce the Cockpit's identity as a secure, CLI-first Operational Logic Layer.
+- **v1.3 SME Persona Matrix**: Mission Control updated with all 9 specialized personas from the v1.3 standard.
+- **Discovery Engine (`discovery.py`)**: Centralized scanning bridge that respects `.gitignore` and handle default exclusions (`venv`, `node_modules`).
+- **AST Brain Detection**: Implementation of Abstract Syntax Tree analysis to reliably identify agent entry points regardless of project structure.
+- **Library Isolation**: Secret Scanner now intelligently ignores findings in third-party libraries, significantly reducing false positives.
+- **Config-Driven Governance**: Introduced `cockpit.yaml` support for explicit `entry_point`, `exclude` patterns, and CI/CD health `thresholds`.
+
 ## [0.9.7] - 2026-02-02
 
 ### 🕹️ The Antigravity Update

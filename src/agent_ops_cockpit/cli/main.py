@@ -23,7 +23,7 @@ REPO_URL = 'https://github.com/enriquekalven/agent-ui-starter-pack'
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print('[bold cyan]agent-ops CLI v0.9.7[/bold cyan]')
+    console.print('[bold cyan]agent-ops CLI v0.9.8[/bold cyan]')
 
 @app.command()
 def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End Persona Smoke Tests')):
@@ -158,6 +158,14 @@ def ui_audit(path: str='src'):
     console.print('🎭 [bold blue]Launching Face Auditor...[/bold blue]')
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
     ui_mod.audit(path)
+
+@app.command()
+def scan_secrets(path: str = typer.Argument(".", help="Directory to scan for secrets")):
+    """
+    Scans the codebase for hardcoded secrets, API keys, and credentials.
+    """
+    from agent_ops_cockpit.ops import secret_scanner as secret_mod
+    secret_mod.scan(path)
 
 @app.command()
 def diagnose():

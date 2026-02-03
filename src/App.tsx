@@ -7,7 +7,6 @@ const DocLayout = lazy(() => import('./docs/DocLayout').then(m => ({ default: m.
 const DocPage = lazy(() => import('./docs/DocPage').then(m => ({ default: m.DocPage })));
 const DocHome = lazy(() => import('./docs/DocHome').then(m => ({ default: m.DocHome })));
 const Home = lazy(() => import('./components/Home').then(m => ({ default: m.Home })));
-const OpsDashboard = lazy(() => import('./components/OpsDashboard').then(m => ({ default: m.OpsDashboard })));
 const ReportSamples = lazy(() => import('./components/ReportSamples').then(m => ({ default: m.ReportSamples })));
 
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
@@ -32,9 +31,6 @@ function App() {
           <Route index element={<DocHome />} />
           <Route path=":docId" element={<DocPage />} />
         </Route>
-
-
-        <Route path="/ops" element={<OpsDashboard />} />
 
         <Route path="/samples" element={<ReportSamples />} />
 

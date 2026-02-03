@@ -58,8 +58,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.9.7</span>
-          <span className="banner-text"><b>Antigravity Distribution:</b> Restored professional identity, MCP Hub integration, and Persona-Based Mission Control.</span>
+          <span className="banner-tag">NEW v0.9.8</span>
+          <span className="banner-text"><b>Sovereignty & Hardening Update:</b> Dashboard removed for CLI-first security, with new Discovery Engine, Library Isolation, and full v1.3 Persona Mission Control integrated.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -313,7 +313,7 @@ export function Home() {
               <h3>The Cockpit</h3>
               <p>The operational brain. Real-time cost control, semantic caching, and security auditing for "Day 2" success.</p>
               <div className="flex flex-col gap-2">
-                <Link to="/ops" className="card-link">Launch the Cockpit →</Link>
+                <Link to="/docs/cockpit-guide" className="card-link">Explore Cockpit Sovereignty →</Link>
                 <div className="flex gap-4">
                   <a href="/sample-report.html" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                     Audit (HTML) <ExternalLink size={14} />
@@ -492,7 +492,7 @@ export function Home() {
           </div>
           <div className="footer-links">
             <Link to="/docs">Documentation</Link>
-            <Link to="/ops">Dashboard</Link>
+            <Link to="/docs/cockpit-guide">Operational Guide</Link>
             <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md">Changelog</a>
             <a href="#">Privacy</a>
             <a href="#">Terms</a>

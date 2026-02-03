@@ -99,6 +99,14 @@ The Cockpit now performs platform-specific performance and security audits for *
 
 ---
 
+### 🛡️ Advanced Governance & Discovery
+Modern agents don't just live in `agent.py`. The Cockpit uses a centralized **Discovery Engine** to intelligently map your project:
+- **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
+- **Library Isolation**: Intelligently ignores hits in `venv` or `node_modules` to focus on your code.
+- **Config-Driven**: Use `cockpit.yaml` to define custom entry points, exclusions, and CI/CD thresholds.
+
+---
+
 ## ⌨️ Master Command Registry
 
 The Cockpit is available as a first-class CLI and a comprehensive Makefile-based operational toolkit.

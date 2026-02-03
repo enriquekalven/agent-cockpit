@@ -37,3 +37,19 @@ def test_security_secret_scanner_cli(tmp_path):
     result = runner.invoke(secret_scanner_app, ["scan", str(tmp_path)])
     assert result.exit_code == 1
     assert "FAIL" in result.stdout
+
+def test_security_secret_scanner_library_isolation(tmp_path):
+    """CISO: Verify that secrets in libraries (venv) are ignored to reduce false positives."""
+    lib_dir = tmp_path / "venv" / "lib" / "python3.12" / "site-packages" / "external_lib"
+    lib_dir.mkdir(parents=True)
+    lib_file = lib_dir / "setup.py"
+    lib_file.write_text("dummy_key = 'AIzaSyD-1234567890abcdefghijklmnopqrstuv' # False positive in library")
+    
+    # User file with no secrets
+    user_file = tmp_path / "agent.py"
+    user_file.write_text("print('hello')")
+    
+    result = runner.invoke(secret_scanner_app, ["scan", str(tmp_path)])
+    # Should PASS despite secret in library
+    assert result.exit_code == 0
+    assert "PASS" in result.stdout

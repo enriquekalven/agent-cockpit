@@ -37,7 +37,7 @@ def run_scan(path: str):
     ]
     all_findings = []
     for root, dirs, files in os.walk(path):
-        dirs[:] = [d for d in dirs if d not in ['.venv', 'node_modules', '.git', '__pycache__', 'dist', 'build']]
+        dirs[:] = [d for d in dirs if not (d.startswith('venv') or d.startswith('.venv')) and d not in ['node_modules', '.git', '__pycache__', 'dist', 'build']]
         for file in files:
             if file.endswith(('.py', 'pyproject.toml', 'requirements.txt')):
                 file_path = os.path.join(root, file)

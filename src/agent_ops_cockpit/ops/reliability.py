@@ -39,20 +39,20 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     table.add_row('Core Unit Tests', unit_status, details)
     has_renderer = False
     has_schema = False
-    for root, _, files in os.walk(path):
-        if any((d in root for d in ['.venv', 'node_modules', '.git'])):
-            continue
-        for file in files:
-            if file.endswith(('.py', '.ts', '.tsx')):
-                try:
-                    with open(os.path.join(root, file), 'r') as f:
-                        content = f.read()
-                        if 'A2UIRenderer' in content:
-                            has_renderer = True
-                        if 'response_schema' in content or 'BaseModel' in content or 'output_schema' in content:
-                            has_schema = True
-                except Exception:
-                    pass
+    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+    discovery = DiscoveryEngine(path)
+    
+    for file_path in discovery.walk(path):
+        if file_path.endswith(('.py', '.ts', '.tsx')):
+            try:
+                with open(file_path, 'r', errors="ignore") as f:
+                    content = f.read()
+                    if 'A2UIRenderer' in content:
+                        has_renderer = True
+                    if 'response_schema' in content or 'BaseModel' in content or 'output_schema' in content:
+                        has_schema = True
+            except Exception:
+                pass
     contract_status = '[green]VERIFIED[/green]' if has_renderer and has_schema else '[yellow]GAP DETECTED[/yellow]'
     table.add_row('Contract Compliance (A2UI)', contract_status, 'Verified Engine-to-Face protocol' if has_renderer else 'Missing A2UIRenderer registration')
     table.add_row('Regression Golden Set', '[green]FOUND[/green]', '50 baseline scenarios active')

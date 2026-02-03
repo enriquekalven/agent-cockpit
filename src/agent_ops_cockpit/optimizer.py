@@ -168,26 +168,12 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
         console.print(f'❌ [red]Error: Path {file_path} not found.[/red]')
         raise typer.Exit(1)
     if os.path.isdir(file_path):
-        # Priority search for Trinity-compliant structures
-        for entry in ['src/agent_ops_cockpit/agent.py', 'agent.py', 'main.py', 'app.py']:
-            candidate = os.path.join(file_path, entry)
-            if os.path.exists(candidate):
-                file_path = candidate
-                found = True
-                break
+        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+        discovery = DiscoveryEngine(file_path)
+        file_path = discovery.find_agent_brain()
         
-        if not found:
-            for root, dirs, files in os.walk(file_path):
-                dirs[:] = [d for d in dirs if d not in ['.venv', 'node_modules', '.git', '__pycache__', 'dist', 'build']]
-                for f in files:
-                    if f.endswith('.py') and f != '__init__.py':
-                        file_path = os.path.join(root, f)
-                        found = True
-                        break
-                if found:
-                    break
-        if not found:
-            console.print(f'❌ [red]Error: No python entry point found in {file_path}[/red]')
+        if not os.path.exists(file_path):
+            console.print(f'❌ [red]Error: No python entry point found in {discovery.root_path}[/red]')
             raise typer.Exit(1)
     console.print(f'Target: [yellow]{file_path}[/yellow]')
     with open(file_path, 'r') as f:

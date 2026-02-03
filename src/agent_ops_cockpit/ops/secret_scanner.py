@@ -28,35 +28,37 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     """
     console.print(Panel.fit("🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]", border_style="yellow"))
     
+    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+    discovery = DiscoveryEngine(path)
+    
     findings = []
     
-    for root, dirs, files in os.walk(path):
-        # Skip virtual environments, git, and library folders
-        path_parts = [p.lower() for p in root.split(os.sep)]
-        if any(skip in path_parts for skip in [".venv", ".git", "node_modules"]):
-            continue
-        # Skip 'tests' folder but NOT if we are specifically scanning it in a test environment
-        if "tests" in path_parts and "test_persona" not in root:
+    for file_path in discovery.walk(path):
+        # Filter by relevant extensions
+        if not file_path.endswith((".py", ".env", ".ts", ".js", ".json", ".yaml", ".yml")):
             continue
             
-        for file in files:
-            if file.endswith((".py", ".env", ".ts", ".js", ".json", ".yaml", ".yml")):
-                file_path = os.path.join(root, file)
-                try:
-                    with open(file_path, "r", errors="ignore") as f:
-                        lines = f.readlines()
-                        for i, line in enumerate(lines):
-                            for secret_name, pattern in SECRET_PATTERNS.items():
-                                match = re.search(pattern, line)
-                                if match:
-                                    findings.append({
-                                        "file": os.path.relpath(file_path, path),
-                                        "line": i + 1,
-                                        "type": secret_name,
-                                        "content": line.strip()[:50] + "..."
-                                    })
-                except Exception:
-                    continue
+        is_lib = discovery.is_library_file(file_path)
+        
+        try:
+            with open(file_path, "r", errors="ignore") as f:
+                lines = f.readlines()
+                for i, line in enumerate(lines):
+                    for secret_name, pattern in SECRET_PATTERNS.items():
+                        match = re.search(pattern, line)
+                        if match:
+                            # Library Isolation: Skip hits in known libraries to reduce false positives
+                            if is_lib:
+                                continue
+                                
+                            findings.append({
+                                "file": os.path.relpath(file_path, path),
+                                "line": i + 1,
+                                "type": secret_name,
+                                "content": line.strip()[:50] + "..."
+                            })
+        except Exception:
+            continue
 
     table = Table(title="🛡️ Security Findings: Hardcoded Secrets")
     table.add_column("File", style="cyan")

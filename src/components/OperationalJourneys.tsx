@@ -92,7 +92,7 @@ Status: SECURE (Compliant with Enterprise Standard)`
     docs: [
       { name: 'Governance Guide', path: '/docs/governance' },
       { name: 'Evidence & Compliance', path: '/docs/governance' },
-      { name: 'Cockpit Ops', path: '/ops' }
+      { name: 'Cockpit Ops', path: '/docs/cockpit-guide' }
     ],
     reports: [
       { name: 'Global Compliance Audit', path: '/master-audit-report.html' },
