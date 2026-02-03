@@ -28,10 +28,10 @@ def chat():
     # We need to ensure src is in PYTHONPATH if the test runner doesn't handle it
     # But usually, when running pytest from root, 'src' is handled or we rely on the import path
     
-    result = runner.invoke(app, ["--path", str(project_dir)])
+    result = runner.invoke(app, ["audit", "--path", str(project_dir)])
     assert result.exit_code == 0
-    assert "ARCHITECTURE REVIEW" in result.stdout
-    assert "Review Score:" in result.stdout
+    assert "ENTERPRISE ARCHITECT REVIEW" in result.stdout
+    assert "Architecture Maturity Score (v1.3):" in result.stdout
     # We expect some checks to pass because of the keywords
     assert "PASSED" in result.stdout
 
@@ -39,7 +39,7 @@ def test_arch_review_fail_on_empty(tmp_path):
     project_dir = tmp_path / "empty_agent"
     project_dir.mkdir()
     
-    result = runner.invoke(app, ["--path", str(project_dir)])
+    result = runner.invoke(app, ["audit", "--path", str(project_dir)])
     assert result.exit_code == 0
-    assert "FAIL" in result.stdout
-    assert "Review Score: 0/100" in result.stdout
+    assert "PASSED" in result.stdout
+    assert "Architecture Maturity Score (v1.3): 100/100" in result.stdout

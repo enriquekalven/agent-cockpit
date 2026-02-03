@@ -1,7 +1,7 @@
 # 🕹️ AgentOps Cockpit
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/enriquekalven/agent-cockpit/main/public/og-image.png" alt="AgentOps Cockpit Social Preview" width="100%" />
+  <img src="public/assets/trinity.png" alt="AgentOps Cockpit Trinity" width="100%" />
 </div>
 
 <div align="center">
@@ -31,148 +31,110 @@
 ## 📽️ The Mission
 Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
 
-### Key Pillars:
-- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/google-architecture) best practices.
+- **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/GOOGLE_ARCHITECTURE.md) best practices with the **Evidence Bridge**—real-time citations for architectural integrity.
+- **SME Persona Audits**: Parallelized review of your codebase by automated [**Principal SMEs**](docs/TECHNICAL_AUDIT_GUIDE.md) across FinOps, SecOps, Architecture, and Quality.
 - **Agentic Trinity**: Dedicated layers for the Engine (Logic), Face (UX), and Cockpit (Ops).
-- **A2A Connectivity**: Implements the [Agent-to-Agent Transmission Standard](/A2A_GUIDE.md) for secure swarm orchestration.
+- **A2A Connectivity**: Implements the [**Agent-to-Agent Transmission Standard**](docs/TECHNICAL_A2A_GUIDE.md) for secure swarm orchestration.
+- **MCP Native**: Registration as a [Model Context Protocol](https://modelcontextprotocol.io) server for 1P/2P/3P tool consumption.
 
 ---
 
 ## 🏗️ The Agentic Trinity
 We divide the complexity of production agents into three focused pillars:
 
+```mermaid
+graph TD
+   subgraph Trinity [The Agentic Trinity 2.0]
+       E(The Engine: Reasoning)
+       F(The Face: Interface)
+       C(The Cockpit: Operations)
+       S{Sovereignty & Compliance}
+   end
+   E <--> C
+   F <--> C
+   E <--> F
+   E -.-> S
+   F -.-> S
+   C -.-> S
+   style Trinity fill:#f8fafc,stroke:#334155,stroke-width:2px
+   style S fill:#0ea5e9,color:#fff,stroke:#0284c7
+```
+
 - **⚙️ The Engine**: The reasoning core. Built with **ADK**, FastAPI, and Vertex AI.
-- **🎭 The Face**: The user experience. Adaptive UI surfaces and **GenUI** standards via the A2UI spec.
-- **🕹️ The Cockpit**: The operational brain. Cost control, semantic caching, shadow routing, and adversarial audits.
+- **🎭 The Face**: The user experience. [Adaptive UI surfaces](docs/TECHNICAL_UX_GUIDE.md) and **GenUI** standards via the A2UI spec.
+- **🕹️ The Cockpit**: The operational brain. [Cost control](docs/TECHNICAL_FINOPS_GUIDE.md), semantic caching, shadow routing, and [adversarial audits](docs/TECHNICAL_REDTEAM_GUIDE.md).
+
+<div align="center">
+ <img src="public/assets/ecosystem.png" alt="Ecosystem Integrations" width="100%" />
+</div>
 
 ---
 
-## 🌐 Framework Agnostic Governance
-The Cockpit isn't just for ADK. It provides **Best Practices as Code** across all major agentic frameworks:
+## 🏛️ v1.3: The "Autonomous Architect" Standard (NEW)
+Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3 Roadmap**](/docs/ROADMAP_V13.md).
 
-<div align="center">
-  <img src="https://img.shields.io/badge/OpenAI_Agentkit-412991?style=for-the-badge&logo=openai" alt="OpenAI Agentkit" />
-  <img src="https://img.shields.io/badge/Anthropic_Claude-D97757?style=for-the-badge&logo=anthropic" alt="Anthropic" />
-  <img src="https://img.shields.io/badge/Microsoft_AutoGen-0078d4?style=for-the-badge&logo=microsoft" alt="Microsoft" />
-  <img src="https://img.shields.io/badge/AWS_Bedrock-FF9900?style=for-the-badge&logo=amazon-aws" alt="AWS" />
-  <img src="https://img.shields.io/badge/CopilotKit.ai-6366f1?style=for-the-badge" alt="CopilotKit" />
-  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge" alt="LangChain" />
-  <img src="https://img.shields.io/badge/ADK-4285F4?style=for-the-badge&logo=google-cloud" alt="ADK" />
-</div>
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go" />
-  <img src="https://img.shields.io/badge/NodeJS-339933?style=flat-square&logo=node.js&logoColor=white" alt="NodeJS" />
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
-  <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
-  <img src="https://img.shields.io/badge/Lit-324FFF?style=flat-square&logo=lit&logoColor=white" alt="Lit" />
-</div>
-
-Whether you are building a swarm in **CrewAI**, a Go-based high-perf engine, or a **Streamlit** dashboard, the Cockpit ensures your agent maps to the **Google Well-Architected Framework**.
-
+- **🚀 Context-Aware Patching**: Moving from templates to LLM-Synthesized PRs that match your project's style.
+- **🧪 Digital Twin Simulation**: `make simulation-run` for high-concurrency "Stress-Reasoning" test. [**Read Guide**](docs/TECHNICAL_ARCH_REVIEW.md).
+- **🧗 Hill Climbing Optimization**: Iterative prompt tuning to reach the Global Peak. [**Read Guide**](docs/TECHNICAL_QUALITY_GUIDE.md).
+- **🌍 Strategic Exit Strategy**: Automated TCO reports and migration plans for moving between cloud providers.
 
 ---
 
 ## 🚀 Key Innovation: The "Intelligence" Layer
 
-### 🛡️ Red Team Auditor (Self-Hacking)
-Don't wait for your users to find prompt injections. Use the built-in Adversarial Evaluator to launch self-attacks against your agent, testing for PII leaks, instruction overrides, and safety filter bypasses.
+### 🛡️ Red Team Auditor (Adversarial SRE)
+Don't wait for your users to find prompt injections. Use the built-in [**Adversarial Evaluator**](docs/TECHNICAL_REDTEAM_GUIDE.md) to launch self-attacks against your agent, testing for PII leaks, instruction overrides, and multilingual jailbreaks.
 
 ### 🧠 Hive Mind (Semantic Caching)
 **Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
 
-### 🏛️ Arch Review & Framework Detection
-Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack—**Google ADK**, **OpenAI Agentkit**, **Anthropic Claude**, **Microsoft AutoGen/Semantic Kernel**, **AWS Bedrock Agents**, or **CopilotKit**—and runs a tailored audit against corresponding production standards. Use `make arch-review` to verify your **Governance-as-Code**.
+### 🏛️ Arch Review & Autonomous Evolution
+Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack and runs a tailored [**Architecture Review**](docs/TECHNICAL_ARCH_REVIEW.md). v1.3 introduces **Autonomous Evolution**—the ability to synthesize code fixes directly from audit findings.
 
 ### 🕹️ MCP Connectivity Hub (Model Context Protocol)
-Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to Google Search, Slack, or your internal databases via the standardized Model Context Protocol for secure, audited tool execution.
+Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to 1P/2P/3P tools via the standardized Model Context Protocol for secure, audited tool execution. Start the server with `make mcp-serve`.
 
-### 🧗 Quality Hill Climbing (ADK Evaluation)
-Following **Google ADK Evaluation** best practices, the Cockpit provides an iterative optimization loop. `make quality-baseline` runs your agent against a "Golden Dataset" using **LLM-as-a-Judge** scoring (Response Match & Tool Trajectory), climbing the quality curve until production-grade fidelity is reached.
-
-### 🛑 Mandatory Governance Enforcement (NEW)
-The Cockpit now acts as a mandatory gate for production.
-- **Blocking CI/CD**: GitHub Actions now fail if **High Impact** cost issues or **Red Team** security vulnerabilities are detected.
-- **Build-Time Audit**: The `Dockerfile` includes a mandatory `RUN` audit step. If your agent is not "Well-Architected," the container image will fail to build.
+### 🗄️ Situational Database Audits
+The Cockpit now performs platform-specific performance and security audits for **AlloyDB**, **Pinecone**, **BigQuery**, and **Cloud SQL**.
 
 ---
 
-## ⌨️ Quick Start
+## ⌨️ Master Command Registry
 
-The Cockpit is available as a first-class CLI on PyPI. 
+The Cockpit is available as a first-class CLI and a comprehensive Makefile-based operational toolkit.
 
-```bash
-# 1. Install the Cockpit globally
-pip install agentops-cockpit
-
-# 2. Run Global Audit (Produces unified report)
-agent-ops report --mode quick        # ⚡ Quick Safe-Build
-agent-ops report --mode deep         # 🚀 Full System Audit
-
-# 3. Audit a specific agent file for waste
-agent-ops audit agent.py --quick     # 🔍 Fast code optimization
-
-# 4. Stress test your endpoint
-agent-ops load-test --requests 100 --concurrency 10
-```
-
-You can also use `uvx` for one-off commands without installation:
-```bash
-# Unified Master Audit (Master Orchestrator)
-uvx agentops-cockpit report --mode quick
-uvx agentops-cockpit report --mode deep
-
-# Individual Code Optimizer
-uvx agentops-cockpit audit agent.py --quick
-uvx agentops-cockpit audit agent.py
-```
+| Registry | Description |
+| :--- | :--- |
+| 🕹️ [**Makefile Commands**](docs/TECHNICAL_COMMANDS_MASTER.md) | Standard local development and orchestration shortcuts. |
+| 🚀 [**UVX Master Guide**](docs/TECHNICAL_UVX_MASTER.md) | Portable, zero-install commands for CI/CD and automation. |
 
 ---
 
-### 🔍 Agent Optimizer v2 (Situational Intelligence)
-The Cockpit doesn't just look for generic waste. It now performs **Triple-State Analysis**:
-- **Legacy Workarounds**: Suggests situational fixes for older SDK versions (e.g., manual prompt pruning).
-- **Modernization Paths**: Highlights native performance gains (e.g., 90% cost reduction via Context Caching) available in latest SDKs.
-- **Conflict Guard**: Real-time cross-package validation to prevent architectural deadlocks (e.g., CrewAI vs LangGraph state loops).
-
-### ⚡ Quick-Safe Build (12x Faster Loops)
-Development velocity shouldn't sacrifice safety. The new `--quick` mode in the auditor reduces check latency from **1.8s to 0.15s**, providing sub-second feedback while maintaining the integrity of the Conflict Guard and Architecture Review.
-
----
-
-## 📊 Local Development
-The Cockpit provides a unified "Mission Control" to evaluate your agents instantly.
-
-```bash
-make audit         # 🕹️ Run Master Audit (Quick Safe-Build Mode)
-make audit-deep    # 🚀 Run Deep Audit (Full SDK Evidence & Benchmarks)
-make optimizer-audit # 🔍 Run Optimizer on specific agent files
-make reliability   # 🛡️ Run unit tests and regression suite
-make dev           # Start the local Engine + Face stack
-make arch-review   # 🏛️ Run the Google Well-Architected design review
-make quality-baseline # 🧗 Run iterative 'Hill Climbing' quality audit
-make red-team      # Execute a white-hat security audit
-make deploy-prod   # 🚀 1-click deploy to Google Cloud
-```
+## 🧑‍💼 Principal SME Persona Approvals
+The Cockpit now features a **Multi-Persona Governance Board**. Every audit result is framed through the lens of a Principal Engineer in that domain:
+*   [**🏛️ Architecture**](docs/TECHNICAL_ARCH_REVIEW.md)
+*   [**💰 FinOps**](docs/TECHNICAL_FINOPS_GUIDE.md)
+*   [**🛡️ Red Team**](docs/TECHNICAL_REDTEAM_GUIDE.md)
+*   [**🧗 Quality**](docs/TECHNICAL_QUALITY_GUIDE.md)
+*   [**🌐 Infrastructure**](docs/TECHNICAL_INFRA_GUIDE.md)
+*   [**🎭 UX/UI**](docs/TECHNICAL_UX_GUIDE.md)
 
 ---
 
-## 🧭 Roadmap
-- [x] **One-Click GitHub Action**: Automated governance audits on every PR.
-- [x] **Mandatory Build Gates**: Blocking CI/CD and Container audits for production safety.
-- [x] **Multi-Agent Orchestrator**: Standardized A2A Swarm/Coordinator patterns.
-- [ ] **Visual Mission Control**: Real-time cockpit observability dashboard.
-
-[View full roadmap →](/ROADMAP.md)
+## 🚀 1-Click Production Pipeline
+`make deploy-prod` triggers the following lifecycle:
+1. Runs the Quick Safe-Build (`make audit`).
+2. Compiles production frontend assets.
+3. Deploys the Engine to **Google Cloud Run**.
+4. Deploys the Face to **Firebase Hosting**.
 
 ---
 
-## 🤝 Community
-- **Star this repo** to help us build the future of AgentOps.
-- **Join the Discussion** for patterns on Google Cloud.
-- **Contribute**: Read our [Contributing Guide](/CONTRIBUTING.md).
+## 🤝 Ecosystem & Attribution
+The AgentOps Cockpit is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
+
+*   **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: We leverage this as a core reference for the **Agent Development Kit (ADK)** patterns and Vertex AI Agent Engine integration.
+*   **A2A Standard**: Our implementation follow the Agent-to-Agent Transmission Protocol for swarm intelligence.
 
 ---
 *Reference: [Google Cloud Architecture Center - Agentic AI Overview](https://docs.cloud.google.com/architecture/agentic-ai-overview)*

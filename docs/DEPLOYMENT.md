@@ -1,22 +1,43 @@
 # 🚀 Production Deployment
+## The "Autonomous" Standard (v1.3)
 
-Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments.
+Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments. The Cockpit automates this through the `make deploy-prod` command.
+
+---
 
 ## ⚙️ The Engine (Cloud Run)
 The Python backend (FastAPI) is deployed as a serverless service.
-- **Scaling**: We default to scale-to-zero to minimize costs during idle time.
-- **Regions**: Always deploy to `us-central1` or your local equivalent for lowest latency to Vertex AI endpoints.
-- **Best Practice**: Enable **Startup CPU Boost** to reduce cold-start latency by up to 50%.
+- **Scaling**: scale-to-zero enabled.
+- **Regions**: `us-central1` recommended for proximity to Vertex AI.
+- **Best Practice**: Enable **Startup CPU Boost** to reduce cold-start latency (TTR).
 
-## 🧠 Agent Engine (Vertex AI Reasoning Engine)
+## 🧠 Agent Engine (Vertex AI)
 Recommended for agents that require deep integration with the Google Cloud agentic ecosystem.
-- **Why**: Provides a managed runtime that handles serialization, versioning, and built-in tracing.
-- **Best Practice**: Use **Context Caching** for agents with extremely long system instructions (>32k tokens).
+- **Why**: Managed runtime, built-in tracing, and **Context Caching** support.
 
 ## ☸️ Enterprise Engine (GKE)
-Recommended for agents with specialized isolation needs or high-intensity workloads.
-- **Why**: Provides the highest level of control over networking (Service Mesh) and compute resources (GPUs).
-- **Best Practice**: Use **Workload Identity** to assign fine-grained IAM roles to your K8s service accounts.
+Recommended for high-intensity or specialized isolation workloads.
+- **Why**: Full control over networking and GPU resources.
+
+---
+
+## 🏗️ 1-Click Deployment Sequence
+`make deploy-prod` executes the following high-fidelity pipeline:
+
+### Stage 1: The Quick "Safe-Build"
+Runs `make audit` (~15s).
+- Architecture sanity check.
+- Secret leakage detection.
+- Fast Red-Team (common injections).
+- Token optimization audit.
+
+### Stage 2: Face Build
+Executes `npm run build` to compile the React/Vite frontend into production assets.
+
+### Stage 3: Infrastructure Push
+- Containerizes the Engine and pushes to **Artifact Registry**.
+- Deploys the service to **Google Cloud Run**.
+- Deploys static assets to **Firebase Hosting**.
 
 ---
 
@@ -26,77 +47,24 @@ Recommended for agents with specialized isolation needs or high-intensity worklo
 | :--- | :--- | :--- | :--- |
 | **Orchestration** | Managed (ADK) | Custom (FastAPI) | Custom (K8s) |
 | **Scaling** | Automatic | Scale-to-Zero | Dynamic / GPU |
-| **Observability** | Vertex AI Traces | Cloud Logging/Trace | Prometheus / Istio |
-| **Best Case** | Fast ADK Prototyping | Standard Web Agents | High-Perf Enterprise |
+| **Observability** | Vertex AI Traces | Cloud Logging | Prometheus / Istio |
+| **Best Case** | Fast Prototyping | Standard Web Agents | High-Perf Enterprise |
 
 ---
 
-## 🎭 The Face (Firebase Hosting)
-The React/Vite frontend is deployed to Firebase for globally distributed edge performance.
-- **Protocol**: Ensure all components use the **A2UI Protocol** for consistent engine-driven rendering.
-- **Responsiveness**: Use mobile-first breakpoints to support iOS and Android high-density displays.
-- **Accessibility**: All interactive elements must have `aria-labels` to support automated testing in the Cockpit.
-- **Performance**: Split large components (>300 lines) to optimize React's virtual DOM reconciliation.
-
----
-
-## 🏗️ Deployment Workflow
-
-We use a **1-click deployment** strategy that builds safety into the process via tiered audits:
-
-### Tier 1: The Quick "Safe-Build"
-**Command**: `make audit` (or part of `make deploy-prod`)  
-**Speed**: ~15-30 seconds.  
-**Focus**: Essential development guardrails.
-- Architecture sanity check.
-- Secret leakage detection.
-- Token optimization audit.
-- Fast Red-Team (common injections).
-
-### Tier 2: The Deep System Audit
-**Command**: `make audit-deep`  
-**Speed**: ~2-5 minutes.  
-**Focus**: Production-gate benchmarking & stress testing.
-- Full Adversarial Red-Teaming (Multilingual/Jailbreaks).
-- Iterative Quality Hill Climbing (ADK Metrics).
-- Precision Load Testing & Latency Benchmarks.
-- Strict Evidence Packing Audit.
-
+## 🛡️ v1.3: Deep System Audit
+For production-gate promotion, move from "Safe-Build" to "Deep Audit":
 ```bash
-make deploy-prod  # Runs Safe-Build -> Build -> Deploy
+make audit-deep
 ```
+- Full Adversarial Red-Teaming.
+- Iterative Quality Hill Climbing.
+- Precision Load Testing (`make load-test`).
 
-### The Deployment Sequence:
-1. **Audit Phase**: The Cockpit runs the **Quick Safe-Build** modules. 
-2. **Security Phase**: Ensures no PII or secrets exist in the latest code.
-3. **Build Phase**: Compiles the React application and optimizes static assets.
-4. **Push Phase**: 
-    - Containerizes the Engine and pushes to **Artifact Registry**.
-    - Deploys the container to **Cloud Run**.
-    - Deploys static assets to **Firebase Hosting**.
-
-## 🛡️ Staging & Traffic Splitting
-We recommend using Cloud Run **Revisions** for canary deployments:
-- Deploy 5% of traffic to your new Revision.
-- Monitor the **Cockpit Dashboard** for error rate anomalies.
-- Promote to 100% when satisfied.
-
-## 🤖 Automated CI/CD (GitHub Actions)
-
-The AgentOps Cockpit is designed for "Policy-as-Code." Every commit to `main` triggers an automated governance pipeline that acts as a **Mandatory Blocking Gate**.
-
-![CI/CD Workflow](/public/cicd-workflow.png)
-
-### The Automated Pipeline:
-1.  **Architecture Audit**: Scans for design alignment with the detected framework (LangGraph, ADK, etc.).
-2.  **Red Team Evaluation**: Automatically tests for prompt injection and instruction overrides on every PR.
-3.  **Token Optimization**: Identifies non-cached prompts and expensive model routing before deployment.
-4.  **Reliability Suite**: Runs all unit tests and regression checks against the core engine.
-
-Refer to `.github/workflows/agent-ops-audit.yml` for the full pipeline definition.
-
+---
 
 ## 🔑 Secret Management
-Never commit `.env` files. Use **Google Cloud Secret Manager**:
-- Store your `GOOGLE_API_KEY` and third-party tool tokens.
-- Map them as environment variables in your Cloud Run configuration.
+Never commit `.env` files. Use **Google Cloud Secret Manager** and map them as environment variables in Cloud Run.
+
+---
+*Generated by the AgentOps Cockpit. Sovereign Systems Division (v1.3).*

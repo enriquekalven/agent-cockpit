@@ -359,6 +359,84 @@ GO_CHECKLIST = [
     }
 ]
 
+LLAMAINDEX_CHECKLIST = [
+    {
+        "category": "🏗️ LlamaIndex (Data Intelligence)",
+        "checks": [
+            ("RAG: Using Advanced Retrieval (Sub-Question, Recursive)?", "Critical for complex reasoning over unstructured data."),
+            ("Memory: Is a BaseChatEngine or specialized buffer used?", "Ensures conversational continuity with large retrieval contexts."),
+            ("Knowledge Graphs: Is Property Graph Index active?", "Next-gen standard for relational reasoning in agents.")
+        ]
+    }
+]
+
+VECTORDN_CHECKLIST = [
+    {
+        "category": "🧠 Vector Native Infrastructure",
+        "checks": [
+            ("Native Vector: Using Pinecone, Weaviate, or Qdrant?", "Enterprise standard for hybrid search and metadata filtering."),
+            ("Local Native: Using ChromaDB or LanceDB?", "Standard for local-first or edge-compute agents."),
+            ("Indexing: Are specialized Namespaces or Collections used?", "Ensures tenant isolation and multi-modal query efficiency.")
+        ]
+    }
+]
+
+OBSERVABILITY_CHECKLIST = [
+    {
+        "category": "🔬 AgentOps Observability & Evaluation",
+        "checks": [
+            ("Tracing: Using LangSmith, Arize Phoenix, or Langfuse?", "Deep trace analysis for debugging multi-hop agent failures."),
+            ("Evaluation: Are DeepEval or RAGAS active in CI/CD?", "Automated scoring for retrieval and alignment quality."),
+            ("Experiments: Is Weights & Biases (W&B) used for track tracking?", "Industry standard for prompt and hyperparameter optimization.")
+        ]
+    }
+]
+
+INFERENCE_CHECKLIST = [
+    {
+        "category": "⚡ Specialized Inference Engines",
+        "checks": [
+            ("Self-Hosting: Is vLLM used for high-throughput serving?", "Private cloud standard for concurrent agent execution."),
+            ("Edge / Local: Is Ollama used for local development?", "Prevents token leakage in early-stage reasoning cycles."),
+            ("Real-Time: Is Groq LPU used for low-latency voice/chat?", "Critical for maintaining agentic 'conversational flow'."),
+            ("Microsrvices: Are NVIDIA NIMs used for VPC-native deployment?", "Standard for containerized model microservices.")
+        ]
+    }
+]
+
+GUARDRAILS_CHECKLIST = [
+    {
+        "category": "🛡️ Advanced Guardrail Fences",
+        "checks": [
+            ("Topical Rails: Is NeMo Guardrails (NVIDIA) active?", "Standard for enforcing domain-specific conversation boundaries."),
+            ("Structured Safety: Is Guardrails AI used for JSON validation?", "Ensures structured outputs are both safe and schema-compliant."),
+            ("Gateway Defense: Is Lakera Guard active at the ingress?", "Hardened defense against prompt injection at the API level.")
+        ]
+    }
+]
+
+DSPY_CHECKLIST = [
+    {
+        "category": "🏗️ Programmatic Optimization (DSPy)",
+        "checks": [
+            ("Compilation: Are Optimizers (BootstrapFewShot/MIPRO) used?", "Industry standard for replacing manual prompt engineering with compiled logic."),
+            ("Signatures: Are declarative DSPy Signatures used for task definition?", "Ensures structured, repeatable reasoning modules."),
+            ("Assertions: Are DSPy Assertions/Suggestions active?", "Runtime self-correction for complex agentic logic.")
+        ]
+    }
+]
+
+SPRING_AI_CHECKLIST = [
+    {
+        "category": "🏗️ Spring AI (Java Enterprise)",
+        "checks": [
+            ("Orchestration: Using ChatClient or specialized Advisors?", "Spring-standard for enterprise agent integration."),
+            ("Vector Store: Is a Spring-compatible VectorStore (PgVector/Pinecone) active?", "Ensures type-safe data retrieval in Java stacks."),
+            ("Observability: Is Spring Boot Actuator/Micrometer integrated?", "Critical for enterprise-grade agent monitoring and tracing.")
+        ]
+    }
+]
+
 
 FRAMEWORKS = {
     "google": {
@@ -439,14 +517,59 @@ FRAMEWORKS = {
         "checklist": CREWAI_CHECKLIST,
         "indicators": [r"crewai", r"Agent\(", r"Task\(", r"Crew\("]
     },
+    "llamaindex": {
+        "name": "LlamaIndex / Data Agents",
+        "checklist": LLAMAINDEX_CHECKLIST,
+        "indicators": [r"llamaindex", r"llama-index", r"VectorStoreIndex", r"KnowledgeGraphIndex"]
+    },
+    "vectordb": {
+        "name": "Vector Native (Pinecone/Weaviate/Chroma)",
+        "checklist": VECTORDN_CHECKLIST,
+        "indicators": [r"pinecone", r"weaviate", r"qdrant", r"chromadb", r"lancedb", r"milvus"]
+    },
+    "observability": {
+        "name": "Observability (LangSmith/Phoenix)",
+        "checklist": OBSERVABILITY_CHECKLIST,
+        "indicators": [r"langsmith", r"arize", r"phoenix", r"langfuse", r"deepeval", r"ragas", r"wandb"]
+    },
+    "inference": {
+        "name": "Inference Engines (vLLM/Groq)",
+        "checklist": INFERENCE_CHECKLIST,
+        "indicators": [r"vllm", r"ollama", r"groq", r"nvidia-nim", r"tgi"]
+    },
+    "guardrails": {
+        "name": "Guardrail Fences (NeMo/Lakera)",
+        "checklist": GUARDRAILS_CHECKLIST,
+        "indicators": [r"nemoguardrails", r"guardrails-ai", r"lakera"]
+    },
+    "dspy": {
+        "name": "DSPy / Programmatic Optimization",
+        "checklist": DSPY_CHECKLIST,
+        "indicators": [r"dspy", r"BootstrapFewShot", r"MIPRO", r"Signature"]
+    },
+    "springai": {
+        "name": "Spring AI (Java)",
+        "checklist": SPRING_AI_CHECKLIST,
+        "indicators": [r"spring-ai", r"ChatClient", r"org\.springframework\.ai"]
+    },
     "generic": {
-
         "name": "Generic Agentic Stack",
         "checklist": GENERIC_CHECKLIST,
         "indicators": []
     }
 }
 
+
+NIST_AI_RMF_CHECKLIST = [
+    {
+        "category": "⚖️ NIST AI RMF (Governance)",
+        "checks": [
+            ("Transparency: Is the agent's purpose and limitation documented?", "Ensures users know what the AI can/cannot do."),
+            ("Human-in-the-Loop: Are sensitive decisions manually reviewed?", "Mitigates high-risk autonomous failures."),
+            ("Traceability: Is every agent reasoning step logged?", "Required for forensic audit and accountability.")
+        ]
+    }
+]
 
 def detect_framework(path: str = ".") -> str:
     """ Detects the framework based on README or requirements.txt files. """

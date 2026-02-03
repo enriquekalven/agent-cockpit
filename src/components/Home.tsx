@@ -222,7 +222,10 @@ export function Home() {
           <div className="framework-section">
             <div className="frameworks-label">Orchestration Frameworks</div>
             <div className="frameworks-grid">
-              <div className="framework-badge adk">Google ADK</div>
+              <a href="https://github.com/GoogleCloudPlatform/agent-starter-pack/" target="_blank" rel="noopener noreferrer" className="framework-badge adk">
+                Google ADK
+                <ExternalLink size={12} style={{ marginLeft: '4px' }} />
+              </a>
               <div className="framework-badge crew">CrewAI</div>
               <div className="framework-badge langgraph">LangGraph</div>
               <div className="framework-badge autogen">AutoGen</div>
@@ -235,12 +238,28 @@ export function Home() {
           </div>
 
           <div className="framework-section mt-12">
+            <div className="frameworks-label">Vector & Inference Infrastructure</div>
+            <div className="frameworks-grid">
+              <div className="framework-badge llamaindex">LlamaIndex</div>
+              <div className="framework-badge dspy">DSPy</div>
+              <div className="framework-badge pinecone">Pinecone</div>
+              <div className="framework-badge weaviate">Weaviate</div>
+              <div className="framework-badge chromadb">ChromaDB</div>
+              <div className="framework-badge vllm">vLLM</div>
+              <div className="framework-badge ollama">Ollama</div>
+              <div className="framework-badge groq">Groq LPU</div>
+              <div className="framework-badge nims">NVIDIA NIMs</div>
+            </div>
+          </div>
+
+          <div className="framework-section mt-12">
             <div className="frameworks-label">Programming Languages & Runtimes</div>
             <div className="frameworks-grid">
               <div className="framework-badge python">Python</div>
               <div className="framework-badge go">Golang</div>
               <div className="framework-badge nodejs">NodeJS</div>
               <div className="framework-badge typescript">TypeScript</div>
+              <div className="framework-badge spring">Spring AI</div>
               <div className="framework-badge cloudrun">Cloud Run</div>
               <div className="framework-badge gke">GKE</div>
               <div className="framework-badge agentengine">Agent Engine</div>
@@ -1183,6 +1202,15 @@ export function Home() {
         .framework-badge.cloudrun { border-bottom: 3px solid #4285f4; }
         .framework-badge.gke { border-bottom: 3px solid #326ce5; }
         .framework-badge.agentengine { border-bottom: 3px solid #34a853; }
+        .framework-badge.pinecone { border-bottom: 3px solid #EC4899; }
+        .framework-badge.weaviate { border-bottom: 3px solid #10B981; }
+        .framework-badge.chromadb { border-bottom: 3px solid #3B82F6; }
+        .framework-badge.groq { border-bottom: 3px solid #F59E0B; }
+        .framework-badge.ollama { border-bottom: 3px solid #000000; }
+        .framework-badge.vllm { border-bottom: 3px solid #8B5CF6; }
+        .framework-badge.nims { border-bottom: 3px solid #76B900; }
+        .framework-badge.dspy { border-bottom: 3px solid #F43F5E; }
+        .framework-badge.spring { border-bottom: 3px solid #6DB33F; }
 
         .framework-section { margin-bottom: 3rem; }
         .mt-12 { margin-top: 3rem; }

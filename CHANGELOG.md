@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.7] - 2026-02-02
+
+### 🕹️ The Antigravity Update
+- **Ecosystem Intelligence**: Restored professional attribution to `GoogleCloudPlatform/agent-starter-pack` across README, documentation, and the landing page frameworks bar.
+- **Persona Path Validation**: Integrated local "Smoke Tests" into the reliability suite to ensure all five operational personas (Builder, Strategist, Guardian, Controller, Visionary) have verified pipes.
+- **MCP Hub Integration**: Enhanced Model Context Protocol server capabilities for direct tool consumption by 1P and 3P agents.
+- **Evidence Bridge v2**: Improved citation system for architectural reviews against the Google Well-Architected Framework.
+
 ## [0.8.0] - 2026-01-29
 
 ### 🛡️ The Governance Update
