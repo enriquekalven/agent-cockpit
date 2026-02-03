@@ -1,45 +1,40 @@
 # 🏁 AgentOps Production Readiness Checklist
+## The "Autonomous Standard" (v1.3)
 
-Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you have completed this checklist. This list incorporates best practices from **OpenAI**, **Anthropic**, and the **[Google Well-Architected Framework for Agents](/docs/google-architecture)**.
+Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you have completed this checklist. This list incorporates best practices from the **[Google Well-Architected Framework for Agents](/docs/GOOGLE_ARCHITECTURE.md)**.
 
-## 🛡️ Security & Privacy
-- [ ] **PII Scrubbing**: Are you using the `PIIScrubber` middleware to mask sensitive data (PII Guardrails) before sending to the LLM?
-- [ ] **Prompt Injection Hardening**: Have you run `make red-team` and verified that the agent rejects adversarial overrides?
-- [ ] **Least Privilege Tools**: Do your tool credentials (API Keys, GCP IAM) have the minimum scope required (Identity-based auth)?
-- [ ] **Content Filtering**: Have you configured Safety Settings (Vertex/OpenAI Moderation) to block toxic or harmful generation?
-- [ ] **Sandboxed Execution**: Are tools (especially Bash/Code execution) running in an isolated environment (e.g., Vertex AI Sandbox or Docker)?
-- [ ] **Secret Governance**: Have you run `make scan-secrets` and verified that **zero** hardcoded keys exist in the codebase?
+---
 
-## 🎭 Face Quality (UI/UX)
-- [ ] **A2UI Protocol**: Do all streaming surfaces provide unique `surfaceId`s for downstream auditability?
-- [ ] **Accessibility**: Have you run `make ui-audit` to verify that all interactive triggers have `aria-labels`?
-- [ ] **Responsive Design**: Is the "Face" usable across Desktop, iOS, and Android high-density displays?
+## 🛡️ Security & Adversarial SRE
+- [ ] **Secret Governance**: Run `make scan-secrets` to verify zero hardcoded tokens.
+- [ ] **Red Team Evaluation**: Run `make red-team` to verify resistance against multilingual jailbreaks and gaslighting. [**Read Red Team Guide**](TECHNICAL_REDTEAM_GUIDE.md)
+- [ ] **Sovereign Gate**: Ensure CI/CD includes mandatory blocking audit gates (Score > 90).
 
-## 📉 Optimization & Cost
-- [ ] **Context Caching**: For system instructions > 32k tokens, are you using **Context Caching**? (Run `make audit` to check).
-- [ ] **Model & Language Routing**: Are you using Flash/Mini models for routing? Have you applied language-specific optimizations (e.g., Go sync.Map, Node native fetch)?
-- [ ] **Semantic Caching**: Is the `Hive Mind` cache enabled for frequently asked questions?
-- [ ] **Token Limits**: Have you set a hard `max_output_tokens` and a session-level budget guardrail?
-- [ ] **Deterministic Routers**: Are you using hardcoded logic/routers for predictable paths instead of pure LLM routing?
+## 🧗 Quality & Reasoning
+- [ ] **Hill Climbing**: Run `make quality-baseline` to reach the Global Peak of your prompt's performance. [**Read Quality Guide**](TECHNICAL_QUALITY_GUIDE.md)
+- [ ] **Digital Twin Test**: Run `make simulation-run` to prove reasoning holds up under 100x user load. [**Read Architect Guide**](TECHNICAL_ARCH_REVIEW.md)
+- [ ] **Golden Dataset**: Verify performance against the latest versioned Golden Set.
 
-## ⚙️ Operational Observability
-- [ ] **Flight Recorder**: Is the operational dashboard configured to record thought chains (traces) for debugging?
-- [ ] **Evidence Packets**: Does your API response include an `EvidencePacket` (sources + snippets) for grounded transparency?
-- [ ] **Audit Trail**: Is every tool invocation (input, output, caller) logged to a tamper-proof database (BigQuery/Firestore)?
-- [ ] **Shadow Mode**: Have you deployed a shadow version to compare production traffic without user impact?
-- [ ] **Latency SLA**: Have you verified sub-second performance for critical paths?
+## 💰 FinOps & Optimization
+- [ ] **Reasoning Density**: Verify that quality gains are ROI-positive relative to token spend. [**Read FinOps Guide**](TECHNICAL_FINOPS_GUIDE.md)
+- [ ] **Context Caching**: Enable Vertex AI Caching for prefix-heavy system instructions.
+- [ ] **Smart Routing**: Ensure non-reasoning sub-tasks are routed to Flash/Mini models.
 
-## 🧪 Evaluation & RAI (Responsible AI)
-- [ ] **Golden Dataset**: Do you have a set of "Expected Good Responses" to test against before every merge?
-- [ ] **Human-in-the-Loop (HITL)**: For critical actions (e.g., payments, deletions, file writes), is there a manual approval step?
-- [ ] **Structured Outputs**: Are you enforcing JSON Schemas for all agent tool calls and response formats?
-- [ ] **Swiss Cheese Defense**: Are you using multiple layers of checks (Logic + Filters + Human Review) for high-risk domains?
-- [ ] **Version Control**: Are your Prompts and Blueprints versioned in Git separately from your logic?
+## 🌐 Infrastructure & SRE
+- [ ] **TTFT Monitoring**: Ensure Time to First Token is tracked as the 5th Golden Signal. [**Read Infra Guide**](TECHNICAL_INFRA_GUIDE.md)
+- [ ] **Regional Affinity**: Verify LLM and Vector DB are co-located in the same GCP zone to minimize latency.
+- [ ] **Load Test**: Run `make load-test` to empirically measure RPS and TTFT under pressure.
+
+## 🎭 UX & GenUI
+- [ ] **A2UI Compliance**: Scanned and verified `surfaceId` mapping for all dynamic components. [**Read UX Guide**](TECHNICAL_UX_GUIDE.md)
+- [ ] **Interactive Journey**: Run `make smoke-test` to validate full persona journeys.
 
 ---
 
 ## 🚀 Deployment Standards
-1.  **Staging**: Deploy to a non-public Cloud Run URL.
-2.  **Red Team**: Run adversarial audits against the staging URL.
-3.  **Load Test**: Verify performance under 100 requests/min.
-4.  **Promote**: Use Cloud Run traffic splitting (Canary) to roll out to 5% of users.
+1.  **Autonomous Review**: Run `make arch-review` and synthesize fix PRs via `make apply-fixes`.
+2.  **Staging Audit**: Run `make audit-deep` on the staging environment.
+3.  **Promote**: Use Cloud Run traffic splitting (Canary) for gradual rollout (5% -> 100%).
+
+---
+*Generated by the AgentOps Cockpit. Sovereign Systems Division (v1.3).*

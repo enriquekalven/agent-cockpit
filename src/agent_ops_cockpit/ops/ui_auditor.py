@@ -9,7 +9,7 @@ app = typer.Typer(help="Face Auditor: Scan frontend code for A2UI alignment.")
 console = Console()
 
 @app.command()
-def audit(path: str = "src"):
+def audit(path: str = typer.Argument("src", help="Directory to scan")):
     """
     Step 4: Frontend / A2UI Auditing.
     Ensures frontend components are properly mapping surfaceId and detecting triggers.
@@ -28,13 +28,19 @@ def audit(path: str = "src"):
     a11y_pattern = re.compile(r"aria-label|role=|tabIndex|alt=")
     legal_pattern = re.compile(r"Copyright|PrivacyPolicy|Disclaimer|TermsOfService|©")
     marketing_pattern = re.compile(r"og:image|meta\s+name=['\"]description['\"]|favicon|logo")
+    hitl_pattern = re.compile(r"HumanInTheLoop|confirm|Approve|Reject|Gate")
+    streaming_pattern = re.compile(r"Suspense|Stream|Markdown|chunk")
 
     for root, dirs, files in os.walk(path):
         if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
             continue
             
         for file in files:
+            # Skip non-component files to reduce noise
             if file.endswith((".tsx", ".ts", ".js", ".jsx")):
+                if any(x in file.lower() for x in ["config", "test", "spec", "d.ts", "setup", "main", "index"]):
+                    continue
+                
                 files_scanned += 1
                 file_path = os.path.join(root, file)
                 rel_path = os.path.relpath(file_path, ".")
@@ -78,15 +84,59 @@ def audit(path: str = "src"):
                     if not marketing_pattern.search(content) and ("index" in file.lower() or "head" in file.lower() or "App" in file):
                         findings.append({"line": 1, "issue": "Missing Branding (Logo) or SEO Metadata (OG/Description)", "fix": "Add meta tags (og:image, description) and project logo."})
 
+                    if not hitl_pattern.search(content) and ("Action" in file or "Tool" in file or "Transfer" in file):
+                         findings.append({"line": 1, "issue": "Missing HITL (Human-in-the-Loop) Gating", "fix": "Add confirmation modals or 'Approve/Reject' gates for high-impact actions."})
+                    
+                    if not streaming_pattern.search(content) and ("Chat" in file or "Thread" in file or "Log" in file):
+                         findings.append({"line": 1, "issue": "Missing Streaming Resilience (Suspense/Stream)", "fix": "Implement Suspense or stream-aware handlers to prevent UI flickering during token rendering."})
+
                     if findings:
                         issues.append({"file": rel_path, "findings": findings})
 
                 except Exception:
                     pass
 
+    # Quantitative Scoring (Principal v1.2)
+    max_score = 100
+    deductions = {
+        "Missing 'surfaceId'": 20,
+        "Missing 'Thinking' feedback": 15,
+        "Missing HITL": 15,
+        "Missing Streaming Resilience": 10,
+        "interactive component without triggers": 10,
+        "Missing a11y labels": 10,
+        "Missing Legal/SEO": 5
+    }
+    
+    total_deduction = 0
+    unique_issues = set()
+    for issue in issues:
+        for finding in issue["findings"]:
+            for key, val in deductions.items():
+                if key.lower() in finding["issue"].lower():
+                    if key not in unique_issues:
+                        total_deduction += val
+                        unique_issues.add(key)
+    
+    score = max(0, max_score - total_deduction)
+    verdict = "✅ APPROVED" if score >= 85 else "⚠️ WARN" if score >= 60 else "❌ REJECTED"
+    
     console.print(f"📝 Scanned [bold]{files_scanned}[/bold] frontend files.")
 
-    table = Table(title="🔍 A2UI Audit Findings")
+    # Executive Summary Table (Product View v1.2)
+    summary = Table(title="💎 PRINCIPAL UX EVALUATION (v1.2)", box=None)
+    summary.add_column("Metric", style="cyan")
+    summary.add_column("Value", style="bold white")
+    summary.add_row("GenUI Readiness Score", f"{score}/100")
+    summary.add_row("Consensus Verdict", f"[{'green' if score >= 85 else 'yellow' if score >= 60 else 'red'}]{verdict}[/]")
+    summary.add_row("A2UI Registry Depth", "Fragmented" if "Missing 'surfaceId'" in unique_issues else "Aligned")
+    summary.add_row("Latency Tolerance", "Low" if "Missing 'Thinking' feedback" in unique_issues else "Premium")
+    summary.add_row("Autonomous Risk (HITL)", "HIGH" if "Missing HITL" in unique_issues else "Secured")
+    summary.add_row("Streaming Fluidity", "Flicker-Prone" if "Missing Streaming Resilience" in unique_issues else "Smooth")
+    
+    console.print(Panel(summary, border_style="green" if score >= 85 else "yellow"))
+
+    table = Table(title="🔍 A2UI DETAILED FINDINGS")
     table.add_column("File:Line", style="cyan")
     table.add_column("Issue", style="red")
     table.add_column("Recommended Fix", style="green")
@@ -104,12 +154,23 @@ def audit(path: str = "src"):
 
     console.print("\n", table)
 
-    
-    if len(issues) > 5:
-        console.print("\n⚠️  [yellow]Recommendation:[/yellow] Your 'Face' layer has fragmented A2UI surface mappings.")
-        console.print("💡 Use the A2UI Registry to unify how your agent logic triggers visual surfaces.")
+    if score < 85:
+        console.print(f"\n💡 [bold yellow]UX Principal Recommendation:[/bold yellow] Your 'Face' layer needs {100-score}% more alignment.")
+        if "Missing 'surfaceId'" in unique_issues:
+            console.print(" - Map components to 'surfaceId' to enable agent-driven UI updates.")
+        if "Missing 'Thinking' feedback" in unique_issues:
+            console.print(" - Add 'Skeleton' screens to mask LLM reasoning latency.")
+        if "Missing HITL" in unique_issues:
+            console.print(" - Implement Human-in-the-Loop gates (modals/approvals) for sensitive impacts.")
+        if "Missing Streaming Resilience" in unique_issues:
+            console.print(" - Use 'Suspense' boundaries to handle live token streaming without flicker.")
     else:
         console.print("\n✅ [bold green]Frontend is Well-Architected for GenUI interactions.[/bold green]")
+
+@app.command()
+def version():
+    """Show the version of the Face Auditor."""
+    console.print('[bold cyan]v1.3.0[/bold cyan]')
 
 if __name__ == "__main__":
     app()

@@ -2,6 +2,45 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.7] - 2026-02-02
+
+### 🕹️ The Antigravity Update
+- **Ecosystem Intelligence**: Restored professional attribution to `GoogleCloudPlatform/agent-starter-pack` across README, documentation, and the landing page frameworks bar.
+- **Persona Path Validation**: Integrated local "Smoke Tests" into the reliability suite to ensure all five operational personas (Builder, Strategist, Guardian, Controller, Visionary) have verified pipes.
+- **MCP Hub Integration**: Enhanced Model Context Protocol server capabilities for direct tool consumption by 1P and 3P agents.
+- **Evidence Bridge v2**: Improved citation system for architectural reviews against the Google Well-Architected Framework.
+
+## [0.8.0] - 2026-01-29
+
+### 🛡️ The Governance Update
+- **Principal SME Persona Approvals**: Every audit result is now reviewed and framed by specialized SME personas (Platform, Security, Legal, FinOps, UX).
+- **Face Auditor (UI Audit)**: New auditor for frontend code to ensure A2UI protocol alignment, accessibility (i18n), and UX feedback (Skeleton/Spinners).
+- **Professional Reporting**:
+    - **Printable HTML Reports**: Premium formatting for stakeholder presentations.
+    - **Email Integration**: Send Persona-Approved audit results directly from the CLI.
+- **Mandatory Build Gates**: Updated CLI and `Dockerfile` to enforce "Well-Architected" status as a blocking gate for production deployments.
+- **Package Unification**: Consolidated codebase into the `agent_ops_cockpit` package, simplifying imports and distribution.
+- **Multi-Cloud Branding**: Broadened scope from Google-only to all major providers (AWS, Azure, OpenAI, Anthropic, CopilotKit) with native branding on the landing page.
+- **CI/CD Build Gates**: Integrated GitHub Actions visibility showing mandatory governance gates for production.
+- **Sample Reporting**: Added both HTML and Markdown (MD) audit reports to the public site for transparency.
+- **Agentic Pair Programming**: Full support for pairing with **Antigravity** or **Claude Code** to maximize finding resolution.
+
+## [0.7.0] - 2026-01-28
+
+### ☁️ The Multi-Cloud Update
+- **AWS Bedrock Integration**: Situational audit and optimization for AWS Bedrock Agents, including Action Group validation and Bedrock Guardrail checks.
+- **Oracle OCI AI Agents**: First-class support for OCI Generative AI Agents and Oracle Database 23ai (Vector Search) audits.
+- **Situational Database Audits**: New high-perf audits for **AlloyDB** (Columnar Engine), **Pinecone** (gRPC & Namespaces), **BigQuery** (Vector Search), and **Cloud SQL** (Python Connector).
+
+### 🔌 MCP Native Consumption
+- **MCP Server Registration**: The Cockpit can now be exposed as a Model Context Protocol (MCP) server, allowing 1P (Google/Anthropic) and 3P agents to call Cockpit tools natively.
+- **Tool Suite Exposure**: Tools like `optimize_code`, `policy_audit`, and `red_team_attack` available to external agentic swarms.
+
+### 🛡️ Guardrail Intelligence (RFC-307)
+- **Declarative Policy Engine**: Introduced `policies.json` for managing agentic guardrails without prompt engineering.
+- **Forbidden Topics Enforcement**: Real-time input validation against customizable restricted domains.
+- **HITL (Human-in-the-Loop) Tooling**: Declaratively flag sensitive tools for manual approval.
+
 ## [0.6.0] - 2026-01-28
 
 ### 🚀 major Features

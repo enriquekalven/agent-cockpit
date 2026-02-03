@@ -15,8 +15,14 @@ help:
 	@echo "  make audit                     - [MASTER] Quick Safe-Build (uvx agentops-cockpit report --mode quick)"
 	@echo "  make audit-deep                - [MASTER] Deep System Audit (uvx agentops-cockpit report --mode deep)"
 	@echo "  make optimizer-audit           - [CODE] Quick code audit (uvx agentops-cockpit audit --quick)"
-	@echo "  make optimizer-audit-deep      - [CODE] Deep code audit (uvx agentops-cockpit audit)"
+	@echo "  make arch-review               - [ARCH] Reasoning-based architecture review (v1.0)"
+	@echo "  make arch-review-export        - [ARCH] Generate Executive v1.1 HTML Report"
+	@echo "  make arch-benchmark            - [ARCH] Run v1.2 Reliability Waterfall (Stress Test)"
+	@echo "  make apply-fixes               - [PHASE 4] Auto-remediate detected architectural gaps"
+	@echo "  make propose-fixes             - [PHASE 5] Create fix branch and commit remediations"
 	@echo "  make reliability               - Run unit tests and regression suite"
+	@echo "  make smoke-test               - [E2E] End-to-End Persona Journey smoke tests"
+	@echo "  make regression                - [FULL] Master Reliability + Smoke Tests"
 	@echo "  make diagnose                  - [DevEx] System health check and env diagnosis"
 	@echo "  make email-report              - [GOV] Email the latest Persona-Approved report"
 	@echo "  make red-team                  - Run adversarial security audit"
@@ -53,6 +59,14 @@ audit-all:
 reliability:
 	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py
 
+# 🧪 Smoke Test: E2E Persona Validation
+smoke-test:
+	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py --smoke
+
+# 🚀 Regression: The Full Suite (Unit + Smoke)
+regression:
+	@PYTHONPATH=src $(PYTHON) -c "from agent_ops_cockpit.ops.reliability import run_regression_suite; run_regression_suite()"
+
 # 🩺 Diagnose: DevEx system check
 diagnose:
 	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main diagnose
@@ -67,7 +81,23 @@ optimizer-audit-deep:
 
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py audit
+
+# 🏛️ Executive: Generate v1.1 HTML Summary
+arch-review-export:
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py audit --export
+
+# 🌊 Reliability: v1.2 Automated Benchmarking
+arch-benchmark:
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py benchmark --count 50
+
+# 🚀 The Closer: Auto-remediation engine for architecture gaps
+apply-fixes:
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py apply-fixes
+
+# 🌿 The Ambassador: Autonomous PR Factory
+propose-fixes:
+	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py propose-fixes
 
 # 🧗 Quality: Iterative Hill Climbing optimization
 quality-baseline:
@@ -79,7 +109,7 @@ scan-secrets:
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
-	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py src
+	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py $(TARGET)
 
 # 🔥 Red Team: Unleash self-hacking security audit
 
@@ -95,9 +125,8 @@ URL ?= http://localhost:8000/agent/query?q=healthcheck
 load_test:
 	@$(PYTHON) src/agent_ops_cockpit/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
-# 🚀 Production: The Vercel-style 1-click deploy (using Quick Audit for speed)
-deploy-prod: audit build
-
+# 🚀 Production: The Vercel-style 1-click deploy (using Full Regression Suite)
+deploy-prod: regression build
 	@echo "📦 Containerizing and deploying to Cloud Run..."
 	gcloud run deploy $(SERVICE_NAME) --source . --region $(REGION) --allow-unauthenticated --port 80
 	@echo "🔥 Deploying frontend to Firebase..."

@@ -17,7 +17,12 @@ const JOURNEYS = [
     docs: [
       { name: 'Getting Started', path: '/docs/getting-started' },
       { name: 'Development Guide', path: '/docs/development' },
-      { name: 'Local Mocking / CLI', path: '/docs/cli-commands' }
+      { name: 'Local Mocking / CLI', path: '/docs/cli-commands' },
+      { name: 'Reference: Agent Starter Pack', path: 'https://github.com/GoogleCloudPlatform/agent-starter-pack/' }
+    ],
+    reports: [
+      { name: 'A2UI Contract Audit', path: '/master-audit-report.html' },
+      { name: 'Unit Test Evidence', path: '/compliance-evidence.md' }
     ],
     command: 'uvx agent-starter-pack create my-agent',
     output: `🚀 Creating new agent: my-agent
@@ -38,6 +43,10 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Google Architecture', path: '/docs/google-architecture' },
       { name: 'Deployment Strategy', path: '/docs/deployment' },
       { name: 'Production Checklist', path: '/docs/production-checklist' }
+    ],
+    reports: [
+      { name: 'Architecture Review (ADR)', path: '/arch-review-report.html' },
+      { name: 'Design Consensus Report', path: '/master-audit-report.html' }
     ],
     command: 'make apply-architecture',
     output: `🏗️ Applying Well-Architected Patterns...
@@ -60,6 +69,10 @@ Infrastructure aligned with Google Well-Architected Framework.`
       { name: 'Red Team Audits', path: '/docs/security' },
       { name: 'Privacy & Policies', path: '/docs/governance' }
     ],
+    reports: [
+      { name: 'Red Team Pentest Report', path: '/master-audit-report.html' },
+      { name: 'Policy Violation Log', path: '/compliance-evidence.md' }
+    ],
     command: 'make red-team --target=agent-x',
     output: `🛡️ Starting Adversarial Audit...
 🕵️ Testing Prompt Injection: [Attempt 01..15]
@@ -80,6 +93,10 @@ Status: SECURE (Compliant with Enterprise Standard)`
       { name: 'Governance Guide', path: '/docs/governance' },
       { name: 'Evidence & Compliance', path: '/docs/governance' },
       { name: 'Cockpit Ops', path: '/ops' }
+    ],
+    reports: [
+      { name: 'Global Compliance Audit', path: '/master-audit-report.html' },
+      { name: 'Evidence Lake Export', path: '/compliance-evidence.md' }
     ],
     command: 'make audit-all',
     output: `🏛️ Global Agent Audit Initiated...
@@ -102,6 +119,10 @@ Estate Health: 98% Compliant.`
       { name: 'The Agent Ops Story', path: '/docs/story' },
       { name: 'Optimization ROI', path: '/docs/optimization' },
       { name: 'A2UI Visual Standards', path: '/docs/a2a' }
+    ],
+    reports: [
+      { name: 'FinOps ROI Analysis', path: '/master-audit-report.html' },
+      { name: 'UX Readiness Scorecard', path: '/arch-review-report.html' }
     ],
     command: 'agent-ops --analyze-roi',
     output: `📊 Analyzing Agent Performance & ROI...
@@ -166,11 +187,30 @@ export function OperationalJourneys() {
                   <h4>Critical Documentation</h4>
                   <div className="docs-list">
                     {activeJourney.docs.map((doc, i) => (
-                      <Link key={i} to={doc.path} className="doc-item">
-                        <FileText size={18} />
-                        <span>{doc.name}</span>
-                        <ChevronRight size={14} className="chevron" />
-                      </Link>
+                      doc.path.startsWith('http') ? (
+                        <a key={i} href={doc.path} target="_blank" rel="noopener noreferrer" className="doc-item">
+                          <FileText size={18} />
+                          <span>{doc.name}</span>
+                          <ExternalLink size={14} className="chevron" />
+                        </a>
+                      ) : (
+                        <Link key={i} to={doc.path} className="doc-item">
+                          <FileText size={18} />
+                          <span>{doc.name}</span>
+                          <ChevronRight size={14} className="chevron" />
+                        </Link>
+                      )
+                    ))}
+                  </div>
+
+                  <h4 style={{ marginTop: '2rem' }}>Sample Reports</h4>
+                  <div className="docs-list">
+                    {activeJourney.reports && activeJourney.reports.map((report, i) => (
+                      <a key={i} href={report.path} target="_blank" rel="noopener noreferrer" className="doc-item report-accent">
+                        <CheckCircle size={18} style={{ color: activeJourney.color }} />
+                        <span>{report.name}</span>
+                        <ExternalLink size={14} className="chevron" />
+                      </a>
                     ))}
                   </div>
                 </div>

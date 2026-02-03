@@ -43,6 +43,36 @@
       "package": "google-cloud-aiplatform",
       "description": "Vertex AI Agent Engine - Managed agent execution",
       "min_version_for_optimizations": "1.70.0"
+    },
+    "pinecone": {
+      "feed": "https://github.com/pinecone-io/pinecone-python-client/releases.atom",
+      "package": "pinecone-client",
+      "description": "Pinecone - Managed vector database for RAG"
+    },
+    "weaviate": {
+      "feed": "https://github.com/weaviate/weaviate-python-client/releases.atom",
+      "package": "weaviate-client",
+      "description": "Weaviate - Open source vector database"
+    },
+    "chromadb": {
+      "feed": "https://github.com/chroma-core/chroma/releases.atom",
+      "package": "chromadb",
+      "description": "Chroma - The AI-native open-source embedding database"
+    },
+    "llamaindex": {
+      "feed": "https://github.com/run-llama/llama_index/releases.atom",
+      "package": "llama-index",
+      "description": "LlamaIndex - Data framework for LLM applications"
+    },
+    "langsmith": {
+      "feed": "https://github.com/langchain-ai/langsmith-sdk/releases.atom",
+      "package": "langsmith",
+      "description": "LangSmith - Debugging, testing, and monitoring for LLMs"
+    },
+    "ollama": {
+      "feed": "https://github.com/ollama/ollama/releases.atom",
+      "package": "ollama",
+      "description": "Ollama - Run LLMs locally"
     }
   },
   "compatibility_rules": [
