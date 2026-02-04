@@ -7,7 +7,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.syntax import Syntax
-from packaging import version
+from packaging import version as pkg_version
 try:
     from agent_ops_cockpit.ops.evidence_bridge import get_package_evidence, get_compatibility_report
 except ImportError:
@@ -47,7 +47,7 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
             issues.append(OptimizationIssue('vertex_install', 'Install Modern Vertex SDK', 'HIGH', '90% cost savings', 'You appear to be using Vertex AI logic but the SDK is not in your environment. Install v1.70.0+ to unlock context caching.', '+ # pip install google-cloud-aiplatform>=1.70.0', package='google-cloud-aiplatform'))
         elif v_ai != 'Unknown':
             try:
-                if version.parse(v_ai) < version.parse('1.70.0'):
+                if pkg_version.parse(v_ai) < pkg_version.parse('1.70.0'):
                     issues.append(OptimizationIssue('vertex_legacy_opt', 'Situational Performance (Legacy SDK)', 'MEDIUM', '20% cost savings', f'Your SDK ({v_ai}) lacks native Context Caching. Optimize by using selective prompt pruning before execution.', '+ from agent_ops_cockpit.ops.cost_optimizer import situational_pruning\n+ pruned = situational_pruning(context)', package='google-cloud-aiplatform'))
                     issues.append(OptimizationIssue('vertex_upgrade_path', 'Modernization Path', 'HIGH', '90% cost savings', 'Upgrading to 1.70.0+ enables near-instant token reuse via CachingConfig.', '+ # Upgrade to >1.70.0', package='google-cloud-aiplatform'))
                 elif 'cache' not in content_lower:
@@ -56,7 +56,7 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
                 pass
     openai_v = versions.get('openai', 'Not Installed')
     if 'openai' in content_lower:
-        if openai_v != 'Not Installed' and version.parse(openai_v) < version.parse('1.0.0'):
+        if openai_v != 'Not Installed' and pkg_version.parse(openai_v) < pkg_version.parse('1.0.0'):
             issues.append(OptimizationIssue('openai_legacy', 'Found Legacy OpenAI SDK', 'HIGH', '40% latency reduction', f'You are on {openai_v}. Transitioning to the v1.0.0+ Client pattern enables modern streaming and improved error handling.', '+ from openai import OpenAI\n+ client = OpenAI()', package='openai'))
         elif 'prompt_cache' not in content_lower:
             issues.append(OptimizationIssue('openai_caching', 'OpenAI Prompt Caching', 'MEDIUM', '50% latency reduction', 'OpenAI automatically caches repeated input prefixes. Ensure your system prompt is first.', "+ # Ensure system prompt is first\n+ messages = [{'role': 'system', ...}]", package='openai'))
@@ -82,7 +82,7 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
     if 'langgraph' in content_lower:
         if lg_v != 'Not Installed' and lg_v != 'Unknown':
             try:
-                if version.parse(lg_v) < version.parse('0.1.0'):
+                if pkg_version.parse(lg_v) < pkg_version.parse('0.1.0'):
                     issues.append(OptimizationIssue('langgraph_legacy', 'Situational Stability (Legacy LangGraph)', 'HIGH', 'Stability Boost', f'You are on {lg_v}. Older versions lack the hardened StateGraph compilation. Upgrade is recommended.', '+ # Consider upgrading for better persistence', package='langgraph'))
             except Exception:
                 pass

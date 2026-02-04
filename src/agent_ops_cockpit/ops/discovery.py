@@ -2,7 +2,7 @@ import os
 import fnmatch
 import ast
 import re
-from typing import List, Set, Optional, Generator
+from typing import List, Optional, Generator
 
 class DiscoveryEngine:
     """
@@ -31,9 +31,11 @@ class DiscoveryEngine:
                     for line in f:
                         line = line.strip()
                         if line and not line.startswith("#"):
-                            if line.endswith("/"): patterns.append(line + "*")
+                            if line.endswith("/"):
+                                patterns.append(line + "*")
                             patterns.append(line)
-            except: pass
+            except Exception:
+                pass
         return patterns
 
     def _load_cockpitignore(self) -> List[str]:
@@ -46,9 +48,11 @@ class DiscoveryEngine:
                     for line in f:
                         line = line.strip()
                         if line and not line.startswith("#"):
-                            if line.endswith("/"): patterns.append(line + "*")
+                            if line.endswith("/"):
+                                patterns.append(line + "*")
                             patterns.append(line)
-            except: pass
+            except Exception:
+                pass
         return patterns
 
     def _load_config(self) -> dict:
@@ -203,10 +207,14 @@ class DiscoveryEngine:
                     
                     # Weighting system for brain detection
                     weight = 0
-                    if "vertexai" in content: weight += 10
-                    if "langchain" in content: weight += 5
-                    if "agent_ops_cockpit" in content: weight += 20
-                    if "Agent" in content or "agent =" in content: weight += 2
+                    if "vertexai" in content:
+                        weight += 10
+                    if "langchain" in content:
+                        weight += 5
+                    if "agent_ops_cockpit" in content:
+                        weight += 20
+                    if "Agent" in content or "agent =" in content:
+                        weight += 2
                     
                     for node in ast.walk(tree):
                         if isinstance(node, (ast.Import, ast.ImportFrom)):

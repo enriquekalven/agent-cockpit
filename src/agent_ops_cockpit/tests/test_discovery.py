@@ -92,5 +92,5 @@ def test_library_isolation_detection(temp_workspace):
     venv_file = os.path.join(temp_workspace, "venv/lib/python3.9/site-packages/package/file.py")
     user_file = os.path.join(temp_workspace, "src/agent.py")
     
-    assert discovery.is_library_file(venv_file) == True
-    assert discovery.is_library_file(user_file) == False
+    assert discovery.is_library_file(venv_file)
+    assert not discovery.is_library_file(user_file)

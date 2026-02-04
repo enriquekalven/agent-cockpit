@@ -50,7 +50,8 @@ def audit(
                         agent_path = os.path.join(root, f)
                         found = True
                         break
-                if found: break
+                if found:
+                    break
         
         if not found:
             console.print(f"❌ [red]Error: No python entry point found in {agent_path}[/red]")

@@ -1,6 +1,6 @@
 import ast
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import List
 
 class AuditFinding:
     def __init__(self, category: str, title: str, description: str, impact: str, roi: str, line_number: int = 0, file_path: str = ""):

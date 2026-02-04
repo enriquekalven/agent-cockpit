@@ -1,4 +1,3 @@
-import os
 import json
 import pytest
 from agent_ops_cockpit.ops.pii_scrubber import PIIScrubber

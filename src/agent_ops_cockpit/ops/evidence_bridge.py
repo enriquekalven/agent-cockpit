@@ -1,12 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
 import json
 import os
 import urllib.request

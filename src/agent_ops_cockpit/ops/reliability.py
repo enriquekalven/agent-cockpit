@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import subprocess
 import sys
@@ -23,7 +22,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     console.print(f'🧪 [bold]Running Unit Tests (pytest) in {path}...[/bold]')
     env = os.environ.copy()
     env['PYTHONPATH'] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}:src"
-    unit_result = subprocess.run([sys.executable, '-m', 'pytest', path], capture_output=True, text=True, env=env, stderr=subprocess.STDOUT)
+    unit_result = subprocess.run([sys.executable, '-m', 'pytest', path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
     console.print('📈 [bold]Verifying Regression Suite Coverage...[/bold]')
     table = Table(title='🛡️ Reliability Status')
     table.add_column('Check', style='cyan')

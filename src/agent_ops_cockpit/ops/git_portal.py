@@ -1,4 +1,3 @@
-import os
 import git
 from typing import List
 from rich.console import Console
@@ -20,7 +19,8 @@ class GitPortal:
 
     def create_fix_branch(self, branch_name: str):
         """Creates and switches to a new branch for fixes."""
-        if not self.repo: return None
+        if not self.repo:
+            return None
         
         current = self.repo.active_branch
         console.print(f"🌿 [dim]Creating fix branch: {branch_name} (from {current.name})[/dim]")
@@ -31,7 +31,8 @@ class GitPortal:
 
     def commit_fixes(self, files: List[str], message: str):
         """Stages and commits the remediated files."""
-        if not self.repo: return False
+        if not self.repo:
+            return False
         
         self.repo.index.add(files)
         self.repo.index.commit(message)
@@ -40,7 +41,8 @@ class GitPortal:
 
     def push_fixes(self, branch_name: str):
         """Pushes the branch to the remote."""
-        if not self.repo: return False
+        if not self.repo:
+            return False
         
         try:
             origin = self.repo.remote(name='origin')

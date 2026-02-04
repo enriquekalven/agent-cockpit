@@ -1,5 +1,4 @@
 import ast
-from typing import List
 from .auditors.base import AuditFinding
 
 class CodeRemediator:

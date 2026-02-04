@@ -1,5 +1,14 @@
 import os
 import sys
+import subprocess
+import json
+import hashlib
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskID
 
 # Ensure the project root is in sys.path for the tenacity mock
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -11,17 +20,6 @@ src_dir = os.path.dirname(os.path.dirname(script_dir))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 
-from tenacity import retry, wait_exponential, stop_after_attempt
-import subprocess
-import json
-import hashlib
-import time
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskID
 console = Console()
 
 class CockpitOrchestrator:
@@ -54,7 +52,8 @@ class CockpitOrchestrator:
                 with open(f_path, 'rb') as f:
                     while chunk := f.read(8192):
                         hasher.update(chunk)
-            except: pass
+            except Exception:
+                pass
         return hasher.hexdigest()
 
     def detect_entry_point(self, path: str):
@@ -159,10 +158,14 @@ class CockpitOrchestrator:
             # Priority Sorting: Security > Reliability > Architecture > FinOps > UX
             def priority_key(action):
                 p = action.lower()
-                if any(x in p for x in ['leak', 'secret', 'credential', 'security']): return 0
-                if any(x in p for x in ['reliability', 'unit test', 'failure']): return 1
-                if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach']): return 2
-                if any(x in p for x in ['finops', 'roi', 'caching', 'resiliency']): return 3
+                if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
+                    return 0
+                if any(x in p for x in ['reliability', 'unit test', 'failure']):
+                    return 1
+                if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach']):
+                    return 2
+                if any(x in p for x in ['finops', 'roi', 'caching', 'resiliency']):
+                    return 3
                 return 4
                 
             sorted_actions = sorted(developer_actions, key=priority_key)
@@ -205,7 +208,8 @@ class CockpitOrchestrator:
                     lake_data = json.load(f)
                     historical = lake_data.get(target_abs, {}).get('summary', {})
                     prev_health = historical.get('health', 0) * 100
-            except: pass
+            except Exception:
+                pass
             
         health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
         improvement_delta = health_score - prev_health
@@ -255,10 +259,11 @@ class CockpitOrchestrator:
         if format == 'json':
              console.print_json(data=self.results)
         elif format == 'sarif':
-             with open('cockpit_audit.sarif', 'r') as f: console.print(f.read())
+             with open('cockpit_audit.sarif', 'r') as f:
+                 console.print(f.read())
 
         console.print(f'\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]')
-        console.print(f'📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]')
+        console.print('📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]')
 
     def get_exit_code(self):
         """
@@ -309,10 +314,13 @@ class CockpitOrchestrator:
         fleet_data = {}
         if os.path.exists(lake_path):
              try:
-                 with open(lake_path, 'r') as f: fleet_data = json.load(f)
-             except: pass
+                 with open(lake_path, 'r') as f:
+                     fleet_data = json.load(f)
+             except Exception:
+                 pass
         fleet_data[target_abs] = data
-        with open(lake_path, 'w') as f: json.dump(fleet_data, f)
+        with open(lake_path, 'w') as f:
+            json.dump(fleet_data, f)
         
         console.print(f'📜 [EVIDENCE LAKE] Partitioned log updated at {agent_dir}/latest.json')
 
@@ -323,7 +331,8 @@ class CockpitOrchestrator:
             parts = action.split(' | ')
             if len(parts) == 3:
                 sarif["runs"][0]["results"].append({"ruleId": parts[1].replace(" ", "_").lower(), "message": {"text": parts[2]}, "locations": [{"physicalLocation": {"artifactLocation": {"uri": parts[0]}}}]})
-        with open('cockpit_audit.sarif', 'w') as f: json.dump(sarif, f, indent=2)
+        with open('cockpit_audit.sarif', 'w') as f:
+            json.dump(sarif, f, indent=2)
 
     def _generate_html_report(self, developer_actions, developer_sources):
         """Generates a v1.2 Principal SME Grade HTML report with Professional Mode toggle."""
@@ -470,15 +479,18 @@ def generate_fleet_dashboard(results: dict):
     fleet_data = {}
     if os.path.exists(lake_path):
         try:
-            with open(lake_path, "r") as f: fleet_data = json.load(f)
-        except: pass
+            with open(lake_path, "r") as f:
+                fleet_data = json.load(f)
+        except Exception:
+            pass
 
     passed_count = sum(1 for r in results.values() if r == 0)
     total = len(results)
     
     # ROI Predictor Logic
     total_savings = sum(r.get("savings", 0) for r in fleet_data.values() if isinstance(r, dict) and "savings" in r)
-    if total_savings == 0: total_savings = 12.50 * total # Estimated baseline
+    if total_savings == 0:
+        total_savings = 12.50 * total # Estimated baseline
 
     # Extract Global Velocity
     global_velocity = fleet_data.get("global_summary", {}).get("velocity", 0)
@@ -588,7 +600,8 @@ def generate_fleet_dashboard(results: dict):
     </body>
     </html>
     """
-    with open("fleet_dashboard.html", "w") as f: f.write(html)
+    with open("fleet_dashboard.html", "w") as f:
+        f.write(html)
     console.print("📄 [bold blue]Unified Fleet Dashboard generated at fleet_dashboard.html[/bold blue]")
 
 def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False):
@@ -628,12 +641,14 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         try:
             with open(partition_path, 'r') as f:
                 source_data = json.load(f)
-        except: pass
+        except Exception:
+            pass
     elif os.path.exists("evidence_lake.json"): # Fallback to legacy
         try:
             with open("evidence_lake.json", 'r') as f:
                 source_data = json.load(f).get(target_path)
-        except: pass
+        except Exception:
+            pass
 
     if source_data and not apply_fixes:
         current_hash = orchestrator.get_dir_hash(target_path)
@@ -654,7 +669,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         entry_point_path = os.path.join(target_path, entry_point)
 
         token_opt_args = [entry_point_path, '--no-interactive']
-        if mode == 'quick': token_opt_args.append('--quick')
+        if mode == 'quick':
+            token_opt_args.append('--quick')
 
         steps = [
             ('Architecture Review', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]),
@@ -700,7 +716,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                             if len(parts) == 3:
                                  remediator = CodeRemediator(parts[0].split(':')[0])
                                  # (Simplification: applying based on issue type in line)
-                                 if "Resiliency" in parts[1]: remediator.apply_resiliency(AuditFinding(title=parts[1], description=parts[2], line_number=1))
+                                 if "Resiliency" in parts[1]:
+                                     remediator.apply_resiliency(AuditFinding(title=parts[1], description=parts[2], line_number=1))
                                  
                                  if dry_run:
                                       console.print(f"🏜️ [yellow]DRY RUN: Would apply fix to {parts[0]}[/yellow]")
@@ -743,18 +760,22 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
                 results[agent_path] = future.result()
                 status = "[green]PASS[/green]" if results[agent_path] == 0 else "[red]FAIL[/red]"
                 console.print(f"📡 [bold]Audit Complete[/bold]: {agent_path} -> {status}")
-            except Exception as e: console.print(f"[red]💥 Error auditing {agent_path}: {e}[/red]")
+            except Exception as e:
+                console.print(f"[red]💥 Error auditing {agent_path}: {e}[/red]")
 
     # Update Global Velocity in Evidence Lake
     lake_path = "evidence_lake.json"
     if os.path.exists(lake_path):
         try:
-            with open(lake_path, 'r') as f: lake_data = json.load(f)
+            with open(lake_path, 'r') as f:
+                lake_data = json.load(f)
             prev_compliance = lake_data.get('global_summary', {}).get('compliance', 0)
             current_compliance = (sum(1 for r in results.values() if r == 0) / len(agents)) * 100 if agents else 0
             lake_data['global_summary'] = {'compliance': current_compliance, 'velocity': current_compliance - prev_compliance, 'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-            with open(lake_path, 'w') as f: json.dump(lake_data, f, indent=2)
-        except: pass
+            with open(lake_path, 'w') as f:
+                json.dump(lake_data, f, indent=2)
+        except Exception:
+            pass
 
     generate_fleet_dashboard(results)
 if __name__ == '__main__':

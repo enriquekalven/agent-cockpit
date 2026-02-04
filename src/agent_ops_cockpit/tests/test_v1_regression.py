@@ -23,7 +23,7 @@ def test_partitioned_lake_saving(tmp_path):
     with open(partition_path, 'r') as f:
         data = json.load(f)
     assert data["target_path"] == target_abs
-    assert data["results"]["Security"]["success"] == True
+    assert data["results"]["Security"]["success"]
 
 def test_cockpitignore_respect(tmp_path):
     """Regression: Ensure .cockpitignore is respected by discovery engine."""

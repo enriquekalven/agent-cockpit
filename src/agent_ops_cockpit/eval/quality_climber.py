@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import os
 import typer

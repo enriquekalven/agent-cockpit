@@ -1,6 +1,5 @@
 import os
 import json
-import pytest
 from agent_ops_cockpit.ops.orchestrator import CockpitOrchestrator, generate_fleet_dashboard
 
 def test_get_dir_hash(tmp_path):
@@ -36,7 +35,7 @@ def test_evidence_lake_saving(tmp_path):
     with open(lake_file, 'r') as f:
         data = json.load(f)
     assert target_abs in data
-    assert data[target_abs]["results"]["Test Module"]["success"] == True
+    assert data[target_abs]["results"]["Test Module"]["success"]
 
 def test_generate_fleet_dashboard(tmp_path):
     """Verify HTML dashboard generation."""

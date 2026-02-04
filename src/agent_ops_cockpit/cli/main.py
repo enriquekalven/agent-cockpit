@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import shutil
 import subprocess
@@ -230,7 +229,7 @@ def diagnose():
                 table.add_row('Registry Access', '[green]PUBLIC PYPI[/green]', 'Connected')
             else:
                 table.add_row('Registry Access', '[red]AUTH FAILED[/red]', "Run with --public or check VPN/Gcert")
-    except:
+    except Exception:
         table.add_row('Registry Access', '[yellow]OFFLINE[/yellow]', "Check connectivity or use --public")
 
     console.print(table)
@@ -245,19 +244,19 @@ def init(project_name: str=typer.Argument('my-agent', help='The name of the new 
     
     try:
         # Pillar 1: The Engine (Reasoning Layer)
-        console.print(f"🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)")
+        console.print("🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)")
         console.print(f"   [dim]Running: uvx agent-starter-pack create adk_a2ui_base --name {project_name}[/dim]")
         # Simulation of the orchestration call
         # subprocess.run(['uvx', 'agent-starter-pack', 'create', 'adk_a2ui_base', '--name', project_name], check=True)
         
         # Pillar 2: The Face (Interface Layer)
-        console.print(f"🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)")
+        console.print("🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)")
         console.print(f"   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]")
         # subprocess.run(['uvx', 'agent-ui-starter-pack', 'create', 'a2ui', '--name', project_name], check=True)
         
         # Pillar 3: The Cockpit (Operations & Governance)
-        console.print(f"🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)")
-        console.print(f"   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.3 Policies...[/dim]")
+        console.print("🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)")
+        console.print("   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.3 Policies...[/dim]")
         
         console.print(Panel(f"✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agent-ops report[/dim]\n\n[dim]Architecture: Trinity v1.3 compliant[/dim]", title="[bold green]Project Initialized[/bold green]", border_style="green", expand=False))
         
@@ -274,7 +273,7 @@ def create(project_name: str=typer.Argument(..., help='The name of the new proje
         console.print(f"[bold red]Error:[/bold red] Directory '{project_name}' already exists.")
         raise typer.Exit(code=1)
     try:
-        console.print(f'📦 Initializing with Trinity Stack (FastAPI + React + ADK)')
+        console.print('📦 Initializing with Trinity Stack (FastAPI + React + ADK)')
         if ui == 'agui' or copilotkit:
             console.print('✨ [bold yellow]Note:[/bold yellow] AG UI / CopilotKit selected. Using high-fidelity template.')
         elif ui == 'flutter':

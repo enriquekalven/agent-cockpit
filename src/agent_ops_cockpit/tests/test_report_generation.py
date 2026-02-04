@@ -1,5 +1,4 @@
 import os
-import pytest
 from agent_ops_cockpit.ops.orchestrator import CockpitOrchestrator
 
 def test_report_prioritization(tmp_path):

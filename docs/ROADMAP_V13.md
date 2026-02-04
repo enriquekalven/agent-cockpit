@@ -18,6 +18,7 @@ Consultants use spreadsheets; we use **Synthetic Agent Traffic**.
 
 *   **Logic**: Spins up 100+ "Adversarial User Agents" in a GKE cluster to stress-test the system.
 *   **Reasoning Degradation**: Monitors if the agent starts hallucinating or losing context when database latency spikes (Memory Store saturation).
+*   **Viral Goal: Adversarial Hallucination Sandbox**: Pre-flight simulation that sends thousands of prompt-injection attempts to a "Shadow" agent to verify safety before production.
 *   **Impact**: Proves production stability under real-world multi-turn pressure.
 
 ## 🤝 3. Cross-Framework "Bridge" Auditing
@@ -40,6 +41,8 @@ New HTML Executive Export features:
 
 *   **The "Reasoning" Waterfall**: Visualizes latency added by each "hop" in the agent chain between User, Brain, and Data.
 *   **The "Risk" Waterfall**: Maps security fixes (Red Team) to "Total Potential Loss" reduction (SOC2/NIST mapping).
+*   **Viral Goal: Maturity Radar Charts**: Visualizing the "Agentic Trinity" balance (Engine stability, Face responsiveness, Cockpit governance) for executive review.
+*   **Viral Goal: Financial ROI Drift**: Automated alerts when an agent's reasoning density (Performance/Cost) deviates from its historical peak.
 
 ---
 
@@ -52,6 +55,9 @@ New HTML Executive Export features:
 | **Cross-Framework Bridge** | Architect | ✅ Standardized (A2X/A2UI) |
 | **Strategic Exit TCO** | CFO | ✅ Implementation (ROI Metrics) |
 | **Impact Waterfalls** | CEO / Board | ✅ v1.3 Export Active |
+| **Maturity Radar Charts** | Architect | 🛠️ In Design (Phase 3) |
+| **LSP Copilot (AST Squiggles)** | Developer | 🛠️ Planning (Phase 2) |
+| **Financial Drift Alerts** | FinOps | 🛠️ Prototyping (Phase 4) |
 | **Master UVX Registry** | Automation | ✅ DEPLOYED (Portable Audits) |
 
 ---

@@ -1,5 +1,4 @@
 import asyncio
-import json
 import random
 from typing import List, Dict
 from rich.console import Console

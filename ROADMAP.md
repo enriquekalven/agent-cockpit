@@ -21,12 +21,19 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Multi-Agent Orchestrator & Conflict Guard**: Support for Swarm patterns with cross-framework stability checks.
 - [ ] **VPC-Native Hive Mind**: Managed semantic caching for AlloyDB and Memorystore.
 - [ ] **Dynamic Model Routing**: Automatic switching between Flash and Pro based on prompt complexity and budget.
+- [ ] **The ROI Predictor Waterfall**: Comparative analysis of TCO across model families (e.g., GPT-4 vs Gemini Flash) with reasoning-match validation.
+- [ ] **Adversarial Hallucination Sandbox**: Live simulation of prompt injections in a safe "pre-flight" environment before deployment.
 
 ## 🎭 Phase 3: The Ecosystem (Quarter 3) - "Widespread Adoption"
 *Focus: Interoperability and community growth.*
 - [x] **Framework Connectors**: Governed audits for LangChain, CrewAI, AutoGen, and CopilotKit.
 - [x] **Native MCP Server Export**: Launch the Cockpit as a Model Context Protocol server.
-- [ ] **Visual "Mission Control" UI**: Real-time log streaming and token usage graphs in a cinematic dashboard.
+- [ ] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard.
+- [ ] **Proactive Copilot (LSP)**: A VS Code extension providing real-time "Architectural Debt" squiggles and auto-remediation suggestions.
+- [ ] **Deep-Fake Persona Detection**: Multilingual bypass engine to detect reasoning-layer leaks across 40+ languages.
+- [ ] **Drift Detection for Swarms**: Monitoring of version and configuration inconsistency across large-scale multi-agent deployments.
+- [ ] **Policy-as-Code (PaC) Registry**: "Terraform for Agents" sharing standardized, community-vetted policy packs.
+- [ ] **Visual Reasoning Trace**: Interactive dashboard for visualizing Chain-of-Thought (CoT) trajectories and tool execution paths.
 - [ ] **GCP Marketplace Integration**: Deploy the Cockpit as a managed service on Google Cloud.
 - [ ] **Plugin System**: Community-contributed tools and auditors.
 
