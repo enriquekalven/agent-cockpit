@@ -18,10 +18,20 @@ class CodeRemediator:
         
         class RetryInjector(ast.NodeTransformer):
             def visit_FunctionDef(self, node):
-                if node.lineno == finding.line_number or any(f.title == finding.title for f in []): # Match by line or title
+                # Check if the finding line is within this function definition
+                # node.lineno is the start, end_lineno is the end (available in Python 3.8+)
+                is_target = False
+                if node.lineno == finding.line_number:
+                     is_target = True
+                elif hasattr(node, 'end_lineno') and node.lineno <= finding.line_number <= node.end_lineno:
+                     is_target = True
+                
+                if is_target:
                     # Add @retry(wait=wait_exponential(...))
                     retry_decorator = ast.parse("retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))").body[0].value
-                    node.decorator_list.append(retry_decorator)
+                    # Avoid double decoration
+                    if not any(isinstance(d, ast.Call) and getattr(getattr(d, 'func', None), 'id', '') == 'retry' for d in node.decorator_list):
+                        node.decorator_list.append(retry_decorator)
                 return node
             
             def visit_AsyncFunctionDef(self, node):
@@ -44,6 +54,18 @@ class CodeRemediator:
                 return node
         
         self.tree = TimeoutInjector().visit(self.tree)
+
+    def get_diff(self) -> str:
+        """Returns a unified diff of the changes without saving to disk."""
+        import difflib
+        new_code = ast.unparse(self.tree)
+        diff = difflib.unified_diff(
+            self.content.splitlines(keepends=True),
+            new_code.splitlines(keepends=True),
+            fromfile=f"a/{self.file_path}",
+            tofile=f"b/{self.file_path}"
+        )
+        return "".join(diff)
 
     def save(self):
         """Saves the transformed AST back to the file using native ast.unparse."""

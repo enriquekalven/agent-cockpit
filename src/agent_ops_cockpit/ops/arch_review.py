@@ -195,6 +195,8 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
             console.print(f"🚩 [bold red]{f.title}[/bold red] ({f.file_path}:{f.line_number or ''})")
             console.print(f'   [dim]{f.description}[/dim]')
             console.print(f'   ⚖️ [bold green]Strategic ROI:[/bold green] {f.roi}')
+            # Output for Orchestrator parsing
+            console.print(f"ACTION: {f.file_path}:{f.line_number or 1} | {f.title} | {f.description}")
             impact_report.append(f'- **{f.title}**: {f.description} (Impact: {f.impact})')
     latency_impact = sum((1 for f in all_findings if 'latency' in f.description.lower())) * 200
     cost_risk = 'HIGH' if any((f.category == '💰 FinOps' and 'pro' in f.description.lower() for f in all_findings)) else 'LOW'

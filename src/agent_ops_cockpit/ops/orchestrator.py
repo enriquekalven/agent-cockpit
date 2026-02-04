@@ -700,30 +700,60 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name]): name for name, cmd in steps}
             for future in as_completed(future_to_audit):
                 name, success = future.result()
-    
+        
     orchestrator.title = title
     orchestrator.generate_report()
 
     # 🛠️ Auto-Remediation logic
-    if apply_fixes:
+    if apply_fixes or dry_run:
         from .remediator import CodeRemediator
         from .auditors.base import AuditFinding
+        from rich.syntax import Syntax
+        
+        remediators = {} # cache remediators per file
+        
         for name, data in orchestrator.results.items():
-             if not data['success'] and data['output']:
+             if data['output']:
                   for line in data['output'].split('\n'):
                        if 'ACTION:' in line:
                             parts = line.replace('ACTION:', '').strip().split(' | ')
                             if len(parts) == 3:
-                                 remediator = CodeRemediator(parts[0].split(':')[0])
+                                 file_info = parts[0].split(':')
+                                 file_path = file_info[0]
+                                 line_num = int(file_info[1]) if len(file_info) > 1 else 1
+                                 
+                                 if not file_path.endswith('.py'):
+                                      continue
+                                 
+                                 # Ensure we use an absolute path or path relative to the orchestrator start
+                                 full_path = file_path
+                                 if not os.path.exists(full_path):
+                                      full_path = os.path.join(target_path, file_path)
+                                 
+                                 if not os.path.exists(full_path):
+                                      # Try to see if it was absolute and we are in a subfolder
+                                      pass 
+                                 
+                                 if full_path not in remediators:
+                                      remediators[full_path] = CodeRemediator(full_path)
+                                 
+                                 remediator = remediators[full_path]
                                  # (Simplification: applying based on issue type in line)
                                  if "Resiliency" in parts[1]:
-                                     remediator.apply_resiliency(AuditFinding(title=parts[1], description=parts[2], line_number=1))
-                                 
-                                 if dry_run:
-                                      console.print(f"🏜️ [yellow]DRY RUN: Would apply fix to {parts[0]}[/yellow]")
-                                 else:
-                                      remediator.save()
-                                      console.print(f"✨ [green]AUTO-HEAL: Fixed {parts[0]}[/green]")
+                                      remediator.apply_resiliency(AuditFinding(category="🧗 Reliability", title=parts[1], description=parts[2], impact="High", roi="High", line_number=line_num))
+                                 elif "Timeout" in parts[1] or "Zombie" in parts[1]:
+                                      remediator.apply_timeouts(AuditFinding(category="🧗 Reliability", title=parts[1], description=parts[2], impact="Medium", roi="Medium", line_number=line_num))
+        
+        for full_path, remediator in remediators.items():
+            diff = remediator.get_diff()
+            if diff:
+                console.print(Panel(Syntax(diff, "diff", theme="monokai", line_numbers=True), title=f"🔍 PROPOSED CHANGES: {full_path}", border_style="cyan"))
+                
+                if dry_run:
+                    console.print(f"🏜️ [yellow]DRY RUN: Skip saving {full_path}[/yellow]")
+                else:
+                    remediator.save()
+                    console.print(f"✨ [green]AUTO-HEAL: Hardened {full_path}[/green]")
 
     return orchestrator.get_exit_code()
 
@@ -786,10 +816,11 @@ if __name__ == '__main__':
     parser.add_argument('--workspace', action='store_true')
     parser.add_argument('--apply-fixes', action='store_true')
     parser.add_argument('--sim', action='store_true')
+    parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()
     
     if args.workspace:
         workspace_audit(root_path=args.path, mode=args.mode, sim=args.sim)
     else:
-        success = run_audit(mode=args.mode, target_path=args.path, apply_fixes=args.apply_fixes, sim=args.sim)
-        sys.exit(0 if success else 1)
+        exit_code = run_audit(mode=args.mode, target_path=args.path, apply_fixes=args.apply_fixes, sim=args.sim, dry_run=args.dry_run)
+        sys.exit(exit_code)

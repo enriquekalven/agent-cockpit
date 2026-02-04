@@ -3,6 +3,8 @@
 
 The `make audit` command is the heartbeat of the **AgentOps Cockpit**. In v1.3, we have moved beyond "Identification" into **"Autonomous Evolution."** The suite now orchestrates a parallel execution of Specialized SMEs to secure the **Agentic Trinity 2.0**.
 
+👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
+
 ---
 
 ## 🏗️ The Agentic Trinity 2.0
