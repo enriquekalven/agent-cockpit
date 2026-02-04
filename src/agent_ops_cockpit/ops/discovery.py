@@ -19,6 +19,7 @@ class DiscoveryEngine:
     def __init__(self, root_path: str = "."):
         self.root_path = os.path.abspath(root_path)
         self.ignore_patterns = self._load_gitignore()
+        self.cockpit_ignore = self._load_cockpitignore()
         self.config = self._load_config()
 
     def _load_gitignore(self) -> List[str]:
@@ -30,12 +31,24 @@ class DiscoveryEngine:
                     for line in f:
                         line = line.strip()
                         if line and not line.startswith("#"):
-                            # Simple conversion of gitignore-style to gnmatch-style
-                            if line.endswith("/"):
-                                patterns.append(line + "*")
+                            if line.endswith("/"): patterns.append(line + "*")
                             patterns.append(line)
-            except Exception:
-                pass
+            except: pass
+        return patterns
+
+    def _load_cockpitignore(self) -> List[str]:
+        # Improvement #3: .cockpitignore Support
+        patterns = []
+        ignore_path = os.path.join(self.root_path, ".cockpitignore")
+        if os.path.exists(ignore_path):
+            try:
+                with open(ignore_path, "r", errors="ignore") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith("#"):
+                            if line.endswith("/"): patterns.append(line + "*")
+                            patterns.append(line)
+            except: pass
         return patterns
 
     def _load_config(self) -> dict:
@@ -100,6 +113,13 @@ class DiscoveryEngine:
             if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(os.path.basename(path), pattern):
                 return True
             # Handle directory patterns
+            if pattern.endswith("/*") and rel_path.startswith(pattern[:-2]):
+                return True
+
+        # 2.1 Check .cockpitignore patterns (Improvement #3)
+        for pattern in self.cockpit_ignore:
+            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(os.path.basename(path), pattern):
+                return True
             if pattern.endswith("/*") and rel_path.startswith(pattern[:-2]):
                 return True
 

@@ -38,6 +38,8 @@ dependencies = [
 
 [project.scripts]
 agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+ops = "agent_ops_cockpit.cli.main:app"
+aops = "agent_ops_cockpit.cli.main:app"
 agent-ops = "agent_ops_cockpit.cli.main:app"
 agent-ops-mcp = "agent_ops_cockpit.mcp_server:main"
 

@@ -16,14 +16,15 @@ from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
+from agent_ops_cockpit.config import config
+
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
-REPO_URL = 'https://github.com/enriquekalven/agent-ui-starter-pack'
 
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print('[bold cyan]agent-ops CLI v0.9.9[/bold cyan]')
+    console.print(f'[bold cyan]agent-ops CLI v{config.VERSION}[/bold cyan]')
 
 @app.command()
 def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End Persona Smoke Tests')):
@@ -44,7 +45,9 @@ def report(
     workspace: bool = typer.Option(False, '--workspace', '-w', help="Scan and audit all agents in the workspace"),
     apply_fixes: bool = typer.Option(False, '--apply-fixes', '-f', '--heal', help="Automatically apply recommended fixes (Auto-Remediation)"),
     sim: bool = typer.Option(False, '--sim', help="Run in simulation mode (Synthetic SME reasoning)"),
-    public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)")
+    public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)"),
+    output_format: str = typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"),
+    dry_run: bool = typer.Option(False, '--dry-run', help="Simulate fixes without applying them (Dry Run Dashboard)")
 ):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
@@ -55,10 +58,16 @@ def report(
 
     if workspace:
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit...[/bold blue]")
-        orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim)
+        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim)
+        if not success:
+             raise typer.Exit(code=3) # Fleet failure
     else:
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
-        orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim)
+        # Improvement #5: Return the specific exit code from orchestrator
+        # We need to capture the orchestrator instance or use the returned code
+        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run)
+        if exit_code != 0:
+            raise typer.Exit(code=exit_code)
 
 @app.command()
 def quality_baseline(path: str='.'):
@@ -217,7 +226,7 @@ def diagnose():
     # Registry Awareness (Improvement #1)
     try:
         import urllib.request
-        with urllib.request.urlopen("https://pypi.org/simple", timeout=2) as response:
+        with urllib.request.urlopen(config.PUBLIC_PYPI_URL, timeout=2) as response:
             if response.status == 200:
                 table.add_row('Registry Access', '[green]PUBLIC PYPI[/green]', 'Connected')
             else:
@@ -274,8 +283,8 @@ def create(project_name: str=typer.Argument(..., help='The name of the new proje
         elif ui == 'lit':
             console.print('🔥 [bold orange1]Note:[/bold orange1] Lit selected. Scaffolding Web Components base.')
         
-        console.print(f'📡 Cloning template from [cyan]{REPO_URL}[/cyan]...')
-        subprocess.run(['git', 'clone', '--depth', '1', REPO_URL, project_name], check=True, capture_output=True)
+        console.print(f'📡 Cloning template from [cyan]{config.REPO_URL}[/cyan]...')
+        subprocess.run(['git', 'clone', '--depth', '1', config.REPO_URL, project_name], check=True, capture_output=True)
         shutil.rmtree(os.path.join(project_name, '.git'))
         console.print('🔧 Initializing new git repository...')
         subprocess.run(['git', 'init'], cwd=project_name, check=True, capture_output=True)

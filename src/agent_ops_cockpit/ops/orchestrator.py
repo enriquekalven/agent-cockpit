@@ -65,13 +65,22 @@ class CockpitOrchestrator:
     def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID):
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f'[cyan]Running {name}...')
-        cockpit_src = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        cockpit_root = os.path.dirname(cockpit_src)
+        from agent_ops_cockpit.config import config
         env = os.environ.copy()
-        env['PYTHONPATH'] = f"{cockpit_src}{os.pathsep}{cockpit_root}{os.pathsep}{env.get('PYTHONPATH', '')}"
+        env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{env.get('PYTHONPATH', '')}"
+        
         try:
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
             stdout, stderr = process.communicate()
+            
+            # Improvement #1: Registry Failover Logic
+            if process.returncode != 0 and ("401" in stderr or "Unauthorized" in stderr):
+                 console.print(f"⚠️ [yellow]Registry Auth Failure detected in {name}. Retrying with Public PyPI Failover...[/yellow]")
+                 env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
+                 env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
+                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+                 stdout, stderr = process.communicate()
+
             success = process.returncode == 0
             output = stdout if success else f'{stdout}\n{stderr}'
             self.results[name] = {'success': success, 'output': output}
@@ -207,18 +216,46 @@ class CockpitOrchestrator:
         self._generate_sarif_report(developer_actions)
         self.save_to_evidence_lake(target_abs)
 
+        # Improvement #4: Machine-Readable Reporting
+        format = getattr(self, 'output_format', 'text')
+        if format == 'json':
+             console.print_json(data=self.results)
+        elif format == 'sarif':
+             with open('cockpit_audit.sarif', 'r') as f: console.print(f.read())
+
         console.print(f'\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]')
         console.print(f'📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]')
 
-    def save_to_evidence_lake(self, target_abs: str):
-        lake_path = 'evidence_lake.json'
-        fleet_data = {}
-        if os.path.exists(lake_path):
-            try:
-                with open(lake_path, 'r') as f: fleet_data = json.load(f)
-            except: pass
+    def get_exit_code(self):
+        """
+        Improvement #5: Severity-Based Exit Codes
+        EXIT 0: Pass or Warnings only
+        EXIT 1: Security Leak (Secret Scanner fails)
+        EXIT 2: Architecture/Policy Violation
+        """
+        if all(r['success'] for r in self.results.values()):
+            return 0
+            
+        if not self.results.get('Secret Scanner', {}).get('success', True):
+            return 1 # Security Critical
+            
+        arch_fail = not self.results.get('Architecture Review', {}).get('success', True)
+        policy_fail = not self.results.get('Policy Enforcement', {}).get('success', True)
+        if arch_fail or policy_fail:
+            return 2 # Architecture/Governance Breach
+            
+        return 3 # General Failure (Reliability, Quality, etc.)
+        # Improvement #2: Partitioned Evidence Lake
+        lake_root = 'evidence_lake'
+        if not os.path.exists(lake_root):
+            os.makedirs(lake_root, exist_ok=True)
         
-        fleet_data[target_abs] = {
+        agent_hash = hashlib.md5(target_abs.encode()).hexdigest()
+        agent_dir = os.path.join(lake_root, agent_hash)
+        os.makedirs(agent_dir, exist_ok=True)
+        
+        data = {
+            'target_path': target_abs,
             'timestamp': self.timestamp,
             'hash': self.get_dir_hash(target_abs),
             'results': self.results,
@@ -227,8 +264,21 @@ class CockpitOrchestrator:
                 'health': (sum(1 for r in self.results.values() if r['success']) / len(self.results)) if self.results else 0
             }
         }
-        with open(lake_path, 'w') as f: json.dump(fleet_data, f, indent=2)
-        console.print(f'📜 [EVIDENCE LAKE] Centralized log updated for {target_abs}')
+        
+        with open(os.path.join(agent_dir, 'latest.json'), 'w') as f:
+            json.dump(data, f, indent=2)
+            
+        # Update legacy monolithic file for dashboard backward compatibility (minified)
+        lake_path = 'evidence_lake.json'
+        fleet_data = {}
+        if os.path.exists(lake_path):
+             try:
+                 with open(lake_path, 'r') as f: fleet_data = json.load(f)
+             except: pass
+        fleet_data[target_abs] = data
+        with open(lake_path, 'w') as f: json.dump(fleet_data, f)
+        
+        console.print(f'📜 [EVIDENCE LAKE] Partitioned log updated at {agent_dir}/latest.json')
 
     def _generate_sarif_report(self, developer_actions):
         # Ported basic SARIF logic
@@ -494,10 +544,12 @@ def generate_fleet_dashboard(results: dict):
     with open("fleet_dashboard.html", "w") as f: f.write(html)
     console.print("📄 [bold blue]Unified Fleet Dashboard generated at fleet_dashboard.html[/bold blue]")
 
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False):
     orchestrator = CockpitOrchestrator()
     orchestrator.target_path = target_path
     orchestrator.sim = sim
+    orchestrator.output_format = output_format
+    orchestrator.dry_run = dry_run
     target_path = os.path.abspath(target_path)
 
     # Improvement #5: Declarative Sovereign Gates (cockpit.yaml)
@@ -509,20 +561,29 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         if config.get("exclude_checks"):
              console.print(f"🚫 [yellow]Excluded checks per local config: {config['exclude_checks']}[/yellow]")
 
-    # ⚡ Intelligent Skipping Logic
-    lake_path = "evidence_lake.json"
-    if os.path.exists(lake_path):
+    # ⚡ Intelligent Skipping Logic (Improvement #2: Partitioned Lake)
+    agent_hash = hashlib.md5(target_path.encode()).hexdigest()
+    partition_path = os.path.join('evidence_lake', agent_hash, 'latest.json')
+    
+    source_data = None
+    if os.path.exists(partition_path):
         try:
-            with open(lake_path, 'r') as f:
-                lake_data = json.load(f)
-                current_hash = orchestrator.get_dir_hash(target_path)
-                cached_entry = lake_data.get(target_path, {})
-                if cached_entry.get('hash') == current_hash and not apply_fixes:
-                    console.print(f"⚡ [bold green]SKIP:[/bold green] No changes detected in {target_path}. Reusing evidence lake artifacts.")
-                    orchestrator.results = cached_entry.get('results', {})
-                    orchestrator.generate_report()
-                    return True
+            with open(partition_path, 'r') as f:
+                source_data = json.load(f)
         except: pass
+    elif os.path.exists("evidence_lake.json"): # Fallback to legacy
+        try:
+            with open("evidence_lake.json", 'r') as f:
+                source_data = json.load(f).get(target_path)
+        except: pass
+
+    if source_data and not apply_fixes:
+        current_hash = orchestrator.get_dir_hash(target_path)
+        if source_data.get('hash') == current_hash:
+            console.print(f"⚡ [bold green]SKIP:[/bold green] No changes detected in {target_path}. Reusing evidence lake artifacts.")
+            orchestrator.results = source_data.get('results', {})
+            orchestrator.generate_report()
+            return True
 
     subtitle = 'Essential checks for dev-velocity' if mode == 'quick' else 'Full benchmarks & stress-testing'
     console.print(Panel.fit(f'🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...', border_style='blue'))
@@ -582,9 +643,14 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                                  remediator = CodeRemediator(parts[0].split(':')[0])
                                  # (Simplification: applying based on issue type in line)
                                  if "Resiliency" in parts[1]: remediator.apply_resiliency(AuditFinding(title=parts[1], description=parts[2], line_number=1))
-                                 remediator.save()
+                                 
+                                 if dry_run:
+                                      console.print(f"🏜️ [yellow]DRY RUN: Would apply fix to {parts[0]}[/yellow]")
+                                 else:
+                                      remediator.save()
+                                      console.print(f"✨ [green]AUTO-HEAL: Fixed {parts[0]}[/green]")
 
-    return all((r['success'] for r in orchestrator.results.values()))
+    return orchestrator.get_exit_code()
 
 def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False):
     """Fleet Orchestration: Scans workspace for agents and audits in parallel."""
