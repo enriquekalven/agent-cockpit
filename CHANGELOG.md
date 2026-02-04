@@ -2,6 +2,17 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.0.0-rc1] - 2026-02-04
+
+### 🚀 The Antigravity Hardening (SME Mission Control)
+- **Architectural: Resilient Registry Resolver**: Automatic failover to PyPI on 401/403 errors, ensuring zero-friction local execution.
+- **Scalability: Partitioned Evidence Lake**: Migrated from a monolithic `evidence_lake.json` to a folder-based partitioning system for fleet-scale performance.
+- **Governance: Severity-Based Exit Codes**: CI/CD ready exit codes (0: Success, 1: Security Leak, 2: Arch Violation, 3: General Failure).
+- **Orchestration: Smart Discovery Engine**: Full support for `.cockpitignore` and heuristic brain detection across complex folder structures.
+- **UX: Interactive Fleet Healing (Dry Run)**: New `--dry-run` flag for auto-remediation to safely preview fixes via "Dry Run Dashboard" console outputs.
+- **Dependency: Centralized Configuration**: Refactored CLI and Engine to use a unified `Config` provider.
+- **Unified Trinity Binaries**: Standardized on `ops` and `aops` aliases for rapid command execution.
+
 ## [0.9.9] - 2026-02-04
 
 ### 🕹️ The Frictionless Update (v2.0 Milestone)
