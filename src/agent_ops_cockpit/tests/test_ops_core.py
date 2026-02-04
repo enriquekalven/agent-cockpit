@@ -5,6 +5,12 @@ from agent_ops_cockpit.ops.pii_scrubber import PIIScrubber
 from agent_ops_cockpit.ops.secret_scanner import app as secret_scanner_app
 from agent_ops_cockpit.ops.policy_engine import GuardrailPolicyEngine, PolicyViolation
 from typer.testing import CliRunner
+from agent_ops_cockpit.config import config
+
+def test_version_ssot():
+    """Ensure the version is consistent across the platform."""
+    # This ensures that we don't accidentally downgrade or mismatch
+    assert config.VERSION == "1.0.0-rc1"
 
 def test_pii_scrubber():
     """Ensure PII is masked correctly."""

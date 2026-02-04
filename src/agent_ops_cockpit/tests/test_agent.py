@@ -11,7 +11,7 @@ def load_golden_set():
         data = json.load(f)
     return [(item["query"], item["expected"]) for item in data]
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_agent_v1_logic():
     """Ensure the agent v1 logic returns a surface."""
     result = await agent_v1_logic("test query")
@@ -24,7 +24,7 @@ def test_well_architected_middlewares():
     assert True 
 
 @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_regression_golden_set(query, expected_keyword):
     """Regression suite: Ensure core queries always return relevant keywords."""
     # In a real test, we would mock the LLM or check local logic
