@@ -10,11 +10,18 @@ import { ThemeToggle } from '../components/ThemeToggle';
 
 const PILLAR_NAV = [
   {
-    title: '🚀 Mission Control',
+    title: '🚀 Mission Control & SME Matrix',
     items: [
       { id: 'story', label: 'The Agentic Story', path: '/docs/story', icon: <BookOpen size={18} /> },
       { id: 'getting-started', label: 'Quickstart Guide', path: '/docs/getting-started', icon: <Rocket size={18} /> },
       { id: 'gemini', label: 'Gemini Context', path: '/docs/gemini', icon: <Cpu size={18} /> },
+      { id: 'arch-review', label: 'Architect: Arch Review', path: '/docs/arch-review', icon: <ShieldCheck size={18} /> },
+      { id: 'quality-guide', label: 'Quality Lead: Optimization', path: '/docs/quality-guide', icon: <Activity size={18} /> },
+      { id: 'redteam-guide', label: 'Security: Red Team', path: '/docs/redteam-guide', icon: <Shield size={18} /> },
+      { id: 'finops-guide', label: 'FinOps: Cost Optimization', path: '/docs/finops-guide', icon: <Zap size={18} /> },
+      { id: 'ux-guide', label: 'UX/Face: A2UI Guide', path: '/docs/ux-guide', icon: <Layout size={18} /> },
+      { id: 'infra-guide', label: 'SRE/Eng: Infra & Growth', path: '/docs/infra-guide', icon: <Cpu size={18} /> },
+      { id: 'a2a-guide', label: 'Automations: A2A Standards', path: '/docs/a2a-guide', icon: <Command size={18} /> },
     ]
   },
   {
@@ -24,18 +31,6 @@ const PILLAR_NAV = [
       { id: 'audit-guide', label: 'Audit Suite Guide', path: '/docs/audit-guide', icon: <ShieldCheck size={18} /> },
       { id: 'commands-master', label: 'Master Command Reference', path: '/docs/commands-master', icon: <Terminal size={18} /> },
       { id: 'uvx-master', label: 'UVX & Portable Ops', path: '/docs/uvx-master', icon: <Command size={18} /> },
-    ]
-  },
-  {
-    title: '🧠 SME Persona Matrix',
-    items: [
-      { id: 'arch-review', label: 'Architect: Arch Review', path: '/docs/arch-review', icon: <ShieldCheck size={18} /> },
-      { id: 'quality-guide', label: 'Quality Lead: Optimization', path: '/docs/quality-guide', icon: <Activity size={18} /> },
-      { id: 'redteam-guide', label: 'Security: Red Team', path: '/docs/redteam-guide', icon: <Shield size={18} /> },
-      { id: 'finops-guide', label: 'FinOps: Cost Optimization', path: '/docs/finops-guide', icon: <Zap size={18} /> },
-      { id: 'ux-guide', label: 'UX/Face: A2UI Guide', path: '/docs/ux-guide', icon: <Layout size={18} /> },
-      { id: 'infra-guide', label: 'SRE/Eng: Infra & Growth', path: '/docs/infra-guide', icon: <Cpu size={18} /> },
-      { id: 'a2a-guide', label: 'Automations: A2A Standards', path: '/docs/a2a-guide', icon: <Command size={18} /> },
     ]
   },
   {
@@ -90,57 +85,66 @@ export const DocLayout: React.FC = () => {
     <div className="crew-docs-layout">
       {/* Search Header - Fixed */}
       <nav className="crew-top-nav">
-        <div className="top-nav-left">
-          <Link to="/" className="crew-logo">
-            <span className="agent-pulse mini"></span>
-            <span>AgentOps Cockpit</span>
+        <div className="nav-left">
+          <button
+            className="mobile-toggle"
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+          >
+            {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <Link to="/" className="nav-logo">
+            <div className="logo-icon">🕹️</div>
+            <span>AgentOps <span className="text-secondary opacity-50">Cockpit</span></span>
           </Link>
-          <div className="search-bar-container">
-            <div className={`search-wrapper ${searchFocused ? 'focused' : ''}`}>
-              <Search size={16} className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search documentation..."
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-              />
-              <kbd className="search-kbd">⌘K</kbd>
-            </div>
+        </div>
+
+        <div className="nav-center">
+          <div className={`search-wrapper ${searchFocused ? 'focused' : ''}`}>
+            <Search size={18} className="search-icon" />
+            <input
+              type="text" 
+              placeholder="Search documentation... (⌘K)"
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+            />
           </div>
         </div>
-        
-        <div className="top-nav-right">
-          <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" className="icon-link">
+
+        <div className="nav-right">
+          <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" rel="noopener noreferrer" className="nav-icon-btn">
             <Github size={20} />
           </a>
           <ThemeToggle />
-          <Link to="/ops" className="nav-button-primary">The Cockpit</Link>
+          <Link to="/docs/getting-started" className="nav-button-primary">
+            Quickstart
+          </Link>
         </div>
       </nav>
 
       <div className="crew-main-container">
         {/* Sidebar */}
-        <aside className={`crew-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+        <aside className={`crew-sidebar ${isSidebarOpen ? 'open' : ''}`}>
           <div className="sidebar-scroll">
-            {/* Stack Selector - Following CopilotKit pattern */}
+
+            {/* Stack Selector */}
             <div className="stack-selector-container">
-              <label className="sidebar-label">Active Integration</label>
-              <div
+              <span className="sidebar-label">Active Stack Target</span>
+              <div 
                 className={`stack-dropdown ${isStackDropdownOpen ? 'active' : ''}`}
                 onClick={() => setStackDropdownOpen(!isStackDropdownOpen)}
               >
                 <div className="active-stack">
                   <span className="stack-icon">{activeStack.icon}</span>
                   <span className="stack-label">{activeStack.label}</span>
-                  <ChevronRight size={14} className={`dropdown-arrow ${isStackDropdownOpen ? 'open' : ''}`} />
+                  <ChevronRight size={16} className={`dropdown-arrow ${isStackDropdownOpen ? 'open' : ''}`} />
                 </div>
 
                 {isStackDropdownOpen && (
                   <div className="stack-options-menu">
                     {STACK_OPTIONS.map(opt => (
-                      <div
+                      <div 
                         key={opt.id}
-                        className={`stack-opt-item ${activeStack.id === opt.id ? 'current' : ''}`}
+                        className={`stack-opt-item ${opt.id === activeStack.id ? 'current' : ''}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveStack(opt);
@@ -156,48 +160,54 @@ export const DocLayout: React.FC = () => {
               </div>
             </div>
 
-            <nav className="sidebar-nav">
-              {PILLAR_NAV.map((group) => (
-                <div className="nav-section" key={group.title}>
-                  <h4 className="section-title">{group.title}</h4>
-                  <div className="section-items">
-                    {group.items.map((item) => (
+            {PILLAR_NAV.map((group) => (
+              <div key={group.title} className="nav-section">
+                <h3 className="section-title">{group.title}</h3>
+                <div className="section-items">
+                  {group.items.map((item) => {
+                    const isActive = location.pathname === item.path;
+                    return (
                       <Link
                         key={item.id}
                         to={item.path}
-                        className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
+                        className={`sidebar-item ${isActive ? 'active' : ''}`}
                       >
-                        <span className="item-icon">{item.icon}</span>
-                        <span className="item-label">{item.label}</span>
-                        {location.pathname === item.path && <div className="active-glow" />}
+                        {item.icon}
+                        <span>{item.label}</span>
+                        {isActive && <div className="active-glow" />}
                       </Link>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
-              ))}
-
-              <div className="sidebar-footer-links">
-                <a href="https://a2ui.org" target="_blank" className="footer-link">
-                  <ExternalLink size={14} />
-                  Official A2UI Spec
-                </a>
               </div>
-            </nav>
+            ))}
+
+            <div className="sidebar-footer-links">
+              <a href="#" className="footer-link">
+                <Slack size={16} />
+                <span>Join Slack Community</span>
+              </a>
+              <a href="#" className="footer-link">
+                <Twitter size={16} />
+                <span>Follow Updates</span>
+              </a>
+              <div style={{ marginTop: '1rem', opacity: 0.4, fontSize: '0.7rem' }}>
+                v0.9.8 • Production Stack
+              </div>
+            </div>
           </div>
         </aside>
 
-        {/* Content */}
+        {/* Main Content */}
         <main className="crew-content">
           <div className="content-inner">
-            <header className="content-breadcrumb">
-              <Link to="/docs" style={{ color: 'inherit', textDecoration: 'none' }}>Docs</Link>
-              {location.pathname !== '/docs' && (
-                <>
-                  <ChevronRight size={14} />
-                  <span className="current">{location.pathname.split('/').pop()?.replace('-', ' ')}</span>
-                </>
-              )}
-            </header>
+            <div className="content-breadcrumb">
+              <Link to="/docs">Docs</Link>
+              <ChevronRight size={14} />
+              <span className="current">
+                {location.pathname.split('/').pop()?.replace(/-/g, ' ')}
+              </span>
+            </div>
 
             <div className="markdown-container">
               <Outlet />
@@ -205,49 +215,48 @@ export const DocLayout: React.FC = () => {
 
             <footer className="content-footer">
               <div className="footer-meta">
-                <span>Last updated: 2026-01-27</span>
-                <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank">Edit on GitHub</a>
+                <span>Last updated: February 2026</span>
+                <span>Caught a bug? <a href="#">Edit this page on GitHub</a></span>
               </div>
               <div className="footer-social">
-                <Slack size={18} />
-                <Twitter size={18} />
+                <Github size={20} />
+                <Slack size={20} />
+                <Twitter size={20} />
               </div>
             </footer>
           </div>
 
-          {/* Table of Contents - Hidden on index page */}
-          {location.pathname !== '/docs' && (
-            <aside className="crew-toc">
-              <div className="toc-inner">
-                <h4 className="toc-title">On this page</h4>
-                <nav className="toc-links">
-                  <a href="#overview" className="toc-link active">Overview</a>
-                  <a href="#setup" className="toc-link">Setup</a>
-                  <a href="#usage" className="toc-link">Usage Examples</a>
-                  <a href="#best-practices" className="toc-link">Best Practices</a>
-                </nav>
-              </div>
-            </aside>
-          )}
+          {/* Table of Contents - Sticky Right */}
+          <aside className="crew-toc">
+            <h4 className="toc-title">On this page</h4>
+            <div className="toc-links">
+              <a href="#overview" className="toc-link active">Overview</a>
+              <a href="#installation" className="toc-link">Installation</a>
+              <a href="#configuration" className="toc-link">Configuration</a>
+              <a href="#usage" className="toc-link">Usage Examples</a>
+              <a href="#best-practices" className="toc-link">Best Practices</a>
+            </div>
+          </aside>
         </main>
       </div>
 
       <style>{`
         .crew-docs-layout {
           min-height: 100vh;
-          background-color: var(--bg-color);
-          color: var(--text-primary);
           display: flex;
           flex-direction: column;
+          background: var(--bg-color);
+          color: var(--text-primary);
         }
 
+        /* Top Nav */
         .crew-top-nav {
           height: 64px;
           border-bottom: 1px solid var(--border-color);
+          padding: 0 1.5rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 1.5rem;
           position: fixed;
           top: 0;
           left: 0;
@@ -255,78 +264,77 @@ export const DocLayout: React.FC = () => {
           z-index: 1000;
           background: rgba(var(--bg-color-rgb), 0.8);
           backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
         }
 
-        .top-nav-left {
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-          flex: 1;
-        }
-
-        .crew-logo {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          font-weight: 800;
-          font-size: 1.1rem;
-          color: var(--text-primary);
-          text-decoration: none;
-          min-width: fit-content;
-        }
-
-        .search-bar-container {
-          max-width: 400px;
-          width: 100%;
-        }
-
-        .search-wrapper {
-          display: flex;
-          align-items: center;
-          background: rgba(var(--text-primary-rgb), 0.05);
-          border: 1px solid var(--border-color);
-          border-radius: 8px;
-          padding: 0.5rem 0.75rem;
-          gap: 0.5rem;
-          transition: all 0.2s;
-        }
-
-        .search-wrapper.focused {
-          background: var(--bg-secondary);
-          border-color: var(--primary-color);
-          box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
-        }
-
-        .search-wrapper input {
-          background: transparent;
-          border: none;
-          outline: none;
-          color: var(--text-primary);
-          width: 100%;
-          font-size: 0.9rem;
-        }
-
-        .search-icon { color: var(--text-secondary); }
-        .search-kbd {
-          font-size: 0.7rem;
-          background: rgba(var(--text-primary-rgb), 0.1);
-          padding: 0.1rem 0.4rem;
-          border-radius: 4px;
-          color: var(--text-secondary);
-        }
-
-        .top-nav-right {
+        .nav-left {
           display: flex;
           align-items: center;
           gap: 1rem;
         }
 
-        .icon-link {
+        .mobile-toggle {
+          display: none;
+          background: none;
+          border: none;
+          color: var(--text-primary);
+          cursor: pointer;
+        }
+
+        .nav-logo {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-weight: 800;
+          font-size: 1.1rem;
+          text-decoration: none;
+          color: var(--text-primary);
+          letter-spacing: -0.02em;
+        }
+        .logo-icon { font-size: 1.25rem; }
+
+        .nav-center {
+          flex: 0 1 500px;
+          margin: 0 2rem;
+        }
+
+        .search-wrapper {
+          background: rgba(var(--text-primary-rgb), 0.05);
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          padding: 0.5rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          transition: all 0.2s;
+        }
+        .search-wrapper.focused {
+          background: var(--bg-secondary);
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+        }
+        .search-wrapper input {
+          background: none;
+          border: none;
+          color: var(--text-primary);
+          width: 100%;
+          font-size: 0.9rem;
+          outline: none;
+        }
+        .search-icon { color: var(--text-secondary); opacity: 0.5; }
+
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 1.25rem;
+        }
+
+        .nav-icon-btn {
           color: var(--text-secondary);
           transition: color 0.2s;
+          display: flex;
+          align-items: center;
         }
-        .icon-link:hover { color: var(--text-primary); }
+        .nav-icon-btn:hover { color: var(--text-primary); }
 
         .nav-button-primary {
           background: var(--accent-color);

@@ -213,28 +213,28 @@ export function Home() {
         <div className="container">
           <div className="ecosystem-logos-container">
             <div className="ecosystem-item-v2" title="Google Cloud">
-              <img src="https://cdn.simpleicons.org/googlecloud" alt="Google Cloud" className="logo-img" />
+              <img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud" className="logo-img" />
               <span>Google Cloud</span>
             </div>
             <div className="ecosystem-item-v2" title="Azure">
-              <img src="https://cdn.simpleicons.org/microsoftazure" alt="Azure" className="logo-img" />
+              <img src="https://cdn.simpleicons.org/azure/0078D4" alt="Azure" className="logo-img" />
               <span>Azure</span>
             </div>
             <div className="ecosystem-item-v2" title="OpenAI">
-              <img src="https://cdn.simpleicons.org/openai" alt="OpenAI" className="logo-img" />
+              <img src="https://cdn.simpleicons.org/openai/412991" alt="OpenAI" className="logo-img" />
               <span>OpenAI</span>
             </div>
             <div className="ecosystem-item-v2" title="AWS">
-              <img src="https://cdn.simpleicons.org/amazonwebservices" alt="AWS" className="logo-img" />
+              <img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS" className="logo-img" />
               <span>AWS</span>
             </div>
             <div className="ecosystem-item-v2" title="Anthropic">
-              <img src="https://cdn.simpleicons.org/anthropic" alt="Anthropic" className="logo-img" />
+              <img src="https://cdn.simpleicons.org/anthropic/000000" alt="Anthropic" className="logo-img" />
               <span>Anthropic</span>
             </div>
-            <div className="ecosystem-item-v2" title="CopilotKit">
-              <img src="https://cdn.simpleicons.org/copilotkit" alt="CopilotKit" className="logo-img" />
-              <span>CopilotKit</span>
+            <div className="ecosystem-item-v2" title="LangChain">
+              <img src="https://cdn.simpleicons.org/langchain/1C3C3C" alt="LangChain" className="logo-img" />
+              <span>LangChain</span>
             </div>
           </div>
         </div>
@@ -309,7 +309,7 @@ export function Home() {
               </ul>
             </div>
             <div className="visual-side">
-              <img src="/assets/trinity.png" alt="Agentic Trinity" className="ecosystem-img shadow-vibrant" />
+              <img src="/assets/trinity_v2.png" alt="Agentic Trinity" className="ecosystem-img shadow-vibrant" />
             </div>
           </div>
         </div>
@@ -331,6 +331,12 @@ export function Home() {
               <p>The reasoning core. Built with Vertex AI and Google's Agent Development Kit (ADK) for reliable tool orchestration.</p>
               <Link to="/docs/infra-guide" className="card-link">Learn about Engine →</Link>
             </div>
+            <div className="trinity-card">
+              <div className="card-icon purple"><Layers /></div>
+              <h3>The Face</h3>
+              <p>The user experience. Adaptive surfaces and GenUI standards (A2UI) that transform text into interactive applications.</p>
+              <Link to="/docs/ux-guide" className="card-link">Build the Face →</Link>
+            </div>
             <div className="trinity-card active">
               <div className="card-icon green"><Activity /></div>
               <h3>The Cockpit</h3>
@@ -346,12 +352,6 @@ export function Home() {
                   </a>
                 </div>
               </div>
-            </div>
-            <div className="trinity-card">
-              <div className="card-icon purple"><Layers /></div>
-              <h3>The Face</h3>
-              <p>The user experience. Adaptive surfaces and GenUI standards (A2UI) that transform text into interactive applications.</p>
-              <Link to="/docs/ux-guide" className="card-link">Build the Face →</Link>
             </div>
           </div>
         </div>

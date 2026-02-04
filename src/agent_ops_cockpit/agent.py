@@ -91,11 +91,11 @@ shadow_router = ShadowRouter(v1_func=agent_v1_logic, v2_func=agent_v2_logic)
 @app.get('/agent/query')
 @cost_guard(budget_limit=0.1)
 @hive_mind(cache=global_cache)
-async def chat(q: str, session_id: str='guest-session'):
+async def chat(query: str, session_id: str='guest-session'):
     """
     Simulates a production agent with Shadow Mode, Semantic Caching, and Cost Control.
     """
-    result = await shadow_router.route(q, session_id=session_id)
+    result = await shadow_router.route(query, session_id=session_id)
     print(f"🕵️  Trace Logged: {result['trace_id']} | Latency: {result['latency']:.2f}s")
     return result['response']
 if __name__ == '__main__':

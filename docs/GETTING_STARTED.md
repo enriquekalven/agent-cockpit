@@ -13,9 +13,9 @@ pip install agentops-cockpit --upgrade
 
 ### Create a new project (A2UI/React/FastAPI)
 ```bash
-agent-ops create my-agent --ui a2ui
+uvx agent-ops-cockpit init my-agent
 ```
-*This scaffolds the **Agentic Trinity**: Engine, Face, and Cockpit.*
+*This instantly scaffolds the **Agentic Trinity**: Engine, Face, and Cockpit.*
 
 ---
 

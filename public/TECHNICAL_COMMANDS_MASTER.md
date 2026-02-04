@@ -6,101 +6,72 @@ This document is the definitive source of truth for all operational commands ava
 ---
 
 ## 🏗️ Master Orchestration (The Cockpit)
-These commands trigger cross-functional audits and generate the high-level board reports.
+These commands trigger cross-functional audits and generate high-fidelity executive reports.
 
-👉 **[View Master UVX Command Registry (Portable/Automation)](docs/TECHNICAL_UVX_MASTER.md)**
+|| Method | Context | Command |
+| :--- | :--- | :--- | :--- |
+| 🛠️ | **Make (Local Dev)** | Inside repo | `make audit` |
+| 🕹️ | **CLI (Global)** | Installed via Pip | `agent-ops report` |
+| 📦 | **UVX (Portable)** | CI/CD / Ephemeral | `uvx agent-ops-cockpit report` |
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make audit` | **Safe-Build Review** | Quick scan for secrets, reliability, and fast security (Dev Velocity). |
-| `make audit-deep` | **Final Examination** | Full benchmarks, stress tests, and iterative optimization (Prod Ready). |
-| `make audit-all` | **Global Audit** | Executes the master scan against an external target repository. |
-| `make email-report`| **Stakeholder Sync** | Emails the persona-approved architecture report to strategic leads. |
-| `make diagnose` | **System Health** | Executes a DevEx environment diagnosis and dependency check. |
+### 🏗️ Master Orchestration (The Cockpit)
+These commands trigger cross-functional audits and generate high-fidelity executive reports.
+
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make audit` | `agent-ops report` | **Safe-Build** | Quick scan for secrets and reliability. |
+| `make audit-deep` | `agent-ops report --mode deep` | **Final Exam** | Full benchmarks and stress tests. |
+| `make audit-all` | `agent-ops report --path <repo>` | **Global Audit** | Scan external repositories via Cockpit. |
+| `make diagnose` | `agent-ops diagnose` | **Health Check** | Environment and dependency validation. |
 
 ---
 
 ## 🏛️ Architecture & Evolution (The Architect)
 Commands focusing on systemic integrity, autonomous remediation, and long-term sovereignty.
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make arch-review` | **Autonomous Scan** | Generates the v1.3 ADR with Impact Waterfall and ROI analysis. |
-| `make arch-review-export` | **Impact Waterfall** | Generates the premium v1.3 HTML Architecture Report. |
-| `make apply-fixes` | **Autonomous Evolution** | (v1.3) Triggers LLM-synthesized code patches for detected gaps. |
-| `make propose-fixes`| **PR Factory** | Creates a feature branch and commits autonomous remediations. |
-| `make arch-benchmark`| **Reliability Test** | Runs 50+ iterations to find the mean failure rate of agentic logic. |
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make arch-review` | `agent-ops arch-review` | **Autonomous Scan** | Generates v1.3 ADR with Impact Waterfall. |
+| `make apply-fixes` | `agent-ops arch-review --apply` | **Autonomous Evolution**| LLM-synthesized code patches for gaps. |
+| `make arch-benchmark`| `agent-ops arch-review --bench`| **Reliability Test** | Runs 50+ iterations to find failure rates. |
 
 ---
 
 ## 🧗 AI Quality & Evaluation (The Quality SME)
 Commands for optimizing the science of reasoning and mathematical quality baselines.
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make quality-baseline` | **Hill Climbing** | Iteratively optimizes prompts to reach the global quality peak. |
-| `make simulation-run` | **Reasoning Stability**| Runs 100+ Digital Twin agents to detect reasoning degradation. |
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make quality-baseline` | `agent-ops quality-climb` | **Hill Climbing** | Iteratively optimizes prompts to peak. |
 
 ---
 
 ## 🚩 Security & Adversarial SRE (The Red Team)
 Commands for zero-trust hygiene and adversarial pressure testing.
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make scan-secrets` | **Zero-Trust Hygiene** | AST-based scan for hardcoded keys, tokens, and project IDs. |
-| `make red-team` | **Adversarial Audit** | Simulated gaslighting, injection, and multilingual jailbreak attempts. |
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make scan-secrets` | `agent-ops scan-secrets` | **Zero-Trust** | AST-based scan for hardcoded keys/tokens. |
+| `make red-team` | `agent-ops red-team` | **Adversarial Audit** | Simulated gaslighting and jailbreaks. |
 
 ---
 
 ## 💰 FinOps & Token Economics (The Economist)
 Commands for margin engineering and predictive OpEx simulation.
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make optimizer-audit` | **Waste Detection** | Identifies "Over-Modeling" and missing context caching layers. |
-| `make bench-cost` | **OpEx Simulation** | (v1.3) Predictive synthetic requests to map project utilization curves. |
-
----
-
-## 🌐 Infrastructure & Networking (The Cloud SRE)
-Commands for latency reduction and 5th Golden Signal (TTFT) monitoring.
-
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make load-test` | **System Saturation** | Empirically measures RPS, P99 latency, and TTFT under load. |
-
----
-
-## 🎭 UX/UI & A2UI Protocol (The Principal Designer)
-Commands for generative interface audits and persona-driven journeys.
-
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make ui-audit` | **GenUI Face Scan** | Validates `surfaceId` mapping and A2UI visual handshake triggers. |
-| `make smoke-test` | **Interactive Journey**| Simulates full-persona E2E journeys on the Face pillar. |
-
----
-
-## 🧪 Testing & Reliability
-Standard software engineering rigor integrated into the agentic stack.
-
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make reliability` | **Unit Regression** | Executes the core unit test suite and logic verification. |
-| `make regression` | **Master Regression** | Full-spectrum testing: Reliability + Smoke Tests + PII guards. |
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make optimizer-audit` | `agent-ops audit` | **Waste Detection** | Identifies "Over-Modeling" and bloat. |
 
 ---
 
 ## 🚀 Production & Deployment
 The path from cold code to cloud-scale intelligence.
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make dev` | **Local Stack** | Starts the local Engine (FastAPI) + Face (Vite/TS) development environment. |
-| `make build` | **Production Bundle**| Compiles optimized assets for Cloud Run and Firebase Hosting. |
-| `make deploy-prod` | **Full One-Click** | Regression -> Build -> Cloud Run (Engine) -> Firebase (Face). |
-| `make mcp-serve` | **Ecosystem Hub** | Starts the Model Context Protocol server for tool discovery. |
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make init` | `agent-ops init` | **Trinity Scaffolder** | Fast-path Engine + Face + Cockpit. |
+| `make deploy-prod` | `agent-ops deploy` | **Full One-Click** | Regression -> Build -> Cloud Run -> Firebase. |
 
 ---
 *Generated by the AgentOps Cockpit. Global Governance Division (v1.3).*

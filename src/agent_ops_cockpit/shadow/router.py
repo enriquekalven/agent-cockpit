@@ -42,17 +42,23 @@ class ShadowRouter:
             v2_resp = await self.v2(query, **kwargs)
             v2_latency = (datetime.now() - start_v2).total_seconds()
 
+            # Helper to handle pydantic models
+            def to_serializable(obj):
+                if hasattr(obj, 'model_dump'):
+                    return obj.model_dump()
+                return obj
+
             comparison = {
                 "traceId": trace_id,
                 "timestamp": datetime.now().isoformat(),
                 "query": query,
                 "production": {
-                    "response": v1_resp,
+                    "response": to_serializable(v1_resp),
                     "latency": v1_latency,
                     "model": "gemini-1.5-flash"
                 },
                 "shadow": {
-                    "response": v2_resp,
+                    "response": to_serializable(v2_resp),
                     "latency": v2_latency,
                     "model": "gemini-1.5-pro-experimental"
                 }

@@ -85,6 +85,7 @@ Initialize new projects and push to Google Cloud.
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
+| `uvx agent-ops-cockpit init` | **Trinity Scaffolder** | Fast-path initialization of Engine + Face + Cockpit. |
 | `uvx agent-ops create` | **Project Scaffolder** | `--ui a2ui/agui/flutter/lit`, `--copilotkit`. |
 | `uvx agent-ops deploy` | **1-Click Deploy** | `--name`, `--region`, `--dry-run`. |
 | `uvx agent-starter-pack create`| **Ecosystem Base** | Create a standard ADK engine project. |

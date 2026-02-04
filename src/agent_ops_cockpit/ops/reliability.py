@@ -100,29 +100,29 @@ def run_smoke_test():
     except Exception as e:
         dev_status = '[red]FAILED[/red]'
         dev_notes = str(e)
-    table.add_row('The Builder (Dev)', 'agent-ops deploy --dry-run', dev_notes, dev_status)
+    table.add_row('The Builder (Dev)', 'agent-ops init', dev_notes, dev_status)
     console.print('🏛️ [bold]Testing Architect Persona: Google Well-Architected Review...[/bold]')
     arch_status = '[green]PASSED[/green]'
     from agent_ops_cockpit.ops.frameworks import detect_framework
     fw = detect_framework('.')
     if not fw:
         arch_status = '[red]FAILED[/red]'
-    table.add_row('The Strategist (Arch)', 'make arch-review', 'Framework Detection', arch_status)
+    table.add_row('The Strategist (Arch)', 'agent-ops arch-review', 'Framework Detection', arch_status)
     console.print('🚩 [bold]Testing Security Persona: Red Team & Secret Scanning...[/bold]')
     sec_status = '[green]PASSED[/green]'
     if not os.path.exists('src/agent_ops_cockpit/ops/secret_scanner.py'):
         sec_status = '[red]FAILED[/red]'
-    table.add_row('The Guardian (Sec)', 'make red-team && secrets', 'Vulnerability Heuristics', sec_status)
+    table.add_row('The Guardian (Sec)', 'agent-ops red-team', 'Vulnerability Heuristics', sec_status)
     console.print('⚖️ [bold]Testing Governance Persona: Master Audit & Policy Engine...[/bold]')
     gov_status = '[green]PASSED[/green]'
     if not os.path.exists('src/agent_ops_cockpit/ops/policy_engine.py'):
         gov_status = '[red]FAILED[/red]'
-    table.add_row('The Controller (Gov)', 'make audit-all', 'Policy Compliance Pipe', gov_status)
+    table.add_row('The Controller (Gov)', 'agent-ops report', 'Policy Compliance Pipe', gov_status)
     console.print('📊 [bold]Testing Product Persona: ROI & UX Auditor...[/bold]')
     prod_status = '[green]PASSED[/green]'
     if not os.path.exists('src/agent_ops_cockpit/ops/cost_optimizer.py'):
         prod_status = '[red]FAILED[/red]'
-    table.add_row('The Visionary (Prod)', 'make ui-audit --roi', 'Cost/UX Optimization', prod_status)
+    table.add_row('The Visionary (Prod)', 'agent-ops ui-audit', 'Cost/UX Optimization', prod_status)
     console.print(table)
     results = [dev_status, arch_status, sec_status, gov_status, prod_status]
     if '[red]FAILED[/red]' in results:

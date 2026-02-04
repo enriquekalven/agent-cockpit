@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Terminal, Code, Shield, Briefcase,
-  Settings, ChevronRight, Layout, Cpu,
-  ExternalLink, FileText, CheckCircle
+  Terminal, Code, Shield, Settings,
+  ChevronRight, Layout, Cpu, Activity,
+  Zap, Command, ExternalLink, FileText,
+  CheckCircle, Briefcase
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -17,14 +18,13 @@ const JOURNEYS = [
     docs: [
       { name: 'Getting Started', path: '/docs/getting-started' },
       { name: 'UX & A2UI Guide', path: '/docs/ux-guide' },
-      { name: 'Local Mocking / CLI', path: '/docs/commands-master' },
-      { name: 'Reference: Agent Starter Pack', path: 'https://github.com/GoogleCloudPlatform/agent-starter-pack/' }
+      { name: 'Local Mocking / CLI', path: '/docs/commands-master' }
     ],
     reports: [
       { name: 'A2UI Contract Audit', path: '/master-audit-report.html' },
       { name: 'Unit Test Evidence', path: '/compliance-evidence.md' }
     ],
-    command: 'uvx agent-starter-pack create my-agent',
+    command: 'agent-ops init',
     diagram: '/assets/persona_builder.png',
     output: `🚀 Creating new agent: my-agent
 📦 Initializing with Trinity Stack (FastAPI + React + ADK)
@@ -43,13 +43,13 @@ Ready to roll. Run 'make dev' to start.`
     docs: [
       { name: 'Google Architecture', path: '/docs/google-architecture' },
       { name: 'Deployment Strategy', path: '/docs/deployment' },
-      { name: 'Production Checklist', path: '/docs/production-checklist' }
+      { name: 'Review Framework', path: '/docs/arch-review' }
     ],
     reports: [
       { name: 'Architecture Review (ADR)', path: '/arch-review-report.html' },
       { name: 'Design Consensus Report', path: '/master-audit-report.html' }
     ],
-    command: 'make apply-architecture',
+    command: 'agent-ops arch-review',
     diagram: '/assets/persona_strategist.png',
     output: `🏗️ Applying Well-Architected Patterns...
 🔍 Analyzing /src/backend for policy alignment
@@ -60,6 +60,30 @@ Ready to roll. Run 'make dev' to start.`
 Infrastructure aligned with Google Well-Architected Framework.`
   },
   {
+    id: 'quality',
+    name: 'The Optimizer',
+    persona: 'Quality Lead',
+    icon: <Activity size={24} />,
+    color: '#06b6d4',
+    description: 'Continuous improvement via Hill Climbing and benchmark-driven optimization.',
+    docs: [
+      { name: 'Optimization Guide', path: '/docs/quality-guide' },
+      { name: 'Benchmark Standards', path: '/docs/quality-guide' }
+    ],
+    reports: [
+      { name: 'Quality Scorecard', path: '/quality-audit-report.html' },
+      { name: 'Hill Climbing Trace', path: '/compliance-evidence.md' }
+    ],
+    command: 'agent-ops quality-baseline',
+    diagram: '/assets/persona_builder.png',
+    output: `🧗 Starting Hill Climbing Optimization...
+🔄 Iteration 1: 0.82 Score
+🔄 Iteration 5: 0.94 Score (Optimal)
+✨ Prompt Refined: Temperature adjusted to 0.7.
+✅ Logic Remediation: Added @retry to database calls.
+Performance uplift: +12% accuracy gain.`
+  },
+  {
     id: 'security',
     name: 'The Guardian',
     persona: 'Security Specialist',
@@ -68,14 +92,13 @@ Infrastructure aligned with Google Well-Architected Framework.`
     description: 'Hardening agents against adversarial attacks, prompt injections, and data privacy leaks.',
     docs: [
       { name: 'Security Protocol', path: '/docs/redteam-guide' },
-      { name: 'Red Team Audits', path: '/docs/redteam-guide' },
-      { name: 'Privacy & Policies', path: '/docs/audit-guide' }
+      { name: 'Red Team Audits', path: '/docs/redteam-guide' }
     ],
     reports: [
-      { name: 'Red Team Pentest Report', path: '/master-audit-report.html' },
-      { name: 'Policy Violation Log', path: '/compliance-evidence.md' }
+      { name: 'Red Team Pentest', path: '/red-team-report.html' },
+      { name: 'Adversarial Evidence', path: '/compliance-evidence.md' }
     ],
-    command: 'make red-team --target=agent-x',
+    command: 'agent-ops red-team',
     diagram: '/assets/persona_guardian.png',
     output: `🛡️ Starting Adversarial Audit...
 🕵️ Testing Prompt Injection: [Attempt 01..15]
@@ -84,6 +107,29 @@ Infrastructure aligned with Google Well-Architected Framework.`
 ⚠️ Warning: Identity verified via Evidence Bridge.
 ✅ Reliability: 99.9% Success rate across 100 simulations.
 Status: SECURE (Compliant with Enterprise Standard)`
+  },
+  {
+    id: 'finops',
+    name: 'The Economist',
+    persona: 'FinOps Specialist',
+    icon: <Zap size={24} />,
+    color: '#f59e0b',
+    description: 'Strategic cost guardrails and token efficiency for high-scale agent estates.',
+    docs: [
+      { name: 'Cost Optimization', path: '/docs/finops-guide' },
+      { name: 'Token Management', path: '/docs/finops-guide' }
+    ],
+    reports: [
+      { name: 'FinOps ROI Matrix', path: '/finops-roi-report.html' },
+      { name: 'Token Usage Forecast', path: '/compliance-evidence.md' }
+    ],
+    command: 'agent-ops report --roi',
+    diagram: '/assets/persona_visionary.png',
+    output: `📊 Analyzing Agent Performance & ROI...
+💰 Token usage: 48.2K saved (Semantic Cache hit rate: 64%)
+⏱️ Latency: 2.1s avg reduction per turn.
+📈 Estimated Monthly Savings: $2,400.
+Conclusion: Positive ROI confirmed for Q1.`
   },
   {
     id: 'governance',
@@ -98,10 +144,10 @@ Status: SECURE (Compliant with Enterprise Standard)`
       { name: 'Cockpit Ops', path: '/docs/cockpit-guide' }
     ],
     reports: [
-      { name: 'Global Compliance Audit', path: '/master-audit-report.html' },
+      { name: 'Global Compliance Log', path: '/compliance-audit-report.html' },
       { name: 'Evidence Lake Export', path: '/compliance-evidence.md' }
     ],
-    command: 'make audit-all',
+    command: 'agent-ops report',
     diagram: '/assets/persona_controller.png',
     output: `🏛️ Global Agent Audit Initiated...
 📂 Scanning Workspace: enriquekalven/agent-cockpit
@@ -111,6 +157,54 @@ Status: SECURE (Compliant with Enterprise Standard)`
 📜 Generating Evidence Lake Report...
 ✅ Report saved to cockpit_report.html
 Estate Health: 98% Compliant.`
+  },
+  {
+    id: 'sre',
+    name: 'The Reliability Lead',
+    persona: 'SRE / DevOps',
+    icon: <Settings size={24} />,
+    color: '#6366f1',
+    description: 'Hardening infrastructure, auto-remediation, and planetary-scale distribution.',
+    docs: [
+      { name: 'Infra & Growth Guide', path: '/docs/infra-guide' },
+      { name: 'Deployment Masterclass', path: '/docs/deployment' }
+    ],
+    reports: [
+      { name: 'Fleet Health Report', path: '/compliance-audit-report.html' },
+      { name: 'Uptime Evidence', path: '/compliance-evidence.md' }
+    ],
+    command: 'agent-ops report --mode deep',
+    diagram: '/assets/persona_controller.png',
+    output: `🛰️ Global Fleet Audit Initiated...
+📂 Scanning Estate: 12 Active Agents
+   - sales-agent: PASS
+   - ops-agent: PASS
+   - audit-agent: PASS
+📜 Generating Evidence Lake Report...
+✅ Fleet Health: 100% Availability.`
+  },
+  {
+    id: 'interop',
+    name: 'The Orchestrator',
+    persona: 'A2A / Interop Specialist',
+    icon: <Command size={24} />,
+    color: '#ec4899',
+    description: 'Agent-to-Agent transmission standards and cross-framework connectivity.',
+    docs: [
+      { name: 'A2A Standards Guide', path: '/docs/a2a-guide' },
+      { name: 'MCP Connectivity', path: '/docs/cockpit-guide' }
+    ],
+    reports: [
+      { name: 'Transmission Audit', path: '/master-audit-report.html' },
+      { name: 'Interop Consensus', path: '/compliance-evidence.md' }
+    ],
+    command: 'agent-ops mcp-server',
+    diagram: '/assets/persona_strategist.png',
+    output: `🔌 Initializing MCP Transmission Hub...
+📡 Discovering Tools: [Search, SQL, Artifacts]
+✅ Registered 12 tools to MCP Fleet.
+🤝 Establishing Trust Bridge (Evidence-backed)
+Protocol Standard: A2A v1.3 compliant.`
   },
   {
     id: 'product',
@@ -125,7 +219,7 @@ Estate Health: 98% Compliant.`
       { name: 'A2UI Visual Standards', path: '/docs/a2a-guide' }
     ],
     reports: [
-      { name: 'FinOps ROI Analysis', path: '/master-audit-report.html' },
+      { name: 'FinOps ROI Matrix', path: '/finops-roi-report.html' },
       { name: 'UX Readiness Scorecard', path: '/arch-review-report.html' }
     ],
     command: 'agent-ops --analyze-roi',
@@ -137,6 +231,31 @@ Estate Health: 98% Compliant.`
 📈 Estimated Monthly Savings: $2,400.
 Conclusion: Positive ROI confirmed for Q1.
 ✨ Deployment status: ACTIVE`
+  },
+  {
+    id: 'automation',
+    name: 'The Automator',
+    persona: 'CI/CD & Automation Lead',
+    icon: <Cpu size={24} />,
+    color: '#6366f1',
+    description: 'Zero-install portable governance for CI/CD pipelines and ephemeral agents.',
+    docs: [
+      { name: 'UVX Master Guide', path: '/docs/uvx-master' },
+      { name: 'Pipeline Integration', path: '/docs/uvx-master' }
+    ],
+    reports: [
+      { name: 'Ephemeral Audit Log', path: '/master-audit-report.html' },
+      { name: 'CI/CD Pass/Fail Evidence', path: '/compliance-evidence.md' }
+    ],
+    command: 'uvx agent-ops-cockpit report',
+    diagram: '/assets/persona_controller.png',
+    output: `📦 Running Portable AgentOps via UVX...
+🔍 Project: external-repo-auditor
+✅ No local installation detected (Standalone Mode)
+🔍 Scanning dependencies...
+⚠️ Security: 2 vulnerable packages found.
+✅ Compliance: Google Well-Architected standard met.
+[CI/CD] Build Gate: PASSED.`
   }
 ];
 
@@ -163,7 +282,12 @@ export function OperationalJourneys() {
                 onClick={() => setActiveTab(journey.id)}
                 style={{ '--active-color': journey.color } as React.CSSProperties}
               >
-                <div className="tab-icon">{journey.icon}</div>
+                <div className="tab-avatar-container">
+                  <img src={journey.diagram} alt={journey.name} className="tab-avatar" />
+                  <div className="tab-avatar-overlay">
+                    {journey.icon}
+                  </div>
+                </div>
                 <div className="tab-info">
                   <span className="tab-name">{journey.name}</span>
                   <span className="tab-persona">{journey.persona}</span>
@@ -290,17 +414,32 @@ export function OperationalJourneys() {
         .persona-tabs {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.5rem;
+          max-height: 580px;
+          overflow-y: auto;
+          padding-right: 0.5rem;
+        }
+
+        /* Custom scrollbar for persona list */
+        .persona-tabs::-webkit-scrollbar {
+          width: 4px;
+        }
+        .persona-tabs::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .persona-tabs::-webkit-scrollbar-thumb {
+          background: var(--border-color);
+          border-radius: 10px;
         }
 
         .persona-tab {
           display: flex;
           align-items: center;
-          gap: 1.25rem;
-          padding: 1.25rem;
+          gap: 1rem;
+          padding: 0.75rem 1rem;
           background: var(--bg-secondary);
           border: 1px solid var(--border-color);
-          border-radius: 16px;
+          border-radius: 12px;
           text-align: left;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -319,22 +458,54 @@ export function OperationalJourneys() {
           transform: translateX(12px);
         }
 
-        .tab-icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
+        .tab-avatar-container {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          position: relative;
+          overflow: hidden;
+          border: 2px solid var(--border-color);
+          flex-shrink: 0;
+          transition: all 0.3s;
+          background: var(--bg-color);
+        }
+
+        .persona-tab.active .tab-avatar-container {
+          border-color: var(--active-color);
+          box-shadow: 0 0 15px var(--active-color);
+          transform: scale(1.1);
+        }
+
+        .tab-avatar {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s;
+        }
+
+        .persona-tab:hover .tab-avatar {
+          transform: scale(1.1);
+        }
+
+        .tab-avatar-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.4);
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(0,0,0,0.03);
-          color: var(--text-secondary);
-          transition: all 0.3s;
+          color: white;
+          opacity: 0;
+          transition: opacity 0.3s;
         }
 
-        .persona-tab.active .tab-icon {
-          background: var(--active-color);
-          color: white;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .tab-avatar-overlay svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .persona-tab.active .tab-avatar-overlay {
+          opacity: 1;
         }
 
         .tab-info {

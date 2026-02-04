@@ -8,15 +8,21 @@ This document is the definitive source of truth for all operational commands ava
 ## 🏗️ Master Orchestration (The Cockpit)
 These commands trigger cross-functional audits and generate the high-level board reports.
 
-👉 **[View Master UVX Command Registry (Portable/Automation)](docs/TECHNICAL_UVX_MASTER.md)**
+|| Method | Context | Command |
+| :--- | :--- | :--- | :--- |
+| �️ | **Make (Local Dev)** | Inside repo | `make audit` |
+| 🕹️ | **CLI (Global)** | Installed via Pip | `agent-ops report` |
+| 📦 | **UVX (Portable)** | CI/CD / Ephemeral | `uvx agent-ops-cockpit report` |
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make audit` | **Safe-Build Review** | Quick scan for secrets, reliability, and fast security (Dev Velocity). |
-| `make audit-deep` | **Final Examination** | Full benchmarks, stress tests, and iterative optimization (Prod Ready). |
-| `make audit-all` | **Global Audit** | Executes the master scan against an external target repository. |
-| `make email-report`| **Stakeholder Sync** | Emails the persona-approved architecture report to strategic leads. |
-| `make diagnose` | **System Health** | Executes a DevEx environment diagnosis and dependency check. |
+### 🏗️ Master Orchestration (The Cockpit)
+These commands trigger cross-functional audits and generate high-fidelity executive reports.
+
+| Command (Make) | CLI Equivalent | Objective | Impact |
+| :--- | :--- | :--- | :--- |
+| `make audit` | `agent-ops report` | **Safe-Build** | Quick scan for secrets and reliability. |
+| `make audit-deep` | `agent-ops report --mode deep` | **Final Exam** | Full benchmarks and stress tests. |
+| `make audit-all` | `agent-ops report --path <repo>` | **Global Audit** | Scan external repositories via Cockpit. |
+| `make diagnose` | `agent-ops diagnose` | **Health Check** | Environment and dependency validation. |
 
 ---
 
