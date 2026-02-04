@@ -36,6 +36,6 @@ def test_capabilities_registry_coverage():
                 missing_tests.append(f"{test_file} (No test functions found)")
                 
     if missing_tests:
-        pytest.fail(f"Capability coverage gaps detected:\n" + "\n".join(missing_tests))
+        pytest.fail("Capability coverage gaps detected:\n" + "\n".join(missing_tests))
     
     print(f"\nVerified {len(matches)} core capabilities have active test suites.")

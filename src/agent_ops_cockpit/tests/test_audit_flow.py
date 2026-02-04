@@ -1,9 +1,7 @@
 import os
 import json
-import shutil
 import tempfile
 import hashlib
-import sys
 from agent_ops_cockpit.ops.orchestrator import run_audit
 
 def setup_mock_agent(agent_dir):
