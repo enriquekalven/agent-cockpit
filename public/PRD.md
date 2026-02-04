@@ -1,101 +1,102 @@
 # 📄 Product Requirements Document (PRD): AgentOps Cockpit
 
-**Version**: 0.9.8 (The Sovereignty Update)
-**Status**: Active / Production-Hardened
-**Owner**: Agentic AI Engineering Team
+**Version**: 1.0.0-rc1 (The Antigravity Hardening)
+**Status**: Release Candidate / Enterprise-Scale
+**Owner**: Enrique Kalven & Agentic AI Engineering Team
 
 ---
 
 ## 1. Executive Summary
 The **AgentOps Cockpit** is a production-grade operations and governance platform for AI agents. It addresses the "Day 2" challenges of agentic development: cost management, security hardening, architectural alignment, and operational visibility. By implementing the **Agentic Trinity** (Engine, Face, Cockpit), it provides developers with a framework-agnostic "Mission Control" to transition agents from prototypes to reliable production services.
 
-<div align="center">
-  <img src="diagrams/trinity.png" alt="Agentic Trinity Architecture" width="80%" />
-</div>
+The **v1.0.0 "Antigravity" Milestone** focuses on resilience, fleet-scale orchestration, and frictionless integration into enterprise CI/CD pipelines.
 
 ---
 
-## 2. Problem Statement
-Most AI agent development today stops at a single script or a basic chat interface. Developers lack:
-- **Governance**: No standardized way to verify if an agent follows "Well-Architected" principles.
-- **FinOps**: No visibility into the true cost of agentic reasoning vs. potential optimizations.
-- **Security**: Limited tools for automated adversarial testing (Red Teaming) specific to LLMs.
-- **Velocity**: Detailed audits often slow down the dev loop, leading to skipped safety checks.
+## 2. Motivation
+As AI agent fleets scale from single-digit prototypes to hundreds of production services (145–465+ agents), traditional manual governance fails. The motivation for the Antigravity update is to:
+- **Minimize Friction**: Developers in restricted VPN or proxy environments often face registry auth failures (401/403). The cockpit must be resilient.
+- **Scale Orchestration**: Monolithic logs fail at scale. Partitioned evidence is required for parallelized fleet audits.
+- **Automate Remediation**: Finding issues is not enough; the cockpit must proactively suggest and apply code-level fixes (Auto-Healing).
+- **Hardened Governance**: Security and Architecture violations must be first-class citizens in CI/CD, preventing unsafe deployments through deterministic exit codes.
 
 ---
 
 ## 3. Target Audience & Personas
-- **The AI Engineer**: Responsible for building and fine-tuning agent logic. Needs fast feedback on code quality and tool reliability.
-- **The SecOps Lead**: Needs to ensure agents don't leak PII or become vectors for prompt injection attacks.
-- **The Platform Architect**: Needs to standardize agentic patterns across multiple frameworks (LangChain, AutoGen, ADK).
-- **The FinOps Analyst**: Responsible for monitoring and reducing LLM spend through caching and model routing.
+- **The AI Engineer**: Needs instant feedback and auto-remediation to maintain velocity.
+- **The SecOps Lead**: Requires deterministic blocking of deployments containing secrets or PII leaks.
+- **The Platform Architect**: Standardizes "Well-Architected" patterns across massive monorepos using `.cockpitignore` and `cockpit.yaml`.
+- **The DevOps/SRE**: Integrates the cockpit into pipelines via JSON/SARIF reporting and severity-based exit codes.
 
 ---
 
 ## 4. Critical User Journeys (CUJs)
-- **CUJ 1: The Fast-Path Developer Audit**
-  - *User:* AI Engineer
-  - *Action:* Runs `make audit` or `uvx agentops-cockpit report --mode quick`.
-  - *Outcome:* Receives a sub-second score on architecture, security, and cost-efficiency without context-switching.
-- **CUJ 2: Pre-Production Security Hardening**
-  - *User:* SecOps Lead
-  - *Action:* Executes `make red-team` against a high-stakes customer service agent.
-  - *Outcome:* Identifies PII leakage vulnerabilities and receives auto-code fixes to implement scrubbers.
-- **CUJ 3: Cross-Framework Modernization**
-  - *User:* Platform Architect
-  - *Action:* Migrates an agent from OpenAI to Vertex AI.
-  - *Outcome:* The **Conflict Guard** identifies incompatible state loops and the **Situational Auditor** recommends enabling Context Caching for a 90% cost reduction.
+- **CUJ 1: Zero-Friction Registry Failover**
+  - *User:* Developer on a restricted corporate VPN.
+  - *Action:* Runs an audit that requires dependency checks.
+  - *Outcome:* The cockpit detects a 401 Unauthorized from the private registry and automatically fails over to the Public PyPI Mirror, unblocking the audit session.
+- **CUJ 2: Fleet-Scale Workspace Audit**
+  - *User:* Platform Architect.
+  - *Action:* Runs `ops report --workspace` at the root of a 400+ agent monorepo.
+  - *Outcome:* The **Smart Discovery Engine** respects `.cockpitignore`, audits all agents in parallel, and saves results to a **Partitioned Evidence Lake**.
+- **CUJ 3: Automated Security Gate (CI/CD)**
+  - *User:* DevOps Engineer.
+  - *Action:* Integration of `ops report --format json` into a GitHub Action.
+  - *Outcome:* Pipeline automatically fails with `EXIT 1` when a hardcoded secret is detected, or `EXIT 2` for architecture violations, while allowing `EXIT 0` for informational warnings.
+- **CUJ 4: Dry-Run Remediation (Auto-Healing)**
+  - *User:* AI Engineer.
+  - *Action:* Runs `ops report --heal --dry-run`.
+  - *Outcome:* Views a "Dry Run Dashboard" in the console showing exactly which decorators (e.g., `@retry`) would be injected, without modifying production code until approved.
 
 ---
 
 ## 5. Functional Requirements
-### R1: Situational Optimization (Triple-State Analysis)
-- Must detect if required SDKs are missing.
-- Must provide version-aware situational workarounds for legacy environments.
-- Must identify modernization paths (e.g., Context Caching, Structured Outputs).
+### R1: Resilient Registry Resolver (Network Resilience)
+- **Automatic Failover**: Must detect 401/403 registry errors and retry using public mirrors (PyPI).
+- **Registry Awareness**: The `diagnose` command must verify connectivity to core indices.
 
-### R2: Master Orchestration
-- Must coordinate multiple specialized auditors (Arch, Security, Quality, Cost).
-- Must generate a unified Markdown report (`cockpit_final_report.md`).
-- Must support parallelized execution of sub-tasks.
+### R2: Partitioned Evidence Lake (Scalability)
+- **Partitioning**: Must move from a single `evidence_lake.json` to agent-specific folder partitioning (`evidence_lake/{agent_hash}/latest.json`).
+- **Parallel Performance**: Support simultaneous writes from concurrent processes without file locking contention.
 
-### R3: Conflict Guard
-- Must detect architectural anti-patterns when mixing agentic libraries (e.g., CrewAI vs. LangGraph).
-- Must verify "Synergy Pairings" (e.g., MCP Hub + Google ADK).
+### R3: Smart Discovery Engine (Orchestration)
+- **Hieuristic Detection**: Must identify the agent "brain" across `agent/agent.py`, `src/main.py`, etc.
+- **Exclusion Logic**: Must respect `.cockpitignore` and `cockpit.yaml` "Sovereign Gates" to skip non-essential directories.
 
-### R4: Red Team Evaluation
-- Must launch automated attacks: PII extraction, Prompt Injection, Jailbreaking.
-- Must support multilingual safety testing (e.g., Cantonese, Spanish).
+### R4: Severity-Based Exit Codes (Governance)
+- **Deterministic Blocking**: 
+  - `EXIT 0`: Pass
+  - `EXIT 1`: Security Critical (Secrets)
+  - `EXIT 2`: Architecture/Policy Violation
+  - `EXIT 3`: General Failure
 
----
-
-## 6. Technical Stack
-- **Engine Layer**: Python 3.10+, FastAPI.
-- **Operations (Cockpit)**: Typer (CLI), Rich (Terminal TUI), Pydantic (Schema).
-- **Frontend (Face)**: React 18, Vite, TypeScript, A2UI Protocol.
-- **Connectivity**: MCP (Model Context Protocol) for unified tool transport.
-- **Deployment**: Google Cloud Run (Compute), Firebase Hosting (Web), GKE (Orchestration).
+### R5: Machine-Readable Reporting
+- **SARIF/JSON**: Must support `--format json` and `--format sarif` for direct integration with security dashboards (e.g., GitHub Advanced Security).
 
 ---
 
-## 7. Success Metrics (KPIs)
-- **Dev Velocity**: Audit latency in Quick Mode must stay under **200ms**.
-- **Efficiency**: Use of Semantic Caching should demonstrate a **40-60%** reduction in repeated token costs.
-- **Security**: 100% of PII leakage patterns detected by Red Team must have an associated A2A fix.
-- **Adoption**: Reach **10,000 GitHub stars** via community framework connectors.
+## 6. Success Criteria (KPIs)
+- **Zero-Block Rate**: 100% of registry auth failures during audits must be resolved via path failover.
+- **Fleet Scalability**: Auditing 400 agents in a workspace must not exceed **2 minutes** (using parallel orchestration).
+- **Compliance Accuracy**: 100% of findings in the Persona Matrix should be categorized with a "Fixability" score (1-Click vs. Structural).
+- **CI/CD Reliability**: Deterministic exit codes must correctly block 100% of identified security leaks in simulation tests.
 
 ---
 
-## 8. Roadmap & Future Scope
-- **Q1 (Foundation)**: [x] Red Team Auditor, [x] Quick-Safe Build, [x] Framework Connectors.
-- **Q2 (Sovereignty)**: [x] Discovery Engine, [x] Library Isolation, [x] CLI-First Decoupling.
-- **Q3 (Ecosystem)**: [ ] Global Sovereign Hub (Aggregated Fleet Governance), [ ] GCP Marketplace.
-
-## 9. Enterprise Positioning & Limitations
-The AgentOps Cockpit is a **Governance-as-Code** platform. It is designed to complement—not replace—specialized enterprise suites:
-- **Performance**: Use for "Safe-Build" sanity checks; use **JMeter/Locust** for 100k+ user stress testing.
-- **Security**: Use for automated regression; use **Snyk/Checkmarx** for deep static analysis (SAST).
-- **Compliance**: Provides heuristic evidence; use **Google Cloud Security Command Center** for live infrastructure drift detection.
+## 7. Technical Stack
+- **Engine**: Python 3.10+, FastAPI.
+- **Config**: Centralized `config.py` Single Source of Truth.
+- **CLI**: Typer + Rich (Standardized Binary: `ops`, `aops`).
+- **Storage**: Multi-tier Evidence Lake (Local Partitioned + Cloud Aggregated).
+- **UI**: React 18 / Vite / A2UI (v1.3 standards).
 
 ---
-*Created by the AgentOps Cockpit Orchestrator.*
+
+## 8. Roadmap: The Antigravity Path
+- **v0.9.8**: [x] Sovereign Gate Enforcement, [x] Command Trinity Parity.
+- **v0.9.9**: [x] Frictionless DX, [x] Fixability Badges, [x] Heal Aliases.
+- **v1.0.0-rc1**: [x] Partitioned Lake, [x] Resilient Registry, [x] Severity Exit Codes.
+- **v1.1.0 (Upcoming)**: [ ] Multi-Agent Consensus Audits (Audit-by-Committee).
+
+---
+*Generated by the AgentOps Cockpit Orchestrator (v1.0.0-rc1).*
