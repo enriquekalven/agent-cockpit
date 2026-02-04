@@ -193,7 +193,7 @@ export const DocLayout: React.FC = () => {
                 <span>Follow Updates</span>
               </a>
               <div style={{ marginTop: '1rem', opacity: 0.4, fontSize: '0.7rem' }}>
-                v0.9.8 • Production Stack
+                v0.9.9 • Production Stack
               </div>
             </div>
           </div>

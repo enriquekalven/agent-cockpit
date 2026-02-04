@@ -2,6 +2,15 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.9] - 2026-02-04
+
+### 🕹️ The Frictionless Update (v2.0 Milestone)
+- **uvx Hero Experience**: Renamed entry point to `agentops-cockpit` for zero-config `uvx` execution without choice prompts.
+- **Registry Resilience**: Implemented `urllib`-based connectivity checks and a `--public` flag to bypass 401 Unauthorized errors in restricted environments.
+- **SSOT Parity**: Aligned CLI flags (Typer) with core Orchestrator logic, exposing `--workspace` and `--heal` (alias for auto-remediation) consistently.
+- **Fixability Scoring**: Introduced `EFFORT_MAP` to categorize audit findings by remediation complexity (1-Click vs. Structural) in reports and dashboards.
+- **Declarative Sovereignty**: The `report` command now automatically respects local `cockpit.yaml` context for check exclusions.
+
 ## [0.9.8] - 2026-02-03
 
 ### 🕹️ The Sovereignty Update

@@ -11,13 +11,148 @@
         {
           "ruleId": "missing_'surfaceid'_mapping",
           "message": {
-            "text": "Add"
+            "text": "Add 'surfaceId' prop to the"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "src/App.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocHome.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ReportSamples.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlightRecorder.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/Home.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AgentPulse.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/OperationalJourneys.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ThemeToggle.tsx:1"
                 }
               }
             }

@@ -94,6 +94,16 @@ class CockpitOrchestrator:
         'Red Team (Fast)': 'Adversarial Jailbreaking',
         'Face Auditor': 'A2UI Protocol Drift'
     }
+    # Improvement #4: Fixability Mapping
+    EFFORT_MAP = {
+        'Secret Scanner': '⚡ 1-Click (Env Var)',
+        'Token Optimization': '⚡ 1-Click (Caching)',
+        'Policy Enforcement': '🔧 Medium (Policies)',
+        'Reliability (Quick)': '🔧 Medium (Code)',
+        'Architecture Review': '🏗️ Hard (Structural)',
+        'Face Auditor': '🔧 Medium (A2UI)',
+        'Red Team (Fast)': '🏗️ Hard (Model/Prompt)'
+    }
 
     def generate_report(self):
         title = getattr(self, 'title', 'Audit Report')
@@ -102,13 +112,16 @@ class CockpitOrchestrator:
         persona_table.add_column('SME Persona', style='cyan')
         persona_table.add_column('Audit Module', style='magenta')
         persona_table.add_column('Verdict', style='bold')
+        persona_table.add_column('Remediation', style='dim')
         developer_actions = []
         developer_sources = []
         for name, data in self.results.items():
             status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
             persona = self.PERSONA_MAP.get(name, '👤 Automated Auditor')
-            persona_table.add_row(persona, name, status)
-            report.append(f'- **{persona}** ([{name}]): {status}')
+            effort = self.EFFORT_MAP.get(name, 'Manual')
+            persona_table.add_row(persona, name, status, effort)
+            effort_str = f" [Remediation: {effort}]" if not data['success'] else ""
+            report.append(f'- **{persona}** ([{name}]): {status}{effort_str}')
             if data['output']:
                 for line in data['output'].split('\n'):
                     if 'ACTION:' in line:
@@ -457,12 +470,17 @@ def generate_fleet_dashboard(results: dict):
         status_class = "status-pass" if success else "status-fail"
         abs_target = os.path.abspath(agent)
         agent_data = fleet_data.get(abs_target, {})
-        delta = agent_data.get("summary", {}).get("improvement_delta", 0)
+        
+        # Determine likely fixability based on common rejection patterns
+        fix_badge = ""
+        if not success:
+            fix_badge = '<div style="background: #fefce8; border: 1px solid #fef08a; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #854d0e; margin-top: 8px; display: inline-block;">🔧 Fixable in 1-click</div>'
         
         html += f"""
                 <div class="agent-card">
                     <h3 style="margin-top: 0; font-size: 1rem;">{os.path.basename(agent)}</h3>
                     <div class="{(status_class)}">{status}</div>
+                    {fix_badge}
                     <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: {agent}</div>
                 </div>
         """
@@ -481,6 +499,15 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     orchestrator.target_path = target_path
     orchestrator.sim = sim
     target_path = os.path.abspath(target_path)
+
+    # Improvement #5: Declarative Sovereign Gates (cockpit.yaml)
+    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+    discovery = DiscoveryEngine(target_path)
+    config = discovery.config # Automatically loads cockpit.yaml if present
+    if config:
+        console.print(f"⚙️ [dim]Loaded local Sovereign Config from {target_path}/cockpit.yaml[/dim]")
+        if config.get("exclude_checks"):
+             console.print(f"🚫 [yellow]Excluded checks per local config: {config['exclude_checks']}[/yellow]")
 
     # ⚡ Intelligent Skipping Logic
     lake_path = "evidence_lake.json"
@@ -528,6 +555,11 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         else:
             steps.append(('Red Team (Fast)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]))
         
+        # Improvement #5: Declarative sovereign filter
+        excluded = config.get("exclude_checks", []) if config else []
+        if excluded:
+            steps = [s for s in steps if s[0] not in excluded and s[0].lower().replace(" ", "_") not in excluded]
+
         tasks = {name: progress.add_task(f'[white]Waiting: {name}', total=100) for name, cmd in steps}
         with ThreadPoolExecutor(max_workers=len(steps)) as executor:
             future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name]): name for name, cmd in steps}

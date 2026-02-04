@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "0.9.8"
+version = "0.9.9"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -37,8 +37,8 @@ dependencies = [
 "Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
 
 [project.scripts]
+agentops-cockpit = "agent_ops_cockpit.cli.main:app"
 agent-ops = "agent_ops_cockpit.cli.main:app"
-agent-ops-cockpit = "agent_ops_cockpit.cli.main:app"
 agent-ops-mcp = "agent_ops_cockpit.mcp_server:main"
 
 [tool.hatch.build.targets.wheel]

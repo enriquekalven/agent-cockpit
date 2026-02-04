@@ -23,7 +23,7 @@ REPO_URL = 'https://github.com/enriquekalven/agent-ui-starter-pack'
 @app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print('[bold cyan]agent-ops CLI v0.9.8[/bold cyan]')
+    console.print('[bold cyan]agent-ops CLI v0.9.9[/bold cyan]')
 
 @app.command()
 def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End Persona Smoke Tests')):
@@ -38,12 +38,27 @@ def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End 
         rel_mod.run_tests()
 
 @app.command()
-def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks")):
+def report(
+    mode: str = typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks"),
+    path: str = typer.Option('.', '--path', '-p', help="Path to the agent or workspace to audit"),
+    workspace: bool = typer.Option(False, '--workspace', '-w', help="Scan and audit all agents in the workspace"),
+    apply_fixes: bool = typer.Option(False, '--apply-fixes', '-f', '--heal', help="Automatically apply recommended fixes (Auto-Remediation)"),
+    sim: bool = typer.Option(False, '--sim', help="Run in simulation mode (Synthetic SME reasoning)"),
+    public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)")
+):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
-    console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]')
-    orch_mod.run_audit(mode=mode)
+    if public:
+        os.environ['UV_INDEX_URL'] = 'https://pypi.org/simple'
+        console.print("🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]")
+
+    if workspace:
+        console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit...[/bold blue]")
+        orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim)
+    else:
+        console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
+        orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim)
 
 @app.command()
 def quality_baseline(path: str='.'):
@@ -198,6 +213,18 @@ def diagnose():
         table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
     else:
         table.add_row('Trinity Structure', '[red]MISSING[/red]', 'Run from root of AgentOps project')
+
+    # Registry Awareness (Improvement #1)
+    try:
+        import urllib.request
+        with urllib.request.urlopen("https://pypi.org/simple", timeout=2) as response:
+            if response.status == 200:
+                table.add_row('Registry Access', '[green]PUBLIC PYPI[/green]', 'Connected')
+            else:
+                table.add_row('Registry Access', '[red]AUTH FAILED[/red]', "Run with --public or check VPN/Gcert")
+    except:
+        table.add_row('Registry Access', '[yellow]OFFLINE[/yellow]', "Check connectivity or use --public")
+
     console.print(table)
     console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops report' for a deep audit.[/bold blue]")
 

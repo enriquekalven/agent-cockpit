@@ -59,7 +59,7 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">NEW v0.9.8</span>
+          <span className="banner-tag">NEW v0.9.9</span>
           <span className="banner-text"><b>Sovereignty & Hardening Update:</b> Dashboard removed for CLI-first security, with new Discovery Engine, Library Isolation, and full v1.3 Persona Mission Control integrated.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
