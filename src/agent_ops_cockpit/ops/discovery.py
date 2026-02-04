@@ -13,7 +13,8 @@ class DiscoveryEngine:
         ".git", "node_modules", "venv", ".venv", "__pycache__", 
         "dist", "build", ".pytest_cache", ".mypy_cache", 
         "cockpit_artifacts", "cockpit_final_report_*.md", "cockpit_report.html",
-        "evidence_lake.json", "cockpit_audit.sarif", "fleet_dashboard.html"
+        "evidence_lake", "evidence_lake.json", "cockpit_audit.sarif", "fleet_dashboard.html",
+        ".agent"
     }
 
     def __init__(self, root_path: str = "."):
