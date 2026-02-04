@@ -58,6 +58,9 @@ The Cockpit now includes:
 - **Config-Driven**: Add a `cockpit.yaml` to standardize your agent's governance.
 - **Red Team v2**: Enhanced adversarial simulations for multilingual safety.
 
+> 🛠️ **Dev Tip**: If you encounter a `401 Unauthorized` registry error while running `uvx`, bypass it with:  
+> `UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report`
+
 ## 🏁 v1.3 Next Steps
 - [ ] **High-Level Overview**: Read the [**Operational Introduction**](INTRODUCTION.md).
 - [ ] **Lead Dev**: Integrate [**A2A Standards**](TECHNICAL_A2A_GUIDE.md).

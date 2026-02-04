@@ -25,7 +25,7 @@ const JOURNEYS = [
       { name: 'Unit Test Evidence', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops init',
-    diagram: '/assets/persona_builder.png',
+    diagram: '/assets/persona_builder_new.png',
     output: `🚀 Creating new agent: my-agent
 📦 Initializing with Trinity Stack (FastAPI + React + ADK)
 ✅ Framework detected: Python 3.12, Node 20
@@ -50,7 +50,7 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Design Consensus Report', path: '/master-audit-report.html' }
     ],
     command: 'agent-ops arch-review',
-    diagram: '/assets/persona_strategist.png',
+    diagram: '/assets/persona_strategist_new.png',
     output: `🏗️ Applying Well-Architected Patterns...
 🔍 Analyzing /src/backend for policy alignment
 ✅ Engine: Redundant Cloud Run deployment confirmed.
@@ -75,7 +75,7 @@ Infrastructure aligned with Google Well-Architected Framework.`
       { name: 'Hill Climbing Trace', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops quality-baseline',
-    diagram: '/assets/persona_builder.png',
+    diagram: '/assets/persona_optimizer.png',
     output: `🧗 Starting Hill Climbing Optimization...
 🔄 Iteration 1: 0.82 Score
 🔄 Iteration 5: 0.94 Score (Optimal)
@@ -124,7 +124,7 @@ Status: SECURE (Compliant with Enterprise Standard)`
       { name: 'Token Usage Forecast', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops report --roi',
-    diagram: '/assets/persona_visionary.png',
+    diagram: '/assets/persona_economist.png',
     output: `📊 Analyzing Agent Performance & ROI...
 💰 Token usage: 48.2K saved (Semantic Cache hit rate: 64%)
 ⏱️ Latency: 2.1s avg reduction per turn.
@@ -175,7 +175,7 @@ Estate Health: 98% Compliant.`
       { name: 'Uptime Evidence', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops report --mode deep',
-    diagram: '/assets/persona_controller.png',
+    diagram: '/assets/persona_reliability.png',
     output: `🛰️ Global Fleet Audit Initiated...
 📂 Scanning Estate: 12 Active Agents
    - sales-agent: PASS
@@ -200,7 +200,7 @@ Estate Health: 98% Compliant.`
       { name: 'Interop Consensus', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops mcp-server',
-    diagram: '/assets/persona_strategist.png',
+    diagram: '/assets/persona_orchestrator.png',
     output: `🔌 Initializing MCP Transmission Hub...
 📡 Discovering Tools: [Search, SQL, Artifacts]
 ✅ Registered 12 tools to MCP Fleet.
@@ -249,7 +249,7 @@ Conclusion: Positive ROI confirmed for Q1.
       { name: 'CI/CD Pass/Fail Evidence', path: '/compliance-evidence.md' }
     ],
     command: 'uvx agent-ops-cockpit report',
-    diagram: '/assets/persona_controller.png',
+    diagram: '/assets/persona_automator.png',
     output: `📦 Running Portable AgentOps via UVX...
 🔍 Project: external-repo-auditor
 ✅ No local installation detected (Standalone Mode)

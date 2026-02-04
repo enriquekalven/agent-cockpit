@@ -24,7 +24,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     console.print(f'🧪 [bold]Running Unit Tests (pytest) in {path}...[/bold]')
     env = os.environ.copy()
     env['PYTHONPATH'] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}:src"
-    unit_result = subprocess.run([sys.executable, '-m', 'pytest', path], capture_output=True, text=True, env=env)
+    unit_result = subprocess.run([sys.executable, '-m', 'pytest', path], capture_output=True, text=True, env=env, stderr=subprocess.STDOUT)
     console.print('📈 [bold]Verifying Regression Suite Coverage...[/bold]')
     table = Table(title='🛡️ Reliability Status')
     table.add_column('Check', style='cyan')
@@ -60,6 +60,8 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     if unit_result.returncode != 0 and unit_status != '[yellow]SKIPPED[/yellow]':
         console.print('\n[red]❌ Unit test failures detected. Fix them before production deployment.[/red]')
         console.print(f'```\n{unit_result.stdout}\n```')
+        # Improvement: Direct Actionable Guidance for Orchestrator
+        console.print(f"ACTION: {path} | Reliability Failure | Resolve falling unit tests to ensure agent regression safety.")
     else:
         console.print('\n✅ [bold green]System check complete.[/bold green]')
 

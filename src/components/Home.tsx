@@ -42,6 +42,18 @@ const anthropicLogo = () => (
 
 export function Home() {
   const [stars, setStars] = useState<number | null>(null);
+  const [currentCommand, setCurrentCommand] = useState(0);
+  const commands = [
+    'pip install agentops-cockpit',
+    'uvx agentops-cockpit report'
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentCommand((prev) => (prev + 1) % commands.length);
+    }, 3000); // Flip every 3 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     fetch('https://api.github.com/repos/enriquekalven/agent-cockpit')
@@ -192,12 +204,11 @@ export function Home() {
           <div className="command-box-wrapper">
             <span className="command-label">Start with a single command</span>
             <div className="command-command">
-              <code>uvx agent-ops report</code>
+              <code key={currentCommand} className="fade-in-shimmer">{commands[currentCommand]}</code>
               <button
                 className="copy-button"
                 onClick={() => {
-                  navigator.clipboard.writeText('uvx agent-ops report');
-                  // Optional: add a temporary toast or change icon here if needed
+                  navigator.clipboard.writeText(commands[currentCommand]);
                 }}
                 title="Copy to clipboard"
               >

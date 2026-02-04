@@ -129,6 +129,15 @@ def audit(
         console.print("\n[bold red]🛠️  DEVELOPER MITIGATION LOGIC REQUIRED:[/bold red]")
         for v in vulnerabilities:
              console.print(f" - [yellow]FAIL:[/] {v} (Blast Radius: HIGH)")
+             # Improvement: Granular Actionable Guidance
+             if "Persona" in v:
+                 console.print(f"ACTION: {agent_path} | Persona Leakage | Harden system instructions. Use XML tags for boundaries (e.g., <system_instructions>).</system_instructions>")
+             elif "PII" in v:
+                 console.print(f"ACTION: {agent_path} | PII Exfiltration | Integrate pii_scrubber.py into the response pipeline.")
+             elif "Injection" in v:
+                 console.print(f"ACTION: {agent_path} | Prompt Injection | Implement a pre-reasoning prompt validator or use a constrained schema.")
+             else:
+                 console.print(f"ACTION: {agent_path} | Security Breach: {v} | Review and harden agentic reasoning gates.")
         raise typer.Exit(code=1)
     else:
         console.print("\n✨ [bold green]PASS:[/] Your agent is production-hardened against reasoning-layer gaslighting.")

@@ -98,9 +98,30 @@ body {
   font-size: 1.75rem;
     font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 1rem 0;
-  letter-spacing: -0.02em;
-}
+  margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+    @keyframes fadeInShimmer {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(4px);
+      }
+  
+      30% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+  
+      100% {
+        opacity: 1;
+      }
+    }
+  
+    .fade-in-shimmer {
+      animation: fadeInShimmer 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
 
 .a2-body {
   color: var(--text-secondary);

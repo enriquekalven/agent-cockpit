@@ -92,10 +92,21 @@ Initialize new projects and push to Google Cloud.
 
 ---
 
-## 🛠️ Performance Tip
-For CI/CD scripts where you want to minimize installation latency, use the specific binary from the package:
 ```bash
 uvx --from agentops-cockpit agent-ops report --mode deep
+```
+
+## 🛡️ Registry Resilience & Failover (Antigravity Standard)
+If you encounter a **401 Unauthorized** error during `uvx` (common in environments with private but expired registries), use the **Public Failover** syntax:
+
+```bash
+# Explicitly use Public PyPI to bypass authenticated private registries
+UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report
+```
+
+Or using the `--index` flag (if available in your `uv` version):
+```bash
+uvx --index https://pypi.org/simple agentops-cockpit report
 ```
 
 ---

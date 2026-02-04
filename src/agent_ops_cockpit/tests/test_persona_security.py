@@ -13,6 +13,8 @@ def test_security_red_team_rag_injection(tmp_path):
     result = runner.invoke(red_team_app, ["audit", str(agent_file)])
     assert result.exit_code == 1
     assert "Indirect Prompt Injection (RAG)" in result.stdout
+    assert "ACTION:" in result.stdout
+    assert "Review and harden agentic reasoning gates" in result.stdout
 
 def test_security_red_team_mcp_privilege(tmp_path):
     """CISO: Detecting Tool-Calling Over-Privilege (MCP)."""
@@ -22,6 +24,7 @@ def test_security_red_team_mcp_privilege(tmp_path):
     result = runner.invoke(red_team_app, ["audit", str(agent_file)])
     assert result.exit_code == 1
     assert "Tool Over-Privilege (MCP)" in result.stdout
+    assert "ACTION:" in result.stdout
 
 def test_security_secret_scanner_detection():
     """CISO: Hardcoded Credential Detection (Patterns)."""
@@ -32,11 +35,21 @@ def test_security_secret_scanner_detection():
 def test_security_secret_scanner_cli(tmp_path):
     """CMD Test: Secret Scanner blocking gate."""
     secret_file = tmp_path / "leak.env"
-    secret_file.write_text("API_KEY=AIzaSyD-1234567890abcdefghijklmnopqrstuv")
+    # OpenAI key: sk- + 20+ chars
+    key = "sk-" + "abcdefghijklmnopqrstuvwx" # 24 chars
+    secret_file.write_text(f"OPENAI_KEY='{key}'")
     
     result = runner.invoke(secret_scanner_app, ["scan", str(tmp_path)])
+    
+    # Debug: if it fails, we want to see what we actually got
+    if result.exit_code != 1:
+        print(f"DEBUG OUTPUT (Exit Code {result.exit_code}):\n{result.stdout}")
+        
     assert result.exit_code == 1
     assert "FAIL" in result.stdout
+    assert "ACTION:" in result.stdout
+    # We use a smaller substring to avoid issues with formatting/color codes
+    assert "Secret Manager" in result.stdout
 
 def test_security_secret_scanner_library_isolation(tmp_path):
     """CISO: Verify that secrets in libraries (venv) are ignored to reduce false positives."""

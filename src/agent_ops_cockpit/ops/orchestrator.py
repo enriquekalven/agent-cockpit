@@ -118,12 +118,21 @@ class CockpitOrchestrator:
 
     def generate_report(self):
         title = getattr(self, 'title', 'Audit Report')
-        report = [f'# 🕹️ AgentOps Cockpit: {title}', f'**Timestamp**: {self.timestamp}', f"**Status**: {('✅ PASS' if all((r['success'] for r in self.results.values())) else '❌ FAIL')}", '\n---', '\n## 🧑\u200d💼 Principal SME Persona Approvals', 'Each pillar of your agent has been reviewed by a specialized SME persona.']
+        report = [
+            f'# 🏁 AgentOps Cockpit: {title}',
+            f'**Timestamp**: {self.timestamp}',
+            f"**Status**: {('✅ PASS' if all((r['success'] for r in self.results.values())) else '❌ FAIL')}",
+            '\n---',
+            '\n## 🧑‍💼 Principal SME Persona Approvals',
+            'Each pillar of your agent has been reviewed by a specialized SME persona.'
+        ]
+        
         persona_table = Table(title='🏛️ Persona Approval Matrix', show_header=True, header_style='bold blue')
         persona_table.add_column('SME Persona', style='cyan')
         persona_table.add_column('Audit Module', style='magenta')
         persona_table.add_column('Verdict', style='bold')
         persona_table.add_column('Remediation', style='dim')
+        
         developer_actions = []
         developer_sources = []
         for name, data in self.results.items():
@@ -131,50 +140,76 @@ class CockpitOrchestrator:
             persona = self.PERSONA_MAP.get(name, '👤 Automated Auditor')
             effort = self.EFFORT_MAP.get(name, 'Manual')
             persona_table.add_row(persona, name, status, effort)
+            
             effort_str = f" [Remediation: {effort}]" if not data['success'] else ""
             report.append(f'- **{persona}** ([{name}]): {status}{effort_str}')
+            
             if data['output']:
                 for line in data['output'].split('\n'):
                     if 'ACTION:' in line:
                         developer_actions.append(line.replace('ACTION:', '').strip())
                     if 'SOURCE:' in line:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
+
+        # --- [NEW] Multi-Phase Action Plan Optimization ---
+        if developer_actions:
+            report.append('\n## 🚀 Step-by-Step Implementation Guide')
+            report.append("To transition this agent to production-hardened status, follow these prioritized phases:")
+            
+            # Priority Sorting: Security > Reliability > Architecture > FinOps > UX
+            def priority_key(action):
+                p = action.lower()
+                if any(x in p for x in ['leak', 'secret', 'credential', 'security']): return 0
+                if any(x in p for x in ['reliability', 'unit test', 'failure']): return 1
+                if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach']): return 2
+                if any(x in p for x in ['finops', 'roi', 'caching', 'resiliency']): return 3
+                return 4
+                
+            sorted_actions = sorted(developer_actions, key=priority_key)
+            developer_actions[:] = sorted_actions # Update in-place for other report formats
+            
+            current_phase = -1
+            phases = ["🛡️ Phase 1: Security Hardening", "🛡️ Phase 2: Reliability Recovery", "🏗️ Phase 3: Architectural Alignment", "💰 Phase 4: FinOps Optimization", "🎭 Phase 5: Experience Refinement"]
+            
+            for action in sorted_actions:
+                phase = priority_key(action)
+                if phase != current_phase:
+                    current_phase = phase
+                    report.append(f'\n### {phases[phase]}')
+                
+                parts = action.split(' | ')
+                if len(parts) == 3:
+                    # Clean formatting for file paths to prevent line splitting
+                    report.append(f'1. **{parts[1]}**')
+                    report.append(f'   - 📍 Location: `{parts[0].strip()}`')
+                    report.append(f'   - ✨ Recommended Fix: {parts[2].strip()}')
+
+            report.append('\n> 💡 **Automation Tip**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory for high-confidence remediations.')
+
+        if developer_sources:
+            report.append('\n## 📜 Evidence Bridge: Research & Citations')
+            report.append('| Knowledge Pillar | Source | Evidence Summary |')
+            report.append('| :--- | :--- | :--- |')
+            for source in developer_sources:
+                parts = source.split(' | ')
+                if len(parts) == 3:
+                    report.append(f'| {parts[0]} | [Official Doc]({parts[1]}) | {parts[2]} |')
         
-        # --- [NEW] Maturity Velocity Logic ---
-        lake_path = "evidence_lake.json"
-        improvement_delta = 0
+        # --- [NEW] Executive Summary & Velocity ---
         target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
+        lake_path = "evidence_lake.json"
+        prev_health = 0
         if os.path.exists(lake_path):
             try:
                 with open(lake_path, 'r') as f:
                     lake_data = json.load(f)
                     historical = lake_data.get(target_abs, {}).get('summary', {})
                     prev_health = historical.get('health', 0) * 100
-                    current_health = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
-                    improvement_delta = current_health - prev_health
             except: pass
+            
+        health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
+        improvement_delta = health_score - prev_health
 
-        console.print('\n', persona_table)
-        if developer_actions:
-            report.append('\n## 🛠️ Developer Action Plan')
-            report.append("The following specific fixes are required to achieve a passing 'Well-Architected' score.")
-            report.append('| File:Line | Issue | Recommended Fix |')
-            report.append('| :--- | :--- | :--- |')
-            for action in developer_actions:
-                parts = action.split(' | ')
-                if len(parts) == 3:
-                    report.append(f'| `{parts[0]}` | {parts[1]} | {parts[2]} |')
-        if developer_sources:
-            report.append('\n## 📜 Evidence Bridge: Research & Citations')
-            report.append('Cross-verified architectural patterns and SDK best-practices mapped to official cloud standards.')
-            report.append('| Knowledge Pillar | SDK/Pattern Citation | Evidence & Best Practice |')
-            report.append('| :--- | :--- | :--- |')
-            for source in developer_sources:
-                parts = source.split(' | ')
-                if len(parts) == 3:
-                    report.append(f'| {parts[0]} | [Source Citation]({parts[1]}) | {parts[2]} |')
-        
-        # --- [NEW] Executive Risk Scorecard & Thresholds ---
         report.append('\n## 👔 Executive Risk Scorecard')
         
         from agent_ops_cockpit.ops.discovery import DiscoveryEngine
@@ -182,36 +217,33 @@ class CockpitOrchestrator:
         threshold = discovery.config.get("threshold", 0)
         
         passed_ok = all(r['success'] for r in self.results.values())
-        health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
         
-        executive_summary = "Audit baseline established. No critical blockers detected."
+        executive_summary = "✅ Audit baseline established. No critical blockers detected."
         if health_score < threshold:
-             executive_summary = f"**Risk Alert**: Health score ({health_score:.1f}%) is below the configured threshold ({threshold}%). Strategic remediation required."
+             executive_summary = f"🚨 **Risk Alert**: Health score ({health_score:.1f}%) is below configured threshold ({threshold}%). Strategic remediation required."
         elif not passed_ok:
             fail_list = [n for n, r in self.results.items() if not r['success']]
-            executive_summary = f"**Risk Alert**: {len(fail_list)} governance gates REJECTED (including {', '.join(fail_list[:2])}). Remediation estimated to take 2-4 hours. Production deployment currently BLOCKED."
+            executive_summary = f"🚨 **Risk Alert**: {len(fail_list)} governance gates REJECTED (including {', '.join(fail_list[:2])}). Production deployment currently **BLOCKED**."
         
         report.append(executive_summary)
         
-        # --- [NEW] Strategic Recommendations ---
-        debt_analysis = "\n**Strategic Recommendations**:\n"
-        if "Missing PII scrubber" in str(developer_actions):
-            debt_analysis += "- ⚠️ **Global Debt**: Missing PII Scrubbers detected. Recommendation: Bulk inject `pii_scrubber.py` middleware.\n"
-        if "Hardcoded secret" in str(developer_actions):
-            debt_analysis += "- ⚠️ **Security Debt**: Hardcoded credentials detected. recommendation: Enforce Google Secret Manager.\n"
-        report.append(debt_analysis)
-        report.append('\n## 🔍 Raw System Artifacts')
-        for name, data in self.results.items():
-            report.append(f'\n### {name}')
-            report.append('```text')
-            report.append(data['output'][-2000:] if data['output'] else 'No output.')
-            report.append('```')
-        report.append('\n---')
-        report.append('\n*Generated by the AgentOps Cockpit Orchestrator (Parallelized Edition).*')
         if improvement_delta != 0:
             velocity_icon = "📈" if improvement_delta > 0 else "📉"
             report.append(f'\n### {velocity_icon} Maturity Velocity: {improvement_delta:+.1f}% Compliance Change')
 
+        report.append('\n---')
+        report.append('\n## 🔍 Raw System Artifacts')
+        for name, data in self.results.items():
+            report.append(f'\n### {name}')
+            report.append('```text')
+            # Extract last 2000 chars but ensure we don't truncate mid-line if possible
+            raw_out = data['output'][-2000:] if data['output'] else 'No output.'
+            report.append(raw_out)
+            report.append('```')
+
+        report.append('\n\n*Generated by the AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard).*')
+
+        console.print('\n', persona_table)
         with open(self.report_path, 'w') as f:
             f.write('\n'.join(report))
         self._generate_html_report(developer_actions, developer_sources)
@@ -309,14 +341,10 @@ class CockpitOrchestrator:
                 /* Professional Mode Toggle */
                 .mode-toggle {{ position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }}
                 #prof-mode-checkbox {{ cursor: pointer; }}
-                body.prof-mode .mascot-container {{ display: none; }}
                 body.prof-mode .report-card {{ border-top: 8px solid #1e3a8a; border-radius: 8px; }}
                 body.prof-mode h1 {{ font-family: 'Georgia', serif; letter-spacing: 0; }}
 
                 header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}
-                .mascot-container {{ text-align: center; background: #fff; border: 1px solid #e2e8f0; padding: 12px; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }}
-                .mascot {{ width: 100px; height: 100px; border-radius: 12px; object-fit: contain; }}
-                .mascot-name {{ font-size: 0.65rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-top: 8px; letter-spacing: 0.1em; }}
                 
                 h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}
                 h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}
@@ -353,10 +381,6 @@ class CockpitOrchestrator:
                         <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
                             Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
                         </span>
-                    </div>
-                    <div class="mascot-container">
-                <img src="/kokpi_kun.png" class="mascot" alt="Kokpi">
-                        <div class="mascot-name">KOKPI CERTIFIED</div>
                     </div>
                 </header>
 
@@ -407,7 +431,7 @@ class CockpitOrchestrator:
         html_content += '\n                <h2>🔍 Audit Evidence</h2>\n        '
         for name, data in self.results.items():
             html_content += f"<h3>{name}</h3><pre>{data['output']}</pre>"
-        html_content += '\n                <div class="footer">\n                    Generated by AgentOps Cockpit Orchestrator v0.9.0. \n                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.\n                </div>\n            </div>\n        </body>\n        </html>\n        '
+        html_content += '\n                <div class="footer">\n                    Generated by AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard). \n                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.\n                </div>\n            </div>\n        </body>\n        </html>\n        '
         with open(self.html_report_path, 'w') as f:
             f.write(html_content)
 
@@ -449,7 +473,7 @@ def generate_fleet_dashboard(results: dict):
             with open(lake_path, "r") as f: fleet_data = json.load(f)
         except: pass
 
-    passed_count = sum(1 for r in results.values() if r)
+    passed_count = sum(1 for r in results.values() if r == 0)
     total = len(results)
     
     # ROI Predictor Logic
@@ -501,7 +525,7 @@ def generate_fleet_dashboard(results: dict):
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
-                    <div class="stat-value">{(passed_count/total)*100:.1f}%</div>
+                    <div class="stat-value">{(passed_count/total)*100 if total > 0 else 0:.1f}%</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Maturity Velocity</div>
@@ -520,19 +544,19 @@ def generate_fleet_dashboard(results: dict):
     """
     
     for agent, success in results.items():
-        status = "PASSED" if success else "FAILED"
-        status_class = "status-pass" if success else "status-fail"
+        status = "PASSED" if success == 0 else "FAILED"
+        status_class = "status-pass" if success == 0 else "status-fail"
         abs_target = os.path.abspath(agent)
         agent_data = fleet_data.get(abs_target, {})
         
         # Determine likely fixability based on common rejection patterns
         fix_badge = ""
-        if not success:
+        if success != 0:
             fix_badge = '<div style="background: #fefce8; border: 1px solid #fef08a; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #854d0e; margin-top: 8px; display: inline-block;">🔧 Fixable in 1-click</div>'
         
         # Determine failing modules
         failing_modules = []
-        if not success and agent_data:
+        if success != 0 and agent_data:
             agent_results = agent_data.get('results', {})
             failing_modules = [m for m, r in agent_results.items() if not r.get('success')]
         
@@ -617,7 +641,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             console.print(f"⚡ [bold green]SKIP:[/bold green] No changes detected in {target_path}. Reusing evidence lake artifacts.")
             orchestrator.results = source_data.get('results', {})
             orchestrator.generate_report()
-            return True
+            return orchestrator.get_exit_code()
 
     subtitle = 'Essential checks for dev-velocity' if mode == 'quick' else 'Full benchmarks & stress-testing'
     console.print(Panel.fit(f'🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...', border_style='blue'))
@@ -709,6 +733,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
         console.print("[yellow]⚠️ No agents found in workspace.[/yellow]")
         return
 
+    console.print(f"📡 [bold blue]Found {len(agents)} potential agents.[/bold blue]")
     results = {}
     with ProcessPoolExecutor(max_workers=5) as executor:
         future_map = {executor.submit(run_audit, mode, a, sim=sim): a for a in agents}
@@ -716,7 +741,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
             agent_path = future_map[future]
             try:
                 results[agent_path] = future.result()
-                status = "[green]PASS[/green]" if results[agent_path] else "[red]FAIL[/red]"
+                status = "[green]PASS[/green]" if results[agent_path] == 0 else "[red]FAIL[/red]"
                 console.print(f"📡 [bold]Audit Complete[/bold]: {agent_path} -> {status}")
             except Exception as e: console.print(f"[red]💥 Error auditing {agent_path}: {e}[/red]")
 
@@ -726,7 +751,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
         try:
             with open(lake_path, 'r') as f: lake_data = json.load(f)
             prev_compliance = lake_data.get('global_summary', {}).get('compliance', 0)
-            current_compliance = (sum(1 for r in results.values() if r) / len(agents)) * 100
+            current_compliance = (sum(1 for r in results.values() if r == 0) / len(agents)) * 100 if agents else 0
             lake_data['global_summary'] = {'compliance': current_compliance, 'velocity': current_compliance - prev_compliance, 'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             with open(lake_path, 'w') as f: json.dump(lake_data, f, indent=2)
         except: pass

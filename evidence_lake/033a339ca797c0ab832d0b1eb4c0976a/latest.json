@@ -1,0 +1,39 @@
+{
+  "target_path": "/Users/enriq/Documents/git/agent-cockpit",
+  "timestamp": "2026-02-04 00:09:29",
+  "hash": "7c4b7748a5fc34236ff51e036f9c4f07",
+  "results": {
+    "Architecture Review": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/arch_review.py\", line 2, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Secret Scanner": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py\", line 3, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Face Auditor": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/ui_auditor.py\", line 3, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Token Optimization": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py\", line 5, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Red Team (Fast)": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/red_team.py\", line 2, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Reliability (Quick)": {
+      "success": false,
+      "output": "\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/reliability.py\", line 6, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "Policy Enforcement": {
+      "success": true,
+      "output": "SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL\nCaught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.\n"
+    }
+  },
+  "summary": {
+    "passed": false,
+    "health": 0.14285714285714285
+  }
+}

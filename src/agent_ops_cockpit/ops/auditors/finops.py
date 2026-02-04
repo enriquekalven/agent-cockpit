@@ -45,4 +45,13 @@ class FinOpsAuditor(BaseAuditor):
                 roi="Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
             ))
 
+        # Check for retry logic (ROI & Reliability cross-over)
+        if 'retry' not in content.lower() and ('request' in content.lower() or 'invoke' in content.lower()):
+            print(f"ACTION: {file_path} | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.")
+
+        # Print actions for orchestrator capture
+        for f in findings:
+             if f.roi:
+                  print(f"ACTION: {file_path} | {f.title} | {f.roi}")
+
         return findings
