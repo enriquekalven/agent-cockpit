@@ -8,8 +8,7 @@ This document outlines the 90-day vision to transform the **AgentOps Cockpit** f
 **Phase: Category Killer v1.3**
 The goal is to close the loop between finding a flaw and merging the fix.
 
-*   **v1.2 (Current)**: Template-based remediation (`make apply-fixes`).
-*   **v1.3 (Autonomous)**: **Context-Aware Code Synthesis**.
+*   **v1.3 (Current)**: **Context-Aware Code Synthesis**.
     *   **Logic**: Uses an LLM "Coding Agent" to rewrite the Abstract Syntax Tree (AST), ensuring the fix matches the project's specific variable naming, testing patterns, and style (Prettier/Ruff/Black).
     *   **Impact**: Zero-touch architectural evolution.
 
@@ -48,8 +47,8 @@ New HTML Executive Export features:
 
 | Feature | Persona | Status |
 | :--- | :--- | :--- |
-| **Context-Aware Synthesis** | Architect | 🧪 Active Beta (`make apply-fixes`) |
-| **Synthetic Simulation** | SRE | 🧪 Active Beta (`make simulation-run`) |
+| **Context-Aware Synthesis** | Architect | ✅ Live (`make apply-fixes`) |
+| **Synthetic Simulation** | SRE | ✅ Active Beta (`make simulation-run`) |
 | **Cross-Framework Bridge** | Architect | ✅ Standardized (A2X/A2UI) |
 | **Strategic Exit TCO** | CFO | ✅ Implementation (ROI Metrics) |
 | **Impact Waterfalls** | CEO / Board | ✅ v1.3 Export Active |

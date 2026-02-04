@@ -1,7 +1,7 @@
 # 📄 Product Requirements Document (PRD): AgentOps Cockpit
 
-**Version**: 1.0 (Post-v0.6.0 Release)
-**Status**: Active / Production-Ready
+**Version**: 0.9.8 (The Sovereignty Update)
+**Status**: Active / Production-Hardened
 **Owner**: Agentic AI Engineering Team
 
 ---
@@ -88,8 +88,8 @@ Most AI agent development today stops at a single script or a basic chat interfa
 
 ## 8. Roadmap & Future Scope
 - **Q1 (Foundation)**: [x] Red Team Auditor, [x] Quick-Safe Build, [x] Framework Connectors.
-- **Q2 (Intelligence)**: [ ] VPC-Native Hive Mind, [ ] Visual Mission Control (Real-time Dashboard).
-- **Q3 (Ecosystem)**: [ ] GCP Marketplace Integration, [ ] Community Plugin System.
+- **Q2 (Sovereignty)**: [x] Discovery Engine, [x] Library Isolation, [x] CLI-First Decoupling.
+- **Q3 (Ecosystem)**: [ ] Global Sovereign Hub (Aggregated Fleet Governance), [ ] GCP Marketplace.
 
 ## 9. Enterprise Positioning & Limitations
 The AgentOps Cockpit is a **Governance-as-Code** platform. It is designed to complement—not replace—specialized enterprise suites:

@@ -9,7 +9,7 @@ The **Cockpit** is the mission control for your AI agents. While the "Engine" ha
 The **Fleet Dashboard** (Mission Control) allows you to manage multiple agents from a single pane of glass. 
 *   **Shadow Mode**: Deploy a new version (v2) alongside production (v1).
 *   **Estate Health**: Gain visibility into "The Builder", "The Strategist", and "The Guardian" personas.
-*   **Access**: Select "Ops Dashboard" or navigate to `/ops`.
+*   **Access**: Securely managed via the **`agent-ops` CLI** or the integrated **Operational Guide**.
 
 ## 🧠 Hive Mind (Semantic Caching)
 The Hive Mind is a specialized middleware that prevents redundant LLM calls.

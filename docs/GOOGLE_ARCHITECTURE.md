@@ -14,7 +14,7 @@
 ### 2. The Face (User Interface)
 *   **Role**: GenUI Rendering, Surface Dispatching, A2UI Protocol.
 *   **Standard**: [A2UI Spec](https://a2ui.org).
-*   **Operations**: Verified by `agent-ops-ui-auditor`.
+*   **Operations**: Verified by `agent-ops ui-audit`.
 
 ### 3. The Cockpit (Agent Operations)
 *   **Role**: Caching, Privacy Scrubbing, FinOps, Observability.

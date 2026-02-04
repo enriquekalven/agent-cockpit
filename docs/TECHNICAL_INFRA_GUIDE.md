@@ -88,7 +88,7 @@ graph TD
 ---
 
 ## 📊 The "Fleet Dashboard" (Mission Control)
-The v1.3 Cockpit provides a centralized **Fleet Dashboard** (accessible via `/ops`) for managing multiple agent swarms.
+The v1.3 Cockpit provides a centralized **Fleet Governance Hub** (accessible via the **Operational Guide**) for managing multiple agent swarms.
 
 ### **Key Fleet Observability:**
 *   **Shadow Mode Real-Time**: Side-by-side comparison of v1 vs v2 across the entire estate.

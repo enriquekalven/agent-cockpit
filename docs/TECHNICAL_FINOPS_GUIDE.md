@@ -1,5 +1,5 @@
 # 💰 Technical Guide: FinOps & Token Economics
-## The "Economic Sustainability" Standard
+## The "Economic Sustainability" Standard (v1.3)
 
 The `make optimizer-audit` and `make arch-review` (via PivotAuditor) commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
 
@@ -67,7 +67,7 @@ graph TD
 
 ## 📊 Comparison: The "Strategic Margin" Advantage
 
-| Capability | Standard AI Development | AgentOps FinOps Principal v1.2 |
+| Capability | Standard AI Development | AgentOps FinOps Principal v1.3 |
 | :--- | :--- | :--- |
 | **Data Retrieval** | Send whole chunks. | **Atomic RAG & BigQuery Vector Search.** |
 | **Model Logic** | One model fits all. | **Tiered Orchestration (Router Pattern).** |
