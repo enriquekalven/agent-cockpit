@@ -57,11 +57,11 @@ audit-all:
 
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
-	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py
+	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py audit
 
 # 🧪 Smoke Test: E2E Persona Validation
 smoke-test:
-	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py --smoke
+	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py audit --smoke
 
 # 🚀 Regression: The Full Suite (Unit + Smoke)
 regression:
@@ -73,11 +73,11 @@ diagnose:
 
 # 🔍 The Optimizer: Audit specific agent file for code-level waste
 optimizer-audit:
-	@$(PYTHON) src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py --quick
+	@$(PYTHON) src/agent_ops_cockpit/optimizer.py audit src/agent_ops_cockpit/agent.py --quick
 
 # 🔍 Deep Optimizer: Fetch live SDK evidence
 optimizer-audit-deep:
-	@$(PYTHON) src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py
+	@$(PYTHON) src/agent_ops_cockpit/optimizer.py audit src/agent_ops_cockpit/agent.py
 
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
@@ -105,7 +105,7 @@ quality-baseline:
 
 # 🧪 Secrets: Scan for hardcoded credentials
 scan-secrets:
-	@$(PYTHON) src/agent_ops_cockpit/ops/secret_scanner.py .
+	@$(PYTHON) src/agent_ops_cockpit/ops/secret_scanner.py scan .
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
@@ -114,7 +114,7 @@ ui-audit:
 # 🔥 Red Team: Unleash self-hacking security audit
 
 red-team:
-	@$(PYTHON) src/agent_ops_cockpit/eval/red_team.py src/agent_ops_cockpit/agent.py
+	@$(PYTHON) src/agent_ops_cockpit/eval/red_team.py audit src/agent_ops_cockpit/agent.py
 
 # ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
 REQUESTS ?= 50
