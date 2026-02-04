@@ -2,6 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.0.0] - 2026-02-04
+
+### 🕹️ The Governance & Regression Framework (Stable Release)
+- **Governance: Core Capabilities Registry**: Introduced `CAPABILITIES_REGISTRY.md` to define mandatory features (Fleet Dashboard, Auto-Heal, partitioned evidence).
+- **Quality: Capabilities Gate Meta-Test**: Implemented a build-time guardrail that fails CI/CD if core capabilities lack valid regression tests.
+- **Remediation: Context-Aware AST Matching**: Hardened `CodeRemediator` to intelligently detect parent function definitions for decorator injection.
+- **Orchestration: Absolute Path Resolution**: Resolved critical path mismatches in multi-agent workspace scans, ensuring audit metadata follows the agent.
+- **Operations: Fleet Reliability v1.3**: Verified parity for parallel audit orchestration across 50+ agent scenarios in the regression suite.
+- **Documentation: Governance Master Guide**: Updated `TECHNICAL_AUDIT_GUIDE.md` to reflect the new regression-first standard.
+
 ## [1.0.0-rc1] - 2026-02-04
 
 ### 🚀 The Antigravity Hardening (SME Mission Control)
