@@ -23,9 +23,9 @@ While the **AgentOps Cockpit** is a powerful "Mission Control" for AI agents, it
 ### 2. Architecture Review vs. Static Analysis (Snyk/SonarQube)
 **Is this a replacement?** ❌ No.
 
-*   **Logic**: The Cockpit uses **Heuristic Keyword Scanning** (Regex) to detect architectural patterns (e.g., "Is there a PII scrubber present?").
-*   **Limitation**: It does not perform deep AST (Abstract Syntax Tree) analysis or Taint Tracking to find complex code-level security vulnerabilities.
-*   **Best Use Case**: Verifying high-level alignment with the **Google Well-Architected Framework**.
+*   **Logic**: The Cockpit uses **Deep AST (Abstract Syntax Tree) Analysis** and heuristic scanning to detect architectural patterns and vulnerabilities.
+*   **Capabilities**: It performs structural analysis to identify entry points, PII scrubbers, and hardcoded secrets with higher precision than simple regex.
+*   **Best Use Case**: Verifying high-level alignment with the **Google Well-Architected Framework** and ensuring safe-build hygiene.
 
 ---
 

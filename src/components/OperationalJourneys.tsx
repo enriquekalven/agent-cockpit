@@ -16,8 +16,8 @@ const JOURNEYS = [
     description: 'Rapidly scaffold and debug production agents across any stack with professional-grade SDKs.',
     docs: [
       { name: 'Getting Started', path: '/docs/getting-started' },
-      { name: 'Development Guide', path: '/docs/development' },
-      { name: 'Local Mocking / CLI', path: '/docs/cli-commands' },
+      { name: 'UX & A2UI Guide', path: '/docs/ux-guide' },
+      { name: 'Local Mocking / CLI', path: '/docs/commands-master' },
       { name: 'Reference: Agent Starter Pack', path: 'https://github.com/GoogleCloudPlatform/agent-starter-pack/' }
     ],
     reports: [
@@ -65,9 +65,9 @@ Infrastructure aligned with Google Well-Architected Framework.`
     color: '#ef4444',
     description: 'Hardening agents against adversarial attacks, prompt injections, and data privacy leaks.',
     docs: [
-      { name: 'Security Protocol', path: '/docs/security' },
-      { name: 'Red Team Audits', path: '/docs/security' },
-      { name: 'Privacy & Policies', path: '/docs/governance' }
+      { name: 'Security Protocol', path: '/docs/redteam-guide' },
+      { name: 'Red Team Audits', path: '/docs/redteam-guide' },
+      { name: 'Privacy & Policies', path: '/docs/audit-guide' }
     ],
     reports: [
       { name: 'Red Team Pentest Report', path: '/master-audit-report.html' },
@@ -90,8 +90,8 @@ Status: SECURE (Compliant with Enterprise Standard)`
     color: '#8b5cf6',
     description: 'Gain full visibility into agent estates with centralized compliance and evidence collection.',
     docs: [
-      { name: 'Governance Guide', path: '/docs/governance' },
-      { name: 'Evidence & Compliance', path: '/docs/governance' },
+      { name: 'Governance Guide', path: '/docs/audit-guide' },
+      { name: 'Evidence & Compliance', path: '/docs/audit-guide' },
       { name: 'Cockpit Ops', path: '/docs/cockpit-guide' }
     ],
     reports: [
@@ -117,8 +117,8 @@ Estate Health: 98% Compliant.`
     description: 'Maximize ROI and user experience with latency analysis and GenUI optimization.',
     docs: [
       { name: 'The Agent Ops Story', path: '/docs/story' },
-      { name: 'Optimization ROI', path: '/docs/optimization' },
-      { name: 'A2UI Visual Standards', path: '/docs/a2a' }
+      { name: 'Optimization ROI', path: '/docs/finops-guide' },
+      { name: 'A2UI Visual Standards', path: '/docs/a2a-guide' }
     ],
     reports: [
       { name: 'FinOps ROI Analysis', path: '/master-audit-report.html' },

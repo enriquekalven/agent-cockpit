@@ -1,13 +1,13 @@
 # 🤝 Technical Guide: Agentic Interoperability (A2X)
-## The "Standardized Ecosystem" Standard (v1.2)
+## The "Standardized Ecosystem" Standard (v1.3)
 
 The `make arch-review` (via InteropAuditor) command activates the **Agent Architect SME**. This persona specializes in **Agentic Interoperability (A2X)**, ensuring that your agent doesn't exist in a vacuum. It forces alignment with the industry's emerging standards: **MCP**, **A2UI**, **UCP**, and **AP2**.
 
 ---
 
-## 🏛️ SME Critique: The Interop Standard (v1.2)
+## 🏛️ SME Critique: The Interop Standard (v1.3)
 
-> "The v1.1 version was too narrow, focusing only on 'A2A chatter.' The v1.2 standard reflects the reality of a multi-framework, cross-protocol world. By integrating **MCP** for tools and **A2UI** for visual handshakes, we have built a 'Protocol Hub' rather than just a communication bridge."
+> "The v1.1 version was too narrow, focusing only on 'A2A chatter.' The v1.3 standard reflects the reality of a multi-framework, cross-protocol world. By integrating **MCP** for tools and **A2UI** for visual handshakes, we have built a 'Protocol Hub' rather than just a communication bridge."
 > — *Principal Architect, Ecosystem Intelligence*
 
 ### 💎 Why this is "Consultancy Killer" Grade
@@ -45,7 +45,7 @@ The Interop Principal evaluates your architecture across four critical "A2X" pil
 
 ## 📊 Comparison: Proprietary Silos vs. Standardized A2X
 
-| Vector | Legacy Bot Silo | AgentOps A2X Principal v1.2 |
+| Vector | Legacy Bot Silo | AgentOps A2X Principal v1.3 |
 | :--- | :--- | :--- |
 | **Tools** | Hardcoded REST calls. | **MCP Server/Hubs.** |
 | **Interface** | Markdown/Text only. | **A2UI Surface-aware GenUI.** |

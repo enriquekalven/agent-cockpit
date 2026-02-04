@@ -306,7 +306,7 @@ export function Home() {
               <div className="card-icon blue"><Cpu /></div>
               <h3>The Engine</h3>
               <p>The reasoning core. Built with Vertex AI and Google's Agent Development Kit (ADK) for reliable tool orchestration.</p>
-              <Link to="/docs/be-integration" className="card-link">Learn about Engine →</Link>
+              <Link to="/docs/infra-guide" className="card-link">Learn about Engine →</Link>
             </div>
             <div className="trinity-card active">
               <div className="card-icon green"><Activity /></div>
@@ -328,7 +328,7 @@ export function Home() {
               <div className="card-icon purple"><Layers /></div>
               <h3>The Face</h3>
               <p>The user experience. Adaptive surfaces and GenUI standards (A2UI) that transform text into interactive applications.</p>
-              <Link to="/docs/development" className="card-link">Build the Face →</Link>
+              <Link to="/docs/ux-guide" className="card-link">Build the Face →</Link>
             </div>
           </div>
         </div>

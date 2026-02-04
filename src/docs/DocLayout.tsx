@@ -10,47 +10,48 @@ import { ThemeToggle } from '../components/ThemeToggle';
 
 const PILLAR_NAV = [
   {
-    title: 'Introductions',
+    title: '🚀 Mission Control',
     items: [
-      { id: 'docs-home', label: 'Documentation Home', path: '/docs', icon: <Activity size={18} /> },
-      { id: 'story', label: 'The Trinity Vision', path: '/docs/story', icon: <BookOpen size={18} /> },
+      { id: 'story', label: 'The Agentic Story', path: '/docs/story', icon: <BookOpen size={18} /> },
+      { id: 'getting-started', label: 'Quickstart Guide', path: '/docs/getting-started', icon: <Rocket size={18} /> },
+      { id: 'gemini', label: 'Gemini Context', path: '/docs/gemini', icon: <Cpu size={18} /> },
     ]
   },
   {
-    title: 'The Mission (Architecture)',
+    title: '⌨️ The Command Center',
     items: [
+      { id: 'cockpit-guide', label: 'The Cockpit UI Guide', path: '/docs/cockpit-guide', icon: <Layout size={18} /> },
+      { id: 'audit-guide', label: 'Audit Suite Guide', path: '/docs/audit-guide', icon: <ShieldCheck size={18} /> },
+      { id: 'commands-master', label: 'Master Command Reference', path: '/docs/commands-master', icon: <Terminal size={18} /> },
+      { id: 'uvx-master', label: 'UVX & Portable Ops', path: '/docs/uvx-master', icon: <Command size={18} /> },
+    ]
+  },
+  {
+    title: '🧠 SME Persona Matrix',
+    items: [
+      { id: 'arch-review', label: 'Architect: Arch Review', path: '/docs/arch-review', icon: <ShieldCheck size={18} /> },
+      { id: 'quality-guide', label: 'Quality Lead: Optimization', path: '/docs/quality-guide', icon: <Activity size={18} /> },
+      { id: 'redteam-guide', label: 'Security: Red Team', path: '/docs/redteam-guide', icon: <Shield size={18} /> },
+      { id: 'finops-guide', label: 'FinOps: Cost Optimization', path: '/docs/finops-guide', icon: <Zap size={18} /> },
+      { id: 'ux-guide', label: 'UX/Face: A2UI Guide', path: '/docs/ux-guide', icon: <Layout size={18} /> },
+      { id: 'infra-guide', label: 'SRE/Eng: Infra & Growth', path: '/docs/infra-guide', icon: <Cpu size={18} /> },
+      { id: 'a2a-guide', label: 'Automations: A2A Standards', path: '/docs/a2a-guide', icon: <Command size={18} /> },
+    ]
+  },
+  {
+    title: '☁️ Production & Scaling',
+    items: [
+      { id: 'deployment', label: 'Deployment Masterclass', path: '/docs/deployment', icon: <Rocket size={18} /> },
+      { id: 'production-checklist', label: 'Launch Checklist', path: '/docs/production-checklist', icon: <ShieldCheck size={18} /> },
       { id: 'google-architecture', label: 'Google Well-Architected', path: '/docs/google-architecture', icon: <ShieldCheck size={18} /> },
-      { id: 'a2a', label: 'A2A Standard', path: '/docs/a2a', icon: <Command size={18} /> },
+      { id: 'audit-scenarios', label: 'Audit Scenarios', path: '/docs/audit-scenarios', icon: <BookOpen size={18} /> },
     ]
   },
   {
-    title: 'Getting Started',
+    title: '🗺️ Project Governance',
     items: [
-      { id: 'getting-started', label: 'Installation', path: '/docs/getting-started', icon: <Rocket size={18} /> },
-      { id: 'cli-commands', label: 'CLI Reference', path: '/docs/cli-commands', icon: <Terminal size={18} /> },
-    ]
-  },
-  {
-    title: 'Operations (The Cockpit)',
-    items: [
-      { id: 'optimization', label: 'FinOps & Optimization', path: '/docs/optimization', icon: <Zap size={18} /> },
-      { id: 'cockpit', label: 'Semantic Caching', path: '/docs/cockpit', icon: <Activity size={18} /> },
-      { id: 'governance', label: 'Governance & Privacy', path: '/docs/governance', icon: <Lock size={18} /> },
-    ]
-  },
-  {
-    title: 'Security (Red Team)',
-    items: [
-      { id: 'security', label: 'Adversarial Audits', path: '/docs/security', icon: <Shield size={18} /> },
-      { id: 'production-checklist', label: 'Launch Readiness', path: '/docs/production-checklist', icon: <ShieldCheck size={18} /> },
-    ]
-  },
-  {
-    title: 'Engineering',
-    items: [
-      { id: 'be-integration', label: 'Engine (Backend)', path: '/docs/be-integration', icon: <Cpu size={18} /> },
-      { id: 'development', label: 'Face (UI/A2UI)', path: '/docs/development', icon: <Layout size={18} /> },
-      { id: 'deployment', label: 'Cloud Deployment', path: '/docs/deployment', icon: <Rocket size={18} /> },
+      { id: 'prd', label: 'The PRD', path: '/docs/prd', icon: <BookOpen size={18} /> },
+      { id: 'roadmap', label: 'v1.3 Roadmap', path: '/docs/roadmap', icon: <Activity size={18} /> },
     ]
   }
 ];

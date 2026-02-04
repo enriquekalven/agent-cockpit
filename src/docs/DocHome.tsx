@@ -8,60 +8,60 @@ import {
 
 const FEATURE_TILES = [
   {
-    title: 'Executive Summary',
-    desc: 'The high-level "Why" and "How" for leadership and customers. Perfect for Presales and architectural alignment.',
-    icon: <BookOpen size={24} />,
-    color: '#94a3b8',
-    path: '/docs/story'
-  },
-  {
-    title: 'Adversarial Red-Team',
-    desc: 'Simulate prompt injections and PII leaks across multiple languages (Cantonese, Spanish, English).',
-    icon: <Shield size={24} />,
-    color: '#ef4444',
-    path: '/docs/security'
-  },
-  {
-    title: 'FinOps Optimizer',
-    desc: 'Identify token waste and apply automated fixes like Context Caching to reduce costs by up to 90%.',
-    icon: <Zap size={24} />,
-    color: '#f59e0b',
-    path: '/docs/optimization'
-  },
-  {
-    title: 'Semantic Hive-Mind',
-    desc: 'Implement highly-performant semantic caching to avoid redundant LLM calls and latency.',
-    icon: <Activity size={24} />,
-    color: '#10b981',
-    path: '/docs/cockpit'
-  },
-  {
-    title: 'Multi-Agent Swarm',
-    desc: 'Standardized A2A (Agent-to-Agent) coordination with built-in Evidence Packet verified traces.',
-    icon: <Users size={24} />,
+    title: 'Mission Control',
+    desc: 'The high-level "Why" and "How" for leadership and customers. Perfect for architectural alignment.',
+    icon: <Rocket size={24} />,
     color: '#3b82f6',
     path: '/docs/story'
   },
   {
-    title: 'MCP Protocol Hub',
-    desc: 'Natively connect and govern any Model Context Protocol tool server through the unified Cockpit hub.',
-    icon: <Cpu size={24} />,
+    title: 'Adversarial Red-Team',
+    desc: 'Simulate prompt injections and PII leaks with the Red Team SME persona.',
+    icon: <Shield size={24} />,
+    color: '#ef4444',
+    path: '/docs/redteam-guide'
+  },
+  {
+    title: 'FinOps Optimizer',
+    desc: 'Identify token waste and apply automated fixes to reduce costs by up to 90%.',
+    icon: <Zap size={24} />,
+    color: '#f59e0b',
+    path: '/docs/finops-guide'
+  },
+  {
+    title: 'SME Persona Matrix',
+    desc: 'Technical deep-dives into Architect, Quality, Security, and Ops SME standards.',
+    icon: <Activity size={24} />,
+    color: '#10b981',
+    path: '/docs/audit-guide'
+  },
+  {
+    title: 'The Master Center',
+    desc: 'Full repository of CLI commands, UVX portable audits, and cockpit dashboard guides.',
+    icon: <Terminal size={24} />,
     color: '#8b5cf6',
-    path: '/docs/be-integration'
+    path: '/docs/commands-master'
   },
   {
     title: 'A2UI Visual Face',
     desc: 'Audit and implement the Generation UI standard for adaptive agentic surfaces.',
     icon: <Layout size={24} />,
     color: '#ec4899',
-    path: '/docs/development'
+    path: '/docs/ux-guide'
   },
   {
-    title: 'Evidence Bridge',
-    desc: 'Verify design decisions with real-time citations from official Cloud Architecture Frameworks.',
+    title: 'Production Readiness',
+    desc: 'The final "go-to-production" gates, checklists, and deployment masterclass.',
     icon: <ShieldCheck size={24} />,
     color: '#0ea5e9',
-    path: '/samples'
+    path: '/docs/production-checklist'
+  },
+  {
+    title: 'Governance & PRD',
+    desc: 'Product requirements, roadmaps, and long-term architectural constraints.',
+    icon: <BookOpen size={24} />,
+    color: '#94a3b8',
+    path: '/docs/prd'
   }
 ];
 
@@ -80,9 +80,9 @@ export const DocHome: React.FC = () => {
             <Rocket size={18} />
             Start Building
           </button>
-          <button onClick={() => navigate('/docs/cli-commands')} className="secondary-doc-btn">
+          <button onClick={() => navigate('/docs/commands-master')} className="secondary-doc-btn">
             <Terminal size={18} />
-            View CLI Docs
+            View CLI Reference
           </button>
         </div>
       </header>

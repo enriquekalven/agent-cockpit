@@ -1,5 +1,5 @@
 # ⌨️ Master Guide: AgentOps UVX Commands
-## Portable Governance & Automation (v1.3)
+## Portable Governance & Automation (v1.3.1)
 
 This document provides a consolidated reference for all **`uvx`** commands available in the AgentOps ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing external repositories.
 
@@ -45,8 +45,19 @@ Adversarial audits and declarative guardrail enforcement.
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agent-ops red-team` | **Adversarial Audit** | Path defaults to `src/agent_ops_cockpit/agent.py`. |
+| `uvx agent-ops red-team` | **Adversarial Audit** | Path defaults to `src/agent.py`. |
 | `uvx agent-ops policy-audit` | **Guardrail Check** | `--text "query"` to validate against the Policy Engine. |
+| `uvx agent-ops scan-secrets` | **Credential Leak Scan** | Scans for keys with Library Isolation. |
+
+---
+
+## 🛡️ Governance & Discovery
+Intelligent workspace mapping and isolation.
+
+| Command | Objective | Impact |
+| :--- | :--- | :--- |
+| `cockpit.yaml` | **Governance Config** | Define `entry_point`, `exclude`, and `threshold`. |
+| Discovery Engine | **Auto-Discovery** | Logic that respects `.gitignore` and ignores `venv`. |
 
 ---
 
