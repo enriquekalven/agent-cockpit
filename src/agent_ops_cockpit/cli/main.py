@@ -1,6 +1,4 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import shutil
 import subprocess
@@ -16,6 +14,7 @@ from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
+from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.config import config
 
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
@@ -304,6 +303,13 @@ def smoke_test():
     Run the End-to-End Persona 'Pipes' Validation.
     """
     rel_mod.run_smoke_test()
+
+@app.command()
+def watch():
+    """
+    Track ecosystem updates (ADK, A2A, LangChain, etc.) in real-time.
+    """
+    watch_mod.run_watch()
 
 def main():
     app()

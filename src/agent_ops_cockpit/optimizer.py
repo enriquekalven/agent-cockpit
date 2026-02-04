@@ -222,7 +222,8 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
                 ev_title = '[bold red]UPGRADE REQUIRED Evidence[/bold red]'
             ev_panel = Panel(f"🔗 [bold]Source[/bold]: {ev['source_url']}\n📅 [bold]Latest Release[/bold]: {ev['release_date'][:10]}\n📝 [bold]Note[/bold]: {ev['best_practice_context']}", title=ev_title, border_style='red' if ev.get('upgrade_required') else 'dim')
             console.print(ev_panel)
-            console.print(f"SOURCE: {opt.title} | {ev['source_url']} | {ev['best_practice_context'].replace('\\n', ' ')}")
+            bp_context = ev['best_practice_context'].replace('\n', ' ')
+            console.print(f"SOURCE: {opt.title} | {ev['source_url']} | {bp_context}")
         syntax = Syntax(opt.diff, 'python', theme='monokai', line_numbers=False)
         console.print(syntax)
         console.print(f'ACTION: {file_path}:1 | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})')

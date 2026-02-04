@@ -1,8 +1,4 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
 import json
 import os
 import urllib.request
@@ -32,6 +28,7 @@ def clean_version(v_str: str) -> str:
         return match.group(1)
     return v_str.strip().lstrip('v')
 
+@retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
 def fetch_latest_from_atom(url: str) -> Optional[Dict[str, str]]:
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
