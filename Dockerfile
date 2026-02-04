@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY pyproject.toml .
 COPY requirements.txt .
+COPY cockpit.yaml .
 RUN pip install -r requirements.txt
 
 COPY src/ ./src/
@@ -12,6 +13,6 @@ COPY src/ ./src/
 ENV PYTHONPATH=/app/src
 
 # Run mandatory AgentOps Audit during build
-RUN python src/agent_ops_cockpit/ops/orchestrator.py --mode quick
+RUN python -m agent_ops_cockpit.ops.orchestrator --mode quick
 
 CMD ["python", "src/agent_ops_cockpit/agent.py"]

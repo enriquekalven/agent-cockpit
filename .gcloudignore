@@ -5,3 +5,5 @@ dist/
 .dockerignore
 firebase.json
 *.log
+.venv/
+.agent/

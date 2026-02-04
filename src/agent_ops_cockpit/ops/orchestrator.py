@@ -288,7 +288,7 @@ class CockpitOrchestrator:
                         </span>
                     </div>
                     <div class="mascot-container">
-                        <img src="https://raw.githubusercontent.com/GoogleCloudPlatform/agent-starter-pack/main/docs/assets/kokpi.png" class="mascot" alt="Kokpi">
+                <img src="/kokpi_kun.png" class="mascot" alt="Kokpi">
                         <div class="mascot-name">KOKPI CERTIFIED</div>
                     </div>
                 </header>

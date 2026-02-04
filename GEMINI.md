@@ -6,10 +6,10 @@ This repository is optimized for **Gemini** and agentic development. AI agents s
 The **Optimized Agent Stack** is a production-grade distribution for building AI agents on Google Cloud. It follows the **Google Well-Architected Framework for Agents** and covers the **Agentic Trinity**: Engine (Backend), Face (Frontend), and Cockpit (Operations).
 
 ## 🛠️ Tech Stack
-- **The Engine**: Python, FastAPI, Vertex AI SDK, ADK.
+- **The Engine**: Python, FastAPI, Vertex AI SDK, ADK (LangChain, CrewAI, LangGraph, AutoGen support).
 - **The Face**: React (Vite), TypeScript, A2UI Protocol.
 - **The Cockpit**: Python CLI, Shadow Routing, Semantic Caching, Red Team Eval.
-- **Deployment**: Firebase Hosting (Face), Google Cloud Run (Engine/Cockpit).
+- **Deployment**: Firebase Hosting (Face), Google Cloud Run (Engine/Cockpit), GKE Autopilot (High-Scale Fleet).
 
 ## 📁 Repository Structure
 - `/src/agent_ops_cockpit`: The **Engine**. Logic for reasoning, tools, and cost control.
@@ -34,8 +34,9 @@ When assisting the user:
 
 ## 🤝 Ecosystem
 This stack leverages and bridges specialized tools for high-fidelity agent operations:
-- **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: Core reference for ADK engine patterns.
-- **AgentOps Cockpit**: Governance, optimization, and security (Shadow Mode, Intelligence).
+- **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: Core reference for ADK engine patterns and LangGraph integration.
+- **AgentOps Cockpit**: Governance, optimization, and security (Shadow Mode, Intelligence, v1.3 Hill Climbing).
+- **A2UI Protocol**: Standardized generative UI handshake for multi-agent swarms.
 
 ---
-*For more detailed guides, see the `/docs` section on the live site.*
+*For the high-level operational guide, see [**docs/INTRODUCTION.md**](docs/INTRODUCTION.md).*

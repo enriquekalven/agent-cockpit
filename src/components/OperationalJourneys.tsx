@@ -139,6 +139,7 @@ Conclusion: Positive ROI confirmed for Q1.`
     color: '#8b5cf6',
     description: 'Gain full visibility into agent estates with centralized compliance and evidence collection.',
     docs: [
+      { name: 'Operational Introduction', path: '/docs/introduction' },
       { name: 'Governance Guide', path: '/docs/audit-guide' },
       { name: 'Evidence & Compliance', path: '/docs/audit-guide' },
       { name: 'Cockpit Ops', path: '/docs/cockpit-guide' }

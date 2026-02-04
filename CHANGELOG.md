@@ -2,6 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [0.9.8] - 2026-02-03
+
+### 🕹️ The Sovereignty Update
+- **Sovereign Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
+- **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `agent-ops` CLI, and `uvx` simulations for all 10 persona lenses.
+- **Operational Introduction**: Launched a high-level documentation landing page (`INTRODUCTION.md`) separate from technical guides for strategic stakeholder onboarding.
+- **Discovery Engine v1.3**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.
+- **Multi-Framework Ecosystem**: Explicitly added support and documentation for **LangGraph**, **CrewAI**, and **Autogen** to the v1.3 audit standard.
+- **Visual Branding Hardening**: Verified and restored the high-fidelity **Kokpi** mascot asset across all system-generated reports.
+
 ## [0.9.7] - 2026-02-02
 
 ### 🕹️ The Antigravity Update

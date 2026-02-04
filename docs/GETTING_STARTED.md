@@ -59,6 +59,7 @@ The Cockpit now includes:
 - **Red Team v2**: Enhanced adversarial simulations for multilingual safety.
 
 ## 🏁 v1.3 Next Steps
+- [ ] **High-Level Overview**: Read the [**Operational Introduction**](INTRODUCTION.md).
 - [ ] **Lead Dev**: Integrate [**A2A Standards**](TECHNICAL_A2A_GUIDE.md).
 - [ ] **Security Lead**: Review [**Red Team Hardening**](TECHNICAL_REDTEAM_GUIDE.md).
 - [ ] **Ops Engineer**: Deploy to [**Google Cloud Run**](DEPLOYMENT.md).

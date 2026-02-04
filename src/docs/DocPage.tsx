@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import { useParams } from 'react-router-dom';
 
 const DOC_FILES: Record<string, string> = {
+  introduction: '/INTRODUCTION.md',
   readme: '/README.md',
   'getting-started': '/GETTING_STARTED.md',
   deployment: '/DEPLOYMENT.md',

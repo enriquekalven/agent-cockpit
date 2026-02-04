@@ -12,6 +12,7 @@ const PILLAR_NAV = [
   {
     title: '🚀 Mission Control & SME Matrix',
     items: [
+      { id: 'introduction', label: 'Operational Introduction', path: '/docs/introduction', icon: <BookOpen size={18} /> },
       { id: 'story', label: 'The Agentic Story', path: '/docs/story', icon: <BookOpen size={18} /> },
       { id: 'getting-started', label: 'Quickstart Guide', path: '/docs/getting-started', icon: <Rocket size={18} /> },
       { id: 'gemini', label: 'Gemini Context', path: '/docs/gemini', icon: <Cpu size={18} /> },
