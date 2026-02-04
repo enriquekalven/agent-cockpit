@@ -1,7 +1,7 @@
 # 🕹️ AgentOps Cockpit
 
 <div align="center">
-  <img src="public/assets/trinity.png" alt="AgentOps Cockpit Trinity" width="100%" />
+  <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
 </div>
 
 <div align="center">
@@ -126,6 +126,17 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 *   [**🧗 Quality**](docs/TECHNICAL_QUALITY_GUIDE.md)
 *   [**🌐 Infrastructure**](docs/TECHNICAL_INFRA_GUIDE.md)
 *   [**🎭 UX/UI**](docs/TECHNICAL_UX_GUIDE.md)
+
+<div align="center">
+  <img src="public/assets/persona_builder.png" width="32%" />
+  <img src="public/assets/persona_strategist.png" width="32%" />
+  <img src="public/assets/persona_guardian.png" width="32%" />
+</div>
+<div align="center">
+  <img src="public/assets/persona_controller.png" width="32%" />
+  <img src="public/assets/persona_visionary.png" width="32%" />
+  <img src="public/assets/workflow_v2.png" width="32%" />
+</div>
 
 ---
 

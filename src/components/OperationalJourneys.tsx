@@ -25,6 +25,7 @@ const JOURNEYS = [
       { name: 'Unit Test Evidence', path: '/compliance-evidence.md' }
     ],
     command: 'uvx agent-starter-pack create my-agent',
+    diagram: '/assets/persona_builder.png',
     output: `🚀 Creating new agent: my-agent
 📦 Initializing with Trinity Stack (FastAPI + React + ADK)
 ✅ Framework detected: Python 3.12, Node 20
@@ -49,6 +50,7 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Design Consensus Report', path: '/master-audit-report.html' }
     ],
     command: 'make apply-architecture',
+    diagram: '/assets/persona_strategist.png',
     output: `🏗️ Applying Well-Architected Patterns...
 🔍 Analyzing /src/backend for policy alignment
 ✅ Engine: Redundant Cloud Run deployment confirmed.
@@ -74,6 +76,7 @@ Infrastructure aligned with Google Well-Architected Framework.`
       { name: 'Policy Violation Log', path: '/compliance-evidence.md' }
     ],
     command: 'make red-team --target=agent-x',
+    diagram: '/assets/persona_guardian.png',
     output: `🛡️ Starting Adversarial Audit...
 🕵️ Testing Prompt Injection: [Attempt 01..15]
 ✅ Result: Sanitized (Blocked via Policy Engine)
@@ -99,6 +102,7 @@ Status: SECURE (Compliant with Enterprise Standard)`
       { name: 'Evidence Lake Export', path: '/compliance-evidence.md' }
     ],
     command: 'make audit-all',
+    diagram: '/assets/persona_controller.png',
     output: `🏛️ Global Agent Audit Initiated...
 📂 Scanning Workspace: enriquekalven/agent-cockpit
    - sales-agent: PASS (92% Score)
@@ -125,6 +129,7 @@ Estate Health: 98% Compliant.`
       { name: 'UX Readiness Scorecard', path: '/arch-review-report.html' }
     ],
     command: 'agent-ops --analyze-roi',
+    diagram: '/assets/persona_visionary.png',
     output: `📊 Analyzing Agent Performance & ROI...
 💰 Token usage: 48.2K saved (Semantic Cache hit rate: 64%)
 ⏱️ Latency: 2.1s avg reduction per turn.
@@ -217,6 +222,9 @@ export function OperationalJourneys() {
               </div>
 
               <div className="journey-visual">
+                <div className="persona-diagram-container">
+                  <img src={(activeJourney as any).diagram} alt={activeJourney.name} className="persona-diagram-img" />
+                </div>
                 <div className="terminal-container">
                   <div className="terminal-header">
                     <div className="terminal-dots">
@@ -446,7 +454,22 @@ export function OperationalJourneys() {
           opacity: 1;
           color: var(--text-primary);
         }
-
+ 
+        .persona-diagram-container {
+          margin-bottom: 2rem;
+          border-radius: 20px;
+          overflow: hidden;
+          border: 1px solid var(--border-color);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          background: var(--bg-color);
+        }
+ 
+        .persona-diagram-img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+ 
         .terminal-container {
           background: #0D0D0D;
           border-radius: 16px;

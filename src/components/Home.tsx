@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   Rocket, Shield, Activity, Cpu, Command,
   Terminal, ChevronRight, Github, ExternalLink,
-  Layers, Zap, Search, Globe, Lock, Server, CheckCircle
+  Layers, Zap, Search, Globe, Lock, Server, CheckCircle,
+  Copy
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { OperationalJourneys } from './OperationalJourneys';
@@ -180,6 +181,28 @@ export function Home() {
                 <Shield size={16} />
                 <span>100% Red Team Pass</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Command / Installation Bar */}
+      <section className="command-bar-section">
+        <div className="container">
+          <div className="command-box-wrapper">
+            <span className="command-label">Start with a single command</span>
+            <div className="command-command">
+              <code>uvx agent-ops report</code>
+              <button
+                className="copy-button"
+                onClick={() => {
+                  navigator.clipboard.writeText('uvx agent-ops report');
+                  // Optional: add a temporary toast or change icon here if needed
+                }}
+                title="Copy to clipboard"
+              >
+                <Copy size={20} />
+              </button>
             </div>
           </div>
         </div>
@@ -434,7 +457,7 @@ export function Home() {
             <h2 className="text-white">The Operational <span className="gradient-text">Safe-Build</span></h2>
           </div>
           <div className="workflow-visual-container">
-            <img src="/assets/workflow.png" alt="Operational Workflow" className="workflow-img" />
+            <img src="/assets/workflow_v2.png" alt="Operational Workflow" className="workflow-img" />
             <div className="workflow-overlay-text">
               Each cycle in the Cockpit goes through a multi-stage validation: Situational Audit → Conflict Guard → Quality Hill Climbing → Automated Red Teaming. <strong>Enforced via GitHub Actions on every PR.</strong>
             </div>
@@ -1250,7 +1273,92 @@ export function Home() {
           margin-right: auto;
           line-height: 1.6;
         }
-
+ 
+        /* Command Bar Styles */
+        .command-bar-section {
+          padding: 3rem 0;
+          margin-bottom: 2rem;
+        }
+        .command-box-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          padding: 1.5rem 3rem;
+          border-radius: 24px;
+          max-width: 1100px;
+          margin: 0 auto;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+          transition: all 0.3s ease;
+        }
+        .command-box-wrapper:hover {
+          border-color: var(--primary-color);
+          box-shadow: 0 20px 50px rgba(var(--primary-color-rgb), 0.1);
+        }
+        .command-label {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          letter-spacing: -0.01em;
+        }
+        .command-command {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          background: var(--bg-color);
+          padding: 0.75rem 2rem;
+          border-radius: 14px;
+          border: 1px solid var(--border-color);
+          min-width: 400px;
+          justify-content: space-between;
+        }
+        .command-command code {
+          font-family: var(--font-mono);
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+        .copy-button {
+          background: transparent;
+          border: none;
+          color: var(--text-secondary);
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 6px;
+          border-radius: 8px;
+        }
+        .copy-button:hover { 
+          color: var(--primary-color);
+          background: rgba(var(--primary-color-rgb), 0.1);
+          transform: scale(1.1);
+        }
+ 
+        @media (max-width: 1024px) {
+          .command-box-wrapper {
+            max-width: 90%;
+          }
+        }
+ 
+        @media (max-width: 768px) {
+          .command-box-wrapper {
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem;
+            text-align: center;
+          }
+          .command-command {
+            min-width: 100%;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
+          }
+          .command-command code {
+            font-size: 1rem;
+          }
+        }
       `}</style>
     </div>
   );
