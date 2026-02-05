@@ -29,3 +29,15 @@ def test_finops_context_caching():
     code = '"""' + "A" * 300 + '"""'
     issues = analyze_code(code)
     assert any(issue.id == "context_caching" for issue in issues)
+
+def test_context_engineering_tool_hardening():
+    """CFO/Reliability: Poka-Yoke for tool trajectories."""
+    code = "def process_tool(task_type: str):\n    pass"
+    issues = analyze_code(code, "agent.py")
+    assert any(issue.id == "tool_hardening" for issue in issues)
+
+def test_context_engineering_compaction():
+    """CFO: Context window efficiency for long threads."""
+    code = "class ChatSession:\n    def __init__(self):\n        self.history = []"
+    issues = analyze_code(code, "agent.py")
+    assert any(issue.id == "context_compaction" for issue in issues)

@@ -8,15 +8,12 @@ def setup_mock_agent(agent_dir):
     os.makedirs(agent_dir, exist_ok=True)
     agent_code = os.path.join(agent_dir, "agent.py")
     with open(agent_code, "w") as f:
-        f.write('''
-import asyncio
+        f.write('''import asyncio
 import aiohttp
 
 async def run_query(query):
-    # ACTION: Missing Timeout (Zombie Risk)
-    async with aiohttp.ClientSession() as session:
-        async with session.get("http://example.com") as resp:
-            return await resp.text()
+    # This is line 4
+    return await fetch_api_data(query)
 
 # ACTION: Hardcoded Secret
 API_KEY = "AIzaSyD-1234567890abcdefghijklmnopqrstuv"

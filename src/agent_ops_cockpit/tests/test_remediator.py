@@ -70,3 +70,31 @@ def test_save_idempotency(tmp_path):
     remediator2.save()
     
     assert saved_code == code_path.read_text()
+
+def test_apply_tool_hardening(tmp_path):
+    """Test injection of Literal and Poka-Yoke comment."""
+    code_path = tmp_path / "agent.py"
+    code_path.write_text("def my_tool(mode: str):\n    pass")
+    
+    finding = AuditFinding("Reliability", "Hardening", "Use Literal", "High", "High", line_number=1, file_path=str(code_path))
+    remediator = CodeRemediator(str(code_path))
+    remediator.apply_tool_hardening(finding)
+    remediator.save()
+    
+    content = code_path.read_text()
+    assert "from typing import Literal" in content
+    assert "POKA-YOKE" in content
+
+def test_apply_context_compaction(tmp_path):
+    """Test injection of compact_history strategy."""
+    code_path = tmp_path / "agent.py"
+    code_path.write_text("import os\n\nclass Agent:\n    pass")
+    
+    finding = AuditFinding("FinOps", "Compaction", "Add strategy", "Medium", "Medium", line_number=3, file_path=str(code_path))
+    remediator = CodeRemediator(str(code_path))
+    remediator.apply_context_compaction(finding)
+    remediator.save()
+    
+    content = code_path.read_text()
+    assert "def compact_history" in content
+    assert "limit: int=10" in content

@@ -49,6 +49,11 @@ The FinOps Principal evaluates your codebase across four primary economic pillar
 *   **Audit Logic**: Scans for missing **Exponential Backoff** (e.g., `tenacity`).
 *   **Business Impact**: Prevents wasted compute and "Financial Noise" from failed, non-retried requests.
 
+### 🌊 Context Engineering (Poka-Yoke)
+*   **Vector**: Detecting loosely-defined tools and unmanaged conversation histories.
+*   **Audit Logic**: Scans for missing `Literal` types in tool schemas and lacks of summarization strategies.
+*   **Business Impact**: **Stability & Token Optimization** (Trajectory preservation).
+
 #### 🌊 The Cost Waterfall (Visualized)
 
 ```mermaid

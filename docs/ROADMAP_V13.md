@@ -57,6 +57,7 @@ New HTML Executive Export features:
 | **Impact Waterfalls** | CEO / Board | ✅ v1.3 Export Active |
 | **Maturity Radar Charts** | Architect | 🛠️ In Design (Phase 3) |
 | **LSP Copilot (AST Squiggles)** | Developer | 🛠️ Planning (Phase 2) |
+| **Context Engineering (Poka-Yoke)** | FinOps / Reliability | ✅ Live (Tool Hardening / Compaction) |
 | **Financial Drift Alerts** | FinOps | 🛠️ Prototyping (Phase 4) |
 | **Master UVX Registry** | Automation | ✅ DEPLOYED (Portable Audits) |
 

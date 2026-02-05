@@ -55,6 +55,64 @@ class CodeRemediator:
         
         self.tree = TimeoutInjector().visit(self.tree)
 
+    def apply_caching(self, finding: AuditFinding):
+        """Injects ContextCacheConfig into Agent/App constructors."""
+        class CachingInjector(ast.NodeTransformer):
+            def visit_Call(self, node):
+                # Target Agent, App, or LlmAgent constructors
+                if isinstance(node.func, ast.Name) and node.func.id in ['Agent', 'App', 'LlmAgent']:
+                    # Check if context_cache_config is already there
+                    if not any(k.arg == 'context_cache_config' for k in node.keywords):
+                        cache_config = ast.Call(
+                            func=ast.Name(id='ContextCacheConfig', ctx=ast.Load()),
+                            args=[],
+                            keywords=[
+                                ast.keyword(arg='min_tokens', value=ast.Constant(value=2048)),
+                                ast.keyword(arg='ttl_seconds', value=ast.Constant(value=600))
+                            ]
+                        )
+                        node.keywords.append(ast.keyword(arg='context_cache_config', value=cache_config))
+                return node
+        
+        self.tree = CachingInjector().visit(self.tree)
+        
+        if "ContextCacheConfig" not in self.content:
+             import_node = ast.parse("from google.adk.agents.context_cache_config import ContextCacheConfig\n").body[0]
+             self.tree.body.insert(0, import_node)
+
+    def apply_tool_hardening(self, finding: AuditFinding):
+        """Injects Literal import and Poka-Yoke pattern for tool definitions."""
+        if "from typing import Literal" not in self.content:
+            import_node = ast.parse("from typing import Literal\n").body[0]
+            self.tree.body.insert(0, import_node)
+        
+        class ToolHardener(ast.NodeTransformer):
+            def visit_FunctionDef(self, node):
+                # Look for parameters that could benefit from Literals (categorical strings)
+                # and add a Poka-Yoke comment if it's the target line
+                if node.lineno == finding.line_number:
+                    node.body.insert(0, ast.Expr(value=ast.Constant(value="POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.")))
+                return node
+        
+        self.tree = ToolHardener().visit(self.tree)
+
+    def apply_context_compaction(self, finding: AuditFinding):
+        """Injects a skeleton Context Compaction strategy."""
+        compaction_code = """
+def compact_history(messages: list, limit: int = 10):
+    \"\"\"
+    Context Compaction Strategy (v1.3): 
+    Summarizes earlier turns or trims the window to maintain reasoning density.
+    \"\"\"
+    if len(messages) <= limit:
+        return messages
+    # Keep system prompt, keep last N messages
+    return [messages[0]] + messages[-(limit-1):]
+"""
+        compaction_node = ast.parse(compaction_code).body[0]
+        # Insert at the top of the file but after imports
+        self.tree.body.insert(1, compaction_node)
+
     def get_diff(self) -> str:
         """Returns a unified diff of the changes without saving to disk."""
         import difflib

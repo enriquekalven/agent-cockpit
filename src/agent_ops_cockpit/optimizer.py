@@ -140,6 +140,18 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
     if 'model' in content_lower and 'retry' not in content_lower and 'tenacity' not in content_lower:
         issues.append(OptimizationIssue('quota_management', 'Quota Management: Missing Backoff', 'HIGH', 'Resiliency & ROI', "High-volume model calls detected without Exponential Backoff. Failed requests due to rate-limiting represent wasted compute and broken ROI.", "+ @retry(wait=wait_exponential(multiplier=1, max=10))"))
 
+    # v1.3 Context Engineering (Workshop Alignment)
+    if 'tool' in content_lower or 'pydantic' in content_lower:
+        if 'literal' not in content_lower:
+            issues.append(OptimizationIssue('tool_hardening', 'Tool Schema Hardening (Poka-Yoke)', 'HIGH', 'Trajectory Stability', 'Your tool definitions lack strict type constraints. Using Literal types for categorical parameters prevents model hallucination and reduces invalid tool calls.', "+ from typing import Literal\n+ def my_tool(category: Literal['search', 'calc', 'email']): ..."))
+            
+    if 'history' in content_lower or 'messages' in content_lower or 'conversation' in content_lower:
+        if 'summary' not in content_lower and 'trim' not in content_lower and 'compact' not in content_lower:
+            issues.append(OptimizationIssue('context_compaction', 'Context Compaction Strategy', 'MEDIUM', '30% Latency Reduction', 'Long conversation history detected without a compaction or summarization strategy. This can lead to "Lost in the Middle" errors and increased token pressure.', "+ def compact_history(messages): ...Summarize earlier turns..."))
+
+    if ('Agent(' in content or 'LlmAgent(' in content) and 'context_cache_config' not in content:
+         issues.append(OptimizationIssue('adk_context_caching', 'Enable ADK Context Caching', 'HIGH', '90% cost savings', 'ADK Agent detected without context caching. Enable it to reduce token costs.', 'context_cache_config=ContextCacheConfig(min_tokens=2048)', package='google-adk'))
+
     return issues
 
 def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[str, Any]:

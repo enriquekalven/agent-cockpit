@@ -10,6 +10,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Load Tester**: Concurrency-based performance validation.
 - [x] **Quality Hill Climber**: Iterative prompt quality baselining.
 - [x] **One-Click GitHub Action**: A plug-and-play `.yml` to audit any agent repo on every PR.
+- [x] **Governance & Regression Framework**: Mandatory meta-tests and capabilities registry (v1.0.0).
 - [ ] **Agent Hub**: A registry of pre-built "Well-Architected" agent templates.
 
 ## 🚀 Phase 2: Intelligence & Scale (Quarter 2) - "Optimal Operations"

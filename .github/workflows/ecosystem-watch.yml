@@ -30,19 +30,24 @@ jobs:
 
       - name: 🔍 Run Ecosystem Watch
         id: watch
-        continue-on-error: true
         run: |
+          set +e
           # We use a temp file to capture the output for the issue body
           python src/agent_ops_cockpit/ops/watcher.py > watch_output.txt 2>&1
           EXIT_CODE=$?
+          set -e
+          
           echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
           cat watch_output.txt
           
           # If exit code is 2, it means updates were found
           if [ $EXIT_CODE -eq 2 ]; then
             echo "updates_found=true" >> $GITHUB_OUTPUT
-          else
+          elif [ $EXIT_CODE -eq 0 ]; then
             echo "updates_found=false" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Watcher failed with unexpected exit code $EXIT_CODE"
+            exit $EXIT_CODE
           fi
 
       - name: 🎫 Create Issue for Updates

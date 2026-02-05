@@ -9,7 +9,7 @@ resolution-markers = [
 
 [[package]]
 name = "agentops-cockpit"
-version = "0.9.9"
+version = "1.0.0rc1"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },

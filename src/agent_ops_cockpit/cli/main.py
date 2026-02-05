@@ -56,7 +56,7 @@ def report(
 
     if workspace:
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit...[/bold blue]")
-        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim)
+        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run)
         if not success:
              raise typer.Exit(code=3) # Fleet failure
     else:
