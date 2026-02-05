@@ -628,16 +628,29 @@ export const DocLayout: React.FC = () => {
           color: var(--text-secondary);
         }
 
-        @media (max-width: 1024px) {
-          .crew-sidebar { width: 240px; }
-          .crew-content { margin-left: 240px; padding: 3rem 2rem; }
-        }
-
         @media (max-width: 768px) {
-          .crew-sidebar { transform: translateX(-100%); width: 100%; }
+          .mobile-toggle { display: block; }
+          .nav-center { display: none; }
+          .nav-logo span { font-size: 0.9rem; }
+          .nav-logo span .text-secondary { display: none; }
+          .nav-right .nav-button-primary { padding: 0.4rem 0.75rem; font-size: 0.75rem; }
+          .nav-right .nav-icon-btn { display: none; }
+          
+          .crew-sidebar { 
+            transform: translateX(-100%); 
+            width: 280px; 
+            box-shadow: 20px 0 50px rgba(0,0,0,0.3);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
           .crew-sidebar.open { transform: translateX(0); }
           .crew-content { margin-left: 0; padding: 2rem 1.5rem; }
           .search-bar-container { display: none; }
+          
+          .content-footer {
+            flex-direction: column;
+            gap: 2rem;
+            align-items: flex-start;
+          }
         }
       `}</style>
     </div>

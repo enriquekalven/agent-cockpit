@@ -756,6 +756,18 @@ export function OperationalJourneys() {
             transform: translateY(-4px);
           }
         }
+
+        @media (max-width: 768px) {
+          .journeys-header h2 { font-size: 2rem; }
+          .journeys-header p { font-size: 1rem; }
+          .journeys-section { padding: 4rem 1rem; }
+          .journey-card { padding: 1.5rem; }
+          .journey-description-box h3 { font-size: 1.5rem; }
+          .persona-tab { width: 160px; padding: 0.5rem; }
+          .tab-avatar-container { width: 40px; height: 40px; }
+          .tab-name { font-size: 0.9rem; }
+          .tab-persona { font-size: 0.7rem; }
+        }
       `}</style>
     </section>
   );

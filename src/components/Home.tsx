@@ -72,7 +72,7 @@ export function Home() {
       <div className="release-banner">
         <div className="banner-content">
           <span className="banner-tag">STABLE v1.3.0</span>
-          <span className="banner-text"><b>Autonomous Architect SME:</b> Introducing v1.3 Context Engineering with Poka-Yoke Tool Hardening, Context Compaction, and absolute path synthesis.</span>
+          <span className="banner-text"><b>Antigravity v1.3:</b> Now fully Mobile-Hardened for iPhone viewports. Featuring autonomous remediation, GenUI readiness scoring, and the new uv-first Contribution Standard.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -1349,12 +1349,31 @@ export function Home() {
         }
  
         @media (max-width: 1024px) {
-          .command-box-wrapper {
-            max-width: 90%;
+          .hero-main {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 4rem 2rem;
+            gap: 3rem;
           }
+          .hero-description { margin: 0 auto 3rem auto; }
+          .hero-actions { justify-content: center; }
+          .hero-features-preview { justify-content: center; }
+          .command-box-wrapper { max-width: 90%; }
         }
  
         @media (max-width: 768px) {
+          .crew-home-nav { padding: 1rem; }
+          .nav-links { display: none; }
+          .hero-headline { font-size: 2.5rem; }
+          .hero-description { font-size: 1rem; }
+          .hero-visual-v2 { order: -1; scale: 0.8; margin-bottom: -2rem; }
+          .floating-stat { display: none; }
+          
+          .trinity-grid-v2 { grid-template-columns: 1fr; }
+          .capabilities-grid { grid-template-columns: 1fr; }
+          .frameworks-grid { gap: 0.5rem; justify-content: center; }
+          .framework-badge { padding: 0.4rem 1rem; font-size: 0.75rem; }
+          
           .command-box-wrapper {
             flex-direction: column;
             gap: 2rem;
@@ -1367,7 +1386,20 @@ export function Home() {
             padding: 0.75rem 1.5rem;
           }
           .command-command code {
-            font-size: 1rem;
+            font-size: 0.9rem;
+          }
+          .bg-dark-flow {
+            padding: 4rem 1.5rem;
+            margin: 0 1rem;
+            border-radius: 24px;
+          }
+          .workflow-img { border-radius: 12px; }
+          
+          .ecosystem-logos-container {
+            gap: 2rem;
+          }
+          .ecosystem-item-v2 span {
+            display: none;
           }
         }
       `}</style>

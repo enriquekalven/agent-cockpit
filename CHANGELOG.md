@@ -4,12 +4,15 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.3.0] - 2026-02-04
 
-### 🚀 The Autonomous Architect (Context Engineering Release)
+### 🚀 The Autonomous Architect (Antigravity Mobile-Hardened Release)
 - **Engine: Context Engineering (Poka-Yoke)**: New `ToolHardening` and `ContextCompaction` auditors. The remediator now injects `Literal` types and summarization skeletons to prevent reasoning drift.
+- **UX: Mobile Hardening Standard**: Fully adapted the Face layer (Home, Docs, Journeys) for iPhone and smartphone viewports. Introduced the "GenUI Readiness" score in the UI Auditor.
+- **Governance: Antigravity v1.3 Contribution Guide**: Overhauled `CONTRIBUTING.md` with uv-first setup, persona-based auditing standards, and the Autonomous Architect vision.
 - **Remediation: Autonomous Synthesis v1.3**: Upgraded AST patching to handle complex function signatures and absolute path resolution across partitioned workspaces.
 - **Operations: High-Fidelity Simulation (SIM)**: Hardened simulation mode to accurately mock multi-persona audit findings for CI/CD validation.
 - **Architecture: Global Path Normalization**: Fixed orchestrator path resolution to ensure auto-remediation correctly identifies target files in deep directory structures.
 - **Documentation: master v1.3 Refresh**: Full update of all technical guides (FinOps, UX, Architecture, Commands) to reflect autonomous evolution capabilities.
+- **Reliability: Master Regression Suite**: Verified 132 unit tests and 5 Persona-based Smoke Tests across the entire Command Trinity.
 
 ## [1.0.0] - 2026-02-04
 

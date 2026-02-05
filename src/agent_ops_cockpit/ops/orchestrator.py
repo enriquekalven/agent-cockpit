@@ -846,7 +846,8 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
             total_checks = 0
             passed_checks = 0
             for path, data in lake_data.items():
-                 if path == "global_summary": continue
+                 if path == "global_summary":
+                      continue
                  mod_results = data.get('results', {})
                  for check_name, check_data in mod_results.items():
                       total_checks += 1

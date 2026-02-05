@@ -134,6 +134,7 @@ export const DocHome: React.FC = () => {
           letter-spacing: -0.04em;
           margin-bottom: 1.5rem;
         }
+
         .doc-home-hero p {
           font-size: 1.25rem;
           color: var(--text-secondary);
@@ -250,7 +251,16 @@ export const DocHome: React.FC = () => {
           opacity: 1;
           transform: translateX(0);
         }
+
+        @media (max-width: 768px) {
+          .doc-home-hero h1 { font-size: 2.25rem; }
+          .doc-home-hero p { font-size: 1rem; margin-bottom: 2rem; }
+          .doc-home-hero { margin-bottom: 3rem; }
+          .quick-actions { flex-direction: column; }
+          .feature-tiles-grid { grid-template-columns: 1fr; }
+        }
       `}</style>
+
     </div>
   );
 };

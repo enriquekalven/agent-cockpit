@@ -348,6 +348,16 @@ export const ReportSamples: React.FC = () => {
             height: 500px;
           }
         }
+
+        @media (max-width: 768px) {
+          .report-samples-view { padding: 1rem; }
+          .samples-title-group h1 { font-size: 1.75rem; }
+          .samples-title-group p { font-size: 0.9rem; }
+          .samples-sidebar { padding: 1.25rem; }
+          .kokpi-mini-card { display: none; }
+          .preview-toolbar { padding: 1rem; flex-direction: column; gap: 1rem; align-items: flex-start; }
+          .preview-window { height: 400px; }
+        }
       `}</style>
     </div>
   );

@@ -30,6 +30,8 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     marketing_pattern = re.compile(r"og:image|meta\s+name=['\"]description['\"]|favicon|logo")
     hitl_pattern = re.compile(r"HumanInTheLoop|confirm|Approve|Reject|Gate")
     streaming_pattern = re.compile(r"Suspense|Stream|Markdown|chunk")
+    mobile_pattern = re.compile(r"@media\s*\(max-width:|max-width:\s*\d+px|viewport|flex-direction:\s*column")
+
 
     for root, dirs, files in os.walk(path):
         if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
@@ -90,6 +92,10 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                     if not streaming_pattern.search(content) and ("Chat" in file or "Thread" in file or "Log" in file):
                          findings.append({"line": 1, "issue": "Missing Streaming Resilience (Suspense/Stream)", "fix": "Implement Suspense or stream-aware handlers to prevent UI flickering during token rendering."})
 
+                    if not mobile_pattern.search(content) and ("Layout" in file or "Page" in file or "Home" in file or file.endswith(".css")):
+                         findings.append({"line": 1, "issue": "Missing Mobile Responsiveness (@media queries)", "fix": "Add media queries to handle mobile viewports (max-width: 768px)."})
+
+
                     if findings:
                         issues.append({"file": rel_path, "findings": findings})
 
@@ -105,8 +111,10 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
         "Missing Streaming Resilience": 10,
         "interactive component without triggers": 10,
         "Missing a11y labels": 10,
+        "Missing Mobile Responsiveness": 10,
         "Missing Legal/SEO": 5
     }
+
     
     total_deduction = 0
     unique_issues = set()

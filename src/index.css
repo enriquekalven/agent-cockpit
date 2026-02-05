@@ -66,6 +66,13 @@ body {
   gap: 2rem;
 }
 
+@media (max-width: 768px) {
+  .a2-surface {
+    padding: 1rem;
+    margin: 1rem auto;
+    gap: 1.5rem;
+  }
+}
 .a2-card {
   background: var(--surface-color);
   backdrop-filter: blur(20px);
@@ -94,6 +101,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 768px) {
+  .a2-h1 {
+    font-size: 2.25rem;
+  }
+}
 .a2-h2 {
   font-size: 1.75rem;
     font-weight: 700;
@@ -735,6 +747,12 @@ body {
     gap: 1rem;
 }
 
+@media (max-width: 768px) {
+  .chat-input-area {
+    padding: 1rem;
+    flex-direction: column;
+  }
+}
 .chat-input-area input {
   flex: 1;
   background: var(--bg-color);
@@ -1062,4 +1080,31 @@ body {
 /* Hero Headline Alignment */
 .hero-headline {
   display: block;
+}
+/* Global Mobile Fixes */
+@media (max-width: 768px) {
+  .ecosystem-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .glass-content {
+    padding: 2rem;
+    gap: 2.5rem;
+  }
+
+  .text-side h3 {
+    font-size: 1.75rem;
+  }
+
+  .doc-content-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .markdown-body h1 {
+    font-size: 2.5rem;
+  }
+
+  .app-header {
+    padding: 1rem;
+  }
 }

@@ -74,3 +74,27 @@ export const DocPage: React.FC = () => {
     </article>
   );
 };
+
+/* --- Mobile Responsiveness --- */
+const style = document.createElement('style');
+style.textContent = `
+  @media (max-width: 768px) {
+    .markdown-body {
+      padding: 0;
+    }
+    .markdown-body h1 {
+      font-size: 2.25rem;
+    }
+    .markdown-body h2 {
+      font-size: 1.5rem;
+    }
+    .markdown-body p {
+      font-size: 1rem;
+    }
+    .markdown-body pre {
+      padding: 1rem;
+      font-size: 0.8rem;
+    }
+  }
+`;
+document.head.appendChild(style);

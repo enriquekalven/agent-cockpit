@@ -109,7 +109,7 @@ scan-secrets:
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
-	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py $(TARGET)
+	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py audit $(TARGET)
 
 # 🔥 Red Team: Unleash self-hacking security audit
 
