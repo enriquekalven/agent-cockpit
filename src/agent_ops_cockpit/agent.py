@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Literal
 import uvicorn
 import asyncio
 import os
@@ -22,7 +22,7 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, 
 # least_privilege, restricted_tools, chunk, atomic
 
 class A2UIComponent(BaseModel):
-    type: str
+    type: Literal['Text', 'Card', 'Button', 'Image', 'List', 'StatBar', 'Surface']
     props: dict
     children: Optional[List['A2UIComponent']] = None
 
