@@ -71,8 +71,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.0.0</span>
-          <span className="banner-text"><b>Governance & Regression Framework:</b> Protecting core capabilities via the new Capabilities Registry, Meta-Test Guardrails, and Context-Aware AST Remediation.</span>
+          <span className="banner-tag">STABLE v1.3.0</span>
+          <span className="banner-text"><b>Autonomous Architect SME:</b> Introducing v1.3 Context Engineering with Poka-Yoke Tool Hardening, Context Compaction, and absolute path synthesis.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
