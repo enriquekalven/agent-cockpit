@@ -14,6 +14,25 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_compl
 console = Console()
 
 
+
+def detect_entry_point(path: str):
+    """Autodetection heuristic for agent entry points (Python, JS, Go)."""
+    priorities = [
+        "agent.py", "main.py", "__main__.py", "app.py", 
+        "index.ts", "index.js", "main.ts", "main.js", 
+        "main.go", "server.py", "worker.py"
+    ]
+    for p in priorities:
+        if os.path.exists(os.path.join(path, p)):
+            return p
+    
+    # Fallback: find any file with 'agent' or 'main' in name
+    for f in os.listdir(path):
+        if ("agent" in f.lower() or "main" in f.lower()) and f.endswith((".py", ".ts", ".js", ".go")):
+            return f
+    return "agent.py" # Default placeholder
+
+
 class Orchestrator:
     """
     Unified Orchestrator for the AgentOps Cockpit.
@@ -51,22 +70,7 @@ class Orchestrator:
                     pass
         return hasher.hexdigest()
 
-    def detect_entry_point(self, path: str):
-        """Autodetection heuristic for agent entry points (Python, JS, Go)."""
-        priorities = [
-            "agent.py", "main.py", "__main__.py", "app.py", 
-            "index.ts", "index.js", "main.ts", "main.js", 
-            "main.go", "server.py", "worker.py"
-        ]
-        for p in priorities:
-            if os.path.exists(os.path.join(path, p)):
-                return p
-        
-        # Fallback: find any file with 'agent' or 'main' in name
-        for f in os.listdir(path):
-            if ("agent" in f.lower() or "main" in f.lower()) and f.endswith((".py", ".ts", ".js", ".go")):
-                return f
-        return "agent.py" # Default placeholder
+
 
     def check_quota(self, estimated_tokens: int = 2000):
         """Simple token-bucket rate limiter for parallel LLM calls."""
@@ -738,7 +742,7 @@ def run_audit(
         base_mod = "agent_ops_cockpit"
 
         # ⚡ Autodetect Entry Point
-        entry_point = orchestrator.detect_entry_point(target_path)
+        entry_point = detect_entry_point(target_path)
         entry_point_path = os.path.join(target_path, entry_point)
 
         # 1. Essential "Safe-Build" Steps (Fast)
