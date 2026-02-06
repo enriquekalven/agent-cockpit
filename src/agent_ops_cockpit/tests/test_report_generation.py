@@ -71,3 +71,19 @@ def test_risk_scorecard_threshold(tmp_path):
         
     assert "Risk Alert" in content
     assert "Health score (83.3%) is below configured threshold (90%)" in content
+
+def test_centralized_artifact_storage(tmp_path):
+    """Verify that all report artifacts are saved in the .cockpit/ directory by default."""
+    os.chdir(tmp_path)
+    orch = CockpitOrchestrator()
+    orch.target_path = str(tmp_path)
+    # Don't manually set report paths, use defaults
+    
+    orch.results = {"Test": {"success": True, "output": ""}}
+    orch.generate_report()
+    
+    # Check default paths (relativized to tmp_path)
+    assert os.path.exists(".cockpit/cockpit_final_report.md")
+    assert os.path.exists(".cockpit/cockpit_report.html")
+    assert os.path.exists(".cockpit/cockpit_audit.sarif")
+    assert os.path.exists(".cockpit/evidence_lake.json")

@@ -20,7 +20,7 @@ def test_get_dir_hash(tmp_path):
 
 def test_evidence_lake_saving(tmp_path):
     """Verify that results are saved to the evidence lake."""
-    lake_file = tmp_path / "evidence_lake.json"
+    lake_file = tmp_path / ".cockpit" / "evidence_lake.json"
     # Mock current working directory to control where evidence_lake.json is created
     os.chdir(tmp_path)
     
@@ -43,12 +43,13 @@ def test_generate_fleet_dashboard(tmp_path):
     results = {"./agent1": True, "./agent2": False}
     
     # Create a dummy evidence lake to avoid errors
-    with open("evidence_lake.json", "w") as f:
+    os.makedirs(".cockpit", exist_ok=True)
+    with open(".cockpit/evidence_lake.json", "w") as f:
         json.dump({"global_summary": {"velocity": 5.0}}, f)
         
     generate_fleet_dashboard(results)
     
-    dashboard = tmp_path / "fleet_dashboard.html"
+    dashboard = tmp_path / ".cockpit" / "fleet_dashboard.html"
     assert dashboard.exists()
     content = dashboard.read_text()
     assert "AgentOps Fleet Flight Deck" in content

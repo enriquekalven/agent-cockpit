@@ -17,7 +17,7 @@ def test_partitioned_lake_saving(tmp_path):
     orch.save_to_evidence_lake(target_abs)
     
     agent_hash = hashlib.md5(target_abs.encode()).hexdigest()
-    partition_path = tmp_path / "evidence_lake" / agent_hash / "latest.json"
+    partition_path = tmp_path / ".cockpit" / "evidence_lake" / agent_hash / "latest.json"
     
     assert partition_path.exists()
     with open(partition_path, 'r') as f:

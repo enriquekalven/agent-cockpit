@@ -14,7 +14,7 @@ class DiscoveryEngine:
         "dist", "build", ".pytest_cache", ".mypy_cache", 
         "cockpit_artifacts", "cockpit_final_report_*.md", "cockpit_report.html",
         "evidence_lake", "evidence_lake.json", "cockpit_audit.sarif", "fleet_dashboard.html",
-        ".agent"
+        ".agent", ".cockpit"
     }
 
     def __init__(self, root_path: str = "."):
@@ -78,17 +78,22 @@ class DiscoveryEngine:
                 if threshold_match:
                     config["threshold"] = int(threshold_match.group(1))
 
-                # Parse exclude list
-                exclude_block = re.search(r"exclude:\s*\[(.*?)\]", content, re.DOTALL)
-                if exclude_block:
-                    items = exclude_block.group(1).split(",")
-                    config["exclude"] = [i.strip().strip("'\"") for i in items if i.strip()]
-                else:
-                    # Handle multi-line list
-                    exclude_block = re.search(r"exclude:\s*\n((?:\s*-\s*.+\n?)+)", content)
-                    if exclude_block:
-                        items = re.findall(r"^\s*-\s*(.+)$", exclude_block.group(1), re.MULTILINE)
-                        config["exclude"] = [i.strip().strip("'\"") for i in items]
+                # Helper for list parsing
+                def parse_list(key, text):
+                    # Inline [a, b]
+                    inline = re.search(fr"{key}:\s*\[(.*?)\]", text, re.DOTALL)
+                    if inline:
+                        items = inline.group(1).split(",")
+                        return [i.strip().strip("'\"") for i in items if i.strip()]
+                    # Multi-line - item
+                    multi = re.search(fr"{key}:\s*\n((?:\s*-\s*.+\n?)+)", text)
+                    if multi:
+                        items = re.findall(r"^\s*-\s*(.+)$", multi.group(1), re.MULTILINE)
+                        return [i.strip().strip("'\"") for i in items]
+                    return []
+
+                config["exclude"] = parse_list("exclude", content)
+                config["targets"] = parse_list("targets", content)
         except Exception:
             pass
         return config
@@ -133,7 +138,19 @@ class DiscoveryEngine:
         for pattern in user_excludes:
             if fnmatch.fnmatch(rel_path, pattern):
                 return True
+            # Handle directory patterns like 'legacy/*' matching 'legacy/old.py'
+            if pattern.endswith('/*') and rel_path.startswith(pattern[:-1]):
+                return True
+            if pattern.endswith('/') and rel_path.startswith(pattern):
+                return True
+            # Full directory match
+            if rel_path.startswith(pattern + os.sep):
+                return True
 
+        # 4. Check for template placeholders ({{...}})
+        if "{{" in rel_path and "}}" in rel_path:
+             return True # Ignore raw templates unless explicitly targeted
+             
         return False
 
     def walk(self, start_path: Optional[str] = None) -> Generator[str, None, None]:
@@ -163,7 +180,15 @@ class DiscoveryEngine:
     def find_agent_brain(self) -> str:
         """
         Identifies the core agent file using config, heuristics, and AST analysis.
+        v1.4: Supports multi-target discovery and template placeholder awareness.
         """
+        # Phase 0: Explicit Targets (Multi-entry point support)
+        if "targets" in self.config and self.config["targets"]:
+             # Return the first target as the primary "brain" for legacy reasons, 
+             # but orchestrator will now use targets[] if available.
+             candidate = os.path.join(self.root_path, self.config["targets"][0])
+             if os.path.exists(candidate):
+                  return candidate
         # Phase 1: Explicit Config
         if "entry_point" in self.config:
             candidate = os.path.join(self.root_path, self.config["entry_point"])

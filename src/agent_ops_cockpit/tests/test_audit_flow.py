@@ -40,7 +40,7 @@ def test_full_audit_flow_integration():
             # Verify Artifacts
             agent_abs = os.path.abspath('my_agent')
             agent_hash = hashlib.md5(agent_abs.encode()).hexdigest()
-            lake_json = os.path.join('evidence_lake', agent_hash, 'latest.json')
+            lake_json = os.path.join('.cockpit', 'evidence_lake', agent_hash, 'latest.json')
             
             assert os.path.exists(lake_json)
             with open(lake_json, 'r') as f:
@@ -90,7 +90,7 @@ def test_dry_run_does_not_modify_files():
             # Verify Artifacts to see if it even ran
             agent_abs = os.path.abspath('fix_me')
             agent_hash = hashlib.md5(agent_abs.encode()).hexdigest()
-            lake_json = os.path.join('evidence_lake', agent_hash, 'latest.json')
+            lake_json = os.path.join('.cockpit', 'evidence_lake', agent_hash, 'latest.json')
             
             with open(lake_json, 'r') as f:
                 data = json.load(f)

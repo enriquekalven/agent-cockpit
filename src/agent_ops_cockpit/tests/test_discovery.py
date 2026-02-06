@@ -52,7 +52,7 @@ def test_discovery_engine_gitignore(temp_workspace):
 def test_discovery_engine_cockpit_yaml(temp_workspace):
     with open(os.path.join(temp_workspace, "cockpit.yaml"), "w") as f:
         f.write("entry_point: 'custom/brain.py'\n")
-        f.write("exclude: ['legacy/**']\n")
+        f.write("exclude: ['legacy/*']\n")
         f.write("threshold: 85\n")
         
     os.makedirs(os.path.join(temp_workspace, "custom"))
@@ -94,3 +94,34 @@ def test_library_isolation_detection(temp_workspace):
     
     assert discovery.is_library_file(venv_file)
     assert not discovery.is_library_file(user_file)
+
+def test_discovery_engine_multi_targets(temp_workspace):
+    with open(os.path.join(temp_workspace, "cockpit.yaml"), "w") as f:
+        f.write("targets: ['src/main.py', 'app/agent.py']\n")
+        
+    os.makedirs(os.path.join(temp_workspace, "src"))
+    os.makedirs(os.path.join(temp_workspace, "app"))
+    with open(os.path.join(temp_workspace, "src/main.py"), "w") as f:
+        f.write("print('main')")
+    with open(os.path.join(temp_workspace, "app/agent.py"), "w") as f:
+        f.write("print('agent')")
+        
+    discovery = DiscoveryEngine(temp_workspace)
+    assert discovery.config["targets"] == ["src/main.py", "app/agent.py"]
+    # v1.4 logic: find_agent_brain returns the first target as the primary
+    assert discovery.find_agent_brain() == os.path.join(temp_workspace, "src/main.py")
+
+def test_template_placeholder_isolation(temp_workspace):
+    os.makedirs(os.path.join(temp_workspace, "templates/{{cookiecutter.name}}"))
+    with open(os.path.join(temp_workspace, "templates/{{cookiecutter.name}}/logic.py"), "w") as f:
+        f.write("import vertexai")
+    with open(os.path.join(temp_workspace, "real_agent.py"), "w") as f:
+        f.write("import vertexai")
+        
+    discovery = DiscoveryEngine(temp_workspace)
+    files = list(discovery.walk())
+    rel_files = [os.path.relpath(f, temp_workspace) for f in files]
+    
+    # Placeholders should be ignored by default to prevent "templated noise"
+    assert "templates/{{cookiecutter.name}}/logic.py" not in rel_files
+    assert "real_agent.py" in rel_files

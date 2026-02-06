@@ -37,8 +37,15 @@ class CockpitOrchestrator:
         self.completed_steps = 0
         self.workspace_results = {} # For fleet intelligence
         self.common_debt = {}
-        self.report_path = 'cockpit_final_report.md'
-        self.html_report_path = 'cockpit_report.html'
+        
+        # v1.4: Centralized Artifact Store
+        self.output_root = os.path.join(os.getcwd(), '.cockpit')
+        if not os.path.exists(self.output_root):
+             os.makedirs(self.output_root, exist_ok=True)
+             
+        self.report_path = os.path.join(self.output_root, 'cockpit_final_report.md')
+        self.html_report_path = os.path.join(self.output_root, 'cockpit_report.html')
+        self.lake_path = os.path.join(self.output_root, 'evidence_lake.json')
 
     def get_dir_hash(self, path: str):
         """Calculates a recursive hash of the directory contents for intelligent skipping."""
@@ -364,7 +371,7 @@ class CockpitOrchestrator:
         
         # --- [NEW] Executive Summary & Velocity ---
         target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
-        lake_path = "evidence_lake.json"
+        lake_path = self.lake_path
         prev_health = 0
         if os.path.exists(lake_path):
             try:
@@ -452,7 +459,7 @@ class CockpitOrchestrator:
 
     def save_to_evidence_lake(self, target_abs: str):
         # Improvement #2: Partitioned Evidence Lake
-        lake_root = 'evidence_lake'
+        lake_root = os.path.join(self.output_root, 'evidence_lake')
         if not os.path.exists(lake_root):
             os.makedirs(lake_root, exist_ok=True)
         
@@ -475,7 +482,7 @@ class CockpitOrchestrator:
             json.dump(data, f, indent=2)
             
         # Update legacy monolithic file for dashboard backward compatibility (minified)
-        lake_path = 'evidence_lake.json'
+        lake_path = self.lake_path
         fleet_data = {}
         if os.path.exists(lake_path):
              try:
@@ -495,8 +502,9 @@ class CockpitOrchestrator:
         for action in developer_actions:
             parts = action.split(' | ')
             if len(parts) == 3:
-                sarif["runs"][0]["results"].append({"ruleId": parts[1].replace(" ", "_").lower(), "message": {"text": parts[2]}, "locations": [{"physicalLocation": {"artifactLocation": {"uri": parts[0]}}}]})
-        with open('cockpit_audit.sarif', 'w') as f:
+                 sarif["runs"][0]["results"].append({"ruleId": parts[1].replace(" ", "_").lower(), "message": {"text": parts[2]}, "locations": [{"physicalLocation": {"artifactLocation": {"uri": parts[0]}}}]})
+        sarif_path = os.path.join(self.output_root, 'cockpit_audit.sarif')
+        with open(sarif_path, 'w') as f:
             json.dump(sarif, f, indent=2)
 
     def _generate_html_report(self, developer_actions, developer_sources):
@@ -642,7 +650,9 @@ class CockpitOrchestrator:
 
 def generate_fleet_dashboard(results: dict):
     """Generates a premium unified HTML dashboard with deep-link drilldowns."""
-    lake_path = "evidence_lake.json"
+    # Note: Orchestrator instance isn't directly passed here, 
+    # but we follow the .cockpit/ standard
+    lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
     fleet_data = {}
     if os.path.exists(lake_path):
         try:
@@ -753,7 +763,7 @@ def generate_fleet_dashboard(results: dict):
         # Link to report
         report_link = ""
         agent_hash = hashlib.md5(abs_target.encode()).hexdigest()
-        report_path = f"evidence_lake/{agent_hash}/report.html"
+        report_path = f".cockpit/evidence_lake/{agent_hash}/report.html"
         if os.path.exists(report_path):
              report_link = f'<a href="{report_path}" style="font-size: 0.8rem; color: #3b82f6; text-decoration: none; display: block; margin-top: 10px; font-weight: 600;">View Full Report &rarr;</a>'
 
@@ -774,11 +784,12 @@ def generate_fleet_dashboard(results: dict):
     </body>
     </html>
     """
-    with open("fleet_dashboard.html", "w") as f:
+    dashboard_path = os.path.join(os.getcwd(), '.cockpit', 'fleet_dashboard.html')
+    with open(dashboard_path, "w") as f:
         f.write(html)
-    console.print("📄 [bold blue]Unified Fleet Dashboard generated at fleet_dashboard.html[/bold blue]")
+    console.print(f"📄 [bold blue]Unified Fleet Dashboard generated at {dashboard_path}[/bold blue]")
 
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list = None, skip: list = None):
     orchestrator = CockpitOrchestrator()
     abs_path = os.path.abspath(target_path)
     orchestrator.target_path = abs_path
@@ -790,7 +801,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     agent_hash = hashlib.md5(abs_path.encode()).hexdigest()
     
     # Define unique report paths inside the lake for that agent
-    lake_agent_dir = os.path.join('evidence_lake', agent_hash)
+    lake_agent_dir = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash)
     os.makedirs(lake_agent_dir, exist_ok=True)
     
     orchestrator.report_path = os.path.join(lake_agent_dir, 'report.md')
@@ -809,7 +820,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
 
     # ⚡ Intelligent Skipping Logic (Improvement #2: Partitioned Lake)
     agent_hash = hashlib.md5(target_path.encode()).hexdigest()
-    partition_path = os.path.join('evidence_lake', agent_hash, 'latest.json')
+    partition_path = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash, 'latest.json')
     
     source_data = None
     if os.path.exists(partition_path):
@@ -818,9 +829,9 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 source_data = json.load(f)
         except Exception:
             pass
-    elif os.path.exists("evidence_lake.json"): # Fallback to legacy
+    elif os.path.exists(orchestrator.lake_path): # Fallback to legacy
         try:
-            with open("evidence_lake.json", 'r') as f:
+            with open(orchestrator.lake_path, 'r') as f:
                 source_data = json.load(f).get(target_path)
         except Exception:
             pass
@@ -839,9 +850,17 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     with Progress(SpinnerColumn(), TextColumn('[progress.description]{task.description}'), BarColumn(bar_width=None), TextColumn('[progress.percentage]{task.percentage:>3.0f}%'), console=console, expand=True) as progress:
         base_mod = 'agent_ops_cockpit'
         
-        # ⚡ Autodetect Entry Point
-        entry_point = orchestrator.detect_entry_point(target_path)
-        entry_point_path = os.path.join(target_path, entry_point)
+        # ⚡ Autodetect Entry Points (Recursive Intelligence)
+        targets = config.get("targets", []) if config else []
+        if not targets:
+             entry_point = orchestrator.detect_entry_point(target_path)
+             targets = [os.path.join(target_path, entry_point)]
+        else:
+             targets = [os.path.join(target_path, t) for t in targets]
+        
+        # Use primary target for optimizer for now, 
+        # but architecture/relability will scan the directory anyway
+        entry_point_path = targets[0]
 
         token_opt_args = [entry_point_path, '--no-interactive']
         if mode == 'quick':
@@ -865,6 +884,12 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         else:
             steps.append(('Red Team (Fast)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]))
         
+        # v1.4 Filtering: --only and --skip
+        if only:
+             steps = [s for s in steps if any(o.lower() in s[0].lower().replace(" ", "_") for o in only)]
+        if skip:
+             steps = [s for s in steps if not any(o.lower() in s[0].lower().replace(" ", "_") for o in skip)]
+
         # Improvement #5: Declarative sovereign filter
         excluded = config.get("exclude_checks", []) if config else []
         if excluded:
@@ -945,7 +970,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
 
     return orchestrator.get_exit_code()
 
-def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False, apply_fixes: bool = False, dry_run: bool = False):
+def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False, apply_fixes: bool = False, dry_run: bool = False, only: list = None, skip: list = None):
     """Fleet Orchestration: Scans workspace for agents and audits in parallel."""
     console.print(Panel(f"🛸 [bold blue]COCKPIT WORKSPACE MODE: FLEET ORCHESTRATION[/bold blue]\nScanning Root: [dim]{root_path}[/dim]", border_style="cyan"))
     from agent_ops_cockpit.ops.discovery import DiscoveryEngine
@@ -974,7 +999,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
     console.print(f"📡 [bold blue]Found {len(agents)} potential agents.[/bold blue]")
     results = {}
     with ProcessPoolExecutor(max_workers=5) as executor:
-        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run): a for a in agents}
+        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip): a for a in agents}
         for future in as_completed(future_map):
             agent_path = future_map[future]
             try:
@@ -985,7 +1010,7 @@ def workspace_audit(root_path: str = ".", mode: str = "quick", sim: bool = False
                 console.print(f"[red]💥 Error auditing {agent_path}: {e}[/red]")
 
     # Update Global Velocity in Evidence Lake (Granular Maturity)
-    lake_path = "evidence_lake.json"
+    lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
     if os.path.exists(lake_path):
         try:
             with open(lake_path, 'r') as f:

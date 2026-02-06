@@ -1,4 +1,5 @@
 import os
+from typing import Optional, List
 import shutil
 import subprocess
 from rich.console import Console
@@ -45,7 +46,9 @@ def report(
     sim: bool = typer.Option(False, '--sim', help="Run in simulation mode (Synthetic SME reasoning)"),
     public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)"),
     output_format: str = typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"),
-    dry_run: bool = typer.Option(False, '--dry-run', help="Simulate fixes without applying them (Dry Run Dashboard)")
+    dry_run: bool = typer.Option(False, '--dry-run', help="Simulate fixes without applying them (Dry Run Dashboard)"),
+    only: Optional[List[str]] = typer.Option(None, '--only', help="Only run specific categories (e.g. security, finops)"),
+    skip: Optional[List[str]] = typer.Option(None, '--skip', help="Skip specific categories")
 ):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
@@ -56,14 +59,16 @@ def report(
 
     if workspace:
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit...[/bold blue]")
-        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run)
+        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip)
         if not success:
              raise typer.Exit(code=3) # Fleet failure
     else:
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
-        # Improvement #5: Return the specific exit code from orchestrator
-        # We need to capture the orchestrator instance or use the returned code
-        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run)
+        exit_code = orch_mod.run_audit(
+             mode=mode, target_path=path, apply_fixes=apply_fixes, 
+             sim=sim, output_format=output_format, dry_run=dry_run,
+             only=only, skip=skip
+        )
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
@@ -190,47 +195,57 @@ def scan_secrets(path: str = typer.Argument(".", help="Directory to scan for sec
     secret_mod.scan(path)
 
 @app.command()
+def doctor():
+    """
+    Alias for 'diagnose'. Detailed system pre-flight check.
+    """
+    diagnose()
+
+@app.command()
 def diagnose():
     """
     Diagnose your AgentOps environment for common issues (Env vars, SDKs, Paths).
+    v1.4: Enhanced Auth Pre-checks and Artifact Visibility.
     """
-    console.print(Panel.fit('🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS (DOCTOR)[/bold blue]', border_style='blue'))
+    
+    # Check for .cockpit directory
+    cockpit_dir = os.path.join(os.getcwd(), '.cockpit')
+    has_cockpit = os.path.exists(cockpit_dir)
+
     table = Table(show_header=True, header_style='bold magenta')
     table.add_column('Check', style='cyan')
     table.add_column('Status', style='bold')
     table.add_column('Recommendation', style='dim')
+
+    # 1. GCP Auth Pre-check
     try:
         import google.auth
         _, project = google.auth.default()
-        table.add_row('GCP Project', f'[green]{project}[/green]', 'Active')
-    except Exception:
-        table.add_row('GCP Project', '[red]NOT DETECTED[/red]', "Run 'gcloud auth application-default login'")
-    pp = os.environ.get('PYTHONPATH', '')
-    if 'src' in pp:
-        table.add_row('PYTHONPATH', '[green]OK[/green]', 'Source tree visible')
-    else:
-        table.add_row('PYTHONPATH', '[yellow]WARNING[/yellow]', "Run 'export PYTHONPATH=$PYTHONPATH:src'")
-    keys = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'GOOGLE_API_KEY']
-    found_keys = [k for k in keys if os.environ.get(k)]
-    if found_keys:
-        table.add_row('LLM API Keys', f'[green]FOUND ({len(found_keys)})[/green]', f"Detected: {', '.join([k.split('_')[0] for k in found_keys])}")
-    else:
-        table.add_row('LLM API Keys', '[red]NONE[/red]', 'Ensure keys are in .env or exported')
-    if os.path.exists('src/a2ui') or os.path.exists('src/agent_ops_cockpit/agent.py'):
-        table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
-    else:
-        table.add_row('Trinity Structure', '[red]MISSING[/red]', 'Run from root of AgentOps project')
+        table.add_row('GCP Auth (ADC)', f'[green]PASSED ({project})[/green]', 'Authenticated')
+    except Exception as e:
+        table.add_row('GCP Auth (ADC)', '[red]REAUTHENTICATION NEEDED[/red]', "Run 'gcloud auth application-default login'")
 
-    # Registry Awareness (Improvement #1)
+    # 2. Artifact Store Visibility
+    if has_cockpit:
+        table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Sovereign data path OK')
+    else:
+        table.add_row('Artifact Store', '[yellow]NOT INITIALIZED[/yellow]', "Run 'agent-ops report' to bootstrap")
+
+    # 3. Registry & Network
     try:
         import urllib.request
         with urllib.request.urlopen(config.PUBLIC_PYPI_URL, timeout=2) as response:
             if response.status == 200:
-                table.add_row('Registry Access', '[green]PUBLIC PYPI[/green]', 'Connected')
-            else:
-                table.add_row('Registry Access', '[red]AUTH FAILED[/red]', "Run with --public or check VPN/Gcert")
+                table.add_row('Registry Access', '[green]CONNECTED[/green]', 'Public PyPI reachable')
     except Exception:
-        table.add_row('Registry Access', '[yellow]OFFLINE[/yellow]', "Check connectivity or use --public")
+        table.add_row('Registry Access', '[yellow]OFFLINE / RESTRICTED[/yellow]', "Check VPN or use --public")
+
+    # 4. Trinity Structure
+    if os.path.exists('src/agent_ops_cockpit/agent.py') or os.path.exists('src/a2ui'):
+         table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
+    else:
+         table.add_row('Trinity Structure', '[yellow]NON-STANDARD[/yellow]', 'Running from external agent home')
 
     console.print(table)
     console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops report' for a deep audit.[/bold blue]")
