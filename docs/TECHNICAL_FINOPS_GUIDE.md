@@ -3,15 +3,19 @@
 
 The `make optimizer-audit` and `make arch-review` (via PivotAuditor) commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
 
+### 💼 The Persona's Mandate
+The FinOps Principal doesn't just look at line items; they evaluate the **Unit Economics of Intelligence**. Their goal is to maximize **Reasoning Density**—the ratio of task completion quality over token expenditure—ensuring that every cent spent on inference generates measurable business value.
+
 ---
 
 ## 🏛️ Economic Lifecycle Commands
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make optimizer-audit` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. |
-| `make arch-review` | **Strategic Pivot Audit** | Recommends structural shifts (e.g., GPT-4 to Gemma2) to maximize ROI. |
-| `make audit` | **Financial Baseline** | Integrates FinOps projections into the daily consensus report. |
+| Command | Objective | Impact | Technical Implementation |
+| :--- | :--- | :--- | :--- |
+| `make optimizer-audit` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. | Uses `ast` to detect large prompt constants and `router` patterns. |
+| `make arch-review` | **Strategic Pivot Audit** | Recommends structural shifts (e.g., GPT-4 to Gemma2) to maximize ROI. | `PivotAuditor` heuristics for model-compute-protocol alignment. |
+| `make audit-deep` | **Master Cockpit Audit** | Runs "Hill Climbing" benchmarks to find the optimal cost-performance curve. | Executes `quality_climber.py` against golden datasets. |
+| `make apply-fixes` | **Auto-Remediation** | Triggers the `CodeRemediator` to inject caching and compaction patterns. | `CodeRemediator` AST injection of `@retry` and `ContextCacheConfig`. |
 
 ---
 
@@ -47,12 +51,51 @@ The FinOps Principal evaluates your codebase across four primary economic pillar
 ### 🚦 Quota Management (Rate-Limiting ROI)
 *   **Vector**: Detecting high-volume model calls lacking resiliency patterns.
 *   **Audit Logic**: Scans for missing **Exponential Backoff** (e.g., `tenacity`).
+*   **Auto-Remedy**: Automatically injects `@retry` decorators with profit-aligned wait strategies:
+    ```python
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+    async def call_llm(query): ...
+    ```
 *   **Business Impact**: Prevents wasted compute and "Financial Noise" from failed, non-retried requests.
 
 ### 🌊 Context Engineering (Poka-Yoke)
 *   **Vector**: Detecting loosely-defined tools and unmanaged conversation histories.
 *   **Audit Logic**: Scans for missing `Literal` types in tool schemas and lacks of summarization strategies.
+*   **Auto-Remedy**: Injects `compact_history` logic to maintain a fixed token window (Reasoning Density).
+    ```python
+    def compact_history(messages, limit=10):
+        # Keeps System Prompt + Sliding Window
+        return [messages[0]] + messages[-(limit-1):]
+    ```
 *   **Business Impact**: **Stability & Token Optimization** (Trajectory preservation).
+
+---
+
+## 🧗 Deep Dive: Quality Hill Climbing (v1.3)
+
+The v1.3 Cockpit introduces a mathematical approach to FinOps via the `QualityClimber`. Instead of guessing settings, we iteratively "climb" toward the peak of efficiency.
+
+### 📐 The Reasoning Density Metric
+The primary KPI for the FinOps persona is **Reasoning Density (RD)**:
+$$RD = \frac{QualityConsensusScore}{TokensUsed \times 10^{-3}}$$
+
+*   **Audit Process**: `make audit-deep` runs multiple iterations of your agent against a `golden_set.json`.
+*   **Optimization Gradient**: If an iteration increases RD without dropping the quality score below the threshold (default 0.9), it is considered a "Peak Step."
+*   **Peak Finding**: The system identifies the "Sweet Spot" where token expenditure is minimized before quality begins to plateau or regress.
+
+---
+
+## 🕵️ Architectural Pattern: Shadow Mode (Risk-Free Migration)
+
+When the `PivotAuditor` recommends a model switch (e.g., *GPT-4 → Gemini 1.5 Flash*), we use **Shadow Mode** to verify ROI and quality without risking production stability.
+
+### 🔄 The Shadow Router Pattern
+Implemented in `src/agent_ops_cockpit/shadow/router.py`, this pattern allows for "Dark Launches" of cost-optimized logic.
+
+1.  **Primary Path**: Production v1 (Safe, high-cost) executes and returns to the user.
+2.  **Shadow Path**: Optimized v2 (Experimental, low-cost) executes in the background.
+3.  **Comparison**: The Cockpit logs both outputs, latencies, and costs into the **Evidence Lake**.
+4.  **Graduation**: Once v2 achieves 98%+ parity with v1 at 70% lower cost, the FinOps Principal approves the promotion.
 
 #### 🌊 The Cost Waterfall (Visualized)
 
@@ -93,11 +136,12 @@ graph TD
 
 ---
 
-## 🔍 The v1.3 "Autonomous" Roadmap
-To push beyond "Top of Class," we are implementing **Dynamic OpEx Simulation**:
-*   **Synthetic Benchmarking**: `make bench-cost` will measure actual token consumption vs. predicted curves under load.
+## 🔍 The v1.3 "Antigravity" Roadmap
+To push beyond "Top of Class," we are now utilizing **Hill Climbing Contextualization**:
+*   **Auto-Remediation Engine**: The v1.3 Cockpit doesn't just find leaks; `make apply-fixes` patches them via AST-based injection of caching and compaction.
+*   **Stack-Ranked Audits**: FinOps is now a Tier-2 priority in the Master Report summary (Security > Reliability > Architecture > **FinOps**).
+*   **Hill Climbing Benchmarks**: `make audit-deep` identifies the "sweet spot" where model temperature and token distribution yield the lowest cost per successful task completion.
 *   **Sovereignty Exit Projections**: Automated analysis of switching to open-source (Gemma 2 on GKE) vs. managed APIs.
-*   **Break-even Analysis**: "Switching this specific reasoning loop to Gemma 2 will increase infra OpEx but reduce token OpEx. Break-even: 4.2M requests."
 
 ---
 

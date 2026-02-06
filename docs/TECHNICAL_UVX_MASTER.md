@@ -5,6 +5,9 @@ This document provides a consolidated reference for all **`uvx`** commands avail
 
 The primary package is **`agentops-cockpit`**, which exposes the **`agent-ops`** and **`agent-ops-cockpit`** binaries.
 
+### ⚙️ The Portability Engine
+Unlike standard CLI tools, the AgentOps `uvx` distribution uses **Binary Shimming**. This allows the tool to execute in an isolated environment with its own dependencies (e.g., specific versions of `ast`, `tenacity`, and `vertexai`) without polluting the host's global Python space.
+
 ---
 
 ## 🏗️ Master Orchestration
@@ -96,17 +99,17 @@ Initialize new projects and push to Google Cloud.
 uvx --from agentops-cockpit agent-ops report --mode deep
 ```
 
-## 🛡️ Registry Resilience & Failover (Antigravity Standard)
-If you encounter a **401 Unauthorized** error during `uvx` (common in environments with private but expired registries), use the **Public Failover** syntax:
+## 🛡️ Registry Resilience & Failover Logic (Antigravity v1.3)
+If you encounter a **401 Unauthorized** error during `uvx` (common in environments with private but expired registries), the Cockpit implements a **Logic-Based Failover**.
+
+### ⚙️ How it works:
+1.  **Detection**: The `orchestrator.py` captures `stderr` for 401/403 responses from private indices.
+2.  **Synthesis**: It automatically reconstructs the `uvx` command with a `UV_INDEX_URL` override to `https://pypi.org/simple`.
+3.  **Bypass**: This ensures CI/CD pipelines don't break when a private artifact registry (like Google Artifact Registry) has a token expiry during an audit run.
 
 ```bash
-# Explicitly use Public PyPI to bypass authenticated private registries
+# Manual Override:
 UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report
-```
-
-Or using the `--index` flag (if available in your `uv` version):
-```bash
-uvx --index https://pypi.org/simple agentops-cockpit report
 ```
 
 ---

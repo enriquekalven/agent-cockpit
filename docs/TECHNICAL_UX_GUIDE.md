@@ -7,11 +7,11 @@ The `make ui-audit` command activates the **UX/UI Principal Designer** persona. 
 
 ## 🛠️ UX Lifecycle Commands
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make ui-audit` | **GenUI Component Scan**| Scans React/TS code for `surfaceId` mapping and A2UI triggers. |
-| `make smoke-test` | **Interactive Journey** | Validates the "Face" logic during E2E persona journey simulations. |
-| `make audit` | **UX Baseline** | Includes a summary of Face Auditor findings in the daily board report. |
+| Command | Objective | Impact | Technical Driver |
+| :--- | :--- | :--- | :--- |
+| `make ui-audit` | **GenUI Component Scan**| Scans React/TS code for `surfaceId` mapping and A2UI triggers. | `ui_auditor.py` (React AST parser) |
+| `make smoke-test` | **Interactive Journey** | Validates the "Face" logic during E2E persona journey simulations. | `cypress` / `playwright` (Mocked) |
+| `make audit` | **UX Baseline** | Includes a summary of Face Auditor findings in the daily report. | `audit.py` Integration |
 
 ---
 
@@ -19,44 +19,35 @@ The `make ui-audit` command activates the **UX/UI Principal Designer** persona. 
 
 The UX Principal evaluates your frontend architecture across four critical GenUI pillars:
 
-### 1. 🪞 Surface Mapping (`surfaceId`)
-*   **Vector**: Detecting components that lack explicit A2UI surface identifiers.
-*   **Audit Logic**: Scans for `surfaceId` or `surface-id` props. This ensures the **Engine** (Brain) knows exactly which visual surface to trigger for a specific tool output.
-*   **Strategic Risk**: **UI Drift**. Without surface mapping, the agent cannot push visual updates to the user proactively.
+### 1. 🤝 The A2UI Handshake (Surface Mapping)
+*   **The "Brain-to-UI" Protocol**: The `A2UIProtocol` defines how the **Engine** requests a specific **Face** surface.
+*   **Implementation**: Using `A2UIRegistry.registerComponent('summary-card', SummaryCard)`, the developer creates a "Surface Address" that the Brain can target via JSON responses:
+    ```json
+    {
+      "action": "RENDER_SURFACE",
+      "surfaceId": "summary-card",
+      "data": { ... }
+    }
+    ```
+*   **Audit Logic**: The Face Auditor scans for components lacking a `data-surface-id` or explicit registry entry.
 
-### ⏳ "Thinking" Feedback (Skeleton/Spinner)
-*   **Vector**: Identifying pages or views that lack loading states or skeleton screens.
-*   **Audit Logic**: Scans for `Skeleton`, `Loading`, or `Spinner` components in page-level files.
-*   **Strategic Risk**: **User Abandonment**. Complex LLM reasoning can take 5s-10s; without "Thinking" feedback, users perceive the system as "broken."
+### ⏳ 2. Cognitive Latency Cues (Visualized Thinking)
+*   **Vector**: Identifying "Dark Intervals" where the agent is reasoning but the user has no feedback.
+*   **Implementation**: The Auditor recommends the **Skeleton Waterfall** pattern. Instead of a single spinner, it encourages partial data reveals as the agent completes sub-tasks.
+*   **Metric**: **Time to Visual Confirmation (TTVC)**—The goal is <500ms for a "Thinking" state reveal, even if the result takes 10s.
 
-### 🔗 A2UIRegistry Integrity
-*   **Vector**: Checking if specialized components are properly registered with the centralized A2UI Hub.
-*   **Audit Logic**: Verifies usage of `A2UIRegistry.registerComponent()`.
-*   **Strategic Risk**: **Fragmented Interaction**. Unregistered components cannot be targeted by autonomous agent actions.
-
-### ♿ Accessibility & i18n Guardrails
-*   **Vector**: Ensuring interactive components (buttons/inputs) have appropriate `aria-label` or `alt` tags.
-*   **Audit Logic**: Scans for a11y attributes in interactive elements.
-*   **Strategic Risk**: **Compliance Breach**. Enterprise-grade agents must be inclusive and accessible to all users.
-
-### 🤝 Human-in-the-Loop (HITL) Gating
-*   **Vector**: Identifying high-impact or destructive actions that lack explicit user confirmation.
-*   **Audit Logic**: Detects absence of `confirm`, `Approve`, or `Gate` components for sensitive tools.
-*   **Strategic Risk**: **Autonomous Liability**. Actions with financial or data impact must be gated by a human "Submit" surface.
-
-### 🌊 Streaming Resilience
-*   **Vector**: Ensuring the UI can handle token-by-token streaming without flickering or blocking.
-*   **Audit Logic**: Scans for `Suspense` boundaries and stream-aware handlers.
-*   **Strategic Risk**: **UX Fragmentation**. Flicker-prone interfaces break the "Live Thought" illusion.
+### 🛡️ 3. HITL Gating & Action Sovereignty
+*   **Vector**: Detecting "Dangerous" tools (e.g., `delete_database`, `send_payment`) that execute without a UI confirmation.
+*   **Implementation**: High-impact tools must be mapped to a **Gated Surface**. The A2UI Protocol mandates a `status: "PENDING_APPROVAL"` phase for these tools, requiring a manual human `onclick`.
 
 #### 🏗️ The GenUI Dispatch Flow (Visualized)
 
 ```mermaid
 graph LR
-    Brain[Agent Brain] -->|Tool Output| Protocol[A2UI Protocol]
+    Brain[Agent Brain] -->|A2UI JSON| Protocol[Shadow Dispatcher]
     Protocol -->|surfaceId| Hub[A2UI Registry]
     Hub -->|component| Screen[User Viewport]
-    Screen -->|onTrigger| Brain
+    Screen -->|Human Approval| Brain
     style Protocol fill:#f96,stroke:#333
     style Screen border:double,fill:#3b82f6,color:#fff
 ```

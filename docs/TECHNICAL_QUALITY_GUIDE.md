@@ -7,11 +7,11 @@ The `make quality-baseline` command activates the **AI Quality SME**. In v1.3, t
 
 ## 🛠️ Quality Lifecycle Commands
 
-| Command | Objective | Impact |
-| :--- | :--- | :--- |
-| `make quality-baseline` | **Iterative Optimization**| Runs the **Hill Climbing** loop against the Golden Dataset. |
-| `make simulation-run` | **Reasoning Load** | (v1.3) Validates if quality holds up under high-concurrency pressure. |
-| `make audit-deep` | **Final Examination** | Incorporates quality metrics into the master board report. |
+| Command | Objective | Impact | Technical Driver |
+| :--- | :--- | :--- | :--- |
+| `make quality-baseline` | **Iterative Optimization**| Runs the **Hill Climbing** loop against the Golden Dataset. | `quality_climber.py` (Hill Climbing SME) |
+| `make simulation-run` | **Reasoning Load** | Validates if quality holds up under pressure. | `swarm.py` (Adversarial Load Engine) |
+| `make audit-deep` | **Final Examination** | Incorporates quality metrics into the master report. | `orchestrator.py` Synthesis |
 
 ---
 
@@ -32,7 +32,7 @@ The `make quality-baseline` command activates the **AI Quality SME**. In v1.3, t
 ### 1. 🛑 "Negative Golden Sets"
 *   **Logic**: Include a dataset of queries the agent **must refuse**. Hill Climbing will penalize any variant that attempts to answer "toxic" or "out-of-scope" prompts.
 
-### � 2. Context-Window Efficiency
+### 2. Context-Window Efficiency
 *   **Metric**: **"Token Efficiency of Thought"**. If two prompt variants yield the same quality peak, the auditor selects the one that consumes fewer context-window tokens.
 
 ---
@@ -66,7 +66,17 @@ graph TD
 ---
 
 ## 🧗 The Hill Climbing Mechanics
-The "Peak Discovery" process transforms the **Reasoning Space** into a measurable landscape. The auditor identifies "Local Peaks" and pushes the agent toward the **Global Peak** across the entire Golden Dataset, ensuring robust generalization.
+
+The "Peak Discovery" process transforms the **Reasoning Space** into a measurable landscape. 
+
+### ⚙️ The Gradient Search Space
+The `QualityClimber` defines the search space across several hyperparameters:
+1.  **System Prompt Variants**: Generated via a mutation loop that adjusts "Reasoning Directives" (e.g., "Think step-by-step" vs. "Atomic response").
+2.  **Trajectory Alignment**: The system audits the **Step-by-Step Tool Trace**. If the agent reaches the correct answer but skips a mandatory retrieval step, it is penalized for a "Lucky Guess."
+3.  **Consensus Judging**: A **Committee of Judges** (using `quality_climber.py`'s `QualityJudge` class) averages scores across multiple reasoning models to eliminate single-model bias.
+
+### 📐 Key Metric: Trajectory Stability
+Measured as the variance in tool-calling sequences across 10 identical runs. High variance indicates a "Fragile Prompt" that will likely fail in production.
 
 ---
 

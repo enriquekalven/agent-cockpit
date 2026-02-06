@@ -3,6 +3,13 @@
 
 The `make arch-review` (via InteropAuditor) command activates the **Agent Architect SME**. This persona specializes in **Agentic Interoperability (A2X)**, ensuring that your agent doesn't exist in a vacuum. It forces alignment with the industry's emerging standards: **MCP**, **A2UI**, **UCP**, and **AP2**.
 
+| Protocol | Purpose | Implementation Detail |
+| :--- | :--- | :--- |
+| **MCP** | Tool Governance | Standardizes tool discovery via `mcp_hub.py`. |
+| **A2UI** | Visual Handshake | Maps tool outputs to specific React surfaces (`surfaceId`). |
+| **UCP** | Universal Context | Ensures long-term memory is portable across LLM providers. |
+| **AP2** | Agent Protocol v2 | Standardizes JSON-Schema for inter-agent delegation. |
+
 ---
 
 ## 🏛️ SME Critique: The Interop Standard (v1.3)
@@ -22,23 +29,23 @@ The `make arch-review` (via InteropAuditor) command activates the **Agent Archit
 The Interop Principal evaluates your architecture across four critical "A2X" pillars:
 
 ### 1. 🛠️ Tool Interop (MCP Protocol)
-*   **Vector**: Detecting legacy REST or raw `subprocess` tools that lack standard governance.
-*   **Audit Logic**: Scans for **Model Context Protocol (MCP)** implementation.
+*   **The MCP Hub**: Instead of point-to-point tool calls, the Cockpit encourages a hub-and-spoke model.
+*   **Implementation**: Tools are exposed via an MCP-compliant server (`src/agent_ops_cockpit/ops/mcp_hub.py`), providing a standard `/list_tools` and `/call_tool` interface.
 *   **Strategic ROI**: Unified tool discovery. Any MCP-native agent can consume your tools securely.
 
 ### 2. 🎭 Experience Interop (A2UI / AGUI)
-*   **Vector**: Identifying "Dumb Responses" (raw HTML/Strings) that break visual continuity.
-*   **Audit Logic**: Verifies **A2UI Surface Mapping** and **AGUI (Agentic GUI)** framework alignment.
-*   **Strategic ROI**: Enables **Push-based GenUI**, where the agent proactively updates the user's viewport.
+*   **The Handshake**: The agent brain includes a `surfaceId` in its tool-call metadata.
+*   **Implementation**: The `A2UIRegistry` maps these IDs to specific frontend components, enabling the agent to "drive" the UI.
+*   **Strategic ROI**: Enables **Push-based GenUI**, where the agent proactively updates the user's viewport without a page refresh.
 
 ### 3. 🤝 Context Interop (UCP / AP2)
-*   **Vector**: Detecting ad-hoc context passing (dictionary bloat) instead of standardized headers.
-*   **Audit Logic**: Checks for **UCP (Universal Context Protocol)** or **AP2** compliance.
-*   **Strategic ROI**: Prevents vendor/framework lock-in. Move agents between providers without losing long-term context.
+*   **Surgical State Deltas**: Instead of passing the entire history, AP2 allows agents to pass only the "delta" of relevant state.
+*   **Implementation**: Standardized JSON-Schema payloads ensure that a LangGraph agent can delegate a sub-task to a CrewAI agent without loss of intent.
+*   **Strategic ROI**: Prevents vendor/framework lock-in.
 
 ### 4. 📉 Logic Interop (Termination & Chatter)
 *   **Vector**: Detecting "Chatter Bloat" (passing 100k tokens when 10 will do) and recursive loops.
-*   **Audit Logic**: Scans for **Surgical State Deltas** and self-referencing call cycles.
+*   **Audit Logic**: Scans for **Self-Referencing Call Cycles** and enforces "Max-Hops" policies in the Cockpit.
 *   **Strategic ROI**: Prevents **Infinite Spend Loops** and minimizes the "Inter-Agent Tax" on latency.
 
 ---

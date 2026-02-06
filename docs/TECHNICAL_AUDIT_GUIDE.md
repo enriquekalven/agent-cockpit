@@ -32,13 +32,31 @@ graph TD
 
 ## 🛠️ Audit Lifecycle Commands
 
-| Command | Mode | Persona Focus | Impact |
+| Command | Mode | Persona Focus | Technical Implementation |
 | :--- | :--- | :--- | :--- |
-| `make audit` | **Evaluation** | Dev-velocity: Secrets, Reliability, and Fast Security. | **Build Gate** |
-| `make audit-deep` | **Deep Probe** | The "Final Examination": Stress tests, benchmarks, and iterative optimization. | **Prod Ready** |
-| `make arch-review`| **Evolution** | v1.0: **Context-Aware Patching** via LLM Synthesis. | **Auto-Hardening** |
-| `make simulation-run`| **Digital Twin**| v1.0: 100+ Adversarial User Agents stress-test reasoning.| **Stability Proof** |
-| `make bench-cost` | **Economics** | v1.0: Synthetic request simulation for predicted OpEx. | **Margin Baseline** |
+| `make audit` | **Evaluation** | Dev-velocity: Secrets, Reliability, and Fast Security. | Orchestrates `secret_scanner.py` and `reliability.py` (Mode: Quick). |
+| `make audit-deep` | **Deep Probe** | The "Final Examination": Stress tests, benchmarks, and iterative optimization. | Triggers full evaluation suite including `red_team.py` and `load_test.py`. |
+| `make arch-review`| **Evolution** | v1.3: **Context-Aware Patching** via LLM Synthesis. | Leverages `arch_review.py` and `remediator.py` for AST-based evolution. |
+| `make simulation-run`| **Digital Twin**| v1.3: 100+ Adversarial User Agents stress-test reasoning.| Parallelized execution of `swarm.py` utilizing the `ShadowRouter`. |
+| `make bench-cost` | **Economics** | v1.3: Synthetic request simulation for predicted OpEx. | Executes `benchmarker.py` against pricing matrices in `cost_optimizer.py`. |
+
+---
+
+## 🛰️ Fleet Intelligence & The Evidence Lake (v1.3)
+
+In v1.3 "Antigravity," auditing moves from a single-file scan to **Fleet-Wide Governance**. Every audit result is persisted in the **Evidence Lake**, enabling cross-agent benchmarking.
+
+### 📜 The Evidence Bridge Protocol
+The **Evidence Bridge** (`src/agent_ops_cockpit/ops/evidence_bridge.py`) serves as the "Common Language" between the specialized SMEs. It captures:
+1.  **SDK Citations**: Direct links to Google Cloud / ADK documentation for best practice verification.
+2.  **Maturity Velocity**: A trend metric tracking if an agent is becoming more compliant or regressing over time.
+3.  **Poka-Yoke Metadata**: Hardened schema definitions extracted from the AST during the audit.
+
+### 🛸 The Fleet Flight Deck (Dashboard)
+The `fleet_dashboard.html` provides a Board-Ready visualization of the entire estate:
+*   **Drill-Down Evidence**: Clicking an agent reveals the raw "Evidence Bridge" citations.
+*   **Maturity Scoring**: Agents are ranked by their compliance with the 5 Trinity Pillars.
+*   **Fixability Index**: Identifies agents where `make apply-fixes` can achieve immediate 90%+ compliance.
 
 👉 **[View Master Command Registry (All Personas)](docs/TECHNICAL_COMMANDS_MASTER.md)**
 

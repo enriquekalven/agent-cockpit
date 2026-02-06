@@ -134,16 +134,170 @@ class CockpitOrchestrator:
         'Red Team (Fast)': '🏗️ Hard (Model/Prompt)'
     }
 
+    def generate_executive_summary(self, developer_actions, as_html=False):
+        """v1.3 Synthesis: Generates a prioritized stack-rank of finding categories."""
+        if not developer_actions:
+            msg = "✅ **SME Verdict**: All governance gates APPROVED. No critical blockers detected."
+            return f"<p style='color:#16a34a; font-weight:600;'>{msg.replace('**', '')}</p>" if as_html else [msg]
+            
+        # Group by priority
+        groups = {0: [], 1: [], 2: [], 3: [], 4: []}
+        
+        def priority_key(action):
+            p = action.lower()
+            if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
+                return 0
+            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
+                return 1
+            if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach', 'bloat']):
+                return 2
+            if any(x in p for x in ['finops', 'roi', 'caching', 'optimization']):
+                return 3
+            return 4
+
+        for action in developer_actions:
+            groups[priority_key(action)].append(action)
+            
+        if as_html:
+            summary = ["<div class='executive-summary-content'>"]
+            headers = {
+                0: ("#ef4444", "Priority 1: 🔥 Critical Security & Compliance"),
+                1: ("#f59e0b", "Priority 2: 🛡️ Reliability & Resilience"),
+                2: ("#3b82f6", "Priority 3: 🏗️ Architectural Alignment"),
+                3: ("#10b981", "Priority 4: 💰 FinOps & ROI Opportunities"),
+                4: ("#64748b", "Priority 5: 🎭 Experience & Refinements")
+            }
+            
+            for p_val in range(5):
+                if groups[p_val]:
+                    color, label = headers[p_val]
+                    summary.append(f"<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid {color}; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>")
+                    summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.9rem; text-transform:uppercase;'>{label}</h4>")
+                    unique_findings = []
+                    seen = set()
+                    for a in groups[p_val]:
+                        parts = a.split(' | ')
+                        if len(parts) >= 2 and parts[1] not in seen:
+                            unique_findings.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{parts[1]}</strong>: {parts[2] if len(parts) > 2 else ''}</div>")
+                            seen.add(parts[1])
+                        if len(unique_findings) >= 3: break
+                    summary.extend(unique_findings)
+                    summary.append("</div>")
+            summary.append("</div>")
+            return "\n".join(summary)
+        else:
+            summary = ["## 👔 Principal SME Executive Summary (Stack-Ranked)"]
+            summary.append("Findings are prioritized by Business Impact & Blast Radius.")
+            
+            headers = {
+                0: "### 🟥 Priority 1: 🔥 Critical Security & Compliance (Action Required)",
+                1: "### 🟨 Priority 2: 🛡️ Reliability & Resilience (Stability)",
+                2: "### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)",
+                3: "### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)",
+                4: "### ⬜ Priority 5: 🎭 Experience & Minor Refinements"
+            }
+            
+            for p_val in range(5):
+                if groups[p_val]:
+                    summary.append(f"\n{headers[p_val]}")
+                    unique_findings = []
+                    seen = set()
+                    for a in groups[p_val]:
+                        parts = a.split(' | ')
+                        if len(parts) >= 2 and parts[1] not in seen:
+                            unique_findings.append(f"- **{parts[1]}**: {parts[2] if len(parts) > 2 else ''}")
+                            seen.add(parts[1])
+                        if len(unique_findings) >= 3: break
+                    summary.extend(unique_findings)
+            return summary
+
+    def print_terminal_v13_summary(self, developer_actions):
+        """v1.3 Terminal Output: Key Findings, Executive Summary, & Recommendations."""
+        def priority_key(action):
+            p = action.lower()
+            if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
+                return 0
+            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
+                return 1
+            if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach', 'bloat', 'spaghetti']):
+                return 2
+            if any(x in p for x in ['finops', 'roi', 'caching', 'optimization', 'margin']):
+                return 3
+            return 4
+
+        groups = {0: [], 1: [], 2: [], 3: [], 4: []}
+        for action in developer_actions:
+            groups[priority_key(action)].append(action)
+
+        # 1. Executive Summary Panel
+        health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
+        status_color = "green" if health_score >= 80 else "yellow" if health_score >= 50 else "red"
+        
+        summary_text = f"Audit Health: [bold {status_color}]{health_score:.1f}%[/bold {status_color}]\n"
+        if health_score == 100:
+            summary_text += "✨ [bold green]Governance standard met. Agent is production-ready.[/bold green]"
+        else:
+            blocker_count = sum(1 for r in self.results.values() if not r['success'])
+            summary_text += f"🚩 [bold red]Risk Alert:[/bold red] {blocker_count} SME Gates rejected. Strategic remediation recommended."
+
+        console.print(Panel(summary_text, title="👔 Principal SME Executive Summary", border_style="blue"))
+
+        # 2. Key Findings & Recommendations Table
+        findings_table = Table(title="🔍 Key Findings & Tactical Recommendations", show_header=True, header_style="bold magenta", expand=True)
+        findings_table.add_column("Category", style="cyan", width=20)
+        findings_table.add_column("Issue Flagged", style="white")
+        findings_table.add_column("🚀 Recommendation", style="green")
+
+        categories = {
+            0: "🔥 Security",
+            1: "🛡️ Reliability",
+            2: "🏗️ Architecture",
+            3: "💰 FinOps",
+            4: "🎭 Experience"
+        }
+
+        for p_val, cat_name in categories.items():
+            if groups[p_val]:
+                seen = set()
+                for action in groups[p_val]:
+                    parts = action.split(' | ')
+                    if len(parts) >= 3 and parts[1] not in seen:
+                        findings_table.add_row(cat_name, parts[1], parts[2])
+                        seen.add(parts[1])
+                    if len(seen) >= 3: # Limit to Top 3 per category for terminal clarity
+                        break
+                findings_table.add_section()
+
+        if findings_table.rows:
+            console.print(findings_table)
+        else:
+            console.print("\n✅ [bold green]No critical findings. All architectural gates approved.[/bold green]")
+
     def generate_report(self):
         title = getattr(self, 'title', 'Audit Report')
         report = [
             f'# 🏁 AgentOps Cockpit: {title}',
             f'**Timestamp**: {self.timestamp}',
             f"**Status**: {('✅ PASS' if all((r['success'] for r in self.results.values())) else '❌ FAIL')}",
-            '\n---',
-            '\n## 🧑‍💼 Principal SME Persona Approvals',
-            'Each pillar of your agent has been reviewed by a specialized SME persona.'
+            '\n---'
         ]
+        
+        # Extract developer actions for summary
+        developer_actions = []
+        developer_sources = []
+        for name, data in self.results.items():
+            if data['output']:
+                for line in data['output'].split('\n'):
+                    if 'ACTION:' in line:
+                        developer_actions.append(line.replace('ACTION:', '').strip())
+                    if 'SOURCE:' in line:
+                        developer_sources.append(line.replace('SOURCE:', '').strip())
+
+        # --- [NEW] v1.3 Executive Summary at Top ---
+        report.extend(self.generate_executive_summary(developer_actions))
+        report.append('\n---')
+        report.append('\n## 🧑‍💼 Principal SME Persona Approvals')
+        report.append('Each pillar of your agent has been reviewed by a specialized SME persona.')
         
         persona_table = Table(title='🏛️ Persona Approval Matrix', show_header=True, header_style='bold blue')
         persona_table.add_column('SME Persona', style='cyan')
@@ -151,8 +305,6 @@ class CockpitOrchestrator:
         persona_table.add_column('Verdict', style='bold')
         persona_table.add_column('Remediation', style='dim')
         
-        developer_actions = []
-        developer_sources = []
         for name, data in self.results.items():
             status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
             persona = self.PERSONA_MAP.get(name, '👤 Automated Auditor')
@@ -162,13 +314,6 @@ class CockpitOrchestrator:
             effort_str = f" [Remediation: {effort}]" if not data['success'] else ""
             report.append(f'- **{persona}** ([{name}]): {status}{effort_str}')
             
-            if data['output']:
-                for line in data['output'].split('\n'):
-                    if 'ACTION:' in line:
-                        developer_actions.append(line.replace('ACTION:', '').strip())
-                    if 'SOURCE:' in line:
-                        developer_sources.append(line.replace('SOURCE:', '').strip())
-
         # --- [NEW] Multi-Phase Action Plan Optimization ---
         if developer_actions:
             report.append('\n## 🚀 Step-by-Step Implementation Guide')
@@ -179,11 +324,11 @@ class CockpitOrchestrator:
                 p = action.lower()
                 if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
                     return 0
-                if any(x in p for x in ['reliability', 'unit test', 'failure']):
+                if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
                     return 1
-                if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach']):
+                if any(x in p for x in ['architecture', 'policy', 'rejection', 'breach', 'bloat']):
                     return 2
-                if any(x in p for x in ['finops', 'roi', 'caching', 'resiliency']):
+                if any(x in p for x in ['finops', 'roi', 'caching', 'optimization']):
                     return 3
                 return 4
                 
@@ -267,6 +412,7 @@ class CockpitOrchestrator:
         report.append('\n\n*Generated by the AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard).*')
 
         console.print('\n', persona_table)
+        self.print_terminal_v13_summary(developer_actions)
         with open(self.report_path, 'w') as f:
             f.write('\n'.join(report))
         self._generate_html_report(developer_actions, developer_sources)
@@ -414,7 +560,9 @@ class CockpitOrchestrator:
 
                 <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #e2e8f0;">
                     <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#64748b;">Board-Level Executive Summary</h3>
-                    <p style="margin-bottom:0; font-size:1.05rem;">The following audit was performed by a parallelized array of <strong>Principal SME Personas</strong>. This "Safe-Build" standard ensures that the {getattr(self, 'title', 'Agent')} meets the <strong>Google Well-Architected Framework</strong> requirements for security, reliability, and cost-efficiency.</p>
+                    <div style="font-size:1.05rem;">
+                        {self.generate_executive_summary(developer_actions, as_html=True)}
+                    </div>
                 </div>
 
                 <h2>🧑‍💼 Principal SME Persona Approval Matrix</h2>
