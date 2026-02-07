@@ -1,0 +1,39 @@
+{
+  "target_path": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit",
+  "timestamp": "2026-02-06 16:52:59",
+  "hash": "fdef06b925d767ec6728d1d837a20c4e",
+  "results": {
+    "Secret Scanner": {
+      "success": true,
+      "output": "\ud83d\udea9 Hardcoded Secret Detected (agent.py:10)\n   Variable 'API_KEY' appears to contain a hardcoded credential.\n   ACTION: agent.py:10 | Google API Key | Hardcoded secret"
+    },
+    "Face Auditor": {
+      "success": true,
+      "output": "\u2705 MOCK OK"
+    },
+    "Architecture Review": {
+      "success": true,
+      "output": "ACTION: agent.py:4 | Mock Resiliency | Add retry logic"
+    },
+    "Red Team (Fast)": {
+      "success": true,
+      "output": "\u2705 MOCK OK"
+    },
+    "Token Optimization": {
+      "success": true,
+      "output": "\u2705 MOCK OK"
+    },
+    "Policy Enforcement": {
+      "success": true,
+      "output": "\u2705 MOCK OK"
+    },
+    "Reliability (Quick)": {
+      "success": true,
+      "output": "ACTION: agent.py:4 | Mock Timeout | Add timeout to async call"
+    }
+  },
+  "summary": {
+    "passed": true,
+    "health": 1.0
+  }
+}

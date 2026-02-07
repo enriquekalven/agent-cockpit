@@ -2,6 +2,13 @@
 
 All notable changes to the **Agent Optimizer** will be documented in this file.
 
+## [1.3.4] - 2026-02-06
+
+### 🛠️ Version Parity & Summary Injection
+- **Versioning**: Synchronized internal `Config.VERSION` with PyPI package versioning for better traceability.
+- **Reporting**: Guaranteed terminal summary injection for all audit paths, ensuring TLDR and prioritized recommendations are always visible.
+- **CLI**: Added version tracking to the main audit header to verify stack maturity at runtime.
+
 ## [1.3.3] - 2026-02-06
 
 ### 📊 The Reporting Clarity (Antigravity v1.3.3 Release)

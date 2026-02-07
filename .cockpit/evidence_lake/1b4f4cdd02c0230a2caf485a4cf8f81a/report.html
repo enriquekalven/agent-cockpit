@@ -1,0 +1,191 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Principal SME Audit: QUICK SAFE-BUILD</title>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');
+                body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f1f5f9; }
+                .report-card { background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }
+                
+                /* Professional Mode Toggle */
+                .mode-toggle { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
+                #prof-mode-checkbox { cursor: pointer; }
+                body.prof-mode .report-card { border-top: 8px solid #1e3a8a; border-radius: 8px; }
+                body.prof-mode h1 { font-family: 'Georgia', serif; letter-spacing: 0; }
+
+                header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }
+                
+                h1 { color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }
+                h2 { color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+                
+                .status-badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }
+                .pass { background: #dcfce7; color: #166534; }
+                .fail { background: #fee2e2; color: #991b1b; }
+                .warning { background: #fef9c3; color: #854d0e; }
+
+                table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }
+                th, td { text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }
+                th { background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+                
+                .persona-table th { background: #f0f9ff; color: #0369a1; }
+                .risk-text { font-size: 0.8rem; color: #64748b; font-style: italic; }
+
+                code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }
+                pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }
+                
+                .footer { margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }
+            </style>
+        </head>
+        <body>
+            <div class="report-card">
+                <div class="mode-toggle">
+                    <label for="prof-mode-checkbox">Professional Mode</label>
+                    <input type="checkbox" id="prof-mode-checkbox" onchange="document.body.classList.toggle('prof-mode')">
+                </div>
+
+                <header>
+                    <div>
+                        <h1>🏛️ SME Executive Review</h1>
+                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Protocol: QUICK SAFE-BUILD</p>
+                        <span class="status-badge pass">
+                            Consensus: APPROVED
+                        </span>
+                    </div>
+                </header>
+
+                <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#64748b;">Board-Level Executive Summary</h3>
+                    <div style="font-size:1.05rem;">
+                        <div class='executive-summary-content'>
+<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>
+<h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: PASSED</h3>
+<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>100.0%</strong> | Active Risks: <strong>0</strong></p>
+</div>
+<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #ef4444; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
+<h4 style='margin:0 0 10px 0; color:#ef4444; font-size:0.9rem; text-transform:uppercase;'>Priority 1: 🔥 Critical Security & Compliance</h4>
+<div style='font-size:0.95rem; margin-bottom:4px;'><strong>Google API Key</strong>: Hardcoded secret</div>
+</div>
+<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #f59e0b; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
+<h4 style='margin:0 0 10px 0; color:#f59e0b; font-size:0.9rem; text-transform:uppercase;'>Priority 2: 🛡️ Reliability & Resilience</h4>
+<div style='font-size:0.95rem; margin-bottom:4px;'><strong>Mock Resiliency</strong>: Add retry logic</div>
+</div>
+<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #64748b; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
+<h4 style='margin:0 0 10px 0; color:#64748b; font-size:0.9rem; text-transform:uppercase;'>Priority 5: 🎭 Experience & Refinements</h4>
+<div style='font-size:0.95rem; margin-bottom:4px;'><strong>Mock Timeout</strong>: Add timeout to async call</div>
+</div>
+</div>
+                    </div>
+                </div>
+
+                <h2>🧑‍💼 Principal SME Persona Approval Matrix</h2>
+                <table class="persona-table">
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Priority</th>
+                            <th>Primary Business Risk</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🔐 SecOps Principal</td>
+                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
+                    <td class="risk-text">Credential Leakage & Unauthorized Access</td>
+                    <td>Secret Scanner</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🎭 UX/UI Principal Designer</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
+                    <td class="risk-text">A2UI Protocol Drift</td>
+                    <td>Face Auditor</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🏛️ Principal Platform Engineer</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
+                    <td class="risk-text">Systemic Rigidity & Technical Debt</td>
+                    <td>Architecture Review</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🚩 Security Architect</td>
+                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
+                    <td class="risk-text">Adversarial Jailbreaking</td>
+                    <td>Red Team (Fast)</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">💰 FinOps Principal Architect</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
+                    <td class="risk-text">FinOps Efficiency & Margin Erosion</td>
+                    <td>Token Optimization</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">⚖️ Governance & Compliance SME</td>
+                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
+                    <td class="risk-text">Prompt Injection & Reg Breach</td>
+                    <td>Policy Enforcement</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🛡️ QA & Reliability Principal</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P2</span></td>
+                    <td class="risk-text">Failure Under Stress & Latency spikes</td>
+                    <td>Reliability (Quick)</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            </tbody></table>
+                <h2>🛠️ Developer Action Plan</h2>
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th>Location (File:Line)</th>
+                            <th>Issue Detected</th>
+                            <th>Recommended Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td><code>agent.py:10</code></td>
+                            <td>Google API Key</td>
+                            <td style="color: #059669; font-weight: 600;">Hardcoded secret</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>agent.py:4</code></td>
+                            <td>Mock Resiliency</td>
+                            <td style="color: #059669; font-weight: 600;">Add retry logic</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>agent.py:4</code></td>
+                            <td>Mock Timeout</td>
+                            <td style="color: #059669; font-weight: 600;">Add timeout to async call</td>
+                        </tr>
+                    </tbody></table>
+                <h2>🔍 Audit Evidence</h2>
+        <h3>Secret Scanner</h3><pre>🚩 Hardcoded Secret Detected (agent.py:10)
+   Variable 'API_KEY' appears to contain a hardcoded credential.
+   ACTION: agent.py:10 | Google API Key | Hardcoded secret</pre><h3>Face Auditor</h3><pre>✅ MOCK OK</pre><h3>Architecture Review</h3><pre>ACTION: agent.py:4 | Mock Resiliency | Add retry logic</pre><h3>Red Team (Fast)</h3><pre>✅ MOCK OK</pre><h3>Token Optimization</h3><pre>✅ MOCK OK</pre><h3>Policy Enforcement</h3><pre>✅ MOCK OK</pre><h3>Reliability (Quick)</h3><pre>ACTION: agent.py:4 | Mock Timeout | Add timeout to async call</pre>
+                <div class="footer">
+                    Generated by AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard). 
+                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.
+                </div>
+            </div>
+        </body>
+        </html>
+        

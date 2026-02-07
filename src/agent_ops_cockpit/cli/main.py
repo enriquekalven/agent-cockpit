@@ -59,12 +59,12 @@ def report(
         console.print("🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]")
 
     if workspace:
-        console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit...[/bold blue]")
+        console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]")
         success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip)
         if not success:
              raise typer.Exit(code=3) # Fleet failure
     else:
-        console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit...[/bold blue]")
+        console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]")
         exit_code = orch_mod.run_audit(
              mode=mode, target_path=path, apply_fixes=apply_fixes, 
              sim=sim, output_format=output_format, dry_run=dry_run,

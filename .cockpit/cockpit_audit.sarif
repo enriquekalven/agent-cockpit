@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AgentOps Cockpit"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "google_api_key",
+          "message": {
+            "text": "Hardcoded secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "agent.py:10"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "mock_resiliency",
+          "message": {
+            "text": "Add retry logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "agent.py:4"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "mock_timeout",
+          "message": {
+            "text": "Add timeout to async call"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "agent.py:4"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
