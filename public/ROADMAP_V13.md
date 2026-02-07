@@ -55,6 +55,8 @@ New HTML Executive Export features:
 | **Cross-Framework Bridge** | Architect | ✅ Standardized (A2X/A2UI) |
 | **Strategic Exit TCO** | CFO | ✅ Implementation (ROI Metrics) |
 | **Impact Waterfalls** | CEO / Board | ✅ v1.3 Export Active |
+| **Agentic Safety Mode (Git)** | Developer | ✅ Live (GPG Bypass) |
+| **Automated Surface Discovery** | UX/UI | ✅ Live (`withSurfaceDiscovery`) |
 | **Maturity Radar Charts** | Architect | 🛠️ In Design (Phase 3) |
 | **LSP Copilot (AST Squiggles)** | Developer | 🛠️ Planning (Phase 2) |
 | **Context Engineering (Poka-Yoke)** | FinOps / Reliability | ✅ Live (Tool Hardening / Compaction) |
