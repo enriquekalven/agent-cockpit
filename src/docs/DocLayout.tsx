@@ -94,7 +94,7 @@ export const DocLayout: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <div className="crew-docs-layout">
+    <div className="crew-docs-layout" data-surface-id="docs-layout-surface">
       {/* Search Header - Fixed */}
       <nav className="crew-top-nav">
         <div className="top-nav-left">

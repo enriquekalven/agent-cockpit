@@ -53,7 +53,7 @@ export function Home() {
   }, []);
 
   return (
-    <div className="crew-home">
+    <div className="crew-home" data-surface-id="home-surface">
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">

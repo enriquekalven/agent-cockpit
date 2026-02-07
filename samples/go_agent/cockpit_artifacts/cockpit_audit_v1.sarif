@@ -87,7 +87,7 @@
           "ruleId": "optimization:_go_native_concurrency",
           "level": "warning",
           "message": {
-            "text": "Optimization: Go Native Concurrency: Leveraging Goroutines"
+            "text": "Optimization: Go Native Concurrency: Leveraging"
           },
           "locations": [
             {
@@ -106,7 +106,7 @@
           "ruleId": "optimization:_implement_semantic_caching",
           "level": "warning",
           "message": {
-            "text": "Optimization: Implement Semantic Caching: No caching layer"
+            "text": "Optimization: Implement Semantic Caching: No"
           },
           "locations": [
             {
@@ -125,7 +125,7 @@
           "ruleId": "optimization:_implement_exponential_backoff",
           "level": "warning",
           "message": {
-            "text": "Optimization: Implement Exponential Backoff: Your agent calls"
+            "text": "Optimization: Implement Exponential Backoff: Your"
           },
           "locations": [
             {
@@ -144,7 +144,7 @@
           "ruleId": "optimization:_add_session_tracking",
           "level": "warning",
           "message": {
-            "text": "Optimization: Add Session Tracking: No session tracking"
+            "text": "Optimization: Add Session Tracking: No session"
           },
           "locations": [
             {
@@ -163,7 +163,7 @@
           "ruleId": "architecture_gap:_concurrency",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Concurrency: Leverages Go's performance for multi-agent"
+            "text": "Architecture Gap: Concurrency: Leverages Go's performance for"
           },
           "locations": [
             {
@@ -182,7 +182,7 @@
           "ruleId": "architecture_gap:_validation",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Validation: Standard for ensuring engine-face protocol"
+            "text": "Architecture Gap: Validation: Standard for ensuring engine-face"
           },
           "locations": [
             {
@@ -201,7 +201,7 @@
           "ruleId": "architecture_gap:_tracing",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Tracing: Mandatory for observability in complex Go agents."
+            "text": "Architecture Gap: Tracing: Mandatory for observability in complex Go"
           },
           "locations": [
             {

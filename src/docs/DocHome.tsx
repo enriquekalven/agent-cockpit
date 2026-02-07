@@ -69,7 +69,7 @@ export const DocHome: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="doc-home-v2">
+    <div className="doc-home-v2" data-surface-id="docs-home-surface">
       <header className="doc-home-hero">
         <div className="accent-pill">Documentation Hub</div>
         <h1>Welcome to the <span className="gradient-text">Cockpit</span></h1>

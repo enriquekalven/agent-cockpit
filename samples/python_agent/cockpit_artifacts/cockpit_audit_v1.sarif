@@ -57,7 +57,7 @@
           "ruleId": "architecture_gap:_reasoning",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal Agentic Loop."
+            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal"
           },
           "locations": [
             {
@@ -76,7 +76,7 @@
           "ruleId": "architecture_gap:_state",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: State: Ensures session continuity even in custom stacks."
+            "text": "Architecture Gap: State: Ensures session continuity even in custom"
           },
           "locations": [
             {
@@ -114,7 +114,7 @@
           "ruleId": "architecture_gap:_safety",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Safety: Basic security hygiene for any AI application."
+            "text": "Architecture Gap: Safety: Basic security hygiene for any AI"
           },
           "locations": [
             {
@@ -133,7 +133,7 @@
           "ruleId": "architecture_gap:_reasoning",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal Agentic Loop."
+            "text": "Architecture Gap: Reasoning: Detected Structural Pattern: Universal"
           },
           "locations": [
             {
@@ -152,7 +152,7 @@
           "ruleId": "architecture_gap:_state",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: State: Ensures session continuity even in custom stacks."
+            "text": "Architecture Gap: State: Ensures session continuity even in custom"
           },
           "locations": [
             {
@@ -190,7 +190,7 @@
           "ruleId": "architecture_gap:_safety",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Safety: Basic security hygiene for any AI application."
+            "text": "Architecture Gap: Safety: Basic security hygiene for any AI"
           },
           "locations": [
             {

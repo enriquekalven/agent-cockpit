@@ -34,19 +34,19 @@
             <div class="stats">
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Total Agents Scanned</div>
-                    <div class="stat-value">3</div>
+                    <div class="stat-value">15</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Production Ready</div>
-                    <div class="stat-value" style="color: #059669;">0</div>
+                    <div class="stat-value" style="color: #059669;">2</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
-                    <div class="stat-value">0.0%</div>
+                    <div class="stat-value">13.3%</div>
                 </div>
                 <div class="stat-card">
                     <div style="color: #64748b; font-size: 0.875rem;">Maturity Velocity</div>
-                    <div class="stat-value" style="color: #dc2626;">📉 -94.4%</div>
+                    <div class="stat-value" style="color: #dc2626;">📉 -53.3%</div>
                 </div>
             </div>
 
@@ -56,8 +56,16 @@
                 
                 <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                     <div>
+                        <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">PII Scrubber</strong>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects 73% of fleet (11 agents)</span>
+                    </div>
+                    <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue PII')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
+                </div>
+            
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div>
                         <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">Hardcoded Secret</strong>
-                        <span style="color: #64748b; font-size: 0.875rem;">Affects 100% of fleet (3 agents)</span>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects 80% of fleet (12 agents)</span>
                     </div>
                     <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue SECRETS')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
                 </div>
@@ -65,7 +73,7 @@
                 <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                     <div>
                         <strong style="display: block; font-size: 1.1rem; color: #b91c1c;">Safety Filters</strong>
-                        <span style="color: #64748b; font-size: 0.875rem;">Affects 67% of fleet (2 agents)</span>
+                        <span style="color: #64748b; font-size: 0.875rem;">Affects 80% of fleet (12 agents)</span>
                     </div>
                     <button onclick="alert('Launching Bulk Fix: agent-ops fix --issue ARCH')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.75rem;">BULK FIX</button>
                 </div>
@@ -76,45 +84,201 @@
                 <h2 style="margin-top: 0; color: #1e40af; font-size: 1.25rem;">💰 Enterprise ROI Predictor (FinOps)</h2>
                 <p style="font-size: 0.875rem; color: #1e3a8a; margin-bottom: 16px;">Strategic opportunities for cost reduction across the fleet. Enabling **Context Caching** and **Semantic Routing** could save an estimated monthly amount based on current scan volume.</p>
                 <div style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">Total Fleet Savings Potential: $25.00 / 10k requests</div>
-                <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 8px;">Confidence Score: High (Based on 3 audited agents)</div>
+                <div style="font-size: 0.75rem; color: #3b82f6; margin-top: 8px;">Confidence Score: High (Based on 15 audited agents)</div>
             </div>
 
             <h2>📡 Real-time Agent Status</h2>
             <div class="agent-grid">
     
                 <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">go_agent</h3>
-                    <div class="status-fail">FAILED</div>
-                    
-                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/go_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    <div class='drilldown'><strong>Root Causes:</strong><br>Token Optimization, Red Team (Fast), Reliability (Quick)</div>
-                </div>
-        
-                <div class="agent-card">
-                    <div class="priority-badge ">utility</div>
-                    <h3 style="margin-top: 0; font-size: 1rem;">ts_agent</h3>
-                    <div class="status-fail">FAILED</div>
-                    
-                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/ts_agent</div>
-                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
-                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
-                    </div>
-                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team (Fast), Token Optimization, Reliability (Quick)</div>
-                </div>
-        
-                <div class="agent-card">
                     <div class="priority-badge priority-mission-critical">mission-critical</div>
                     <h3 style="margin-top: 0; font-size: 1rem;">python_agent</h3>
                     <div class="status-fail">FAILED</div>
                     
                     <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ./samples/python_agent</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../agent-cockpit-tool/samples/python_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Reliability (Quick), Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">ts_agent</h3>
+                    <div class="status-pass">PASSED</div>
+                    
+                    
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../agent-cockpit-tool/samples/ts_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">go_agent</h3>
+                    <div class="status-pass">PASSED</div>
+                    
+                    
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../agent-cockpit-tool/samples/go_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">backend</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/retail-ai-location-strategy/app/frontend/backend</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">data-science-agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../target/data-science-agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">server</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/realtime-conversational-agent/server</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Audit baseline established....
+                    </div>
+                    
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">monitoring_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/monitoring_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">data-science</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/data-science</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">dataproc_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/dataproc_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">go</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../agent_starter_pack/base_templates/go</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Reliability (Quick), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">github_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/github_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">dbt_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/dbt_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">dataflow_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/dataflow_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">dataproc_template_agent</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../temp-adk-samples/python/agents/plumber-data-engineering-assistant/plumber_agent/sub_agents/dataproc_template_agent</div>
+                    <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
+                        <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
+                    </div>
+                    <div class='drilldown'><strong>Root Causes:</strong><br>Red Team Security (Full), Token Optimization</div>
+                </div>
+        
+                <div class="agent-card">
+                    <div class="priority-badge ">utility</div>
+                    <h3 style="margin-top: 0; font-size: 1rem;">data-science-ae</h3>
+                    <div class="status-fail">FAILED</div>
+                    
+                    <div style='color: #1e40af; font-size: 0.75rem; font-weight: 600; margin-top: 4px;'>💰 Savings Potential: $0.15/req</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: ../target/data-science-ae</div>
                     <div style="font-size: 0.75rem; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-top: 10px; color: #475569;">
                         <strong>SME Verdict:</strong> Google Cloud Governance Best Practices: Input Sanitization & Tool HITL...
                     </div>

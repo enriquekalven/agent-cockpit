@@ -1,0 +1,268 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>AgentOps Audit: QUICK SAFE-BUILD</title>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+                body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1000px; margin: 0 auto; padding: 60px 40px; background: #f1f5f9; }
+                .report-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
+                header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }
+                .mascot-container { text-align: center; background: #fff; border: 1px solid #e2e8f0; padding: 10px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+                .mascot { width: 80px; height: 80px; border-radius: 12px; object-fit: contain; }
+                .mascot-name { font-size: 0.6rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.1em; }
+                h1 { color: #0f172a; margin: 0; font-size: 2.25rem; letter-spacing: -0.025em; font-weight: 900; }
+                h2 { color: #0f172a; margin-top: 48px; font-size: 1.25rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+                .status-badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; margin-top: 10px; }
+                .pass { background: #dcfce7; color: #166534; }
+                .fail { background: #fee2e2; color: #991b1b; }
+                table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+                th, td { text-align: left; padding: 16px; border-bottom: 1px solid #e2e8f0; }
+                th { background: #f8fafc; font-weight: 700; color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+                .action-table th { background: #eff6ff; color: #1e40af; }
+                .source-table th { background: #f0f9ff; color: #0369a1; }
+                code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+                pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }
+                .source-link { color: #3b82f6; text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+                .source-link:hover { border-bottom-color: #3b82f6; }
+                .footer { margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="report-card">
+                <header>
+                    <div>
+                        <h1>🕹️ AgentOps: ts_agent</h1>
+                        <p style="color: #64748b; margin: 8px 0 0 0; font-weight: 500;">Type: QUICK SAFE-BUILD</p>
+                        <span class="status-badge pass">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="mascot-container">
+                        <img src="public/kokpi_branded.jpg" class="mascot" alt="Kokpi">
+                        <div class="mascot-name">KOKPI APPROVED</div>
+                    </div>
+                </header>
+
+                <p style="font-size: 0.875rem; color: #64748b;">
+                    <strong>Timestamp</strong>: 2026-01-29 16:15:33<br>
+                    <strong>Total Duration</strong>: 7.64s
+                </p>
+
+                <div style="background: #fdf2f8; border: 1px solid #fbcfe8; padding: 24px; border-radius: 16px; margin-bottom: 32px;">
+                    <h2 style="margin-top: 0; border: none; padding: 0; color: #9d174d;">👔 Executive Risk Scorecard</h2>
+                    <p style="margin-bottom: 0; font-weight: 500;">
+                        Audit baseline established. No critical blockers detected for pilot release.
+                    </p>
+                </div>
+
+                <div class="filter-controls" style="margin-bottom: 24px; display: flex; gap: 10px;">
+                    <button onclick="filterActions('all')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; background: #fff;">Show All</button>
+                    <button onclick="filterActions('security')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #fee2e2; cursor: pointer; color: #991b1b; background: #fff;">Security Breaches</button>
+                    <button onclick="filterActions('optimization')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #dcfce7; cursor: pointer; color: #166534; background: #fff;">Optimizations</button>
+                </div>
+
+                <h2>🧑‍💼 SME Persona Approvals</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                <tr>
+                    <td>⚖️ Governance & Compliance SME</td>
+                    <td>Policy Enforcement</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.22s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🎭 UX/UI Principal Designer (A2UI Specialist)</td>
+                    <td>Face Auditor</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.25s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🚩 Security Architect</td>
+                    <td>Red Team (Fast)</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.28s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🛡️ QA & Reliability Principal (Node/Python/Go)</td>
+                    <td>Reliability (Quick)</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.28s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🔐 SecOps Principal</td>
+                    <td>Secret Scanner</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.28s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>💰 FinOps Principal Architect</td>
+                    <td>Token Optimization</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>0.31s</code></td>
+                </tr>
+            
+                <tr>
+                    <td>🏛️ Principal Platform Engineer (Polyglot)</td>
+                    <td>Architecture Review</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><code>6.02s</code></td>
+                </tr>
+            
+                    </tbody>
+                </table>
+        
+                <h2>🛠️ Developer Action Plan</h2>
+                <table class="action-table" id="actionTable">
+                    <thead>
+                        <tr>
+                            <th>Location (File:Line)</th>
+                            <th>Issue Detected</th>
+                            <th>Recommended Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr class="action-row architecture">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Runtime</td>
+                            <td style="color: #059669; font-weight: 600;">Optimizes performance for high-frequency API</td>
+                        </tr>
+                    
+                        <tr class="action-row security">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Security</td>
+                            <td style="color: #059669; font-weight: 600;">Hardens the Express/Hono server against</td>
+                        </tr>
+                    
+                        <tr class="action-row architecture">
+                            <td><code>codebase</code></td>
+                            <td>Architecture Gap: Types</td>
+                            <td style="color: #059669; font-weight: 600;">Ensures type-safety across the agent-tool</td>
+                        </tr>
+                    </tbody></table>
+                <h2>📜 Evidence Bridge: Research & Citations</h2>
+                <table class="source-table">
+                    <thead>
+                        <tr>
+                            <th>Knowledge Pillar</th>
+                            <th>SDK/Pattern Citation</th>
+                            <th>Evidence & Best Practice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+                        <tr>
+                            <td style="font-weight: 700;">Declarative Guardrails</td>
+                            <td><a href="https://cloud.google.com/architecture/framework/security" class="source-link" target="_blank">View Citation &rarr;</a></td>
+                            <td style="font-size: 0.85rem; color: #475569;">Google Cloud Governance Best Practices: Input Sanitization & Tool HITL</td>
+                        </tr>
+                    </tbody></table>
+                <h2>🔍 Audit Evidence</h2>
+        <h3>Policy Enforcement</h3><pre>SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+🎭 MOCK MODE: Simulating policy baseline...
+✅ PASS: Governance policies verified (Simulated).
+</pre><h3>Face Auditor</h3><pre>╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+🎭 MOCK MODE: Simulating A2UI alignment...
+✅ PASS: Frontend is Well-Architected for GenUI (Simulated).
+</pre><h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+🎭 MOCK MODE: Simulating adversarial resilience...
+✅ [SECURE] Prompt Injection mitigated (Simulated)
+✅ [SECURE] PII Extraction mitigated (Simulated)
+🏁 Red Team check passed in Mock Mode.
+</pre><h3>Reliability (Quick)</h3><pre>╭─────────────────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) (MOCK MODE) │
+╰─────────────────────────────────────────╯
+🎭 Simulating reliability benchmarks...
+                    🛡️ Reliability Status (MOCK)                    
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Check               ┃ Status   ┃ Details                        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Unit Tests          │ PASSED   │ Synthetic test suite passed    │
+│ Contract Compliance │ VERIFIED │ Mocked Engine-to-Face protocol │
+└─────────────────────┴──────────┴────────────────────────────────┘
+</pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+🎭 MOCK MODE: Skipping deep scan, assuming clean baseline.
+✅ PASS: No hardcoded credentials detected (Simulated).
+</pre><h3>Token Optimization</h3><pre>╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+🎭 MOCK MODE: Simulating performance gains...
+✅ PASS: Token optimization verified (Simulated).
+</pre><h3>Architecture Review</h3><pre>╭───────────────────────────────────────────────────╮
+│ 🏛️ NODEJS / TYPESCRIPT ENGINE: STATIC DESIGN AUDIT │
+│ Mode: Architectural Intent Analysis               │
+╰───────────────────────────────────────────────────╯
+Detected Framework: NodeJS / TypeScript Engine
+Evaluating agent design against NodeJS / TypeScript Engine Production Standards...
+
+⚠️ Credential Gap Detected: Bypassing Semantic LLM Reasoning.
+🔄 SME Persona degrading to 'Regex-Only' structural mode...
+
+╭─────────────────────────────────────────────────────────────╮
+│ 🎭 MOCK ARCHITECTURE MODE ACTIVE                            │
+│ Simulating architectural intent based on project structure. │
+╰─────────────────────────────────────────────────────────────╯
+ACTION: codebase | Architecture Gap: Runtime | Optimizes performance for high-frequency API
+calls.
+ACTION: codebase | Architecture Gap: Security | Hardens the Express/Hono server against 
+common attacks.
+ACTION: codebase | Architecture Gap: Types | Ensures type-safety across the agent-tool 
+boundary.
+                               🏗️ NodeJS / TypeScript Engine                                
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Design Check                          ┃ Status ┃ Rationale                              ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Runtime: Using Bun or Node 20+ for    │  FAIL  │ Optimizes performance for              │
+│ native fetch?                         │        │ high-frequency API calls.              │
+│ Security: Is Helmet middleware active │  FAIL  │ Hardens the Express/Hono server        │
+│ in the Face API?                      │        │ against common attacks.                │
+│ Types: Are Zod/Pydantic-like schemas  │  FAIL  │ Ensures type-safety across the         │
+│ used for tool outputs?                │        │ agent-tool boundary.                   │
+└───────────────────────────────────────┴────────┴────────────────────────────────────────┘
+
+
+📊 Review Score: 0/100
+⚠️ Review Complete with warnings. Your agent has gaps in best practices. See results above.
+</pre>
+                <div class="footer">
+                    Generated by AgentOps Cockpit Orchestrator v0.9.8. 
+                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.
+                </div>
+            </div>
+            <script>
+                function filterActions(type) {
+                    const rows = document.querySelectorAll('.action-row');
+                    rows.forEach(row => {
+                        if (type === 'all' || row.classList.contains(type)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
+        </body>
+        </html>
+        

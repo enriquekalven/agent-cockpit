@@ -1,0 +1,106 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AgentOps Cockpit",
+          "informationUri": "https://agent-cockpit.web.app",
+          "version": "1.1.1",
+          "rules": [
+            {
+              "id": "architecture_gap:_runtime",
+              "shortDescription": {
+                "text": "Architecture Gap: Runtime"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_security",
+              "shortDescription": {
+                "text": "Architecture Gap: Security"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_types",
+              "shortDescription": {
+                "text": "Architecture Gap: Types"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "architecture_gap:_runtime",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Runtime: Optimizes performance for high-frequency API"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_security",
+          "level": "error",
+          "message": {
+            "text": "Architecture Gap: Security: Hardens the Express/Hono server against"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_types",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Types: Ensures type-safety across the agent-tool"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

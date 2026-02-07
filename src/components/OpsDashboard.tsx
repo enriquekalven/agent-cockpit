@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const OpsDashboard: React.FC = () => {
   return (
-    <div className="ops-dashboard">
+    <div className="ops-dashboard" data-surface-id="ops-dashboard-surface">
       <header className="ops-header">
         <Link to="/" className="back-link">
           <ArrowLeft size={20} />

@@ -52,8 +52,8 @@ def apply_remediation(target_path: str, issue: str, fix: str):
         return False
 
     # 2. Invoke LLM for the fix
-    if not VERTEX_AVAILABLE or not (os.environ.get("GOOGLE_API_KEY") or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")):
-        console.print("❌ [red]Remediation failed: Vertex AI not configured for Auto-Repair.[/red]")
+    if not VERTEX_AVAILABLE:
+        console.print("❌ [red]Remediation failed: Vertex AI not installed.[/red]")
         return False
 
     try:

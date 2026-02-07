@@ -20,16 +20,6 @@
               }
             },
             {
-              "id": "missing_branding_(logo)_or_seo_metadata_(og/description)",
-              "shortDescription": {
-                "text": "Missing Branding (Logo) or SEO Metadata (OG/Description)"
-              },
-              "helpUri": "https://agent-cockpit.web.app/docs",
-              "properties": {
-                "category": "Agentic Governance"
-              }
-            },
-            {
               "id": "optimization:_native_fetch_api",
               "shortDescription": {
                 "text": "Optimization: Native Fetch API"
@@ -107,26 +97,7 @@
           "ruleId": "missing_'surfaceid'_mapping",
           "level": "warning",
           "message": {
-            "text": "Missing 'surfaceId' mapping: Add 'surfaceId' prop to the root"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "samples/ts_agent/index.ts"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_branding_(logo)_or_seo_metadata_(og/description)",
-          "level": "warning",
-          "message": {
-            "text": "Missing Branding (Logo) or SEO Metadata (OG/Description): Add"
+            "text": "Missing 'surfaceId' mapping: Add 'surfaceId' prop to"
           },
           "locations": [
             {
@@ -145,7 +116,7 @@
           "ruleId": "optimization:_native_fetch_api",
           "level": "warning",
           "message": {
-            "text": "Optimization: Native Fetch API: Node 20+ supports native"
+            "text": "Optimization: Native Fetch API: Node 20+ supports"
           },
           "locations": [
             {
@@ -164,7 +135,7 @@
           "ruleId": "optimization:_implement_semantic_caching",
           "level": "warning",
           "message": {
-            "text": "Optimization: Implement Semantic Caching: No caching layer"
+            "text": "Optimization: Implement Semantic Caching: No"
           },
           "locations": [
             {
@@ -183,7 +154,7 @@
           "ruleId": "optimization:_implement_exponential_backoff",
           "level": "warning",
           "message": {
-            "text": "Optimization: Implement Exponential Backoff: Your agent"
+            "text": "Optimization: Implement Exponential Backoff: Your"
           },
           "locations": [
             {
@@ -202,7 +173,7 @@
           "ruleId": "optimization:_add_session_tracking",
           "level": "warning",
           "message": {
-            "text": "Optimization: Add Session Tracking: No session tracking"
+            "text": "Optimization: Add Session Tracking: No session"
           },
           "locations": [
             {
@@ -221,7 +192,7 @@
           "ruleId": "architecture_gap:_runtime",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Runtime: Optimizes performance for high-frequency API calls."
+            "text": "Architecture Gap: Runtime: Optimizes performance for high-frequency API"
           },
           "locations": [
             {
@@ -240,7 +211,7 @@
           "ruleId": "architecture_gap:_security",
           "level": "error",
           "message": {
-            "text": "Architecture Gap: Security: Hardens the Express/Hono server against common"
+            "text": "Architecture Gap: Security: Hardens the Express/Hono server against"
           },
           "locations": [
             {
@@ -259,7 +230,7 @@
           "ruleId": "architecture_gap:_types",
           "level": "warning",
           "message": {
-            "text": "Architecture Gap: Types: Ensures type-safety across the agent-tool boundary."
+            "text": "Architecture Gap: Types: Ensures type-safety across the agent-tool"
           },
           "locations": [
             {

@@ -32,7 +32,7 @@ export const FlightRecorder: React.FC = () => {
   const steps = mockTrace.steps;
 
   return (
-    <div className="flight-recorder glass-panel">
+    <div className="flight-recorder glass-panel" data-surface-id="flight-recorder-surface">
       <div className="recorder-header">
         <div className="flex items-center gap-2">
           <div className="pulse-dot"></div>

@@ -17,21 +17,23 @@ import './index.css';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <div data-surface-id="agent-ops-root">
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <Route path="/docs" element={<DocLayout />}>
-        <Route index element={<DocHome />} />
-        <Route path=":docId" element={<DocPage />} />
-      </Route>
+        <Route path="/docs" element={<DocLayout />}>
+          <Route index element={<DocHome />} />
+          <Route path=":docId" element={<DocPage />} />
+        </Route>
 
 
-      <Route path="/ops" element={<OpsDashboard />} />
-      
-      <Route path="/samples" element={<ReportSamples />} />
+        <Route path="/ops" element={<OpsDashboard />} />
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="/samples" element={<ReportSamples />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </div>
   );
 }
 

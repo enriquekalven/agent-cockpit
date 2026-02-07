@@ -1,0 +1,106 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AgentOps Cockpit",
+          "informationUri": "https://agent-cockpit.web.app",
+          "version": "1.1.1",
+          "rules": [
+            {
+              "id": "architecture_gap:_concurrency",
+              "shortDescription": {
+                "text": "Architecture Gap: Concurrency"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_validation",
+              "shortDescription": {
+                "text": "Architecture Gap: Validation"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            },
+            {
+              "id": "architecture_gap:_tracing",
+              "shortDescription": {
+                "text": "Architecture Gap: Tracing"
+              },
+              "helpUri": "https://agent-cockpit.web.app/docs",
+              "properties": {
+                "category": "Agentic Governance"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "architecture_gap:_concurrency",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Concurrency: Leverages Go's performance for"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_validation",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Validation: Standard for ensuring engine-face"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architecture_gap:_tracing",
+          "level": "warning",
+          "message": {
+            "text": "Architecture Gap: Tracing: Mandatory for observability in complex Go"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "codebase"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
