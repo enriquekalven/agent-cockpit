@@ -2,6 +2,15 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.3.2] - 2026-02-06
+
+### 🛠️ The Agentic Safety (Antigravity v1.3.2 Release)
+- **Git: Agentic "Safety Mode"**: Automatically detects `commit.gpgsign` and uses `--no-gpg-sign` for autonomous commits, resolving the "ioctl for device" error in agentic headless workflows.
+- **Remediation: Targeted Fixes (1-Click)**: New `agentops-cockpit fix <issue-id>` command to apply specific remediations from audit results.
+- **A2UI: Automated Surface Discovery**: Introduced `withSurfaceDiscovery` HOC and `AutoSurface` component for zero-instrumentation UI auditing.
+- **CLI: Scalable Terminal Output**: New `--plain` flag for the `report` command, removing Unicode box-drawing characters for better CI/CD log readability.
+- **Artifacts: Trace Centralization**: Moved Shadow Mode traces (`.cockpit/traces/`) and Architecture reports to the centralized `.cockpit/` sovereign directory.
+
 ## [1.3.1] - 2026-02-06
 
 ### 🚀 The Executive Sovereignty (Antigravity v1.3.1 Release)

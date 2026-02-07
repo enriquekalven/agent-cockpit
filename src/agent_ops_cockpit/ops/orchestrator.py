@@ -247,10 +247,18 @@ class CockpitOrchestrator:
             blocker_count = sum(1 for r in self.results.values() if not r['success'])
             summary_text += f"🚩 [bold red]Risk Alert:[/bold red] {blocker_count} SME Gates rejected. Strategic remediation recommended."
 
-        console.print(Panel(summary_text, title="👔 Principal SME Executive Summary", border_style="blue"))
+        if getattr(self, 'plain', False):
+            console.print(f"--- SME Executive Summary ---\n{summary_text}\n-----------------------------")
+        else:
+            console.print(Panel(summary_text, title="👔 Principal SME Executive Summary", border_style="blue"))
 
         # 2. Key Findings & Recommendations Table
-        findings_table = Table(title="🔍 Key Findings & Tactical Recommendations", show_header=True, header_style="bold magenta", expand=True)
+        title = "🔍 Key Findings & Tactical Recommendations"
+        if getattr(self, 'plain', False):
+            console.print(f"\n{title}")
+            findings_table = Table(show_header=True, header_style="bold magenta", expand=True, box=None)
+        else:
+            findings_table = Table(title=title, show_header=True, header_style="bold magenta", expand=True)
         findings_table.add_column("Category", style="cyan", width=20)
         findings_table.add_column("Issue Flagged", style="white")
         findings_table.add_column("🚀 Recommendation", style="green")
@@ -435,7 +443,67 @@ class CockpitOrchestrator:
                  console.print(f.read())
 
         console.print(f'\n✨ [bold green]Final Report generated at {self.report_path}[/bold green]')
-        console.print('📄 [bold blue]Printable HTML Report available at cockpit_report.html[/bold blue]')
+        console.print(f'📄 [bold blue]Printable HTML Report available at {self.html_report_path}[/bold blue]')
+
+    def apply_targeted_fix(self, issue_id: str, target_path: str = '.'):
+        """Improvement #6: Targeted Fix Logic. Applies remediation for a specific SARIF issue ID."""
+        import hashlib
+        from .remediator import CodeRemediator
+        
+        # Load latest results to find the issue
+        lake_path = self.lake_path
+        if not os.path.exists(lake_path):
+             console.print("[red]❌ Error: No audit findings lake found. Run 'agent-ops report' first.[/red]")
+             return False
+             
+        with open(lake_path, 'r') as f:
+            fleet_data = json.load(f)
+            
+        target_abs = os.path.abspath(target_path)
+        agent_data = fleet_data.get(target_abs)
+        if not agent_data:
+            console.print(f"[red]❌ Error: No audit data found for path: {target_abs}[/red]")
+            return False
+            
+        results = agent_data.get('results', {})
+        found = False
+        
+        for module_name, data in results.items():
+            output = data.get('output', '')
+            for line in output.split('\n'):
+                if 'ACTION:' in line:
+                    parts = line.replace('ACTION:', '').strip().split(' | ')
+                    if len(parts) >= 3:
+                        file_path = parts[0].split(':')[0]
+                        finding_title = parts[1]
+                        
+                        # Generate a simple issue ID if not present
+                        current_id = hashlib.md5(f"{module_name}:{finding_title}".encode()).hexdigest()[:8]
+                        
+                        if current_id == issue_id or issue_id in finding_title.lower().replace(' ', '_'):
+                            console.print(f"🔧 [bold green]Targeted Fix:[/bold green] Applying remediation for '{finding_title}' in {file_path}")
+                            remediator = CodeRemediator(file_path)
+                            
+                            # Simple mapping to remediator methods
+                            if 'resiliency' in finding_title.lower() or 'retry' in finding_title.lower():
+                                 from .auditors.base import AuditFinding
+                                 f = AuditFinding(title=finding_title, description="", category="", line_number=int(parts[0].split(':')[1]) if ':' in parts[0] else 1, file_path=file_path)
+                                 remediator.apply_resiliency(f)
+                                 remediator.save()
+                                 found = True
+                            elif 'zombie' in finding_title.lower() or 'timeout' in finding_title.lower():
+                                 from .auditors.base import AuditFinding
+                                 f = AuditFinding(title=finding_title, description="", category="", line_number=int(parts[0].split(':')[1]) if ':' in parts[0] else 1, file_path=file_path)
+                                 remediator.apply_timeouts(f)
+                                 remediator.save()
+                                 found = True
+                                 
+                            if found:
+                                console.print(f"✅ [bold green]Fixed {finding_title} successfully.[/bold green]")
+                                return True
+        
+        console.print(f"[yellow]⚠️ Could not find a matching automated fix for issue ID '{issue_id}'.[/yellow]")
+        return False
 
     def get_exit_code(self):
         """
@@ -789,8 +857,9 @@ def generate_fleet_dashboard(results: dict):
         f.write(html)
     console.print(f"📄 [bold blue]Unified Fleet Dashboard generated at {dashboard_path}[/bold blue]")
 
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list = None, skip: list = None):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list = None, skip: list = None, plain: bool = False):
     orchestrator = CockpitOrchestrator()
+    orchestrator.plain = plain
     abs_path = os.path.abspath(target_path)
     orchestrator.target_path = abs_path
     orchestrator.sim = sim

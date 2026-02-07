@@ -75,6 +75,8 @@ class ShadowRouter:
 
     def _mock_save_trace(self, data):
         # Local file store for demonstration replay UI
-        os.makedirs("traces", exist_ok=True)
-        with open(f"traces/{data['traceId']}.json", "w") as f:
+        # v1.4 Improvement: Move to centralized .cockpit directory
+        trace_dir = os.path.join(os.getcwd(), '.cockpit', 'traces')
+        os.makedirs(trace_dir, exist_ok=True)
+        with open(os.path.join(trace_dir, f"{data['traceId']}.json"), "w") as f:
             json.dump(data, f)

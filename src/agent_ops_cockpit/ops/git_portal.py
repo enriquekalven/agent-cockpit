@@ -30,12 +30,30 @@ class GitPortal:
         return new_branch
 
     def commit_fixes(self, files: List[str], message: str):
-        """Stages and commits the remediated files."""
+        """Stages and commits the remediated files with GPG safety."""
         if not self.repo:
             return False
         
+        # Improvement #5: Agentic Safety Mode for Git
+        # Detect if GPG signing is enabled to prevent ioctl errors in agentic environments
+        gpg_sign = False
+        try:
+            gpg_sign = self.repo.config_reader().get_value('commit', 'gpgsign', default=False)
+            if isinstance(gpg_sign, str):
+                gpg_sign = gpg_sign.lower() == 'true'
+        except Exception:
+            pass
+
         self.repo.index.add(files)
-        self.repo.index.commit(message)
+        
+        if gpg_sign:
+            console.print("🔐 [yellow]GPG Signing detected. Using --no-gpg-sign for agentic commit...[/yellow]")
+            # GitPython doesn't always handle GPG passphrases well in non-interactive shells
+            # We use the raw git command to ensure --no-gpg-sign is applied
+            self.repo.git.commit('-m', message, '--no-gpg-sign')
+        else:
+            self.repo.index.commit(message)
+            
         console.print(f"📦 [bold green]Committed fixes to {len(files)} files.[/bold green]")
         return True
 

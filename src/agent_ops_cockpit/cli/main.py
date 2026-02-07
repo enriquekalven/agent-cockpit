@@ -46,6 +46,7 @@ def report(
     sim: bool = typer.Option(False, '--sim', help="Run in simulation mode (Synthetic SME reasoning)"),
     public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)"),
     output_format: str = typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"),
+    plain: bool = typer.Option(False, '--plain', help="Use plain output without complex Unicode boxes"),
     dry_run: bool = typer.Option(False, '--dry-run', help="Simulate fixes without applying them (Dry Run Dashboard)"),
     only: Optional[List[str]] = typer.Option(None, '--only', help="Only run specific categories (e.g. security, finops)"),
     skip: Optional[List[str]] = typer.Option(None, '--skip', help="Skip specific categories")
@@ -67,7 +68,7 @@ def report(
         exit_code = orch_mod.run_audit(
              mode=mode, target_path=path, apply_fixes=apply_fixes, 
              sim=sim, output_format=output_format, dry_run=dry_run,
-             only=only, skip=skip
+             only=only, skip=skip, plain=plain
         )
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
@@ -108,12 +109,23 @@ def arch_review(path: str='.'):
     arch_mod.audit(path)
 
 @app.command()
-def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool=typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), quick: bool=typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
+def audit(file_path: str = typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool = typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), quick: bool = typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
     """
     Run the Interactive Agent Optimizer audit.
     """
     console.print('🔍 [bold blue]Running Agent Operations Audit...[/bold blue]')
     opt_mod.audit(file_path, interactive, quick=quick)
+
+@app.command()
+def fix(issue_id: str = typer.Argument(..., help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"), path: str = typer.Option('.', '--path', '-p', help="Path to the agent/workspace")):
+    """
+    Apply a targeted fix for a specific audit finding.
+    """
+    console.print(f"🔧 [bold blue]Attempting targeted fix for: {issue_id}...[/bold blue]")
+    orchestrator = orch_mod.CockpitOrchestrator()
+    success = orchestrator.apply_targeted_fix(issue_id, path)
+    if not success:
+        raise typer.Exit(code=1)
 
 @app.command()
 def red_team(agent_path: str=typer.Argument('src/agent_ops_cockpit/agent.py', help='Path to the agent code to audit')):
