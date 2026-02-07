@@ -1,7 +1,9 @@
 # 🕹️ Technical Guide: AgentOps Audit Suite
-## The "Autonomous Architect" Orchestration (v1.3)
+## The "Executive Sovereignty" Orchestration (v1.3.1 Stable)
 
-The `make audit` command is the heartbeat of the **AgentOps Cockpit**. In v1.3, we have moved beyond "Identification" into **"Autonomous Evolution."** The suite now orchestrates a parallel execution of Specialized SMEs to secure the **Agentic Trinity 2.0**.
+The `make audit` command is the heartbeat of the **AgentOps Cockpit**. From v1.3.1 onwards, we have introduced **Artifact Sovereignty** and **Modular Auditing**, moving from a flat file structure to a governed, searchable evidence store.
+
+👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
 ---
 
@@ -30,13 +32,36 @@ graph TD
 
 ## 🛠️ Audit Lifecycle Commands
 
-| Command | Mode | Persona Focus | Impact |
+| Command | Mode | Persona Focus | v1.3.1 Implementation |
 | :--- | :--- | :--- | :--- |
-| `make audit` | **Evaluation** | Dev-velocity: Secrets, Reliability, and Fast Security. | **Build Gate** |
-| `make audit-deep` | **Deep Probe** | The "Final Examination": Stress tests, benchmarks, and iterative optimization. | **Prod Ready** |
-| `make arch-review`| **Evolution** | v1.3: **Context-Aware Patching** via LLM Synthesis. | **Auto-Hardening** |
-| `make simulation-run`| **Digital Twin**| v1.3: 100+ Adversarial User Agents stress-test reasoning.| **Stability Proof** |
-| `make bench-cost` | **Economics** | v1.3: Synthetic request simulation for predicted OpEx. | **Margin Baseline** |
+| `make audit` | **Evaluation** | Dev-velocity: Secrets, Reliability, and Fast Security. | Orchestrates `secret_scanner.py` and `reliability.py` (Mode: Quick). |
+| `make audit-deep` | **Deep Probe** | The "Final Examination": Stress tests, benchmarks, and iterative optimization. | Triggers full evaluation suite including `red_team.py` and `load_test.py`. |
+| `make arch-review`| **Evolution** | v1.3: **Context-Aware Patching** via LLM Synthesis. | Leverages `arch_review.py` and `remediator.py` for AST-based evolution. |
+| `make simulation-run`| **Digital Twin**| v1.3: 100+ Adversarial User Agents stress-test reasoning.| Parallelized execution of `swarm.py` utilizing the `ShadowRouter`. |
+| `ops doctor` | **Pre-flight** | Pre-audit authentication and path diagnosis. | Alias for `diagnose` with enhanced GCP ADC detection. |
+
+---
+
+## 🎯 Modular Auditing & Filtering (v1.3.1)
+Modern audits shouldn't be "all or nothing." v1.3.1 introduces high-precision filtering:
+- **`--only [category]`**: Run only specific personas (e.g., `ops report --only security`).
+- **`--skip [category]`**: Exclude heavy audits (e.g., `ops report --skip red-team`) for faster CI feedback.
+
+---
+
+## 📁 Artifact Sovereignty: The `.cockpit/` Store
+To respect project hygiene and maintain compliance history, all audit outputs are now centralized:
+- **`.cockpit/evidence_lake/`**: Partitioned audit snapshots (JSON).
+- **`.cockpit/cockpit_report.html`**: The unified stakeholder dashboard.
+- **`.cockpit/cockpit_audit.sarif`**: Security analysis results for IDE/GitHub integration.
+
+---
+
+## 📜 The Evidence Bridge Protocol
+The **Evidence Bridge** (`src/agent_ops_cockpit/ops/evidence_bridge.py`) serves as the "Common Language" between the specialized SMEs. It captures:
+1.  **SDK Citations**: Direct links to Google Cloud / ADK documentation for best practice verification.
+2.  **Maturity Velocity**: A trend metric tracking if an agent is becoming more compliant or regressing over time.
+3.  **Poka-Yoke Metadata**: Hardened schema definitions extracted from the AST during the audit.
 
 👉 **[View Master Command Registry (All Personas)](docs/TECHNICAL_COMMANDS_MASTER.md)**
 
@@ -60,9 +85,9 @@ graph TD
 *   **Mission**: Mandatory horizontal compliance (NIST/SOC2/HIPAA).
 *   **Checks**: Validates system prompts against the **Sovereign Gate** policies.
 
-### 5. 💰 FinOps Principal (Economic Analyst)
-*   **Mission**: Economic sustainability and "Exit Strategy" TCO.
-*   **Checks**: Maps token density to monthly budget and provides the **Open-Source Pivot Plan**.
+### 6. 🌊 Context Engineering SME (v1.3)
+*   **Mission**: Improving reasoning density and trajectory stability.
+*   **Checks**: Validates **Tool Schema Hardening (Poka-Yoke)** and **Context Compaction** to maintain high-fidelity state without token waste.
 
 ### 6. 🚩 Red Team Principal (Adversarial SRE)
 *   **Mission**: "Reasoning Degradation" detection under pressure.
@@ -95,10 +120,10 @@ The audit doesn't just give a "Pass/Fail." It provides **Actionable Intelligence
 
 ---
 
-## 🚀 Usage Scenarios v1.3
+## 🚀 Usage Scenarios v1.0.0
 
 ### **The "Autonomous Fix" (PR Factory)**
-Run `make apply-fixes`. In v1.3, the Cockpit analyzes the AST and synthesizes a patch that follows your specific variable naming and testing patterns, prepping a PR automatically.
+Run `make apply-fixes`. In v1.0, the Cockpit analyzes the AST and synthesizes a patch that follows your specific variable naming and testing patterns, prepping a PR automatically.
 
 ### **The "Digital Twin" Simulation**
 Run `make simulation-run` before a major launch. Simulating 100 agents helps you identify if the **Engine** starts losing its "Contextual Thread" when database latency spikes in the **Cockpit**.
@@ -107,4 +132,6 @@ Run `make simulation-run` before a major launch. Simulating 100 agents helps you
 Run `make audit-deep` before a production deployment. This triggers the **Full Stress Test** and **Deep Red Team** to ensure the system survives enterprise-scale reasoning load.
 
 ---
-*Generated by the AgentOps Cockpit. Engineering Governance Division.*
+---
+---
+*Generated by the AgentOps Cockpit. Engineering Governance Division (v1.3.0 Stable).*

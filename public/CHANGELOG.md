@@ -2,15 +2,67 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.3.1] - 2026-02-06
+
+### 🚀 The Executive Sovereignty (Antigravity v1.3.1 Release)
+- **Discovery: Recursive Intelligence**: Support for `targets: []` in `cockpit.yaml` for multi-entry point fleets and template placeholder isolation (`{{...}}`).
+- **Operations: Auth Doctor (diagnose)**: New pre-flight command to diagnose GCP ADC credentials and environment health before audits.
+- **Artifacts: Sovereign Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
+- **Orchestration: Modular SME Filtering**: Introduced `--only` and `--skip` flags for high-precision category selection (e.g., `ops report --only security`).
+- **Governance: GaC Orcas RFC Integration**: Formalized the "Governance as Code" standard for ADK, moving from passive plugins to mandatory AST-aware architectural gates.
+- **Reporting: SME Executive Summary**: Enhanced terminal output with a stack-ranked "Principal SME Executive Summary" panel and "Key Findings" table.
+
+## [1.3.0] - 2026-02-04
+
+### 🚀 The Autonomous Architect (Antigravity Mobile-Hardened Release)
+- **Engine: Context Engineering (Poka-Yoke)**: New `ToolHardening` and `ContextCompaction` auditors. The remediator now injects `Literal` types and summarization skeletons to prevent reasoning drift.
+- **UX: Mobile Hardening Standard**: Fully adapted the Face layer (Home, Docs, Journeys) for iPhone and smartphone viewports. Introduced the "GenUI Readiness" score in the UI Auditor.
+- **Governance: Antigravity v1.3 Contribution Guide**: Overhauled `CONTRIBUTING.md` with uv-first setup, persona-based auditing standards, and the Autonomous Architect vision.
+- **Remediation: Autonomous Synthesis v1.3**: Upgraded AST patching to handle complex function signatures and absolute path resolution across partitioned workspaces.
+- **Operations: High-Fidelity Simulation (SIM)**: Hardened simulation mode to accurately mock multi-persona audit findings for CI/CD validation.
+- **Architecture: Global Path Normalization**: Fixed orchestrator path resolution to ensure auto-remediation correctly identifies target files in deep directory structures.
+- **Documentation: master v1.3 Refresh**: Full update of all technical guides (FinOps, UX, Architecture, Commands) to reflect autonomous evolution capabilities.
+- **Reliability: Master Regression Suite**: Verified 132 unit tests and 5 Persona-based Smoke Tests across the entire Command Trinity.
+
+## [1.0.0] - 2026-02-04
+
+### 🕹️ The Governance & Regression Framework (Stable Release)
+- **Governance: Core Capabilities Registry**: Introduced `CAPABILITIES_REGISTRY.md` to define mandatory features (Fleet Dashboard, Auto-Heal, partitioned evidence).
+- **Quality: Capabilities Gate Meta-Test**: Implemented a build-time guardrail that fails CI/CD if core capabilities lack valid regression tests.
+- **Remediation: Context-Aware AST Matching**: Hardened `CodeRemediator` to intelligently detect parent function definitions for decorator injection.
+- **Orchestration: Absolute Path Resolution**: Resolved critical path mismatches in multi-agent workspace scans, ensuring audit metadata follows the agent.
+- **Operations: Fleet Reliability v1.3**: Verified parity for parallel audit orchestration across 50+ agent scenarios in the regression suite.
+- **Documentation: Governance Master Guide**: Updated `TECHNICAL_AUDIT_GUIDE.md` to reflect the new regression-first standard.
+
+## [1.0.0-rc1] - 2026-02-04
+
+### 🚀 The Antigravity Hardening (SME Mission Control)
+- **Architectural: Resilient Registry Resolver**: Automatic failover to PyPI on 401/403 errors, ensuring zero-friction local execution.
+- **Scalability: Partitioned Evidence Lake**: Migrated from a monolithic `evidence_lake.json` to a folder-based partitioning system for fleet-scale performance.
+- **Governance: Severity-Based Exit Codes**: CI/CD ready exit codes (0: Success, 1: Security Leak, 2: Arch Violation, 3: General Failure).
+- **Orchestration: Smart Discovery Engine**: Full support for `.cockpitignore` and heuristic brain detection across complex folder structures.
+- **UX: Interactive Fleet Healing (Dry Run)**: New `--dry-run` flag for auto-remediation to safely preview fixes via "Dry Run Dashboard" console outputs.
+- **Dependency: Centralized Configuration**: Refactored CLI and Engine to use a unified `Config` provider.
+- **Unified Trinity Binaries**: Standardized on `ops` and `aops` aliases for rapid command execution.
+
+## [0.9.9] - 2026-02-04
+
+### 🕹️ The Frictionless Update (v2.0 Milestone)
+- **uvx Hero Experience**: Renamed entry point to `agentops-cockpit` for zero-config `uvx` execution without choice prompts.
+- **Registry Resilience**: Implemented `urllib`-based connectivity checks and a `--public` flag to bypass 401 Unauthorized errors in restricted environments.
+- **SSOT Parity**: Aligned CLI flags (Typer) with core Orchestrator logic, exposing `--workspace` and `--heal` (alias for auto-remediation) consistently.
+- **Fixability Scoring**: Introduced `EFFORT_MAP` to categorize audit findings by remediation complexity (1-Click vs. Structural) in reports and dashboards.
+- **Declarative Sovereignty**: The `report` command now automatically respects local `cockpit.yaml` context for check exclusions.
+
 ## [0.9.8] - 2026-02-03
 
-### 🏛️ The Cockpit Sovereignty & Hardening Update
-- **Dashboard Decoupling**: Removed the frontend dashboard to reinforce the Cockpit's identity as a secure, CLI-first Operational Logic Layer.
-- **v1.3 SME Persona Matrix**: Mission Control updated with all 9 specialized personas from the v1.3 standard.
-- **Discovery Engine (`discovery.py`)**: Centralized scanning bridge that respects `.gitignore` and handle default exclusions (`venv`, `node_modules`).
-- **AST Brain Detection**: Implementation of Abstract Syntax Tree analysis to reliably identify agent entry points regardless of project structure.
-- **Library Isolation**: Secret Scanner now intelligently ignores findings in third-party libraries, significantly reducing false positives.
-- **Config-Driven Governance**: Introduced `cockpit.yaml` support for explicit `entry_point`, `exclude` patterns, and CI/CD health `thresholds`.
+### 🕹️ The Sovereignty Update
+- **Sovereign Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
+- **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `agent-ops` CLI, and `uvx` simulations for all 10 persona lenses.
+- **Operational Introduction**: Launched a high-level documentation landing page (`INTRODUCTION.md`) separate from technical guides for strategic stakeholder onboarding.
+- **Discovery Engine v1.3**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.
+- **Multi-Framework Ecosystem**: Explicitly added support and documentation for **LangGraph**, **CrewAI**, and **Autogen** to the v1.3 audit standard.
+- **Visual Branding Hardening**: Verified and restored the high-fidelity **Kokpi** mascot asset across all system-generated reports.
 
 ## [0.9.7] - 2026-02-02
 

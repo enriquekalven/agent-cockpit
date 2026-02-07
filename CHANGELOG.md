@@ -4,13 +4,13 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.3.1] - 2026-02-06
 
-### 🚀 The Governance as Code (Antigravity v1.3.1 Release)
-- **Governance: Orcas RFC Integration**: Launched the "Governance as Code" (GaC) standard for ADK, moving from passive plugins to mandatory AST-aware architectural gates.
-- **Orchestration: Executive SME Summary**: Enhanced terminal output with a stack-ranked "Principal SME Executive Summary" panel and "Key Findings" table (Top 3 per category) for rapid stakeholder alignment.
-- **Documentation: Deep Technical Guides**: Comprehensive technical deep-dive of all SME guides (FinOps, Red Team, Interop, Quality, UX) adding metrics like RD, RDR, TTR, and TTVC.
-- **A2A: Ecosystem Interoperability v1.3**: Formalized the MCP Hub and AP2 "Surgical State Delta" patterns for multi-agent delegation.
-- **FinOps: Reasoning Density Standard**: Established the $RD$ metric in the FinOps guide to measure intelligence efficiency and margin sustainability.
-- **Security: Adversarial SRE Probes**: Introduced "Reasoning Decay Rate" (RDR) and "Multilingual Jailbreak" probes to the Red Team standard.
+### 🚀 The Executive Sovereignty (Antigravity v1.3.1 Release)
+- **Discovery: Recursive Intelligence**: Support for `targets: []` in `cockpit.yaml` for multi-entry point fleets and template placeholder isolation (`{{...}}`).
+- **Operations: Auth Doctor (diagnose)**: New pre-flight command to diagnose GCP ADC credentials and environment health before audits.
+- **Artifacts: Sovereign Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
+- **Orchestration: Modular SME Filtering**: Introduced `--only` and `--skip` flags for high-precision category selection (e.g., `ops report --only security`).
+- **Governance: GaC Orcas RFC Integration**: Formalized the "Governance as Code" standard for ADK, moving from passive plugins to mandatory AST-aware architectural gates.
+- **Reporting: SME Executive Summary**: Enhanced terminal output with a stack-ranked "Principal SME Executive Summary" panel and "Key Findings" table.
 
 ## [1.3.0] - 2026-02-04
 

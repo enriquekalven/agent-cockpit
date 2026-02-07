@@ -1,7 +1,7 @@
 # 🕹️ AgentOps Cockpit
 
 <div align="center">
-  <img src="public/assets/trinity.png" alt="AgentOps Cockpit Trinity" width="100%" />
+  <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
 </div>
 
 <div align="center">
@@ -70,13 +70,13 @@ graph TD
 
 ---
 
-## 🏛️ v1.3: The "Autonomous Architect" Standard (NEW)
-Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3 Roadmap**](/docs/ROADMAP_V13.md).
+## 🏛️ v1.3.1: The "Executive Sovereignty" Standard (NEW)
+Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3.1 Release Notes**](/docs/CHANGELOG.md).
 
-- **🚀 Context-Aware Patching**: Moving from templates to LLM-Synthesized PRs that match your project's style.
-- **🧪 Digital Twin Simulation**: `make simulation-run` for high-concurrency "Stress-Reasoning" test. [**Read Guide**](docs/TECHNICAL_ARCH_REVIEW.md).
-- **🧗 Hill Climbing Optimization**: Iterative prompt tuning to reach the Global Peak. [**Read Guide**](docs/TECHNICAL_QUALITY_GUIDE.md).
-- **🌍 Strategic Exit Strategy**: Automated TCO reports and migration plans for moving between cloud providers.
+- **🩺 Auth Doctor**: Pre-flight diagnosis of GCP credentials to prevent mid-fleet audit failures.
+- **📁 Artifact Sovereignty**: Centralized `.cockpit/` directory for all audit evidence, reports, and SARIF objects.
+- **🚀 Recursive Discovery**: Support for `targets` in `cockpit.yaml` and template placeholder isolation (`{{...}}`).
+- **🎯 Modular Auditing**: High-precision filtering with `--only` and `--skip` flags.
 
 ---
 
@@ -99,6 +99,15 @@ The Cockpit now performs platform-specific performance and security audits for *
 
 ---
 
+### 🛡️ Advanced Governance & Discovery (v1.3.1)
+Modern agents don't just live in `agent.py`. The Cockpit uses a centralized **Discovery Engine** to intelligently map your project:
+- **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
+- **Multi-Target Logic**: Define `targets: []` in `cockpit.yaml` to audit distributed agents in a single pass.
+- **Template Isolation**: Automatically ignores raw template placeholders (e.g., Jinja/Cookiecutter) to focus on the active implementation.
+- **Artifact Store**: All data (SARIF, Evidence, HTML) is now sovereignly stored in the `.cockpit/` directory.
+
+---
+
 ## ⌨️ Master Command Registry
 
 The Cockpit is available as a first-class CLI and a comprehensive Makefile-based operational toolkit.
@@ -118,6 +127,17 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 *   [**🧗 Quality**](docs/TECHNICAL_QUALITY_GUIDE.md)
 *   [**🌐 Infrastructure**](docs/TECHNICAL_INFRA_GUIDE.md)
 *   [**🎭 UX/UI**](docs/TECHNICAL_UX_GUIDE.md)
+
+<div align="center">
+  <img src="public/assets/persona_builder.png" width="32%" />
+  <img src="public/assets/persona_strategist.png" width="32%" />
+  <img src="public/assets/persona_guardian.png" width="32%" />
+</div>
+<div align="center">
+  <img src="public/assets/persona_controller.png" width="32%" />
+  <img src="public/assets/persona_visionary.png" width="32%" />
+  <img src="public/assets/workflow_v2.png" width="32%" />
+</div>
 
 ---
 

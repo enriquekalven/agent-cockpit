@@ -1,50 +1,59 @@
-# 🏛️ Technical Guide: Autonomous Architect Review v1.3
+# 🏛️ Technical Guide: Autonomous Architect Review v1.3.0 Stable
 ## The "Category Killer" Standard
 
-The `make arch-review` engine has evolved into an **Autonomous Architect SME**. It pivots the focus from **Evaluation to Autonomous Evolution**, implementing the [**v1.3 Roadmap**](/docs/ROADMAP_V13.md) to close the loop between finding flaws and synthesizing production-ready fixes.
+The `make arch-review` engine has evolved into an **Autonomous Architect SME**. It pivots the focus from **Evaluation to Autonomous Evolution**, closing the loop between finding flaws and synthesizing production-ready fixes.
 
 ---
 
 ## 🛠️ Operational Commands
 
-| Command | Lifecycle Phase | Impact |
-| :--- | :--- | :--- |
-| `make arch-review` | **Evaluation** | Runs the v1.3 autonomous scan and generates a Board-Ready ADR. |
-| `make simulation-run` | **Digital Twin** | Synthesizes 100+ user agents to stress-test **Reasoning Degradation**. |
-| `make arch-review-export` | **Stakeholder Alignment** | Generates the **v1.3 Impact Waterfall** HTML Report. |
-| `make apply-fixes` | **Evolution** | v1.3: Trigger context-aware code synthesis (LLM PRs). |
+| Command | Lifecycle Phase | Impact | Technical Driver |
+| :--- | :--- | :--- | :--- |
+| `make arch-review` | **Evaluation** | Runs autonomous scan and generates ADR. | `arch_review.py` SME Orchestration |
+| `make simulation-run` | **Digital Twin** | Stress-tests **Reasoning Degradation**. | `swarm.py` + `ShadowRouter` |
+| `make arch-review-export` | **Stakeholder Alignment**| Generates **Impact Waterfall** Report. | `ui_auditor.py` Visualization Layer |
+| `make apply-fixes` | **Evolution** | Trigger AST-based code synthesis. | `remediator.py` (The "Closer" Engine) |
 
 ---
 
-## 🧠 What v1.3 "Autonomous Architect" Now Covers
+## 🧠 What v1.0.0 "Autonomous Architect" Now Covers
 
-The v1.3 surge introduces **Strategic Evolution** and **Synthetic Stress Testing**:
+The v1.0.0 surge introduces **Strategic Evolution** and **Synthetic Stress Testing**:
 
-### 1. 🚀 Context-Aware Synthesis (Evolution)
-*   **AST Patching**: Instead of templates, uses a coding agent to rewrite code blocks while maintaining specific variable naming and project style.
-*   **Result**: Production-ready PRs that require zero human refactoring.
+### 1. 🚀 Context-Aware Synthesis (The Closer Engine)
+*   **The "Closer" Logic**: Operates on a **Synthesize-Validate-Verify** loop. The `CodeRemediator` transforms the Python AST to inject resiliency decorators (`@retry`), missing timeouts, and schema Literals.
+*   **AST Hygiene**: Unlike raw string concatenation, AST-based patching ensures that indentation, imports, and syntax remain 100% valid post-injection.
+*   **Result**: Production-ready fixes that require zero human refactoring.
 
 ### 🧪 2. Digital Twin Stress Testing
-*   **Reasoning Degradation**: Monitors if the agent loses "Contextual Thread" or starts hallucinating under high infra latency.
-*   **Synthetic Traffic**: Simulates 100 adversarial users simultaneously to find "Reasoning Deadlocks."
+*   **Reasoning Degradation**: Monitors the **Contextual Thread Integrity**. If the agent loses the ability to reference message `n-5` under pressure, the Architect flags a "Reasoning Failure."
+*   **Synthetic Traffic**: Parallelized `swarm.py` execution simulates 100 adversarial users, identifying edge cases where tool-calling loops become non-deterministic.
 
-### 🌍 3. Multi-Cloud Exit & TCO (The Sovereign)
-*   **Vendor Lock-in TCO**: Quantifies the cost and effort of moving from Vertex AI to open-source (Gemma/vLLM).
-*   **Exit Plan**: Automatically generates the "Exit Strategy" report for the CFO.
+### 🌍 3. Multi-Cloud Exit & TCO (The Sovereign Score)
+The v1.3 Architect calculates a **Sovereignty Score (0.0 - 1.0)** based on:
+1.  **Vendor Lock-in TCO**: Quantifies the cost and effort of moving from Vertex AI to open-source (Gemma/vLLM).
+2.  **Data Resident Proximity**: Measures the latency overhead between the Model and the Vector DB.
+3.  **Exit Plan**: Automatically generates the "Exit Strategy" report for the CFO.
 
-### 🌊 4. Impact Waterfall (v1.3 Report)
-*   **Reasoning Waterfall**: Maps every millisecond of latency to the specific "hop" in the agent chain.
-*   **Risk Waterfall**: Maps Red Team mitigations to a quantified reduction in "Total Potential Loss."
+### 🌊 4. Impact Waterfall (v1.3 Visual)
+The architect maps the **Cascading Failures** of an agentic workflow:
+*   **Reasoning Waterfall**: Visualizes how a 200ms delay in a sub-tool "Hops" can lead to a 5s delay in the final response.
+*   **Risk Waterfall**: Projects how a single PII leak in a tool output can compromise the entire conversation audit log.
+
+### 🔍 5. Multi-Target Recursive Discovery (v1.3.1)
+The Architect now supports distributed project structures:
+- **Global `targets` Support**: Define multiple entry points via `cockpit.yaml` to audit entire agent fleets in parallel.
+- **Template Isolation**: Intelligently ignores Jinja/Cookiecutter placeholders to focus on the active execution path.
 
 ---
 
-## 🏛️ v1.3 Strategic Action Plan
+## 🏛️ v1.0.0 Strategic Action Plan
 
-The v1.3 ADR transforms gaps into **Strategic ROI**:
+The v1.0.0 ADR transforms gaps into **Strategic ROI**:
 
-1.  **Autonomous PR**: Context-aware fix synthesized for the 3 detected `tenacity` issues in `agent.py`.
-2.  **Simulation result**: 12% probability of "Reasoning Failure" detected under 5s latency spike.
+1.  **Autonomous Fix**: Context-aware fix synthesized for detected resiliency issues in `agent.py`.
+2.  **Simulation Result**: 12% probability of "Reasoning Failure" detected under 5s latency spike.
 3.  **TCO Report**: -12% OpEx projected by pivoting to Gemma 2. Exit effort: 14 lines.
 
 ---
-*Generated by the AgentOps Cockpit v1.3. Autonomous Architect Division.*
+*Generated by the AgentOps Cockpit v1.3.1 Stable. Autonomous Architect Division.*

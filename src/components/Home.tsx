@@ -71,8 +71,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.3.0</span>
-          <span className="banner-text"><b>Antigravity v1.3:</b> Now fully Mobile-Hardened for iPhone viewports. Featuring autonomous remediation, GenUI readiness scoring, and the new uv-first Contribution Standard.</span>
+          <span className="banner-tag">STABLE v1.3.1</span>
+          <span className="banner-text"><b>Executive Sovereignty v1.3.1:</b> Introducing Recursive Discovery, Auth Doctor diagnostics, and Sovereign Artifact storage in the <code>.cockpit/</code> directory.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
