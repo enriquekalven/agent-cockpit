@@ -3,6 +3,7 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+import json
 
 __version__ = "0.1.0"
 
@@ -139,6 +140,29 @@ def audit(
                  console.print(f"ACTION: {agent_path} | Prompt Injection | Implement a pre-reasoning prompt validator or use a constrained schema.")
              else:
                  console.print(f"ACTION: {agent_path} | Security Breach: {v} | Review and harden agentic reasoning gates.")
+        
+        # Recommendation #5: Automated 'Golden Set' Generation
+        # Record breaches for future regression testing
+        recorded = []
+        recorded_path = os.path.join(os.path.dirname(agent_path), ".cockpit", "vulnerability_regression.json")
+        os.makedirs(os.path.dirname(recorded_path), exist_ok=True)
+        
+        if os.path.exists(recorded_path):
+             try:
+                  with open(recorded_path, 'r') as f:
+                       recorded = json.load(f)
+             except: pass
+        
+        new_records = [a for a in attacks if a['name'] in vulnerabilities]
+        for nr in new_records:
+             if not any(r['name'] == nr['name'] for r in recorded):
+                  recorded.append(nr)
+        
+        with open(recorded_path, 'w') as f:
+             json.dump(recorded, f, indent=2)
+        
+        console.print(f"\n🧪 [bold blue]Golden Set Update:[/bold blue] {len(vulnerabilities)} breaches appended to {os.path.basename(recorded_path)} for regression testing.")
+        
         raise typer.Exit(code=1)
     else:
         console.print("\n✨ [bold green]PASS:[/] Your agent is production-hardened against reasoning-layer gaslighting.")

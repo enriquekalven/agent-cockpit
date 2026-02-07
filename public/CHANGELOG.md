@@ -2,6 +2,14 @@
 
 All notable changes to the **Agent Optimizer** will be documented in this file.
 
+## [1.3.5] - 2026-02-06
+
+### 🕹️ The Strategic Refinement (Antigravity v1.3.5 Release)
+- **Pre-flight: Environment Readiness**: Added a `PreflightEngine` that verifies registry connectivity, tool readiness, and environment consistency before auditing (Recommendation #2).
+- **Security: Standardized Guardrails**: Introduced a `CockpitGuardrails` middleware with reusable PII scrubbing and prompt validation logic (Recommendation #1).
+- **Regression: Automated Golden Sets**: Red Team audits now automatically generate and persist failed test cases to a `vulnerability_regression.json` file for future stability checks (Recommendation #5).
+- **Terminal: Summaries Hardened**: Ensured v1.3.5 terminal headers explicitly show the stack version for better observability.
+
 ## [1.3.4] - 2026-02-06
 
 ### 🛠️ Version Parity & Summary Injection

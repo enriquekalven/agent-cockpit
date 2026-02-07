@@ -15,6 +15,7 @@ from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
+from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
 
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
@@ -64,6 +65,9 @@ def report(
         if not success:
              raise typer.Exit(code=3) # Fleet failure
     else:
+        # Recommendation #2: Pre-flight Verification
+        pre_mod.run_preflight(path)
+        
         console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]")
         exit_code = orch_mod.run_audit(
              mode=mode, target_path=path, apply_fixes=apply_fixes, 
