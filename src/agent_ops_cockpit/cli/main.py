@@ -115,7 +115,7 @@ def arch_review(path: str='.'):
 @app.command()
 def audit(file_path: str = typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool = typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), quick: bool = typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
     """
-    Run the Interactive Agent Optimizer audit.
+    Run the Interactive AgentOps Cockpit audit.
     """
     console.print('🔍 [bold blue]Running Agent Operations Audit...[/bold blue]')
     opt_mod.audit(file_path, interactive, quick=quick)

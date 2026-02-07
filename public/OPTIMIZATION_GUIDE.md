@@ -24,7 +24,7 @@ Performance isn't just about tokens; it's about the pipes.
 - **GKE Workload Identity**: Optimizes IAM token exchanges by using native K8s service accounts instead of high-latency static keys.
 
 ## 🏗️ Language-Specific Tuning
-The **Agent Optimizer** (`make audit`) is language-aware:
+The **AgentOps Cockpit** (`make audit`) is language-aware:
 - **Go**: Identifies standard map usage and recommends `sync.Map` or Mutexes for high-concurrency tool paths.
 - **NodeJS**: Proposes the use of native `fetch()` (Node 20+) over heavy external libraries like Axios to reduce memory footprint.
 - **Python**: Suggests `FastAPI` concurrency patterns over synchronous `requests` calls.

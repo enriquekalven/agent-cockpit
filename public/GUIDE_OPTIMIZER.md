@@ -1,6 +1,6 @@
-# 🔍 Technical Guide: Agent Optimizer (`make audit`)
+# 🔍 Technical Guide: AgentOps Cockpit (`make audit`)
 
-The **Agent Optimizer** is a code-level auditor that identifies waste, legacy patterns, and cost-reduction opportunities in your agent's source code.
+The **AgentOps Cockpit** is a code-level auditor that identifies waste, legacy patterns, and cost-reduction opportunities in your agent's source code.
 
 ## 🚀 Commands
 

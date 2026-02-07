@@ -55,7 +55,7 @@ echo "🕵️  Configuring Shadow Mode Traffic Split..."
 echo "✅ Shadow Mode initialized. Comparison logs routing to BigQuery."
 
 # 7. Initial Optimization Audit
-echo "🔍 Running Agent Optimizer CLI..."
+echo "🔍 Running AgentOps Cockpit CLI..."
 python3 src/agent_ops_cockpit/optimizer.py src/agent_ops_cockpit/agent.py --auto-approve
 
 # 8. Deploy to Cloud Run

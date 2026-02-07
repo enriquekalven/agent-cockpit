@@ -14,7 +14,7 @@ We follow the **Trinity** model:
 3. Run the optimizer audit before committing: `make audit`.
 4. Ensure your agent logic passes the `red-team` eval.
 
-## 🔍 Agent Optimizer Standards
+## 🔍 AgentOps Cockpit Standards
 All new agent components should be auditable via `src/agent_ops_cockpit/optimizer.py`. If you add a new pattern (e.g., a new caching strategy), update the analyzer logic in `optimizer.py` to recognize it.
 
 ## 🚢 Deployment

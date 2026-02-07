@@ -30,7 +30,7 @@ agent-ops deploy --name my-production-agent --region us-east1
 When you run this command, the Cockpit orchestrates four distinct stages:
 
 ### Stage 1: Pre-Flight Audit
-Runs a non-interactive **Agent Optimizer Audit**. If critical architectural or cost-waste patterns are detected, the deployment will halt to prevent "leaking" money or exposing vulnerabilities.
+Runs a non-interactive **AgentOps Cockpit Audit**. If critical architectural or cost-waste patterns are detected, the deployment will halt to prevent "leaking" money or exposing vulnerabilities.
 
 ### Stage 2: Face Build (Frontend)
 Executes `npm run build` to compile the **React/Vite** frontend into production-ready assets (Minified JS, CSS, and A2UI definitions).

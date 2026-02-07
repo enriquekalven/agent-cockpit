@@ -20,7 +20,7 @@ except ImportError:
 
         def get_compatibility_report(imports):
             return []
-app = typer.Typer(help='AgentOps Cockpit: The Agent Optimizer CLI')
+app = typer.Typer(help='AgentOps Cockpit: The AgentOps Cockpit CLI')
 console = Console()
 
 class OptimizationIssue:

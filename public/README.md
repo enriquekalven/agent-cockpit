@@ -1,7 +1,7 @@
-# 🕹️ Agent Optimizer
+# 🕹️ AgentOps Cockpit
 
 <div align="center">
-  <img src="public/assets/trinity_v2.png" alt="Agent Optimizer Trinity" width="100%" />
+  <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
 </div>
 
 <div align="center">
@@ -29,7 +29,7 @@
 ---
 
 ## 📽️ The Mission
-Most AI agent templates stop at a single Python file and an API key. **The Agent Optimizer** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
+Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
 
 - **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/GOOGLE_ARCHITECTURE.md) best practices with the **Evidence Bridge**—real-time citations for architectural integrity.
 - **SME Persona Audits**: Parallelized review of your codebase by automated [**Principal SMEs**](docs/TECHNICAL_AUDIT_GUIDE.md) across FinOps, SecOps, Architecture, and Quality.
@@ -70,8 +70,8 @@ graph TD
 
 ---
 
-## 🏛️ v1.3.1: The "Executive Sovereignty" Standard (NEW)
-Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3.1 Release Notes**](/docs/CHANGELOG.md).
+## 🏛️ v1.3.5: The "Executive Sovereignty" Standard (NEW)
+Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3.5 Release Notes**](/docs/CHANGELOG.md).
 
 - **🩺 Auth Doctor**: Pre-flight diagnosis of GCP credentials to prevent mid-fleet audit failures.
 - **📁 Artifact Sovereignty**: Centralized `.cockpit/` directory for all audit evidence, reports, and SARIF objects.
@@ -99,7 +99,7 @@ The Cockpit now performs platform-specific performance and security audits for *
 
 ---
 
-### 🛡️ Advanced Governance & Discovery (v1.3.1)
+### 🛡️ Advanced Governance & Discovery (v1.3.5)
 Modern agents don't just live in `agent.py`. The Cockpit uses a centralized **Discovery Engine** to intelligently map your project:
 - **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
 - **Multi-Target Logic**: Define `targets: []` in `cockpit.yaml` to audit distributed agents in a single pass.
@@ -151,7 +151,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 ---
 
 ## 🤝 Ecosystem & Attribution
-The Agent Optimizer is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
+The AgentOps Cockpit is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
 
 *   **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: We leverage this as a core reference for the **Agent Development Kit (ADK)** patterns and Vertex AI Agent Engine integration.
 *   **A2A Standard**: Our implementation follow the Agent-to-Agent Transmission Protocol for swarm intelligence.
