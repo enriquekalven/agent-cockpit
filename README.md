@@ -1,7 +1,7 @@
-# 🕹️ AgentOps Cockpit
+# 🕹️ Agent Optimizer
 
 <div align="center">
-  <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
+  <img src="public/assets/trinity_v2.png" alt="Agent Optimizer Trinity" width="100%" />
 </div>
 
 <div align="center">
@@ -29,7 +29,7 @@
 ---
 
 ## 📽️ The Mission
-Most AI agent templates stop at a single Python file and an API key. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
+Most AI agent templates stop at a single Python file and an API key. **The Agent Optimizer** is for developers moving into production. It provides framework-agnostic governance, safety, and cost guardrails for the entire agentic ecosystem.
 
 - **Governance-as-Code**: Audit your agent against [Google Well-Architected](/docs/GOOGLE_ARCHITECTURE.md) best practices with the **Evidence Bridge**—real-time citations for architectural integrity.
 - **SME Persona Audits**: Parallelized review of your codebase by automated [**Principal SMEs**](docs/TECHNICAL_AUDIT_GUIDE.md) across FinOps, SecOps, Architecture, and Quality.
@@ -151,7 +151,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 ---
 
 ## 🤝 Ecosystem & Attribution
-The AgentOps Cockpit is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
+The Agent Optimizer is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
 
 *   **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: We leverage this as a core reference for the **Agent Development Kit (ADK)** patterns and Vertex AI Agent Engine integration.
 *   **A2A Standard**: Our implementation follow the Agent-to-Agent Transmission Protocol for swarm intelligence.

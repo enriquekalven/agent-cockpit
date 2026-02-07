@@ -1,6 +1,6 @@
 # 📜 Changelog
 
-All notable changes to the **AgentOps Cockpit** will be documented in this file.
+All notable changes to the **Agent Optimizer** will be documented in this file.
 
 ## [1.3.2] - 2026-02-06
 
