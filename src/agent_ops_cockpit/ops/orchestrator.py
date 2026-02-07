@@ -167,6 +167,15 @@ class CockpitOrchestrator:
             
         if as_html:
             summary = ["<div class='executive-summary-content'>"]
+            
+            # Improvement: Add an explicit TLDR
+            health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
+            status_text = "PASSED" if health_score >= 90 else "WARNING" if health_score >= 70 else "FAILED"
+            summary.append(f"<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>")
+            summary.append(f"<h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: {status_text}</h3>")
+            summary.append(f"<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>{health_score:.1f}%</strong> | Active Risks: <strong>{sum(1 for r in self.results.values() if not r['success'])}</strong></p>")
+            summary.append(f"</div>")
+
             headers = {
                 0: ("#ef4444", "Priority 1: 🔥 Critical Security & Compliance"),
                 1: ("#f59e0b", "Priority 2: 🛡️ Reliability & Resilience"),
@@ -175,8 +184,10 @@ class CockpitOrchestrator:
                 4: ("#64748b", "Priority 5: 🎭 Experience & Refinements")
             }
             
+            p_found = False
             for p_val in range(5):
                 if groups[p_val]:
+                    p_found = True
                     color, label = headers[p_val]
                     summary.append(f"<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid {color}; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>")
                     summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.9rem; text-transform:uppercase;'>{label}</h4>")
@@ -190,10 +201,15 @@ class CockpitOrchestrator:
                         if len(unique_findings) >= 3: break
                     summary.extend(unique_findings)
                     summary.append("</div>")
+            
+            if not p_found:
+                 summary.append("<p style='color: #64748b; font-style: italic;'>No prioritized implementation steps detected for this build. Refer to the Persona Approval Matrix below for status.</p>")
+                 
             summary.append("</div>")
             return "\n".join(summary)
         else:
-            summary = ["## 👔 Principal SME Executive Summary (Stack-Ranked)"]
+            health_score = (sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100) if self.results else 0
+            summary = [f"## 👔 Principal SME Executive Summary (TLDR: {health_score:.1f}%)"]
             summary.append("Findings are prioritized by Business Impact & Blast Radius.")
             
             headers = {
@@ -204,8 +220,10 @@ class CockpitOrchestrator:
                 4: "### ⬜ Priority 5: 🎭 Experience & Minor Refinements"
             }
             
+            p_found = False
             for p_val in range(5):
                 if groups[p_val]:
+                    p_found = True
                     summary.append(f"\n{headers[p_val]}")
                     unique_findings = []
                     seen = set()
@@ -216,6 +234,10 @@ class CockpitOrchestrator:
                             seen.add(parts[1])
                         if len(unique_findings) >= 3: break
                     summary.extend(unique_findings)
+            
+            if not p_found:
+                summary.append("\n✅ **Governance standard verified.** No prioritized gaps detected.")
+                
             return summary
 
     def print_terminal_v13_summary(self, developer_actions):
@@ -259,7 +281,8 @@ class CockpitOrchestrator:
             findings_table = Table(show_header=True, header_style="bold magenta", expand=True, box=None)
         else:
             findings_table = Table(title=title, show_header=True, header_style="bold magenta", expand=True)
-        findings_table.add_column("Category", style="cyan", width=20)
+        findings_table.add_column("Prio", style="bold", width=6)
+        findings_table.add_column("Category", style="cyan", width=15)
         findings_table.add_column("Issue Flagged", style="white")
         findings_table.add_column("🚀 Recommendation", style="green")
 
@@ -277,7 +300,7 @@ class CockpitOrchestrator:
                 for action in groups[p_val]:
                     parts = action.split(' | ')
                     if len(parts) >= 3 and parts[1] not in seen:
-                        findings_table.add_row(cat_name, parts[1], parts[2])
+                        findings_table.add_row(f"P{p_val+1}", cat_name, parts[1], parts[2])
                         seen.add(parts[1])
                     if len(seen) >= 3: # Limit to Top 3 per category for terminal clarity
                         break
@@ -646,6 +669,7 @@ class CockpitOrchestrator:
                     <thead>
                         <tr>
                             <th>SME Persona</th>
+                            <th>Priority</th>
                             <th>Primary Business Risk</th>
                             <th>Module</th>
                             <th>Verdict</th>
@@ -657,9 +681,12 @@ class CockpitOrchestrator:
             persona = self.PERSONA_MAP.get(name, 'Automated Auditor')
             risk = self.PRIMARY_RISK_MAP.get(name, 'Architectural Neutrality')
             status = 'APPROVED' if data['success'] else 'REJECTED'
+            # Assign a priority based on the module name for the matrix
+            prio = "P1" if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else "P2" if 'reliability' in name.lower() else "P3"
             html_content += f"""
                 <tr>
                     <td style="font-weight:700; color:#0f172a;">{persona}</td>
+                    <td><span style="font-weight:bold; color:{('#ef4444' if prio=='P1' else '#f59e0b')};">{prio}</span></td>
                     <td class="risk-text">{risk}</td>
                     <td>{name}</td>
                     <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>

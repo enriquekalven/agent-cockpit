@@ -2,6 +2,14 @@
 
 All notable changes to the **Agent Optimizer** will be documented in this file.
 
+## [1.3.3] - 2026-02-06
+
+### 📊 The Reporting Clarity (Antigravity v1.3.3 Release)
+- **Reporting: Priority-First TLDR**: Added a dedicated "Audit TLDR" section to both terminal and HTML reports, providing a high-level build status at a glance.
+- **Reporting: P1-P5 Prioritization**: Introduced explicit priority columns (P1-P5) in the implementation findings tables to help developers focus on critical fixes first.
+- **Orchestration: Robust Finding Capture**: Hardened the `ACTION:` line parsing to ensure findings are always captured even when build modules fail early.
+- **Artifacts: Centralized HTML Reports**: Improved HTML report generation to ensure implementation plans are always rendered, even if no changes are detected.
+
 ## [1.3.2] - 2026-02-06
 
 ### 🛠️ The Agentic Safety (Antigravity v1.3.2 Release)
