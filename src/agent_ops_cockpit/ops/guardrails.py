@@ -11,7 +11,7 @@ class CockpitGuardrails:
     PII_PATTERNS = {
         "email": r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+',
         "ipv4": r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b',
-        "api_key": r'(?:api_key|secret|token|password|auth|key)[\s:=]+[\'"]?([a-zA-Z0-9\-]{20,})[\'"]?',
+        "api_key": r'(?:api_key|secret|token|password|auth|key)[\s:=]+[\'"]?([a-zA-Z0-9\-_]{16,})[\'"]?',
         "github_token": r'ghp_[a-zA-Z0-9]{36}'
     }
 
