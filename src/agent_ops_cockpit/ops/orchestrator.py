@@ -22,6 +22,8 @@ if src_dir not in sys.path:
 
 console = Console()
 
+from .dashboard import generate_fleet_dashboard
+
 class CockpitOrchestrator:
     """
     Main orchestrator for AgentOps audits.
@@ -33,7 +35,7 @@ class CockpitOrchestrator:
         self.version = os.environ.get('AUDIT_VERSION', 'v1')
         self.report_path = f'cockpit_final_report_{self.version}.md'
         self.results = {}
-        self.total_steps = 7
+        self.total_steps = 8
         self.completed_steps = 0
         self.workspace_results = {} # For fleet intelligence
         self.common_debt = {}
@@ -85,6 +87,8 @@ class CockpitOrchestrator:
                   output = "ACTION: agent.py:4 | Mock Timeout | Add timeout to async call"
              elif name == 'Secret Scanner':
                   output = "🚩 Hardcoded Secret Detected (agent.py:10)\n   Variable 'API_KEY' appears to contain a hardcoded credential.\n   ACTION: agent.py:10 | Google API Key | Hardcoded secret"
+             elif name == 'RAG Fidelity Audit':
+                  output = "ACTION: agent.py:12 | Missing RAG Grounding Logic | Implement citation logic for RAG answers"
              else:
                   output = "✅ MOCK OK"
              
@@ -120,7 +124,7 @@ class CockpitOrchestrator:
             self.results[name] = {'success': False, 'output': str(e)}
             progress.update(task_id, description=f'[red]💥 {name} Error', completed=100)
             return (name, False)
-    PERSONA_MAP = {'Architecture Review': '🏛️ Principal Platform Engineer', 'Policy Enforcement': '⚖️ Governance & Compliance SME', 'Secret Scanner': '🔐 SecOps Principal', 'Token Optimization': '💰 FinOps Principal Architect', 'Reliability (Quick)': '🛡️ QA & Reliability Principal', 'Quality Hill Climbing': '🧗 AI Quality SME', 'Red Team Security (Full)': '🚩 Red Team Principal (White-Hat)', 'Red Team (Fast)': '🚩 Security Architect', 'Load Test (Baseline)': '🚀 SRE & Performance Principal', 'Evidence Packing Audit': '📜 Legal & Transparency SME', 'Face Auditor': '🎭 UX/UI Principal Designer'}
+    PERSONA_MAP = {'Architecture Review': '🏛️ Principal Platform Engineer', 'Policy Enforcement': '⚖️ Governance & Compliance SME', 'Secret Scanner': '🔐 SecOps Principal', 'Token Optimization': '💰 FinOps Principal Architect', 'Reliability (Quick)': '🛡️ QA & Reliability Principal', 'Quality Hill Climbing': '🧗 AI Quality SME', 'Red Team Security (Full)': '🚩 Red Team Principal (White-Hat)', 'Red Team (Fast)': '🚩 Security Architect', 'Load Test (Baseline)': '🚀 SRE & Performance Principal', 'Evidence Packing Audit': '📜 Legal & Transparency SME', 'Face Auditor': '🎭 UX/UI Principal Designer', 'RAG Fidelity Audit': '🧗 RAG Quality Principal'}
     PRIMARY_RISK_MAP = {
         'Secret Scanner': 'Credential Leakage & Unauthorized Access',
         'Architecture Review': 'Systemic Rigidity & Technical Debt',
@@ -128,7 +132,8 @@ class CockpitOrchestrator:
         'Token Optimization': 'FinOps Efficiency & Margin Erosion',
         'Reliability (Quick)': 'Failure Under Stress & Latency spikes',
         'Red Team (Fast)': 'Adversarial Jailbreaking',
-        'Face Auditor': 'A2UI Protocol Drift'
+        'Face Auditor': 'A2UI Protocol Drift',
+        'RAG Fidelity Audit': 'Retrieval-Reasoning Hallucinations'
     }
     # Improvement #4: Fixability Mapping
     EFFORT_MAP = {
@@ -138,7 +143,8 @@ class CockpitOrchestrator:
         'Reliability (Quick)': '🔧 Medium (Code)',
         'Architecture Review': '🏗️ Hard (Structural)',
         'Face Auditor': '🔧 Medium (A2UI)',
-        'Red Team (Fast)': '🏗️ Hard (Model/Prompt)'
+        'Red Team (Fast)': '🏗️ Hard (Model/Prompt)',
+        'RAG Fidelity Audit': '🔧 Medium (Logic)'
     }
 
     def generate_executive_summary(self, developer_actions, as_html=False):
@@ -743,146 +749,6 @@ class CockpitOrchestrator:
             console.print(f'[red]❌ Email failed: {e}[/red]')
             return False
 
-def generate_fleet_dashboard(results: dict):
-    """Generates a premium unified HTML dashboard with deep-link drilldowns."""
-    # Note: Orchestrator instance isn't directly passed here, 
-    # but we follow the .cockpit/ standard
-    lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
-    fleet_data = {}
-    if os.path.exists(lake_path):
-        try:
-            with open(lake_path, "r") as f:
-                fleet_data = json.load(f)
-        except Exception:
-            pass
-
-    total = len(results)
-    
-    # Extract Granular Compliance from Global Summary
-    global_summary = fleet_data.get("global_summary", {})
-    compliance_score = global_summary.get("compliance", 0)
-    
-    passed_count = sum(1 for r in results.values() if r == 0)
-    # If no agent fully passes, we show the granular compliance score in the header
-    display_compliance = compliance_score if passed_count == 0 else (passed_count/total)*100
-    
-    # ROI Predictor Logic
-    total_savings = sum(r.get("savings", 0) for r in fleet_data.values() if isinstance(r, dict) and "savings" in r)
-    if total_savings == 0:
-        total_savings = 12.50 * total # Estimated baseline
-
-    # Extract Global Velocity
-    global_velocity = fleet_data.get("global_summary", {}).get("velocity", 0)
-    velocity_color = "#059669" if global_velocity >= 0 else "#dc2626"
-    velocity_icon = "📈" if global_velocity >= 0 else "📉"
-
-    html = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>AgentOps: Fleet Dashboard</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-            body {{ font-family: 'Inter', sans-serif; background: #f8fafc; padding: 40px; color: #1e293b; }}
-            .container {{ max-width: 1400px; margin: 0 auto; }}
-            .header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }}
-            .stats {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }}
-            .stat-card {{ background: white; padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }}
-            .stat-value {{ font-size: 2rem; font-weight: 700; color: #3b82f6; }}
-            .roi-panel {{ background: #eff6ff; border: 1px solid #bfdbfe; padding: 24px; border-radius: 16px; margin-bottom: 40px; }}
-            .agent-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }}
-            .agent-card {{ background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; transition: transform 0.2s; position: relative; overflow: hidden; }}
-            .agent-card:hover {{ transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }}
-            .status-pass {{ color: #059669; font-weight: 700; }}
-            .status-fail {{ color: #dc2626; font-weight: 700; }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>🛸 AgentOps Fleet Flight Deck</h1>
-                <div style="text-align: right; color: #64748b;">Enterprise Governance v1.3.0 Antigravity</div>
-            </div>
-            
-            <div class="stats">
-                <div class="stat-card">
-                    <div style="color: #64748b; font-size: 0.875rem;">Total Agents Scanned</div>
-                    <div class="stat-value">{total}</div>
-                </div>
-                <div class="stat-card">
-                    <div style="color: #64748b; font-size: 0.875rem;">Production Ready</div>
-                    <div class="stat-value" style="color: #059669;">{passed_count}</div>
-                </div>
-                <div class="stat-card">
-                    <div style="color: #64748b; font-size: 0.875rem;">Fleet Compliance</div>
-                    <div class="stat-value">{display_compliance:.1f}%</div>
-                </div>
-                <div class="stat-card">
-                    <div style="color: #64748b; font-size: 0.875rem;">Maturity Velocity</div>
-                    <div class="stat-value" style="color: {velocity_color};">{velocity_icon} {global_velocity:+.1f}%</div>
-                </div>
-            </div>
-
-            <div class="roi-panel">
-                <h2 style="margin-top: 0; color: #1e40af; font-size: 1.25rem;">💰 Enterprise ROI Predictor (FinOps)</h2>
-                <p style="font-size: 0.875rem; color: #1e3a8a; margin-bottom: 16px;">Strategic opportunities for cost reduction across the fleet. Enabling **Context Caching** and **Semantic Routing** could save an estimated monthly amount based on current scan volume.</p>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">Total Fleet Savings Potential: ${total_savings:.2f} / 10k requests</div>
-            </div>
-
-            <h2>📡 Real-time Agent Status</h2>
-            <div class="agent-grid">
-    """
-    
-    for agent, success in results.items():
-        status = "PASSED" if success == 0 else "FAILED"
-        status_class = "status-pass" if success == 0 else "status-fail"
-        abs_target = os.path.abspath(agent)
-        agent_data = fleet_data.get(abs_target, {})
-        
-        # Determine likely fixability based on common rejection patterns
-        fix_badge = ""
-        if success != 0:
-            fix_badge = '<div style="background: #fefce8; border: 1px solid #fef08a; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #854d0e; margin-top: 8px; display: inline-block;">🔧 Fixable in 1-click</div>'
-        
-        # Determine failing modules
-        failing_modules = []
-        if success != 0 and agent_data:
-            agent_results = agent_data.get('results', {})
-            failing_modules = [m for m, r in agent_results.items() if not r.get('success')]
-        
-        failure_summary = ""
-        if failing_modules:
-            failure_summary = f'<div style="font-size: 0.75rem; color: #dc2626; margin-top: 5px;">Failures: {", ".join(failing_modules)}</div>'
-
-        # Link to report
-        report_link = ""
-        agent_hash = hashlib.md5(abs_target.encode()).hexdigest()
-        report_path = f".cockpit/evidence_lake/{agent_hash}/report.html"
-        if os.path.exists(report_path):
-             report_link = f'<a href="{report_path}" style="font-size: 0.8rem; color: #3b82f6; text-decoration: none; display: block; margin-top: 10px; font-weight: 600;">View Full Report &rarr;</a>'
-
-        html += f"""
-                <div class="agent-card">
-                    <h3 style="margin-top: 0; font-size: 1rem;">{os.path.basename(agent)}</h3>
-                    <div class="{(status_class)}">{status}</div>
-                    {failure_summary}
-                    {fix_badge}
-                    {report_link}
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 10px;">Path: {agent}</div>
-                </div>
-        """
-        
-    html += """
-            </div>
-        </div>
-    </body>
-    </html>
-    """
-    dashboard_path = os.path.join(os.getcwd(), '.cockpit', 'fleet_dashboard.html')
-    with open(dashboard_path, "w") as f:
-        f.write(html)
-    console.print(f"📄 [bold blue]Unified Fleet Dashboard generated at {dashboard_path}[/bold blue]")
 
 def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list = None, skip: list = None, plain: bool = False):
     orchestrator = CockpitOrchestrator()
@@ -968,7 +834,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]),
             ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args),
             ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]),
-            ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path])
+            ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]),
+            ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])
         ]
         if mode == 'deep':
             steps.extend([

@@ -1,0 +1,59 @@
+import typer
+import os
+from rich.console import Console
+from rich.panel import Panel
+from rich.syntax import Syntax
+from rich.table import Table
+from agent_ops_cockpit.ops.remediator import CodeRemediator
+from agent_ops_cockpit.ops.arch_review import run_scan
+
+app = typer.Typer(help="Interactive Remediation Workbench: Review and approve autonomous fixes.")
+console = Console()
+
+@app.command()
+def review(path: str = typer.Option('.', '--path', '-p', help='Path to the agent project to review')):
+    """
+    Launch the interactive workbench to review proposed fixes.
+    """
+    console.print(Panel.fit('🛠️ [bold blue]INTERACTIVE REMEDIATION WORKBENCH[/bold blue]', border_style='blue'))
+    
+    with console.status("[bold blue]Scanning for potential fixes..."):
+        findings = run_scan(path)
+    
+    if not findings:
+        console.print("✅ [green]No fixes proposed for this project.[/green]")
+        return
+
+    rem_map = {}
+    for f in findings:
+        if f.file_path and f.file_path.endswith('.py'):
+            if f.file_path not in rem_map:
+                rem_map[f.file_path] = CodeRemediator(f.file_path)
+            
+            # Apply logic similar to arch_review.py
+            if 'Resiliency' in f.title or 'retry' in f.description.lower():
+                rem_map[f.file_path].apply_resiliency(f)
+            elif 'Zombie' in f.title:
+                rem_map[f.file_path].apply_timeouts(f)
+
+    for file_path, remediator in rem_map.items():
+        diff = remediator.get_diff()
+        if not diff:
+            continue
+            
+        console.print(f"\n📄 [bold cyan]File: {file_path}[/bold cyan]")
+        console.print(Panel(Syntax(diff, "diff", theme="monokai", line_numbers=True), title="Proposed Changes"))
+        
+        choice = typer.prompt("Apply these changes? (y/n/skip)", default="y")
+        if choice.lower() == 'y':
+            remediator.save()
+            console.print("✨ [green]Changes applied successfully.[/green]")
+        elif choice.lower() == 'skip':
+            console.print("⏭️ [yellow]Skipping this file...[/yellow]")
+        else:
+            console.print("🚫 [red]Changes rejected.[/red]")
+
+    console.print("\n✅ [bold]Workbench session complete.[/bold]")
+
+if __name__ == "__main__":
+    app()

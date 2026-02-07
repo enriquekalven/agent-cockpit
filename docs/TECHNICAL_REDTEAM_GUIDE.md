@@ -1,4 +1,4 @@
-## The "Adversarial SRE" Standard (v1.3.5 Stable)
+## The "Adversarial SRE" Standard (v1.4.0 Stable)
 
 The `make red-team` command activates the **Red Team Principal**. In v1.3.5, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
 

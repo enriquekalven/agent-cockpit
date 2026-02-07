@@ -14,6 +14,11 @@ from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
+from agent_ops_cockpit.ops import dashboard as dash_mod
+from agent_ops_cockpit.ops import rag_audit as rag_mod
+from agent_ops_cockpit.ops import finops_roi as roi_mod
+from agent_ops_cockpit.ops import workbench as workbench_mod
+from agent_ops_cockpit.ops import mcp_store as mcp_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
@@ -84,6 +89,17 @@ def quality_baseline(path: str='.'):
     """
     console.print('🧗 [bold cyan]Launching Quality Hill Climber...[/bold cyan]')
     quality_mod.audit(path)
+
+@app.command()
+def quality_climb(path: str='.'):
+    """Alias for quality-baseline."""
+    quality_baseline(path)
+
+# v1.4 Feature Integrations
+app.add_typer(rag_mod.app, name="rag-truth")
+app.add_typer(roi_mod.app, name="roi")
+app.add_typer(workbench_mod.app, name="workbench")
+app.add_typer(mcp_mod.app, name="mcp")
 
 @app.command()
 def policy_audit(input_text: str=typer.Option(None, '--text', '-t', help='Input text to validate against policies')):

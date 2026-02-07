@@ -52,7 +52,7 @@ def test_generate_fleet_dashboard(tmp_path):
     dashboard = tmp_path / ".cockpit" / "fleet_dashboard.html"
     assert dashboard.exists()
     content = dashboard.read_text()
-    assert "AgentOps Fleet Flight Deck" in content
+    assert "AgentOps Cockpit" in content
     assert "PASSED" in content
     assert "FAILED" in content
 

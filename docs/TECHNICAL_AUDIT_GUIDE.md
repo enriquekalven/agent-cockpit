@@ -1,6 +1,6 @@
-## The "Executive Sovereignty" Orchestration (v1.3.5 Stable)
+## The "Ecosystem Expansion" Release (v1.4.0 Stable)
 
-The `make audit` command is the heartbeat of the **AgentOps Cockpit**. From v1.3.5 onwards, we have introduced **Pre-flight Verification**, **Standardized Guardrail Middleware**, and **Automated Regression Tracking**.
+The `make audit` command is the heartbeat of the **AgentOps Cockpit**. From v1.4.0 onwards, we have introduced **RAG Fidelity Auditing**, **Maturity Radar Charts**, and the **Interactive Remediation Workbench**.
 
 👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
@@ -32,17 +32,17 @@ graph TD
 ## 🛠️ Audit Lifecycle Commands
 
 | `make audit` | **Evaluation** | Dev-velocity: Secrets, Reliability, and Fast Security. | Orchestrates `secret_scanner.py` and `reliability.py` (Mode: Quick). |
-| `make audit-deep` | **Deep Probe** | The "Final Examination": Stress tests, benchmarks, and iterative optimization. | Triggers full evaluation suite including `red_team.py` and `load_test.py`. |
+| `make audit-deep` | **Deep Probe** | The "Final Examination": RAG Fidelity, stress tests, and benchmarks. | Triggers full suite including `rag_audit.py` and `red_team.py`. |
 | `make arch-review`| **Evolution** | v1.3: **Context-Aware Patching** via LLM Synthesis. | Leverages `arch_review.py` and `remediator.py` for AST-based evolution. |
 | `make simulation-run`| **Digital Twin**| v1.3: 100+ Adversarial User Agents stress-test reasoning.| Parallelized execution of `swarm.py` utilizing the `ShadowRouter`. |
-| `ops report` | **Optimization** | v1.3.5: Master Orchestrator with **Pre-flight**. | Runs `preflight.py` before executing the multi-persona audit. |
-| `ops doctor` | **Diagnosis** | Pre-audit authentication and path diagnosis. | Alias for `diagnose` with enhanced GCP ADC detection. |
+| `ops report` | **Optimization** | v1.4: Master Orchestrator with **Radar Charts**. | Generates the premium HTML dashboard with maturity radar visualization. |
+| `ops workbench` | **Remediation** | v1.4: TUI-based Patch Negotiation. | Interactive loop for reviewing and approving autonomous fixes. |
 
 ---
 
-## 🎯 Modular Auditing & Filtering (v1.3.1)
-Modern audits shouldn't be "all or nothing." v1.3.1 introduces high-precision filtering:
-- **`--only [category]`**: Run only specific personas (e.g., `ops report --only security`).
+## 🎯 Modular Auditing & Filtering (v1.4.0)
+Modern audits shouldn't be "all or nothing." v1.4.0 introduces high-precision filtering:
+- **`--only [category]`**: Run only specific personas (e.g., `ops report --only rag-truth`).
 - **`--skip [category]`**: Exclude heavy audits (e.g., `ops report --skip red-team`) for faster CI feedback.
 
 ---

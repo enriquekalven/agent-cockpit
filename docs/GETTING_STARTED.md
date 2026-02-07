@@ -1,5 +1,5 @@
 # 🚀 Quickstart: Production-Grade AgentOps
-## The "Autonomous Standard" (v1.3.5 Stable)
+## The "Ecosystem Expansion" (v1.4.0 Stable)
 
 "From `pip install` to `Well-Architected` in 60 seconds."
 
