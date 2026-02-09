@@ -1,7 +1,6 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
 import json
 import os
-from tenacity import retry, wait_exponential, stop_after_attempt
 import urllib.request
 import xml.etree.ElementTree as ET
 import re

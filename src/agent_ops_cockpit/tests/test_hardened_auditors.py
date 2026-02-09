@@ -1,5 +1,4 @@
 import ast
-import pytest
 from agent_ops_cockpit.ops.auditors.compliance import ComplianceAuditor
 from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
 from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor

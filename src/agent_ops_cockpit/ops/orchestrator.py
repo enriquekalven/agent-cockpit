@@ -18,7 +18,8 @@ src_dir = os.path.dirname(os.path.dirname(script_dir))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 console = Console()
-from .dashboard import generate_fleet_dashboard
+from .dashboard import generate_fleet_dashboard  # noqa: E402
+
 
 class CockpitOrchestrator:
     """
@@ -138,10 +139,10 @@ class CockpitOrchestrator:
             summary = ["<div class='executive-summary-content'>"]
             health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
             status_text = 'PASSED' if health_score >= 90 else 'WARNING' if health_score >= 70 else 'FAILED'
-            summary.append(f"<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>")
+            summary.append("<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>")
             summary.append(f"<h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: {status_text}</h3>")
             summary.append(f"<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>{health_score:.1f}%</strong> | Active Risks: <strong>{sum((1 for r in self.results.values() if not r['success']))}</strong></p>")
-            summary.append(f'</div>')
+            summary.append('</div>')
             headers = {0: ('#ef4444', 'Priority 1: 🔥 Critical Security & Compliance'), 1: ('#f59e0b', 'Priority 2: 🛡️ Reliability & Resilience'), 2: ('#3b82f6', 'Priority 3: 🏗️ Architectural Alignment'), 3: ('#10b981', 'Priority 4: 💰 FinOps & ROI Opportunities'), 4: ('#64748b', 'Priority 5: 🎭 Experience & Refinements')}
             p_found = False
             for p_val in range(5):

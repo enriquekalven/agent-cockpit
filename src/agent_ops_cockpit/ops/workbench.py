@@ -1,10 +1,8 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
-import os
 from rich.console import Console
 from rich.panel import Panel
 from rich.syntax import Syntax
-from rich.table import Table
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.arch_review import run_scan
 app = typer.Typer(help='Interactive Remediation Workbench v1.4.2: Review and approve autonomous fixes.')

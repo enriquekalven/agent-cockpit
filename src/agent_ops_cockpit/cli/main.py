@@ -15,14 +15,12 @@ from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
-from agent_ops_cockpit.ops import dashboard as dash_mod
 from agent_ops_cockpit.ops import rag_audit as rag_mod
 from agent_ops_cockpit.ops import finops_roi as roi_mod
 from agent_ops_cockpit.ops import workbench as workbench_mod
 from agent_ops_cockpit.ops import mcp_store as mcp_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
-from agent_ops_cockpit.ops import auditors as audit_pkgs
 from agent_ops_cockpit.config import config
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
@@ -214,7 +212,7 @@ def diagnose():
         import google.auth
         _, project = google.auth.default()
         table.add_row('GCP Auth (ADC)', f'[green]PASSED ({project})[/green]', 'Authenticated')
-    except Exception as e:
+    except Exception:
         table.add_row('GCP Auth (ADC)', '[red]REAUTHENTICATION NEEDED[/red]', "Run 'gcloud auth application-default login'")
     if has_cockpit:
         table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Sovereign data path OK')

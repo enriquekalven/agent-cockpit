@@ -1,6 +1,4 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
 import pytest
 import os
 import re

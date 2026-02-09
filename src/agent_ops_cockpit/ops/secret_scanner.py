@@ -1,7 +1,6 @@
 import os
 import re
 import math
-import base64
 import typer
 from rich.console import Console
 from rich.table import Table

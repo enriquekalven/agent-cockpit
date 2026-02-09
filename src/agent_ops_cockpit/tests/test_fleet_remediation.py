@@ -1,8 +1,6 @@
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
-import json
 import tempfile
-import shutil
 from agent_ops_cockpit.ops.orchestrator import workspace_audit
 
 def setup_mock_agent(agent_dir, has_issue=True):

@@ -33,7 +33,8 @@ class FinOpsAuditor(BaseAuditor):
                                 if any(kw in call_str for kw in ['invoke', 'generate', 'predict', 'query']):
                                     is_nested_inference = True
                                     break
-                    if is_nested_inference: break
+                    if is_nested_inference:
+                        break
 
                 multiplier = 10 if is_nested_inference else 1
                 projected_cost = price * multiplier

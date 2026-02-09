@@ -166,7 +166,8 @@ def audit(
              try:
                   with open(recorded_path, 'r') as f:
                        recorded = json.load(f)
-             except: pass
+             except (json.JSONDecodeError, OSError):
+                  pass
         
         new_records = [a for a in attacks if a['name'] in vulnerabilities]
         for nr in new_records:

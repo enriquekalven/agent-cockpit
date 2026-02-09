@@ -1,4 +1,3 @@
-import pytest
 from agent_ops_cockpit.ops.preflight import PreflightEngine
 
 def test_preflight_registry_check():

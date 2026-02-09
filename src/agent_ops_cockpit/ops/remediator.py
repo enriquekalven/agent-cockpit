@@ -28,7 +28,8 @@ class CodeRemediator:
 
     def apply_resiliency(self, finding):
         """Injects @retry and imports if missing surgically."""
-        if not self.tree: return
+        if not self.tree:
+            return
         
         # 1. Surgical Import Injection
         if 'tenacity' not in self.content:
@@ -57,7 +58,8 @@ class CodeRemediator:
 
     def apply_timeouts(self, finding):
         """Adds timeout=10 to async calls surgically."""
-        if not self.tree: return
+        if not self.tree:
+            return
         for node in ast.walk(self.tree):
             if isinstance(node, ast.Call) and node.lineno == finding.line_number:
                 if hasattr(node, 'end_lineno') and hasattr(node, 'end_col_offset'):
@@ -68,7 +70,8 @@ class CodeRemediator:
 
     def apply_caching(self, finding):
         """Injects ContextCacheConfig into Agent/App constructors surgically."""
-        if not self.tree: return
+        if not self.tree:
+            return
         has_import = 'ContextCacheConfig' in self.content
         if not has_import:
             self._add_edit(1, 0, 1, 0, "from google.adk.agents.context_cache_config import ContextCacheConfig\n")
@@ -83,7 +86,8 @@ class CodeRemediator:
 
     def apply_tool_hardening(self, finding):
         """Injects Poka-Yoke pattern for tool definitions surgically."""
-        if not self.tree: return
+        if not self.tree:
+            return
         if 'from typing import Literal' not in self.content:
             self._add_edit(1, 0, 1, 0, "from typing import Literal\n")
             
@@ -98,7 +102,8 @@ class CodeRemediator:
 
     def apply_context_compaction(self, finding):
         """Injects a skeleton Context Compaction strategy surgically."""
-        if 'def compact_history' in self.content: return
+        if 'def compact_history' in self.content:
+            return
         compaction_code = '\ndef compact_history(messages: list, limit: int = 10):\n    """\n    Context Compaction Strategy (v1.3):\n    Summarizes earlier turns or trims the window to maintain reasoning density.\n    """\n    if len(messages) <= limit:\n        return messages\n    return [messages[0]] + messages[-(limit-1):]\n'
         # Insert after potential imports
         insert_line = 1
@@ -111,7 +116,8 @@ class CodeRemediator:
 
     def _get_new_content(self):
         """Apply edits in reverse order to original string content."""
-        if not self.edits: return self.content
+        if not self.edits:
+            return self.content
         
         # Sort edits: Bottom-to-Top, Right-to-Left
         sorted_edits = sorted(self.edits, key=lambda x: (x['sl'], x['sc']), reverse=True)
@@ -119,8 +125,8 @@ class CodeRemediator:
         # Calculate line offsets for absolute indexing
         line_offsets = [0]
         curr = 0
-        for l in self.lines:
-            curr += len(l)
+        for line_content in self.lines:
+            curr += len(line_content)
             line_offsets.append(curr)
             
         new_content = self.content
@@ -145,7 +151,8 @@ class CodeRemediator:
 
     def save(self):
         new_content = self._get_new_content()
-        if new_content == self.content: return False
+        if new_content == self.content:
+            return False
         with open(self.file_path, 'w') as f:
             f.write(new_content)
         return True
@@ -153,7 +160,8 @@ class CodeRemediator:
     def save_patch(self) -> str:
         """Saves the current diff as a .patch file in .cockpit/patches/."""
         diff = self.get_diff()
-        if not diff: return ""
+        if not diff:
+            return ""
         patch_dir = os.path.join(os.getcwd(), '.cockpit', 'patches')
         os.makedirs(patch_dir, exist_ok=True)
         file_slug = self.file_path.replace(os.sep, '_').strip('_')
@@ -166,7 +174,8 @@ class CodeRemediator:
         """Creates a new git branch and commits the changes."""
         import subprocess
         new_content = self._get_new_content()
-        if new_content == self.content: return ""
+        if new_content == self.content:
+            return ""
         
         branch_name = f"cockpit-hardening-{datetime.now().strftime('%H%M%S')}"
         try:

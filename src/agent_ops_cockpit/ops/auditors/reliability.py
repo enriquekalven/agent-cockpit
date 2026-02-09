@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 from typing import List
 from .base import BaseAuditor, AuditFinding
