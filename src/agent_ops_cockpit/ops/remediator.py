@@ -1,6 +1,7 @@
 import ast
 import difflib
 import os
+from datetime import datetime
 
 class CodeRemediator:
     """
@@ -148,3 +149,34 @@ class CodeRemediator:
         with open(self.file_path, 'w') as f:
             f.write(new_content)
         return True
+
+    def save_patch(self) -> str:
+        """Saves the current diff as a .patch file in .cockpit/patches/."""
+        diff = self.get_diff()
+        if not diff: return ""
+        patch_dir = os.path.join(os.getcwd(), '.cockpit', 'patches')
+        os.makedirs(patch_dir, exist_ok=True)
+        file_slug = self.file_path.replace(os.sep, '_').strip('_')
+        patch_path = os.path.join(patch_dir, f"{file_slug}.patch")
+        with open(patch_path, 'w') as f:
+            f.write(diff)
+        return patch_path
+
+    def save_to_branch(self) -> str:
+        """Creates a new git branch and commits the changes."""
+        import subprocess
+        new_content = self._get_new_content()
+        if new_content == self.content: return ""
+        
+        branch_name = f"cockpit-hardening-{datetime.now().strftime('%H%M%S')}"
+        try:
+            # 1. Create and switch to new branch
+            subprocess.run(['git', 'checkout', '-b', branch_name], check=True, capture_output=True)
+            # 2. Apply change
+            self.save()
+            # 3. Commit
+            subprocess.run(['git', 'add', self.file_path], check=True, capture_output=True)
+            subprocess.run(['git', 'commit', '-m', f"docs: autonomous hardening for {os.path.basename(self.file_path)}", '--no-gpg-sign'], check=True, capture_output=True)
+            return branch_name
+        except Exception:
+            return ""

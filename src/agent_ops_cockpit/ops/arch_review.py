@@ -47,11 +47,11 @@ def run_scan(path: str):
     return all_findings
 
 @app.command()
-def apply_fixes(path: str='.'):
+def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', help='Skip saving patches')):
     """
-    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps.
+    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.4.2 Plan-then-Execute)
     """
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.0)[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.4.2)[/bold blue]', border_style='blue'))
     findings = run_scan(path)
     if not findings:
         console.print('✅ [bold green]No remediable issues found. Architecture is hardened.[/bold green]')
@@ -66,21 +66,30 @@ def apply_fixes(path: str='.'):
     for file_path, file_findings in file_map.items():
         if not file_path.endswith('.py'):
             continue
-        console.print(f'🔧 [bold cyan]Remediating {file_path}...[/bold cyan]')
+        console.print(f'🔧 [bold cyan]Analyzing {file_path}...[/bold cyan]')
         remediator = CodeRemediator(file_path)
         applied_count = 0
         for f in file_findings:
             if 'Resiliency' in f.title or 'retry' in f.description.lower():
                 remediator.apply_resiliency(f)
                 applied_count += 1
-                console.print(f'   ✅ Applied: [green]Exponential Backoff Decorator[/green] ({f.title})')
-            elif 'Zombie' in f.title:
+                console.print(f'   🛠️ Planned: [green]Exponential Backoff Decorator[/green] ({f.title})')
+            elif 'Zombie' in f.title or 'Timeout' in f.title:
                 remediator.apply_timeouts(f)
                 applied_count += 1
-                console.print(f'   ✅ Applied: [green]Async Timeout Guard[/green] ({f.title})')
+                console.print(f'   🛠️ Planned: [green]Async Timeout Guard[/green] ({f.title})')
+            elif 'Caching' in f.title:
+                remediator.apply_caching(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Context Cache Activation[/green] ({f.title})')
         if applied_count > 0:
-            remediator.save()
-            console.print(f'✨ [bold green]Successfully hardened {file_path}.[/bold green]\n')
+            if dry_run:
+                console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {file_path}[/yellow]\n')
+            else:
+                patch_path = remediator.save_patch()
+                console.print(f"✨ [bold green]Patch generated:[/bold green] {patch_path}")
+                console.print(f"👉 [bold yellow]Review with:[/bold yellow] [white]agent-ops workbench --path {path}[/white]\n")
+    console.print('🏁 [bold]Plan-then-Execute cycle complete. Review patches to apply fixes.[/bold]')
 
 @app.command()
 def propose_fixes(path: str='.'):

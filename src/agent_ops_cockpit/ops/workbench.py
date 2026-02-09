@@ -29,8 +29,12 @@ def review(path: str=typer.Option('.', '--path', '-p', help='Path to the agent p
                 rem_map[f.file_path] = CodeRemediator(f.file_path)
             if 'Resiliency' in f.title or 'retry' in f.description.lower():
                 rem_map[f.file_path].apply_resiliency(f)
-            elif 'Zombie' in f.title:
+            elif 'Zombie' in f.title or 'Timeout' in f.title:
                 rem_map[f.file_path].apply_timeouts(f)
+            elif 'Caching' in f.title:
+                rem_map[f.file_path].apply_caching(f)
+            elif 'Hardening' in f.title:
+                rem_map[f.file_path].apply_tool_hardening(f)
     for file_path, remediator in rem_map.items():
         diff = remediator.get_diff()
         if not diff:
