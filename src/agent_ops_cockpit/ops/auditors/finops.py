@@ -51,11 +51,14 @@ class FinOpsAuditor(BaseAuditor):
         docstrings = re.findall(r'"""([\s\S]*?)"""|\'\'\'([\s\S]*?)\'\'\'', content)
         has_large_prompt = any(len(d[0] or d[1]) > 500 for d in docstrings)
         if has_large_prompt and 'CachingConfig' not in content:
+            # Semantic Prompt Assessment: Differentiate Bloat vs Few-Shot/Context
+            is_rich_context = any(kw in content.lower() for kw in ['examples:', 'context:', '### context', 'few-shot:'])
+            title = "Context Caching Opportunity" if is_rich_context else "Prompt Bloat Warning"
             findings.append(AuditFinding(
                 category="💰 FinOps",
-                title="Context Caching Opportunity",
-                description="Large static system instructions detected without CachingConfig.",
-                impact="HIGH",
+                title=title,
+                description=f"Large {'Few-Shot context' if is_rich_context else 'instructional logic'} detected without CachingConfig.",
+                impact="HIGH" if is_rich_context else "MEDIUM",
                 roi="Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
             ))
 

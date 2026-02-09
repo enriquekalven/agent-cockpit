@@ -32,6 +32,10 @@ class MaturityAuditor(BaseAuditor):
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         for pattern in self.kb.get('patterns', []):
+            # Framework-Native Detection: Suppress orchestration advice if already present
+            if pattern['id'] == 'MP-014' and any(kw in content.lower() for kw in ['stategraph', 'crewai', 'agent(role=', 'workflow']):
+                continue
+                
             if any((indicator.lower() in content.lower() for indicator in pattern.get('indicators', []))):
                 findings.append(AuditFinding(category='⭐️ Maturity Wisdom', title=pattern['title'], description=pattern['recommendation'], impact=pattern['impact'], roi=pattern['rationale'], file_path=file_path))
         constraints = self.kb.get('compatibility_constraints', [])

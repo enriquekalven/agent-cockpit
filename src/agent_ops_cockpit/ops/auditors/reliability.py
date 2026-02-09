@@ -8,7 +8,6 @@ class ReliabilityAuditor(BaseAuditor):
     Analyzes code for execution patterns, identifying sequential bottlenecks and missing resiliency.
     """
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         for node in ast.walk(tree):
@@ -23,9 +22,16 @@ class ReliabilityAuditor(BaseAuditor):
                 elif isinstance(node.func, ast.Attribute):
                     func_name = node.func.attr
                 if any((x in func_name.lower() for x in ['get', 'post', 'request', 'fetch', 'query'])):
-                    parent = self._get_parent_function(tree, node)
-                    if parent and (not self._is_decorated_with_retry(parent)):
-                        findings.append(AuditFinding(category='🧗 Reliability', title='Missing Resiliency Logic', description=f"External call '{func_name}' is not protected by retry logic.", impact='HIGH', roi='Increases up-time and handles transient network failures.', line_number=node.lineno, file_path=file_path))
+                    # Smarter Resiliency: Only flag if targeting external http/https endpoints
+                    is_external = False
+                    if node.args and isinstance(node.args[0], ast.Constant) and isinstance(node.args[0].value, str):
+                        if node.args[0].value.startswith(('http://', 'https://')):
+                            is_external = True
+                    
+                    if is_external:
+                        parent = self._get_parent_function(tree, node)
+                        if parent and (not self._is_decorated_with_retry(parent)):
+                            findings.append(AuditFinding(category='🧗 Reliability', title='Missing Resiliency Logic', description=f"External call '{func_name}' to '{node.args[0].value[:30]}...' is not protected by retry logic.", impact='HIGH', roi='Increases up-time and handles transient network failures.', line_number=node.lineno, file_path=file_path))
             if isinstance(node, (ast.Assign, ast.AnnAssign)):
                 if isinstance(node.value, (ast.Constant, ast.JoinedStr)):
                     val = ''
