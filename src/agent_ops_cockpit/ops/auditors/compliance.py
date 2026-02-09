@@ -22,7 +22,7 @@ class ComplianceAuditor(BaseAuditor):
                 has_logging = True
                 break
 
-        if not has_logging and "log" not in content.lower():
+        if not has_logging:
             findings.append(AuditFinding(
                 category="⚖️ Compliance",
                 title="SOC2 Control Gap: Missing Transit Logging",

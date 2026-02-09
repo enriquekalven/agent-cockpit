@@ -15,12 +15,14 @@ class ReliabilityAuditor(BaseAuditor):
                 await_nodes = [n for n in ast.walk(node) if isinstance(n, ast.Await)]
                 if len(await_nodes) > 2:
                     findings.append(AuditFinding(category='🧗 Reliability & Perf', title='Sequential Bottleneck Detected', description="Multiple sequential 'await' calls identified. This increases total latency linearly.", impact='MEDIUM', roi='Reduces latency by up to 50% using asyncio.gather().', line_number=node.lineno, file_path=file_path))
+            
             if isinstance(node, ast.Call):
                 func_name = ''
                 if isinstance(node.func, ast.Name):
                     func_name = node.func.id
                 elif isinstance(node.func, ast.Attribute):
                     func_name = node.func.attr
+                
                 if any((x in func_name.lower() for x in ['get', 'post', 'request', 'fetch', 'query'])):
                     # Smarter Resiliency: Only flag if targeting external http/https endpoints
                     is_external = False
@@ -30,8 +32,10 @@ class ReliabilityAuditor(BaseAuditor):
                     
                     if is_external:
                         parent = self._get_parent_function(tree, node)
-                        if parent and (not self._is_decorated_with_retry(parent)):
+                        # If no parent (top-level), it's definitely not decorated with @retry
+                        if not parent or (not self._is_decorated_with_retry(parent)):
                             findings.append(AuditFinding(category='🧗 Reliability', title='Missing Resiliency Logic', description=f"External call '{func_name}' to '{node.args[0].value[:30]}...' is not protected by retry logic.", impact='HIGH', roi='Increases up-time and handles transient network failures.', line_number=node.lineno, file_path=file_path))
+            
             if isinstance(node, (ast.Assign, ast.AnnAssign)):
                 if isinstance(node.value, (ast.Constant, ast.JoinedStr)):
                     val = ''
