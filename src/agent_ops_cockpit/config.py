@@ -5,7 +5,7 @@ class Config:
     Centralized Configuration for AgentOps Cockpit.
     Improvement #6: Centralized Configuration
     """
-    VERSION = "1.4.0"
+    VERSION = "1.4.1"
     DEFAULT_AGENT_PATH = "src/agent_ops_cockpit/agent.py"
     REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
     

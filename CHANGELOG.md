@@ -2,7 +2,7 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.4.0] - 2026-02-09
+## [1.4.1] - 2026-02-09
 
 ### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety
 - **Maturity Wisdom Store (v1.4)**: Ingested comprehensive architectural patterns from AWS, Google Cloud, Azure, OpenAI, Anthropic, LangGraph, and CrewAI for "Choice-Based" recommendations.
