@@ -1,5 +1,7 @@
 import os
 import re
+import math
+import base64
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -7,6 +9,17 @@ from rich.panel import Panel
 
 app = typer.Typer(help="Secret Scanner: Detects hardcoded credentials and leaks.")
 console = Console()
+
+def _calculate_entropy(data: str) -> float:
+    """Calculates the Shannon entropy of a string (higher = more likely to be a random secret)."""
+    if not data:
+        return 0.0
+    entropy = 0
+    for char in set(data):
+        p_x = float(data.count(char)) / len(data)
+        if p_x > 0:
+            entropy += -p_x * math.log(p_x, 2)
+    return entropy
 
 # Common Secret Patterns
 SECRET_PATTERNS = {
@@ -65,6 +78,16 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                             if is_ignored_file:
                                 continue
 
+                            # 3. Entropy & Verification Layer (v1.4.2)
+                            # Only apply to random-looking strings, skip standard prose or hex indices
+                            secret_value = match.group(0)
+                            entropy = _calculate_entropy(secret_value)
+                            
+                            # Threshold for a secret is usually > 3.5 bits for random strings
+                            # Low-entropy strings (like '0000000000000000') are rarely real keys
+                            if entropy < 3.2 and secret_name not in ["GCP Service Account", "Placeholder Credential"]:
+                                continue
+
                             # Library Isolation: Skip hits in known libraries to reduce false positives
                             if is_lib:
                                 continue
@@ -106,7 +129,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
 @app.command()
 def version():
     """Show the version of the Secret Scanner."""
-    console.print('[bold cyan]v1.3.0[/bold cyan]')
+    console.print('[bold cyan]v1.4.2[/bold cyan]')
 
 if __name__ == "__main__":
     app()

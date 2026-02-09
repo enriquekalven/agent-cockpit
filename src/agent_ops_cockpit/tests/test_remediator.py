@@ -97,4 +97,4 @@ def test_apply_context_compaction(tmp_path):
     
     content = code_path.read_text()
     assert "def compact_history" in content
-    assert "limit: int=10" in content
+    assert "limit: int = 10" in content

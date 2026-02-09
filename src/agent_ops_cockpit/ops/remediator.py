@@ -1,101 +1,150 @@
 import ast
-from tenacity import retry, wait_exponential, stop_after_attempt
-from .auditors.base import AuditFinding
+import difflib
+import os
 
 class CodeRemediator:
     """
     Phase 4: The 'Closer' - Automated Remediation Engine.
-    Transforms AST based on audit findings to inject best practices.
+    Transforms code surgically based on audit findings to inject best practices
+    while preserving license headers, comments, and formatting. (v1.4.2 Smart Diffing)
     """
 
     def __init__(self, file_path: str):
         self.file_path = file_path
         with open(file_path, 'r') as f:
             self.content = f.read()
-        self.tree = ast.parse(self.content)
+        self.lines = self.content.splitlines(keepends=True)
+        try:
+            # We use AST to find coordinates, but string-patching for the actual fix.
+            self.tree = ast.parse(self.content)
+        except SyntaxError:
+            self.tree = None
+        self.edits = []
 
-    def apply_resiliency(self, finding: AuditFinding):
-        """Injects @retry and imports if missing."""
-        has_tenacity = 'tenacity' in self.content
+    def _add_edit(self, sl, sc, el, ec, rep):
+        """Register a surgical edit (1-indexed lines, 0-indexed columns)."""
+        self.edits.append({'sl': sl, 'sc': sc, 'el': el, 'ec': ec, 'rep': rep})
 
-        class RetryInjector(ast.NodeTransformer):
-
-            def visit_FunctionDef(self, node):
-                is_target = False
-                if node.lineno == finding.line_number:
-                    is_target = True
-                elif hasattr(node, 'end_lineno') and node.lineno <= finding.line_number <= node.end_lineno:
-                    is_target = True
+    def apply_resiliency(self, finding):
+        """Injects @retry and imports if missing surgically."""
+        if not self.tree: return
+        
+        # 1. Surgical Import Injection
+        if 'tenacity' not in self.content:
+            # Insert at top, but after potential shebang
+            insert_line = 1
+            if self.lines and self.lines[0].startswith('#!'):
+                insert_line = 2
+            self._add_edit(insert_line, 0, insert_line, 0, "from tenacity import retry, wait_exponential, stop_after_attempt\n")
+        
+        # 2. Surgical Decorator Injection
+        for node in ast.walk(self.tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                # Match by line number range
+                is_target = node.lineno == finding.line_number or (node.lineno <= finding.line_number <= (getattr(node, 'end_lineno', node.lineno)))
                 if is_target:
-                    retry_decorator = ast.parse('retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))').body[0].value
-                    if not any((isinstance(d, ast.Call) and getattr(getattr(d, 'func', None), 'id', '') == 'retry' for d in node.decorator_list)):
-                        node.decorator_list.append(retry_decorator)
-                return node
+                    # Avoid double-injection
+                    if any(isinstance(d, ast.Call) and getattr(getattr(d, 'func', None), 'id', '') == 'retry' for d in node.decorator_list):
+                        continue
+                    
+                    # Calculate indentation
+                    line = self.lines[node.lineno-1]
+                    indent = line[:len(line) - len(line.lstrip())]
+                    decorator = f"{indent}@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))\n"
+                    self._add_edit(node.lineno, 0, node.lineno, 0, decorator)
+                    break
 
-            def visit_AsyncFunctionDef(self, node):
-                return self.visit_FunctionDef(node)
-        self.tree = RetryInjector().visit(self.tree)
-        if not has_tenacity:
-            import_node = ast.parse('from tenacity import retry, wait_exponential, stop_after_attempt\n').body[0]
-            self.tree.body.insert(0, import_node)
+    def apply_timeouts(self, finding):
+        """Adds timeout=10 to async calls surgically."""
+        if not self.tree: return
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.Call) and node.lineno == finding.line_number:
+                if hasattr(node, 'end_lineno') and hasattr(node, 'end_col_offset'):
+                    # Insert before the closing parenthesis ')'
+                    prefix = ", " if (node.args or node.keywords) else ""
+                    self._add_edit(node.end_lineno, node.end_col_offset - 1, node.end_lineno, node.end_col_offset - 1, f"{prefix}timeout=10")
+                    break
 
-    def apply_timeouts(self, finding: AuditFinding):
-        """Adds timeout=10 to async calls."""
-
-        class TimeoutInjector(ast.NodeTransformer):
-
-            def visit_Call(self, node):
-                if node.lineno == finding.line_number:
-                    node.keywords.append(ast.keyword(arg='timeout', value=ast.Constant(value=10)))
-                return node
-        self.tree = TimeoutInjector().visit(self.tree)
-
-    def apply_caching(self, finding: AuditFinding):
-        """Injects ContextCacheConfig into Agent/App constructors."""
-
-        class CachingInjector(ast.NodeTransformer):
-
-            def visit_Call(self, node):
+    def apply_caching(self, finding):
+        """Injects ContextCacheConfig into Agent/App constructors surgically."""
+        if not self.tree: return
+        has_import = 'ContextCacheConfig' in self.content
+        if not has_import:
+            self._add_edit(1, 0, 1, 0, "from google.adk.agents.context_cache_config import ContextCacheConfig\n")
+            
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.Call):
                 if isinstance(node.func, ast.Name) and node.func.id in ['Agent', 'App', 'LlmAgent']:
-                    if not any((k.arg == 'context_cache_config' for k in node.keywords)):
-                        cache_config = ast.Call(func=ast.Name(id='ContextCacheConfig', ctx=ast.Load()), args=[], keywords=[ast.keyword(arg='min_tokens', value=ast.Constant(value=2048)), ast.keyword(arg='ttl_seconds', value=ast.Constant(value=600))])
-                        node.keywords.append(ast.keyword(arg='context_cache_config', value=cache_config))
-                return node
-        self.tree = CachingInjector().visit(self.tree)
-        if 'ContextCacheConfig' not in self.content:
-            import_node = ast.parse('from google.adk.agents.context_cache_config import ContextCacheConfig\n').body[0]
-            self.tree.body.insert(0, import_node)
+                    if not any(k.arg == 'context_cache_config' for k in node.keywords):
+                        prefix = ", " if (node.args or node.keywords) else ""
+                        conf = f"{prefix}context_cache_config=ContextCacheConfig(min_tokens=2048, ttl_seconds=600)"
+                        self._add_edit(node.end_lineno, node.end_col_offset - 1, node.end_lineno, node.end_col_offset - 1, conf)
 
-    def apply_tool_hardening(self, finding: AuditFinding):
-        """Injects Literal import and Poka-Yoke pattern for tool definitions."""
+    def apply_tool_hardening(self, finding):
+        """Injects Poka-Yoke pattern for tool definitions surgically."""
+        if not self.tree: return
         if 'from typing import Literal' not in self.content:
-            import_node = ast.parse('from typing import Literal\n').body[0]
-            self.tree.body.insert(0, import_node)
+            self._add_edit(1, 0, 1, 0, "from typing import Literal\n")
+            
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.FunctionDef) and node.lineno == finding.line_number:
+                if node.body:
+                    first_stmt = node.body[0]
+                    line = self.lines[first_stmt.lineno-1]
+                    indent = line[:len(line) - len(line.lstrip())]
+                    comment = f"{indent}# POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.\n"
+                    self._add_edit(first_stmt.lineno, 0, first_stmt.lineno, 0, comment)
 
-        class ToolHardener(ast.NodeTransformer):
+    def apply_context_compaction(self, finding):
+        """Injects a skeleton Context Compaction strategy surgically."""
+        if 'def compact_history' in self.content: return
+        compaction_code = '\ndef compact_history(messages: list, limit: int = 10):\n    """\n    Context Compaction Strategy (v1.3):\n    Summarizes earlier turns or trims the window to maintain reasoning density.\n    """\n    if len(messages) <= limit:\n        return messages\n    return [messages[0]] + messages[-(limit-1):]\n'
+        # Insert after potential imports
+        insert_line = 1
+        for node in self.tree.body:
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                insert_line = node.end_lineno + 1
+            else:
+                break
+        self._add_edit(insert_line, 0, insert_line, 0, compaction_code)
 
-            def visit_FunctionDef(self, node):
-                if node.lineno == finding.line_number:
-                    node.body.insert(0, ast.Expr(value=ast.Constant(value='POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.')))
-                return node
-        self.tree = ToolHardener().visit(self.tree)
-
-    def apply_context_compaction(self, finding: AuditFinding):
-        """Injects a skeleton Context Compaction strategy."""
-        compaction_code = '\ndef compact_history(messages: list, limit: int = 10):\n    """\n    Context Compaction Strategy (v1.3): \n    Summarizes earlier turns or trims the window to maintain reasoning density.\n    """\n    if len(messages) <= limit:\n        return messages\n    # Keep system prompt, keep last N messages\n    return [messages[0]] + messages[-(limit-1):]\n'
-        compaction_node = ast.parse(compaction_code).body[0]
-        self.tree.body.insert(1, compaction_node)
+    def _get_new_content(self):
+        """Apply edits in reverse order to original string content."""
+        if not self.edits: return self.content
+        
+        # Sort edits: Bottom-to-Top, Right-to-Left
+        sorted_edits = sorted(self.edits, key=lambda x: (x['sl'], x['sc']), reverse=True)
+        
+        # Calculate line offsets for absolute indexing
+        line_offsets = [0]
+        curr = 0
+        for l in self.lines:
+            curr += len(l)
+            line_offsets.append(curr)
+            
+        new_content = self.content
+        for e in sorted_edits:
+            try:
+                start_off = line_offsets[e['sl']-1] + e['sc']
+                end_off = line_offsets[e['el']-1] + e['ec']
+                new_content = new_content[:start_off] + e['rep'] + new_content[end_off:]
+            except Exception:
+                continue
+        return new_content
 
     def get_diff(self) -> str:
-        """Returns a unified diff of the changes without saving to disk."""
-        import difflib
-        new_code = ast.unparse(self.tree)
-        diff = difflib.unified_diff(self.content.splitlines(keepends=True), new_code.splitlines(keepends=True), fromfile=f'a/{self.file_path}', tofile=f'b/{self.file_path}')
+        new_content = self._get_new_content()
+        diff = difflib.unified_diff(
+            self.content.splitlines(keepends=True),
+            new_content.splitlines(keepends=True),
+            fromfile=f'a/{self.file_path}',
+            tofile=f'b/{self.file_path}'
+        )
         return ''.join(diff)
 
     def save(self):
-        """Saves the transformed AST back to the file using native ast.unparse."""
-        new_code = ast.unparse(self.tree)
+        new_content = self._get_new_content()
+        if new_content == self.content: return False
         with open(self.file_path, 'w') as f:
-            f.write(new_code)
+            f.write(new_content)
         return True
