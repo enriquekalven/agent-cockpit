@@ -1,18 +1,4 @@
 from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
-from tenacity import retry, wait_exponential, stop_after_attempt
 import json
 import os
 import re
@@ -45,7 +31,6 @@ class GuardrailPolicyEngine:
         with open(self.policy_path, 'r') as f:
             return json.load(f)
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def validate_input(self, prompt: str):
         """Step 1: Input Sanitization (Length & Length Limits)"""
         max_len = self.policy.get('security', {}).get('max_prompt_length', 5000)
@@ -56,7 +41,6 @@ class GuardrailPolicyEngine:
             if re.search('\\b' + re.escape(topic) + '\\b', prompt.lower()):
                 raise PolicyViolation('GOVERNANCE', f"Input contains forbidden topic: '{topic}'.")
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def check_tool_permission(self, tool_name: str) -> bool:
         """Step 3: Tool Usage Policies (HITL Enforcement)"""
         require_hitl = self.policy.get('compliance', {}).get('require_hitl_for_tools', [])
@@ -65,7 +49,6 @@ class GuardrailPolicyEngine:
             return False
         return True
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def enforce_cost_limits(self, estimated_tokens: int, accumulated_cost: float=0.0):
         """Step 4: Resource Consumption Limits"""
         limits = self.policy.get('cost_control', {})
@@ -76,7 +59,6 @@ class GuardrailPolicyEngine:
         if accumulated_cost >= max_budget:
             raise PolicyViolation('FINOPS', f'Session budget exceeded (${accumulated_cost} >= ${max_budget}).')
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_audit_report(self) -> Dict[str, Any]:
         """Provides a summary for the Cockpit Orchestrator"""
         return {'policy_active': bool(self.policy), 'forbidden_topics_count': len(self.policy.get('security', {}).get('forbidden_topics', [])), 'hitl_tools': self.policy.get('compliance', {}).get('require_hitl_for_tools', []), 'token_threshold': self.policy.get('cost_control', {}).get('max_tokens_per_turn')}

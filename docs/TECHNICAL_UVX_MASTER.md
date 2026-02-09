@@ -18,6 +18,7 @@ Run the full range of AgentOps intelligence against any project or file.
 | `uvx agentops-cockpit report` | **Full Master Audit** | `--mode quick` (default) or `deep` |
 | `uvx agentops-cockpit version` | **Version Check** | Display current CLI and Engine version. |
 | `uvx agentops-cockpit diagnose`| **System Check** | Verify GCP Auth, API keys, and environment paths. |
+| `uvx agentops-cockpit audit-maturity`| **Maturity Matrix**| v1.4.1: Expert competency and persona status dashboard. |
 | `uvx agentops-cockpit email-report`| **Stakeholder Sync** | Send latest report (Usage: `... email-report user@example.com`) |
 
 ---

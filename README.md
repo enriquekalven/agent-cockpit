@@ -70,8 +70,8 @@ graph TD
 
 ---
 
-## 🕹️ v1.4.0: The "Ecosystem Expansion" Release (NEW)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.0 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.4.1: The "Ecosystem Expansion" Release (NEW)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.1 Release Notes**](/CHANGELOG.md).
 
 - **🧗 RAG Truth-Sayer SME**: Dedicated auditor for retrieval-reasoning fidelity and grounding logic.
 - **🚀 PR Scorecard Action**: Automated maturity scorecard for pull requests to increase velocity and trust.

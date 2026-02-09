@@ -22,6 +22,7 @@ from agent_ops_cockpit.ops import workbench as workbench_mod
 from agent_ops_cockpit.ops import mcp_store as mcp_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
+from agent_ops_cockpit.ops import auditors as audit_pkgs
 from agent_ops_cockpit.config import config
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
@@ -312,6 +313,57 @@ def watch():
     Track ecosystem updates (ADK, A2A, LangChain, etc.) in real-time.
     """
     watch_mod.run_watch()
+
+@app.command()
+def audit_maturity():
+    """
+    Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
+    """
+    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.4.1)[/bold blue]", border_style="blue"))
+    
+    # 1. Persona Matrix
+    persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")
+    persona_table.add_column("Persona", style="cyan")
+    persona_table.add_column("Mandate", style="dim")
+    persona_table.add_column("Expertise Level", style="bold green")
+    
+    persona_table.add_row("🛡️ SecOps Principal", "Zero-Trust & Adversarial Defense", "MASTER (v1.4)")
+    persona_table.add_row("💰 FinOps Principal", "ROI Waterfall & Token Density", "PRINCIPAL (v1.4)")
+    persona_table.add_row("🌐 SRE Principal", "Networking Debt & Latent IQ", "SENIOR (v1.3)")
+    persona_table.add_row("🏛️ Autonomous Architect", "AST Synthesis & Evolution", "MASTER (v1.4)")
+    persona_table.add_row("🧗 AI Quality SME", "Hill Climbing & RAG Fidelity", "PRINCIPAL (v1.4)")
+    persona_table.add_row("🎭 UX Designer", "A2UI Handshake & GenUI Flow", "MASTER (v1.3)")
+    
+    console.print(persona_table)
+
+    # 2. Ecosystem Support Matrix
+    eco_table = Table(title="🏗️ Supported Ecosystem & Protocols", show_header=True, header_style="bold yellow")
+    eco_table.add_column("Category", style="yellow")
+    eco_table.add_column("Frameworks / Platforms", style="cyan")
+    eco_table.add_column("Knowledge Depth", style="dim")
+
+    eco_table.add_row("Orchestration", "LangGraph, CrewAI, ADK, AutoGen, LlamaIndex", "Deep AST Probing")
+    eco_table.add_row("Cloud (GCP)", "Vertex AI, Cloud Run, GKE, Firebase, BigQuery", "Native Integration")
+    eco_table.add_row("Cloud (AWS/Az)", "Bedrock, Azure OpenAI, IAM Federation", "Architecture Alignment")
+    eco_table.add_row("Protocols", "Model Context (MCP), A2UI, UCP, AP2", "Protocol Enforcement")
+    eco_table.add_row("Databases (Vector)", "Chroma, Pinecone, Weaviate, AlloyDB", "Retrieval Auditing")
+    eco_table.add_row("Databases (Enterprise)", "BigQuery, Snowflake, Databricks, Redshift", "Analytical Integration")
+    eco_table.add_row("Databases (OLTP/NoSQL)", "Cloud SQL, Firestore, Spanner", "State Persistence Audit")
+    
+    console.print(eco_table)
+
+    # 3. Research & Wisdom Sources
+    wisdom_table = Table(title="🧠 Maturity Wisdom Sources (The Knowledge Base)", show_header=True, header_style="bold green")
+    wisdom_table.add_column("Source", style="green")
+    wisdom_table.add_column("Integration", style="cyan")
+    
+    wisdom_table.add_row("Google Well-Architected", "Full alignment with AI/ML Pillar (v1.3)")
+    wisdom_table.add_row("OWASP LLM Top 10", "Real-time vulnerability mapping")
+    wisdom_table.add_row("AI Brand Safety Playbook", "Declarative safety threshold audits")
+    wisdom_table.add_row("ArXiv (cs.AI)", "Latest research in Self-Reflexion & ToT")
+    
+    console.print(wisdom_table)
+    console.print("\n✨ [bold blue]The Cockpit is currently operating at Maturity Level 4 (Autonomous Governance).[/bold blue]")
 
 def main():
     app()

@@ -10,6 +10,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **RAG Truth-Sayer SME**: New dedicated auditor for retrieval-reasoning fidelity, grounding logic, and temperature drift.
 - **PR Scorecard GitHub Action**: Automated maturity scorecard template for pull requests to increase developer visibility and trust.
 - **Interactive Remediation Workbench**: TUI-based review loop for approving/rejecting autonomous code patches before application.
+- **Maturity Expertise Matrix**: High-fidelity `audit-maturity` command for visualizing persona competency and persona status.
 - **FinOps ROI Waterfall**: Advanced modeling tool for cost-per-task projections and model-tier optimization pivots.
 - **MCP Tool Store**: Centralized registry for discovering and scaffolding Model Context Protocol (MCP) tool integrations.
 

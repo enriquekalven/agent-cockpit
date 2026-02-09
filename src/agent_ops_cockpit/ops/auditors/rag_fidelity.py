@@ -11,9 +11,12 @@ class RAGFidelityAuditor(BaseAuditor):
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         
-        # Look for RAG patterns (Vector DB calls, RAG frameworks)
-        rag_indicators = ['pinecone', 'chromadb', 'alloydb', 'vector', 'retrieval', 'rag', 'langchain', 'llama_index']
-        is_rag_code = any(indicator in content.lower() for indicator in rag_indicators)
+        # Look for RAG and Database patterns (Vector and Analytical DBs)
+        db_indicators = [
+            'pinecone', 'chromadb', 'alloydb', 'vector', 'retrieval', 'rag', 'langchain', 'llama_index',
+            'bigquery', 'snowflake', 'databricks', 'redshift', 'cloudsql', 'firestore', 'spanner'
+        ]
+        is_rag_code = any(indicator in content.lower() for indicator in db_indicators)
         
         if not is_rag_code:
             return []
@@ -56,6 +59,29 @@ class RAGFidelityAuditor(BaseAuditor):
                 roi="Hardens the agent against instruction override during retrieval.",
                 file_path=file_path
             ))
+        # 4. BigQuery / Analytical DB Optimization
+        if 'bigquery' in content.lower() or 'snowflake' in content.lower() or 'redshift' in content.lower():
+            if 'limit ' not in content.lower() and ('select *' in content.lower() or 'select ' in content.lower()):
+                findings.append(AuditFinding(
+                    category="QUALITY",
+                    title="Unbounded Analytical Query",
+                    description="Analytical queries (BigQuery/Snowflake/Redshift) detected without explicit LIMIT or SELECT column constraints.",
+                    impact="HIGH (Cost & Latency)",
+                    roi="Prevents massive slot/token consumption in analytical reasoning steps.",
+                    file_path=file_path
+                ))
+
+        # 5. Firestore/Spanner Transaction Isolation
+        if ('firestore' in content.lower() or 'spanner' in content.lower() or 'cloudsql' in content.lower()) and 'transaction' not in content.lower():
+            if any(kw in content.lower() for kw in ['update', 'set', 'write', 'commit', 'delete']):
+                findings.append(AuditFinding(
+                    category="RELIABILITY",
+                    title="Non-Transactional Database Write",
+                    description="Stateful database operation detected without explicit transaction wrapper. Risk of race conditions in multi-agent environments.",
+                    impact="MEDIUM",
+                    roi="Ensures state consistency across concurrent agent executions.",
+                    file_path=file_path
+                ))
 
         # Print actions for orchestrator capture
         for f in findings:

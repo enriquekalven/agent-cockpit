@@ -22,6 +22,7 @@ These commands trigger cross-functional audits and generate high-fidelity execut
 | `make audit` | `agent-ops report` | **Safe-Build** | Quick scan for secrets and reliability. |
 | `make audit-deep` | `agent-ops report --mode deep` | **Final Exam** | Full benchmarks and stress tests. |
 | `make audit-all` | `agentops-cockpit report --path <repo>` | **Global Audit** | Scan external repositories via Cockpit. |
+| `make maturity` | `agent-ops audit-maturity` | **Expertise Matrix**| v1.4.1: High-fidelity expertise/persona dashboard. |
 | `make diagnose` | `agentops-cockpit diagnose` | **Health Check** | Environment and dependency validation. |
 
 ---
