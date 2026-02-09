@@ -2,8 +2,8 @@
 
 First off, thank you for helping us build the future of **Autonomous Agent Operations**! 🚀 Evolving the **Trinity** standard requires high-fidelity engineering and the discipline of a professional logic layer.
 
-## 🏛️ v1.3 Vision: The "Autonomous Architect"
-In v1.3, we are moving beyond simple compliance. We are building the **Autonomous Architect**—a system that not only detects architectural gaps but synthesizes remediation via Poka-Yoke tool hardening and context-aware code patching.
+## 🏛️ v1.4.1 Vision: The "Ecosystem Expansion"
+In v1.4.1, we have evolved beyond simple compliance into a **Lifecycle Management Platform**. We are building the **Autonomous Patching Engine**—a system that not only detects architectural gaps but synthesizes remediation across RAG pipelines, analytical DBs (BigQuery/Snowflake), and multi-cloud architectures.
 
 ## 🏗️ Architecture Philosophy
 We strictly follow the **Trinity Model**:
@@ -43,11 +43,13 @@ Don't wait for CI/CD to tell you there's a problem. Run the **Master Cockpit Aud
 - `make dev`: Starts the local Engine + Face stack.
 - `make audit`: Runs the **Quick Safe-Build** (Secrets, Reliability).
 - `make audit-deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
-- `make arch-review`: Runs the v1.3 Autonomous Architect review.
+- `make arch-review`: Runs the v1.4.1 Autonomous Architect review.
+- `make maturity`: Runs the **Expertise Matrix** dashboard.
 
 ### Specialized Audits
 - `make red-team`: Runs the Adversarial Evaluator against the codebase.
 - `make finops`: Analyzes token efficiency and semantic caching TCO.
+- `make rag-truth`: Audits RAG pipelines for grounding and citation fidelity.
 
 ---
 
@@ -66,6 +68,7 @@ We use a **Multi-Persona Governance Board**. If you are adding a new feature, co
 - **Architect**: Does this maintain the Trinity separation?
 - **FinOps**: Is there a caching strategy?
 - **Security**: Is there persistent prompt injection risk?
+- **Quality**: Is the RAG grounding logic robust?
 
 ---
 
