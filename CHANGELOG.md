@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.4.2] - 2026-02-09
+
+### 🚀 High-Fidelity Ignore & Viral Reboot
+- **High-Fidelity Ignore (#cockpit-ignore)**: Integrated surgical finding suppression across all SME auditors. Supports per-finding slug matching (`# cockpit-ignore: issue-slug`) and whole-file ignores (`# cockpit-ignore: all`).
+- **Viral Dogfooding Reboot**: Updated `DOGFOODING.md` with a high-energy "Roast Your Agent" theme and gamified review steps.
+- **Auditor Hardening**: Integrated `# cockpit-ignore` into Security, FinOps, Compliance, RAG Fidelity, and Deep Graph auditors.
+- **Stability Core**: Verified 160/160 tests passed, ensuring 100% regression safety for existing capabilities.
+
 ## [1.4.1] - 2026-02-09
 
 ### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety
