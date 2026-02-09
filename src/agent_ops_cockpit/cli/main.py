@@ -34,14 +34,10 @@ def version():
 
 @app.command()
 def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End Persona Smoke Tests')):
-    """
-    Run reliability audit (Unit Tests + Regression Suite coverage).
-    """
+    """[DEPRECATED] Use 'report --only reliability' instead."""
     if smoke:
-        console.print('🧪 [bold blue]Launching End-to-End Persona Smoke Tests...[/bold blue]')
         rel_mod.run_smoke_test()
     else:
-        console.print('🛡️ [bold green]Launching Reliability Audit...[/bold green]')
         rel_mod.run_tests()
 
 @app.command()
@@ -65,17 +61,10 @@ def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'qu
             raise typer.Exit(code=exit_code)
 
 @app.command()
-def quality_baseline(path: str='.'):
-    """
-    Run iterative 'Hill Climbing' quality audit against a golden dataset.
-    """
-    console.print('🧗 [bold cyan]Launching Quality Hill Climber...[/bold cyan]')
+def quality(path: str='.'):
+    """Run Hill Climbing quality optimization."""
     quality_mod.audit(path)
 
-@app.command()
-def quality_climb(path: str='.'):
-    """Alias for quality-baseline."""
-    quality_baseline(path)
 app.add_typer(rag_mod.app, name='rag-truth')
 app.add_typer(roi_mod.app, name='roi')
 app.add_typer(workbench_mod.app, name='workbench')
@@ -102,11 +91,8 @@ def policy_audit(input_text: str=typer.Option(None, '--text', '-t', help='Input 
         console.print(f"🤝 [bold]HITL Tools:[/bold] {', '.join(report['hitl_tools'])}")
 
 @app.command()
-def arch_review(path: str='.'):
-    """
-    Audit agent design against Google Well-Architected Framework.
-    """
-    console.print('🏛️ [bold blue]Launching Architecture Design Review...[/bold blue]')
+def arch(path: str='.'):
+    """Simplified Architecture Design Review."""
     arch_mod.audit(path)
 
 @app.command()
@@ -192,19 +178,14 @@ def email_report(recipient: str=typer.Argument(..., help='Recipient email addres
     orchestrator.send_email_report(recipient)
 
 @app.command()
-def ui_audit(path: str='src'):
-    """
-    Audit the Face (Frontend) for A2UI alignment and UX safety.
-    """
-    console.print('🎭 [bold blue]Launching Face Auditor...[/bold blue]')
+def face(path: str='src'):
+    """Audit the Face (Frontend) for A2UI alignment."""
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
     ui_mod.audit(path)
 
 @app.command()
-def scan_secrets(path: str=typer.Argument('.', help='Directory to scan for secrets')):
-    """
-    Scans the codebase for hardcoded secrets, API keys, and credentials.
-    """
+def secrets(path: str=typer.Argument('.', help='Directory to scan')):
+    """Shorthand for Secret Scanner."""
     from agent_ops_cockpit.ops import secret_scanner as secret_mod
     secret_mod.scan(path)
 
