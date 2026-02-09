@@ -18,6 +18,7 @@ from agent_ops_cockpit.ops.auditors.sovereignty import SovereigntyAuditor
 from agent_ops_cockpit.ops.auditors.sme_v12 import HITLAuditor
 from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor, InteropAuditor
 from agent_ops_cockpit.ops.auditors.pivot import PivotAuditor
+from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
@@ -31,7 +32,8 @@ def run_scan(path: str):
         SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), 
         DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), 
         ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(),
-        HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor()
+        HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(),
+        MaturityAuditor()
     ]
     all_findings = []
     for root, dirs, files in os.walk(path):

@@ -1,0 +1,157 @@
+{
+  "last_updated": "2026-02-09T08:45:00",
+  "version": "1.4.0",
+  "patterns": [
+    {
+      "id": "MP-001",
+      "category": "SCALABILITY",
+      "title": "Vector Store Evolution (Chroma DB)",
+      "indicators": [
+        "chromadb",
+        "chroma"
+      ],
+      "recommendation": "For enterprise scaling, evaluate: 1) Google Cloud: Vertex AI Search for handled grounding. 2) AWS: Amazon Bedrock Knowledge Bases. 3) General: BigQuery Vector Search for high-scale analytical joins.",
+      "rationale": "Detected Chroma DB. While excellent for local POCs, production agents often require the managed durability and global indexing provided by major cloud providers.",
+      "impact": "HIGH",
+      "source": "Maturity Auditor SME"
+    },
+    {
+      "id": "MP-003",
+      "category": "PROTOCOL",
+      "title": "Legacy REST vs MCP",
+      "indicators": [
+        "requests.get",
+        "requests.post",
+        "aiohttp",
+        "httpx"
+      ],
+      "recommendation": "Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, Anthropic, and Microsoft (Agent Kit) are converging on MCP for standardized tool/resource governance.",
+      "rationale": "Standardized protocols reduce integration debt and enable multi-agent interoperability without custom bridge logic.",
+      "impact": "HIGH",
+      "source": "Maturity Auditor SME"
+    },
+    {
+      "id": "MP-012",
+      "category": "RELIABILITY",
+      "title": "Model Resilience & Fallbacks",
+      "indicators": [
+        "model_name",
+        "GenerativeModel",
+        "ChatOpenAI",
+        "ChatAnthropic"
+      ],
+      "recommendation": "Implement multi-provider fallback. Options: 1) AWS: Apply Generative AI Lens 'Model Fallback' patterns. 2) Azure: Use API Management for cross-region load balancing. 3) LangGraph: Implement conditional edges for a 'Retry with Larger Model' flow.",
+      "rationale": "Relying on a single model/provider creates a SPOF. Multi-provider fallbacks ensure availability during rate limits or service outages.",
+      "impact": "HIGH",
+      "source": "AWS/Azure/LangGraph Best Practices"
+    },
+    {
+      "id": "MP-013",
+      "category": "SECURITY",
+      "title": "Enterprise Identity (Identity Sprawl)",
+      "indicators": [
+        "api_key",
+        "bearer",
+        "auth_header"
+      ],
+      "recommendation": "Move beyond static keys. Implement: 1) GCP: Workload Identity Federation. 2) AWS: Private VPC Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool interactions.",
+      "rationale": "Static API keys are a major security liability. Cloud-native managed identities provide automatic rotation and least-privilege scoping.",
+      "impact": "CRITICAL",
+      "source": "GCP/AWS/Azure Well-Architected Framework"
+    },
+    {
+      "id": "MP-014",
+      "category": "ARCHITECTURE",
+      "title": "Orchestration Pattern Selection",
+      "indicators": [
+        "loop",
+        "while True",
+        "iteration"
+      ],
+      "recommendation": "When evaluating orchestration, consider: 1) LangGraph: Use for complex cyclic state machines with persistence (checkpoints). 2) CrewAI: Best for role-based hierarchical collaboration. 3) Anthropic: Prefer 'Workflows over Agents' for high-predictability tasks.",
+      "rationale": "Detected custom loop logic. Standardized frameworks provide superior state management and built-in 'Human-in-the-Loop' (HITL) pause points.",
+      "impact": "MEDIUM",
+      "source": "LangGraph/CrewAI/Anthropic Research"
+    },
+    {
+      "id": "MP-015",
+      "category": "BRAND_SAFETY",
+      "title": "Payload Splitting (Context Fragmentation)",
+      "indicators": [
+        "history.append",
+        "chat_history",
+        "memory"
+      ],
+      "recommendation": "Monitor for Payload Splitting attacks where malicious fragments are combined over multiple turns. Mitigation: 1) Implement sliding window verification. 2) Use 'DARE Prompting' (Determine Appropriate Response) to re-evaluate intent at every turn.",
+      "rationale": "Attackers can bypass single-turn filters by splitting a payload across multiple turns. Continuous monitoring of context assembly is required.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-016",
+      "category": "BRAND_SAFETY",
+      "title": "Missing Safety Classifiers",
+      "indicators": [
+        "system_prompt",
+        "instruction"
+      ],
+      "recommendation": "Supplement prompt-based safety with programmatic layers: 1) Input Level: ShieldGemma or LLM Guard. 2) Output Level: Sentiment Analysis and Category Checks (GCP Natural Language API). 3) Persona: Tone of Voice controllers.",
+      "rationale": "System prompts alone are susceptible to jailbreaking. Programmatic filters provide a deterministic safety net that cannot be 'ignored' by the model.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-017",
+      "category": "SECURITY",
+      "title": "Adversarial Testing (Red Teaming)",
+      "indicators": [
+        "test_",
+        "pytest"
+      ],
+      "recommendation": "Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response check). 5) Language (Non-supported language override).",
+      "rationale": "Standard unit tests don't cover adversarial reasoning. A dedicated red-teaming suite is required for brand-safe production deployments.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-018",
+      "category": "QUALITY",
+      "title": "Structured Output Enforcement",
+      "indicators": [
+        "json.loads",
+        "parse"
+      ],
+      "recommendation": "Eliminate parsing failures. 1) OpenAI: Use 'Structured Outputs' for guaranteed schema. 2) GCP: Application Mimetype (application/json) enforcement. 3) LangGraph: Pydantic-based state validation.",
+      "rationale": "Markdown-wrapped JSON is brittle. API-level schema enforcement ensures stable agent-to-tool and agent-to-brain handshakes.",
+      "impact": "MEDIUM",
+      "source": "OpenAI/GCP/LangGraph Docs"
+    },
+    {
+      "id": "MP-019",
+      "category": "RELIABILITY",
+      "title": "Agentic Observability (Golden Signals)",
+      "indicators": [
+        "latency",
+        "cost"
+      ],
+      "recommendation": "Monitor the Agentic Trinity: 1) Reasoning Trace (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent. Microsoft Agent Kit recommends 'Trace-based Debugging' for multi-agent loops.",
+      "rationale": "Traditional service metrics (CPU/RAM) aren't enough for agents. Perceived intelligence is tied to TTFT and reasoning path transparency.",
+      "impact": "MEDIUM",
+      "source": "Microsoft Agent Kit / Industry Standards"
+    }
+  ],
+  "compatibility_constraints": [
+    {
+      "component_a": "langgraph",
+      "component_b": "crewai",
+      "status": "INCOMPATIBLE",
+      "reason": "CrewAI and LangGraph both attempt to manage the orchestration loop and state, leading to cyclic-dependency conflicts."
+    },
+    {
+      "component_a": "google-adk",
+      "component_b": "pyautogen",
+      "status": "INCOMPATIBLE",
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration."
+    }
+  ]
+}

@@ -14,7 +14,7 @@ The **Optimized Agent Stack** is a production-grade distribution for building AI
 ## 📁 Repository Structure
 - `/src/agent_ops_cockpit`: The **Engine**. Logic for reasoning, tools, and cost control.
 - `/src/a2ui`: The **Face**. Core A2UI rendering logic and components.
-- `/src/agent_ops_cockpit/ops`: The **Cockpit** internals (MCP Hub, Shadow Router).
+- `/src/agent_ops_cockpit/ops`: The **Cockpit** internals (MCP Hub, Shadow Router, Maturity Wisdom Store).
 - `/src/docs`: Documentation system (v1.3 Technical Guides).
 
 ## 🤖 AI Agent Instructions

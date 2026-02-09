@@ -9,45 +9,1425 @@
       },
       "results": [
         {
-          "ruleId": "google_api_key",
+          "ruleId": "missing_resiliency_pattern",
           "message": {
-            "text": "Hardcoded secret"
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:10"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py"
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "mock_resiliency",
+          "ruleId": "missing_resiliency_pattern",
           "message": {
-            "text": "Add retry logic"
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:4"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/security.py"
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "mock_timeout",
+          "ruleId": "reliability_failure",
           "message": {
-            "text": "Add timeout to async call"
+            "text": "Resolve falling unit tests to ensure agent"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:4"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_arch_review.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_quality_climber.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_architect.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_ui_auditor.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_ux.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_ops_core.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/benchmarker.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/evidence_bridge.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/frameworks.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/graph.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/pivot.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sre_a2a.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
+          "message": {
+            "text": "Add a footer link to the"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
+          "message": {
+            "text": "Add a footer link to the"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_finops.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/git_portal.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/arch_review.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/dashboard.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/orchestrator.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/finops_roi.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/finops_roi.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/finops_roi.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-3.5)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/finops_roi.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-3.5)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Large static system instructions detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Large static system instructions detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Large static system instructions detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "context_caching_opportunity",
+          "message": {
+            "text": "Large static system instructions detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/App.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_branding_(logo)_or_seo_metadata_(og/description)",
+          "message": {
+            "text": "Add meta tags (og:image,"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/App.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/a2ui/components/lit-component-example.ts:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocHome.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ReportSamples.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlightRecorder.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/Home.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AgentPulse.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/OperationalJourneys.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ThemeToggle.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $0.35."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/shadow/router.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $0.35."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/shadow/router.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/cost_optimizer.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/cost_optimizer.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/frameworks.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $3.50."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Switching to Flash-equivalent could reduce projected cost to $0.35."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/pivot.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "No"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft)",
+          "message": {
+            "text": "No active"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "No"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "potential_recursive_agent_loop",
+          "message": {
+            "text": "Detected a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft)",
+          "message": {
+            "text": "No active"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "No"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft)",
+          "message": {
+            "text": "No active"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Detected gemini-1.5-flash usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Detected gemini-1.5-flash usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Detected gemini-1.5-flash usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Detected gemini-1.5-flash usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Detected gpt-4 usage. Projected TCO over 1M tokens: $100.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-3.5)",
+          "message": {
+            "text": "Detected gpt-3.5 usage. Projected TCO over 1M tokens: $5.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Detected gpt-4 usage. Projected TCO over 1M tokens: $100.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-pro)",
+          "message": {
+            "text": "Detected gemini-1.5-pro usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-1.5-flash)",
+          "message": {
+            "text": "Detected gemini-1.5-flash usage. Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Detected gpt-4 usage. Projected TCO over 1M tokens: $100.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-3.5)",
+          "message": {
+            "text": "Detected gpt-3.5 usage. Projected TCO over 1M tokens: $5.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Detected gpt-4 usage. Projected TCO over 1M tokens: $100.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gpt-4)",
+          "message": {
+            "text": "Detected gpt-4 usage. Projected TCO over 1M tokens: $10.00."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database interaction detected without explicit encryption or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
                 }
               }
             }
