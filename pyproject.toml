@@ -35,7 +35,7 @@ dependencies = [
     "langsmith>=0.7.0",
     "agent-starter-pack>=0.34.0",
     "llama-index>=0.14.0",
-    "ollama>=0.15.0",
+    "ollama>=0.1.0",
     "python-dotenv>=1.0.0",
 ]
 
