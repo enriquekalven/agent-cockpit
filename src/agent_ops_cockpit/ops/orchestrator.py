@@ -651,10 +651,11 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             if diff:
                 console.print(Panel(Syntax(diff, 'diff', theme='monokai', line_numbers=True), title=f'🔍 PROPOSED CHANGES: {full_path}', border_style='cyan'))
                 if dry_run:
-                    console.print(f'🏜️ [yellow]DRY RUN: Skip saving {full_path}[/yellow]')
+                    console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {full_path}[/yellow]')
                 else:
-                    remediator.save()
-                    console.print(f'✨ [green]AUTO-HEAL: Hardened {full_path}[/green]')
+                    patch_path = remediator.save_patch()
+                    console.print(f"✨ [bold green]Patch generated:[/bold green] {patch_path}")
+                    console.print(f"👉 [bold yellow]Review with:[/bold yellow] [white]agent-ops workbench --path {target_path}[/white]\n")
     return orchestrator.get_exit_code()
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))

@@ -7,7 +7,7 @@ from rich.syntax import Syntax
 from rich.table import Table
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.arch_review import run_scan
-app = typer.Typer(help='Interactive Remediation Workbench: Review and approve autonomous fixes.')
+app = typer.Typer(help='Interactive Remediation Workbench v1.4.2: Review and approve autonomous fixes.')
 console = Console()
 
 @app.command()
@@ -35,6 +35,8 @@ def review(path: str=typer.Option('.', '--path', '-p', help='Path to the agent p
                 rem_map[f.file_path].apply_caching(f)
             elif 'Hardening' in f.title:
                 rem_map[f.file_path].apply_tool_hardening(f)
+            elif 'Compaction' in f.title:
+                rem_map[f.file_path].apply_context_compaction(f)
     for file_path, remediator in rem_map.items():
         diff = remediator.get_diff()
         if not diff:

@@ -24,7 +24,7 @@ from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-app = typer.Typer(help='Agent Architecture Reviewer v1.1/v1.2: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
+app = typer.Typer(help='Agent Architecture Reviewer v1.4.2: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
 console = Console()
 
 def run_scan(path: str):
@@ -82,6 +82,14 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
                 remediator.apply_caching(f)
                 applied_count += 1
                 console.print(f'   🛠️ Planned: [green]Context Cache Activation[/green] ({f.title})')
+            elif 'Hardening' in f.title:
+                remediator.apply_tool_hardening(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Poka-Yoke Tool Hardening[/green] ({f.title})')
+            elif 'Compaction' in f.title:
+                remediator.apply_context_compaction(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Context Compaction Strategy[/green] ({f.title})')
         if applied_count > 0:
             if dry_run:
                 console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {file_path}[/yellow]\n')
@@ -123,8 +131,17 @@ def propose_fixes(path: str='.'):
             if 'Resiliency' in f.title or 'retry' in f.description.lower():
                 remediator.apply_resiliency(f)
                 applied += 1
-            elif 'Zombie' in f.title:
+            elif 'Zombie' in f.title or 'Timeout' in f.title:
                 remediator.apply_timeouts(f)
+                applied += 1
+            elif 'Caching' in f.title:
+                remediator.apply_caching(f)
+                applied += 1
+            elif 'Hardening' in f.title:
+                remediator.apply_tool_hardening(f)
+                applied += 1
+            elif 'Compaction' in f.title:
+                remediator.apply_context_compaction(f)
                 applied += 1
         if applied > 0:
             remediator.save()
