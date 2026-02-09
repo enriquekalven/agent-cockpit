@@ -13,14 +13,16 @@ class ReasoningAuditor(BaseAuditor):
         
         # 1. Intent Detection: Look for 'Seams' between frameworks
         if "langgraph" in content.lower() and "crewai" in content.lower():
-             findings.append(AuditFinding(
-                category="🏗️ Architecture",
-                title="Strategic Conflict: Multi-Orchestrator Setup",
-                description="Detected both LangGraph and CrewAI. Using two loop managers is a 'High-Entropy' pattern that often leads to cyclic state deadlocks.",
-                impact="HIGH",
-                roi="Recommend using LangGraph for 'Brain' and CrewAI for 'Task Workers' to ensure state consistency.",
-                file_path=file_path
-            ))
+             title = "Strategic Conflict: Multi-Orchestrator Setup"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🏗️ Architecture",
+                    title=title,
+                    description="Detected both LangGraph and CrewAI. Using two loop managers is a 'High-Entropy' pattern that often leads to cyclic state deadlocks.",
+                    impact="HIGH",
+                    roi="Recommend using LangGraph for 'Brain' and CrewAI for 'Task Workers' to ensure state consistency.",
+                    file_path=file_path
+                ))
 
         # 2. Logic Probing: Sequential await profiling
         async_funcs = [n for n in ast.walk(tree) if isinstance(n, ast.AsyncFunctionDef)]
@@ -29,39 +31,45 @@ class ReasoningAuditor(BaseAuditor):
             if len(awaits) >= 3:
                 # Check if awaits are independent (not using results of previous yields)
                 # This is a 'Reasoning' step over the AST
-                findings.append(AuditFinding(
-                    category="🧗 Reliability",
-                    title="Sequential Data Fetching Bottleneck",
-                    description=f"Function '{func.name}' has {len(awaits)} sequential await calls. This increases latency lineary (T1+T2+T3).",
-                    impact="MEDIUM",
-                    roi="Parallelizing these calls could reduce latency by up to 60%.",
-                    line_number=func.lineno,
-                    file_path=file_path
-                ))
+                title = "Sequential Data Fetching Bottleneck"
+                if not self._is_ignored(func.lineno, content, title):
+                    findings.append(AuditFinding(
+                        category="🧗 Reliability",
+                        title=title,
+                        description=f"Function '{func.name}' has {len(awaits)} sequential await calls. This increases latency lineary (T1+T2+T3).",
+                        impact="MEDIUM",
+                        roi="Parallelizing these calls could reduce latency by up to 60%.",
+                        line_number=func.lineno,
+                        file_path=file_path
+                    ))
 
         # 3. FinOps Reasoning: High-tier model in loops
         # (Simulated reasoning: we look for model strings and for loops together)
         if re.search(r"gemini-3-pro|gpt-5\.2|claude-4\.6", content) and re.search(r"for\s+\w+\s+in", content):
              if any(x in content.lower() for x in ["classify", "label", "is_", "has_"]):
-                findings.append(AuditFinding(
-                    category="💰 FinOps",
-                    title="Model Efficiency Regression (v1.4.1)",
-                    description="Frontier reasoning model (Feb 2026 tier) detected inside a loop performing simple classification tasks.",
-                    impact="HIGH",
-                    roi="Pivoting to Gemini 3 Flash via Antigravity or Claude Code reduces token spend by 95% with superior resolution coverage.",
-                    file_path=file_path
-                ))
+                title = "Model Efficiency Regression (v1.4.1)"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="💰 FinOps",
+                        title=title,
+                        description="Frontier reasoning model (Feb 2026 tier) detected inside a loop performing simple classification tasks.",
+                        impact="HIGH",
+                        roi="Pivoting to Gemini 3 Flash via Antigravity or Claude Code reduces token spend by 95% with superior resolution coverage.",
+                        file_path=file_path
+                    ))
 
         # 4. Context Bloat Analysis (Prompt Logic)
         long_prompts = re.findall(r"['\"]{3}([\s\S]{5000,})['\"]{3}", content)
         if long_prompts:
-            findings.append(AuditFinding(
-                category="📉 Efficiency",
-                title="Architectural Prompt Bloat",
-                description="Massive static context (>5k chars) detected in system instruction. This risks 'Lost in the Middle' hallucinations.",
-                impact="MEDIUM",
-                roi="Pivot to a RAG (Retrieval Augmented Generation) pattern to improve factual grounding accuracy.",
-                file_path=file_path
-            ))
+            title = "Architectural Prompt Bloat"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="📉 Efficiency",
+                    title=title,
+                    description="Massive static context (>5k chars) detected in system instruction. This risks 'Lost in the Middle' hallucinations.",
+                    impact="MEDIUM",
+                    roi="Pivot to a RAG (Retrieval Augmented Generation) pattern to improve factual grounding accuracy.",
+                    file_path=file_path
+                ))
 
         return findings

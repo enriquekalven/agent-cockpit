@@ -9,6 +9,141 @@
       },
       "results": [
         {
+          "ruleId": "found_google_api_key_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_fleet_remediation.py:12"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_hardcoded_api_variable_leak",
+          "message": {
+            "text": "Move this credential to Google"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_fleet_remediation.py:12"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_google_api_key_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_persona_security.py:32"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_hardcoded_api_variable_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_persona_security.py:33"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_google_api_key_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_persona_security.py:59"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_google_api_key_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_audit_flow.py:19"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_hardcoded_api_variable_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_audit_flow.py:19"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_google_api_key_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret Manager"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_ops_core.py:28"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "found_hardcoded_api_variable_leak",
+          "message": {
+            "text": "Move this credential to Google Cloud Secret"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "tests/test_ops_core.py:28"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "missing_resiliency_pattern",
           "message": {
             "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
@@ -41,13 +176,13 @@
         {
           "ruleId": "reliability_failure",
           "message": {
-            "text": "Resolve falling unit tests to ensure agent"
+            "text": "Resolve falling unit"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit"
                 }
               }
             }
@@ -228,36 +363,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sre_a2a.py"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
-          "message": {
-            "text": "Add a footer link to the"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocPage.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
-          "message": {
-            "text": "Add a footer link to the"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocLayout.tsx:1"
                 }
               }
             }
@@ -534,186 +639,6 @@
           ]
         },
         {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component or exported"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/App.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_branding_(logo)_or_seo_metadata_(og/description)",
-          "message": {
-            "text": "Add meta tags (og:image,"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/App.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/a2ui/components/lit-component-example.ts:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component or"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocPage.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component or"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocLayout.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component or"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocHome.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/ReportSamples.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/FlightRecorder.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component or"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/Home.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/AgentPulse.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/OperationalJourneys.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root component"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/ThemeToggle.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "inference_cost_projection_(gemini-3-pro)",
           "message": {
             "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
@@ -768,186 +693,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "version_drift_conflict_detected",
-          "message": {
-            "text": "Detected"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "vector_store_evolution_(chroma_db)",
-          "message": {
-            "text": "For"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "legacy_rest_vs_mcp",
-          "message": {
-            "text": "Pivot to Model Context"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "adversarial_testing_(red_teaming)",
-          "message": {
-            "text": "Implement"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "incompatible_duo:_langgraph_+_crewai",
-          "message": {
-            "text": "CrewAI"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "potential_recursive_agent_loop",
-          "message": {
-            "text": "Detected a"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "version_drift_conflict_detected",
-          "message": {
-            "text": "Detected"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "vector_store_evolution_(chroma_db)",
-          "message": {
-            "text": "For"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "legacy_rest_vs_mcp",
-          "message": {
-            "text": "Pivot to Model Context"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "adversarial_testing_(red_teaming)",
-          "message": {
-            "text": "Implement"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "agent_starter_pack_template_adoption",
-          "message": {
-            "text": "Leverage"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "incompatible_duo:_langgraph_+_crewai",
-          "message": {
-            "text": "CrewAI"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
                 }
               }
             }

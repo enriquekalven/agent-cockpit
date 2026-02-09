@@ -39,13 +39,15 @@ class FinOpsAuditor(BaseAuditor):
                 projected_cost = price * multiplier
                 status = "LOOP DETECTED" if is_nested_inference else "SINGLE PASS"
                 
-                findings.append(AuditFinding(
-                    category="💰 FinOps",
-                    title=f"Inference Cost Projection ({model})",
-                    description=f"Detected {model} usage ({status}). Projected TCO over 1M tokens: ${projected_cost:.2f}.",
-                    impact="INFO",
-                    roi=f"Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to ${0.10 * multiplier:.2f}."
-                ))
+                title = f"Inference Cost Projection ({model})"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="💰 FinOps",
+                        title=title,
+                        description=f"Detected {model} usage ({status}). Projected TCO over 1M tokens: ${projected_cost:.2f}.",
+                        impact="INFO",
+                        roi=f"Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to ${0.10 * multiplier:.2f}."
+                    ))
 
         # 2. Context Caching Opportunity
         docstrings = re.findall(r'"""([\s\S]*?)"""|\'\'\'([\s\S]*?)\'\'\'', content)
@@ -54,13 +56,14 @@ class FinOpsAuditor(BaseAuditor):
             # Semantic Prompt Assessment: Differentiate Bloat vs Few-Shot/Context
             is_rich_context = any(kw in content.lower() for kw in ['examples:', 'context:', '### context', 'few-shot:'])
             title = "Context Caching Opportunity" if is_rich_context else "Prompt Bloat Warning"
-            findings.append(AuditFinding(
-                category="💰 FinOps",
-                title=title,
-                description=f"Large {'Few-Shot context' if is_rich_context else 'instructional logic'} detected without CachingConfig.",
-                impact="HIGH" if is_rich_context else "MEDIUM",
-                roi="Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
-            ))
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="💰 FinOps",
+                    title=title,
+                    description=f"Large {'Few-Shot context' if is_rich_context else 'instructional logic'} detected without CachingConfig.",
+                    impact="HIGH" if is_rich_context else "MEDIUM",
+                    roi="Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+                ))
 
         # Check for retry logic (ROI & Reliability cross-over)
         if 'retry' not in content.lower() and ('request' in content.lower() or 'invoke' in content.lower()):

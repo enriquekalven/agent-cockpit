@@ -36,14 +36,16 @@ class DeepGraphAuditor(BaseAuditor):
                             func_name = node.value.func.attr
                         
                         if any(x in func_name.lower() for x in ["get", "post", "fetch", "invoke", "call"]):
-                             findings.append(AuditFinding(
-                                category="🧗 Resiliency",
-                                title="Zombie Tool Call Detected",
-                                description=f"Async call to '{func_name}' lacks a timeout. This risks 'Hanging Workers' in high-concurrency environments.",
-                                impact="HIGH",
-                                roi="Prevents thread-pool exhaustion and 99th percentile latency spikes.",
-                                line_number=node.lineno,
-                                file_path=file_path
-                            ))
+                             title = "Zombie Tool Call Detected"
+                             if not self._is_ignored(node.lineno, content, title):
+                                 findings.append(AuditFinding(
+                                    category="🧗 Resiliency",
+                                    title=title,
+                                    description=f"Async call to '{func_name}' lacks a timeout. This risks 'Hanging Workers' in high-concurrency environments.",
+                                    impact="HIGH",
+                                    roi="Prevents thread-pool exhaustion and 99th percentile latency spikes.",
+                                    line_number=node.lineno,
+                                    file_path=file_path
+                                ))
 
         return findings

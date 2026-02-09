@@ -37,13 +37,19 @@ class MaturityAuditor(BaseAuditor):
                 continue
                 
             if any((indicator.lower() in content.lower() for indicator in pattern.get('indicators', []))):
-                findings.append(AuditFinding(category='⭐️ Maturity Wisdom', title=pattern['title'], description=pattern['recommendation'], impact=pattern['impact'], roi=pattern['rationale'], file_path=file_path))
+                title = pattern['title']
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(category='⭐️ Maturity Wisdom', title=title, description=pattern['recommendation'], impact=pattern['impact'], roi=pattern['rationale'], file_path=file_path))
         constraints = self.kb.get('compatibility_constraints', [])
         for constraint in constraints:
             comp_a = constraint['component_a']
             comp_b = constraint['component_b']
             if comp_a in content.lower() and comp_b in content.lower():
-                findings.append(AuditFinding(category='🚨 Architectural Drift', title=f'Incompatible Duo: {comp_a} + {comp_b}', description=constraint.get('reason', 'Incompatible components detected.'), impact='CRITICAL', roi='Prevents runtime state corruption and orchestration loops as identified by Ecosystem Watcher.', file_path=file_path))
+                title = f"Incompatible Duo: {comp_a} + {comp_b}"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(category='🚨 Architectural Drift', title=title, description=constraint.get('reason', 'Incompatible components detected.'), impact='CRITICAL', roi='Prevents runtime state corruption and orchestration loops as identified by Ecosystem Watcher.', file_path=file_path))
         if re.search('requests\\.(get|post)|aiohttp\\.', content) and 'tools' in file_path.lower():
-            findings.append(AuditFinding(category='🤝 Protocol', title='Legacy Tooling -> MCP Migration', description='Detected raw REST/HTTP calls in a tool definition. v1.3 Standard mandates Model Context Protocol (MCP) for centralized governance.', impact='HIGH', roi='Future-proofs the tool layer and enables cross-framework interoperability.', file_path=file_path))
+            title = 'Legacy Tooling -> MCP Migration'
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(category='🤝 Protocol', title=title, description='Detected raw REST/HTTP calls in a tool definition. v1.3 Standard mandates Model Context Protocol (MCP) for centralized governance.', impact='HIGH', roi='Future-proofs the tool layer and enables cross-framework interoperability.', file_path=file_path))
         return findings

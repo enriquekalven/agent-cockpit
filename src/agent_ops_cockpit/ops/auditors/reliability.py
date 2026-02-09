@@ -14,7 +14,9 @@ class ReliabilityAuditor(BaseAuditor):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 await_nodes = [n for n in ast.walk(node) if isinstance(n, ast.Await)]
                 if len(await_nodes) > 2:
-                    findings.append(AuditFinding(category='🧗 Reliability & Perf', title='Sequential Bottleneck Detected', description="Multiple sequential 'await' calls identified. This increases total latency linearly.", impact='MEDIUM', roi='Reduces latency by up to 50% using asyncio.gather().', line_number=node.lineno, file_path=file_path))
+                    title = 'Sequential Bottleneck Detected'
+                    if not self._is_ignored(node.lineno, content, title):
+                        findings.append(AuditFinding(category='🧗 Reliability & Perf', title=title, description="Multiple sequential 'await' calls identified. This increases total latency linearly.", impact='MEDIUM', roi='Reduces latency by up to 50% using asyncio.gather().', line_number=node.lineno, file_path=file_path))
             
             if isinstance(node, ast.Call):
                 func_name = ''
@@ -34,7 +36,9 @@ class ReliabilityAuditor(BaseAuditor):
                         parent = self._get_parent_function(tree, node)
                         # If no parent (top-level), it's definitely not decorated with @retry
                         if not parent or (not self._is_decorated_with_retry(parent)):
-                            findings.append(AuditFinding(category='🧗 Reliability', title='Missing Resiliency Logic', description=f"External call '{func_name}' to '{node.args[0].value[:30]}...' is not protected by retry logic.", impact='HIGH', roi='Increases up-time and handles transient network failures.', line_number=node.lineno, file_path=file_path))
+                            title = 'Missing Resiliency Logic'
+                            if not self._is_ignored(node.lineno, content, title):
+                                findings.append(AuditFinding(category='🧗 Reliability', title=title, description=f"External call '{func_name}' to '{node.args[0].value[:30]}...' is not protected by retry logic.", impact='HIGH', roi='Increases up-time and handles transient network failures.', line_number=node.lineno, file_path=file_path))
             
             if isinstance(node, (ast.Assign, ast.AnnAssign)):
                 if isinstance(node.value, (ast.Constant, ast.JoinedStr)):
@@ -45,7 +49,9 @@ class ReliabilityAuditor(BaseAuditor):
                         val = ''.join([s.value for s in node.value.values if isinstance(s, ast.Constant)])
                     if len(val) > 20 and any((x in val.lower() for x in ['act as', 'you are', 'instruction'])):
                         if not any((x in val.lower() for x in ["don't know", 'unsure', 'refuse', 'do not make up'])):
-                            findings.append(AuditFinding(category='🧗 Reliability', title='High Hallucination Risk', description="System prompt lacks negative constraints (e.g., 'If you don't know, say I don't know').", impact='HIGH', roi='Reduces autonomous failures by enforcing refusal boundaries.', line_number=node.lineno, file_path=file_path))
+                            title = 'High Hallucination Risk'
+                            if not self._is_ignored(node.lineno, content, title):
+                                findings.append(AuditFinding(category='🧗 Reliability', title=title, description="System prompt lacks negative constraints (e.g., 'If you don't know, say I don't know').", impact='HIGH', roi='Reduces autonomous failures by enforcing refusal boundaries.', line_number=node.lineno, file_path=file_path))
         return findings
 
     def _get_parent_function(self, tree, node):

@@ -25,50 +25,58 @@ class SovereigntyAuditor(BaseAuditor):
             for match in matches:
                 # Find the line number based on char offset
                 line_no = content.count('\n', 0, match.start()) + 1
-                findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
-                    title="Vendor Lock-in Risk",
-                    description=reason,
-                    impact="MEDIUM",
-                    roi="Enables Multi-Cloud failover and EU sovereignty compliance.",
-                    line_number=line_no,
-                    file_path=file_path
-                ))
+                title = "Vendor Lock-in Risk"
+                if not self._is_ignored(line_no, content, title):
+                    findings.append(AuditFinding(
+                        category="🌍 Sovereignty",
+                        title=title,
+                        description=reason,
+                        impact="MEDIUM",
+                        roi="Enables Multi-Cloud failover and EU sovereignty compliance.",
+                        line_number=line_no,
+                        file_path=file_path
+                    ))
 
         # 2. Data Residency Audit (Sovereign Cloud patterns)
         if "google.cloud" in content and "europe-" not in content.lower():
             if "gdpr" in content.lower() or "compliance" in content.lower():
-                findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
-                    title="EU Data Sovereignty Gap",
-                    description="Compliance code detected but no European region routing found. Risk of non-compliance with EU data residency laws.",
-                    impact="HIGH",
-                    roi="Prevents multi-million Euro GDPR fines.",
-                    file_path=file_path
-                ))
+                title = "EU Data Sovereignty Gap"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🌍 Sovereignty",
+                        title=title,
+                        description="Compliance code detected but no European region routing found. Risk of non-compliance with EU data residency laws.",
+                        impact="HIGH",
+                        roi="Prevents multi-million Euro GDPR fines.",
+                        file_path=file_path
+                    ))
 
         # 3. Cloud Agnostic Interface Audit
         direct_sdks = ["vertexai", "boto3", "azure-identity"]
         for sdk in direct_sdks:
             if f"import {sdk}" in content or f"from {sdk}" in content:
-                findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
-                    title="Direct Vendor SDK Exposure",
-                    description=f"Directly importing '{sdk}'. Consider wrapping in a provider-agnostic bridge to allow Multi-Cloud mobility.",
-                    impact="LOW",
-                    roi="Reduces refactoring cost during platform migration.",
-                    file_path=file_path
-                ))
+                title = "Direct Vendor SDK Exposure"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🌍 Sovereignty",
+                        title=title,
+                        description=f"Directly importing '{sdk}'. Consider wrapping in a provider-agnostic bridge to allow Multi-Cloud mobility.",
+                        impact="LOW",
+                        roi="Reduces refactoring cost during platform migration.",
+                        file_path=file_path
+                    ))
 
         # 4. v1.3 Strategic Exit: TCO & Migration Plan
         if any(x in content.lower() for x in ["vertexai", "google.cloud"]):
-            findings.append(AuditFinding(
-                category="🌍 Sovereignty",
-                title="Strategic Exit Plan (Cloud)",
-                description="Detected hardcoded cloud dependencies. For a 'Category Killer' grade, implement an abstraction layer that allows switching to Gemma 2 on GKE.",
-                impact="INFO",
-                roi="Estimated 12% OpEx reduction via open-source pivot orchestrated by Antigravity. Exit effort: ~14 lines of code.",
-                file_path=file_path
-            ))
+            title = "Strategic Exit Plan (Cloud)"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🌍 Sovereignty",
+                    title=title,
+                    description="Detected hardcoded cloud dependencies. For a 'Category Killer' grade, implement an abstraction layer that allows switching to Gemma 2 on GKE.",
+                    impact="INFO",
+                    roi="Estimated 12% OpEx reduction via open-source pivot orchestrated by Antigravity. Exit effort: ~14 lines of code.",
+                    file_path=file_path
+                ))
 
         return findings

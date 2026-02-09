@@ -47,6 +47,24 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                     for secret_name, pattern in SECRET_PATTERNS.items():
                         match = re.search(pattern, line)
                         if match:
+                            # 1. Check for inline ignore
+                            issue_slug = secret_name.lower().replace(" ", "-")
+                            if "# cockpit-ignore" in line:
+                                comment_part = line.split("# cockpit-ignore")[1].lower()
+                                if issue_slug in comment_part or "all" in comment_part:
+                                    continue
+                            
+                            # 2. Check for whole-file ignore (first 10 lines)
+                            is_ignored_file = False
+                            for j in range(min(10, len(lines))):
+                                if "# cockpit-ignore" in lines[j]:
+                                    comment_part = lines[j].split("# cockpit-ignore")[1].lower()
+                                    if issue_slug in comment_part or "all" in comment_part:
+                                        is_ignored_file = True
+                                        break
+                            if is_ignored_file:
+                                continue
+
                             # Library Isolation: Skip hits in known libraries to reduce false positives
                             if is_lib:
                                 continue

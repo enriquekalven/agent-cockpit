@@ -26,7 +26,9 @@ class BehavioralAuditor(BaseAuditor):
                 for entry in trace_data.get('logs', []):
                     message = entry.get('message', '')
                     if '@' in message and '.' in message:
-                        findings.append(AuditFinding(category='🎭 Behavioral', title='Trace-to-Code Mismatch (PII Leak)', description=f"Code promises PII masking, but trace.json contains raw email patterns at {entry.get('timestamp')}.", impact='CRITICAL', roi="Ensure semantic masking logic handles 'suffix+alias' patterns correctly.", file_path=file_path))
+                        title = 'Trace-to-Code Mismatch (PII Leak)'
+                        if not self._is_ignored(0, content, title):
+                            findings.append(AuditFinding(category='🎭 Behavioral', title=title, description=f"Code promises PII masking, but trace.json contains raw email patterns at {entry.get('timestamp')}.", impact='CRITICAL', roi="Ensure semantic masking logic handles 'suffix+alias' patterns correctly.", file_path=file_path))
         except Exception:
             pass
         return findings

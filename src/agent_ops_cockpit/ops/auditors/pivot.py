@@ -15,14 +15,16 @@ class PivotAuditor(BaseAuditor):
         
         # 1. Model Pivot: OpenAI/GPT -> Sovereign/Open Source (Gemma2)
         if re.search(r"gpt-4|gpt-3\.5|openai", content.lower()):
-            findings.append(AuditFinding(
-                category="🚀 Strategic Pivot",
-                title="Sovereign Model Migration Opportunity",
-                description="Detected OpenAI dependency. For maximum Data Sovereignty and 40% TCO reduction, consider pivoting to Gemma2 or Llama3-70B on Vertex AI Prediction endpoints.",
-                impact="HIGH",
-                roi="Eliminates cross-border data risk and reduces projected inference TCO.",
-                file_path=file_path
-            ))
+            title = "Sovereign Model Migration Opportunity"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🚀 Strategic Pivot",
+                    title=title,
+                    description="Detected OpenAI dependency. For maximum Data Sovereignty and 40% TCO reduction, consider pivoting to Gemma2 or Llama3-70B on Vertex AI Prediction endpoints.",
+                    impact="HIGH",
+                    roi="Eliminates cross-border data risk and reduces projected inference TCO.",
+                    file_path=file_path
+                ))
 
         # 2. Protocol Pivot: Legacy REST -> Model Context Protocol (MCP)
         # Look for raw requests or aiohttp calls within 'tools' or 'mcp' directories

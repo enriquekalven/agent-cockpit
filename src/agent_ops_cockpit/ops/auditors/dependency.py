@@ -25,23 +25,27 @@ class DependencyAuditor(BaseAuditor):
 
         for p1, v1_min, p2, v2_min, reason in self.KNOW_CONFLICTS:
             if p1 in dep_map and p2 in dep_map:
-                findings.append(AuditFinding(
-                    category="📦 Dependency",
-                    title="Version Drift Conflict Detected",
-                    description=f"Detected potential conflict between {p1} and {p2}. {reason}",
-                    impact="HIGH",
-                    roi="Prevent runtime failures and dependency hell before deployment.",
-                    file_path=file_path
-                ))
+                title = "Version Drift Conflict Detected"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="📦 Dependency",
+                        title=title,
+                        description=f"Detected potential conflict between {p1} and {p2}. {reason}",
+                        impact="HIGH",
+                        roi="Prevent runtime failures and dependency hell before deployment.",
+                        file_path=file_path
+                    ))
 
         # Licensing Check
         if "agpl" in content.lower():
-             findings.append(AuditFinding(
-                category="⚖️ Compliance",
-                title="Restrictive License Warning",
-                description="AGPL-licensed dependency found. This may require full source disclosure for the entire project.",
-                impact="MEDIUM",
-                roi="Avoid legal risk by switching to MIT/Apache alternatives."
-            ))
+             title = "Restrictive License Warning"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="⚖️ Compliance",
+                    title=title,
+                    description="AGPL-licensed dependency found. This may require full source disclosure for the entire project.",
+                    impact="MEDIUM",
+                    roi="Avoid legal risk by switching to MIT/Apache alternatives."
+                ))
 
         return findings

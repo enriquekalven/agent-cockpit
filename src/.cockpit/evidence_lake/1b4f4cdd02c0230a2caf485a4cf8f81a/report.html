@@ -135,14 +135,6 @@
                 </tr>
             
                 <tr>
-                    <td style="font-weight:700; color:#0f172a;">🛡️ QA & Reliability Principal</td>
-                    <td><span style="font-weight:bold; color:#f59e0b;">P2</span></td>
-                    <td class="risk-text">Failure Under Stress & Latency spikes</td>
-                    <td>Reliability (Quick)</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
                     <td style="font-weight:700; color:#0f172a;">🧗 RAG Quality Principal</td>
                     <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
                     <td class="risk-text">Retrieval-Reasoning Hallucinations</td>
@@ -151,10 +143,10 @@
                 </tr>
             
                 <tr>
-                    <td style="font-weight:700; color:#0f172a;">💰 FinOps Principal Architect</td>
-                    <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
-                    <td class="risk-text">FinOps Efficiency & Margin Erosion</td>
-                    <td>Token Optimization</td>
+                    <td style="font-weight:700; color:#0f172a;">🛡️ QA & Reliability Principal</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P2</span></td>
+                    <td class="risk-text">Failure Under Stress & Latency spikes</td>
+                    <td>Reliability (Quick)</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
@@ -164,6 +156,14 @@
                     <td class="risk-text">Credential Leakage & Unauthorized Access</td>
                     <td>Secret Scanner</td>
                     <td><span class="status-badge fail">REJECTED</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">💰 FinOps Principal Architect</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
+                    <td class="risk-text">FinOps Efficiency & Margin Erosion</td>
+                    <td>Token Optimization</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
                 <tr>
@@ -193,42 +193,6 @@
                     
                         <tr>
                             <td><code>tests/test_fleet_remediation.py:12</code></td>
-                            <td>Found Hardcoded API Variable leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:97</code></td>
-                            <td>Found OpenAI API Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google Cloud Secret</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:97</code></td>
-                            <td>Found Azure OpenAI Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google Cloud</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:97</code></td>
-                            <td>Found Hardcoded API Variable leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:103</code></td>
-                            <td>Found OpenAI API Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google Cloud</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:103</code></td>
-                            <td>Found Azure OpenAI Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to Google Cloud</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>tests/test_hardened_auditors.py:103</code></td>
                             <td>Found Hardcoded API Variable leak</td>
                             <td style="color: #059669; font-weight: 600;">Move this credential to Google</td>
                         </tr>
@@ -646,8 +610,8 @@ Targeting: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.
 │ Defensibility Score │                                           36/100                                           │
 │ Consensus Verdict   │                                          REJECTED                                          │
 │ Detected Breaches   │                                             7                                              │
-│ Blast Radius        │      Remote Execution, Privilege Escalation, Fragmented Breach, Filter Bypass, Brand       │
-│                     │                          Reputation, Logic Bypass, UX Degradation                          │
+│ Blast Radius        │   Filter Bypass, Brand Reputation, Fragmented Breach, UX Degradation, Remote Execution,    │
+│                     │                             Logic Bypass, Privilege Escalation                             │
 └─────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────┘
 
 🛠️  BRAND SAFETY MITIGATION LOGIC REQUIRED:
@@ -675,6 +639,12 @@ Over-Privilege (MCP) | Review and harden agentic reasoning gates.
 
 🧪 Golden Set Update: 7 breaches appended to vulnerability_regression.json for regression testing.
 
+</pre><h3>RAG Fidelity Audit</h3><pre>
+Usage: python -m agent_ops_cockpit.ops.rag_audit [OPTIONS]
+Try 'python -m agent_ops_cockpit.ops.rag_audit --help' for help.
+╭─ Error ──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Got unexpected extra argument (audit)                                                                            │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 </pre><h3>Reliability (Quick)</h3><pre>╭──────────────────────────────╮
 │ 🛡️ RELIABILITY AUDIT (QUICK) │
 ╰──────────────────────────────╯
@@ -696,19 +666,6 @@ Over-Privilege (MCP) | Review and harden agentic reasoning gates.
 ```
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit | Reliability Failure | Resolve falling unit 
 tests to ensure agent regression safety.
-</pre><h3>RAG Fidelity Audit</h3><pre>
-Usage: python -m agent_ops_cockpit.ops.rag_audit [OPTIONS]
-Try 'python -m agent_ops_cockpit.ops.rag_audit --help' for help.
-╭─ Error ──────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Got unexpected extra argument (audit)                                                                            │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-</pre><h3>Token Optimization</h3><pre>╭───────────────────────────────────╮
-│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
-╰───────────────────────────────────╯
-Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
-📊 Token Metrics: ~558 prompt tokens detected.
-
-✅ No immediate code-level optimizations found. Your agent is lean!
 </pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
 │ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
 ╰──────────────────────────────────────────────╯
@@ -717,18 +674,6 @@ Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 ACTION: tests/test_fleet_remediation.py:12 | Found Google API Key leak | Move this credential to Google Cloud Secret
 Manager or .env file.
 ACTION: tests/test_fleet_remediation.py:12 | Found Hardcoded API Variable leak | Move this credential to Google 
-Cloud Secret Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:97 | Found OpenAI API Key leak | Move this credential to Google Cloud Secret
-Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:97 | Found Azure OpenAI Key leak | Move this credential to Google Cloud 
-Secret Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:97 | Found Hardcoded API Variable leak | Move this credential to Google 
-Cloud Secret Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:103 | Found OpenAI API Key leak | Move this credential to Google Cloud 
-Secret Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:103 | Found Azure OpenAI Key leak | Move this credential to Google Cloud 
-Secret Manager or .env file.
-ACTION: tests/test_hardened_auditors.py:103 | Found Hardcoded API Variable leak | Move this credential to Google 
 Cloud Secret Manager or .env file.
 ACTION: tests/test_persona_security.py:32 | Found Google API Key leak | Move this credential to Google Cloud Secret 
 Manager or .env file.
@@ -752,12 +697,6 @@ Manager or .env file.
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ tests/test_fleet_remediation.py │ 12   │ Google API Key         │ Move to Secret Manager │
 │ tests/test_fleet_remediation.py │ 12   │ Hardcoded API Variable │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 97   │ OpenAI API Key         │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 97   │ Azure OpenAI Key       │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 97   │ Hardcoded API Variable │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 103  │ OpenAI API Key         │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 103  │ Azure OpenAI Key       │ Move to Secret Manager │
-│ tests/test_hardened_auditors.py │ 103  │ Hardcoded API Variable │ Move to Secret Manager │
 │ tests/test_persona_security.py  │ 32   │ Google API Key         │ Move to Secret Manager │
 │ tests/test_persona_security.py  │ 33   │ Hardcoded API Variable │ Move to Secret Manager │
 │ tests/test_persona_security.py  │ 59   │ Google API Key         │ Move to Secret Manager │
@@ -767,9 +706,16 @@ Manager or .env file.
 │ tests/test_ops_core.py          │ 28   │ Hardcoded API Variable │ Move to Secret Manager │
 └─────────────────────────────────┴──────┴────────────────────────┴────────────────────────┘
 
-❌ FAIL: Found 15 potential credential leaks.
+❌ FAIL: Found 9 potential credential leaks.
 💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all tokens.
 
+</pre><h3>Token Optimization</h3><pre>╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
+📊 Token Metrics: ~558 prompt tokens detected.
+
+✅ No immediate code-level optimizations found. Your agent is lean!
 </pre><h3>Architecture Review</h3><pre>╭────────────────────────────────────────────────────────────╮
 │ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
 ╰────────────────────────────────────────────────────────────╯
@@ -2299,12 +2245,6 @@ ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/tes
 Debate (MAD) & Consensus | For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent 
 Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) 
 Self-Reflexion: Agent audits its own output before transmission.
-🚩 Hardcoded Secret Detected 
-(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:97)
-   Variable 'content_secret' appears to contain a hardcoded credential.
-   ⚖️ Strategic ROI: Prevent catastrophic credential leaks by using Google Secret Manager.
-ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:97 | 
-Hardcoded Secret Detected | Variable 'content_secret' appears to contain a hardcoded credential.
 🚩 Inference Cost Projection (gemini-3-pro) (:)
    Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M tokens: $2.50.
    ⚖️ Strategic ROI: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
@@ -2341,15 +2281,6 @@ custom bridge logic.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:1 | Legacy 
 REST vs MCP | Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, Anthropic, and Microsoft (Agent Kit)
 are converging on MCP for standardized tool/resource governance.
-🚩 Enterprise Identity (Identity Sprawl) 
-(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:)
-   Move beyond static keys. Implement: 1) GCP: Workload Identity Federation. 2) AWS: Private VPC Endpoints + IAM 
-Role-based access. 3) Azure: Managed Identities for all tool interactions.
-   ⚖️ Strategic ROI: Static API keys are a major security liability. Cloud-native managed identities provide 
-automatic rotation and least-privilege scoping.
-ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:1 | 
-Enterprise Identity (Identity Sprawl) | Move beyond static keys. Implement: 1) GCP: Workload Identity Federation. 2)
-AWS: Private VPC Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool interactions.
 🚩 Adversarial Testing (Red Teaming) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_hardened_auditors.py:)
    Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics 
@@ -3807,17 +3738,6 @@ automatic rotation and least-privilege scoping.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:1 | Enterprise Identity
 (Identity Sprawl) | Move beyond static keys. Implement: 1) GCP: Workload Identity Federation. 2) AWS: Private VPC 
 Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool interactions.
-🚩 Multi-Agent Debate (MAD) & Consensus 
-(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:)
-   For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, 
-another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) Self-Reflexion: Agent audits its 
-own output before transmission.
-   ⚖️ Strategic ROI: Single-agent loops are prone to hallucinations. Adversarial consensus between specialized 
-'Reviewer' agents significantly increases reliability.
-ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:1 | Multi-Agent Debate 
-(MAD) & Consensus | For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent Debate: One 
-agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) Self-Reflexion: 
-Agent audits its own output before transmission.
 🚩 Mental Model Discovery (HAX Guideline 01) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:)
    Don't leave users guessing. Implementation: 1) HAX: Make clear what the system can do. 2) UI: Provide 'Capability
@@ -6568,7 +6488,7 @@ metric for perceived intelligence.
 │ 🌊 Impact Waterfall (v1.3)                                                                                       │
 │                                                                                                                  │
 │  • Reasoning Delay: 1600ms added to chain (Critical Path).                                                       │
-│  • Risk Reduction: 2700% reduction in Potential Failure Points (PFPs) via audit logic.                           │
+│  • Risk Reduction: 2688% reduction in Potential Failure Points (PFPs) via audit logic.                           │
 │  • Sovereignty Delta: 20/100 - (🚨 EXIT_PLAN_REQUIRED).                                                          │
 │                                                                                                                  │
 │ 🛠️ Summary of Findings                                                                                           │
@@ -7001,8 +6921,6 @@ metric for perceived intelligence.
 │  • Multi-Agent Debate (MAD) & Consensus: For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) │
 │    Multi-Agent Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple        │
 │    reasoning paths. 3) Self-Reflexion: Agent audits its own output before transmission. (Impact: HIGH)           │
-│  • Hardcoded Secret Detected: Variable 'content_secret' appears to contain a hardcoded credential. (Impact:      │
-│    CRITICAL)                                                                                                     │
 │  • Inference Cost Projection (gemini-3-pro): Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M    │
 │    tokens: $2.50. (Impact: INFO)                                                                                 │
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) not detected. SOC2 CC6.1    │
@@ -7013,9 +6931,6 @@ metric for perceived intelligence.
 │    TTFT is the primary metric for perceived intelligence. (Impact: MEDIUM)                                       │
 │  • Legacy REST vs MCP: Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, Anthropic, and          │
 │    Microsoft (Agent Kit) are converging on MCP for standardized tool/resource governance. (Impact: HIGH)         │
-│  • Enterprise Identity (Identity Sprawl): Move beyond static keys. Implement: 1) GCP: Workload Identity          │
-│    Federation. 2) AWS: Private VPC Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool  │
-│    interactions. (Impact: CRITICAL)                                                                              │
 │  • Adversarial Testing (Red Teaming): Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety    │
 │    (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response check). 5) Language    │
 │    (Non-supported language override). (Impact: HIGH)                                                             │
@@ -7438,9 +7353,6 @@ metric for perceived intelligence.
 │  • Enterprise Identity (Identity Sprawl): Move beyond static keys. Implement: 1) GCP: Workload Identity          │
 │    Federation. 2) AWS: Private VPC Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool  │
 │    interactions. (Impact: CRITICAL)                                                                              │
-│  • Multi-Agent Debate (MAD) & Consensus: For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) │
-│    Multi-Agent Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple        │
-│    reasoning paths. 3) Self-Reflexion: Agent audits its own output before transmission. (Impact: HIGH)           │
 │  • Mental Model Discovery (HAX Guideline 01): Don't leave users guessing. Implementation: 1) HAX: Make clear     │
 │    what the system can do. 2) UI: Provide 'Capability Cards' or proactive tool suggestions. 3) Discovery: Show   │
 │    sample queries on empty state. (Impact: MEDIUM)                                                               │

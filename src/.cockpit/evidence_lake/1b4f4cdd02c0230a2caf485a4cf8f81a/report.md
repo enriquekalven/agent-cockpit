@@ -1,25 +1,25 @@
 # 🏁 AgentOps Cockpit: QUICK SAFE-BUILD
-**Timestamp**: 2026-02-09 13:00:59
+**Timestamp**: 2026-02-09 12:55:37
 **Status**: ❌ FAIL
 
 ---
-## 👔 Principal SME Executive Summary (TLDR: 75.0%)
+## 👔 Principal SME Executive Summary (TLDR: 62.5%)
 Findings are prioritized by Business Impact & Blast Radius.
 
 ### 🟥 Priority 1: 🔥 Critical Security & Compliance (Action Required)
 - **Security Breach: Language Override**: 
 - **Security Breach: Tool**: 
-- **Missing Resiliency Pattern**: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
+- **Found Google API Key leak**: Move this credential to Google Cloud Secret
 
 ### 🟨 Priority 2: 🛡️ Reliability & Resilience (Stability)
-- **Reliability Failure**: Resolve falling unit tests to ensure agent
+- **Reliability Failure**: Resolve falling unit
 - **Missing Resiliency Pattern**: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
 - **Architectural Prompt**: 
 
 ### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)
-- **Missing Legal Disclaimer or Privacy Policy link**: Add a footer link to the
 - **Prompt Bloat Warning**: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
 - **Architectural Prompt Bloat |**: 
+- **SOC2 Control Gap:**: 
 
 ### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)
 - **Inference Cost Projection (gemini-3-pro)**: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $1.00.
@@ -36,18 +36,45 @@ Findings are prioritized by Business Impact & Blast Radius.
 ## 🧑‍💼 Principal SME Persona Approvals
 Each pillar of your agent has been reviewed by a specialized SME persona.
 - **⚖️ Governance & Compliance SME** ([Policy Enforcement]): ✅ APPROVED
-- **🛡️ QA & Reliability Principal** ([Reliability (Quick)]): ✅ APPROVED
+- **🎭 UX/UI Principal Designer** ([Face Auditor]): ✅ APPROVED
 - **🚩 Security Architect** ([Red Team (Fast)]): ❌ REJECTED [Remediation: 🏗️ Hard (Model/Prompt)]
 - **🧗 RAG Quality Principal** ([RAG Fidelity Audit]): ❌ REJECTED [Remediation: 🔧 Medium (Logic)]
+- **🛡️ QA & Reliability Principal** ([Reliability (Quick)]): ✅ APPROVED
+- **🔐 SecOps Principal** ([Secret Scanner]): ❌ REJECTED [Remediation: ⚡ 1-Click (Env Var)]
 - **💰 FinOps Principal Architect** ([Token Optimization]): ✅ APPROVED
-- **🔐 SecOps Principal** ([Secret Scanner]): ✅ APPROVED
-- **🎭 UX/UI Principal Designer** ([Face Auditor]): ✅ APPROVED
 - **🏛️ Principal Platform Engineer** ([Architecture Review]): ✅ APPROVED
 
 ## 🚀 Step-by-Step Implementation Guide
 To transition this agent to production-hardened status, follow these prioritized phases:
 
 ### 🛡️ Phase 1: Security Hardening
+1. **Found Google API Key leak**
+   - 📍 Location: `tests/test_fleet_remediation.py:12`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret
+1. **Found Hardcoded API Variable leak**
+   - 📍 Location: `tests/test_fleet_remediation.py:12`
+   - ✨ Recommended Fix: Move this credential to Google
+1. **Found Google API Key leak**
+   - 📍 Location: `tests/test_persona_security.py:32`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret
+1. **Found Hardcoded API Variable leak**
+   - 📍 Location: `tests/test_persona_security.py:33`
+   - ✨ Recommended Fix: Move this credential to Google Cloud
+1. **Found Google API Key leak**
+   - 📍 Location: `tests/test_persona_security.py:59`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret
+1. **Found Google API Key leak**
+   - 📍 Location: `tests/test_audit_flow.py:19`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret
+1. **Found Hardcoded API Variable leak**
+   - 📍 Location: `tests/test_audit_flow.py:19`
+   - ✨ Recommended Fix: Move this credential to Google Cloud
+1. **Found Google API Key leak**
+   - 📍 Location: `tests/test_ops_core.py:28`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret Manager
+1. **Found Hardcoded API Variable leak**
+   - 📍 Location: `tests/test_ops_core.py:28`
+   - ✨ Recommended Fix: Move this credential to Google Cloud Secret
 1. **Missing Resiliency Pattern**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py`
    - ✨ Recommended Fix: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
@@ -57,8 +84,8 @@ To transition this agent to production-hardened status, follow these prioritized
 
 ### 🛡️ Phase 2: Reliability Recovery
 1. **Reliability Failure**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit`
-   - ✨ Recommended Fix: Resolve falling unit tests to ensure agent
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit`
+   - ✨ Recommended Fix: Resolve falling unit
 1. **Missing Resiliency Pattern**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_arch_review.py`
    - ✨ Recommended Fix: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
@@ -97,12 +124,6 @@ To transition this agent to production-hardened status, follow these prioritized
    - ✨ Recommended Fix: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
 
 ### 🏗️ Phase 3: Architectural Alignment
-1. **Missing Legal Disclaimer or Privacy Policy link**
-   - 📍 Location: `src/docs/DocPage.tsx:1`
-   - ✨ Recommended Fix: Add a footer link to the
-1. **Missing Legal Disclaimer or Privacy Policy link**
-   - 📍 Location: `src/docs/DocLayout.tsx:1`
-   - ✨ Recommended Fix: Add a footer link to the
 1. **Prompt Bloat Warning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py`
    - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
@@ -161,42 +182,6 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Prompt Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py`
    - ✨ Recommended Fix: Use 'Input
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/App.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported
-1. **Missing Branding (Logo) or SEO Metadata (OG/Description)**
-   - 📍 Location: `src/App.tsx:1`
-   - ✨ Recommended Fix: Add meta tags (og:image,
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/a2ui/components/lit-component-example.ts:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/docs/DocPage.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/docs/DocLayout.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/docs/DocHome.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/ReportSamples.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/FlightRecorder.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/Home.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/AgentPulse.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/OperationalJourneys.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/components/ThemeToggle.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py`
    - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
@@ -209,42 +194,6 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py`
    - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Detected
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: For
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Pivot to Model Context
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Implement
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: CrewAI
-1. **Potential Recursive Agent Loop**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Detected a
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Detected
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: For
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Pivot to Model Context
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Implement
-1. **Agent Starter Pack Template Adoption**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Leverage
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: CrewAI
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `:1`
    - ✨ Recommended Fix: Detected gemini-3-pro usage (SINGLE PASS). Projected TCO
@@ -281,9 +230,7 @@ To transition this agent to production-hardened status, follow these prioritized
 | Declarative Guardrails | [Official Doc](https://cloud.google.com/architecture/framework/security) | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL |
 
 ## 👔 Executive Risk Scorecard
-🚨 **Risk Alert**: Health score (75.0%) is below configured threshold (80%). Strategic remediation required.
-
-### 📈 Maturity Velocity: +75.0% Compliance Change
+🚨 **Risk Alert**: 3 governance gates REJECTED (including Red Team (Fast), RAG Fidelity Audit). Production deployment currently **BLOCKED**.
 
 ---
 
@@ -296,35 +243,39 @@ Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical
 
 ```
 
-### Reliability (Quick)
+### Face Auditor
 ```text
-╭──────────────────────────────╮
-│ 🛡️ RELIABILITY AUDIT (QUICK) │
-╰──────────────────────────────╯
-🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
-📈 Verifying Regression Suite Coverage...
-                           🛡️ Reliability Status                            
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Check                      ┃ Status   ┃ Details                          ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Core Unit Tests            │ FAILED   │ 1 lines of output                │
-│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
-│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
-└────────────────────────────┴──────────┴──────────────────────────────────┘
+╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit
+📝 Scanned 0 frontend files.
+╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│   💎 PRINCIPAL UX EVALUATION (v1.2)                                                                              │
+│  Metric                  Value                                                                                   │
+│  GenUI Readiness Score   100/100                                                                                 │
+│  Consensus Verdict       ✅ APPROVED                                                                             │
+│  A2UI Registry Depth     Aligned                                                                                 │
+│  Latency Tolerance       Premium                                                                                 │
+│  Autonomous Risk (HITL)  Secured                                                                                 │
+│  Streaming Fluidity      Smooth                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
-❌ Unit test failures detected. Fix them before production deployment.
-```
-/opt/homebrew/opt/python@3.14/bin/python3.14: No module named pytest
 
-```
-ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling unit tests to ensure agent 
-regression safety.
+          🔍 A2UI DETAILED FINDINGS           
+┏━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ File:Line ┃ Issue      ┃ Recommended Fix   ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ All Files │ A2UI Ready │ No action needed. │
+└───────────┴────────────┴───────────────────┘
+
+✅ Frontend is Well-Architected for GenUI interactions.
 
 ```
 
 ### Red Team (Fast)
 ```text
-          Privilege Escalation, Logic Bypass                             │
+          Logic Bypass, Privilege Escalation                             │
 └─────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────┘
 
 🛠️  BRAND SAFETY MITIGATION LOGIC REQUIRED:
@@ -366,6 +317,66 @@ Try 'python -m agent_ops_cockpit.ops.rag_audit --help' for help.
 
 ```
 
+### Reliability (Quick)
+```text
+╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit...
+📈 Verifying Regression Suite Coverage...
+                           🛡️ Reliability Status                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Check                      ┃ Status   ┃ Details                          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Core Unit Tests            │ FAILED   │ 1 lines of output                │
+│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
+│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
+└────────────────────────────┴──────────┴──────────────────────────────────┘
+
+❌ Unit test failures detected. Fix them before production deployment.
+```
+/opt/homebrew/opt/python@3.14/bin/python3.14: No module named pytest
+
+```
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit | Reliability Failure | Resolve falling unit 
+tests to ensure agent regression safety.
+
+```
+
+### Secret Scanner
+```text
+ or .env file.
+ACTION: tests/test_audit_flow.py:19 | Found Google API Key leak | Move this credential to Google Cloud Secret 
+Manager or .env file.
+ACTION: tests/test_audit_flow.py:19 | Found Hardcoded API Variable leak | Move this credential to Google Cloud 
+Secret Manager or .env file.
+ACTION: tests/test_ops_core.py:28 | Found Google API Key leak | Move this credential to Google Cloud Secret Manager 
+or .env file.
+ACTION: tests/test_ops_core.py:28 | Found Hardcoded API Variable leak | Move this credential to Google Cloud Secret 
+Manager or .env file.
+
+
+                          🛡️ Security Findings: Hardcoded Secrets                           
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ File                            ┃ Line ┃ Type                   ┃ Suggestion             ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ tests/test_fleet_remediation.py │ 12   │ Google API Key         │ Move to Secret Manager │
+│ tests/test_fleet_remediation.py │ 12   │ Hardcoded API Variable │ Move to Secret Manager │
+│ tests/test_persona_security.py  │ 32   │ Google API Key         │ Move to Secret Manager │
+│ tests/test_persona_security.py  │ 33   │ Hardcoded API Variable │ Move to Secret Manager │
+│ tests/test_persona_security.py  │ 59   │ Google API Key         │ Move to Secret Manager │
+│ tests/test_audit_flow.py        │ 19   │ Google API Key         │ Move to Secret Manager │
+│ tests/test_audit_flow.py        │ 19   │ Hardcoded API Variable │ Move to Secret Manager │
+│ tests/test_ops_core.py          │ 28   │ Google API Key         │ Move to Secret Manager │
+│ tests/test_ops_core.py          │ 28   │ Hardcoded API Variable │ Move to Secret Manager │
+└─────────────────────────────────┴──────┴────────────────────────┴────────────────────────┘
+
+❌ FAIL: Found 9 potential credential leaks.
+💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all tokens.
+
+
+```
+
 ### Token Optimization
 ```text
 ╭───────────────────────────────────╮
@@ -375,39 +386,6 @@ Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 📊 Token Metrics: ~558 prompt tokens detected.
 
 ✅ No immediate code-level optimizations found. Your agent is lean!
-
-```
-
-### Secret Scanner
-```text
-╭──────────────────────────────────────────────╮
-│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
-╰──────────────────────────────────────────────╯
-✅ PASS: No hardcoded credentials detected in matched patterns.
-
-```
-
-### Face Auditor
-```text
-                      │ Policy link                          │ Privacy Policy / TOS.               │
-│ src/docs/DocHome.tsx:1              │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/ReportSamples.tsx:1  │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/FlightRecorder.tsx:1 │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/Home.tsx:1           │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/AgentPulse.tsx:1     │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/OperationalJourneys… │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-│ src/components/ThemeToggle.tsx:1    │ Missing 'surfaceId' mapping          │ Add 'surfaceId' prop to the root    │
-│                                     │                                      │ component or exported interface.    │
-└─────────────────────────────────────┴──────────────────────────────────────┴─────────────────────────────────────┘
-
-💡 UX Principal Recommendation: Your 'Face' layer needs 20% more alignment.
- - Map components to 'surfaceId' to enable agent-driven UI updates.
 
 ```
 

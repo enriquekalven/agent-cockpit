@@ -87,3 +87,26 @@ def test_maturity_framework_suppression():
     tree_langgraph = ast.parse(content_langgraph)
     findings = auditor.audit(tree_langgraph, content_langgraph, "agent.py")
     assert not any("Orchestration Pattern Selection" in f.title for f in findings)
+
+def test_cockpit_ignore_logic():
+    """Verify that # cockpit-ignore correctly suppresses findings."""
+    from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
+    auditor = SecurityAuditor()
+    
+    # Case 1: Hardcoded secret (SHOULD be flagged)
+    content_secret = "API_KEY = 'sk-1234567890abcdef1234567890abcdef'"
+    tree_secret = ast.parse(content_secret)
+    findings = auditor.audit(tree_secret, content_secret, "test.py")
+    assert any("Hardcoded Secret Detected" in f.title for f in findings)
+    
+    # Case 2: Hardcoded secret with INLINE ignore (SHOULD be suppressed)
+    content_inline = "API_KEY = 'sk-1234567890abcdef1234567890abcdef' # cockpit-ignore: hardcoded-secret"
+    tree_inline = ast.parse(content_inline)
+    findings = auditor.audit(tree_inline, content_inline, "test.py")
+    assert not any("Hardcoded Secret Detected" in f.title for f in findings)
+    
+    # Case 3: Whole-file ignore (SHOULD be suppressed)
+    content_file = "# cockpit-ignore: all\nAPI_KEY = 'sk-1234567890abcdef1234567890abcdef'"
+    tree_file = ast.parse(content_file)
+    findings = auditor.audit(tree_file, content_file, "test.py")
+    assert not any("Hardcoded Secret Detected" in f.title for f in findings)

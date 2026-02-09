@@ -1,4 +1,5 @@
 import ast
+import re
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -16,6 +17,46 @@ class BaseAuditor(ABC):
     @abstractmethod
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         pass
+
+    def _is_ignored(self, line_number: int, content: str, title: str) -> bool:
+        """
+        Check if a finding on a specific line is ignored via '# cockpit-ignore'.
+        Example: # cockpit-ignore: hardcoded-secret intentional-testing
+        """
+        lines = content.splitlines()
+        # Clean title to create a reliable slug
+        clean_title = re.sub(r"[^a-zA-Z0-9\s]", "", title.lower())
+        issue_slug = clean_title.replace(" ", "-")
+
+        # 1. Check for whole-file ignores (in the first 10 lines)
+        for i in range(min(10, len(lines))):
+            if "# cockpit-ignore" in lines[i]:
+                comment_part = lines[i].split("# cockpit-ignore")[1].lower()
+                # Check for "all" or if ANY part of the slug is in the comment
+                if "all" in comment_part:
+                    return True
+                # Match against the slug or potential keywords
+                for word in issue_slug.split("-"):
+                    if word and len(word) > 3 and word in comment_part:
+                        return True
+                if issue_slug in comment_part:
+                    return True
+
+        if not line_number or line_number > len(lines):
+            return False
+            
+        # 2. Check for inline ignore on the specific line
+        target_line = lines[line_number - 1]
+        if "# cockpit-ignore" in target_line:
+            comment_part = target_line.split("# cockpit-ignore")[1].lower()
+            if "all" in comment_part:
+                return True
+            for word in issue_slug.split("-"):
+                if word and len(word) > 3 and word in comment_part:
+                    return True
+            if issue_slug in comment_part:
+                return True
+        return False
 
 class SymbolScanner(ast.NodeVisitor):
     def __init__(self):

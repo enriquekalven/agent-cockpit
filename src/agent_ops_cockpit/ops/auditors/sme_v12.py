@@ -36,15 +36,17 @@ class HITLAuditor(BaseAuditor):
                                     has_gate = True
 
                         if not has_gate:
-                            findings.append(AuditFinding(
-                                category="🛡️ HITL Guardrail",
-                                title=f"Ungated {category} Action",
-                                description=f"Function '{node.name}' performs a high-risk action but lacks a 'human_approval' flag or security gate.",
-                                impact="CRITICAL",
-                                roi="Prevents autonomous catastrophic failures and unauthorized financial moves.",
-                                line_number=node.lineno,
-                                file_path=file_path
-                            ))
+                            title = f"Ungated {category} Action"
+                            if not self._is_ignored(node.lineno, content, title):
+                                findings.append(AuditFinding(
+                                    category="🛡️ HITL Guardrail",
+                                    title=title,
+                                    description=f"Function '{node.name}' performs a high-risk action but lacks a 'human_approval' flag or security gate.",
+                                    impact="CRITICAL",
+                                    roi="Prevents autonomous catastrophic failures and unauthorized financial moves.",
+                                    line_number=node.lineno,
+                                    file_path=file_path
+                                ))
 
         return findings
 
@@ -63,14 +65,16 @@ class A2AAuditor(BaseAuditor):
                 for arg in node.args:
                     if isinstance(arg, ast.Name) and arg.id in ["state", "full_context", "messages", "history"]:
                         # Detection of "Chatter Bloat"
-                        findings.append(AuditFinding(
-                            category="📉 A2A Efficiency",
-                            title="A2A Chatter Bloat Detected",
-                            description=f"Passing entire variable '{arg.id}' to tool/agent call. This introduces high latency and token waste.",
-                            impact="MEDIUM",
-                            roi="Reduces token cost and latency by 30-50% through surgical state passing.",
-                            line_number=node.lineno,
-                            file_path=file_path
-                        ))
+                        title = "A2A Chatter Bloat Detected"
+                        if not self._is_ignored(node.lineno, content, title):
+                            findings.append(AuditFinding(
+                                category="📉 A2A Efficiency",
+                                title=title,
+                                description=f"Passing entire variable '{arg.id}' to tool/agent call. This introduces high latency and token waste.",
+                                impact="MEDIUM",
+                                roi="Reduces token cost and latency by 30-50% through surgical state passing.",
+                                line_number=node.lineno,
+                                file_path=file_path
+                            ))
 
         return findings
