@@ -36,15 +36,34 @@ agent-ops report --workspace --heal --sim
 
 ---
 
-### **🧪 Testing Scenarios**
+### **🧪 Testing Scenarios (Persona-Tailored)**
 
-| Scenario | Command | Focus |
-| :--- | :--- | :--- |
-| **The Full Fleet** | `agent-ops report --workspace` | Auditing entire multi-agent directories. |
-| **The Red Team** | `agent-ops red-team` | Testing your agent against prompt injections. |
-| **RAG Fidelity** | `agent-ops rag-truth` | Validating citation accuracy and grounding. |
-| **Auto-Remediation** | `agent-ops report --heal` | Seeing if the Cockpit can fix your architectural debt. |
-| **Maturity Check** | `agent-ops audit-maturity` | Verifying the Cockpit's knowledge of your stack. |
+If you are a specialist, you can "Dogfood" specific lanes of the Cockpit:
+
+#### **🛡️ For the SecOps Engineer (Red Team / Brand Safety)**
+*   **Command**: `uvx agentops-cockpit report --only security` or `make red-team`
+*   **Dogfood Focus**: Attempt to provoke a **Prompt Injection** or **PII Leak**. 
+*   **Feedback**: Did the Red Team Auditor catch the attack? Is the severity ranking appropriate for enterprise risk?
+
+#### **💰 For the FinOps Analyst (Economics & ROI)**
+*   **Command**: `uvx agentops-cockpit report --only finops` or `make finops`
+*   **Dogfood Focus**: Check the **Reasoning Density** of your LLM calls.
+*   **Feedback**: Does the ROI Waterfall accurately reflect your model costs? Are the caching recommendations actionable?
+
+#### **🧗 For the AI Quality SME (Evaluations & RAG)**
+*   **Command**: `uvx agentops-cockpit report --only quality` or `make rag-truth`
+*   **Dogfood Focus**: Audit your **Vector Retrieval** and **Grounding Logic**.
+*   **Feedback**: Did it detect missing citations or high-hallucination temperatures? Is the Hill Climbing feedback improving your prompts?
+
+#### **🏛️ For the Autonomous Architect (SRE & Infrastructure)**
+*   **Command**: `uvx agentops-cockpit report --only reliability` or `make arch-review`
+*   **Dogfood Focus**: Scan for **Networking Debt** (e.g., REST vs gRPC) and **Sovereign Gates**.
+*   **Feedback**: Did it identify race conditions in your NoSQL writes (Firestore/Spanner)? Is the CI/CD gate advice actually implementable?
+
+#### **🎭 For the UX Designer (Face & A2UI)**
+*   **Command**: `uvx agentops-cockpit report --only ux` or `make ui-audit`
+*   **Dogfood Focus**: Audit your frontend for **A2UI Surface Compliance**.
+*   **Feedback**: Is the GenUI readiness score accurate for mobile viewports? Are the interface micro-animations correctly categorized?
 
 ---
 
