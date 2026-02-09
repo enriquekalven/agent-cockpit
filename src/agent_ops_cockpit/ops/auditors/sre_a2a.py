@@ -71,11 +71,19 @@ class SREAuditor(BaseAuditor):
                 ))
 
         # 6. Observability: The 5th Golden Signal (TTFT)
-        if "cloud trace" not in content.lower() and "ttft" not in content.lower():
+        # Scan for opentelemetry or cloud-trace imports
+        has_tracing = False
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                if any(kw in ast.dump(node).lower() for kw in ['opentelemetry', 'google.cloud.trace', 'honeycomb', 'datadog']):
+                    has_tracing = True
+                    break
+        
+        if not has_tracing and "ttft" not in content.lower():
             findings.append(AuditFinding(
                 category="🚀 Observability",
-                title="Missing 5th Golden Signal (TTFT)",
-                description="No active monitoring for Time to First Token (TTFT). In agentic loops, TTFT is the primary metric for perceived intelligence.",
+                title="Missing 5th Golden Signal (TTFT/Tracing)",
+                description="Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived intelligence.",
                 impact="MEDIUM",
                 roi="Allows proactive 'Latency Regression' alerts before users feel the slowness.",
                 file_path=file_path

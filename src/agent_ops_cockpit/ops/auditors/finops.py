@@ -19,16 +19,30 @@ class FinOpsAuditor(BaseAuditor):
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         
-        # 1. Model TCO Projection
+        # 1. Model TCO Projection (AST-Aware)
         for model, price in self.MODEL_PRICES.items():
             if model in content.lower():
-                has_loop = re.search(r'for\s+\w+\s+in', content)
-                multiplier = 10 if has_loop else 1
+                # Detect if the model is used inside a loop via AST
+                is_nested_inference = False
+                for node in ast.walk(tree):
+                    if isinstance(node, (ast.For, ast.While)):
+                        # Check if any child node is an inference call
+                        for subnode in ast.walk(node):
+                            if isinstance(subnode, ast.Call):
+                                call_str = ast.dump(subnode).lower()
+                                if any(kw in call_str for kw in ['invoke', 'generate', 'predict', 'query']):
+                                    is_nested_inference = True
+                                    break
+                    if is_nested_inference: break
+
+                multiplier = 10 if is_nested_inference else 1
                 projected_cost = price * multiplier
+                status = "LOOP DETECTED" if is_nested_inference else "SINGLE PASS"
+                
                 findings.append(AuditFinding(
                     category="💰 FinOps",
                     title=f"Inference Cost Projection ({model})",
-                    description=f"Detected {model} usage. Projected TCO over 1M tokens: ${projected_cost:.2f}.",
+                    description=f"Detected {model} usage ({status}). Projected TCO over 1M tokens: ${projected_cost:.2f}.",
                     impact="INFO",
                     roi=f"Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to ${0.10 * multiplier:.2f}."
                 ))

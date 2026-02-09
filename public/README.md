@@ -70,13 +70,14 @@ graph TD
 
 ---
 
-## 🏛️ v1.3.5: The "Executive Sovereignty" Standard (NEW)
-Evolving from a compliance tool to an autonomous evolution engine. See the [**v1.3.5 Release Notes**](/docs/CHANGELOG.md).
+## 🕹️ v1.4.1: The "Ecosystem Expansion" Release (NEW)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.1 Release Notes**](/CHANGELOG.md).
 
-- **🩺 Auth Doctor**: Pre-flight diagnosis of GCP credentials to prevent mid-fleet audit failures.
-- **📁 Artifact Sovereignty**: Centralized `.cockpit/` directory for all audit evidence, reports, and SARIF objects.
-- **🚀 Recursive Discovery**: Support for `targets` in `cockpit.yaml` and template placeholder isolation (`{{...}}`).
-- **🎯 Modular Auditing**: High-precision filtering with `--only` and `--skip` flags.
+- **🧗 RAG Truth-Sayer SME**: Dedicated auditor for retrieval-reasoning fidelity and grounding logic.
+- **🚀 PR Scorecard Action**: Automated maturity scorecard for pull requests to increase velocity and trust.
+- **🛠️ Remediation Workbench**: TUI-based review loop for approving autonomous code patches.
+- **💰 ROI Waterfall**: Advanced modeling for cost-per-task projections and model-tier optimization.
+- **📦 MCP Tool Store**: Centralized registry for discovering and scaffolding MCP tool integrations.
 
 ---
 

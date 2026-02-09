@@ -2,6 +2,24 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.4.1] - 2026-02-09
+
+### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety
+- **Maturity Wisdom Store (v1.4)**: Ingested comprehensive architectural patterns from AWS, Google Cloud, Azure, OpenAI, Anthropic, LangGraph, and CrewAI for "Choice-Based" recommendations.
+- **Brand Safety Playbook Integration**: Hardened Red Team Auditor with adversarial checks for Payload Splitting, Tone of Voice Mismatch, and Domain-Specific Sensitive topics (Finance/Legal).
+- **RAG Truth-Sayer SME**: New dedicated auditor for retrieval-reasoning fidelity, grounding logic, and temperature drift.
+- **PR Scorecard GitHub Action**: Automated maturity scorecard template for pull requests to increase developer visibility and trust.
+- **Interactive Remediation Workbench**: TUI-based review loop for approving/rejecting autonomous code patches before application.
+- **Maturity Expertise Matrix**: High-fidelity `audit-maturity` command for visualizing persona competency and persona status.
+- **FinOps ROI Waterfall**: Advanced modeling tool for cost-per-task projections and model-tier optimization pivots.
+- **MCP Tool Store**: Centralized registry for discovering and scaffolding Model Context Protocol (MCP) tool integrations.
+
+## [1.3.6] - 2026-02-06
+
+### 🛠️ Branding Fix & Version Stabilization
+- **Rebranding**: Reverted all system strings from "Agent Optimizer" back to "AgentOps Cockpit" to maintain ecosystem consistency.
+- **SSOT**: Fixed version drift across `pyproject.toml`, `package.json`, and `config.py`.
+
 ## [1.3.5] - 2026-02-06
 
 ### 🕹️ The Strategic Refinement (Antigravity v1.3.5 Release)
