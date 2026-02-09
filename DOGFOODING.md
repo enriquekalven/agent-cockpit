@@ -35,7 +35,46 @@ agent-ops report --workspace --heal --sim
 
 ---
 
-### **🕵️ The SME Persona Gauntlet**
+### **� The CI/CD Pipeline Integration**
+Don't let manual errors drift into production. Integrate the Cockpit as a **blocking gate** in your GitHub Actions. If your score drops below your threshold, the build fails.
+
+**Sample `.github/workflows/agent-governance.yml`:**
+```yaml
+name: AgentOps Governance Gate
+on: [pull_request]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Master Audit
+        run: |
+          # Use uvx for zero-config execution in CI
+          npx uvx agentops-cockpit report --mode quick --plain
+```
+*Note: The Cockpit returns Exit Code 3 if SME gates are rejected, blocking the PR until fixes are applied.*
+
+---
+
+### **🔌 The MCP Connectivity Hub**
+The Cockpit isn't just a scanner; it's a **Model Context Protocol (MCP)** server. This allows other agents (like Antigravity or Claude Code) to natively call Cockpit tools to audit *themselves* or other codebases.
+
+**How to start the server:**
+```bash
+# Start the stdio-based MCP server
+agent-ops mcp-server
+```
+
+**Exposed Tools:**
+- `optimize_code`: Audit for FinOps & Performance.
+- `policy_audit`: Real-time guardrail validation.
+- `architecture_review`: Google Well-Architected design review.
+- `red_team_attack`: Launch an adversarial security scan.
+
+---
+
+### **�🕵️ The SME Persona Gauntlet**
 
 Pick your lane and see if you can survive the audit:
 
