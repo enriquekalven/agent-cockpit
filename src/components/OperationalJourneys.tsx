@@ -39,25 +39,24 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Solution Architect',
     icon: <Layout size={24} />,
     color: '#10b981',
-    description: 'Design resilient, multi-cloud agentic systems aligned with Well-Architected patterns.',
+    description: 'Design resilient, multi-cloud agentic systems aligned with v1.4 Wisdom Store patterns.',
     docs: [
       { name: 'Google Architecture', path: '/docs/google-architecture' },
       { name: 'Deployment Strategy', path: '/docs/deployment' },
-      { name: 'Review Framework', path: '/docs/arch-review' }
+      { name: 'Maturity Wisdom Store', path: '/docs/arch-review' }
     ],
     reports: [
       { name: 'Architecture Review (ADR)', path: '/arch-review-report.html' },
-      { name: 'Design Consensus Report', path: '/master-audit-report.html' }
+      { name: 'Multi-Cloud Maturity Score', path: '/master-audit-report.html' }
     ],
     command: 'agent-ops arch-review',
     diagram: '/assets/persona_strategist_new.png',
-    output: `🏗️ Applying Well-Architected Patterns...
-🔍 Analyzing /src/backend for policy alignment
-✅ Engine: Redundant Cloud Run deployment confirmed.
-✅ Face: Multi-cloud CDN caching via Firebase enabled.
-✅ Cockpit: Shadow Router active on Vertex AI.
-🔒 Security: PII Scrubber injected into middleware.
-Infrastructure aligned with Google Well-Architected Framework.`
+    output: `🏗️ Starting Architecture Review v1.4.1...
+🔍 Scanning /src for Maturity Wisdom drift
+✅ AWS Patterns: Bedrock Action Groups detected (Well-Architected)
+✅ GCP Patterns: Vertex AI Context Caching enabled (+90% savings)
+⚠️ Azure Patterns: Missing Managed Identity for Tool ingestion
+📜 Generating ADR: Wisdom Store alignment at 92%`
   },
   {
     id: 'quality',
@@ -65,23 +64,23 @@ Infrastructure aligned with Google Well-Architected Framework.`
     persona: 'Quality Lead',
     icon: <Activity size={24} />,
     color: '#06b6d4',
-    description: 'Continuous improvement via Hill Climbing and benchmark-driven optimization.',
+    description: 'v1.4: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
     docs: [
-      { name: 'Optimization Guide', path: '/docs/quality-guide' },
-      { name: 'Benchmark Standards', path: '/docs/quality-guide' }
+      { name: 'Quality & Eval Guide', path: '/docs/quality-guide' },
+      { name: 'RAG Truth-Sayer SME', path: '/docs/quality-guide' }
     ],
     reports: [
       { name: 'Quality Scorecard', path: '/quality-audit-report.html' },
-      { name: 'Hill Climbing Trace', path: '/compliance-evidence.md' }
+      { name: 'RAG Fidelity Trace', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops quality-baseline',
+    command: 'agent-ops rag-truth',
     diagram: '/assets/persona_optimizer.png',
-    output: `🧗 Starting Hill Climbing Optimization...
-🔄 Iteration 1: 0.82 Score
-🔄 Iteration 5: 0.94 Score (Optimal)
-✨ Prompt Refined: Temperature adjusted to 0.7.
-✅ Logic Remediation: Added @retry to database calls.
-Performance uplift: +12% accuracy gain.`
+    output: `🧗 RAG TRUTH-SAYER: FIDELITY AUDIT
+🔍 Detecting Retrieval-Reasoning Drift...
+✅ Grounding Logic: Verifiable citations found in prompt.
+⚠️ Temperature Risk: Detected 0.7 in RAG path (Suggested <= 0.2)
+✅ Stability: Tool trajectory matches golden dataset.
+✨ Quality baseline: High (No hallucinations detected)`
   },
   {
     id: 'security',
@@ -89,24 +88,23 @@ Performance uplift: +12% accuracy gain.`
     persona: 'Security Specialist',
     icon: <Shield size={24} />,
     color: '#ef4444',
-    description: 'Hardening agents against adversarial attacks, prompt injections, and data privacy leaks.',
+    description: 'v1.4: Brand Safety Playbook hardening against advanced adversarial attacks.',
     docs: [
-      { name: 'Security Protocol', path: '/docs/redteam-guide' },
+      { name: 'Brand Safety Playbook', path: '/docs/redteam-guide' },
       { name: 'Red Team Audits', path: '/docs/redteam-guide' }
     ],
     reports: [
-      { name: 'Red Team Pentest', path: '/red-team-report.html' },
-      { name: 'Adversarial Evidence', path: '/compliance-evidence.md' }
+      { name: 'Brand Safety scorecard', path: '/red-team-report.html' },
+      { name: 'Vulnerability Regression', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops red-team',
     diagram: '/assets/persona_guardian.png',
-    output: `🛡️ Starting Adversarial Audit...
-🕵️ Testing Prompt Injection: [Attempt 01..15]
-✅ Result: Sanitized (Blocked via Policy Engine)
-🕵️ Checking PII Leakage: [No sensitive data found]
-⚠️ Warning: Identity verified via Evidence Bridge.
-✅ Reliability: 99.9% Success rate across 100 simulations.
-Status: SECURE (Compliant with Enterprise Standard)`
+    output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0
+🕵️ Testing Payload Splitting: [Attempt 1/10] -> BLOCKED
+🕵️ Checking Tone of Voice: [Adversarial probe: Neutral] -> PASS
+🕵️ Domain Sensitivity: [Legal/Finance probes] -> SAFE
+✅ Vulnerability Regression: Fixed 2 historical jailbreaks.
+Status: SECURE (Compliant with Brand Safety Playbook)`
   },
   {
     id: 'finops',
@@ -114,22 +112,23 @@ Status: SECURE (Compliant with Enterprise Standard)`
     persona: 'FinOps Specialist',
     icon: <Zap size={24} />,
     color: '#f59e0b',
-    description: 'Strategic cost guardrails and token efficiency for high-scale agent estates.',
+    description: 'FinOps ROI Waterfall modeling and model-tier optimization pivots.',
     docs: [
-      { name: 'Cost Optimization', path: '/docs/finops-guide' },
+      { name: 'FinOps ROI Guide', path: '/docs/finops-guide' },
       { name: 'Token Management', path: '/docs/finops-guide' }
     ],
     reports: [
-      { name: 'FinOps ROI Matrix', path: '/finops-roi-report.html' },
-      { name: 'Token Usage Forecast', path: '/compliance-evidence.md' }
+      { name: 'ROI Waterfall Report', path: '/finops-roi-report.html' },
+      { name: 'Optimization Model', path: '/compliance-evidence.md' }
     ],
     command: 'agent-ops report --roi',
     diagram: '/assets/persona_economist.png',
-    output: `📊 Analyzing Agent Performance & ROI...
-💰 Token usage: 48.2K saved (Semantic Cache hit rate: 64%)
-⏱️ Latency: 2.1s avg reduction per turn.
-📈 Estimated Monthly Savings: $2,400.
-Conclusion: Positive ROI confirmed for Q1.`
+    output: `💰 FINOPS ROI WATERFALL: TCO MODELING
+1. Gemini 1.5 Flash Pivot: -$3,200/mo savings
+2. Context Caching (90%): -$1,850/mo savings
+3. Semantic Cache: -$420/mo savings
+🚀 Total Monthly Opportunity: $5,470 (88% reduction)
+ROI Multiplier: 8.2x efficiency gain confirmed.`
   },
   {
     id: 'governance',

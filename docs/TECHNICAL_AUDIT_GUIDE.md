@@ -126,8 +126,8 @@ Run `make apply-fixes`. In v1.0, the Cockpit analyzes the AST and synthesizes a 
 ### **The "Digital Twin" Simulation**
 Run `make simulation-run` before a major launch. Simulating 100 agents helps you identify if the **Engine** starts losing its "Contextual Thread" when database latency spikes in the **Cockpit**.
 
-### **The "GCP LaunchGate" (Deep Mode)**
-Run `make audit-deep` before a production deployment. This triggers the **Full Stress Test** and **Deep Red Team** to ensure the system survives enterprise-scale reasoning load.
+### **The "Production Readiness Auditor" (Deep Mode)**
+Run `make deploy-prod` before a production deployment. This triggers the **Full Stress Test** and **Deep Red Team** to ensure the system survives enterprise-scale reasoning load and complies with all Sovereign standards.
 
 ---
 ---

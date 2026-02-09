@@ -30,6 +30,13 @@ dependencies = [
     "pytest>=8.0.0",
     "langchain>=0.2.0",
     "crewai>=0.40.0",
+    "langgraph>=1.0.8",
+    "chromadb>=1.5.0",
+    "langsmith>=0.7.0",
+    "agent-starter-pack>=0.34.0",
+    "llama-index>=0.14.0",
+    "ollama>=0.15.0",
+    "python-dotenv>=1.0.0",
 ]
 
 [project.urls]

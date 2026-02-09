@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import functools
 import hashlib
 from typing import Optional, Dict
@@ -22,6 +23,7 @@ class HiveMindCache:
         query_hash = hashlib.md5(query.lower().strip().encode()).hexdigest()
         self.store[query_hash] = {'query': query, 'response': response, 'cached_at': time.time()}
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def hive_mind(cache: HiveMindCache):
     """
     Middleware decorator for viral "one-line" semantic caching.

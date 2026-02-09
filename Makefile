@@ -1,7 +1,7 @@
 # --- A2UI Starter Makefile ---
 
 # Project Variables
-PYTHON = $(shell if [ -f "./.venv/bin/python3.14" ]; then echo "./.venv/bin/python3.14"; elif [ -d ".venv" ]; then echo "./.venv/bin/python"; else echo "python3"; fi)
+PYTHON = $(shell if [ -f "./.venv/bin/python3.14" ]; then echo "./.venv/bin/python3.14"; elif [ -d ".venv" ]; then echo "./.venv/bin/python"; elif command -v python >/dev/null 2>&1; then echo "python"; else echo "python3"; fi)
 PROJECT_ID ?= $(shell gcloud config get-value project)
 REGION ?= us-central1
 SERVICE_NAME = agent-ops-backend
@@ -15,25 +15,24 @@ help:
 	@echo "  make audit                     - [MASTER] Quick Safe-Build (uvx agentops-cockpit report --mode quick)"
 	@echo "  make audit-deep                - [MASTER] Deep System Audit (uvx agentops-cockpit report --mode deep)"
 	@echo "  make optimizer-audit           - [CODE] Quick code audit (uvx agentops-cockpit audit --quick)"
-	@echo "  make arch-review               - [ARCH] Reasoning-based architecture review (v1.0)"
-	@echo "  make arch-review-export        - [ARCH] Generate Executive v1.1 HTML Report"
-	@echo "  make arch-benchmark            - [ARCH] Run v1.2 Reliability Waterfall (Stress Test)"
+	@echo "  make arch-review               - [ARCH] Wisdom Store Maturity Audit (v1.4)"
+	@echo "  make arch-review-export        - [ARCH] Generate Executive v1.4 HTML Report"
+	@echo "  make arch-benchmark            - [ARCH] Run Reliability Waterfall (Stress Test)"
 	@echo "  make apply-fixes               - [PHASE 4] Auto-remediate detected architectural gaps"
 	@echo "  make propose-fixes             - [PHASE 5] Create fix branch and commit remediations"
+	@echo "  make quality-baseline          - [QUALITY] Hill Climbing Optimization (v1.4)"
+	@echo "  make rag-truth                 - [QUALITY] RAG Fidelity & Grounding Audit (v1.4)"
+	@echo "  make red-team                  - [SECURITY] Brand Safety Playbook Audit (v1.4)"
+	@echo "  make scan-secrets              - [SECURITY] Zero-Trust Hygiene Scanner"
 	@echo "  make reliability               - Run unit tests and regression suite"
-	@echo "  make smoke-test               - [E2E] End-to-End Persona Journey smoke tests"
+	@echo "  make smoke-test                - [E2E] End-to-End Persona Journey smoke tests"
 	@echo "  make regression                - [FULL] Master Reliability + Smoke Tests"
 	@echo "  make diagnose                  - [DevEx] System health check and env diagnosis"
-	@echo "  make email-report              - [GOV] Email the latest Persona-Approved report"
-	@echo "  make red-team                  - Run adversarial security audit"
 	@echo "  make load-test                 - Run base load test"
-	@echo "  make deploy-prod       - Deploy to production (All Audits -> Cloud Run + Firebase)"
-	@echo "  make deploy-cloud-run  - Deploy to Google Cloud Run"
-	@echo "  make deploy-firebase   - Deploy to Firebase Hosting"
-	@echo "  make watch             - Track ecosystem updates (ADK, A2A, LangChain, etc.)"
-
-
-
+	@echo "  make deploy-prod               - [MASTER] Production Readiness Auditor (v1.4.1)"
+	@echo "  make deploy-cloud-run          - Deploy to Google Cloud Run"
+	@echo "  make deploy-firebase           - Deploy to Firebase Hosting"
+	@echo "  make watch                     - Track ecosystem updates (ADK, A2A, LangChain, etc.)"
 
 dev:
 	npm run dev
@@ -43,25 +42,25 @@ build:
 
 # 🏁 Master Audit: Safe-Build (Essential for dev velocity)
 audit:
-	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode quick
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode quick
 
 # 🚀 Deep Master Audit: Full benchmarks and stress tests
 audit-deep:
-	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode deep
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode deep
 
 # 🌐 Global Audit: Point the Cockpit at an external repository
 # Usage: make audit-all TARGET=/path/to/your/agent
 TARGET ?= .
 audit-all:
-	@$(PYTHON) src/agent_ops_cockpit/ops/orchestrator.py --mode quick --path $(TARGET)
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode quick --path $(TARGET)
 
 # 🛡️ Reliability: Unit tests and regression suite
 reliability:
-	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py audit
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.reliability audit
 
 # 🧪 Smoke Test: E2E Persona Validation
 smoke-test:
-	@$(PYTHON) src/agent_ops_cockpit/ops/reliability.py audit --smoke
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.reliability audit --smoke
 
 # 🚀 Regression: The Full Suite (Unit + Smoke)
 regression:
@@ -73,64 +72,64 @@ diagnose:
 
 # 🔍 The Optimizer: Audit specific agent file for code-level waste
 optimizer-audit:
-	@$(PYTHON) src/agent_ops_cockpit/optimizer.py audit src/agent_ops_cockpit/agent.py --quick
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.optimizer audit src/agent_ops_cockpit/agent.py --quick
 
 # 🔍 Deep Optimizer: Fetch live SDK evidence
 optimizer-audit-deep:
-	@$(PYTHON) src/agent_ops_cockpit/optimizer.py audit src/agent_ops_cockpit/agent.py
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.optimizer audit src/agent_ops_cockpit/agent.py
 
 # 🏛️ Architecture: Design review against Google Well-Architected Framework
 arch-review:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py audit
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review audit
 
-# 🏛️ Executive: Generate v1.1 HTML Summary
+# 🏛️ Executive: Generate v1.4 HTML Summary
 arch-review-export:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py audit --export
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review audit --export
 
 # 🌊 Reliability: v1.2 Automated Benchmarking
 arch-benchmark:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py benchmark --count 50
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review benchmark --count 50
 
 # 🚀 The Closer: Auto-remediation engine for architecture gaps
 apply-fixes:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py apply-fixes
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review apply-fixes
 
 # 🌿 The Ambassador: Autonomous PR Factory
 propose-fixes:
-	@$(PYTHON) src/agent_ops_cockpit/ops/arch_review.py propose-fixes
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review propose-fixes
 
 # 🧗 Quality: Iterative Hill Climbing optimization
 quality-baseline:
-	@$(PYTHON) src/agent_ops_cockpit/eval/quality_climber.py climb
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.eval.quality_climber climb
+
+# 🧗 RAG Fidelity: Grounding & Citation Audit (v1.4)
+rag-truth:
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.rag_audit audit
 
 # 🧪 Secrets: Scan for hardcoded credentials
 scan-secrets:
-	@$(PYTHON) src/agent_ops_cockpit/ops/secret_scanner.py scan .
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.secret_scanner scan .
 
 # 🎨 UI/UX: Face Auditor for frontend quality
 ui-audit:
-	@$(PYTHON) src/agent_ops_cockpit/ops/ui_auditor.py audit $(TARGET)
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.ui_auditor audit $(TARGET)
 
 # 🔥 Red Team: Unleash self-hacking security audit
-
 red-team:
-	@$(PYTHON) src/agent_ops_cockpit/eval/red_team.py audit src/agent_ops_cockpit/agent.py
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.eval.red_team audit src/agent_ops_cockpit/agent.py
 
-# ⚡ Load Test: Stress test your agent endpoint (Usage: make load_test REQUESTS=100 CONCURRENCY=10)
+# ⚡ Load Test: Stress test your agent endpoint (Usage: make load-test REQUESTS=100 CONCURRENCY=10)
 REQUESTS ?= 50
-
 CONCURRENCY ?= 5
 URL ?= http://localhost:8000/agent/query?q=healthcheck
 
-load_test:
-	@$(PYTHON) src/agent_ops_cockpit/eval/load_test.py run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
+load-test:
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.eval.load_test run --url $(URL) --requests $(REQUESTS) --concurrency $(CONCURRENCY)
 
-# 🚀 Production: The Vercel-style 1-click deploy (using Full Regression Suite)
-deploy-prod: regression build
-	@echo "📦 Containerizing and deploying to Cloud Run..."
-	gcloud run deploy $(SERVICE_NAME) --source . --region $(REGION) --allow-unauthenticated --port 80
-	@echo "🔥 Deploying frontend to Firebase..."
-	firebase deploy --only hosting
+# 🚀 Production Readiness Auditor: Final gate before shipping to the Sovereign Cloud
+deploy-prod:
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode deep --summary
+	@echo "\n✅ Production Readiness Audit Complete. Review the findings in .cockpit/report.md before manual deployment."
 
 # 🚀 Cloud Run: The fastest way to production
 deploy-cloud-run:
@@ -150,14 +149,14 @@ deploy-gke:
 
 # 📡 Watch: Ecosystem sync check
 watch:
-	@$(PYTHON) src/agent_ops_cockpit/ops/watcher.py
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.watcher
 
 # 🔌 MCP: Start the Model Context Protocol server
 mcp-serve:
-	@$(PYTHON) src/agent_ops_cockpit/mcp_server.py
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.mcp_server
 
 # 📧 Reporting: Email the latest audit results
 email-report:
 	@read -p "Enter recipient email: " email; \
-	$(PYTHON) -m agent_ops_cockpit.cli.main email-report $$email
+	PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main email-report $$email
 

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import re
 from typing import List, Dict, Any
@@ -36,6 +37,7 @@ class OptimizationIssue:
         self.fix_pattern = fix_pattern
         self.evidence = None
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, str]=None) -> List[OptimizationIssue]:
     issues = []
     content_lower = content.lower()
@@ -125,33 +127,23 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
     if 'crewai' in content_lower or 'crew(' in content_lower:
         if 'manager_agent' not in content_lower and 'hierarchical' not in content_lower:
             issues.append(OptimizationIssue('crewai_manager', 'Use Hierarchical Manager', 'MEDIUM', '30% Coordination Boost', 'Your crew uses sequential execution. For complex tasks, a Manager Agent improves task handoffs and reasoning.', '+ crew = Crew(..., process=Process.hierarchical, manager_agent=manager)'))
-    
-    # v1.2 Principal SME Extras
     if 'rag' in content_lower or 'retriev' in content_lower:
         if 'chunk' not in content_lower and 'atomic' not in content_lower:
-            issues.append(OptimizationIssue('atomic_rag', 'Implement Atomic RAG', 'HIGH', '30% Token Savings', "You appear to be using RAG but no 'chunking' or 'atomic retrieval' logic was detected. Sending full documents kills margins.", "+ docs = vector_db.search(query, chunk_limit=5)"))
-            
-    if 'model' in content_lower and 'router' not in content_lower and 'is_simple' not in content_lower:
+            issues.append(OptimizationIssue('atomic_rag', 'Implement Atomic RAG', 'HIGH', '30% Token Savings', "You appear to be using RAG but no 'chunking' or 'atomic retrieval' logic was detected. Sending full documents kills margins.", '+ docs = vector_db.search(query, chunk_limit=5)'))
+    if 'model' in content_lower and 'router' not in content_lower and ('is_simple' not in content_lower):
         issues.append(OptimizationIssue('tiered_orchestration', 'Implement Tiered Orchestration', 'HIGH', '70% Cost Savings', "No model routing detected. Use a 'Router Agent' to decide if a query needs a Pro model or a Flash model.", "+ if is_simple(query): model = 'gemini-1.5-flash'"))
-
-    if any(phrase in content_lower for phrase in ["you are a helpful assistant", "very good at", "please help me"]):
-        issues.append(OptimizationIssue('prompt_compression', 'Token Density: Redundant English', 'MEDIUM', '15% Token Savings', "Identified 'filler' tokens in system instructions. Compressing 'You are a helpful assistant who is very good at coding' to 'Expert coder' reduces baseline cost.", "- You are a helpful assistant...\n+ Expert coder"))
-
-    if 'model' in content_lower and 'retry' not in content_lower and 'tenacity' not in content_lower:
-        issues.append(OptimizationIssue('quota_management', 'Quota Management: Missing Backoff', 'HIGH', 'Resiliency & ROI', "High-volume model calls detected without Exponential Backoff. Failed requests due to rate-limiting represent wasted compute and broken ROI.", "+ @retry(wait=wait_exponential(multiplier=1, max=10))"))
-
-    # v1.3 Context Engineering (Workshop Alignment)
+    if any((phrase in content_lower for phrase in ['you are a helpful assistant', 'very good at', 'please help me'])):
+        issues.append(OptimizationIssue('prompt_compression', 'Token Density: Redundant English', 'MEDIUM', '15% Token Savings', "Identified 'filler' tokens in system instructions. Compressing 'You are a helpful assistant who is very good at coding' to 'Expert coder' reduces baseline cost.", '- You are a helpful assistant...\n+ Expert coder'))
+    if 'model' in content_lower and 'retry' not in content_lower and ('tenacity' not in content_lower):
+        issues.append(OptimizationIssue('quota_management', 'Quota Management: Missing Backoff', 'HIGH', 'Resiliency & ROI', 'High-volume model calls detected without Exponential Backoff. Failed requests due to rate-limiting represent wasted compute and broken ROI.', '+ @retry(wait=wait_exponential(multiplier=1, max=10))'))
     if 'tool' in content_lower or 'pydantic' in content_lower:
         if 'literal' not in content_lower:
             issues.append(OptimizationIssue('tool_hardening', 'Tool Schema Hardening (Poka-Yoke)', 'HIGH', 'Trajectory Stability', 'Your tool definitions lack strict type constraints. Using Literal types for categorical parameters prevents model hallucination and reduces invalid tool calls.', "+ from typing import Literal\n+ def my_tool(category: Literal['search', 'calc', 'email']): ..."))
-            
     if 'history' in content_lower or 'messages' in content_lower or 'conversation' in content_lower:
-        if 'summary' not in content_lower and 'trim' not in content_lower and 'compact' not in content_lower:
-            issues.append(OptimizationIssue('context_compaction', 'Context Compaction Strategy', 'MEDIUM', '30% Latency Reduction', 'Long conversation history detected without a compaction or summarization strategy. This can lead to "Lost in the Middle" errors and increased token pressure.', "+ def compact_history(messages): ...Summarize earlier turns..."))
-
+        if 'summary' not in content_lower and 'trim' not in content_lower and ('compact' not in content_lower):
+            issues.append(OptimizationIssue('context_compaction', 'Context Compaction Strategy', 'MEDIUM', '30% Latency Reduction', 'Long conversation history detected without a compaction or summarization strategy. This can lead to "Lost in the Middle" errors and increased token pressure.', '+ def compact_history(messages): ...Summarize earlier turns...'))
     if ('Agent(' in content or 'LlmAgent(' in content) and 'context_cache_config' not in content:
-         issues.append(OptimizationIssue('adk_context_caching', 'Enable ADK Context Caching', 'HIGH', '90% cost savings', 'ADK Agent detected without context caching. Enable it to reduce token costs.', 'context_cache_config=ContextCacheConfig(min_tokens=2048)', package='google-adk'))
-
+        issues.append(OptimizationIssue('adk_context_caching', 'Enable ADK Context Caching', 'HIGH', '90% cost savings', 'ADK Agent detected without context caching. Enable it to reduce token costs.', 'context_cache_config=ContextCacheConfig(min_tokens=2048)', package='google-adk'))
     return issues
 
 def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[str, Any]:
@@ -174,6 +166,7 @@ def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[
     return {'current_monthly': current_cost, 'projected_savings': projected_savings, 'new_monthly': current_cost - projected_savings}
 
 @app.command()
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool=typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), apply_fix: bool=typer.Option(False, '--apply', '--fix', help='Automatically apply recommended fixes'), quick: bool=typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
     console.print(Panel.fit('🔍 [bold blue]GCP AGENT OPS: OPTIMIZER AUDIT[/bold blue]', border_style='blue'))
     if not os.path.exists(file_path):
@@ -183,7 +176,6 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
         from agent_ops_cockpit.ops.discovery import DiscoveryEngine
         discovery = DiscoveryEngine(file_path)
         file_path = discovery.find_agent_brain()
-        
         if not os.path.exists(file_path):
             console.print(f'❌ [red]Error: No python entry point found in {discovery.root_path}[/red]')
             raise typer.Exit(1)
@@ -270,6 +262,5 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
 def version():
     """Show the version of the Optimizer module."""
     console.print('[bold cyan]v1.3.0[/bold cyan]')
-
 if __name__ == '__main__':
     app()

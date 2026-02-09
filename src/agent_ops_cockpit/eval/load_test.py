@@ -1,3 +1,5 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import time
 import aiohttp
@@ -8,6 +10,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskPr
 app = typer.Typer(help='AgentOps Load Tester: Stress test your agent endpoints.')
 console = Console()
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 async def fetch(session, url, semaphore, results, progress, task_id):
     async with semaphore:
         start = time.time()
@@ -22,6 +25,7 @@ async def fetch(session, url, semaphore, results, progress, task_id):
         finally:
             progress.update(task_id, advance=1)
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 async def run_load_test(url: str, requests: int, concurrency: int):
     results = []
     console.print(f'🚀 Starting load test on [cyan]{url}[/cyan]')
@@ -68,10 +72,10 @@ def run(url: str=typer.Option('http://localhost:8000/agent/query?q=healthcheck',
         display_results(results)
     except Exception as e:
         console.print(f'[red]Load test failed: {e}[/red]')
+
 @app.command()
 def version():
     """Show the version of the Load Test module."""
     console.print('[bold cyan]v1.3.0[/bold cyan]')
-
 if __name__ == '__main__':
     app()

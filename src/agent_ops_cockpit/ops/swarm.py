@@ -1,3 +1,5 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
@@ -42,6 +44,7 @@ class MultiAgentOrchestrator:
         for msg in self.history:
             console.print(f'[blue]{msg.sender}[/blue] -> [green]{msg.recipient}[/green]: {msg.content}')
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_swarm_demo():
     orchestrator = MultiAgentOrchestrator()
 

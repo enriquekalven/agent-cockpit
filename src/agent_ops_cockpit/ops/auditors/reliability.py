@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 from typing import List
 from .base import BaseAuditor, AuditFinding
@@ -7,6 +8,7 @@ class ReliabilityAuditor(BaseAuditor):
     Analyzes code for execution patterns, identifying sequential bottlenecks and missing resiliency.
     """
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         for node in ast.walk(tree):

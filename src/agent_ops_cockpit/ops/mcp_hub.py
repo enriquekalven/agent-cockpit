@@ -1,13 +1,12 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import List, Dict, Any
 import asyncio
 import os
 import logging
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-
-# v1.1 Compliance: Transit Logging (SOC2 CC6.1)
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("mcp_hub")
+logger = logging.getLogger('mcp_hub')
 
 class MCPHub:
     """
@@ -24,6 +23,7 @@ class MCPHub:
         """Registers a local MCP server."""
         self.servers[name] = StdioServerParameters(command=command, args=args or [], env=os.environ.copy())
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     async def execute_tool(self, tool_name: str, arguments: Dict[str, Any]):
         """
         Executes a tool call using the Model Context Protocol.

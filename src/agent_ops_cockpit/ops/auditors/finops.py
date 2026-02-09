@@ -9,10 +9,11 @@ class FinOpsAuditor(BaseAuditor):
     Projects TCO and identifies missed caching opportunities for high-volume agents.
     """
     MODEL_PRICES = {
-        'gemini-1.5-pro': 3.5, 
-        'gemini-1.5-flash': 0.35, 
-        'gpt-4': 10.0, 
-        'gpt-3.5': 0.5
+        'gemini-3-pro': 2.5, 
+        'gemini-3-flash': 0.1, 
+        'gpt-5.2-pro': 8.0, 
+        'claude-4.6-opus': 12.0,
+        'claude-4.6-sonnet': 3.0
     }
 
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
@@ -29,7 +30,7 @@ class FinOpsAuditor(BaseAuditor):
                     title=f"Inference Cost Projection ({model})",
                     description=f"Detected {model} usage. Projected TCO over 1M tokens: ${projected_cost:.2f}.",
                     impact="INFO",
-                    roi=f"Switching to Flash-equivalent could reduce projected cost to ${0.35 * multiplier:.2f}."
+                    roi=f"Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to ${0.10 * multiplier:.2f}."
                 ))
 
         # 2. Context Caching Opportunity
@@ -41,7 +42,7 @@ class FinOpsAuditor(BaseAuditor):
                 title="Context Caching Opportunity",
                 description="Large static system instructions detected without CachingConfig.",
                 impact="HIGH",
-                roi="Implement Vertex AI Context Caching to reduce repeated prefix costs by 90%."
+                roi="Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
             ))
 
         # Check for retry logic (ROI & Reliability cross-over)

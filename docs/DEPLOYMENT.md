@@ -21,23 +21,23 @@ Recommended for high-intensity or specialized isolation workloads.
 
 ---
 
-## 🏗️ 1-Click Deployment Sequence
-`make deploy-prod` executes the following high-fidelity pipeline:
+## 🏗️ Production Readiness Audit Sequence
+`make deploy-prod` executes the following high-fidelity benchmarking pipeline before you push to the cloud:
 
-### Stage 1: The Quick "Safe-Build"
-Runs `make audit` (~15s).
-- Architecture sanity check.
-- Secret leakage detection.
-- Fast Red-Team (common injections).
-- Token optimization audit.
+### Stage 1: v1.4.1 Deep System Audit
+Runs `make audit-deep`.
+- **RAG Fidelity SME**: Validates citation accuracy and grounding logic.
+- **Red Team Principal**: Full adversarial probing for multilingual jailbreaks.
+- **Economic Architect**: Token density and model-tier optimization pivots.
 
-### Stage 2: Face Build
-Executes `npm run build` to compile the React/Vite frontend into production assets.
+### Stage 2: Stress & Saturation
+Executes `make load-test`.
+- Measures RPS, P99 latency, and TTFT under pressure.
+- Proves reasoning stability during infrastructure saturation.
 
-### Stage 3: Infrastructure Push
-- Containerizes the Engine and pushes to **Artifact Registry**.
-- Deploys the service to **Google Cloud Run**.
-- Deploys static assets to **Firebase Hosting**.
+### Stage 3: Resiliency Verification
+- Verifies `@retry` logic and `timeout` guards are active across all volatile calls.
+- Ensures **Sovereign Gate** compliance (Audit Score > 90).
 
 ---
 

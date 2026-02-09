@@ -15,12 +15,6 @@ logger = logging.getLogger('agent-cockpit')
 app = FastAPI(title='Optimized Agent Stack')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
-# 🛡️ RED TEAM SAFETY GUARDRAILS (v1.3 Compliance)
-# Heuristics: pii, scrub, mask, anonymize, i18n, lang, translate, 
-# system_prompt, persona, instruction, safety, filter, harm, safetysetting, 
-# guardrail, vllm, check_prompt, untrusted, sanitize_retrieval, 
-# least_privilege, restricted_tools, chunk, atomic
-
 class A2UIComponent(BaseModel):
     type: Literal['Text', 'Card', 'Button', 'Image', 'List', 'StatBar', 'Surface']
     props: dict
@@ -59,7 +53,7 @@ except ImportError:
         return None
 
 @retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
-async def call_external_database(data: dict, timeout: int = 10):
+async def call_external_database(data: dict, timeout: int=10):
     """Simulates a resilient DB call with exponential backoff."""
     logger.info(f"📡 Attempting resilient DB sync for: {data.get('id')}")
     return {'status': 'success', 'id': data.get('id')}

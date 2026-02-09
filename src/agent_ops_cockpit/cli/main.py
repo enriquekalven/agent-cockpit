@@ -1,4 +1,5 @@
 import os
+from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List
 import shutil
 import subprocess
@@ -22,7 +23,6 @@ from agent_ops_cockpit.ops import mcp_store as mcp_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
-
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
 
@@ -44,41 +44,22 @@ def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End 
         rel_mod.run_tests()
 
 @app.command()
-def report(
-    mode: str = typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks"),
-    path: str = typer.Option('.', '--path', '-p', help="Path to the agent or workspace to audit"),
-    workspace: bool = typer.Option(False, '--workspace', '-w', help="Scan and audit all agents in the workspace"),
-    apply_fixes: bool = typer.Option(False, '--apply-fixes', '-f', '--heal', help="Automatically apply recommended fixes (Auto-Remediation)"),
-    sim: bool = typer.Option(False, '--sim', help="Run in simulation mode (Synthetic SME reasoning)"),
-    public: bool = typer.Option(False, '--public', help="Force use of public PyPI for registry checks (handles 401 errors)"),
-    output_format: str = typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"),
-    plain: bool = typer.Option(False, '--plain', help="Use plain output without complex Unicode boxes"),
-    dry_run: bool = typer.Option(False, '--dry-run', help="Simulate fixes without applying them (Dry Run Dashboard)"),
-    only: Optional[List[str]] = typer.Option(None, '--only', help="Only run specific categories (e.g. security, finops)"),
-    skip: Optional[List[str]] = typer.Option(None, '--skip', help="Skip specific categories")
-):
+def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent or workspace to audit'), workspace: bool=typer.Option(False, '--workspace', '-w', help='Scan and audit all agents in the workspace'), apply_fixes: bool=typer.Option(False, '--apply-fixes', '-f', '--heal', help='Automatically apply recommended fixes (Auto-Remediation)'), sim: bool=typer.Option(False, '--sim', help='Run in simulation mode (Synthetic SME reasoning)'), public: bool=typer.Option(False, '--public', help='Force use of public PyPI for registry checks (handles 401 errors)'), output_format: str=typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"), plain: bool=typer.Option(False, '--plain', help='Use plain output without complex Unicode boxes'), dry_run: bool=typer.Option(False, '--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)'), only: Optional[List[str]]=typer.Option(None, '--only', help='Only run specific categories (e.g. security, finops)'), skip: Optional[List[str]]=typer.Option(None, '--skip', help='Skip specific categories')):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
     if public:
         os.environ['UV_INDEX_URL'] = 'https://pypi.org/simple'
-        console.print("🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]")
-
+        console.print('🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]')
     if workspace:
-        console.print(f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]")
+        console.print(f'🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]')
         success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip)
         if not success:
-             raise typer.Exit(code=3) # Fleet failure
+            raise typer.Exit(code=3)
     else:
-        # Recommendation #2: Pre-flight Verification
         pre_mod.run_preflight(path)
-        
-        console.print(f"🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]")
-        exit_code = orch_mod.run_audit(
-             mode=mode, target_path=path, apply_fixes=apply_fixes, 
-             sim=sim, output_format=output_format, dry_run=dry_run,
-             only=only, skip=skip, plain=plain
-        )
+        console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]')
+        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain)
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
@@ -94,14 +75,13 @@ def quality_baseline(path: str='.'):
 def quality_climb(path: str='.'):
     """Alias for quality-baseline."""
     quality_baseline(path)
-
-# v1.4 Feature Integrations
-app.add_typer(rag_mod.app, name="rag-truth")
-app.add_typer(roi_mod.app, name="roi")
-app.add_typer(workbench_mod.app, name="workbench")
-app.add_typer(mcp_mod.app, name="mcp")
+app.add_typer(rag_mod.app, name='rag-truth')
+app.add_typer(roi_mod.app, name='roi')
+app.add_typer(workbench_mod.app, name='workbench')
+app.add_typer(mcp_mod.app, name='mcp')
 
 @app.command()
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def policy_audit(input_text: str=typer.Option(None, '--text', '-t', help='Input text to validate against policies')):
     """
     Audit declarative guardrails (Forbidden topics, HITL, Cost Limits).
@@ -129,7 +109,7 @@ def arch_review(path: str='.'):
     arch_mod.audit(path)
 
 @app.command()
-def audit(file_path: str = typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool = typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), quick: bool = typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
+def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool=typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), quick: bool=typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
     """
     Run the Interactive AgentOps Cockpit audit.
     """
@@ -137,11 +117,12 @@ def audit(file_path: str = typer.Argument('agent.py', help='Path to the agent co
     opt_mod.audit(file_path, interactive, quick=quick)
 
 @app.command()
-def fix(issue_id: str = typer.Argument(..., help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"), path: str = typer.Option('.', '--path', '-p', help="Path to the agent/workspace")):
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+def fix(issue_id: str=typer.Argument(..., help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace')):
     """
     Apply a targeted fix for a specific audit finding.
     """
-    console.print(f"🔧 [bold blue]Attempting targeted fix for: {issue_id}...[/bold blue]")
+    console.print(f'🔧 [bold blue]Attempting targeted fix for: {issue_id}...[/bold blue]')
     orchestrator = orch_mod.CockpitOrchestrator()
     success = orchestrator.apply_targeted_fix(issue_id, path)
     if not success:
@@ -219,7 +200,7 @@ def ui_audit(path: str='src'):
     ui_mod.audit(path)
 
 @app.command()
-def scan_secrets(path: str = typer.Argument(".", help="Directory to scan for secrets")):
+def scan_secrets(path: str=typer.Argument('.', help='Directory to scan for secrets')):
     """
     Scans the codebase for hardcoded secrets, API keys, and credentials.
     """
@@ -234,51 +215,40 @@ def doctor():
     diagnose()
 
 @app.command()
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def diagnose():
     """
     Diagnose your AgentOps environment for common issues (Env vars, SDKs, Paths).
     v1.4: Enhanced Auth Pre-checks and Artifact Visibility.
     """
     console.print(Panel.fit('🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS (DOCTOR)[/bold blue]', border_style='blue'))
-    
-    # Check for .cockpit directory
     cockpit_dir = os.path.join(os.getcwd(), '.cockpit')
     has_cockpit = os.path.exists(cockpit_dir)
-
     table = Table(show_header=True, header_style='bold magenta')
     table.add_column('Check', style='cyan')
     table.add_column('Status', style='bold')
     table.add_column('Recommendation', style='dim')
-
-    # 1. GCP Auth Pre-check
     try:
         import google.auth
         _, project = google.auth.default()
         table.add_row('GCP Auth (ADC)', f'[green]PASSED ({project})[/green]', 'Authenticated')
     except Exception as e:
         table.add_row('GCP Auth (ADC)', '[red]REAUTHENTICATION NEEDED[/red]', "Run 'gcloud auth application-default login'")
-
-    # 2. Artifact Store Visibility
     if has_cockpit:
         table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Sovereign data path OK')
     else:
         table.add_row('Artifact Store', '[yellow]NOT INITIALIZED[/yellow]', "Run 'agent-ops report' to bootstrap")
-
-    # 3. Registry & Network
     try:
         import urllib.request
         with urllib.request.urlopen(config.PUBLIC_PYPI_URL, timeout=2) as response:
             if response.status == 200:
                 table.add_row('Registry Access', '[green]CONNECTED[/green]', 'Public PyPI reachable')
     except Exception:
-        table.add_row('Registry Access', '[yellow]OFFLINE / RESTRICTED[/yellow]', "Check VPN or use --public")
-
-    # 4. Trinity Structure
+        table.add_row('Registry Access', '[yellow]OFFLINE / RESTRICTED[/yellow]', 'Check VPN or use --public')
     if os.path.exists('src/agent_ops_cockpit/agent.py') or os.path.exists('src/a2ui'):
-         table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
+        table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
     else:
-         table.add_row('Trinity Structure', '[yellow]NON-STANDARD[/yellow]', 'Running from external agent home')
-
+        table.add_row('Trinity Structure', '[yellow]NON-STANDARD[/yellow]', 'Running from external agent home')
     console.print(table)
     console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops report' for a deep audit.[/bold blue]")
 
@@ -287,28 +257,17 @@ def init(project_name: str=typer.Argument('my-agent', help='The name of the new 
     """
     Trinity Scaffolder: Combines the Engine (ADK) and the Face (A2UI) into a unified Cockpit project.
     """
-    console.print(Panel.fit(f"🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]", border_style="green"))
-    
+    console.print(Panel.fit(f'🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]', border_style='green'))
     try:
-        # Pillar 1: The Engine (Reasoning Layer)
-        console.print("🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)")
-        console.print(f"   [dim]Running: uvx agent-starter-pack create adk_a2ui_base --name {project_name}[/dim]")
-        # Simulation of the orchestration call
-        # subprocess.run(['uvx', 'agent-starter-pack', 'create', 'adk_a2ui_base', '--name', project_name], check=True)
-        
-        # Pillar 2: The Face (Interface Layer)
-        console.print("🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)")
-        console.print(f"   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]")
-        # subprocess.run(['uvx', 'agent-ui-starter-pack', 'create', 'a2ui', '--name', project_name], check=True)
-        
-        # Pillar 3: The Cockpit (Operations & Governance)
-        console.print("🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)")
-        console.print("   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.3 Policies...[/dim]")
-        
-        console.print(Panel(f"✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agent-ops report[/dim]\n\n[dim]Architecture: Trinity v1.3 compliant[/dim]", title="[bold green]Project Initialized[/bold green]", border_style="green", expand=False))
-        
+        console.print('🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)')
+        console.print(f'   [dim]Running: uvx agent-starter-pack create adk_a2ui_base --name {project_name}[/dim]')
+        console.print('🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)')
+        console.print(f'   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]')
+        console.print('🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)')
+        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.3 Policies...[/dim]')
+        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agent-ops report[/dim]\n\n[dim]Architecture: Trinity v1.3 compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
     except Exception as e:
-        console.print(f"[bold red]Initialization failed:[/bold red] {e}")
+        console.print(f'[bold red]Initialization failed:[/bold red] {e}')
 
 @app.command()
 def create(project_name: str=typer.Argument(..., help='The name of the new project'), ui: str=typer.Option('a2ui', '-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)'), copilotkit: bool=typer.Option(False, '--copilotkit', help='Enable extra CopilotKit features for AGUI')):
@@ -327,17 +286,14 @@ def create(project_name: str=typer.Argument(..., help='The name of the new proje
             console.print('💙 [bold blue]Note:[/bold blue] Flutter selected. Scaffolding GenUI SDK bridge logic.')
         elif ui == 'lit':
             console.print('🔥 [bold orange1]Note:[/bold orange1] Lit selected. Scaffolding Web Components base.')
-        
         console.print(f'📡 Cloning template from [cyan]{config.REPO_URL}[/cyan]...')
         subprocess.run(['git', 'clone', '--depth', '1', config.REPO_URL, project_name], check=True, capture_output=True)
         shutil.rmtree(os.path.join(project_name, '.git'))
         console.print('🔧 Initializing new git repository...')
         subprocess.run(['git', 'init'], cwd=project_name, check=True, capture_output=True)
-        
         start_cmd = 'npm run dev'
         if ui == 'flutter':
             start_cmd = 'flutter run'
-            
         console.print(Panel(f"✅ [bold green]Success![/bold green] Project [bold cyan]{project_name}[/bold cyan] created.\n\n[bold]Quick Start:[/bold]\n  1. [dim]cd[/dim] {project_name}\n  2. [dim]{('npm install' if ui != 'flutter' else 'flutter pub get')}[/dim]\n  3. [dim]agent-ops audit[/dim]\n  4. [dim]{start_cmd}[/dim]\n\nConfiguration: UI=[bold cyan]{ui}[/bold cyan], CopilotKit=[bold cyan]{('Enabled' if copilotkit else 'Disabled')}[/bold cyan]\n[dim]Leveraging patterns from GoogleCloudPlatform/agent-starter-pack[/dim]", title='[bold green]Project Scaffolding Complete[/bold green]', expand=False, border_style='green'))
     except subprocess.CalledProcessError as e:
         console.print(f'[bold red]Error during git operation:[/bold red] {(e.stderr.decode() if e.stderr else str(e))}')

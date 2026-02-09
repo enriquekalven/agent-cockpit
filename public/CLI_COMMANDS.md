@@ -10,7 +10,7 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 **The Quick Safe-Build (15-30s).**
 - **Action**: Orchestrates all essential governance modules in parallel: Arch Review → Secrets → Token Optimization → Fast Red-Team.
 - **Output**: Generates a high-speed verification report.
-- **When to use**: Continuous development and local testing. Default for `make deploy-prod`.
+- **When to use**: Continuous development and local testing.
 
 ### `make audit-deep`
 **The Master Cockpit Auditor (2-5m).**
@@ -65,11 +65,11 @@ Starts the local development stack:
 - **Frontend (Face)**: Vite dev server running at `localhost:5173`.
 
 ### `make deploy-prod`
-**The 1-Click Production Pipeline.**
-1. Runs the Quick Safe-Build (`make audit`).
-2. Compiles production frontend assets.
-3. Deploys the Engine to **Google Cloud Run**.
-4. Deploys the Face to **Firebase Hosting**.
+**The Production Readiness Auditor (v1.4.1).**
+1. Runs the **v1.4.1 Deep System Audit**.
+2. Executes **Stress Testing** (Load Baseline).
+3. Conducts **Red Team Verification**.
+4. Verifies **Resiliency Pattern** compliance.
 
 ---
 

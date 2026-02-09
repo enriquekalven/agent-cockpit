@@ -142,12 +142,12 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ---
 
-## 🚀 1-Click Production Pipeline
-`make deploy-prod` triggers the following lifecycle:
-1. Runs the Quick Safe-Build (`make audit`).
-2. Compiles production frontend assets.
-3. Deploys the Engine to **Google Cloud Run**.
-4. Deploys the Face to **Firebase Hosting**.
+## 🚀 Production Readiness Auditor
+The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
+1. **v1.4.1 Deep System Audit**: Benchmarks models (Gemini 3 Pro/Flash) and logic.
+2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
+3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
+4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.
 
 ---
 
@@ -155,7 +155,16 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 The AgentOps Cockpit is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
 
 *   **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: We leverage this as a core reference for the **Agent Development Kit (ADK)** patterns and Vertex AI Agent Engine integration.
-*   **A2A Standard**: Our implementation follow the Agent-to-Agent Transmission Protocol for swarm intelligence.
+*   **[A2UI Protocol](https://github.com/GoogleCloudPlatform/agent-starter-pack/tree/main/src/a2ui)**: Standardized Generative UI handshake for building adaptive, agentic user interfaces.
+*   **[A2A Standard](https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/A2A_GUIDE.md)**: Agent-to-Agent Transmission Protocol for secure swarm intelligence and inter-agent communication.
+*   **[Model Context Protocol (MCP)](https://modelcontextprotocol.io)**: Our unified tool execution standard, enabling portable and secure 1P/2P/3P integrations.
+*   **[LangChain & LangGraph](https://python.langchain.com/)**: Foundational libraries for stateful, multi-agent reasoning loops and graph-based orchestration.
+*   **[CrewAI](https://www.crewai.com/)**: Multi-agent framework used as a reference for collaborative task execution and role-playing agents.
+*   **[Firebase](https://firebase.google.com/)**: Provider for enterprise-grade hosting and global distribution of the **Face** layer.
+*   **[Google Cloud Run & GKE](https://cloud.google.com/run)**: High-scale orchestration platforms for the **Engine** and cluster-wide agent fleets.
+*   **[Vertex AI SDK](https://cloud.google.com/vertex-ai/docs/python-sdk)**: The backbone for frontier reasoning (Gemini 3) and enterprise-grade model governance.
+*   **[Tenacity](https://tenacity.readthedocs.io/)**: The gold-standard library for the exponential backoff and resiliency patterns we enforce.
+*   **[Rich](https://rich.readthedocs.io/)**: Modern visualization engine that powers the high-fidelity Cockpit CLI experience.
 
 ---
 *Reference: [Google Cloud Architecture Center - Agentic AI Overview](https://docs.cloud.google.com/architecture/agentic-ai-overview)*

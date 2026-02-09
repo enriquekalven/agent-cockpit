@@ -1,3 +1,6 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 import json
 import os
@@ -10,6 +13,7 @@ class BehavioralAuditor(BaseAuditor):
     Compares runtime traces (JSON) against static code promises.
     """
 
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         trace_path = os.path.join(os.path.dirname(file_path), 'trace.json')

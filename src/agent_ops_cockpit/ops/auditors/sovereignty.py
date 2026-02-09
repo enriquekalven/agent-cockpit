@@ -67,7 +67,7 @@ class SovereigntyAuditor(BaseAuditor):
                 title="Strategic Exit Plan (Cloud)",
                 description="Detected hardcoded cloud dependencies. For a 'Category Killer' grade, implement an abstraction layer that allows switching to Gemma 2 on GKE.",
                 impact="INFO",
-                roi="Estimated 12% OpEx reduction via open-source pivot. Exit effort: ~14 lines of code.",
+                roi="Estimated 12% OpEx reduction via open-source pivot orchestrated by Antigravity. Exit effort: ~14 lines of code.",
                 file_path=file_path
             ))
 

@@ -35,6 +35,12 @@
       "package": "@copilotkit/react-core",
       "description": "In-app AI Copilots & UX components",
       "min_version_for_optimizations": "1.20.0"
+    },
+    "agent-starter-pack": {
+      "feed": "https://github.com/GoogleCloudPlatform/agent-starter-pack/releases.atom",
+      "package": "agent-starter-pack",
+      "description": "Agent Starter Pack - Core reference for architecture & templates",
+      "min_version_for_optimizations": "0.33.0"
     }
   },
   "platform_services": {
@@ -109,8 +115,66 @@
       "reason": "MCP is a universal standard and thrives in multi-framework environments."
     }
   ],
+  "deep_research_scouts": {
+    "arxiv-ai": {
+      "feed": "http://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=lastUpdatedDate&sortOrder=descending",
+      "description": "ArXiv: Artificial Intelligence - Latest research papers on reasoning and planning",
+      "relevancy_focus": [
+        "Search-based Planning",
+        "Tree-of-Thoughts",
+        "Recursive Self-Improvement"
+      ]
+    },
+    "openai-research": {
+      "feed": "https://openai.com/blog/research/rss.xml",
+      "description": "OpenAI Research Blog - Breakthroughs in Frontier Models",
+      "relevancy_focus": [
+        "Prompting Heuristics",
+        "Agentic Reasoning",
+        "Safety RLHF"
+      ]
+    },
+    "anthropic-news": {
+      "feed": "https://www.anthropic.com/news/rss.xml",
+      "description": "Anthropic News - Constitutional AI and Tool-Use specs",
+      "relevancy_focus": [
+        "MCP Protocol",
+        "Context Caching",
+        "System Prompt Hardening"
+      ]
+    },
+    "google-ai-blog": {
+      "feed": "https://blog.google/technology/ai/rss/",
+      "description": "Google AI Blog - Gemini updates and infrastructure breakthroughs",
+      "relevancy_focus": [
+        "Long-Context Logic",
+        "Vertex AI Extensions",
+        "Agentic Trinity Patterns"
+      ]
+    }
+  },
+  "security_policy_feeds": {
+    "nist-news": {
+      "feed": "https://www.nist.gov/news-events/news/rss",
+      "description": "NIST AI RMF Updates - National standards for AI Risk Management",
+      "relevancy_focus": [
+        "Risk Assessment",
+        "Biannual AI Safety Checkpoints"
+      ]
+    },
+    "owasp-llm-top-10": {
+      "feed": "https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/releases.atom",
+      "description": "OWASP LLM Security - Latest adversarial defense patterns",
+      "relevancy_focus": [
+        "Agentic Privilege",
+        "Indirect Vector Injection"
+      ]
+    }
+  },
   "research_sources": {
     "well_architected": "https://cloud.google.com/architecture/framework",
+    "aws_genai_lens": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+    "azure_ai_waf": "https://learn.microsoft.com/en-us/azure/architecture/guide/ai/well-architected-framework-ai",
     "security_best_practices": "https://cloud.google.com/architecture/framework/security",
     "cost_optimization": "https://cloud.google.com/architecture/framework/cost-optimization",
     "operational_excellence": "https://cloud.google.com/architecture/framework/operational-excellence"

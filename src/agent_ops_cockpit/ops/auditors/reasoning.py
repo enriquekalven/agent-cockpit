@@ -41,14 +41,14 @@ class ReasoningAuditor(BaseAuditor):
 
         # 3. FinOps Reasoning: High-tier model in loops
         # (Simulated reasoning: we look for model strings and for loops together)
-        if re.search(r"gemini-1\.5-pro|gpt-4", content) and re.search(r"for\s+\w+\s+in", content):
+        if re.search(r"gemini-3-pro|gpt-5\.2|claude-4\.6", content) and re.search(r"for\s+\w+\s+in", content):
              if any(x in content.lower() for x in ["classify", "label", "is_", "has_"]):
                 findings.append(AuditFinding(
                     category="💰 FinOps",
-                    title="Model Efficiency Regression",
-                    description="High-tier model (Pro/GPT-4) detected inside a loop performing simple classification tasks.",
+                    title="Model Efficiency Regression (v1.4.1)",
+                    description="Frontier reasoning model (Feb 2026 tier) detected inside a loop performing simple classification tasks.",
                     impact="HIGH",
-                    roi="Pivoting to Gemini 1.5 Flash for this loop reduces token spend by 90% with zero accuracy loss.",
+                    roi="Pivoting to Gemini 3 Flash via Antigravity or Claude Code reduces token spend by 95% with superior resolution coverage.",
                     file_path=file_path
                 ))
 

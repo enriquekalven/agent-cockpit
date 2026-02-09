@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import os
 import typer
@@ -18,6 +19,7 @@ class QualityJudge:
         await asyncio.sleep(0.1)
         return random.uniform(0.7, 0.95)
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 async def run_iteration(iteration: int, prompt_variant: str) -> dict:
     """
     Run a single evaluation pass against the golden dataset.
@@ -31,40 +33,23 @@ async def run_iteration(iteration: int, prompt_variant: str) -> dict:
                 dataset = json.load(f)
         except Exception:
             pass
-    
     scores = []
     trajectories = []
     tokens_used = 0
-    
     for item in dataset:
-        # Simulate reasoning work
         actual_response = f"Simulated response for: {item['query']}"
-        tokens_used += len(actual_response.split()) * 4 # Mock token count
-        
+        tokens_used += len(actual_response.split()) * 4
         trajectory_score = 1.0
         if item.get('type') == 'tool_execution':
-            # v1.3: Penalize "Silent Failures" (guessing without tools)
-            trajectory_score = random.uniform(0.6, 1.0) 
+            trajectory_score = random.uniform(0.6, 1.0)
             trajectories.append(trajectory_score)
-        
         match_score = await QualityJudge.score_response(actual_response, item['expected'])
-        
-        # v1.3 Consensus Score: Weighted Match + Trajectory
         final_score = match_score * 0.6 + trajectory_score * 0.4
         scores.append(final_score)
-    
     avg_score = sum(scores) / len(scores)
     avg_traj = sum(trajectories) / len(trajectories) if trajectories else 1.0
-    
-    # Reasoning Density: Quality Gate per Token Cost
     reasoning_density = avg_score / (tokens_used / 1000) if tokens_used > 0 else 0
-    
-    return {
-        "score": avg_score,
-        "trajectory": avg_traj,
-        "density": reasoning_density,
-        "tokens": tokens_used
-    }
+    return {'score': avg_score, 'trajectory': avg_traj, 'density': reasoning_density, 'tokens': tokens_used}
 
 @app.command()
 def climb(steps: int=typer.Option(3, help='Number of hill-climbing iterations'), threshold: float=typer.Option(0.9, help='Target quality score (0.0 - 1.0)')):
@@ -73,69 +58,46 @@ def climb(steps: int=typer.Option(3, help='Number of hill-climbing iterations'),
     Calculates Reasoning Density, Tool Trajectory, and Semantic Match.
     """
     console.print(Panel.fit('🧗 [bold cyan]QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE[/bold cyan]\nOptimizing Reasoning Density & Tool Trajectory Stability...', border_style='cyan'))
-    
     best_score = 0.75
     history = []
-    
     with Progress(SpinnerColumn(), TextColumn('[progress.description]{task.description}'), BarColumn(), TextColumn('[progress.percentage]{task.percentage:>3.0f}%'), console=console) as progress:
         task = progress.add_task('[yellow]Searching Reasoning Space...', total=steps)
         for i in range(1, steps + 1):
             progress.update(task, description=f'[yellow]Iteration {i}: Probing Gradient...')
-            
             results = asyncio.run(run_iteration(i, f'variant_{i}'))
-            new_score = results["score"]
+            new_score = results['score']
             improvement = new_score - best_score
-            
             if new_score > best_score:
                 best_score = new_score
                 status = '[bold green]PEAK FOUND[/bold green]'
             else:
                 status = '[red]REGRESSION[/red]'
-            
-            history.append({
-                'iter': i, 
-                'score': new_score, 
-                'traj': results["trajectory"],
-                'density': results["density"],
-                'status': status, 
-                'improvement': improvement
-            })
+            history.append({'iter': i, 'score': new_score, 'traj': results['trajectory'], 'density': results['density'], 'status': status, 'improvement': improvement})
             progress.update(task, advance=1)
-            
             if best_score >= threshold:
                 console.print(f'\n🎯 [bold green]Global Peak ({threshold * 100}%) Reached! Optimization Stabilized.[/bold green]')
                 break
-                
-    table = Table(title='📈 v1.3 Hill Climbing Optimization History', header_style="bold magenta")
+    table = Table(title='📈 v1.3 Hill Climbing Optimization History', header_style='bold magenta')
     table.add_column('Iter', justify='center')
     table.add_column('Consensus Score', justify='right')
     table.add_column('Trajectory', justify='right')
     table.add_column('Reasoning Density', justify='right')
     table.add_column('Status', justify='center')
     table.add_column('Delta', justify='right')
-    
     for h in history:
         color = 'green' if h['improvement'] > 0 else 'red'
-        table.add_row(
-            str(h['iter']), 
-            f"{h['score'] * 100:.1f}%", 
-            f"{h['traj'] * 100:.1f}%",
-            f"{h['density']:.2f} Q/kTok",
-            h['status'], 
-            f"[{color}]+{h['improvement'] * 100:.1f}%[/{color}]" if h['improvement'] > 0 else f"[red]{h['improvement'] * 100:.1f}%[/red]"
-        )
+        table.add_row(str(h['iter']), f"{h['score'] * 100:.1f}%", f"{h['traj'] * 100:.1f}%", f"{h['density']:.2f} Q/kTok", h['status'], f"[{color}]+{h['improvement'] * 100:.1f}%[/{color}]" if h['improvement'] > 0 else f"[red]{h['improvement'] * 100:.1f}%[/red]")
     console.print(table)
-    
     if best_score >= threshold:
         console.print(f'\n✅ [bold green]SUCCESS:[/bold green] High-fidelity agent stabilized at the {best_score * 100:.1f}% quality peak.')
         console.print('🚀 Mathematical baseline verified. Safe for production deployment.')
     else:
         console.print(f'\n⚠️ [bold yellow]WARNING:[/bold yellow] Optimization plateaued below threshold. Current quality: {best_score * 100:.1f}%.')
         console.print('💡 Recommendation: Run `make simulation-run` to detect context-saturation points.')
+
 @app.command()
 def version():
     """Show the version of the Quality module."""
     console.print('[bold cyan]v1.3.0[/bold cyan]')
-
 if __name__ == '__main__':
     app()

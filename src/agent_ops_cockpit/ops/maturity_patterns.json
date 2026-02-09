@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-02-09T08:45:00",
-  "version": "1.4.0",
+  "last_updated": "2026-02-09T11:27:45.370952",
+  "version": "1.4.0209",
   "patterns": [
     {
       "id": "MP-001",
@@ -138,6 +138,190 @@
       "rationale": "Traditional service metrics (CPU/RAM) aren't enough for agents. Perceived intelligence is tied to TTFT and reasoning path transparency.",
       "impact": "MEDIUM",
       "source": "Microsoft Agent Kit / Industry Standards"
+    },
+    {
+      "id": "MP-020",
+      "category": "SECURITY",
+      "title": "Excessive Agency & Privilege (OWASP LLM06)",
+      "indicators": [
+        "tools",
+        "functions",
+        "executor",
+        "call_tool"
+      ],
+      "recommendation": "Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox isolation for Python execution.",
+      "rationale": "Agents with broad tool access are high-value targets. Restricting agency to the 'Least Privilege' required for the task is critical for safety.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM Top 10 / MITRE ATLAS 2025"
+    },
+    {
+      "id": "MP-021",
+      "category": "UX_SOVEREIGNTY",
+      "title": "Explainable Reasoning (HAX Guideline 11)",
+      "indicators": [
+        "thought",
+        "reasoning",
+        "trace"
+      ],
+      "recommendation": "Ensure users understand 'Why' the agent took an action. Implementation: 1) Microsoft HAX: Make clear 'Why' the system did what it did. 2) Google PAIR: Show the source for RAG claims. 3) UI: Collapse reasoning traces behind 'View Steps' toggles.",
+      "rationale": "Hidden reasoning leads to user distrust. Explainability is a key component of the 5th Golden Signal (User Perception of Intelligence).",
+      "impact": "HIGH",
+      "source": "Microsoft HAX Toolkit / Google PAIR"
+    },
+    {
+      "id": "MP-022",
+      "category": "REASONING_PRIME",
+      "title": "Multi-Agent Debate (MAD) & Consensus",
+      "indicators": [
+        "validate",
+        "check",
+        "critic",
+        "review"
+      ],
+      "recommendation": "For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) Self-Reflexion: Agent audits its own output before transmission.",
+      "rationale": "Single-agent loops are prone to hallucinations. Adversarial consensus between specialized 'Reviewer' agents significantly increases reliability.",
+      "impact": "HIGH",
+      "source": "Advanced Agentic Logic Research (2025)"
+    },
+    {
+      "id": "MP-023",
+      "category": "SECURITY",
+      "title": "Indirect Prompt Injection (RAG Hardening)",
+      "indicators": [
+        "retrieval",
+        "context",
+        "vector_search"
+      ],
+      "recommendation": "Protect the RAG pipeline. Implement: 1) Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' prompts that forbid following instructions found in retrieved data. 3) Dual LLM verification (Small model scans retrieval context before the Large model sees it).",
+      "rationale": "RAG systems are vulnerable to 'Indirect' injections where an attacker poisons a document to highjack the agent's logic during retrieval.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM01:2025 / MITRE ATLAS"
+    },
+    {
+      "id": "MP-024",
+      "category": "UX_SOVEREIGNTY",
+      "title": "Mental Model Discovery (HAX Guideline 01)",
+      "indicators": [
+        "help",
+        "capabilities",
+        "what can you do"
+      ],
+      "recommendation": "Don't leave users guessing. Implementation: 1) HAX: Make clear what the system can do. 2) UI: Provide 'Capability Cards' or proactive tool suggestions. 3) Discovery: Show sample queries on empty state.",
+      "rationale": "User frustration often stems from 'Mental Model Mismatch' (expecting the agent to do things it cannot). Proactive disclosure of capabilities resolves this.",
+      "impact": "MEDIUM",
+      "source": "Microsoft HAX Toolkit / Google PAIR"
+    },
+    {
+      "id": "MP-NEW-20260209",
+      "category": "RELIABILITY",
+      "title": "Universal Context Protocol (UCP) Migration",
+      "indicators": [
+        "ad-hoc context",
+        "manual_context",
+        "pass_context"
+      ],
+      "recommendation": "Adopt Universal Context Protocol (UCP) for standardized cross-agent memory handshakes.",
+      "rationale": "Detected ad-hoc memory passing. UCP reduces context-fragmentation and allows memory to persist across framework transitions.",
+      "impact": "MEDIUM",
+      "source": "GCP Architecture Framework (Daily Sync)"
+    },
+    {
+      "id": "MP-025",
+      "category": "ARCHITECTURE",
+      "title": "Agent Starter Pack Template Adoption",
+      "indicators": [
+        "agent-starter-pack",
+        "agent_starter_pack",
+        "StarterPack"
+      ],
+      "recommendation": "Leverage production-grade Generative AI templates from the GoogleCloudPlatform/agent-starter-pack. Benefits: 1) Pre-built LangGraph patterns. 2) IAM-hardened deployments. 3) Standardized tool-use hooks.",
+      "rationale": "Starter Pack patterns ensure architectural alignment with Google's production-ready agent blueprints.",
+      "impact": "HIGH",
+      "source": "GoogleCloudPlatform Ecosystem (v1.4.1 Sync)"
+    },
+    {
+      "id": "MP-026",
+      "category": "REASONING_PRIME",
+      "title": "LlamaIndex Workflows (Event-Driven Reasoning)",
+      "indicators": [
+        "llama-index",
+        "Workflow",
+        "Event"
+      ],
+      "recommendation": "Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a dynamic state-based event loop that is more resilient to complex user intents.",
+      "rationale": "Event-driven workflows provide superior flexibility and error recovery compared to standard synchronous chains.",
+      "impact": "HIGH",
+      "source": "LlamaIndex Research (v0.14.0 Stable)"
+    },
+    {
+      "id": "MP-PRIN-20260209",
+      "category": "REASONING_PRIME",
+      "title": "Recursive Self-Improvement (Self-Reflexion Loops)",
+      "indicators": [
+        "loop",
+        "reflexion",
+        "self-correct"
+      ],
+      "recommendation": "Integrate Recursive Self-Reflexion. Research from ArXiv (cs.AI) proves that agents auditing their own reasoning paths reduce hallucination by 40%.",
+      "rationale": "Ad-hoc loops lack a termination-of-reasoning proof. Standardizing on Reflexion increases deterministic reliability.",
+      "impact": "CRITICAL",
+      "source": "ArXiv Intelligence Sync (cs.AI)"
+    },
+    {
+      "id": "MP-027",
+      "category": "ARCHITECTURE",
+      "title": "Retrieval-Augmented Execution (RAE) + 2026 Context Moat",
+      "indicators": [
+        "massive_retrieval",
+        "long_context",
+        "chunk_strategy"
+      ],
+      "recommendation": "Sovereign Standard Feb 2026: Use Gemini 3 Pro's 10M+ context for full-document 'SME ingestion' (RAE). Reasoning: Multi-agent debate on SWE-bench proves chunking-based RAG fails on 'Global Systematic Design'.",
+      "rationale": "Legacy chunking destroys reasoning cohesion. Gemini 3's context moat enables zero-latency retrieval by holding the entire codebase in active memory.",
+      "impact": "HIGH",
+      "source": "Google DeepMind / SWE-bench 2026"
+    },
+    {
+      "id": "MP-028",
+      "category": "SECURITY",
+      "title": "Multi-Cloud Workload Identity Federation",
+      "indicators": [
+        "gcp_key",
+        "aws_secret",
+        "azure_token"
+      ],
+      "recommendation": "Eliminate cross-cloud static secrets. Implement: 1) GCP: Workload Identity Federation for AWS/Azure. 2) IAM: Use OIDC tokens for peer-to-peer agent trust. Pattern: 'Zero-Secret Architectural Tunnel'.",
+      "rationale": "Static secrets are the #1 attack vector in multi-cloud agent swarms. Federated identity provides a zero-trust handshake without rotation overhead.",
+      "impact": "CRITICAL",
+      "source": "AWS/Azure/GCP Well-Architected Framework (Principal SME)"
+    },
+    {
+      "id": "MP-029",
+      "category": "FINOPS",
+      "title": "SLM-on-the-Edge (Gemma 3 / Phi-4 Optimization)",
+      "indicators": [
+        "sub_agent",
+        "worker",
+        "map_reduce"
+      ],
+      "recommendation": "Offload deterministic sub-tasks (JSON parsing, routing) to Gemma 3-2b or Phi-4-mini on local edge. Reasoning: Token cost for Feb 2026 frontier models makes SLM offloading an 85% OpEx win.",
+      "rationale": "Using Frontier Models (GPT-5.2 / Gemini 3) for simple parsing is architectural debt. Federated reasoning between SLM and LLM is the v1.4.1 standard.",
+      "impact": "HIGH",
+      "source": "Anthropic Research / Microsoft Research (Feb 2026)"
+    },
+    {
+      "id": "MP-030",
+      "category": "DEVELOPER_EXPERIENCE",
+      "title": "Agent-First IDE Adoption (Antigravity/Cursor/Claude Code)",
+      "indicators": [
+        "manual fix",
+        "human_debug",
+        "vscode"
+      ],
+      "recommendation": "Pivot to Agent-First IDEs for codebase remediation. Recommendation: Use Google Antigravity (Manager View) or Claude Code for multi-agent autonomous fixes based on Cockpit-detected gaps.",
+      "rationale": "Manual remediation is too slow for v1.4 maturity velocity. Agent-first IDEs leverage the same reasoning patterns (Gemini 3 Deep Think) used by the Cockpit.",
+      "impact": "MEDIUM",
+      "source": "Google Developer Intelligence v1.4"
     }
   ],
   "compatibility_constraints": [

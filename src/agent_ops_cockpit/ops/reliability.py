@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import subprocess
 import sys
@@ -13,6 +14,7 @@ def audit(quick: bool=typer.Option(False, '--quick', '-q', help='Run only essent
     """Run reliability checks (Unit tests + Regression Suite)."""
     return run_reliability_audit(quick, path, smoke)
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     if smoke:
         run_smoke_test()
@@ -39,11 +41,10 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     has_schema = False
     from agent_ops_cockpit.ops.discovery import DiscoveryEngine
     discovery = DiscoveryEngine(path)
-    
     for file_path in discovery.walk(path):
         if file_path.endswith(('.py', '.ts', '.tsx')):
             try:
-                with open(file_path, 'r', errors="ignore") as f:
+                with open(file_path, 'r', errors='ignore') as f:
                     content = f.read()
                     if 'A2UIRenderer' in content:
                         has_renderer = True
@@ -58,8 +59,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     if unit_result.returncode != 0 and unit_status != '[yellow]SKIPPED[/yellow]':
         console.print('\n[red]❌ Unit test failures detected. Fix them before production deployment.[/red]')
         console.print(f'```\n{unit_result.stdout}\n```')
-        # Improvement: Direct Actionable Guidance for Orchestrator
-        console.print(f"ACTION: {path} | Reliability Failure | Resolve falling unit tests to ensure agent regression safety.")
+        console.print(f'ACTION: {path} | Reliability Failure | Resolve falling unit tests to ensure agent regression safety.')
     else:
         console.print('\n✅ [bold green]System check complete.[/bold green]')
 
@@ -77,54 +77,41 @@ def run_regression_suite():
 def run_smoke_test():
     """Run E2E Persona Journeys (Smoke Tests) for pipes validation across the Command Trinity."""
     console.print(Panel.fit('🧪 [bold blue]AGENTOPS COCKPIT: TRINITY REGRESSION SMOKE TEST[/bold blue]\n[dim]Verifying Parity: Make | CLI | UVX Simulation[/dim]', border_style='blue'))
-    
     table = Table(title='🕹️ Persona Trinity Status Matrix', show_header=True, header_style='bold magenta')
     table.add_column('Persona Lens', style='cyan', no_wrap=True)
     table.add_column('Action / Command', style='magenta')
     table.add_column('🛠️ Make', justify='center')
     table.add_column('🕹️ CLI', justify='center')
     table.add_column('📦 UVX', justify='center')
-    
+
     def check_cmd(cmd_list):
         try:
             res = subprocess.run(cmd_list, capture_output=True, text=True, env=os.environ.copy())
             return '[green]PASS[/green]' if res.returncode == 0 else '[red]FAIL[/red]'
         except Exception:
             return '[red]FAIL[/red]'
-
-    # 1. The Builder (Initialization)
-    console.print('👨‍💻 [bold]Verifying Builder Journey...[/bold]')
+    console.print('👨\u200d💻 [bold]Verifying Builder Journey...[/bold]')
     builder_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'init', '--help'])
     builder_make = '[green]PASS[/green]' if 'init:' in open('Makefile').read() else '[yellow]N/A[/yellow]'
-    builder_uvx = builder_cli # Simulation: if CLI works, UVX entry point works
+    builder_uvx = builder_cli
     table.add_row('The Builder', 'Project Scaffolding', builder_make, builder_cli, builder_uvx)
-
-    # 2. The Strategist (Architecture)
     console.print('🏛️ [bold]Verifying Strategist Journey...[/bold]')
     arch_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'arch-review', '--help'])
     arch_make = '[green]PASS[/green]' if 'arch-review:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Strategist', 'Architecture Review', arch_make, arch_cli, arch_cli)
-
-    # 3. The Guardian (Security)
     console.print('🚩 [bold]Verifying Guardian Journey...[/bold]')
     sec_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'red-team', '--help'])
     sec_make = '[green]PASS[/green]' if 'red-team:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Guardian', 'Security & Red Team', sec_make, sec_cli, sec_cli)
-
-    # 4. The Controller (Governance)
     console.print('⚖️ [bold]Verifying Controller Journey...[/bold]')
     gov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'report', '--help'])
     gov_make = '[green]PASS[/green]' if 'audit:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Controller', 'Master Audit / Compliance', gov_make, gov_cli, gov_cli)
-
-    # 5. The Automator (Pipeline)
     console.print('🤖 [bold]Verifying Automator Journey...[/bold]')
-    auto_cli = gov_cli # Automator uses the same reporting engine
+    auto_cli = gov_cli
     auto_make = '[green]PASS[/green]' if 'audit-deep:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Automator', 'CI/CD Portable Ops', auto_make, auto_cli, auto_cli)
-
     console.print(table)
-    
     results = [builder_cli, arch_cli, sec_cli, gov_cli]
     if '[red]FAIL[/red]' in results:
         console.print('\n❌ [bold red]Trinity Smoke Test Failed. Command parity broken.[/bold red]')
@@ -136,6 +123,5 @@ def run_smoke_test():
 def version():
     """Show the version of the audit module."""
     console.print('[bold cyan]v1.3.0[/bold cyan]')
-
 if __name__ == '__main__':
     app()

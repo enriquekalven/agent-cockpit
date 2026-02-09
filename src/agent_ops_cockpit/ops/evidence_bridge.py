@@ -1,3 +1,12 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
 import json
 import os
 import urllib.request
@@ -16,6 +25,7 @@ def clean_version(v_str: str) -> str:
         return match.group(1)
     return v_str.strip().lstrip('v')
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def fetch_latest_from_atom(url: str) -> Optional[Dict[str, str]]:
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -43,6 +53,7 @@ def get_installed_version(package_name: str) -> str:
     except importlib.metadata.PackageNotFoundError:
         return 'Not Installed'
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def get_package_evidence(package_name: str) -> Dict[str, Any]:
     if not os.path.exists(WATCHLIST_PATH):
         return {'error': 'Watchlist not found'}
@@ -66,6 +77,7 @@ def get_package_evidence(package_name: str) -> Dict[str, Any]:
                 return {'package': package_name, 'installed_version': installed, 'latest_version': latest['version'] if latest else 'Unknown', 'min_optimized_version': min_v, 'upgrade_required': upgrade_required, 'release_date': latest['date'] if latest else 'Unknown', 'source_url': info['feed'].replace('.atom', ''), 'best_practice_context': latest['summary'] if latest else 'Check release notes for performance/security enhancements.'}
     return {'error': f'Package {package_name} not found in watchlist'}
 
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def get_compatibility_report(installed_packages: List[str]) -> List[Dict[str, Any]]:
     if not os.path.exists(WATCHLIST_PATH):
         return []

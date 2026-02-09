@@ -1,3 +1,5 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
 import os
 import ast
@@ -22,19 +24,12 @@ from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-
-app = typer.Typer(help="Agent Architecture Reviewer v1.1/v1.2: Enterprise Architect (Deep Reasoning & Behavioral Audit)")
+app = typer.Typer(help='Agent Architecture Reviewer v1.1/v1.2: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
 console = Console()
 
 def run_scan(path: str):
     """Helper to run AST scan and return all findings."""
-    auditors = [
-        SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), 
-        DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), 
-        ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(),
-        HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(),
-        MaturityAuditor()
-    ]
+    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor()]
     all_findings = []
     for root, dirs, files in os.walk(path):
         dirs[:] = [d for d in dirs if not (d.startswith('venv') or d.startswith('.venv')) and d not in ['node_modules', '.git', '__pycache__', 'dist', 'build']]
@@ -133,7 +128,7 @@ def propose_fixes(path: str='.'):
         console.print('⚠️  No fixes could be automatically applied.')
 
 @app.command()
-def benchmark(path: str = ".", count: int = 50):
+def benchmark(path: str='.', count: int=50):
     """
     Phase 7: Automated Benchmarking (v1.2).
     Generates 50+ stress prompts and outputs a Reliability Waterfall.
@@ -143,6 +138,7 @@ def benchmark(path: str = ".", count: int = 50):
     asyncio.run(bench.run_stress_test(count))
 
 @app.command()
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent project to audit'), export: bool=typer.Option(False, '--export', help='Export reports in HTML format')):
     """
     Run the Enterprise Architect Design Review v1.1.
@@ -158,11 +154,7 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
         all_findings = run_scan(path)
     total_checks = 0.0
     passed_checks = 0.0
-    weights = {
-        '🛡️': 1.5, '🧗': 1.2, '💰': 1.0, '📉': 1.2,  # A2A weight increased
-        '🌍': 1.1, '🌐': 1.3, '🏗️': 1.3, '🚀': 1.4, # Added Infra/SRE weights
-        '⚖️': 1.3, '🎭': 1.4
-    }
+    weights = {'🛡️': 1.5, '🧗': 1.2, '💰': 1.0, '📉': 1.2, '🌍': 1.1, '🌐': 1.3, '🏗️': 1.3, '🚀': 1.4, '⚖️': 1.3, '🎭': 1.4}
     table_data = []
     for section in checklist:
         table = Table(title=section['category'], show_header=True, header_style='bold magenta')
@@ -197,8 +189,7 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
             console.print(f"🚩 [bold red]{f.title}[/bold red] ({f.file_path}:{f.line_number or ''})")
             console.print(f'   [dim]{f.description}[/dim]')
             console.print(f'   ⚖️ [bold green]Strategic ROI:[/bold green] {f.roi}')
-            # Output for Orchestrator parsing
-            console.print(f"ACTION: {f.file_path}:{f.line_number or 1} | {f.title} | {f.description}")
+            console.print(f'ACTION: {f.file_path}:{f.line_number or 1} | {f.title} | {f.description}')
             impact_report.append(f'- **{f.title}**: {f.description} (Impact: {f.impact})')
     latency_impact = sum((1 for f in all_findings if 'latency' in f.description.lower())) * 200
     cost_risk = 'HIGH' if any((f.category == '💰 FinOps' and 'pro' in f.description.lower() for f in all_findings)) else 'LOW'
@@ -212,37 +203,9 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
         output_root = os.path.join(os.getcwd(), '.cockpit')
         if not os.path.exists(output_root):
             os.makedirs(output_root, exist_ok=True)
-            
         report_path_v13 = os.path.join(output_root, 'arch_review_v1.3.html')
         report_path_v11 = os.path.join(output_root, 'arch_review_v1.1.html')
-
-        html_report = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Autonomous Architect Review v1.3</title>
-            <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap');
-                body {{ font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.6; padding: 40px; }}
-                .container {{ max-width: 1100px; margin: 0 auto; background: #1e293b; padding: 60px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #334155; }}
-                h1 {{ font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; margin-bottom: 8px; color: #38bdf8; }}
-                .score {{ font-size: 5rem; font-weight: 800; color: {('#10b981' if score > 80 else '#ef4444')}; margin: 20px 0; }}
-                .badge {{ display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #0ea5e9; color: white; }}
-                h2 {{ border-bottom: 2px solid #334155; padding-bottom: 12px; margin-top: 40px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 0.05em; color: #94a3b8; }}
-                .metric-grid {{ display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin: 30px 0; }}
-                .metric-card {{ background: #0f172a; padding: 24px; border-radius: 16px; text-align: center; border: 1px solid #334155; }}
-                .metric-val {{ display: block; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; color: #f1f5f9; }}
-                .metric-label {{ font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; }}
-                .waterfall {{ background: #0f172a; padding: 30px; border-radius: 20px; margin: 20px 0; border: 2px dashed #334155; }}
-                .waterfall-item {{ display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #334155; }}
-                .waterfall-val {{ font-weight: 800; color: #38bdf8; }}
-                table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
-                th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #334155; }}
-                th {{ font-size: 0.75rem; color: #64748b; text-transform: uppercase; }}
-                .mermaid {{ background: #0f172a; padding: 20px; border-radius: 16px; border: 1px solid #334155; }}
-                .finding {{ border-left: 4px solid #ef4444; background: #450a0a; padding: 20px; border-radius: 0 12px 12px 0; margin-bottom: 16px; }}
-                .finding h4 {{ margin: 0 0 8px 0; color: #fca5a5; }}\n            </style>\n        </head>\n        <body>\n            <div class="container">\n                <span class="badge">Autonomous Architect Grade v1.3</span>\n                <h1>🏛️ Enterprise Architecture Audit</h1>\n                <p style="color: #94a3b8;">Strategic Consensus: <strong>{framework_name}</strong> Standardized Swarm</p>\n                \n                <div class="score">{score:.0f}/100</div>\n                <div class="metric-label">Autonomous evolution score</div>\n\n                <div class="waterfall">\n                    <h3>🌊 v1.3 Impact Waterfall</h3>\n                    <div class="waterfall-item"><span>Reasoning Latency Debt</span><span class="waterfall-val">+{latency_impact}ms</span></div>\n                    <div class="waterfall-item"><span>Digital Twin Risk Coverage</span><span class="waterfall-val">84%</span></div>\n                    <div class="waterfall-item"><span>Strategic Exit Readiness</span><span class="waterfall-val">{sovereignty_score}%</span></div>\n                    <div class="waterfall-item"><span>Inter-Agent Pass-through Tax</span><span class="waterfall-val">12%</span></div>\n                </div>\n\n                <div class="metric-grid">\n                    <div class="metric-card">\n                        <span class="metric-val">{sovereignty_score}/100</span>\n                        <span class="metric-label">Sovereignty</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">88%</span>\n                        <span class="metric-label">Reliability</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{('🚨 RISK' if any((f.category == '🛡️ HITL Guardrail' for f in all_findings)) else '✅ PASS')}</span>\n                        <span class="metric-label">HITL Gating</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{cost_risk}</span>\n                        <span class="metric-label">FinOps Risk</span>\n                    </div>\n                </div>\n\n                <h2>🗺️ Autonomous Architecture Context</h2>\n                <div class="mermaid">\n                    {mermaid_diag}\n                </div>\n\n                <h2>🚩 Strategic Compliance Gaps</h2>\n                {''.join([f'<div class="finding"><h4>{f.title}</h4><p>{f.description}</p><small>ROI: {f.roi}</small></div>' for f in all_findings])}\n\n                <h2>🚀 v1.3 Roadmap: The Next 90 Days</h2>\n                <ol>\n                    <li><strong>LLM-Synthesized PRs:</strong> Pivot <code>make apply-fixes</code> from templates to context-aware synthesis.</li>\n                    <li><strong>Digital Twin Simulations:</strong> Implement <code>make simulation-run</code> to stress-test reasoning.</li>\n                    <li><strong>Vendor Exit Plan:</strong> Execute the {sovereignty_score < 100 and 'detected' or 'completed'} cloud-independent abstraction.</li>\n                </ol>\n\n                <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 20px; font-size: 0.8rem; color: #64748b; text-align: center;">\n                    Generated by AgentOps Cockpit v1.3. Autonomous Architect Division.\n                </div>\n            </div>\n            <script>mermaid.initialize({{startOnLoad:true, theme: 'dark'}});</script>\n        </body>\n        </html>\n        """
+        html_report = f"""\n        <!DOCTYPE html>\n        <html>\n        <head>\n            <title>Autonomous Architect Review v1.3</title>\n            <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>\n            <style>\n                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap');\n                body {{ font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.6; padding: 40px; }}\n                .container {{ max-width: 1100px; margin: 0 auto; background: #1e293b; padding: 60px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #334155; }}\n                h1 {{ font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; margin-bottom: 8px; color: #38bdf8; }}\n                .score {{ font-size: 5rem; font-weight: 800; color: {('#10b981' if score > 80 else '#ef4444')}; margin: 20px 0; }}\n                .badge {{ display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #0ea5e9; color: white; }}\n                h2 {{ border-bottom: 2px solid #334155; padding-bottom: 12px; margin-top: 40px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 0.05em; color: #94a3b8; }}\n                .metric-grid {{ display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin: 30px 0; }}\n                .metric-card {{ background: #0f172a; padding: 24px; border-radius: 16px; text-align: center; border: 1px solid #334155; }}\n                .metric-val {{ display: block; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; color: #f1f5f9; }}\n                .metric-label {{ font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; }}\n                .waterfall {{ background: #0f172a; padding: 30px; border-radius: 20px; margin: 20px 0; border: 2px dashed #334155; }}\n                .waterfall-item {{ display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #334155; }}\n                .waterfall-val {{ font-weight: 800; color: #38bdf8; }}\n                table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}\n                th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #334155; }}\n                th {{ font-size: 0.75rem; color: #64748b; text-transform: uppercase; }}\n                .mermaid {{ background: #0f172a; padding: 20px; border-radius: 16px; border: 1px solid #334155; }}\n                .finding {{ border-left: 4px solid #ef4444; background: #450a0a; padding: 20px; border-radius: 0 12px 12px 0; margin-bottom: 16px; }}\n                .finding h4 {{ margin: 0 0 8px 0; color: #fca5a5; }}\n            </style>\n        </head>\n        <body>\n            <div class="container">\n                <span class="badge">Autonomous Architect Grade v1.3</span>\n                <h1>🏛️ Enterprise Architecture Audit</h1>\n                <p style="color: #94a3b8;">Strategic Consensus: <strong>{framework_name}</strong> Standardized Swarm</p>\n                \n                <div class="score">{score:.0f}/100</div>\n                <div class="metric-label">Autonomous evolution score</div>\n\n                <div class="waterfall">\n                    <h3>🌊 v1.3 Impact Waterfall</h3>\n                    <div class="waterfall-item"><span>Reasoning Latency Debt</span><span class="waterfall-val">+{latency_impact}ms</span></div>\n                    <div class="waterfall-item"><span>Digital Twin Risk Coverage</span><span class="waterfall-val">84%</span></div>\n                    <div class="waterfall-item"><span>Strategic Exit Readiness</span><span class="waterfall-val">{sovereignty_score}%</span></div>\n                    <div class="waterfall-item"><span>Inter-Agent Pass-through Tax</span><span class="waterfall-val">12%</span></div>\n                </div>\n\n                <div class="metric-grid">\n                    <div class="metric-card">\n                        <span class="metric-val">{sovereignty_score}/100</span>\n                        <span class="metric-label">Sovereignty</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">88%</span>\n                        <span class="metric-label">Reliability</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{('🚨 RISK' if any((f.category == '🛡️ HITL Guardrail' for f in all_findings)) else '✅ PASS')}</span>\n                        <span class="metric-label">HITL Gating</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{cost_risk}</span>\n                        <span class="metric-label">FinOps Risk</span>\n                    </div>\n                </div>\n\n                <h2>🗺️ Autonomous Architecture Context</h2>\n                <div class="mermaid">\n                    {mermaid_diag}\n                </div>\n\n                <h2>🚩 Strategic Compliance Gaps</h2>\n                {''.join([f'<div class="finding"><h4>{f.title}</h4><p>{f.description}</p><small>ROI: {f.roi}</small></div>' for f in all_findings])}\n\n                <h2>🚀 v1.3 Roadmap: The Next 90 Days</h2>\n                <ol>\n                    <li><strong>LLM-Synthesized PRs:</strong> Pivot <code>make apply-fixes</code> from templates to context-aware synthesis.</li>\n                    <li><strong>Digital Twin Simulations:</strong> Implement <code>make simulation-run</code> to stress-test reasoning.</li>\n                    <li><strong>Vendor Exit Plan:</strong> Execute the {sovereignty_score < 100 and 'detected' or 'completed'} cloud-independent abstraction.</li>\n                </ol>\n\n                <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 20px; font-size: 0.8rem; color: #64748b; text-align: center;">\n                    Generated by AgentOps Cockpit v1.3. Autonomous Architect Division.\n                </div>\n            </div>\n            <script>mermaid.initialize({{startOnLoad:true, theme: 'dark'}});</script>\n        </body>\n        </html>\n        """
         with open(report_path_v13, 'w') as f:
             f.write(html_report)
         console.print(f'\n✨ [bold green]Autonomous Architect Report generated (v1.3): {report_path_v13}[/bold green]')
