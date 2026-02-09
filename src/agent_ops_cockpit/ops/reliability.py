@@ -96,8 +96,8 @@ def run_smoke_test():
     builder_uvx = builder_cli
     table.add_row('The Builder', 'Project Scaffolding', builder_make, builder_cli, builder_uvx)
     console.print('🏛️ [bold]Verifying Strategist Journey...[/bold]')
-    arch_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'arch-review', '--help'])
-    arch_make = '[green]PASS[/green]' if 'arch-review:' in open('Makefile').read() else '[red]FAIL[/red]'
+    arch_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'arch', '--help'])
+    arch_make = '[green]PASS[/green]' if 'arch:' in open('Makefile').read() or 'arch-review:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Strategist', 'Architecture Review', arch_make, arch_cli, arch_cli)
     console.print('🚩 [bold]Verifying Guardian Journey...[/bold]')
     sec_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'red-team', '--help'])
@@ -122,6 +122,6 @@ def run_smoke_test():
 @app.command()
 def version():
     """Show the version of the audit module."""
-    console.print('[bold cyan]v1.3.0[/bold cyan]')
+    console.print('[bold cyan]v1.4.2[/bold cyan]')
 if __name__ == '__main__':
     app()

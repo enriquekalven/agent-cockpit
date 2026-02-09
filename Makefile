@@ -7,7 +7,7 @@ REGION ?= us-central1
 SERVICE_NAME = agent-ops-backend
 IMAGE_TAG = us-central1-docker.pkg.dev/$(PROJECT_ID)/agent-repo/$(SERVICE_NAME):latest
 
-.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit audit-deep deploy-prod scan-secrets ui-audit watch mcp-serve email-report diagnose
+.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit audit-deep deploy-prod scan-secrets ui-audit watch mcp-serve email-report diagnose arch secrets face
 
 help:
 	@echo "Available commands:"
@@ -63,6 +63,12 @@ red-team:
 # 🧗 Quality: Hill Climb
 quality:
 	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main quality .
+
+arch:
+	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main arch .
+
+secrets: scan-secrets
+face: ui-audit
 
 # 🚀 Production Readiness
 deploy-prod:

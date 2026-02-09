@@ -725,6 +725,7 @@ if __name__ == '__main__':
     parser.add_argument('--apply-fixes', action='store_true')
     parser.add_argument('--sim', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--summary', action='store_true')
     args = parser.parse_args()
     if args.workspace:
         workspace_audit(root_path=args.path, mode=args.mode, sim=args.sim, apply_fixes=args.apply_fixes, dry_run=args.dry_run)

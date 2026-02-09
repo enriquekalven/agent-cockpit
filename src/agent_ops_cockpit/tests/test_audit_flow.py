@@ -66,17 +66,16 @@ def test_dry_run_does_not_modify_files():
             run_audit(mode='quick', target_path='fix_me', apply_fixes=True, dry_run=True, sim=True)
             current_content = open(agent_file).read()
             assert current_content == original_content, 'Dry run should NOT modify the file!'
+            # In v1.4.2, apply_fixes=True (with dry_run=False) generates a patch, it does NOT modify the file directly.
             run_audit(mode='quick', target_path='fix_me', apply_fixes=True, dry_run=False, sim=True)
-            agent_abs = os.path.abspath('fix_me')
-            agent_hash = hashlib.md5(agent_abs.encode()).hexdigest()
-            lake_json = os.path.join('.cockpit', 'evidence_lake', agent_hash, 'latest.json')
-            with open(lake_json, 'r') as f:
-                data = json.load(f)
             fixed_content = open(agent_file).read()
-            if '@retry' not in fixed_content and 'timeout=' not in fixed_content:
-                print(f"\nDEBUG: fix_me results: {json.dumps(data['results'], indent=2)}")
-            assert fixed_content != original_content, 'Applying fixes should modify the file!'
-            assert '@retry' in fixed_content or 'timeout=' in fixed_content
+            assert fixed_content == original_content, 'Applying fixes in v1.4.2 should NOT modify the file directly (Plan-then-Execute)!'
+            
+            patch_dir = os.path.join('.cockpit', 'patches')
+            assert os.path.exists(patch_dir)
+            patches = os.listdir(patch_dir)
+            assert len(patches) > 0, 'Applying fixes should generate a .patch file!'
+            assert any(p.endswith('.patch') for p in patches)
         finally:
             os.chdir(old_cwd)
             os.environ['PYTHONPATH'] = old_pp
