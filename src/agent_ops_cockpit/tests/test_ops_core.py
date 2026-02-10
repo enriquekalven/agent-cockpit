@@ -9,7 +9,7 @@ from agent_ops_cockpit.config import config
 def test_version_ssot():
     """Ensure the version is consistent across the platform."""
     # This ensures that we don't accidentally downgrade or mismatch
-    assert config.VERSION == "1.4.2"
+    assert config.VERSION == "1.4.3"
 
 def test_pii_scrubber():
     """Ensure PII is masked correctly."""
