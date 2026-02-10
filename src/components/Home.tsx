@@ -71,8 +71,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.4.0</span>
-          <span className="banner-text"><b>Ecosystem Expansion v1.4.0:</b> Introducing RAG Truth-Sayer audits, Maturity Radar Charts, and the Interactive Remediation Workbench.</span>
+          <span className="banner-tag">STABLE v1.4.4</span>
+          <span className="banner-text"><b>Sovereign Evolution v1.4.4:</b> Introducing Autonomous Validation Protocols, Hardened RAG Boundaries, and Multi-Cloud SME Consensus.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
