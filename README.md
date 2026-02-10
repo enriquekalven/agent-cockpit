@@ -70,14 +70,13 @@ graph TD
 
 ---
 
-## 🕹️ v1.4.1: The "Ecosystem Expansion" Release (NEW)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.1 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.4.4: The "Sovereign Evolution" Release (NEW)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.4 Release Notes**](/CHANGELOG.md).
 
-- **🧗 RAG Truth-Sayer SME**: Dedicated auditor for retrieval-reasoning fidelity and grounding logic.
-- **🚀 PR Scorecard Action**: Automated maturity scorecard for pull requests to increase velocity and trust.
-- **🛠️ Remediation Workbench**: TUI-based review loop for approving autonomous code patches.
-- **💰 ROI Waterfall**: Advanced modeling for cost-per-task projections and model-tier optimization.
-- **📦 MCP Tool Store**: Centralized registry for discovering and scaffolding MCP tool integrations.
+- **🛡️ Validation Automation**: Integrated `/validate` workflow to enforce 100% SME approval and regression safety after every change.
+- **🧗 Atomic RAG & Hardening**: Restricted retrieval context to top 5 results to maximize reasoning density and prevent token bloat.
+- **🛠️ Poka-Yoke Tooling**: Hardened tool schemas using `Literal` types to "mistake-proof" agentic tool calling.
+- **💰 SME Consensus 2.0**: Unified approval engine requiring a unanimous "Sovereign Standard" from all 11 Principal SMEs.
 
 ---
 

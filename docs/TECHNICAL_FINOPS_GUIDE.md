@@ -1,4 +1,4 @@
-## The "Economic Sustainability" Standard (v1.4.1 Stable)
+## The "Economic Sustainability" Standard (v1.4.4 Stable)
 
 The `make optimizer-audit` and `ops roi` commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
 
