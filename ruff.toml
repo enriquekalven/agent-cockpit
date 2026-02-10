@@ -1,0 +1,4 @@
+[tool.ruff]
+# Ignore the lab_e2e_test and my-super-agent directories
+# as they are intended to have "broken" code for lab exercises.
+extend-exclude = ["lab_e2e_test/**", "my-super-agent/**"]
