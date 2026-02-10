@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.4.3] - 2026-02-10
+
+### 🚀 Audit Performance & Ecosystem Observability
+- **Audit Circuit Breaker**: Implemented a mandatory 15-minute (900s) timeout for all audit steps in `orchestrator.py` to prevent hanging on large repositories or infinite loops.
+- **Verbose Arch Review**: Added `--verbose` flag to the Architecture Review auditor to enable real-time file-by-file performance tracking.
+- **Ecosystem Synergy**: Integrated **Agent Starter Pack** recommendations for Google Cloud and ADK agents to enforce best-in-class tracing and observability.
+- **Stability Core**: Verified 162/162 tests passed, including new performance guard regressions.
+
 ## [1.4.2] - 2026-02-09
 
 ### 🚀 High-Fidelity Ignore & Viral Reboot
