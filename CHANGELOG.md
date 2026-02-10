@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.4.4] - 2026-02-10
+
+### 🚀 Enhanced Observability & CLI UX
+- **Global Verbose Mode**: Exposed the `--verbose` flag in the main `report` command, allowing developers to debug performance across all audit steps simultaneously.
+- **Improved Circuit Breakers**: Standardized audit step timeouts to 15 minutes to allow for large-scale analysis without hanging.
+
 ## [1.4.3] - 2026-02-10
 
 ### 🚀 Audit Performance & Ecosystem Observability
