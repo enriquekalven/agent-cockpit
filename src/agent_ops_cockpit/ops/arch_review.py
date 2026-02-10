@@ -26,23 +26,33 @@ from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
 app = typer.Typer(help='Agent Architecture Reviewer v1.4.2: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
 console = Console()
 
-def run_scan(path: str):
+def run_scan(path: str, verbose: bool = False):
     """Helper to run AST scan and return all findings."""
+    import time
+    start_time = time.time()
     auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor()]
     all_findings = []
+    file_count = 0
     for root, dirs, files in os.walk(path):
         dirs[:] = [d for d in dirs if not (d.startswith('venv') or d.startswith('.venv')) and d not in ['node_modules', '.git', '__pycache__', 'dist', 'build']]
         for file in files:
             if file.endswith(('.py', 'pyproject.toml', 'requirements.txt')):
                 file_path = os.path.join(root, file)
+                file_count += 1
+                if verbose:
+                    console.print(f"🔍 [dim]Scanning {file_path}...[/dim]")
                 try:
                     with open(file_path, 'r') as f:
                         content = f.read()
                     tree = ast.parse(content) if file.endswith('.py') else ast.parse('')
                     for auditor in auditors:
                         all_findings.extend(auditor.audit(tree, content, file_path))
-                except Exception:
-                    pass
+                except Exception as e:
+                    if verbose:
+                        console.print(f"⚠️ [red]Error scanning {file_path}: {e}[/red]")
+    duration = time.time() - start_time
+    if verbose:
+        console.print(f"⏱️ [bold blue]Scan complete. Processed {file_count} files in {duration:.2f}s.[/bold blue]")
     return all_findings
 
 @app.command()
@@ -164,7 +174,7 @@ def benchmark(path: str='.', count: int=50):
 
 @app.command()
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent project to audit'), export: bool=typer.Option(False, '--export', help='Export reports in HTML format')):
+def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent project to audit'), export: bool=typer.Option(False, '--export', help='Export reports in HTML format'), verbose: bool=typer.Option(False, '--verbose', '-v', help='Enable verbose output for debugging')):
     """
     Run the Enterprise Architect Design Review v1.1.
     Uses AST Reasoning, Behavioral Trace Audit, and Contextual Graphing.
@@ -176,7 +186,7 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
     console.print(Panel.fit(f'🏛️ [bold blue]{framework_name.upper()}: ENTERPRISE ARCHITECT REVIEW v1.1[/bold blue]', border_style='blue'))
     console.print(f'Detected Stack: [bold green]{framework_name}[/bold green] | [bold yellow]v1.1 Deep Reasoning Enabled[/bold yellow]\n')
     with console.status('[bold blue]Performing Multi-Modal Scan (AST + Behavior)...'):
-        all_findings = run_scan(path)
+        all_findings = run_scan(path, verbose=verbose)
     total_checks = 0.0
     passed_checks = 0.0
     weights = {'🛡️': 1.5, '🧗': 1.2, '💰': 1.0, '📉': 1.2, '🌍': 1.1, '🌐': 1.3, '🏗️': 1.3, '🚀': 1.4, '⚖️': 1.3, '🎭': 1.4}

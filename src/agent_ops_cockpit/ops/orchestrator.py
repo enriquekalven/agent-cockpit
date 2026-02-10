@@ -90,15 +90,33 @@ class CockpitOrchestrator:
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
         env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{env.get('PYTHONPATH', '')}"
+        MAX_STEP_TIMEOUT = 600 # 10 minutes timeout for performance debugging
         try:
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
-            stdout, stderr = process.communicate()
+            try:
+                stdout, stderr = process.communicate(timeout=MAX_STEP_TIMEOUT)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                stdout, stderr = process.communicate()
+                error_msg = f"❌ [bold red]TIMEOUT:[/bold red] {name} exceeded {MAX_STEP_TIMEOUT}s limit. Possible infinite loop or large repo bottleneck."
+                console.print(error_msg)
+                self.results[name] = {'success': False, 'output': f"TIMEOUT ERROR\nPartial Stdout:\n{stdout}\nPartial Stderr:\n{stderr}"}
+                progress.update(task_id, description=f'[red]⌛ {name} Timeout', completed=100)
+                return (name, False)
+
             if process.returncode != 0 and ('401' in stderr or 'Unauthorized' in stderr):
                 console.print(f'⚠️ [yellow]Registry Auth Failure detected in {name}. Retrying with Public PyPI Failover...[/yellow]')
                 env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
                 env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
-                stdout, stderr = process.communicate()
+                try:
+                    stdout, stderr = process.communicate(timeout=MAX_STEP_TIMEOUT)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    stdout, stderr = process.communicate()
+                    self.results[name] = {'success': False, 'output': "TIMEOUT ERROR ON RETRY"}
+                    return (name, False)
+
             success = process.returncode == 0
             output = stdout if success else f'{stdout}\n{stderr}'
             self.results[name] = {'success': success, 'output': output}
