@@ -31,18 +31,42 @@ def clean_version(v_str: str) -> str:
 @retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
 def fetch_latest_from_atom(url: str) -> Optional[Dict[str, str]]:
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=10) as response:
-            tree = ET.parse(response)
-            root = tree.getroot()
-            ns = {'ns': 'http://www.w3.org/2005/Atom'}
-            latest_entry = root.find('ns:entry', ns)
-            if latest_entry is not None:
-                title = latest_entry.find('ns:title', ns).text
-                updated = latest_entry.find('ns:updated', ns).text
-                raw_v = title.strip().split()[-1]
-                return {'version': clean_version(raw_v) if '==' not in raw_v else clean_version(raw_v.split('==')[-1]), 'date': updated, 'title': title}
-    except Exception:
+        # Using a full browser-like UA to bypass basic bot-protection
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/xml,application/atom+xml,application/rss+xml,text/xml;q=0.9,*/*;q=0.8'
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=15) as response:
+            content = response.read()
+            root = ET.fromstring(content)
+            
+            # ATOM Handling (e.g. GitHub/ArXiv)
+            if 'http://www.w3.org/2005/Atom' in root.tag:
+                ns = {'ns': 'http://www.w3.org/2005/Atom'}
+                latest_entry = root.find('ns:entry', ns)
+                if latest_entry is not None:
+                    title_elem = latest_entry.find('ns:title', ns)
+                    updated_elem = latest_entry.find('ns:updated', ns)
+                    title = title_elem.text if title_elem is not None else "Unknown"
+                    updated = updated_elem.text if updated_elem is not None else datetime.now().isoformat()
+                    raw_v = title.strip().split()[-1]
+                    return {'version': clean_version(raw_v) if '==' not in raw_v else clean_version(raw_v.split('==')[-1]), 'date': updated, 'title': title}
+            
+            # RSS Handling (e.g. Google AI Blog, NIST, Anthropic/OpenAI)
+            elif root.tag == 'rss' or root.tag.endswith('rss'):
+                channel = root.find('channel')
+                if channel is not None:
+                    latest_item = channel.find('item')
+                    if latest_item is not None:
+                        title_elem = latest_item.find('title')
+                        pub_elem = latest_item.find('pubDate')
+                        title = title_elem.text if title_elem is not None else "Unknown"
+                        pub_date = pub_elem.text if pub_elem is not None else datetime.now().isoformat()
+                        raw_v = title.strip().split()[-1]
+                        return {'version': clean_version(raw_v), 'date': pub_date, 'title': title}
+                    
+    except Exception as e:
         return None
     return None
 
