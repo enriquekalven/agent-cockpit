@@ -548,7 +548,7 @@ class CockpitOrchestrator:
             return False
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False):
     orchestrator = CockpitOrchestrator()
     orchestrator.plain = plain
     abs_path = os.path.abspath(target_path)
@@ -606,7 +606,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         token_opt_args = [entry_point_path, '--no-interactive']
         if mode == 'quick':
             token_opt_args.append('--quick')
-        steps = [('Architecture Review', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
+        arch_cmd = [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]
+        if verbose:
+            arch_cmd.append('--verbose')
+        steps = [('Architecture Review', arch_cmd), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
         if mode == 'deep':
             steps.extend([('Quality Hill Climbing', [sys.executable, '-m', f'{base_mod}.eval.quality_climber', 'climb', '--steps', '10']), ('Red Team Security (Full)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]), ('Load Test (Baseline)', [sys.executable, '-m', f'{base_mod}.eval.load_test', 'run', '--requests', '50', '--concurrency', '5']), ('Evidence Packing Audit', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path])])
         else:

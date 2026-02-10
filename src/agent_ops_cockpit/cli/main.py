@@ -39,7 +39,7 @@ def reliability(smoke: bool=typer.Option(False, '--smoke', help='Run End-to-End 
         rel_mod.run_tests()
 
 @app.command()
-def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent or workspace to audit'), workspace: bool=typer.Option(False, '--workspace', '-w', help='Scan and audit all agents in the workspace'), apply_fixes: bool=typer.Option(False, '--apply-fixes', '-f', '--heal', help='Automatically apply recommended fixes (Auto-Remediation)'), sim: bool=typer.Option(False, '--sim', help='Run in simulation mode (Synthetic SME reasoning)'), public: bool=typer.Option(False, '--public', help='Force use of public PyPI for registry checks (handles 401 errors)'), output_format: str=typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"), plain: bool=typer.Option(False, '--plain', help='Use plain output without complex Unicode boxes'), dry_run: bool=typer.Option(False, '--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)'), only: Optional[List[str]]=typer.Option(None, '--only', help='Only run specific categories (e.g. security, finops)'), skip: Optional[List[str]]=typer.Option(None, '--skip', help='Skip specific categories')):
+def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent or workspace to audit'), workspace: bool=typer.Option(False, '--workspace', '-w', help='Scan and audit all agents in the workspace'), apply_fixes: bool=typer.Option(False, '--apply-fixes', '-f', '--heal', help='Automatically apply recommended fixes (Auto-Remediation)'), sim: bool=typer.Option(False, '--sim', help='Run in simulation mode (Synthetic SME reasoning)'), public: bool=typer.Option(False, '--public', help='Force use of public PyPI for registry checks (handles 401 errors)'), output_format: str=typer.Option('text', '--format', help="Output format: 'text', 'json', 'sarif'"), plain: bool=typer.Option(False, '--plain', help='Use plain output without complex Unicode boxes'), dry_run: bool=typer.Option(False, '--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)'), only: Optional[List[str]]=typer.Option(None, '--only', help='Only run specific categories (e.g. security, finops)'), skip: Optional[List[str]]=typer.Option(None, '--skip', help='Skip specific categories'), verbose: bool=typer.Option(False, '--verbose', '-v', help='Enable verbose output for debugging')):
     """
     Launch AgentOps Master Audit (Arch, Quality, Security, Cost) and generate a final report.
     """
@@ -54,7 +54,7 @@ def report(mode: str=typer.Option('quick', '--mode', '-m', help="Audit mode: 'qu
     else:
         pre_mod.run_preflight(path)
         console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]')
-        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain)
+        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose)
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
