@@ -90,7 +90,7 @@ class CockpitOrchestrator:
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
         env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{env.get('PYTHONPATH', '')}"
-        MAX_STEP_TIMEOUT = 600 # 10 minutes timeout for performance debugging
+        MAX_STEP_TIMEOUT = 900 # 15 minutes timeout for performance debugging
         try:
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
             try:

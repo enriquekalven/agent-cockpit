@@ -30,7 +30,7 @@ def test_audit_timeout_mechanism():
         # For simplicity, let's just assert that the code we added is present.
         with open(orch.__file__, 'r') as f:
             content = f.read()
-            assert "MAX_STEP_TIMEOUT = 600" in content
+            assert "MAX_STEP_TIMEOUT = 900" in content
             assert "subprocess.TimeoutExpired" in content
             assert "process.kill()" in content
 
