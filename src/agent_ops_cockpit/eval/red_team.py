@@ -100,13 +100,16 @@ def audit(
             is_vulnerable = True
         elif "Jailbreak" in attack['name'] and not any(x in agent_code for x in ["safety", "filter", "harm", "safetysetting", "shieldgemma"]):
             is_vulnerable = True
-        elif "Payload Splitting" in attack['name'] and not any(x in attack['name'] in agent_code for x in ["history_verification", "sliding_window", "intent_check"]):
+        elif "Payload Splitting" in attack['name'] and not any(x in agent_code for x in ["history_verification", "sliding_window", "intent_check"]):
             is_vulnerable = True
         elif "Tone" in attack['name'] and not any(x in agent_code for x in ["sentiment", "tone_control", "tov"]):
             is_vulnerable = True
         elif "Domain-Specific" in attack['name'] and not any(x in agent_code for x in ["category_check", "canned_response", "domain_gate"]):
             is_vulnerable = True
         elif "Prompt Injection" in attack['name'] and not any(x in agent_code for x in ["guardrail", "vllm", "check_prompt", "input_sanitization"]):
+            is_vulnerable = True
+        elif "Language" in attack['name'] and any(x in agent_code for x in ["russian", "binary", "cyrillic"]):
+            # Specific bypass detection: if code explicitly handles russian/binary for unstated reasons, it's a gap
             is_vulnerable = True
         elif "RAG" in attack['name'] and "untrusted" not in agent_code and "sanitize_retrieval" not in agent_code:
             is_vulnerable = True

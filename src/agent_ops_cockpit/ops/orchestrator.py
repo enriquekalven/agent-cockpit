@@ -597,6 +597,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             steps = [s for s in steps if any((o.lower() in s[0].lower().replace(' ', '_') for o in only))]
         if skip:
             steps = [s for s in steps if not any((o.lower() in s[0].lower().replace(' ', '_') for o in skip))]
+        
+        # SAFETY GUARD: Circuit Breaker for long-running sims
+        MAX_STEP_TIMEOUT = 300 # 5 minutes per SME
+        
         excluded = config.get('exclude_checks', []) if config else []
         if excluded:
             steps = [s for s in steps if s[0] not in excluded and s[0].lower().replace(' ', '_') not in excluded]

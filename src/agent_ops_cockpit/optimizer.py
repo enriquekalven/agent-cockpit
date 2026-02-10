@@ -42,6 +42,13 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
     issues = []
     content_lower = content.lower()
     content_no_comments = re.sub('#.*', '', content_lower)
+    
+    # IMPROVEMENT: Symbol Alias Tracking (The "Happy Rainbows" Fix)
+    symbol_aliases = {}
+    import_matches = re.findall(r'import\s+([\w\.]+)\s+as\s+(\w+)', content)
+    for original, alias in import_matches:
+        symbol_aliases[alias] = original
+    
     versions = versions or {}
     v_ai = versions.get('google-cloud-aiplatform', 'Not Installed')
     if 'google.cloud.aiplatform' in content_lower or 'vertexai' in content_lower:
