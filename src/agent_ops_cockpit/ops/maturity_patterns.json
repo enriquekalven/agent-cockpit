@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-02-09T11:27:45.370952",
-  "version": "1.4.0209",
+  "last_updated": "2026-02-10T11:27:51.783490",
+  "version": "1.4.0210",
   "patterns": [
     {
       "id": "MP-001",
@@ -335,7 +335,7 @@
       "component_a": "google-adk",
       "component_b": "pyautogen",
       "status": "INCOMPATIBLE",
-      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration."
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration. Pair with Agent Starter Pack for tracing, observability, and logging best practices."
     }
   ]
 }
