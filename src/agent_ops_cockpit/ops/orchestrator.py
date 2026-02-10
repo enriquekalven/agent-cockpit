@@ -632,57 +632,80 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 name, success = future.result()
     orchestrator.title = title
     orchestrator.generate_report()
-    if apply_fixes or dry_run:
-        from .remediator import CodeRemediator
-        from .auditors.base import AuditFinding
-        from rich.syntax import Syntax
-        remediators = {}
-        for name, data in orchestrator.results.items():
-            if data['output']:
-                lines = data['output'].split('\n')
-                for i, line in enumerate(lines):
-                    if 'ACTION:' in line:
-                        action_data = line.replace('ACTION:', '').strip()
-                        if not action_data and i + 1 < len(lines):
-                            action_data = lines[i + 1].strip()
-                        parts = action_data.split(' | ')
-                        if len(parts) >= 2:
-                            file_info = parts[0].split(':')
-                            file_path = file_info[0]
-                            line_num = int(file_info[1]) if len(file_info) > 1 and file_info[1].isdigit() else 1
-                            title = parts[1]
-                            desc = parts[2] if len(parts) > 2 else ''
-                            if not file_path.endswith('.py'):
-                                continue
-                            full_path = file_path
-                            if not os.path.isabs(full_path):
-                                full_path = os.path.abspath(os.path.join(target_path, file_path))
-                            if not os.path.exists(full_path):
-                                continue
-                            if full_path not in remediators:
-                                remediators[full_path] = CodeRemediator(full_path)
-                            remediator = remediators[full_path]
-                            if 'Resiliency' in title or 'Backoff' in title:
-                                remediator.apply_resiliency(AuditFinding(category='🧗 Reliability', title=title, description=desc, impact='High', roi='High', line_number=line_num))
-                            elif 'Timeout' in title or 'Zombie' in title:
-                                remediator.apply_timeouts(AuditFinding(category='🧗 Reliability', title=title, description=desc, impact='Medium', roi='Medium', line_number=line_num))
-                            elif 'Caching' in title:
-                                remediator.apply_caching(AuditFinding(category='💰 FinOps', title=title, description=desc, impact='High', roi='High', line_number=line_num))
-                            elif 'Hardening' in title:
-                                remediator.apply_tool_hardening(AuditFinding(category='🧗 Reliability', title=title, description=desc, impact='High', roi='High', line_number=line_num))
-                            elif 'Compaction' in title:
-                                remediator.apply_context_compaction(AuditFinding(category='💰 FinOps', title=title, description=desc, impact='Medium', roi='Medium', line_number=line_num))
-        for full_path, remediator in remediators.items():
-            diff = remediator.get_diff()
-            if diff:
-                console.print(Panel(Syntax(diff, 'diff', theme='monokai', line_numbers=True), title=f'🔍 PROPOSED CHANGES: {full_path}', border_style='cyan'))
-                if dry_run:
-                    console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {full_path}[/yellow]')
-                else:
-                    patch_path = remediator.save_patch()
-                    console.print(f"✨ [bold green]Patch generated:[/bold green] {patch_path}")
-                    console.print(f"👉 [bold yellow]Review with:[/bold yellow] [white]agent-ops workbench --path {target_path}[/white]\n")
     return orchestrator.get_exit_code()
+
+@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+def run_autonomous_evolution(target_path: str='.', branch: bool=True):
+    """
+    10X Feature #2: The 'PR Closer'.
+    Automatically scans, fixes, and commits changes to a new branch.
+    """
+    console.print(Panel.fit("🤖 [bold green]TRINITY AUTONOMOUS EVOLUTION[/bold green]\nTarget: [dim]{target_path}[/dim]", border_style="green"))
+    
+    # 1. Run the audit to gather findings
+    run_audit(mode='quick', target_path=target_path)
+    # The run_audit function doesn't return the orchestrator, so we need a secondary instance
+    # OR better: run_audit already populates the evidence lake.
+    orchestrator = CockpitOrchestrator()
+    
+    from .remediator import CodeRemediator
+    from .auditors.base import AuditFinding
+    
+    remediators = {}
+    applied_count = 0
+    branches = []
+    
+    # Load results from the evidence lake
+    target_abs = os.path.abspath(target_path)
+    agent_hash = hashlib.md5(target_abs.encode()).hexdigest()
+    partition_path = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash, 'latest.json')
+    
+    if os.path.exists(partition_path):
+        with open(partition_path, 'r') as f:
+            source_data = json.load(f)
+            orchestrator.results = source_data.get('results', {})
+    
+    for name, data in orchestrator.results.items():
+        if data['output']:
+            for line in data['output'].split('\n'):
+                if 'ACTION:' in line:
+                    parts = line.replace('ACTION:', '').strip().split(' | ')
+                    if len(parts) >= 2:
+                        file_path = parts[0].split(':')[0]
+                        line_num = int(parts[0].split(':')[1]) if ':' in parts[0] else 1
+                        title = parts[1]
+                        
+                        full_path = os.path.abspath(os.path.join(target_path, file_path))
+                        if not os.path.exists(full_path) or not os.path.isfile(full_path): continue
+                        
+                        if full_path not in remediators:
+                            remediators[full_path] = CodeRemediator(full_path)
+                        
+                        rem = remediators[full_path]
+                        # Apply specialized logic
+                        if 'Resiliency' in title or 'Backoff' in title:
+                            rem.apply_resiliency(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                            applied_count += 1
+                        elif 'Timeout' in title or 'Zombie' in title:
+                            rem.apply_timeouts(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                            applied_count += 1
+    
+    for path, rem in remediators.items():
+        if branch:
+            b_name = rem.save_to_branch()
+            if b_name: branches.append(b_name)
+        else:
+            rem.save()
+            
+    if branches:
+        console.print(f"✅ [bold green]Evolution Complete![/bold green] Created {len(branches)} autonomous hardening branches.")
+        for b in branches: console.print(f"👉 [cyan]Draft PR ready on branch: {b}[/cyan]")
+    elif applied_count > 0:
+        console.print(f"✅ [bold green]Evolution Complete![/bold green] Applied {applied_count} surgical fixes to code.")
+    else:
+        console.print("✨ [bold blue]No critical gaps found. Agent is already evolved.[/bold blue]")
+    
+    return True
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, apply_fixes: bool=False, dry_run: bool=False, only: list=None, skip: list=None):

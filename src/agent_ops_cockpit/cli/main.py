@@ -122,12 +122,22 @@ def red_team(agent_path: str=typer.Argument('src/agent_ops_cockpit/agent.py', he
     red_mod.audit(agent_path)
 
 @app.command()
-def load_test(url: str=typer.Option('http://localhost:8000/agent/query?q=healthcheck', help='URL to stress test'), requests: int=typer.Option(50, help='Total number of requests'), concurrency: int=typer.Option(5, help='Number of Concurrent Users')) -> None:
+def shadow(base: str=typer.Argument(..., help="Path to base agent/report"), candidate: str=typer.Argument(..., help="Path to candidate agent/report")):
     """
-    Stress test agent endpoints for performance and reliability.
+    [10X] Shadow Mode: Differential reasoning analysis.
+    Compare V1 vs V2 to detect reasoning drift and performance delta.
     """
-    console.print('⚡ [bold yellow]Launching Base Load Test...[/bold yellow]')
-    load_mod.run(url, requests, concurrency)
+    from agent_ops_cockpit.ops import shadow as shadow_mod
+    runner = shadow_mod.ShadowRunner(base, candidate)
+    runner.run_differential()
+
+@app.command()
+def evolve(path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace'), branch: bool=typer.Option(True, '--branch/--no-branch', help='Create a new git branch for the fixes')):
+    """
+    [10X] Autonomous Evolution: The 'PR Closer'.
+    Surgically fixes detected gaps and creates a hardened deployment branch.
+    """
+    orch_mod.run_autonomous_evolution(path, branch=branch)
 
 @app.command()
 def mcp_server():

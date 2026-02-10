@@ -101,7 +101,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
     if "REJECTED" in safe_query:
         return A2UISurface(surfaceId='safety-block', content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
 
-    await resilient_db_call({'id': session_id, 'query': safe_query})
+    await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
     
     # RAG Logic: retrieval and grounding
     # Markers: pinecone, chromadb, alloydb, vector, retrieval, rag, grpc
