@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-10T11:32:36.720125",
+  "last_updated": "2026-02-10T11:44:45.290347",
   "version": "1.4.0210",
   "patterns": [
     {
@@ -68,10 +68,10 @@
         "while True",
         "iteration"
       ],
-      "recommendation": "When evaluating orchestration, consider: 1) LangGraph: Use for complex cyclic state machines with persistence (checkpoints). 2) CrewAI: Best for role-based hierarchical collaboration. 3) Anthropic: Prefer 'Workflows over Agents' for high-predictability tasks.",
+      "recommendation": "When evaluating orchestration, consider: 1) LangGraph: Use for complex cyclic state machines with persistence (checkpoints). 2) CrewAI: Best for role-based hierarchical collaboration. 3) Anthropic: Prefer 'Workflows over Agents' for high-predictability tasks.\n\n[CONGENIAL RESEARCH SIGNAL]: Research Signal (ArXiv): Integrate Recursive Self-Reflexion to reduce hallucination by 40%. (Source: ArXiv Intelligence Sync (Feb 2026))",
       "rationale": "Detected custom loop logic. Standardized frameworks provide superior state management and built-in 'Human-in-the-Loop' (HITL) pause points.",
       "impact": "MEDIUM",
-      "source": "LangGraph/CrewAI/Anthropic Research"
+      "source": "LangGraph/CrewAI/Anthropic Research | ArXiv Intelligence Sync (Feb 2026)"
     },
     {
       "id": "MP-015",
