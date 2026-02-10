@@ -97,12 +97,13 @@
       "component": "google-adk",
       "works_well_with": [
         "langgraph",
-        "mcp"
+        "mcp",
+        "agent-starter-pack"
       ],
       "incompatible_with": [
         "pyautogen"
       ],
-      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration."
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration. Pair with Agent Starter Pack for tracing, observability, and logging best practices."
     },
     {
       "component": "mcp",

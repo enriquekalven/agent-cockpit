@@ -61,6 +61,10 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
                     issues.append(OptimizationIssue('vertex_upgrade_path', 'Modernization Path', 'HIGH', '90% cost savings', 'Upgrading to 1.70.0+ enables near-instant token reuse via CachingConfig.', '+ # Upgrade to >1.70.0', package='google-cloud-aiplatform'))
                 elif 'cache' not in content_lower:
                     issues.append(OptimizationIssue('context_caching', 'Enable Context Caching', 'HIGH', '90% cost reduction', 'Large model context detected. Use native CachingConfig.', '+ cache = vertexai.preview.CachingConfig(ttl=3600)', package='google-cloud-aiplatform'))
+                
+                # NEW: Observability/Tracing Recommendation
+                if 'trace' not in content_lower and 'otel' not in content_lower:
+                    issues.append(OptimizationIssue('gcp_observability', 'Observability: Agent Starter Pack', 'HIGH', 'SRE: Deep Tracing', 'Google Cloud agents require structured tracing. Use Agent Starter Pack patterns for OpenTelemetry/Cloud Trace integration.', '+ from agent_starter_pack import tracing # Use ASP for observability', package='agent-starter-pack'))
             except Exception:
                 pass
     openai_v = versions.get('openai', 'Not Installed')
