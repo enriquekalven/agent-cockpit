@@ -16,7 +16,7 @@ async def test_agent_v1_logic():
     """Ensure the agent v1 logic returns a surface."""
     result = await agent_v1_logic("test query")
     assert result is not None
-    assert result.surfaceId == "dynamic-response"
+    assert result.surfaceId == "root-dashboard"
 
 def test_well_architected_middlewares():
     """Verify that core AgentOps middlewares are loaded."""

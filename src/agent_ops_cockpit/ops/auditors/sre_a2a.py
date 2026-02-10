@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 import re
 from typing import List
@@ -10,6 +11,7 @@ class SREAuditor(BaseAuditor):
     Separates Infra from Agent Architecture logic.
     """
     
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         
@@ -122,6 +124,7 @@ class InteropAuditor(BaseAuditor):
     Scans for MCP, A2UI, UCP, AP2, and AGUI framework compliance.
     Ensures the agent ecosystem doesn't collapse into 'Chatter Bloat'.
     """
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         

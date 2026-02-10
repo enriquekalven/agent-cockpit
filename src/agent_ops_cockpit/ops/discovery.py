@@ -10,7 +10,7 @@ class DiscoveryEngine:
     Centralized discovery engine for AgentOps Cockpit.
     Respects .gitignore, handles default exclusions, and identifies the agentic 'brain'.
     """
-    DEFAULT_EXCLUSIONS = {'.git', 'node_modules', 'venv', '.venv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit'}
+    DEFAULT_EXCLUSIONS = {'.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
 
     def __init__(self, root_path: str='.'):
         self.root_path = os.path.abspath(root_path)

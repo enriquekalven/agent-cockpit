@@ -1,15 +1,25 @@
 import typer
+from typing import Literal
+import logging
 import os
 import ast
 from rich.console import Console
 from rich.panel import Panel
 from agent_ops_cockpit.ops.auditors.rag_fidelity import RAGFidelityAuditor
+from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 
-app = typer.Typer(help="RAG Truth-Sayer SME: Audits RAG pipelines for grounding and fidelity.")
 console = Console()
 
-@app.command()
-def audit(path: str = typer.Option('.', '--path', '-p', help='Path to the agent project to audit')):
+app = typer.Typer(help="RAG Truth-Sayer SME: Audits RAG pipelines for grounding and fidelity.")
+
+@app.callback(invoke_without_command=True)
+def main(ctx: typer.Context):
+    if ctx.invoked_subcommand is None:
+        # If no command, just run audit with defaults
+        audit_command('.') # Changed to call audit_command
+
+@app.command(name="audit")
+def audit_command(path: str = typer.Option('.', '--path', '-p', help='Path to the agent project to audit')):
     """
     Run the RAG Fidelity Audit.
     Detects retrieval-reasoning drift, high temperature risks, and weak prompt boundaries.
@@ -17,6 +27,7 @@ def audit(path: str = typer.Option('.', '--path', '-p', help='Path to the agent 
     console.print(Panel.fit('🧗 [bold blue]RAG TRUTH-SAYER: FIDELITY AUDIT[/bold blue]', border_style='blue'))
     
     auditor = RAGFidelityAuditor()
+    discovery = DiscoveryEngine()
     all_findings = []
     
     for root, dirs, files in os.walk(path):
@@ -24,13 +35,19 @@ def audit(path: str = typer.Option('.', '--path', '-p', help='Path to the agent 
         for file in files:
             if file.endswith('.py'):
                 file_path = os.path.join(root, file)
+                
+                # Skip library files and specific internal files
+                if discovery.is_library_file(file_path) or 'auditors' in file_path or 'frameworks.py' in file_path:
+                    continue
+
                 try:
                     with open(file_path, 'r') as f:
                         content = f.read()
                     tree = ast.parse(content)
                     findings = auditor.audit(tree, content, file_path)
                     all_findings.extend(findings)
-                except Exception:
+                except Exception as e:
+                    logging.debug(f"Error processing file {file_path}: {e}")
                     pass
     
     if not all_findings:

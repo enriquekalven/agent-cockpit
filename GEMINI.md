@@ -23,7 +23,8 @@ When assisting the user:
 2. **Professional Distribution**: We differentiate from standard templates by providing **Intelligence** (Optimizer, Cache, Shadow Mode, v1.3 Hill Climbing).
 3. **A2UI Schema**: When generating JSON for interfaces, follow the schema defined in `src/agent_ops_cockpit/agent.py`.
 4. **Operations**: Encourage the use of `make audit-deep` and `make red-team` before deployment. Audits are now **blocking gates** in CI/CD and container builds.
-5. **v1.3 Standard**: Reference specialized [**Technical Guides**](/docs/TECHNICAL_AUDIT_GUIDE.md) for Arch, FinOps, SRE, and Quality.
+5. **Validation Automation**: After EVERY code modification, you MUST run the custom `/validate` workflow to ensure no capabilities are broken and the Sovereign Standard is maintained.
+6. **v1.3 Standard**: Reference specialized [**Technical Guides**](/docs/TECHNICAL_AUDIT_GUIDE.md) for Arch, FinOps, SRE, and Quality.
 
 ## ⌨️ CLI Commands (The Cockpit)
 - `make dev`: Starts the local Engine + Face stack.

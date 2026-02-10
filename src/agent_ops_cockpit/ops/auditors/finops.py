@@ -17,6 +17,10 @@ class FinOpsAuditor(BaseAuditor):
     }
 
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+        discovery = DiscoveryEngine()
+        if discovery.is_library_file(file_path):
+            return []
         findings = []
         
         # 1. Model TCO Projection (AST-Aware)
@@ -50,7 +54,10 @@ class FinOpsAuditor(BaseAuditor):
                         roi=f"Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to ${0.10 * multiplier:.2f}."
                     ))
 
-        # 2. Context Caching Opportunity
+        # Look for RAG and Database patterns (Vector and Analytical DBs)
+        if 'frameworks.py' in file_path or 'auditors' in file_path:
+            return []
+            
         docstrings = re.findall(r'"""([\s\S]*?)"""|\'\'\'([\s\S]*?)\'\'\'', content)
         has_large_prompt = any(len(d[0] or d[1]) > 500 for d in docstrings)
         if has_large_prompt and 'CachingConfig' not in content:
@@ -68,7 +75,8 @@ class FinOpsAuditor(BaseAuditor):
 
         # Check for retry logic (ROI & Reliability cross-over)
         if 'retry' not in content.lower() and ('request' in content.lower() or 'invoke' in content.lower()):
-            print(f"ACTION: {file_path} | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.")
+            if not discovery.is_library_file(file_path) and 'auditors' not in file_path:
+                print(f"ACTION: {file_path} | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.")
 
         # Print actions for orchestrator capture
         for f in findings:

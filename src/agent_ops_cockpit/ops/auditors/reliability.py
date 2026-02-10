@@ -8,6 +8,11 @@ class ReliabilityAuditor(BaseAuditor):
     """
 
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+        discovery = DiscoveryEngine()
+        if discovery.is_library_file(file_path):
+            return []
+            
         findings = []
         for node in ast.walk(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):

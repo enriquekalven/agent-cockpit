@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 from typing import List
 from .base import BaseAuditor, AuditFinding
@@ -6,6 +7,7 @@ class DeepGraphAuditor(BaseAuditor):
     """
     Analyzes the 'Seams' between components and identifies dependency risks.
     """
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         

@@ -9,60 +9,1365 @@
       },
       "results": [
         {
-          "ruleId": "google_api_key",
+          "ruleId": "missing_resiliency_pattern",
           "message": {
-            "text": "Hardcoded secret"
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:10"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py"
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "mock_resiliency",
+          "ruleId": "missing_resiliency_pattern",
           "message": {
-            "text": "Add retry logic"
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:4"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py"
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "mock_timeout",
+          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
           "message": {
-            "text": "Add timeout to async call"
+            "text": "Add a footer link to the mandatory"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:4"
+                  "uri": "src/docs/DocPage.tsx:1"
                 }
               }
             }
           ]
         },
         {
-          "ruleId": "missing_rag_grounding_logic",
+          "ruleId": "prompt_bloat_warning",
           "message": {
-            "text": "Implement citation logic for RAG answers"
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "agent.py:12"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/arch_review.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/dashboard.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/orchestrator.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/arch_review.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/dashboard.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/orchestrator.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large instructional logic detected without CachingConfig."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported interface."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/App.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_branding_(logo)_or_seo_metadata_(og/description)",
+          "message": {
+            "text": "Add meta tags (og:image, description)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/App.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/a2ui/components/lit-component-example.ts:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/docs/DocHome.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ReportSamples.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlightRecorder.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or exported"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/Home.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AgentPulse.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/OperationalJourneys.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_'surfaceid'_mapping",
+          "message": {
+            "text": "Add 'surfaceId' prop to the root component or"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ThemeToggle.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "sovereign_model_migration_opportunity",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "vector_store_evolution_(chroma_db)",
+          "message": {
+            "text": "For enterprise"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot to Model Context"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agent_starter_pack_template_adoption",
+          "message": {
+            "text": "Leverage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "incompatible_duo:_langgraph_+_crewai",
+          "message": {
+            "text": "CrewAI and"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "potential_recursive_agent_loop",
+          "message": {
+            "text": "Detected a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected potential"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "vector_store_evolution_(chroma_db)",
+          "message": {
+            "text": "For enterprise"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot to Model Context Protocol"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agent_starter_pack_template_adoption",
+          "message": {
+            "text": "Leverage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "llamaindex_workflows_(event-driven_reasoning)",
+          "message": {
+            "text": "Adopt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "incompatible_duo:_langgraph_+_crewai",
+          "message": {
+            "text": "CrewAI and"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "zombie_tool_call_detected",
+          "message": {
+            "text": "Async"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:104"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Detected gemini-3-flash usage (SINGLE PASS). Projected TCO over"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "sub-optimal_resource_profile",
+          "message": {
+            "text": "LLM"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "sovereign_model_migration_opportunity",
+          "message": {
+            "text": "Detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "vector_store_evolution_(chroma_db)",
+          "message": {
+            "text": "For enterprise"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot to Model Context"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agent_starter_pack_template_adoption",
+          "message": {
+            "text": "Leverage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "incompatible_duo:_langgraph_+_crewai",
+          "message": {
+            "text": "CrewAI and"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "potential_recursive_agent_loop",
+          "message": {
+            "text": "Detected a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "version_drift_conflict_detected",
+          "message": {
+            "text": "Detected potential"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "hipaa_risk:_potential_unencrypted_ephi",
+          "message": {
+            "text": "Database"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "vector_store_evolution_(chroma_db)",
+          "message": {
+            "text": "For enterprise"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot to Model Context Protocol"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agent_starter_pack_template_adoption",
+          "message": {
+            "text": "Leverage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "llamaindex_workflows_(event-driven_reasoning)",
+          "message": {
+            "text": "Adopt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "incompatible_duo:_langgraph_+_crewai",
+          "message": {
+            "text": "CrewAI and"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "zombie_tool_call_detected",
+          "message": {
+            "text": "Async"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:104"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Detected gemini-3-flash usage (SINGLE PASS). Projected TCO over"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "sub-optimal_resource_profile",
+          "message": {
+            "text": "LLM"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "legacy_rest_vs_mcp",
+          "message": {
+            "text": "Pivot"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1"
                 }
               }
             }

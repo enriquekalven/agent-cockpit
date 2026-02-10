@@ -218,6 +218,11 @@ export const DocLayout: React.FC = () => {
               <div className="footer-meta">
                 <span>Last updated: February 2026</span>
                 <span>Caught a bug? <a href="#">Edit this page on GitHub</a></span>
+                <span className="legal-links">
+                  <Link to="/docs/legal">Legal Disclaimer</Link>
+                  <span className="divider">•</span>
+                  <Link to="/docs/privacy">Privacy Policy</Link>
+                </span>
               </div>
               <div className="footer-social">
                 <Github size={20} />
@@ -620,6 +625,16 @@ export const DocLayout: React.FC = () => {
         .footer-meta a {
           color: var(--primary-color);
           text-decoration: none;
+        }
+        .legal-links {
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 500;
+        }
+        .divider {
+          opacity: 0.3;
         }
 
         .footer-social {

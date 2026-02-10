@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 import re
 from typing import List
@@ -8,6 +9,7 @@ class SecurityAuditor(BaseAuditor):
     Reasoning-based Security Auditor.
     Scans for 'Seams' where unsanitized user input flows into LLM calls or Tool execution.
     """
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         

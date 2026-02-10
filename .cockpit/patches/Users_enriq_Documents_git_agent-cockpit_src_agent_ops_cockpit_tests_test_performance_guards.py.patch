@@ -1,0 +1,7 @@
+--- a//Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_performance_guards.py
++++ b//Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_performance_guards.py
+@@ -1,3 +1,4 @@
++from tenacity import retry, wait_exponential, stop_after_attempt
+ import os
+ import subprocess
+ import time

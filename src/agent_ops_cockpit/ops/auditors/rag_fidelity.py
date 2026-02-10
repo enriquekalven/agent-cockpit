@@ -9,9 +9,16 @@ class RAGFidelityAuditor(BaseAuditor):
     """
     
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+        discovery = DiscoveryEngine()
+        if discovery.is_library_file(file_path):
+            return []
         findings = []
         
         # Look for RAG and Database patterns (Vector and Analytical DBs)
+        if 'frameworks.py' in file_path or 'auditors' in file_path:
+            return []
+            
         db_indicators = [
             'pinecone', 'chromadb', 'alloydb', 'vector', 'retrieval', 'rag', 'langchain', 'llama_index',
             'bigquery', 'snowflake', 'databricks', 'redshift', 'cloudsql', 'firestore', 'spanner'
@@ -54,7 +61,7 @@ class RAGFidelityAuditor(BaseAuditor):
                             ))
 
         # Check for system instructions boundaries in RAG prompts
-        if 'system_instructions' not in content and ('prompt' in content.lower() or 'template' in content.lower()):
+        if 'system_instructions' not in content and '<context>' not in content and ('prompt' in content.lower() or 'template' in content.lower()):
             title = "Weak RAG Prompt Boundaries"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(

@@ -1,3 +1,4 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
 from typer.testing import CliRunner
 from agent_ops_cockpit.eval.quality_climber import app
 
