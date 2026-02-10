@@ -73,7 +73,9 @@ graph TD
 ## 🕹️ v1.4.4: The "Sovereign Evolution" Release (NEW)
 Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.4 Release Notes**](/CHANGELOG.md).
 
-- **🛡️ Validation Automation**: Integrated `/validate` workflow to enforce 100% SME approval and regression safety after every change.
+- **🛡️ Validation Automation**: Integrated `/validate` workflow to enforce 100% SME approval and regression safety.
+- **🧗 Autonomous Evolution (10X)**: The "PR Closer" mode. Surgically fixes detected gaps and creates a hardened deployment branch automatically.
+- **🕵️ Shadow Mode (10X)**: Differential reasoning analysis to detect drift, latency, and cost delta between agent versions.
 - **🧗 Atomic RAG & Hardening**: Restricted retrieval context to top 5 results to maximize reasoning density and prevent token bloat.
 - **🛠️ Poka-Yoke Tooling**: Hardened tool schemas using `Literal` types to "mistake-proof" agentic tool calling.
 - **💰 SME Consensus 2.0**: Unified approval engine requiring a unanimous "Sovereign Standard" from all 11 Principal SMEs.

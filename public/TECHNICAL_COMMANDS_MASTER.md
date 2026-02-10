@@ -35,6 +35,8 @@ Commands focusing on systemic integrity, autonomous remediation, and long-term s
 | `make arch-review` | **Autonomous Scan** | v1.4: Maturity Wisdom Store (Multi-Cloud Patterns) scan. |
 | `make arch-review-export` | **Impact Waterfall** | Generates the premium v1.1 HTML Architecture Report. |
 | `make apply-fixes` | **Autonomous Evolution** | (v1.4) Triggers AST-based code patches for detected gaps. |
+| `agent-ops evolve` | **PR Closer (10X)** | Surgically fixes gaps and creates a hardened Git branch. |
+| `agent-ops shadow` | **Reasoning Differential** | (10X) Compare V1 vs V2 for reasoning drift and cost delta. |
 | `make propose-fixes`| **PR Factory** | Creates a feature branch and commits autonomous remediations. |
 | `make arch-benchmark`| **Reliability Test** | Runs 50+ iterations to find the mean failure rate of agentic logic. |
 
