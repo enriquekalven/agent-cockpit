@@ -107,22 +107,65 @@ export const Grid: React.FC<{ children: React.ReactNode; cols?: number }> = ({ c
 };
 
 export const Visual: React.FC<{ type: 'radar' | 'map' | 'roi'; data: any }> = ({ type, data }) => {
-  // Simplified high-fidelity visualization placeholders
   if (type === 'map') {
     return (
-      <div className="h-64 w-full bg-slate-950/50 rounded-2xl border border-slate-800 relative overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/world-map.png')] bg-center bg-no-repeat bg-contain" />
-        <div className="relative z-10 flex gap-4">
-          {data?.points?.map((p: any, i: number) => (
+      <div className="h-[450px] w-full bg-slate-950 rounded-3xl border border-slate-800 relative overflow-hidden group shadow-2xl">
+        {/* Futuristic Map Layer */}
+        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none" />
+        <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/world-map.png')] bg-center bg-no-repeat bg-contain filter invert opacity-20" />
+
+        {/* Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.1)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+        {/* High-Fidelity Bubble Heads */}
+        <div className="relative w-full h-full">
+          {data?.agents?.map((agent: any, i: number) => (
             <motion.div
               key={i}
-              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-              transition={{ repeat: Infinity, duration: 2, delay: i * 0.5 }}
-              className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)]"
-            />
+               initial={{ scale: 0, opacity: 0 }}
+               animate={{ scale: 1, opacity: 1 }}
+               transition={{ delay: i * 0.2, type: 'spring', stiffness: 260, damping: 20 }}
+               className="absolute"
+               style={{ top: `${agent.y}%`, left: `${agent.x}%` }}
+             >
+               <div className="relative group/head">
+                 <motion.div
+                   animate={{ scale: [1, 1.1, 1] }}
+                   transition={{ repeat: Infinity, duration: 4, delay: i }}
+                   className="relative z-10 w-12 h-12 rounded-full border-2 border-blue-500/50 p-0.5 shadow-[0_0_20px_rgba(59,130,246,0.5)] overflow-hidden cursor-pointer bg-slate-900"
+                 >
+                   <img src={agent.avatar} alt="Agent" className="w-full h-full object-cover rounded-full" />
+                 </motion.div>
+
+                 {/* Status Ring */}
+                 <div className="absolute inset-0 -m-1 rounded-full border border-blue-400/30 animate-ping pointer-events-none" />
+
+                 {/* Tooltip/Label */}
+                 <div className="absolute top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover/head:opacity-100 transition-opacity bg-slate-900/90 border border-slate-700 px-3 py-1.5 rounded-lg backdrop-blur-md pointer-events-none whitespace-nowrap z-20">
+                   <p className="text-[10px] font-black text-white leading-none mb-1 uppercase tracking-tighter">{agent.name}</p>
+                   <p className="text-[9px] text-emerald-400 font-mono flex items-center gap-1">
+                     <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                     ACTIVE: {agent.task}
+                   </p>
+                 </div>
+               </div>
+             </motion.div>
            ))}
         </div>
-        <div className="absolute bottom-2 right-4 text-[8px] font-mono text-slate-500 uppercase">Sovereign Global Mesh Active</div>
+
+        {/* Map UI Elements */}
+        <div className="absolute top-6 left-6 flex flex-col gap-2">
+          <div className="px-3 py-1 bg-slate-900/80 border border-slate-700 rounded-lg backdrop-blur-sm">
+            <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest">Sovereign Link Active</span>
+          </div>
+        </div>
+
+        <div className="absolute bottom-6 right-6">
+          <div className="text-[9px] font-mono text-slate-500 uppercase flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]" />
+            Nodes Latency: 42ms
+          </div>
+        </div>
       </div>
     );
   }

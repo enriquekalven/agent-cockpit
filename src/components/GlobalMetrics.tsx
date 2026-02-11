@@ -91,7 +91,19 @@ export const GlobalMetrics: React.FC = () => {
               type: 'Card',
               props: { title: 'Sovereign Mesh Activation' },
               children: [
-                { type: 'Visual', props: { type: 'map', data: { points: [1, 2, 3, 4, 5, 6, 7, 8] } } }
+                {
+                  type: 'Visual',
+                  props: {
+                    type: 'map',
+                    data: {
+                      agents: [
+                        { x: 25, y: 35, avatar: '/avatar_1.png', name: 'Agent-01 (San Francisco)', task: 'Red Team Audit' },
+                        { x: 48, y: 42, avatar: '/avatar_2.png', name: 'Agent-02 (London)', task: 'Token Optimization' },
+                        { x: 75, y: 55, avatar: '/avatar_3.png', name: 'Agent-03 (Singapore)', task: 'RAG Grounding' }
+                      ]
+                    }
+                  }
+                }
               ]
             },
             {
