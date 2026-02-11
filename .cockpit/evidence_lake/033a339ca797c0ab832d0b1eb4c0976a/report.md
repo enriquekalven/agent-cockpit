@@ -1,66 +1,59 @@
 # 🏁 AgentOps Cockpit: QUICK SAFE-BUILD
-**Timestamp**: 2026-02-10 12:59:42
-**Status**: ✅ PASS
+**Timestamp**: 2026-02-10 16:24:36
+**Status**: ❌ FAIL
 
 ---
-## 👔 Principal SME Executive Summary (TLDR: 100.0%)
+## 👔 Principal SME Executive Summary (TLDR: 87.5%)
 Findings are prioritized by Business Impact & Blast Radius.
 
 ### 🟥 Priority 1: 🔥 Critical Security & Compliance (Action Required)
-- **SOC2 Control**: 
-- **Potential**: 
-- **Missing 5th**: 
+- **Found Azure OpenAI Key leak**: Move this credential to
 
 ### 🟨 Priority 2: 🛡️ Reliability & Resilience (Stability)
-- **SOC2**: 
-- **Missing**: 
-- **Legacy**: 
+- **Reliability Failure**: Resolve falling
 
 ### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)
-- **Missing Legal Disclaimer or Privacy Policy link**: Add a footer link to the mandatory
+- **Missing Legal Disclaimer or Privacy Policy link**: Add a
 - **Prompt Bloat Warning**: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-- **Architectural Prompt Bloat**: Massive
-
-### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)
-- **Optimization: Externalize System**: 
-- **Optimization: Pinecone Namespace**: 
-- **High**: 
 
 ### ⬜ Priority 5: 🎭 Experience & Minor Refinements
-- **Missing 'surfaceId' mapping**: Add 'surfaceId' prop to the root component or exported interface.
-- **Missing Branding (Logo) or SEO Metadata (OG/Description)**: Add meta tags (og:image, description)
-- **Inference Cost Projection (gemini-3-pro)**: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
+- **Missing 'surfaceId' mapping**: Add 'surfaceId' prop to the root
+- **Missing Branding (Logo) or SEO Metadata (OG/Description)**: Add
+- **Missing 'surfaceId' mapping |**: 
 
 ---
 
 ## 🧑‍💼 Principal SME Persona Approvals
 Each pillar of your agent has been reviewed by a specialized SME persona.
-- **⚖️ Governance & Compliance SME** ([Policy Enforcement]): ✅ APPROVED
-- **🚩 Red Team Principal (White-Hat)** ([Red Team Security (Full)]): ✅ APPROVED
+- **🚩 Security Architect** ([Red Team (Fast)]): ✅ APPROVED
 - **💰 FinOps Principal Architect** ([Token Optimization]): ✅ APPROVED
-- **🔐 SecOps Principal** ([Secret Scanner]): ✅ APPROVED
+- **⚖️ Governance & Compliance SME** ([Policy Enforcement]): ✅ APPROVED
 - **🧗 RAG Quality Principal** ([RAG Fidelity Audit]): ✅ APPROVED
-- **🚀 SRE & Performance Principal** ([Load Test (Baseline)]): ✅ APPROVED
+- **🛡️ QA & Reliability Principal** ([Reliability (Quick)]): ✅ APPROVED
+- **🔐 SecOps Principal** ([Secret Scanner]): ❌ REJECTED [Remediation: ⚡ 1-Click (Env Var)]
 - **🎭 UX/UI Principal Designer** ([Face Auditor]): ✅ APPROVED
 - **🏛️ Principal Platform Engineer** ([Architecture Review]): ✅ APPROVED
-- **📜 Legal & Transparency SME** ([Evidence Packing Audit]): ✅ APPROVED
-- **🛡️ QA & Reliability Principal** ([Reliability (Quick)]): ✅ APPROVED
-- **🧗 AI Quality SME** ([Quality Hill Climbing]): ✅ APPROVED
 
 ## 🚀 Step-by-Step Implementation Guide
 To transition this agent to production-hardened status, follow these prioritized phases:
 
 ### 🛡️ Phase 1: Security Hardening
+1. **Found Azure OpenAI Key leak**
+   - 📍 Location: `public/fleet_data.json:5`
+   - ✨ Recommended Fix: Move this credential to
+1. **Found Azure OpenAI Key leak**
+   - 📍 Location: `public/fleet_data.json:48`
+   - ✨ Recommended Fix: Move this credential
 
 ### 🛡️ Phase 2: Reliability Recovery
 1. **Reliability Failure**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit`
-   - ✨ Recommended Fix: Resolve falling unit tests to ensure agent
+   - ✨ Recommended Fix: Resolve falling
 
 ### 🏗️ Phase 3: Architectural Alignment
 1. **Missing Legal Disclaimer or Privacy Policy link**
    - 📍 Location: `src/docs/DocPage.tsx:1`
-   - ✨ Recommended Fix: Add a footer link to the mandatory
+   - ✨ Recommended Fix: Add a
 1. **Prompt Bloat Warning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py`
    - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
@@ -73,88 +66,53 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Prompt Bloat Warning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/orchestrator.py`
    - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-1. **Architectural Prompt Bloat**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1`
-   - ✨ Recommended Fix: Massive
 1. **Prompt Bloat Warning**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
+   - ✨ Recommended Fix: Large instructional logic detected without
 1. **Prompt Bloat Warning**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
+   - ✨ Recommended Fix: Large instructional logic detected without
 1. **Prompt Bloat Warning**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
+   - ✨ Recommended Fix: Large instructional logic detected without
 1. **Prompt Bloat Warning**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py`
-   - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/arch_review.py`
-   - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/dashboard.py`
-   - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/orchestrator.py`
-   - ✨ Recommended Fix: Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%.
-1. **Architectural Prompt Bloat**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1`
-   - ✨ Recommended Fix: Massive
-1. **Prompt Bloat Warning**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
-1. **Prompt Bloat Warning**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Large instructional logic detected without CachingConfig.
-
-### 💰 Phase 4: FinOps Optimization
+   - ✨ Recommended Fix: Large instructional logic detected without
 
 ### 🎭 Phase 5: Experience Refinement
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/App.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported interface.
+   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
 1. **Missing Branding (Logo) or SEO Metadata (OG/Description)**
    - 📍 Location: `src/App.tsx:1`
-   - ✨ Recommended Fix: Add meta tags (og:image, description)
-1. **Missing 'surfaceId' mapping**
-   - 📍 Location: `src/a2ui/components/lit-component-example.ts:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
+   - ✨ Recommended Fix: Add
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/docs/DocPage.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported
+   - ✨ Recommended Fix: Add 'surfaceId' prop to
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/docs/DocLayout.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported
+   - ✨ Recommended Fix: Add 'surfaceId' prop to
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/docs/DocHome.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported
+   - ✨ Recommended Fix: Add 'surfaceId' prop to
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/ReportSamples.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
+   - ✨ Recommended Fix: Add
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/FlightRecorder.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
+   - ✨ Recommended Fix: Add
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/Home.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or exported
+   - ✨ Recommended Fix: Add 'surfaceId' prop
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/AgentPulse.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
+   - ✨ Recommended Fix: Add 'surfaceId'
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/OperationalJourneys.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root
+   - ✨ Recommended Fix: Add
 1. **Missing 'surfaceId' mapping**
    - 📍 Location: `src/components/ThemeToggle.tsx:1`
-   - ✨ Recommended Fix: Add 'surfaceId' prop to the root component or
+   - ✨ Recommended Fix: Add 'surfaceId'
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py`
    - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
@@ -164,165 +122,15 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Inference Cost Projection (gemini-3-flash)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py`
    - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Detected
-1. **HIPAA Risk: Potential Unencrypted ePHI**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Database
-1. **Sovereign Model Migration Opportunity**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Detected
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: For enterprise
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Pivot to Model Context
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Implement
-1. **Agent Starter Pack Template Adoption**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Leverage
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: CrewAI and
-1. **SOC2 Control Gap: Missing Transit Logging**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Structural
-1. **Potential Recursive Agent Loop**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Detected a
-1. **Missing 5th Golden Signal (TTFT/Tracing)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Structural
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Detected potential
-1. **HIPAA Risk: Potential Unencrypted ePHI**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Database
-1. **Missing 5th Golden Signal (TTFT/Tracing)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Structural
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: For enterprise
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Pivot to Model Context Protocol
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Implement 5-layer
-1. **Agent Starter Pack Template Adoption**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Leverage
-1. **LlamaIndex Workflows (Event-Driven Reasoning)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Adopt
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: CrewAI and
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M
+   - ✨ Recommended Fix: Detected gemini-3-pro usage
 1. **Inference Cost Projection (gemini-3-pro)**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M
+   - ✨ Recommended Fix: Detected gemini-3-pro usage
 1. **Inference Cost Projection (gemini-3-flash)**
    - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-flash usage (SINGLE PASS). Projected TCO over
-1. **Sub-Optimal Resource Profile**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1`
-   - ✨ Recommended Fix: LLM
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1`
-   - ✨ Recommended Fix: Pivot
-1. **Inference Cost Projection (gemini-3-pro)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py`
-   - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
-1. **Inference Cost Projection (gemini-3-pro)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py`
-   - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
-1. **Inference Cost Projection (gemini-3-flash)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py`
-   - ✨ Recommended Fix: Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Detected
-1. **HIPAA Risk: Potential Unencrypted ePHI**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Database
-1. **Sovereign Model Migration Opportunity**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Detected
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: For enterprise
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Pivot to Model Context
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Implement
-1. **Agent Starter Pack Template Adoption**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: Leverage
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/requirements.txt:1`
-   - ✨ Recommended Fix: CrewAI and
-1. **SOC2 Control Gap: Missing Transit Logging**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Structural
-1. **Potential Recursive Agent Loop**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Detected a
-1. **Missing 5th Golden Signal (TTFT/Tracing)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tenacity.py:1`
-   - ✨ Recommended Fix: Structural
-1. **Version Drift Conflict Detected**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Detected potential
-1. **HIPAA Risk: Potential Unencrypted ePHI**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Database
-1. **Missing 5th Golden Signal (TTFT/Tracing)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Structural
-1. **Vector Store Evolution (Chroma DB)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: For enterprise
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Pivot to Model Context Protocol
-1. **Adversarial Testing (Red Teaming)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Implement 5-layer
-1. **Agent Starter Pack Template Adoption**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Leverage
-1. **LlamaIndex Workflows (Event-Driven Reasoning)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: Adopt
-1. **Incompatible Duo: langgraph + crewai**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
-   - ✨ Recommended Fix: CrewAI and
-1. **Inference Cost Projection (gemini-3-pro)**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M
-1. **Inference Cost Projection (gemini-3-pro)**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-pro usage (SINGLE PASS). Projected TCO over 1M
-1. **Inference Cost Projection (gemini-3-flash)**
-   - 📍 Location: `:1`
-   - ✨ Recommended Fix: Detected gemini-3-flash usage (SINGLE PASS). Projected TCO over
-1. **Sub-Optimal Resource Profile**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1`
-   - ✨ Recommended Fix: LLM
-1. **Legacy REST vs MCP**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1`
-   - ✨ Recommended Fix: Pivot
+   - ✨ Recommended Fix: Detected gemini-3-flash usage
 
 > 💡 **Automation Tip**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory for high-confidence remediations.
 
@@ -332,20 +140,15 @@ To transition this agent to production-hardened status, follow these prioritized
 | Declarative Guardrails | [Official Doc](https://cloud.google.com/architecture/framework/security) | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL |
 
 ## 👔 Executive Risk Scorecard
-✅ Audit baseline established. No critical blockers detected.
+🚨 **Risk Alert**: 1 governance gates REJECTED (including Secret Scanner). Production deployment currently **BLOCKED**.
+
+### 📉 Maturity Velocity: -12.5% Compliance Change
 
 ---
 
 ## 🔍 Raw System Artifacts
 
-### Policy Enforcement
-```text
-SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
-Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
-
-```
-
-### Red Team Security (Full)
+### Red Team (Fast)
 ```text
 ╭───────────────────────────────────────────────╮
 │ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
@@ -406,28 +209,33 @@ Targeting: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.
 
 ### Token Optimization
 ```text
-                                                                                  │
-│ New Monthly Spend: $94.09                                                                                             │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+n (Est. 10k req/mo)                                               │
+│ Current Monthly Spend: $104.55                                                       │
+│ Projected Savings: $10.46                                                            │
+│ New Monthly Spend: $94.09                                                            │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
 
  --- [MEDIUM IMPACT] Externalize System Prompts --- 
 Benefit: Architectural Debt Reduction
-Reason: Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and 
-load dynamically.
-+ with open('system_prompt.md', 'r') as f:                                                                               
-+     SYSTEM_PROMPT = f.read()                                                                                           
-ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | Optimization: Externalize System 
-Prompts | Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and 
-load dynamically. (Est. Architectural Debt Reduction)
+Reason: Keeping large system prompts in code makes them hard to version and test. Move 
+them to 'system_prompt.md' and load dynamically.
++ with open('system_prompt.md', 'r') as f:                                              
++     SYSTEM_PROMPT = f.read()                                                          
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Optimization: Externalize System Prompts | Keeping large system prompts in code makes 
+them hard to version and test. Move them to 'system_prompt.md' and load dynamically. 
+(Est. Architectural Debt Reduction)
 ❌ [REJECTED] skipping optimization.
 
  --- [MEDIUM IMPACT] Pinecone Namespace Isolation --- 
 Benefit: RAG Accuracy Boost
-Reason: No namespaces detected. Use namespaces to isolate user data or document segments for more accurate retrieval.
-+ index.query(..., namespace='customer-a')                                                                               
-ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | Optimization: Pinecone Namespace 
-Isolation | No namespaces detected. Use namespaces to isolate user data or document segments for more accurate retrieval.
-(Est. RAG Accuracy Boost)
+Reason: No namespaces detected. Use namespaces to isolate user data or document segments
+for more accurate retrieval.
++ index.query(..., namespace='customer-a')                                              
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Optimization: Pinecone Namespace Isolation | No namespaces detected. Use namespaces to 
+isolate user data or document segments for more accurate retrieval. (Est. RAG Accuracy 
+Boost)
 ❌ [REJECTED] skipping optimization.
          🎯 AUDIT SUMMARY         
 ┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
@@ -439,12 +247,10 @@ Isolation | No namespaces detected. Use namespaces to isolate user data or docum
 
 ```
 
-### Secret Scanner
+### Policy Enforcement
 ```text
-╭──────────────────────────────────────────────╮
-│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
-╰──────────────────────────────────────────────╯
-✅ PASS: No hardcoded credentials detected in matched patterns.
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
 
 ```
 
@@ -457,47 +263,83 @@ Isolation | No namespaces detected. Use namespaces to isolate user data or docum
 
 ```
 
-### Load Test (Baseline)
+### Reliability (Quick)
 ```text
-🚀 Starting load test on http://localhost:8000/agent/query?q=healthcheck
-Total Requests: 50 | Concurrency: 5
+╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression Suite Coverage...
+                           🛡️ Reliability Status                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Check                      ┃ Status   ┃ Details                          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Core Unit Tests            │ FAILED   │ 1 lines of output                │
+│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
+│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
+└────────────────────────────┴──────────┴──────────────────────────────────┘
 
-  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+❌ Unit test failures detected. Fix them before production deployment.
+```
+/opt/homebrew/opt/python@3.14/bin/python3.14: No module named pytest
+
+```
+ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling
+unit tests to ensure agent regression safety.
+
+```
+
+### Secret Scanner
+```text
+╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+
+🛠️  DEVELOPER ACTIONS REQUIRED:
+ACTION: public/fleet_data.json:5 | Found Azure OpenAI Key leak | Move this credential to
+Google Cloud Secret Manager or .env file.
+ACTION: public/fleet_data.json:48 | Found Azure OpenAI Key leak | Move this credential 
+to Google Cloud Secret Manager or .env file.
 
 
-        📊 Agentic Performance & Load Summary        
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Metric           ┃ Value          ┃ SLA Threshold ┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ Total Requests   │ 50             │ -             │
-│ Throughput (RPS) │ 29443.46 req/s │ > 5.0         │
-│ Success Rate     │ 0.0%           │ > 99%         │
-│ Avg Latency      │ 0.002s         │ < 2.0s        │
-│ Est. TTFT        │ 0.001s         │ < 0.5s        │
-│ p90 Latency      │ 0.005s         │ < 3.5s        │
-│ Total Errors     │ 50             │ 0             │
-└──────────────────┴────────────────┴───────────────┘
+                   🛡️ Security Findings: Hardcoded Secrets                   
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ File                   ┃ Line ┃ Type             ┃ Suggestion             ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ public/fleet_data.json │ 5    │ Azure OpenAI Key │ Move to Secret Manager │
+│ public/fleet_data.json │ 48   │ Azure OpenAI Key │ Move to Secret Manager │
+└────────────────────────┴──────┴──────────────────┴────────────────────────┘
+
+❌ FAIL: Found 2 potential credential leaks.
+💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all 
+tokens.
+
 
 ```
 
 ### Face Auditor
 ```text
-xported interface.      │
-│ src/docs/DocHome.tsx:1                │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/ReportSamples.tsx:1    │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/FlightRecorder.tsx:1   │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/Home.tsx:1             │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/AgentPulse.tsx:1       │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/OperationalJourneys.t… │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-│ src/components/ThemeToggle.tsx:1      │ Missing 'surfaceId' mapping           │ Add 'surfaceId' prop to the root      │
-│                                       │                                       │ component or exported interface.      │
-└───────────────────────────────────────┴───────────────────────────────────────┴───────────────────────────────────────┘
+                │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/ReportSamp… │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/FlightReco… │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/Home.tsx:1  │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/AgentPulse… │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/Operationa… │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+│ src/components/ThemeToggl… │ Missing 'surfaceId'        │ Add 'surfaceId' prop to    │
+│                            │ mapping                    │ the root component or      │
+│                            │                            │ exported interface.        │
+└────────────────────────────┴────────────────────────────┴────────────────────────────┘
 
 💡 UX Principal Recommendation: Your 'Face' layer needs 20% more alignment.
  - Map components to 'surfaceId' to enable agent-driven UI updates.
@@ -506,108 +348,29 @@ xported interface.      │
 
 ### Architecture Review
 ```text
-                                               │
-│ 🗺️ Contextual Graph (Architecture Visualization)                                                                      │
-│                                                                                                                       │
-│                                                                                                                       │
-│  graph TD                                                                                                             │
-│      User[User Input] -->|Unsanitized| Brain[Agent Brain]                                                             │
-│      Brain -->|Tool Call| Tools[MCP Tools]                                                                            │
-│      Tools -->|Query| DB[(Audit Lake)]                                                                                │
-│      Brain -->|Reasoning| Trace(Trace Logs)                                                                           │
-│                                                                                                                       │
-│                                                                                                                       │
-│ 🚀 v1.3 Strategic Recommendations (Autonomous)                                                                        │
-│                                                                                                                       │
-│  1 Context-Aware Patching: Run make apply-fixes to trigger the LLM-Synthesized PR factory.                            │
-│  2 Digital Twin Load Test: Run make simulation-run (Roadmap v1.3) to verify reasoning stability under high latency.   │
-│  3 Multi-Cloud Exit Strategy: Pivot hardcoded IDs to abstraction layers to resolve detected Vendor Lock-in.           │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-```
-
-### Evidence Packing Audit
-```text
-                                               │
-│ 🗺️ Contextual Graph (Architecture Visualization)                                                                      │
-│                                                                                                                       │
-│                                                                                                                       │
-│  graph TD                                                                                                             │
-│      User[User Input] -->|Unsanitized| Brain[Agent Brain]                                                             │
-│      Brain -->|Tool Call| Tools[MCP Tools]                                                                            │
-│      Tools -->|Query| DB[(Audit Lake)]                                                                                │
-│      Brain -->|Reasoning| Trace(Trace Logs)                                                                           │
-│                                                                                                                       │
-│                                                                                                                       │
-│ 🚀 v1.3 Strategic Recommendations (Autonomous)                                                                        │
-│                                                                                                                       │
-│  1 Context-Aware Patching: Run make apply-fixes to trigger the LLM-Synthesized PR factory.                            │
-│  2 Digital Twin Load Test: Run make simulation-run (Roadmap v1.3) to verify reasoning stability under high latency.   │
-│  3 Multi-Cloud Exit Strategy: Pivot hardcoded IDs to abstraction layers to resolve detected Vendor Lock-in.           │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-```
-
-### Reliability (Quick)
-```text
-s/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
-FAILED src/agent_ops_cockpit/tests/test_audit_flow.py::test_dry_run_does_not_modify_files
-FAILED src/agent_ops_cockpit/tests/test_fleet_remediation.py::test_workspace_bulk_fix_apply
-FAILED tests/test_wisdom_integrity.py::test_benchmark_inviolability - FileNot...
-FAILED tests/test_wisdom_integrity.py::test_recommendation_no_loss - FileNotF...
-FAILED tests/test_wisdom_integrity.py::test_consensus_schema_integrity - File...
-================== 56 failed, 109 passed, 1 warning in 1.93s ===================
-
-```
-ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling unit tests to ensure agent 
-regression safety.
-
-```
-
-### Quality Hill Climbing
-```text
-╭─────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
-│ Optimizing Reasoning Density & Tool Trajectory Stability... │
-╰─────────────────────────────────────────────────────────────╯
-
-🎯 Global Peak (90.0%) Reached! Optimization Stabilized.
-  Iteration 10: Probing Gradient... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-                   📈 v1.3 Hill Climbing Optimization History                    
-┏━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━┓
-┃ Iter ┃ Consensus Score ┃ Trajectory ┃ Reasoning Density ┃   Status   ┃  Delta ┃
-┡━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━┩
-│  1   │           89.9% │     100.0% │       0.55 Q/kTok │ PEAK FOUND │ +14.9% │
-│  2   │           89.2% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -0.7% │
-│  3   │           89.5% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.4% │
-│  4   │           89.7% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.1% │
-│  5   │           89.3% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -0.6% │
-│  6   │           88.8% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -1.1% │
-│  7   │           89.5% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.4% │
-│  8   │           89.5% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.4% │
-│  9   │           88.6% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -1.3% │
-│  10  │           90.3% │     100.0% │       0.55 Q/kTok │ PEAK FOUND │  +0.4% │
-└──────┴─────────────────┴────────────┴───────────────────┴────────────┴────────┘
-
-✅ SUCCESS: High-fidelity agent stabilized at the 90.3% quality peak.
-🚀 Mathematical baseline verified. Safe for production deployment.
+                                          │
+│  • Projected Inference TCO: HIGH (Based on 1M token utilization curve).              │
+│  • Compliance Alignment: 🚨 NON-COMPLIANT (Mapped to NIST AI RMF / HIPAA).           │
+│                                                                                      │
+│ 🗺️ Contextual Graph (Architecture Visualization)                                     │
+│                                                                                      │
+│                                                                                      │
+│  graph TD                                                                            │
+│      User[User Input] -->|Unsanitized| Brain[Agent Brain]                            │
+│      Brain -->|Tool Call| Tools[MCP Tools]                                           │
+│      Tools -->|Query| DB[(Audit Lake)]                                               │
+│      Brain -->|Reasoning| Trace(Trace Logs)                                          │
+│                                                                                      │
+│                                                                                      │
+│ 🚀 v1.3 Strategic Recommendations (Autonomous)                                       │
+│                                                                                      │
+│  1 Context-Aware Patching: Run make apply-fixes to trigger the LLM-Synthesized PR    │
+│    factory.                                                                          │
+│  2 Digital Twin Load Test: Run make simulation-run (Roadmap v1.3) to verify          │
+│    reasoning stability under high latency.                                           │
+│  3 Multi-Cloud Exit Strategy: Pivot hardcoded IDs to abstraction layers to resolve   │
+│    detected Vendor Lock-in.                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 ```
 
