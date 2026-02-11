@@ -14,7 +14,7 @@ class TelemetryManager:
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    TELEMETRY_ENDPOINT = "https://agent-cockpit.web.app/telemetry/event"
+    TELEMETRY_ENDPOINT = "https://agent-engine-697625214430.us-central1.run.app/telemetry/event"
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
     
     def __init__(self):
@@ -103,8 +103,7 @@ class TelemetryManager:
         """
         import requests
         try:
-            # In a real CLI we'd use aiohttp, but Typer is often sync-friendly
-            r = requests.get("https://agent-cockpit.web.app/telemetry/dashboard", timeout=5)
+            r = requests.get("https://agent-engine-697625214430.us-central1.run.app/telemetry/dashboard", timeout=5)
             if r.status_code == 200:
                 return r.json()
         except Exception:

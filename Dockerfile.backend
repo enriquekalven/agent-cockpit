@@ -3,13 +3,18 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install dependencies separately for caching
-RUN pip install fastapi uvicorn pydantic vertexai google-cloud-aiplatform google-cloud-logging google-cloud-trace
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir fastapi uvicorn pydantic vertexai google-cloud-aiplatform google-cloud-logging google-cloud-trace
 
 # Copy the source code
 COPY src/ ./src/
 
-# Set the working directory to where the code is
+# Set the working directory to the parent of the package
 WORKDIR /app/src
 
-# Run with uvicorn for better port handling and module resolution
-CMD ["uvicorn", "backend.agent:app", "--host", "0.0.0.0", "--port", "8080"]
+# Set PYTHONPATH to include the current directory
+ENV PYTHONPATH=/app/src
+
+# Run with uvicorn, ensuring we listen on the port Cloud Run expects
+CMD ["sh", "-c", "uvicorn agent_ops_cockpit.agent:app --host 0.0.0.0 --port ${PORT:-8080}"]

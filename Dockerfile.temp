@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies separately for caching
+RUN pip install fastapi uvicorn pydantic vertexai google-cloud-aiplatform google-cloud-logging google-cloud-trace
+
+# Copy the source code
+COPY src/ ./src/
+
+# Set the working directory to where the code is
+WORKDIR /app/src
+
+# Run with uvicorn for better port handling and module resolution
+CMD ["uvicorn", "backend.agent:app", "--host", "0.0.0.0", "--port", "8080"]

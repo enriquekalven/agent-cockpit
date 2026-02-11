@@ -7,7 +7,7 @@ export const GlobalMetrics: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/telemetry/dashboard')
+    fetch('https://agent-engine-697625214430.us-central1.run.app/telemetry/dashboard')
       .then(res => res.json())
       .then(data => {
         setFleetData(data);
