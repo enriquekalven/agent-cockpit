@@ -311,7 +311,7 @@ def watch():
     """
     watch_mod.run_watch()
 
-@app.command(name="telemetry")
+@app.command(name="telemetry", hidden=True)
 def telemetry_cmd(admin: bool = typer.Option(False, "--admin", help="Show administrative global metrics")):
     """
     View usage metrics and fleet health.
