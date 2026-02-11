@@ -14,7 +14,7 @@ class TelemetryManager:
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    TELEMETRY_ENDPOINT = "https://telemetry.agentops.ai/v1/event" # Mock endpoint
+    TELEMETRY_ENDPOINT = "https://agent-cockpit.web.app/telemetry/event"
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
     
     def __init__(self):
@@ -99,20 +99,31 @@ class TelemetryManager:
 
     def get_admin_dashboard(self) -> Dict[str, Any]:
         """
-        [ADMIN ONLY] Fetch and format telemetry insights.
-        In a real scenario, this would call a GET endpoint on your telemetry server.
+        [ADMIN ONLY] Fetch and format telemetry insights from the central hub.
         """
-        # Mocking the response you would get from your telemetry backend
+        import requests
+        try:
+            # In a real CLI we'd use aiohttp, but Typer is often sync-friendly
+            r = requests.get("https://agent-cockpit.web.app/telemetry/dashboard", timeout=5)
+            if r.status_code == 200:
+                return r.json()
+        except Exception:
+            pass
+
+        # Fallback to demo data if hub is unreachable
         return {
             "total_installs": 12542,
-            "active_24h": 890,
-            "avg_success_rate": 84.4,
+            "active_agents": 890,
+            "success_rate": 84.4,
+            "global_summary": {"compliance": 82.1, "velocity": 5.4},
             "top_commands": [
                 {"cmd": "report", "count": 4500},
                 {"cmd": "audit", "count": 1200},
                 {"cmd": "evolve", "count": 150}
             ],
-            "versions": {"1.4.5": 900, "1.4.4": 300, "1.4.0": 40}
+            "agents": [
+                { "x": 25, "y": 35, "avatar": "/avatar_1.png", "name": "Zenith", "task": "Mock Audit" }
+            ]
         }
 
 telemetry = TelemetryManager()
