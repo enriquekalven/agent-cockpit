@@ -152,6 +152,26 @@ The Cockpit serves as the final gate before production deployment. `make deploy-
 
 ---
 
+---
+
+## 🛡️ Privacy & Telemetry
+The AgentOps Cockpit follows a **Privacy-First, Sovereign Standard**. 
+
+By default, the CLI sends anonymous operational metrics (e.g., event names, OS type, success rates) to the **Global Pulse** hub to help us understand fleet health and prioritize improvements. **We do not collect names, emails, code snippets, secrets, or folder paths.**
+
+### 🌑 How to Opt-Out
+If you prefer 100% isolation, you can disable telemetry by setting the following environment variable in your shell:
+```bash
+export AGENTOPS_TELEMETRY_ENABLED=false
+```
+Alternatively, you can set it in your local `cockpit.yaml`:
+```yaml
+telemetry:
+  enabled: false
+```
+
+---
+
 ## 🤝 Ecosystem & Attribution
 The AgentOps Cockpit is designed to leverage and secure the best-of-breed tools in the Google Cloud ecosystem. We explicitly acknowledge and leverage the excellent work from:
 
