@@ -70,8 +70,8 @@ graph TD
 
 ---
 
-## 🕹️ v1.4.1: The "Ecosystem Expansion" Release (NEW)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.1 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.4.7: The "Ecosystem Expansion" Release (NEW)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.7 Release Notes**](/CHANGELOG.md).
 
 - **🧗 RAG Truth-Sayer SME**: Dedicated auditor for retrieval-reasoning fidelity and grounding logic.
 - **🚀 PR Scorecard Action**: Automated maturity scorecard for pull requests to increase velocity and trust.
@@ -144,7 +144,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ## 🚀 Production Readiness Auditor
 The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
-1. **v1.4.1 Deep System Audit**: Benchmarks models (Gemini 3 Pro/Flash) and logic.
+1. **v1.4.7 Deep System Audit**: Benchmarks models (Gemini 3 Pro/Flash) and logic.
 2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
 3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
 4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.

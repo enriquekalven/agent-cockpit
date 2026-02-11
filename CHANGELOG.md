@@ -24,7 +24,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols for non-Google environments.
 - **Reliability Suite (v1.4.5)**: Extended regression tests for cross-cloud deployment assets.
 
-## [1.4.4] - 2026-02-10
+## [1.4.7] - 2026-02-10
 
 ### 🚀 Enhanced Observability & CLI UX
 - **Global Verbose Mode**: Exposed the `--verbose` flag in the main `report` command, allowing developers to debug performance across all audit steps simultaneously.
@@ -46,7 +46,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Auditor Hardening**: Integrated `# cockpit-ignore` into Security, FinOps, Compliance, RAG Fidelity, and Deep Graph auditors.
 - **Stability Core**: Verified 160/160 tests passed, ensuring 100% regression safety for existing capabilities.
 
-## [1.4.1] - 2026-02-09
+## [1.4.7] - 2026-02-09
 
 ### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety
 - **Maturity Wisdom Store (v1.4)**: Ingested comprehensive architectural patterns from AWS, Google Cloud, Azure, OpenAI, Anthropic, LangGraph, and CrewAI for "Choice-Based" recommendations.

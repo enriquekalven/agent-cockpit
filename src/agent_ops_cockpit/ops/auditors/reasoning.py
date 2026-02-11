@@ -50,7 +50,7 @@ class ReasoningAuditor(BaseAuditor):
         # (Simulated reasoning: we look for model strings and for loops together)
         if re.search(r"gemini-3-pro|gpt-5\.2|claude-4\.6", content) and re.search(r"for\s+\w+\s+in", content):
              if any(x in content.lower() for x in ["classify", "label", "is_", "has_"]):
-                title = "Model Efficiency Regression (v1.4.1)"
+                title = "Model Efficiency Regression (v1.4.7)"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
                         category="💰 FinOps",

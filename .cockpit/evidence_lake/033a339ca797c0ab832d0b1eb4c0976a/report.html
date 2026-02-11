@@ -14212,10 +14212,10 @@ ______________________________ test_version_ssot _______________________________
     def test_version_ssot():
         """Ensure the version is consistent across the platform."""
         # This ensures that we don't accidentally downgrade or mismatch
->       assert config.VERSION == "1.4.4"
-E       AssertionError: assert '1.4.5' == '1.4.4'
+>       assert config.VERSION == "1.4.7"
+E       AssertionError: assert '1.4.5' == '1.4.7'
 E         
-E         - 1.4.4
+E         - 1.4.7
 E         ?     ^
 E         + 1.4.5
 E         ?     ^
@@ -14248,9 +14248,9 @@ __________________________ test_versions_are_in_sync ___________________________
     
         assert py_version == pyproject_version
 >       assert py_version == package_version
-E       AssertionError: assert '1.4.5' == '1.4.4'
+E       AssertionError: assert '1.4.5' == '1.4.7'
 E         
-E         - 1.4.4
+E         - 1.4.7
 E         ?     ^
 E         + 1.4.5
 E         ?     ^
@@ -14259,7 +14259,7 @@ E         ?     ^
 y:28: AssertionError
 ----------------------------- Captured stdout call -----------------------------
 
-Versions detected -> Config: 1.4.5, pyproject: 1.4.5, package: 1.4.4
+Versions detected -> Config: 1.4.5, pyproject: 1.4.5, package: 1.4.7
 _________________________ test_benchmark_inviolability _________________________
 
     def test_benchmark_inviolability():

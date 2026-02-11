@@ -475,7 +475,7 @@ def audit_maturity():
     """
     Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
     """
-    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.4.1)[/bold blue]", border_style="blue"))
+    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.4.7)[/bold blue]", border_style="blue"))
     
     # 1. Persona Matrix
     persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")

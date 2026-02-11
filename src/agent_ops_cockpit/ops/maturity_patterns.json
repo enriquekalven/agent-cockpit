@@ -237,7 +237,7 @@
       "recommendation": "Leverage production-grade Generative AI templates from the GoogleCloudPlatform/agent-starter-pack. Benefits: 1) Pre-built LangGraph patterns. 2) IAM-hardened deployments. 3) Standardized tool-use hooks.",
       "rationale": "Starter Pack patterns ensure architectural alignment with Google's production-ready agent blueprints.",
       "impact": "HIGH",
-      "source": "GoogleCloudPlatform Ecosystem (v1.4.1 Sync)"
+      "source": "GoogleCloudPlatform Ecosystem (v1.4.7 Sync)"
     },
     {
       "id": "MP-026",
@@ -305,7 +305,7 @@
         "map_reduce"
       ],
       "recommendation": "Offload deterministic sub-tasks (JSON parsing, routing) to Gemma 3-2b or Phi-4-mini on local edge. Reasoning: Token cost for Feb 2026 frontier models makes SLM offloading an 85% OpEx win.",
-      "rationale": "Using Frontier Models (GPT-5.2 / Gemini 3) for simple parsing is architectural debt. Federated reasoning between SLM and LLM is the v1.4.1 standard.",
+      "rationale": "Using Frontier Models (GPT-5.2 / Gemini 3) for simple parsing is architectural debt. Federated reasoning between SLM and LLM is the v1.4.7 standard.",
       "impact": "HIGH",
       "source": "Anthropic Research / Microsoft Research (Feb 2026)"
     },

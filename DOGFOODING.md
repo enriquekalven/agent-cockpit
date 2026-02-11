@@ -1,4 +1,4 @@
-# 🦴 Eat Your Own Dogfood: The AgentOps Cockpit Roast & Hardening Challenge (v1.4.1) 🚀
+# 🦴 Eat Your Own Dogfood: The AgentOps Cockpit Roast & Hardening Challenge (v1.4.7) 🚀
 
 Stop shipping "vibes-based" agents. It's time to subject your AI swarms to **Production-Grade Paranoia**. We're recruiting elite agent developers to stress-test the **Master Audit Suite** against real-world chaos. 
 
