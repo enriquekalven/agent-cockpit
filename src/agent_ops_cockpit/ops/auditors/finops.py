@@ -1,3 +1,6 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from typing import List
@@ -60,7 +63,7 @@ class FinOpsAuditor(BaseAuditor):
             
         docstrings = re.findall(r'"""([\s\S]*?)"""|\'\'\'([\s\S]*?)\'\'\'', content)
         has_large_prompt = any(len(d[0] or d[1]) > 500 for d in docstrings)
-        if has_large_prompt and 'CachingConfig' not in content:
+        if has_large_prompt and 'ContextCacheConfig' not in content:
             # Semantic Prompt Assessment: Differentiate Bloat vs Few-Shot/Context
             is_rich_context = any(kw in content.lower() for kw in ['examples:', 'context:', '### context', 'few-shot:'])
             title = "Context Caching Opportunity" if is_rich_context else "Prompt Bloat Warning"
@@ -75,8 +78,18 @@ class FinOpsAuditor(BaseAuditor):
 
         # Check for retry logic (ROI & Reliability cross-over)
         if 'retry' not in content.lower() and ('request' in content.lower() or 'invoke' in content.lower()):
-            if not discovery.is_library_file(file_path) and 'auditors' not in file_path:
-                print(f"ACTION: {file_path} | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.")
+            if file_path.endswith('.py') and not discovery.is_library_file(file_path) and 'auditors' not in file_path:
+                title = "Missing Resiliency Pattern"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="💰 FinOps",
+                        title=title,
+                        description="Agent calls external APIs but lacks retry logic.",
+                        impact="HIGH",
+                        roi="Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.",
+                        file_path=file_path,
+                        line_number=1
+                    ))
 
         # Print actions for orchestrator capture
         for f in findings:

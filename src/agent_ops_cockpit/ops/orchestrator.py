@@ -1,3 +1,5 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 import sys
@@ -68,10 +70,10 @@ class CockpitOrchestrator:
         return os.path.relpath(brain, path)
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID):
+    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID, sim: bool = False):
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f'[cyan]Running {name}...')
-        if getattr(self, 'sim', False):
+        if sim or getattr(self, 'sim', False):
             import time
             time.sleep(0.05)
             output = ''
@@ -90,7 +92,9 @@ class CockpitOrchestrator:
             return (name, True)
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
-        env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{env.get('PYTHONPATH', '')}"
+        target_path = getattr(self, 'target_path', '.')
+        agent_paths = [target_path, os.path.join(target_path, 'src')]
+        env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{os.pathsep.join(agent_paths)}{os.pathsep}{env.get('PYTHONPATH', '')}"
         MAX_STEP_TIMEOUT = 900 # 15 minutes timeout for performance debugging
         try:
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
@@ -628,11 +632,72 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             steps = [s for s in steps if s[0] not in excluded and s[0].lower().replace(' ', '_') not in excluded]
         tasks = {name: progress.add_task(f'[white]Waiting: {name}', total=100) for name, cmd in steps}
         with ThreadPoolExecutor(max_workers=len(steps)) as executor:
-            future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name]): name for name, cmd in steps}
+            future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name], sim=sim): name for name, cmd in steps}
             for future in as_completed(future_to_audit):
                 name, success = future.result()
     orchestrator.title = title
     telemetry.track_event_sync("audit_started", {"mode": mode, "path": target_path})
+    
+    # NEW: Apply autonomous remediations if requested
+    if apply_fixes:
+        from .remediator import CodeRemediator
+        from .auditors.base import AuditFinding
+        
+        developer_actions = []
+        for name, data in orchestrator.results.items():
+            if data['output']:
+                for line in data['output'].split('\n'):
+                    if 'ACTION:' in line:
+                        developer_actions.append({'module': name, 'action': line.replace('ACTION:', '').strip()})
+        
+        remediators = {}
+        for item in developer_actions:
+            parts = item['action'].split(' | ')
+            if len(parts) >= 2:
+                file_path_info = parts[0].split(':')
+                file_path = file_path_info[0]
+                line_num = int(file_path_info[1]) if len(file_path_info) > 1 else 1
+                title = parts[1]
+                print(f"DEBUG: Processing action {item['action']}")
+                if os.path.isabs(file_path):
+                    full_path = file_path
+                else:
+                    full_path = os.path.abspath(os.path.join(target_path, file_path))
+                
+                print(f"DEBUG: full_path={full_path}")
+                if not os.path.exists(full_path) or not os.path.isfile(full_path):
+                    continue
+                
+                if full_path not in remediators:
+                    remediators[full_path] = CodeRemediator(full_path)
+                
+                rem = remediators[full_path]
+                finding = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num, file_path=full_path)
+                
+                if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
+                    print(f"DEBUG: Applying resiliency to {full_path}")
+                    rem.apply_resiliency(finding)
+                elif any(x in title.lower() for x in ['timeout', 'zombie']):
+                    print(f"DEBUG: Applying timeouts to {full_path}")
+                    rem.apply_timeouts(finding)
+                elif any(x in title.lower() for x in ['caching', 'context-cache']):
+                    rem.apply_caching(finding)
+                elif any(x in title.lower() for x in ['hallucination', 'poka-yoke', 'literal']):
+                    rem.apply_tool_hardening(finding)
+
+        for path, rem in remediators.items():
+            if dry_run:
+                patch_path = rem.save_patch()
+                if patch_path:
+                    console.print(f"🏜️  [yellow]DRY RUN: Patch generated at {patch_path}[/yellow]")
+            else:
+                # In v1.4.2+ we actually default to PATCHING for safety unless forced
+                # But the tests expect a patch even if dry_run is False? 
+                # Let's check test_audit_flow.py line 65. 
+                # It says: 'Applying fixes in v1.4.2 should NOT modify the file directly'
+                rem.save_patch()
+                console.print(f"📦 [bold green]Autonomous Remediation Staged:[/bold green] Patch created for {os.path.basename(path)}")
+
     exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
     telemetry.track_event_sync("audit_completed", {

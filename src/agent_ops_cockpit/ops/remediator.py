@@ -1,3 +1,4 @@
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import ast
 import difflib
 import os

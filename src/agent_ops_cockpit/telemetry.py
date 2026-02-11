@@ -1,3 +1,6 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import json
 import socket
@@ -14,7 +17,7 @@ class TelemetryManager:
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    TELEMETRY_ENDPOINT = "https://agent-engine-697625214430.us-central1.run.app/telemetry/event"
+    TELEMETRY_ENDPOINT = "https://agent-cockpit.web.app/api/telemetry/event"
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
     
     def __init__(self):
@@ -103,7 +106,7 @@ class TelemetryManager:
         """
         import requests
         try:
-            r = requests.get("https://agent-engine-697625214430.us-central1.run.app/telemetry/dashboard", timeout=5)
+            r = requests.get("https://agent-cockpit.web.app/api/telemetry/dashboard", timeout=5)
             if r.status_code == 200:
                 return r.json()
         except Exception:

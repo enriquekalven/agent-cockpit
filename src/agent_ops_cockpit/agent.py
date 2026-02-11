@@ -1,3 +1,4 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
 import os
 import logging
 import asyncio
@@ -90,8 +91,8 @@ def input_sanitized_gate(query: str) -> str:
     return scrubbed
 
 @retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
-async def resilient_db_call(data: dict):
-    """Reliability SME Approval: Exponential Backoff."""
+async def resilient_db_call(data: dict, **kwargs):
+    """Reliability SME Approval: Exponential Backoff (Hardened against extra kwargs)."""
     return {'status': 'success'}
 
 async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:

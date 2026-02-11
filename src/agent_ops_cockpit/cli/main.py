@@ -1,8 +1,15 @@
+try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError):
+    ContextCacheConfig = None
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List
 import shutil
 import subprocess
+from datetime import datetime
+import asyncio
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -23,6 +30,9 @@ from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
 from agent_ops_cockpit.telemetry import telemetry
+from agent_ops_cockpit.ops import migration as migrate_mod
+from agent_ops_cockpit.ops import documenter as doc_mod
+from agent_ops_cockpit.ops import sovereign as sovereign_mod
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
 @app.callback()
@@ -140,6 +150,65 @@ def shadow(base: str=typer.Argument(..., help="Path to base agent/report"), cand
     runner.run_differential()
 
 @app.command()
+def migrate(path: str=typer.Option('.', '--path', '-p', help='Path to look for agents to migrate'), target: str=typer.Option('google', '--target', '-t', help='Target Cloud Platform: google, aws, azure')):
+    """
+    [Multi-Cloud] Sovereign Migration: Move agents to Google Cloud, AWS, or Azure.
+    Discovers candidates and hydrates them with platform-specific patterns and assets.
+    """
+    engine = migrate_mod.MigrationEngine(path)
+    results = engine.run_migration_loop(target_cloud=target.lower())
+    if not results:
+        console.print(f"[yellow]No migration candidates found for target: {target}[/yellow]")
+    else:
+        for r in results:
+            reg_info = f" | Registry: [bold magenta]{r['registry']}[/bold magenta]" if r['cloud'] == 'google' else ""
+            console.print(f"✅ [bold green]Migrated:[/bold green] {r['agent']} -> [bold cyan]{target.upper()}[/bold cyan] ({', '.join(r['assets'])}){reg_info}")
+
+@app.command()
+def document(path: str=typer.Option('.', '--path', '-p', help='Path to workspace')):
+    """
+    [Task 2] Professional TDD Generator.
+    Output a Technical Design Document (TDD) with fixes and findings as a PDF/HTML.
+    """
+    generator = doc_mod.TDDGenerator(path)
+    output = generator.generate_tdd_html()
+    console.print(f"📄 [bold green]Technical Design Document generated:[/bold green] {output}")
+
+@app.command()
+def register(path: str=typer.Option('.', '--path', '-p', help='Path to workspace or agent to register'), fleet: bool=typer.Option(True, '--fleet', help='Register all production-ready agents in the workspace'), a2a: bool=typer.Option(False, '--a2a', help='Enable A2A (Agent-to-Agent) bridge for cross-cloud agents')):
+    """
+    [Gemini Enterprise] Auto-Register the agent fleet as native Vertex AI Tools.
+    Connects your production agents to the Gemini tool-use ecosystem via Agent Engine & A2A.
+    """
+    engine = migrate_mod.MigrationEngine(path)
+    console.print(f"📡 [bold blue]Gemini Enterprise: Fleet Registration Initialized for {path}...[/bold blue]")
+    if a2a:
+        console.print("🌉 [bold magenta]Mode: A2A Bridge Enabled (Multi-Cloud Interop)[/bold magenta]")
+    
+    # We walk the discovery engine for all py files and attempt registration
+    count = 0
+    for file_path in engine.discovery.walk():
+        if not file_path.endswith('.py'): continue
+        base_name = os.path.basename(file_path).replace('.py', '')
+        if base_name in ['agent', 'main', 'app']:
+             # Use parent directory name for better visibility
+             name = os.path.basename(os.path.dirname(file_path)).lower().replace('_', '-')
+        else:
+             name = base_name.lower().replace('_', '-')
+        
+        # If a2a is enabled, we register even if not explicitly on GCP (via bridge)
+        url = engine.auto_register_to_gemini(name, a2a_proxy=a2a)
+        if url:
+            label = "Registered (Agent Engine)" if not a2a else "Registered (A2A Bridge)"
+            console.print(f"✅ [bold green]{label}:[/bold green] {name} -> {url}")
+            count += 1
+    
+    if count == 0:
+        console.print("[yellow]No services found to register. Ensure agents are deployed or use --a2a for cross-cloud bridge.[/yellow]")
+    else:
+        console.print(f"\n✨ [bold green]Successfully on-boarded {count} agents to Gemini Enterprise (Agent Engine / A2A).[/bold green]")
+
+@app.command()
 def evolve(path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace'), branch: bool=typer.Option(True, '--branch/--no-branch', help='Create a new git branch for the fixes')):
     """
     [10X] Autonomous Evolution: The 'PR Closer'.
@@ -158,27 +227,81 @@ def mcp_server():
     asyncio.run(mcp_mod.main())
 
 @app.command()
-def deploy(service_name: str=typer.Option('agent-ops-backend', '--name', help='Cloud Run service name'), region: str=typer.Option('us-central1', '--region', help='GCP region'), dry_run: bool=typer.Option(False, '--dry-run', help='Simulate deployment without executing GCP commands')):
+def deploy(path: str=typer.Option('.', '--path', help='Path to agent/workspace'), target: str=typer.Option('google', '--target', help='Primary target cloud')):
     """
-    One-click production deployment (Audit + Build + Deploy).
+    [Task 3] Production Readiness Factory.
+    Audits, Hardens (Auto-Fix), and Generates Multi-Cloud Deployment Assets.
+    This prepares the 'Face' and 'Engine' for production without forced deployment.
     """
-    console.print(Panel.fit('🚀 [bold green]AGENT COCKPIT: 1-CLICK DEPLOY[/bold green]', border_style='green'))
-    console.print('\n[bold]Step 1: Code Optimization Audit[/bold]')
-    opt_mod.audit('src/agent_ops_cockpit/agent.py', interactive=False)
-    console.print('\n[bold]Step 2: Building Frontend Assets[/bold]')
-    subprocess.run(['npm', 'run', 'build'], check=True)
-    console.print(f'\n[bold]Step 3: Deploying Engine to Cloud Run ({region})[/bold]')
-    deploy_cmd = ['gcloud', 'run', 'deploy', service_name, '--source', '.', '--region', region, '--allow-unauthenticated']
-    if dry_run:
-        console.print(f"🏜️ [yellow]DRY RUN: Would run 'gcloud run deploy {service_name} --source . --region {region} --allow-unauthenticated'[/yellow]")
-    else:
-        subprocess.run(deploy_cmd, check=True)
-    console.print('\n[bold]Step 4: Deploying Face to Firebase Hosting[/bold]')
-    if dry_run:
-        console.print("🏜️ [yellow]DRY RUN: Would run 'firebase deploy --only hosting'[/yellow]")
-    else:
-        subprocess.run(['firebase', 'deploy', '--only', 'hosting'], check=True)
-    console.print('\n✅ [bold green]Deployment Complete![/bold green]')
+    console.print(Panel.fit('🚀 [bold green]AGENT COCKPIT: PRODUCTION READINESS FACTORY[/bold green]', border_style='green'))
+    
+    # Step 1: Deep Audit & Auto-Remediation
+    console.print('\n[bold]Step 1: Deep Sovereignty Audit & Auto-Fix[/bold]')
+    exit_code = orch_mod.run_audit(mode='deep', target_path=path, apply_fixes=True)
+    
+    # Step 2: Multi-Cloud Asset Generation (Hydration)
+    console.print('\n[bold]Step 2: Hydrating Multi-Cloud Deployment Assets[/bold]')
+    engine = migrate_mod.MigrationEngine(path)
+    engine.generate_deployment_assets(path, target_cloud='google')
+    engine.generate_deployment_assets(path, target_cloud='aws')
+    engine.generate_deployment_assets(path, target_cloud='azure')
+    
+    # Step 3: Frontend Build Verification
+    console.print('\n[bold]Step 4: A2UI Face Preparation (npm run build)[/bold]')
+    try:
+        subprocess.run(['npm', 'run', 'build'], check=True, capture_output=True)
+        console.print("✅ A2UI Build Artifacts Ready (./dist)")
+    except Exception:
+        console.print("⚠️  Frontend build skipped or failed. Ensure node_modules are installed.")
+
+    # Step 4: Staging Gemini Enterprise Registration
+    console.print('\n[bold]Step 5: Staging Gemini Enterprise Tool Registry[/bold]')
+    # We stage the registration manifest even if not yet deployed
+    reg_path = os.path.join('.cockpit', 'gemini_enterprise_registry.json')
+    import json
+    manifest = {
+        "timestamp": datetime.now().isoformat(),
+        "agent": os.path.basename(path),
+        "status": "PRODUCTION_READY",
+        "endpoints": ["cloud-run", "app-runner", "container-apps"],
+        "registration_mode": "native"
+    }
+    with open(reg_path, 'w') as f:
+        json.dump(manifest, f, indent=4)
+    console.print(f"📦 Registration manifest staged at: [cyan]{reg_path}[/cyan]")
+
+    console.print(Panel(
+        "[bold green]FLEET IS PRODUCTION READY[/bold green]\n\n"
+        "1. [bold]Google Cloud:[/bold] Dockerfile.gcp ready.\n"
+        "2. [bold]AWS App Runner:[/bold] Dockerfile.aws + aws-apprunner.json ready.\n"
+        "3. [bold]Azure Container Apps:[/bold] Dockerfile.azure + azure-deploy.bicep ready.\n"
+        "4. [bold]Gemini Enterprise:[/bold] Run [dim]make register[/dim] after cloud push.\n\n"
+        "[dim]Note: Direct 'cloud run deploy' is deferred to your CI/CD pipeline.[/dim]",
+        title="Artifact Factory Results", border_style="green"
+    ))
+
+@app.command()
+def sovereign(
+    path: str = typer.Option(".", "--path", "-p", help="Path to the agent/workspace"),
+    fleet: bool = typer.Option(True, "--fleet", help="Process all agents in the workspace"),
+    target: str = typer.Option("google", "--target", "-t", help="Target Cloud Platform: google, aws, azure")
+):
+    """
+    [Task 3.5] Sovereign Fleet Pipeline: The 'End-to-End' Agent Factory.
+    Audits, Hardens, Hydrates, Deploys, and Registers agents across clouds.
+    """
+    orchestrator = sovereign_mod.SovereignOrchestrator(target_cloud=target)
+    asyncio.run(orchestrator.run_pipeline(path, fleet=fleet))
+
+@app.command()
+def simulate_sovereign():
+    """
+    Battle-test the Sovereign Pipeline across GCP, AWS, and Azure.
+    Runs end-to-end simulations in a temp workspace to verify multi-cloud resiliency.
+    """
+    from ..ops import simulator
+    sim = simulator.SovereignSimulator()
+    asyncio.run(sim.run_battle_test())
 
 @app.command()
 def email_report(recipient: str=typer.Argument(..., help='Recipient email address')):

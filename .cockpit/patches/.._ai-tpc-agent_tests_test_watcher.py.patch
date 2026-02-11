@@ -1,0 +1,18 @@
+--- a/../ai-tpc-agent/tests/test_watcher.py
++++ b/../ai-tpc-agent/tests/test_watcher.py
+@@ -10,6 +10,7 @@
+     assert clean_version('no version here') == 'no version here'
+ 
+ @patch('urllib.request.urlopen')
++@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+ def test_fetch_from_feed_atom(mock_urlopen):
+     import io
+     atom_xml = b'<?xml version="1.0" encoding="UTF-8"?>\n    <feed xmlns="http://www.w3.org/2005/Atom">\n      <entry>\n        <title>Test Update 1</title>\n        <updated>2026-02-06T12:00:00Z</updated>\n        <link href="https://example.com/1" />\n        <summary>Summary 1</summary>\n      </entry>\n      <entry>\n        <title>Test Update 2</title>\n        <updated>2026-02-05T12:00:00Z</updated>\n        <link href="https://example.com/2" />\n        <summary>Summary 2</summary>\n      </entry>\n    </feed>\n    '
+@@ -25,6 +26,7 @@
+     assert updates[0]['source_url'] == 'https://example.com/1'
+ 
+ @patch('urllib.request.urlopen')
++@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+ def test_fetch_from_html(mock_urlopen):
+     html_content = b'\n    <html>\n      <body>\n        <h2 id="February_06_2026">February 06, 2026</h2>\n        <div>Feature: New AI Agent</div>\n        <p>This is a test summary for the new agent.</p>\n        <h2 id="February_05_2026">February 05, 2026</h2>\n        <div>Announcement: Security fix</div>\n      </body>\n    </html>\n    '
+     mock_response = MagicMock()

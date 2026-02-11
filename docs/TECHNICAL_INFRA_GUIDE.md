@@ -13,6 +13,7 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 | `make load-test` | **Saturation Benchmarking**| Empirically measures tokens per second (TPS) and TTFT. | `load_test.py` (Locust/k6 based) |
 | `make simulation-run` | **Digital Twin Test** | Verifies reasoning stability under high infra latency. | `swarm.py` Simulation Engine |
 | `make audit` | **Operational Health**  | Validates **Sovereign Gate** compliance. | `config/cockpit.yaml` Enforcement |
+| `make sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.4.7). | `sovereign.py` Factory |
 | `make maturity`| **Expertise Matrix**| Displays the Cockpit's SRE competency and persona status (v1.4.1). | `ops audit-maturity` |
 
 ---
@@ -35,8 +36,11 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 *   **Principal Insight**: Every 100ms of lag kills agent responsiveness. We audit for **gRPC stream multiplexing** to hit <10ms tail latency.
 *   **Regional Affinity**: The Cockpit recommends clustering the Reasoning Engine (Vertex/LLM) and the Vector Retrieval (AlloyDB/Pinecone) in the same zone (e.g., `us-central1-a`) to eliminate cross-region billing and latency.
 
-### 2. 🏗️ Compute Sovereignty (TTR & KV-Cache)
+### 2. 🏗️ Compute Sovereignty (GKE & Cloud Run)
 *   **Vector**: Calculating a **"Time-to-Reasoning" (TTR)** score. If a serverless pod takes 12s to cold start, the agent is "Dead on Arrival."
+*   **GKE Autopilot Integration**: v1.4.7 introduces native support for **GKE Autopilot** as the preferred high-scale sovereign runtime. The Cockpit automates:
+    *   **External IP Polling**: Automatically polls the Kubernetes API for the `LoadBalancer` status and External IP (e.g., `34.xxx.xxx.xxx`).
+    *   **OIDC Identity Injection**: Injects Google Cloud Workload Identity for secure model access without long-lived keys.
 *   **The Warm-Pod Strategy**: Injects `min_instances: 1` or uses placeholder "Warmup" requests to ensure the LLM's **KV-cache** is ready. The KV-cache allows the model to reuse prefixes (System Prompts), reducing Time to First Token (TTFT) by up to 80%.
 
 ### 3. 🧠 Stateful Persistence (STM Persistence)

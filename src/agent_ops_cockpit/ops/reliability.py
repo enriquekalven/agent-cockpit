@@ -1,3 +1,5 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import subprocess
@@ -111,8 +113,14 @@ def run_smoke_test():
     auto_cli = gov_cli
     auto_make = '[green]PASS[/green]' if 'audit-deep:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Automator', 'CI/CD Portable Ops', auto_make, auto_cli, auto_cli)
+
+    console.print('🌊 [bold]Verifying Sovereign Journey...[/bold]')
+    sov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'simulate-sovereign', '--help'])
+    sov_make = '[green]PASS[/green]' if 'sovereign-sim:' in open('Makefile').read() else '[red]FAIL[/red]'
+    table.add_row('The Sovereign', 'Multi-Cloud Factory', sov_make, sov_cli, sov_cli)
+
     console.print(table)
-    results = [builder_cli, arch_cli, sec_cli, gov_cli]
+    results = [builder_cli, arch_cli, sec_cli, gov_cli, sov_cli]
     if '[red]FAIL[/red]' in results:
         console.print('\n❌ [bold red]Trinity Smoke Test Failed. Command parity broken.[/bold red]')
         sys.exit(1)

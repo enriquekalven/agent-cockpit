@@ -1,0 +1,784 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sovereign TDD - 2026-02-11 12:52</title>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #3b82f6; border-bottom: 2px solid #1e293b; padding-bottom: 15px; font-size: 2.5rem; }
+        h2 { color: #60a5fa; margin-top: 50px; border-left: 4px solid #3b82f6; padding-left: 15px; background: rgba(59, 130, 246, 0.1); padding: 10px 15px; border-radius: 0 8px 8px 0; }
+        .meta { font-size: 0.9rem; color: #94a3b8; margin-bottom: 30px; }
+        .agent-card { background: #1e293b; border-radius: 12px; padding: 25px; margin-bottom: 30px; border: 1px solid #334155; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; }
+        .hardened { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .gaps-detected { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }
+        
+        .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 8px; }
+        .spec-item { font-size: 0.9rem; }
+        .spec-item strong { color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #334155; }
+        th { background: #334155; color: #60a5fa; text-transform: uppercase; font-size: 0.75rem; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 10px; font-size: 0.85rem; border-bottom: 1px solid #334155; padding-bottom: 5px; color: #cbd5e1; }
+        code { background: #0f172a; padding: 2px 6px; border-radius: 4px; color: #fbbf24; font-size: 0.9em; }
+        .mermaid { background: #1e293b; border-radius: 12px; padding: 20px; margin: 20px 0; border: 1px solid #334155; }
+        .footer { text-align: center; margin-top: 80px; color: #475569; font-size: 0.8rem; border-top: 1px solid #1e293b; padding-top: 20px; }
+    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Technical Design Document (TDD)</h1>
+            <div class="meta">
+                AgentOps Cockpit v1.4.7 | Generated: 2026-02-11 12:52 | Sovereign Standard Enabled
+            </div>
+        </header>
+
+        <section id="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>This document details the production-ready state of the agentic fleet. Each agent has undergone a <strong>Sovereign Factory</strong> process consisting of Deep Audit, Code Hardening, and Multi-Cloud Hydration. The results below confirm alignment with the <strong>Google Well-Architected Framework for Agents</strong>.</p>
+        </section>
+
+        <section id="architecture">
+            <h2>System Architecture</h2>
+            <div class="mermaid">
+                graph TD
+                subgraph "The Face"
+                    UI[A2UI Frontend]
+                end
+                subgraph "The Cockpit"
+                    ORCH[Sovereign Orchestrator]
+                    TDD[TDD Generator]
+                end
+                subgraph "The Engine (Multi-Cloud)"
+                    GCP[GKE / Cloud Run]
+                    AWS[AWS App Runner]
+                    AZ[Azure Container Apps]
+                end
+                UI --> ORCH
+                ORCH --> TDD
+                ORCH --> GCP
+                ORCH --> AWS
+                ORCH --> AZ
+                GCP --> GE[Gemini Enterprise Tool Use]
+                AWS --> GE
+                AZ --> GE
+            </div>
+        </section>
+
+        <section id="gemini-registry">
+            <h2>Gemini Enterprise Registration</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool ID</th>
+                        <th>Display Name</th>
+                        <th>API Spec</th>
+                        <th>Bridge Protocol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td><code>sovereign-agent-engine-deploy</code></td>
+                <td>Sovereign Agent Agent Engine: agent-engine-deploy</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-agent</code></td>
+                <td>Sovereign Agent Agent Engine: agent</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-aggregate-telemetry</code></td>
+                <td>Sovereign Agent Agent Engine: aggregate-telemetry</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-main</code></td>
+                <td>Sovereign Agent Agent Engine: main</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-config</code></td>
+                <td>Sovereign Agent Agent Engine: config</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign---init--</code></td>
+                <td>Sovereign Agent Agent Engine: --init--</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-telemetry</code></td>
+                <td>Sovereign Agent Agent Engine: telemetry</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-optimizer</code></td>
+                <td>Sovereign Agent Agent Engine: optimizer</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-cost-control</code></td>
+                <td>Sovereign Agent Agent Engine: cost-control</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-mcp-server</code></td>
+                <td>Sovereign Agent Agent Engine: mcp-server</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-semantic-cache</code></td>
+                <td>Sovereign Agent Agent Engine: semantic-cache</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-router</code></td>
+                <td>Sovereign Agent Agent Engine: router</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-swarm</code></td>
+                <td>Sovereign Agent Agent Engine: swarm</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-benchmarker</code></td>
+                <td>Sovereign Agent Agent Engine: benchmarker</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-rag-audit</code></td>
+                <td>Sovereign Agent Agent Engine: rag-audit</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-policy-engine</code></td>
+                <td>Sovereign Agent Agent Engine: policy-engine</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-reliability</code></td>
+                <td>Sovereign Agent Agent Engine: reliability</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-discovery</code></td>
+                <td>Sovereign Agent Agent Engine: discovery</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-git-portal</code></td>
+                <td>Sovereign Agent Agent Engine: git-portal</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-secret-scanner</code></td>
+                <td>Sovereign Agent Agent Engine: secret-scanner</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-evidence-bridge</code></td>
+                <td>Sovereign Agent Agent Engine: evidence-bridge</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-ui-auditor</code></td>
+                <td>Sovereign Agent Agent Engine: ui-auditor</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-arch-review</code></td>
+                <td>Sovereign Agent Agent Engine: arch-review</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+            <tr>
+                <td><code>sovereign-workbench</code></td>
+                <td>Sovereign Agent Agent Engine: workbench</td>
+                <td><a href="A2A_PROXY_PENDING" target="_blank">View Spec</a></td>
+                <td><span style="color:#34d399;">Agent Engine (A2A)</span></td>
+            </tr>
+            
+                </tbody>
+            </table>
+        </section>
+
+        <section id="fleet-deployment">
+            <h2>Fleet Deployment & Security Status</h2>
+            
+            <div class="agent-card">
+                <h3>Agent: agent_ops_cockpit</h3>
+                <div class="badge ⚠️-gaps-detected">⚠️ GAPS DETECTED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_coc...</li><li><strong>✅ Red Team (Fast):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/agent-cockpit...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit...
+📈...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
+📊 Token...</li><li><strong>❌ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+
+🛠️  DEVELOPER ACTIONS REQUIRED:
+ACTION: tests/test_fl...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: cli</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_coc...</li><li><strong>❌ Red Team (Fast):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/agent-cockpit...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli....</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py
+📊 To...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: agent-cockpit</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Red Team (Fast):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/agent-cockpit...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
+📊 Token...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit
+📝 Scanned 15 fron...</li><li><strong>✅ Architecture Review:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression S...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: global_summary</h3>
+                <div class="badge ⚠️-gaps-detected">⚠️ GAPS DETECTED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: my-super-agent</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/agent-cockpit...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit/my-super-agent
+📝 ...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Architecture Review:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit/my-super-agent...
+📈 Verifyi...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/my-super-agent/agent.py
+📊 Token Metric...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: ai-tpc-agent</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/ai-tpc-agent/...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/ai-tpc-agent
+📝 Scanned 0 fronte...</li><li><strong>✅ Architecture Review:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/ai-tpc-agent...
+📈 Verifying Regression Su...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/ai-tpc-agent/tests/test_vertex_rag.py
+📊 Token Metric...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: mock_agent</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/private/var/folders/s4/ymsyhp4n6y5crdf...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-enriq/pytes...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: agent_2</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/private/var/folders/s4/ymsyhp4n6y5crdf...</li><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-enriq/pytes...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: agent_0</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/private/var/folders/s4/ymsyhp4n6y5crdf...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-enriq/pytes...</li></ul>
+            </div>
+            
+            <div class="agent-card">
+                <h3>Agent: agent_1</h3>
+                <div class="badge ✅-hardened">✅ HARDENED</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <strong>Runtime:</strong><br/>Cloud Run (Serverless)
+                    </div>
+                    <div class="spec-item">
+                        <strong>IAM Roles:</strong><br/>roles/run.invoker, roles/aiplatform.user
+                    </div>
+                    <div class="spec-item">
+                        <strong>Networking:</strong><br/>Public Load Balancer (HTTPS)
+                    </div>
+                </div>
+
+                <h4>Security & Quality Audit:</h4>
+                <ul><li><strong>✅ Face Auditor:</strong> ╭──────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
+╰──────────────────────────────────────╯
+Scanning directory: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/...</li><li><strong>❌ Red Team Security (Full):</strong> ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/private/var/folders/s4/ymsyhp4n6y5crdf...</li><li><strong>✅ RAG Fidelity Audit:</strong> ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...</li><li><strong>✅ Policy Enforcement:</strong> SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE...</li><li><strong>✅ Secret Scanner:</strong> ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...</li><li><strong>✅ Architecture Review:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Evidence Packing Audit:</strong> ╭────────────────────────────────────────────────────────────╮
+│ 🏛️ GENERIC AGENTIC STACK: ENTERPRISE ARCHITECT REVIEW v1.1 │
+╰────────────────────────────────────────────────────────────╯
+Detected St...</li><li><strong>✅ Reliability (Quick):</strong> ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-...</li><li><strong>✅ Load Test (Baseline):</strong> 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
+Total Requests: 50 | Concurrency: 5
+
+  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+       📊 Agen...</li><li><strong>✅ Quality Hill Climbing:</strong> ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...</li><li><strong>❌ Token Optimization:</strong> ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/pytest-of-enriq/pytes...</li></ul>
+            </div>
+            
+        </section>
+
+        <footer class="footer">
+            Sovereign Governance Division | Confidential & Proprietary | v1.4.7
+        </footer>
+    </div>
+</body>
+</html>
+        

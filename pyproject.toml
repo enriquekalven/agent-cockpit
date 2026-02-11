@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "1.4.5"
+version = "1.4.7"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -69,4 +69,12 @@ include = [
     "tsconfig.json",
     "vite.config.ts",
     "index.html",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "functions"]
+testpaths = ["tests", "src/agent_ops_cockpit/tests"]
+asyncio_mode = "auto"
+markers = [
+    "asyncio: mark test as asyncio-based",
 ]

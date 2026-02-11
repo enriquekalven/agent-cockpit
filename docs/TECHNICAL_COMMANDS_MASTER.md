@@ -13,6 +13,8 @@ These commands trigger cross-functional audits and generate high-fidelity execut
 | `make audit` | `agent-ops report` | **Safe-Build** | Quick scan for secrets, reliability, and code waste. |
 | `make audit-deep` | `agent-ops report --mode deep`| **Final Exam** | Full benchmarks, red-team security, and stress tests. |
 | `make apply-fixes`| `agent-ops apply-fixes` | **Remediation** | Triggers AST-based code patches for detected gaps. |
+| `make sovereign`  | `agent-ops sovereign`   | **End-to-End**  | [10X] Audit -> Fix -> Hydrate -> Deploy -> Register. |
+| `make register`   | `agent-ops register`    | **Registry**     | Connects production agents to Gemini via Agent Engine/A2A. |
 | `make deploy-prod`| `agent-ops deploy-prod` | **Readiness** | Full ecosystem-wide production-readiness gate. |
 | `make diagnose` | `agent-ops diagnose` | **Health Check** | Environment and dependency validation. |
 

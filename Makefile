@@ -1,101 +1,110 @@
-# --- AgentOps Cockpit Makefile ---
 
-# Project Variables
-PYTHON = $(shell if [ -f "./.venv/bin/python3.14" ]; then echo "./.venv/bin/python3.14"; elif [ -d ".venv" ]; then echo "./.venv/bin/python"; elif command -v python >/dev/null 2>&1; then echo "python"; else echo "python3"; fi)
-PROJECT_ID ?= $(shell gcloud config get-value project)
-REGION ?= us-central1
-SERVICE_NAME = agent-ops-backend
-IMAGE_TAG = us-central1-docker.pkg.dev/$(PROJECT_ID)/agent-repo/$(SERVICE_NAME):latest
+# ==============================================================================
+# Installation & Setup
+# ==============================================================================
 
-.PHONY: help dev build deploy-cloud-run deploy-firebase deploy-gke audit audit-deep deploy-prod scan-secrets ui-audit watch mcp-serve email-report diagnose arch secrets face lab-bootstrap
+# Install dependencies using uv package manager
+install:
+	@command -v uv >/dev/null 2>&1 || { echo "uv is not installed. Installing uv..."; curl -LsSf https://astral.sh/uv/0.8.13/install.sh | sh; source $HOME/.local/bin/env; }
+	uv sync
 
-help:
-	@echo "Available commands:"
-	@echo "  make dev                       - Start local development server"
-	@echo "  make audit                     - [MASTER] Quick Audit (secrets, reliability, quality)"
-	@echo "  make audit-deep                - [MASTER] Deep Audit (benchmarks, red-team, stress)"
-	@echo "  make lab-bootstrap             - [LAB] Local E2E Lab Environment Scaffolding"
-	@echo "  make apply-fixes               - [PHASE 4] Auto-remediate detected gaps"
-	@echo "  make propose-fixes             - [PHASE 5] Create fix branch and commit patches"
-	@echo "  make deploy-prod               - [MASTER] Production Readiness Gate (Audit + Stress)"
-	@echo "  make deploy-cloud-run          - Deploy to Google Cloud Run"
-	@echo "  make deploy-firebase           - Deploy to Firebase Hosting"
-	@echo "  make mcp-serve                 - Start MCP Server"
-	@echo "  make diagnose                  - System health check"
+# ==============================================================================
+# Playground Targets
+# ==============================================================================
 
-dev:
-	npm run dev
+# Launch local dev playground
+playground:
+	@echo "==============================================================================="
+	@echo "| 🚀 Starting your agent playground...                                        |"
+	@echo "|                                                                             |"
+	@echo "| 💡 Try asking: What's the weather in San Francisco?                         |"
+	@echo "|                                                                             |"
+	@echo "| 🔍 IMPORTANT: Select the 'my_super_agent' folder to interact with your agent.          |"
+	@echo "==============================================================================="
+	uv run adk web . --port 8501 --reload_agents
 
-# 🕹️ Lab Scaffolding: Create a targeted project for E2E testing
-lab-bootstrap:
-	@echo "🕹️ Scaffolding Lab Project: my-super-agent..."
-	@mkdir -p my-super-agent
-	@echo "import os\nfrom tenacity import retry\n\n# PROBLEM: This agent lacks timeouts, caching, and literal types.\ndef fetch_data():\n    # MISSING RETRY/TIMEOUT\n    print('Fetching results from unsafe endpoint...')\n\nif __name__ == '__main__':\n    fetch_data()" > my-super-agent/agent.py
-	@echo "✅ Lab Project Initialized. Run 'agent-ops report --path my-super-agent' to begin."
+# ==============================================================================
+# Backend Deployment Targets
+# ==============================================================================
 
-build:
-	npm run build
+# Deploy the agent remotely
+# Usage: make deploy [AGENT_IDENTITY=true] - Set AGENT_IDENTITY=true to enable per-agent IAM identity (Preview)
+deploy:
+	# Export dependencies to requirements file using uv export.
+	(uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > my_super_agent/app_utils/.requirements.txt 2>/dev/null || \
+	uv export --no-hashes --no-header --no-dev --no-emit-project > my_super_agent/app_utils/.requirements.txt) && \
+	uv run -m my_super_agent.app_utils.deploy \
+		--source-packages=./my_super_agent \
+		--entrypoint-module=my_super_agent.agent_engine_app \
+		--entrypoint-object=agent_engine \
+		--requirements-file=my_super_agent/app_utils/.requirements.txt \
+		$(if $(AGENT_IDENTITY),--agent-identity)
 
-# 🏁 Master Audit: Safe-Build
-audit:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode quick
+# Alias for 'make deploy' for backward compatibility
+backend: deploy
 
-# 🚀 Deep Master Audit
-audit-deep:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode deep
+# ==============================================================================
+# Testing & Code Quality
+# ==============================================================================
 
-# 🚀 The Closer: Auto-remediation
-apply-fixes:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review apply-fixes
+# Run unit and integration tests
+test:
+	uv sync --dev
+	uv run pytest tests/unit && uv run pytest tests/integration
 
-# 🌿 The Ambassador: PR Factory
-propose-fixes:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.arch_review propose-fixes
+# ==============================================================================
+# Agent Evaluation
+# ==============================================================================
 
-# 🩺 Diagnose: DevEx
-diagnose:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main diagnose
+# Run agent evaluation using ADK eval
+# Usage: make eval [EVALSET=tests/eval/evalsets/basic.evalset.json] [EVAL_CONFIG=tests/eval/eval_config.json]
+eval:
+	@echo "==============================================================================="
+	@echo "| Running Agent Evaluation                                                    |"
+	@echo "==============================================================================="
+	uv sync --dev --extra eval
+	uv run adk eval ./my_super_agent $${EVALSET:-tests/eval/evalsets/basic.evalset.json} \
+		$(if $(EVAL_CONFIG),--config_file_path=$(EVAL_CONFIG),$(if $(wildcard tests/eval/eval_config.json),--config_file_path=tests/eval/eval_config.json,))
 
-# 🧪 Secrets: Scan
-scan-secrets:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main secrets .
+# Run evaluation with all evalsets
+eval-all:
+	@echo "==============================================================================="
+	@echo "| Running All Evalsets                                                        |"
+	@echo "==============================================================================="
+	@for evalset in tests/eval/evalsets/*.evalset.json; do \
+		echo ""; \
+		echo "▶ Running: $$evalset"; \
+		$(MAKE) eval EVALSET=$$evalset || exit 1; \
+	done
+	@echo ""
+	@echo "✅ All evalsets completed"
 
-# 🎨 Face: UI Audit
-ui-audit:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main face src
+# Run code quality checks (codespell, ruff, ty)
+lint:
+	uv sync --dev --extra lint
+	uv run codespell
+	uv run ruff check . --diff
+	uv run ruff format . --check --diff
+	uv run ty check .
 
-# 🚩 Security: Red Team
-red-team:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main report --only red_team
+# ==============================================================================
+# Gemini Enterprise Integration
+# ==============================================================================
 
-# 🧗 Quality: Hill Climb
-quality:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main quality .
+# Register the deployed agent to Gemini Enterprise
+# Usage: make register-gemini-enterprise (interactive - will prompt for required details)
+# For non-interactive use, set env vars: ID or GEMINI_ENTERPRISE_APP_ID (full GE resource name)
+# Optional env vars: GEMINI_DISPLAY_NAME, GEMINI_DESCRIPTION, GEMINI_TOOL_DESCRIPTION, AGENT_ENGINE_ID
+register-gemini-enterprise:
+	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
+# ==============================================================================
+# Sovereign Fleet Pipeline (End-to-End)
+# ==============================================================================
 
-arch:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main arch .
+# Run the end-to-end factory: Audit -> Fix -> Hydrate -> Deploy -> Register -> TDD
+# Usage: make sovereign [PATH=path/to/fleet] [TARGET=google|aws|azure] [FLEET=true|false]
+sovereign:
+	@PYTHONPATH=src uv run agentops-cockpit sovereign --path $(if $(PATH),$(PATH),.) --target $(if $(TARGET),$(TARGET),google) --$(if $(filter false,$(FLEET)),no-fleet,fleet)
 
-secrets: scan-secrets
-face: ui-audit
-
-# 🚀 Production Readiness
-deploy-prod:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.ops.orchestrator --mode deep --summary
-	@echo "\n✅ Production Readiness Audit Complete."
-
-# 🚀 Cloud Run
-deploy-cloud-run:
-	gcloud run deploy $(SERVICE_NAME) --source . --region $(REGION) --allow-unauthenticated --port 80
-
-# 🔥 Firebase
-deploy-firebase: build
-	firebase deploy --only hosting
-
-# 🔌 MCP Server
-mcp-serve:
-	@PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main mcp-server
-
-# 📧 Email Report
-email-report:
-	@read -p "Enter recipient email: " email; \
-	PYTHONPATH=src $(PYTHON) -m agent_ops_cockpit.cli.main email-report $$email
+sovereign-sim: ## Battle-test Sovereign Pipeline across GCP, AWS, and Azure
+	PYTHONPATH=src uv run agentops-cockpit simulate-sovereign

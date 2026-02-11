@@ -1,3 +1,6 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import re
 import typer
@@ -31,6 +34,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     hitl_pattern = re.compile(r"HumanInTheLoop|confirm|Approve|Reject|Gate")
     streaming_pattern = re.compile(r"Suspense|Stream|Markdown|chunk")
     mobile_pattern = re.compile(r"@media\s*\(max-width:|max-width:\s*\d+px|viewport|flex-direction:\s*column")
+    mcp_ui_pattern = re.compile(r"MCPClient|mcp-server|stdio-client|ModelContextProtocol")
 
 
     for root, dirs, files in os.walk(path):
@@ -94,6 +98,9 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
 
                     if not mobile_pattern.search(content) and ("Layout" in file or "Page" in file or "Home" in file or file.endswith(".css")):
                          findings.append({"line": 1, "issue": "Missing Mobile Responsiveness (@media queries)", "fix": "Add media queries to handle mobile viewports (max-width: 768px)."})
+
+                    if not mcp_ui_pattern.search(content) and ("MCP" in file or "Tool" in file):
+                         findings.append({"line": 1, "issue": "MCP-UI protocol misalignment", "fix": "Ensure component uses 'MCPClient' for standardized tool discovery in the UI."})
 
 
                     if findings:

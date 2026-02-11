@@ -1,0 +1,18 @@
+--- a//Users/enriq/Documents/git/agent-cockpit/my-super-agent/agent.py
++++ b//Users/enriq/Documents/git/agent-cockpit/my-super-agent/agent.py
+@@ -1,7 +1,15 @@
++from tenacity import retry, wait_exponential, stop_after_attempt
++from tenacity import retry, wait_exponential, stop_after_attempt
++from tenacity import retry, wait_exponential, stop_after_attempt
++from tenacity import retry, wait_exponential, stop_after_attempt
++from tenacity import retry, wait_exponential, stop_after_attempt
++from tenacity import retry, wait_exponential, stop_after_attempt
+ import os
+ import requests
+ 
+ # ARCH: Missing context-cache and resilient backoff
++@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
++@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+ def fetch_unreliable_data():
+     res = requests.get("https://unreliable-api.com/v1/data")
+     return res.json()

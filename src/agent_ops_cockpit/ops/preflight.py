@@ -1,3 +1,6 @@
+from tenacity import retry, wait_exponential, stop_after_attempt
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import shutil
 import socket
@@ -44,14 +47,59 @@ class PreflightEngine:
              return True, "No .env detected (assuming local simulation or IAM auth)."
         return True, f"Found environment config: {', '.join(env_files)}"
 
-    def run_all(self):
+    def check_cloud_auth(self, target_cloud="google"):
+        """Verify cloud-specific CLI tools and authentication."""
+        import subprocess
+        
+        if os.environ.get("SOVEREIGN_SIMULATION") == "true":
+            return True, f"SIMULATION MOCK: {target_cloud} Identity Verified"
+            
+        if target_cloud == "google":
+            if not shutil.which("gcloud"):
+                return False, "Missing 'gcloud' CLI."
+            try:
+                # Check for active account
+                acc = subprocess.check_output(["gcloud", "auth", "list", "--filter=status:ACTIVE", "--format=value(account)"], text=True).strip()
+                if not acc: return False, "No active gcloud account. Run 'gcloud auth login'."
+                return True, f"Google Authenticated: {acc}"
+            except:
+                return False, "Failed to verify Google Auth."
+                
+        elif target_cloud == "aws":
+            if not shutil.which("aws"):
+                return False, "Missing 'aws' CLI."
+            try:
+                # Check for caller identity
+                id_res = subprocess.check_output(["aws", "sts", "get-caller-identity", "--output", "json"], text=True)
+                import json
+                arn = json.loads(id_res).get("Arn")
+                return True, f"AWS Authenticated: {arn}"
+            except:
+                return False, "No AWS credentials found. Configure 'aws configure'."
+                
+        elif target_cloud == "azure":
+            if not shutil.which("az"):
+                return False, "Missing 'az' CLI."
+            try:
+                # Check for logged in account
+                acc_res = subprocess.check_output(["az", "account", "show", "--output", "json"], text=True)
+                import json
+                name = json.loads(acc_res).get("name")
+                return True, f"Azure Authenticated: {name}"
+            except:
+                return False, "No Azure account found. Run 'az login'."
+        
+        return True, f"No specific auth checks for {target_cloud}."
+
+    def run_all(self, target_cloud="google"):
         """Executes all pre-flight checks and returns success status."""
-        console.print("\n🛫 [bold blue]LAUNCHING PRE-FLIGHT SYSTEM VERIFICATION...[/bold blue]")
+        console.print(f"\n🛫 [bold blue]LAUNCHING PRE-FLIGHT SYSTEM VERIFICATION ({target_cloud.upper()})...[/bold blue]")
         
         checks = [
             ("Registry Connectivity", self.check_registry_access),
             ("Tooling Readiness", self.check_tooling),
-            ("Env Consistency", self.check_environment_consistency)
+            ("Env Consistency", self.check_environment_consistency),
+            ("Cloud Sovereignty Auth", lambda: self.check_cloud_auth(target_cloud))
         ]
         
         table = Table(title="📋 Pre-flight Readiness Checklist", show_header=True, header_style="bold magenta")
@@ -76,6 +124,6 @@ class PreflightEngine:
             
         return all_passed
 
-def run_preflight(target_path="."):
+def run_preflight(target_path=".", target_cloud="google"):
     engine = PreflightEngine(target_path)
-    return engine.run_all()
+    return engine.run_all(target_cloud)

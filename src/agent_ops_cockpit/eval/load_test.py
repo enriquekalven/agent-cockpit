@@ -1,3 +1,5 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import time
@@ -62,7 +64,7 @@ def display_results(results):
     console.print(table)
 
 @app.command()
-def run(url: str=typer.Option('http://localhost:8000/agent/query?q=healthcheck', help='URL to stress test'), requests: int=typer.Option(50, help='Total number of requests'), concurrency: int=typer.Option(5, help='Simultaneous requests (Concurrent Users)')):
+def run(url: str=typer.Option('https://agent-cockpit.web.app/api/telemetry/dashboard', help='URL to stress test'), requests: int=typer.Option(50, help='Total number of requests'), concurrency: int=typer.Option(5, help='Simultaneous requests (Concurrent Users)')):
     """
     Execute a configurable load test against the agent endpoint.
     """

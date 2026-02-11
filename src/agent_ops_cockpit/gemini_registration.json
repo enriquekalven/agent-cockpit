@@ -1,0 +1,7 @@
+{
+  "tool_id": "gcp-agent",
+  "description": "Sovereign agent migrated from legacy stack.",
+  "endpoint": "https://{{SERVICE_URL}}/query",
+  "auth": "GCP_IAM",
+  "provider": "Gemini Enterprise"
+}

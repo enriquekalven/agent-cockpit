@@ -1,7 +1,7 @@
 {
   "name": "agent-ops-cockpit",
   "private": true,
-  "version": "1.4.4",
+  "version": "1.4.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.12.0",
+    "recharts": "^3.7.0",
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {

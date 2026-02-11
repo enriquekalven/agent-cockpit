@@ -74,10 +74,21 @@ graph TD
 Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.4 Release Notes**](/CHANGELOG.md).
 
 - **🛡️ Validation Automation**: Integrated `/validate` workflow to enforce 100% SME approval and regression safety.
+
+---
+
+## 🚢 v1.4.7: The "Fleet Sovereign" Release (LATEST)
+The ultimate end-to-end factory for professional AI agents.
+
+- **🚢 Sovereign Fleet Pipeline (10X)**: Unified orchestrator (`uv run agentops-cockpit sovereign`) that Audits, Hardens, Hydrates, Deploys, and Registers fleets of 1 to 50+ agents in a single command.
+- **🌊 Multi-Cloud Sovereign Factory**: Full end-to-end support for **AWS App Runner** and **Azure Container Apps**, including cloud-specific hydration assets (`Dockerfile.aws`, `aws-sam.json`, `azure-deploy.json`).
+- **🛫 Phase 0: Pre-flight Handshake**: Identity and toolchain verification gate that ensures IAM principals and CLIs are active before expensive fleet operations launch.
+- **🌉 Cross-Cloud A2A Bridge**: Seamlessly register your AWS/Azure agents as native Vertex AI tools via the **A2A Proxy Registration** logic.
+- **☸️ Industrial GKE Autopilot**: Native Kubernetes support for high-scale agent fleets, including LoadBalancer exposure and resource-aware scaling.
+- **📡 Gemini Enterprise Tool-use**: Seamlessly register your cross-cloud agents as native Vertex AI tools via the Agent Engine and A2A Bridge.
+- **💧 ADK-Native Transition**: Automatically upgrades generic agents to the high-fidelity Agent Development Kit (ADK) standard.
 - **🧗 Autonomous Evolution (10X)**: The "PR Closer" mode. Surgically fixes detected gaps and creates a hardened deployment branch automatically.
 - **🕵️ Shadow Mode (10X)**: Differential reasoning analysis to detect drift, latency, and cost delta between agent versions.
-- **🧗 Atomic RAG & Hardening**: Restricted retrieval context to top 5 results to maximize reasoning density and prevent token bloat.
-- **🛠️ Poka-Yoke Tooling**: Hardened tool schemas using `Literal` types to "mistake-proof" agentic tool calling.
 - **💰 SME Consensus 2.0**: Unified approval engine requiring a unanimous "Sovereign Standard" from all 11 Principal SMEs.
 
 ---

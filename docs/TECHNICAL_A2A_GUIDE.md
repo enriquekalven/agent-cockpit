@@ -9,6 +9,7 @@ The `make arch-review` (via InteropAuditor) command activates the **Agent Archit
 | **A2UI** | Visual Handshake | Maps tool outputs to specific React surfaces (`surfaceId`). |
 | **UCP** | Universal Context | Ensures long-term memory is portable across LLM providers. |
 | **AP2** | Agent Protocol v2 | Standardizes JSON-Schema for inter-agent delegation. |
+| **A2A** | Cross-Cloud Bridge | Enables cross-cloud tool-use via the Sovereign A2A Bridge. |
 | **Maturity**| Expertise Matrix | Visualizes the Cockpit's cross-protocol competency matrix (v1.4.1). |
 
 ---

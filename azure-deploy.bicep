@@ -1,0 +1,1 @@
+resource agentApp 'Microsoft.App/containerApps@2023-05-01' = { name: 'sovereign-agent', location: resourceGroup().location }

@@ -1,3 +1,5 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import git
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import List
@@ -40,7 +42,9 @@ class GitPortal:
                 gpg_sign = gpg_sign.lower() == 'true'
         except Exception:
             pass
-        self.repo.index.add(files)
+        import os
+        rel_files = [os.path.relpath(f, self.repo_path) if os.path.isabs(f) or f.startswith('..') else f for f in files]
+        self.repo.index.add(rel_files)
         if gpg_sign:
             console.print('🔐 [yellow]GPG Signing detected. Using --no-gpg-sign for agentic commit...[/yellow]')
             self.repo.git.commit('-m', message, '--no-gpg-sign')

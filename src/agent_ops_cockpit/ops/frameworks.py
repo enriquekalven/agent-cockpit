@@ -1,3 +1,5 @@
+from google.adk.agents.context_cache_config import ContextCacheConfig
+# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import re
 GOOGLE_CHECKLIST = [{'category': '🏗️ Core Architecture (Google)', 'checks': [('Runtime: Is the agent running on Cloud Run or GKE?', 'Critical for scalability and cost.'), ('Framework: Is ADK used for tool orchestration?', 'Google-standard for agent-tool communication.'), ('Sandbox: Is Code Execution running in Vertex AI Sandbox?', 'Prevents malicious code execution.'), ('Backend: Is FastAPI used for the Engine layer?', 'Industry-standard for high-concurrency agent apps.'), ('Outputs: Are Pydantic or Response Schemas used for structured output?', 'Ensures data integrity and reliable tool execution.')]}, {'category': '🛡️ Security & Privacy', 'checks': [('PII: Is a scrubber active before sending data to LLM?', 'Compliance requirement (GDPR/SOC2).'), ('Identity: Is IAM used for tool access?', 'Ensures least-privilege security.'), ('Safety: Are Vertex AI Safety Filters configured?', 'Protects against toxic generation.'), ("Policies: Is 'policies.json' used for declarative guardrails?", 'Enforces RFC-307 standards for forbidden topics and tool HITL.')]}, {'category': '📉 Optimization', 'checks': [('Caching: Is Semantic Caching (Hive Mind) enabled?', 'Reduces LLM costs.'), ('Context: Are you using Context Caching?', 'Critical for prompts > 32k tokens.'), ('Routing: Are you using Flash for simple tasks?', 'Performance and cost optimization.')]}, {'category': '🌐 Infrastructure & Runtime', 'checks': [('Agent Engine: Are you using Vertex AI Reasoning Engine for deployment?', 'Managed orchestration with built-in versioning and traces.'), ('Observability: Is Agent Starter Pack tracing enabled?', 'Ensures deep observability and Cloud Trace integration.'), ("Cloud Run: Is 'Startup CPU Boost' enabled?", 'Critical for reducing cold-start latency in Python agents.'), ('GKE: Is Workload Identity used for IAM?', 'Google-standard for secure service-to-service communication.'), ('VPC: Is VPC Service Controls (VPC SC) active?', 'Prevents data exfiltration by isolating the agent environment.')]}, {'category': '🎭 Face (UI/UX)', 'checks': [('A2UI: Are components registered in the A2UIRenderer?', 'Ensures engine-driven UI protocol compliance.'), ('Responsive: Are mobile-first media queries present in index.css?', 'Ensures usability across devices (iOS/Android).'), ('Accessibility: Do interactive elements have aria-labels?', 'Critical for inclusive design and automated testing.'), ('Triggers: Are you using interactive triggers for state changes?', "Improves 'Agentic Feel' through reactive UI.")]}, {'category': '🧗 Resiliency & Best Practices', 'checks': [('Resiliency: Are retries with exponential backoff used for API/DB calls?', 'Prevents cascading failures during downtime (e.g., using tenacity).'), ("Prompts: Are prompts stored in external '.md' or '.yaml' files?", 'Best practice for separation of concerns and versioning.'), ('Sessions: Is there a session/conversation management layer?', 'Ensures context continuity and user state tracking.'), ('Retrieval: Are you using RAG or Efficient Context Caching for large datasets?', 'Optimizes performance vs. cost for retrieval-heavy agents.')]}, {'category': '⚖️ Legal & Compliance', 'checks': [('Copyright: Does every source file have a legal copyright header?', 'IP protection and enterprise policy.'), ('License: Is there a LICENSE file in the root?', 'Mandatory for legal distribution.'), ('Disclaimer: Does the agent provide a clear LLM-usage disclaimer?', 'Liability mitigation for AI hallucinations.'), ('Data Residency: Is the agent region-restricted to us-central1 or equivalent?', 'Ensures data stays within geofenced boundaries.')]}, {'category': '📢 Marketing & Brand', 'checks': [('Tone: Is the system prompt aligned with brand voice (Helpful/Professional)?', 'Consistency in agent personality.'), ('SEO: Are OpenGraph and meta-tags present in the Face layer?', 'Critical for discoverability and social sharing.'), ('Vibrancy: Does the UI use the standard corporate color palette?', 'Prevents ad-hoc branding in autonomous UIs.'), ('CTA: Is there a clear Call-to-Action for every agent proposing a tool?', 'Drives conversion and user engagement.')]}]
@@ -27,20 +29,28 @@ FRAMEWORKS = {'google': {'name': 'Google Vertex AI / ADK', 'checklist': GOOGLE_C
 NIST_AI_RMF_CHECKLIST = [{'category': '⚖️ NIST AI RMF (Governance)', 'checks': [("Transparency: Is the agent's purpose and limitation documented?", 'Ensures users know what the AI can/cannot do.'), ('Human-in-the-Loop: Are sensitive decisions manually reviewed?', 'Mitigates high-risk autonomous failures.'), ('Traceability: Is every agent reasoning step logged?', 'Required for forensic audit and accountability.')]}]
 
 def detect_framework(path: str='.') -> str:
-    """ Detects the framework based on README or requirements.txt files. """
+    """ Detects the framework based on README, requirements.txt, or source code. """
     content = ''
-    readme_path = os.path.join(path, 'README.md')
-    if os.path.exists(readme_path):
-        with open(readme_path, 'r') as f:
-            content += f.read()
-    for filename in ['requirements.txt', 'pyproject.toml', 'package.json', 'go.mod', 'firebase.json', '.firebaserc']:
-        file_path = os.path.join(path, filename)
-        if os.path.exists(file_path):
-            content += f' {filename} '
-            with open(file_path, 'r') as f:
+    
+    # If path is a file, read it directly
+    if os.path.isfile(path):
+        with open(path, 'r', errors='ignore') as f:
+            content = f.read()
+    else:
+        # Check standard config files in the directory
+        readme_path = os.path.join(path, 'README.md')
+        if os.path.exists(readme_path):
+            with open(readme_path, 'r', errors='ignore') as f:
                 content += f.read()
+        for filename in ['requirements.txt', 'pyproject.toml', 'package.json', 'go.mod', 'firebase.json', '.firebaserc']:
+            file_path = os.path.join(path, filename)
+            if os.path.exists(file_path):
+                content += f' {filename} '
+                with open(file_path, 'r', errors='ignore') as f:
+                    content += f.read()
+                    
     for framework, data in FRAMEWORKS.items():
         for indicator in data['indicators']:
-            if re.search(indicator, content, re.IGNORECASE):
+            if indicator and re.search(indicator, content, re.IGNORECASE):
                 return framework
     return 'generic'

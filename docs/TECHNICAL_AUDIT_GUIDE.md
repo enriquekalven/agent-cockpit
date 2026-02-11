@@ -39,6 +39,7 @@ We have reduced permutations to focus on the **mode** of the audit rather than t
 | `make audit-deep` | **Deep Probe** | The "Final Exam": RAG Fidelity, stress tests, and benchmarks. |
 | `make apply-fixes`| **Remediation** | Triggers AST-based code patches for detected gaps. |
 | `agent-ops audit` | **Interactive** | Real-time optimization loop for `agent.py`. |
+| `agent-ops sovereign`| **End-to-End**| [10X] The ultimate factory: Audit -> Fix -> Hydrate -> Deploy -> Register. |
 | `agent-ops workbench`| **Negotiation** | Review and approve autonomous fixes (v1.4.2). |
 
 ---

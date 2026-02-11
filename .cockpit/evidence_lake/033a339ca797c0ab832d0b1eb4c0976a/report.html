@@ -61,11 +61,7 @@
                         <div class='executive-summary-content'>
 <div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>
 <h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: WARNING</h3>
-<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>75.0%</strong> | Active Risks: <strong>2</strong></p>
-</div>
-<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #ef4444; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
-<h4 style='margin:0 0 10px 0; color:#ef4444; font-size:0.9rem; text-transform:uppercase;'>Priority 1: 🔥 Critical Security & Compliance</h4>
-<div style='font-size:0.95rem; margin-bottom:4px;'><strong>Found Azure OpenAI Key leak</strong>: Move this credential to</div>
+<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>87.5%</strong> | Active Risks: <strong>1</strong></p>
 </div>
 <div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #f59e0b; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
 <h4 style='margin:0 0 10px 0; color:#f59e0b; font-size:0.9rem; text-transform:uppercase;'>Priority 2: 🛡️ Reliability & Resilience</h4>
@@ -125,19 +121,19 @@
                 </tr>
             
                 <tr>
+                    <td style="font-weight:700; color:#0f172a;">🔐 SecOps Principal</td>
+                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
+                    <td class="risk-text">Credential Leakage & Unauthorized Access</td>
+                    <td>Secret Scanner</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
                     <td style="font-weight:700; color:#0f172a;">🧗 RAG Quality Principal</td>
                     <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
                     <td class="risk-text">Retrieval-Reasoning Hallucinations</td>
                     <td>RAG Fidelity Audit</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td style="font-weight:700; color:#0f172a;">🔐 SecOps Principal</td>
-                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
-                    <td class="risk-text">Credential Leakage & Unauthorized Access</td>
-                    <td>Secret Scanner</td>
-                    <td><span class="status-badge fail">REJECTED</span></td>
                 </tr>
             
                 <tr>
@@ -176,21 +172,9 @@
                     <tbody>
             
                         <tr>
-                            <td><code>public/fleet_data.json:5</code></td>
-                            <td>Found Azure OpenAI Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential to</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>public/fleet_data.json:48</code></td>
-                            <td>Found Azure OpenAI Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential</td>
-                        </tr>
-                    
-                        <tr>
-                            <td><code>public/fleet_data.json:91</code></td>
-                            <td>Found Azure OpenAI Key leak</td>
-                            <td style="color: #059669; font-weight: 600;">Move this credential</td>
+                            <td><code>/Users/enriq/Documents/git/agent-cockpit/functions/main.py</code></td>
+                            <td>Missing Resiliency Pattern</td>
+                            <td style="color: #059669; font-weight: 600;">Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.</td>
                         </tr>
                     
                         <tr>
@@ -511,36 +495,14 @@ Secure Auth)
 
 ❌ HIGH IMPACT issues detected. Optimization required for production.
 
+</pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched patterns.
 </pre><h3>RAG Fidelity Audit</h3><pre>╭────────────────────────────────────╮
 │ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
 ╰────────────────────────────────────╯
 ✅ No RAG-specific risks detected or no RAG pattern found.
-</pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
-│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
-╰──────────────────────────────────────────────╯
-
-🛠️  DEVELOPER ACTIONS REQUIRED:
-ACTION: public/fleet_data.json:5 | Found Azure OpenAI Key leak | Move this credential to
-Google Cloud Secret Manager or .env file.
-ACTION: public/fleet_data.json:48 | Found Azure OpenAI Key leak | Move this credential 
-to Google Cloud Secret Manager or .env file.
-ACTION: public/fleet_data.json:91 | Found Azure OpenAI Key leak | Move this credential 
-to Google Cloud Secret Manager or .env file.
-
-
-                   🛡️ Security Findings: Hardcoded Secrets                   
-┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ File                   ┃ Line ┃ Type             ┃ Suggestion             ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ public/fleet_data.json │ 5    │ Azure OpenAI Key │ Move to Secret Manager │
-│ public/fleet_data.json │ 48   │ Azure OpenAI Key │ Move to Secret Manager │
-│ public/fleet_data.json │ 91   │ Azure OpenAI Key │ Move to Secret Manager │
-└────────────────────────┴──────┴──────────────────┴────────────────────────┘
-
-❌ FAIL: Found 3 potential credential leaks.
-💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all 
-tokens.
-
 </pre><h3>Face Auditor</h3><pre>╭──────────────────────────────────────╮
 │ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
 ╰──────────────────────────────────────╯
@@ -638,6 +600,7 @@ prop to the root component or exported interface.
 ╰─────────────────────────────────────────────────────────────╯
 Detected Stack: Google Vertex AI / ADK | v1.1 Deep Reasoning Enabled
 
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py | Inference Cost Projection (gemini-3-pro) | Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py | Inference Cost Projection (gemini-3-pro) | Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
@@ -984,6 +947,17 @@ ACTION: /Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1 | Adversarial 
 (Red Teaming) | Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety 
 (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response 
 check). 5) Language (Non-supported language override).
+🚩 Excessive Agency & Privilege (OWASP LLM06) 
+(/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:)
+   Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular
+IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions 
+(Delete/Write). 3) Sandbox isolation for Python execution.
+   ⚖️ Strategic ROI: Agents with broad tool access are high-value targets. Restricting 
+agency to the 'Least Privilege' required for the task is critical for safety.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1 | Excessive Agency & 
+Privilege (OWASP LLM06) | Audit tool permissions against MITRE ATLAS 'Excessive Agency'.
+Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop (HITL) for 
+destructive actions (Delete/Write). 3) Sandbox isolation for Python execution.
 🚩 Agent Starter Pack Template Adoption 
 (/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:)
    Leverage production-grade Generative AI templates from the 
@@ -1015,6 +989,107 @@ identified by Ecosystem Watcher.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1 | Incompatible Duo: 
 langgraph + crewai | CrewAI and LangGraph both attempt to manage the orchestration loop 
 and state, leading to cyclic-dependency conflicts.
+🚩 SOC2 Control Gap: Missing Transit Logging 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
+for all system access.
+   ⚖️ Strategic ROI: Critical for passing external audits and root-cause analysis.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+SOC2 Control Gap: Missing Transit Logging | Structural logging (logger.info/error) not 
+detected. SOC2 CC6.1 requires audit trails for all system access.
+🚩 HIPAA Risk: Potential Unencrypted ePHI 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Database interaction detected without explicit encryption or secret management 
+headers.
+   ⚖️ Strategic ROI: Avoid legal penalties by enforcing encryption headers in database 
+client configuration.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+HIPAA Risk: Potential Unencrypted ePHI | Database interaction detected without explicit 
+encryption or secret management headers.
+🚩 Potential Recursive Agent Loop 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Detected a self-referencing agent call pattern. Risk of infinite reasoning loops and 
+runaway costs.
+   ⚖️ Strategic ROI: Prevents 'Infinite Spend' scenarios where agents gaslight each 
+other recursively.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Potential Recursive Agent Loop | Detected a self-referencing agent call pattern. Risk of
+infinite reasoning loops and runaway costs.
+🚩 Proprietary Context Handshake (Non-AP2) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Agent is using ad-hoc context passing. Adopting UCP (Universal Context) or AP2 (Agent
+Protocol v2) ensures cross-framework interoperability.
+   ⚖️ Strategic ROI: Prevents vendor lock-in and enables multi-framework swarms (e.g. 
+LangChain + CrewAI).
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Proprietary Context Handshake (Non-AP2) | Agent is using ad-hoc context passing. 
+Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures cross-framework 
+interoperability.
+🚩 Short-Term Memory (STM) at Risk 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Agent is storing session state in local pod memory (dictionaries). A GKE restart or 
+Cloud Run scale-down wipes the agent's brain.
+   ⚖️ Strategic ROI: Implementing Redis for STM ensures persistent agent context across 
+pod lifecycles.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Short-Term Memory (STM) at Risk | Agent is storing session state in local pod memory 
+(dictionaries). A GKE restart or Cloud Run scale-down wipes the agent's brain.
+🚩 Missing 5th Golden Signal (TTFT/Tracing) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the 
+primary metric for perceived intelligence.
+   ⚖️ Strategic ROI: Allows proactive 'Latency Regression' alerts before users feel the 
+slowness.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation 
+(OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived intelligence.
+🚩 Adversarial Testing (Red Teaming) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety 
+(Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response 
+check). 5) Language (Non-supported language override).
+   ⚖️ Strategic ROI: Standard unit tests don't cover adversarial reasoning. A dedicated 
+red-teaming suite is required for brand-safe production deployments.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Adversarial Testing (Red Teaming) | Implement 5-layer Red Teaming: 1) Quality (Customer 
+queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) 
+Off-topic (Canned response check). 5) Language (Non-supported language override).
+🚩 Excessive Agency & Privilege (OWASP LLM06) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular
+IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions 
+(Delete/Write). 3) Sandbox isolation for Python execution.
+   ⚖️ Strategic ROI: Agents with broad tool access are high-value targets. Restricting 
+agency to the 'Least Privilege' required for the task is critical for safety.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Excessive Agency & Privilege (OWASP LLM06) | Audit tool permissions against MITRE ATLAS 
+'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop 
+(HITL) for destructive actions (Delete/Write). 3) Sandbox isolation for Python 
+execution.
+🚩 Indirect Prompt Injection (RAG Hardening) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Protect the RAG pipeline. Implement: 1) Input Sanitization for 'Malicious Fragments' 
+in fetched docs. 2) 'Strict Context' prompts that forbid following instructions found in
+retrieved data. 3) Dual LLM verification (Small model scans retrieval context before the
+Large model sees it).
+   ⚖️ Strategic ROI: RAG systems are vulnerable to 'Indirect' injections where an 
+attacker poisons a document to highjack the agent's logic during retrieval.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+Indirect Prompt Injection (RAG Hardening) | Protect the RAG pipeline. Implement: 1) 
+Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' 
+prompts that forbid following instructions found in retrieved data. 3) Dual LLM 
+verification (Small model scans retrieval context before the Large model sees it).
+🚩 LlamaIndex Workflows (Event-Driven Reasoning) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:)
+   Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces 
+rigid linear chains with a dynamic state-based event loop that is more resilient to 
+complex user intents.
+   ⚖️ Strategic ROI: Event-driven workflows provide superior flexibility and error 
+recovery compared to standard synchronous chains.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_firebase_telemetry.py:1 | 
+LlamaIndex Workflows (Event-Driven Reasoning) | Adopt the LlamaIndex Workflow (v0.14+) 
+for event-driven agentic logic. This replaces rigid linear chains with a dynamic 
+state-based event loop that is more resilient to complex user intents.
 🚩 SOC2 Control Gap: Missing Transit Logging 
 (/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
    Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
@@ -1170,6 +1245,179 @@ single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another
 critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) 
 Self-Reflexion: Agent audits its own output before transmission.
 🚩 SOC2 Control Gap: Missing Transit Logging 
+(/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:)
+   Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
+for all system access.
+   ⚖️ Strategic ROI: Critical for passing external audits and root-cause analysis.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1 | SOC2
+Control Gap: Missing Transit Logging | Structural logging (logger.info/error) not 
+detected. SOC2 CC6.1 requires audit trails for all system access.
+🚩 Potential Recursive Agent Loop 
+(/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:)
+   Detected a self-referencing agent call pattern. Risk of infinite reasoning loops and 
+runaway costs.
+   ⚖️ Strategic ROI: Prevents 'Infinite Spend' scenarios where agents gaslight each 
+other recursively.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1 | 
+Potential Recursive Agent Loop | Detected a self-referencing agent call pattern. Risk of
+infinite reasoning loops and runaway costs.
+🚩 Missing 5th Golden Signal (TTFT/Tracing) 
+(/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:)
+   Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the 
+primary metric for perceived intelligence.
+   ⚖️ Strategic ROI: Allows proactive 'Latency Regression' alerts before users feel the 
+slowness.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1 | 
+Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation 
+(OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived intelligence.
+🚩 Multi-Agent Debate (MAD) & Consensus 
+(/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:)
+   For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent 
+Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore 
+multiple reasoning paths. 3) Self-Reflexion: Agent audits its own output before 
+transmission.
+   ⚖️ Strategic ROI: Single-agent loops are prone to hallucinations. Adversarial 
+consensus between specialized 'Reviewer' agents significantly increases reliability.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1 | 
+Multi-Agent Debate (MAD) & Consensus | For high-stakes reasoning, move beyond 
+single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another 
+critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) 
+Self-Reflexion: Agent audits its own output before transmission.
+🚩 SOC2 Control Gap: Missing Transit Logging 
+(/Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:)
+   Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
+for all system access.
+   ⚖️ Strategic ROI: Critical for passing external audits and root-cause analysis.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:1 | SOC2 
+Control Gap: Missing Transit Logging | Structural logging (logger.info/error) not 
+detected. SOC2 CC6.1 requires audit trails for all system access.
+🚩 Missing 5th Golden Signal (TTFT/Tracing) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:)
+   Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the 
+primary metric for perceived intelligence.
+   ⚖️ Strategic ROI: Allows proactive 'Latency Regression' alerts before users feel the 
+slowness.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:1 | Missing 
+5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation (OTEL/Cloud Trace)
+not detected. TTFT is the primary metric for perceived intelligence.
+🚩 Legacy REST vs MCP 
+(/Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:)
+   Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, Anthropic, and 
+Microsoft (Agent Kit) are converging on MCP for standardized tool/resource governance.
+   ⚖️ Strategic ROI: Standardized protocols reduce integration debt and enable 
+multi-agent interoperability without custom bridge logic.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:1 | Legacy 
+REST vs MCP | Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, 
+Anthropic, and Microsoft (Agent Kit) are converging on MCP for standardized 
+tool/resource governance.
+🚩 Excessive Agency & Privilege (OWASP LLM06) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:)
+   Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular
+IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions 
+(Delete/Write). 3) Sandbox isolation for Python execution.
+   ⚖️ Strategic ROI: Agents with broad tool access are high-value targets. Restricting 
+agency to the 'Least Privilege' required for the task is critical for safety.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/requirements.txt:1 | 
+Excessive Agency & Privilege (OWASP LLM06) | Audit tool permissions against MITRE ATLAS 
+'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop 
+(HITL) for destructive actions (Delete/Write). 3) Sandbox isolation for Python 
+execution.
+🚩 SOC2 Control Gap: Missing Transit Logging 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
+for all system access.
+   ⚖️ Strategic ROI: Critical for passing external audits and root-cause analysis.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | SOC2 Control Gap:
+Missing Transit Logging | Structural logging (logger.info/error) not detected. SOC2 
+CC6.1 requires audit trails for all system access.
+🚩 HIPAA Risk: Potential Unencrypted ePHI 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Database interaction detected without explicit encryption or secret management 
+headers.
+   ⚖️ Strategic ROI: Avoid legal penalties by enforcing encryption headers in database 
+client configuration.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | HIPAA Risk: 
+Potential Unencrypted ePHI | Database interaction detected without explicit encryption 
+or secret management headers.
+🚩 EU Data Sovereignty Gap (/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Compliance code detected but no European region routing found. Risk of non-compliance
+with EU data residency laws.
+   ⚖️ Strategic ROI: Prevents multi-million Euro GDPR fines.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | EU Data 
+Sovereignty Gap | Compliance code detected but no European region routing found. Risk of
+non-compliance with EU data residency laws.
+🚩 Strategic Exit Plan (Cloud) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Detected hardcoded cloud dependencies. For a 'Category Killer' grade, implement an 
+abstraction layer that allows switching to Gemma 2 on GKE.
+   ⚖️ Strategic ROI: Estimated 12% OpEx reduction via open-source pivot orchestrated by 
+Antigravity. Exit effort: ~14 lines of code.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Strategic Exit 
+Plan (Cloud) | Detected hardcoded cloud dependencies. For a 'Category Killer' grade, 
+implement an abstraction layer that allows switching to Gemma 2 on GKE.
+🚩 Potential Recursive Agent Loop 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Detected a self-referencing agent call pattern. Risk of infinite reasoning loops and 
+runaway costs.
+   ⚖️ Strategic ROI: Prevents 'Infinite Spend' scenarios where agents gaslight each 
+other recursively.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Potential 
+Recursive Agent Loop | Detected a self-referencing agent call pattern. Risk of infinite 
+reasoning loops and runaway costs.
+🚩 Short-Term Memory (STM) at Risk 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Agent is storing session state in local pod memory (dictionaries). A GKE restart or 
+Cloud Run scale-down wipes the agent's brain.
+   ⚖️ Strategic ROI: Implementing Redis for STM ensures persistent agent context across 
+pod lifecycles.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Short-Term Memory
+(STM) at Risk | Agent is storing session state in local pod memory (dictionaries). A GKE
+restart or Cloud Run scale-down wipes the agent's brain.
+🚩 Missing 5th Golden Signal (TTFT/Tracing) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the 
+primary metric for perceived intelligence.
+   ⚖️ Strategic ROI: Allows proactive 'Latency Regression' alerts before users feel the 
+slowness.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Missing 5th 
+Golden Signal (TTFT/Tracing) | Structural tracing instrumentation (OTEL/Cloud Trace) not
+detected. TTFT is the primary metric for perceived intelligence.
+🚩 Excessive Agency & Privilege (OWASP LLM06) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular
+IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions 
+(Delete/Write). 3) Sandbox isolation for Python execution.
+   ⚖️ Strategic ROI: Agents with broad tool access are high-value targets. Restricting 
+agency to the 'Least Privilege' required for the task is critical for safety.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Excessive Agency 
+& Privilege (OWASP LLM06) | Audit tool permissions against MITRE ATLAS 'Excessive 
+Agency'. Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop (HITL) for 
+destructive actions (Delete/Write). 3) Sandbox isolation for Python execution.
+🚩 Indirect Prompt Injection (RAG Hardening) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Protect the RAG pipeline. Implement: 1) Input Sanitization for 'Malicious Fragments' 
+in fetched docs. 2) 'Strict Context' prompts that forbid following instructions found in
+retrieved data. 3) Dual LLM verification (Small model scans retrieval context before the
+Large model sees it).
+   ⚖️ Strategic ROI: RAG systems are vulnerable to 'Indirect' injections where an 
+attacker poisons a document to highjack the agent's logic during retrieval.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | Indirect Prompt 
+Injection (RAG Hardening) | Protect the RAG pipeline. Implement: 1) Input Sanitization 
+for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' prompts that forbid 
+following instructions found in retrieved data. 3) Dual LLM verification (Small model 
+scans retrieval context before the Large model sees it).
+🚩 LlamaIndex Workflows (Event-Driven Reasoning) 
+(/Users/enriq/Documents/git/agent-cockpit/functions/main.py:)
+   Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces 
+rigid linear chains with a dynamic state-based event loop that is more resilient to 
+complex user intents.
+   ⚖️ Strategic ROI: Event-driven workflows provide superior flexibility and error 
+recovery compared to standard synchronous chains.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/functions/main.py:1 | LlamaIndex 
+Workflows (Event-Driven Reasoning) | Adopt the LlamaIndex Workflow (v0.14+) for 
+event-driven agentic logic. This replaces rigid linear chains with a dynamic state-based
+event loop that is more resilient to complex user intents.
+🚩 SOC2 Control Gap: Missing Transit Logging 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/config.py:)
    Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
 for all system access.
@@ -1225,11 +1473,11 @@ for event-driven agentic logic. This replaces rigid linear chains with a dynamic
 state-based event loop that is more resilient to complex user intents.
 🚩 Missing Resiliency Logic 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:106)
-   External call 'get' to 'https://agent-engine-697625214...' is not protected by retry 
+   External call 'get' to 'https://agent-cockpit.web.app/...' is not protected by retry 
 logic.
    ⚖️ Strategic ROI: Increases up-time and handles transient network failures.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:106 
-| Missing Resiliency Logic | External call 'get' to 'https://agent-engine-697625214...' 
+| Missing Resiliency Logic | External call 'get' to 'https://agent-cockpit.web.app/...' 
 is not protected by retry logic.
 🚩 SOC2 Control Gap: Missing Transit Logging 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:)
@@ -9324,20 +9572,6 @@ ACTION:
 Agentic Observability (Golden Signals) | Monitor the Agentic Trinity: 1) Reasoning Trace
 (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent. Microsoft Agent
 Kit recommends 'Trace-based Debugging' for multi-agent loops.
-🚩 Multi-Agent Debate (MAD) & Consensus 
-(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:)
-   For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent 
-Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore 
-multiple reasoning paths. 3) Self-Reflexion: Agent audits its own output before 
-transmission.
-   ⚖️ Strategic ROI: Single-agent loops are prone to hallucinations. Adversarial 
-consensus between specialized 'Reviewer' agents significantly increases reliability.
-ACTION: 
-/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1 | 
-Multi-Agent Debate (MAD) & Consensus | For high-stakes reasoning, move beyond 
-single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another 
-critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) 
-Self-Reflexion: Agent audits its own output before transmission.
 🚩 Mental Model Discovery (HAX Guideline 01) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:)
    Don't leave users guessing. Implementation: 1) HAX: Make clear what the system can 
@@ -9379,9 +9613,9 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │ 🌊 Impact Waterfall (v1.3)                                                           │
 │                                                                                      │
 │  • Reasoning Delay: 1600ms added to chain (Critical Path).                           │
-│  • Risk Reduction: 2992% reduction in Potential Failure Points (PFPs) via audit      │
+│  • Risk Reduction: 3104% reduction in Potential Failure Points (PFPs) via audit      │
 │    logic.                                                                            │
-│  • Sovereignty Delta: 20/100 - (🚨 EXIT_PLAN_REQUIRED).                              │
+│  • Sovereignty Delta: 0/100 - (🚨 EXIT_PLAN_REQUIRED).                               │
 │                                                                                      │
 │ 🛠️ Summary of Findings                                                               │
 │                                                                                      │
@@ -9457,6 +9691,10 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │    (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics              │
 │    (Politics/Legal). 4) Off-topic (Canned response check). 5) Language               │
 │    (Non-supported language override). (Impact: HIGH)                                 │
+│  • Excessive Agency & Privilege (OWASP LLM06): Audit tool permissions against MITRE  │
+│    ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2)       │
+│    Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox       │
+│    isolation for Python execution. (Impact: CRITICAL)                                │
 │  • Agent Starter Pack Template Adoption: Leverage production-grade Generative AI     │
 │    templates from the GoogleCloudPlatform/agent-starter-pack. Benefits: 1) Pre-built │
 │    LangGraph patterns. 2) IAM-hardened deployments. 3) Standardized tool-use hooks.  │
@@ -9468,6 +9706,39 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │  • Incompatible Duo: langgraph + crewai: CrewAI and LangGraph both attempt to manage │
 │    the orchestration loop and state, leading to cyclic-dependency conflicts.         │
 │    (Impact: CRITICAL)                                                                │
+│  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
+│    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
+│    HIGH)                                                                             │
+│  • HIPAA Risk: Potential Unencrypted ePHI: Database interaction detected without     │
+│    explicit encryption or secret management headers. (Impact: CRITICAL)              │
+│  • Potential Recursive Agent Loop: Detected a self-referencing agent call pattern.   │
+│    Risk of infinite reasoning loops and runaway costs. (Impact: CRITICAL)            │
+│  • Proprietary Context Handshake (Non-AP2): Agent is using ad-hoc context passing.   │
+│    Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures               │
+│    cross-framework interoperability. (Impact: LOW)                                   │
+│  • Short-Term Memory (STM) at Risk: Agent is storing session state in local pod      │
+│    memory (dictionaries). A GKE restart or Cloud Run scale-down wipes the agent's    │
+│    brain. (Impact: HIGH)                                                             │
+│  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
+│    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
+│    intelligence. (Impact: MEDIUM)                                                    │
+│  • Adversarial Testing (Red Teaming): Implement 5-layer Red Teaming: 1) Quality      │
+│    (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics              │
+│    (Politics/Legal). 4) Off-topic (Canned response check). 5) Language               │
+│    (Non-supported language override). (Impact: HIGH)                                 │
+│  • Excessive Agency & Privilege (OWASP LLM06): Audit tool permissions against MITRE  │
+│    ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2)       │
+│    Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox       │
+│    isolation for Python execution. (Impact: CRITICAL)                                │
+│  • Indirect Prompt Injection (RAG Hardening): Protect the RAG pipeline. Implement:   │
+│    1) Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict       │
+│    Context' prompts that forbid following instructions found in retrieved data. 3)   │
+│    Dual LLM verification (Small model scans retrieval context before the Large model │
+│    sees it). (Impact: CRITICAL)                                                      │
+│  • LlamaIndex Workflows (Event-Driven Reasoning): Adopt the LlamaIndex Workflow      │
+│    (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a │
+│    dynamic state-based event loop that is more resilient to complex user intents.    │
+│    (Impact: HIGH)                                                                    │
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
 │    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
 │    HIGH)                                                                             │
@@ -9526,6 +9797,62 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
 │    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
 │    intelligence. (Impact: MEDIUM)                                                    │
+│  • Multi-Agent Debate (MAD) & Consensus: For high-stakes reasoning, move beyond      │
+│    single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another  │
+│    critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3)        │
+│    Self-Reflexion: Agent audits its own output before transmission. (Impact: HIGH)   │
+│  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
+│    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
+│    HIGH)                                                                             │
+│  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
+│    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
+│    intelligence. (Impact: MEDIUM)                                                    │
+│  • Legacy REST vs MCP: Pivot to Model Context Protocol (MCP) for tool discovery.     │
+│    OpenAI, Anthropic, and Microsoft (Agent Kit) are converging on MCP for            │
+│    standardized tool/resource governance. (Impact: HIGH)                             │
+│  • Excessive Agency & Privilege (OWASP LLM06): Audit tool permissions against MITRE  │
+│    ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2)       │
+│    Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox       │
+│    isolation for Python execution. (Impact: CRITICAL)                                │
+│  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
+│    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
+│    HIGH)                                                                             │
+│  • HIPAA Risk: Potential Unencrypted ePHI: Database interaction detected without     │
+│    explicit encryption or secret management headers. (Impact: CRITICAL)              │
+│  • EU Data Sovereignty Gap: Compliance code detected but no European region routing  │
+│    found. Risk of non-compliance with EU data residency laws. (Impact: HIGH)         │
+│  • Strategic Exit Plan (Cloud): Detected hardcoded cloud dependencies. For a         │
+│    'Category Killer' grade, implement an abstraction layer that allows switching to  │
+│    Gemma 2 on GKE. (Impact: INFO)                                                    │
+│  • Potential Recursive Agent Loop: Detected a self-referencing agent call pattern.   │
+│    Risk of infinite reasoning loops and runaway costs. (Impact: CRITICAL)            │
+│  • Short-Term Memory (STM) at Risk: Agent is storing session state in local pod      │
+│    memory (dictionaries). A GKE restart or Cloud Run scale-down wipes the agent's    │
+│    brain. (Impact: HIGH)                                                             │
+│  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
+│    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
+│    intelligence. (Impact: MEDIUM)                                                    │
+│  • Excessive Agency & Privilege (OWASP LLM06): Audit tool permissions against MITRE  │
+│    ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2)       │
+│    Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox       │
+│    isolation for Python execution. (Impact: CRITICAL)                                │
+│  • Indirect Prompt Injection (RAG Hardening): Protect the RAG pipeline. Implement:   │
+│    1) Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict       │
+│    Context' prompts that forbid following instructions found in retrieved data. 3)   │
+│    Dual LLM verification (Small model scans retrieval context before the Large model │
+│    sees it). (Impact: CRITICAL)                                                      │
+│  • LlamaIndex Workflows (Event-Driven Reasoning): Adopt the LlamaIndex Workflow      │
+│    (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a │
+│    dynamic state-based event loop that is more resilient to complex user intents.    │
+│    (Impact: HIGH)                                                                    │
+│  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
+│    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
+│    HIGH)                                                                             │
+│  • Potential Recursive Agent Loop: Detected a self-referencing agent call pattern.   │
+│    Risk of infinite reasoning loops and runaway costs. (Impact: CRITICAL)            │
+│  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
+│    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
+│    intelligence. (Impact: MEDIUM)                                                    │
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
 │    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
 │    HIGH)                                                                             │
@@ -9537,7 +9864,7 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │    dynamic state-based event loop that is more resilient to complex user intents.    │
 │    (Impact: HIGH)                                                                    │
 │  • Missing Resiliency Logic: External call 'get' to                                  │
-│    'https://agent-engine-697625214...' is not protected by retry logic. (Impact:     │
+│    'https://agent-cockpit.web.app/...' is not protected by retry logic. (Impact:     │
 │    HIGH)                                                                             │
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
 │    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
@@ -11918,10 +12245,6 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │    Trace (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent.    │
 │    Microsoft Agent Kit recommends 'Trace-based Debugging' for multi-agent loops.     │
 │    (Impact: MEDIUM)                                                                  │
-│  • Multi-Agent Debate (MAD) & Consensus: For high-stakes reasoning, move beyond      │
-│    single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another  │
-│    critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3)        │
-│    Self-Reflexion: Agent audits its own output before transmission. (Impact: HIGH)   │
 │  • Mental Model Discovery (HAX Guideline 01): Don't leave users guessing.            │
 │    Implementation: 1) HAX: Make clear what the system can do. 2) UI: Provide         │
 │    'Capability Cards' or proactive tool suggestions. 3) Discovery: Show sample       │
@@ -11966,7 +12289,7 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Check                      ┃ Status   ┃ Details                          ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Core Unit Tests            │ FAILED   │ 2032 lines of output             │
+│ Core Unit Tests            │ FAILED   │ 2021 lines of output             │
 │ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
 │ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
 └────────────────────────────┴──────────┴──────────────────────────────────┘
@@ -11977,39 +12300,42 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 platform darwin -- Python 3.12.9, pytest-9.0.2, pluggy-1.6.0
 rootdir: /Users/enriq/Documents/git/agent-cockpit
 configfile: pyproject.toml
-plugins: anyio-4.12.1, langsmith-0.7.0
-collected 169 items
+plugins: anyio-4.12.1, langsmith-0.7.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, 
+asyncio_default_test_loop_scope=function
+collected 171 items
 
 src/agent_ops_cockpit/tests/test_agent.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 17%]
 FFFFFFFFFFFFFFFFFFFFF.                                                   [ 30%]
 src/agent_ops_cockpit/tests/test_arch_review.py ..                       [ 31%]
-src/agent_ops_cockpit/tests/test_audit_flow.py .F                        [ 33%]
+src/agent_ops_cockpit/tests/test_audit_flow.py .F                        [ 32%]
 src/agent_ops_cockpit/tests/test_capabilities_gate.py .                  [ 33%]
 src/agent_ops_cockpit/tests/test_discovery.py .......                    [ 37%]
 src/agent_ops_cockpit/tests/test_fleet_remediation.py F                  [ 38%]
-src/agent_ops_cockpit/tests/test_frameworks.py .............             [ 46%]
-src/agent_ops_cockpit/tests/test_guardrails.py ....                      [ 48%]
-src/agent_ops_cockpit/tests/test_hardened_auditors.py ......             [ 52%]
+src/agent_ops_cockpit/tests/test_frameworks.py .............             [ 45%]
+src/agent_ops_cockpit/tests/test_guardrails.py ....                      [ 47%]
+src/agent_ops_cockpit/tests/test_hardened_auditors.py ......             [ 51%]
 src/agent_ops_cockpit/tests/test_maturity_auditor.py ........            [ 56%]
-src/agent_ops_cockpit/tests/test_ops_core.py F...                        [ 59%]
-src/agent_ops_cockpit/tests/test_orchestrator_fleet.py ....              [ 61%]
-src/agent_ops_cockpit/tests/test_performance_guards.py ..                [ 62%]
-src/agent_ops_cockpit/tests/test_persona_architect.py ........           [ 67%]
-src/agent_ops_cockpit/tests/test_persona_finops.py .......               [ 71%]
-src/agent_ops_cockpit/tests/test_persona_security.py .....               [ 74%]
-src/agent_ops_cockpit/tests/test_persona_sre.py .....                    [ 77%]
-src/agent_ops_cockpit/tests/test_persona_ux.py ....                      [ 79%]
-src/agent_ops_cockpit/tests/test_preflight.py ....                       [ 82%]
-src/agent_ops_cockpit/tests/test_quality_climber.py ..                   [ 83%]
-src/agent_ops_cockpit/tests/test_red_team_regression.py ..               [ 84%]
-src/agent_ops_cockpit/tests/test_reliability_auditor_unit.py .           [ 85%]
-src/agent_ops_cockpit/tests/test_remediator.py .....                     [ 88%]
-src/agent_ops_cockpit/tests/test_report_generation.py ...                [ 89%]
-src/agent_ops_cockpit/tests/test_ui_auditor.py ...                       [ 91%]
-src/agent_ops_cockpit/tests/test_ui_mobile.py ...                        [ 93%]
-src/agent_ops_cockpit/tests/test_v1_regression.py ...                    [ 95%]
-src/agent_ops_cockpit/tests/test_version_sync.py F                       [ 95%]
-tests/test_telemetry_hardened.py ...F                                    [ 98%]
+src/agent_ops_cockpit/tests/test_ops_core.py F...                        [ 58%]
+src/agent_ops_cockpit/tests/test_orchestrator_fleet.py ....              [ 60%]
+src/agent_ops_cockpit/tests/test_performance_guards.py ..                [ 61%]
+src/agent_ops_cockpit/tests/test_persona_architect.py ........           [ 66%]
+src/agent_ops_cockpit/tests/test_persona_finops.py .......               [ 70%]
+src/agent_ops_cockpit/tests/test_persona_security.py .....               [ 73%]
+src/agent_ops_cockpit/tests/test_persona_sre.py .....                    [ 76%]
+src/agent_ops_cockpit/tests/test_persona_ux.py ....                      [ 78%]
+src/agent_ops_cockpit/tests/test_preflight.py ....                       [ 81%]
+src/agent_ops_cockpit/tests/test_quality_climber.py ..                   [ 82%]
+src/agent_ops_cockpit/tests/test_red_team_regression.py ..               [ 83%]
+src/agent_ops_cockpit/tests/test_reliability_auditor_unit.py .           [ 84%]
+src/agent_ops_cockpit/tests/test_remediator.py .....                     [ 87%]
+src/agent_ops_cockpit/tests/test_report_generation.py ...                [ 88%]
+src/agent_ops_cockpit/tests/test_ui_auditor.py ...                       [ 90%]
+src/agent_ops_cockpit/tests/test_ui_mobile.py ...                        [ 92%]
+src/agent_ops_cockpit/tests/test_v1_regression.py ...                    [ 94%]
+src/agent_ops_cockpit/tests/test_version_sync.py F                       [ 94%]
+tests/test_firebase_telemetry.py ..                                      [ 95%]
+tests/test_telemetry_hardened.py ....                                    [ 98%]
 tests/test_wisdom_integrity.py FFF                                       [100%]
 
 =================================== FAILURES ===================================
@@ -13575,8 +13901,8 @@ should NOT modify the file directly (Plan-then-Execute)!'
                 patch_dir = os.path.join('.cockpit', 'patches')
 >               assert os.path.exists(patch_dir)
 E               AssertionError: assert False
-E                +  where False = <function exists at 0x1028cf880>('.cockpit/patches')
-E                +    where <function exists at 0x1028cf880> = <module 'posixpath' 
+E                +  where False = <function exists at 0x100753880>('.cockpit/patches')
+E                +    where <function exists at 0x100753880> = <module 'posixpath' 
 (frozen)>.exists
 E                +      where <module 'posixpath' (frozen)> = os.path
 
@@ -13600,22 +13926,22 @@ src/agent_ops_cockpit/tests/test_audit_flow.py:68: AssertionError
 ┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
 ┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
 ┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
-│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
-│ Architect           │                     │             │ (Caching)          │
-│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
-│ Designer            │                     │             │                    │
 │ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
 │ Compliance SME      │                     │             │ (Policies)         │
-│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
-│ Principal           │                     │             │                    │
-│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
-│ Platform Engineer   │                     │             │ (Structural)       │
-│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
-│                     │                     │             │ Var)               │
 │ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
 │ Principal           │                     │             │                    │
 │ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
 │ Architect           │                     │             │ (Model/Prompt)     │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
 └─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
 ╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
 │ Audit Health: 100.0%                                                         │
@@ -13629,21 +13955,21 @@ src/agent_ops_cockpit/tests/test_audit_flow.py:68: AssertionError
 ├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
 │ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
 ├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
-│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
-│        │                 │ Logic                   │ logic for RAG answers   │
 │ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
 │        │                 │                         │ call                    │
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
 └────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
 📜 [EVIDENCE LAKE] Partitioned log updated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/latest.json
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/latest.json
 
 ✨ Final Report generated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.md
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/report.md
 📄 Printable HTML Report available at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/report.html
 ╭───────────────────────────────────────╮
 │ 🕹️ AGENTOPS COCKPIT: QUICK SAFE-BUILD │
 │ Essential checks for dev-velocity...  │
@@ -13662,22 +13988,22 @@ idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
 ┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
 ┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
 ┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
-│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
-│                     │                     │             │ Var)               │
 │ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
 │ Architect           │                     │             │ (Caching)          │
-│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
-│ Architect           │                     │             │ (Model/Prompt)     │
 │ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
 │ Designer            │                     │             │                    │
-│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
 │ Principal           │                     │             │                    │
 │ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
 │ Platform Engineer   │                     │             │ (Structural)       │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
 │ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
 │ Compliance SME      │                     │             │ (Policies)         │
-│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
-│ Principal           │                     │             │                    │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
 └─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
 ╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
 │ Audit Health: 100.0%                                                         │
@@ -13691,21 +14017,21 @@ idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
 ├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
 │ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
 ├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
-│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
-│        │                 │ Logic                   │ logic for RAG answers   │
 │ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
 │        │                 │                         │ call                    │
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
 └────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
 📜 [EVIDENCE LAKE] Partitioned log updated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/latest.json
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/latest.json
 
 ✨ Final Report generated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.md
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/report.md
 📄 Printable HTML Report available at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
-idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmptkwas4t6/.cockpit/ev
+idence_lake/b53afd0ee54bde18f06d7229c6e4fbef/report.html
 ________________________ test_workspace_bulk_fix_apply _________________________
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), 
@@ -13736,8 +14062,8 @@ directly!'
                 patch_dir = os.path.join('.cockpit', 'patches')
 >               assert os.path.exists(patch_dir)
 E               AssertionError: assert False
-E                +  where False = <function exists at 0x1028cf880>('.cockpit/patches')
-E                +    where <function exists at 0x1028cf880> = <module 'posixpath' 
+E                +  where False = <function exists at 0x100753880>('.cockpit/patches')
+E                +    where <function exists at 0x100753880> = <module 'posixpath' 
 (frozen)>.exists
 E                +      where <module 'posixpath' (frozen)> = os.path
 
@@ -13763,8 +14089,8 @@ src/agent_ops_cockpit/tests/test_fleet_remediation.py:40: AssertionError
   ✅ Reliability (Quick) (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ Face Auditor (SIM)        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ RAG Fidelity Audit (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%  ✅ 
-Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ Policy Enforcement (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ Secret Scanner (SIM)      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ Token Optimization (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
@@ -13774,55 +14100,27 @@ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━
   ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
 
 
-
                            🏛️ Persona Approval Matrix                           
 ┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
 ┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
 ┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
-│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
-│ Architect           │                     │             │ (Caching)          │
-│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
-│ Architect           │                     │             │ (Model/Prompt)     │
 │ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
 │ Platform Engineer   │                     │             │ (Structural)       │
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
 │ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
 │ Designer            │                     │             │                    │
 │ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
 │ Compliance SME      │                     │             │ (Policies)         │
 │ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
 │                     │                     │             │ Var)               │
-│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
-│ Principal           │                     │             │                    │
-│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
-│ Principal           │                     │             │                    │
-└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
-
-
-                           🏛️ Persona Approval Matrix                           
-┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
-┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
-┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
-│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
-│ Principal           │                     │             │                    │
-│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
-│ Designer            │                     │             │                    │
-│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
-│ Compliance SME      │                     │             │ (Policies)         │
 │ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
 │ Architect           │                     │             │ (Model/Prompt)     │
-│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
-│                     │                     │             │ Var)               │
-│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
-│ Architect           │                     │             │ (Caching)          │
-│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
-│ Platform Engineer   │                     │             │ (Structural)       │
 │ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
 │ Principal           │                     │             │                    │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
 └─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
-╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
-│ Audit Health: 100.0%                                                         │
-│ ✨ Governance standard met. Agent is production-ready.                       │
-╰──────────────────────────────────────────────────────────────────────────────╯
 ╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
 │ Audit Health: 100.0%                                                         │
 │ ✨ Governance standard met. Agent is production-ready.                       │
@@ -13840,6 +14138,40 @@ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━
 │ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
 │        │                 │                         │ call                    │
 └────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
+
+
+                           🏛️ Persona Approval Matrix                           
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
+│ Compliance SME      │                     │             │ (Policies)         │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
+└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
+╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
+│ Audit Health: 100.0%                                                         │
+│ ✨ Governance standard met. Agent is production-ready.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/8f82b3586f88390c58dce3a4bd5f4f2d/latest.json
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/8f82b3586f88390c58dce3a4bd5f4f2d/report.md
                    🔍 Key Findings & Tactical Recommendations                   
 ┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Prio   ┃ Category        ┃ Issue Flagged           ┃ 🚀 Recommendation       ┃
@@ -13853,34 +14185,27 @@ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━
 │ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
 │        │                 │ Logic                   │ logic for RAG answers   │
 └────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
-📜 [EVIDENCE LAKE] Partitioned log updated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/latest.json
-📜 [EVIDENCE LAKE] Partitioned log updated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/ac7b176f470b1d0007256283d4df17f0/latest.json
-
-✨ Final Report generated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/report.md
-
-✨ Final Report generated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/ac7b176f470b1d0007256283d4df17f0/report.md
 📄 Printable HTML Report available at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/report.html
-📄 Printable HTML Report available at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
-idence_lake/ac7b176f470b1d0007256283d4df17f0/report.html
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/8f82b3586f88390c58dce3a4bd5f4f2d/report.html
 📡 Audit Complete: 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/agent_alpha
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/agent_beta 
 -> PASS
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/aa1e940ee92292f5c551310e9ab839fb/latest.json
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/aa1e940ee92292f5c551310e9ab839fb/report.md
+📄 Printable HTML Report available at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/ev
+idence_lake/aa1e940ee92292f5c551310e9ab839fb/report.html
 📡 Audit Complete: 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/agent_beta 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/agent_alpha
 -> PASS
 📄 Premium Fleet Dashboard generated at 
-/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/fl
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpsgyyrt5i/.cockpit/fl
 eet_dashboard.html
 ______________________________ test_version_ssot _______________________________
 
@@ -13935,14 +14260,6 @@ y:28: AssertionError
 ----------------------------- Captured stdout call -----------------------------
 
 Versions detected -> Config: 1.4.5, pyproject: 1.4.5, package: 1.4.4
-_______________________ test_telemetry_track_event_logic _______________________
-async def functions are not natively supported.
-You need to install a suitable plugin for your async framework, for example:
-  - anyio
-  - pytest-asyncio
-  - pytest-tornasync
-  - pytest-trio
-  - pytest-twisted
 _________________________ test_benchmark_inviolability _________________________
 
     def test_benchmark_inviolability():
@@ -14018,13 +14335,6 @@ PydanticDeprecatedSince20: The `update_forward_refs` method is deprecated; use
 V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
     A2UIComponent.update_forward_refs()
 
-tests/test_telemetry_hardened.py:74
-  /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:74: 
-PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can 
-register custom marks to avoid this warning - for details, see 
-https://docs.pytest.org/en/stable/how-to/mark.html
-    @pytest.mark.asyncio
-
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_agent_v1_logic
@@ -14084,11 +14394,10 @@ FAILED
 src/agent_ops_cockpit/tests/test_fleet_remediation.py::test_workspace_bulk_fix_apply
 FAILED src/agent_ops_cockpit/tests/test_ops_core.py::test_version_ssot - Asse...
 FAILED src/agent_ops_cockpit/tests/test_version_sync.py::test_versions_are_in_sync
-FAILED tests/test_telemetry_hardened.py::test_telemetry_track_event_logic - F...
 FAILED tests/test_wisdom_integrity.py::test_benchmark_inviolability - FileNot...
 FAILED tests/test_wisdom_integrity.py::test_recommendation_no_loss - FileNotF...
 FAILED tests/test_wisdom_integrity.py::test_consensus_schema_integrity - File...
-================== 59 failed, 110 passed, 3 warnings in 2.64s ==================
+================== 58 failed, 113 passed, 2 warnings in 2.80s ==================
 
 ```
 ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling

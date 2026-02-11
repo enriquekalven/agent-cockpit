@@ -2,6 +2,28 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.4.7] - 2026-02-11
+
+### 🚀 The "Fleet Sovereign" Release
+- **Sovereign Fleet Factory**: Unified orchestrator for auditing, hardening, hydrating, and deploying fleets in a single command (`sovereign`).
+- **GKE Autopilot Native**: Integrated support for cluster-wide deployments with automated manifest generation.
+- **Cross-Cloud A2A Bridge**: Seamlessly register AWS and Azure agents as native Vertex AI tools via the Agent Engine.
+- **TDD Generation**: High-fidelity Technical Design Document generation (HTML) documenting the reasoning and infrastructure of the fleet.
+
+## [1.4.6] - 2026-02-11
+
+### 🛡️ Pre-flight Verification & Azure Support
+- **Phase 0: Pre-flight Handshake**: Identity and toolchain verification gate that ensures IAM principals and CLIs are active before operations.
+- **Azure Container Apps**: Native support for Microsoft Azure deployments with ARM template generation.
+- **Multi-Cloud Simulation**: Battle-testing framework for validating deployment assets across three clouds simultaneously.
+
+## [1.4.5] - 2026-02-10
+
+### 🌊 AWS Optimization & Sovereign Alignment
+- **AWS App Runner Optimization**: Specialized Dockerfiles and SAM templates for AWS serverless agent deployments.
+- **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols for non-Google environments.
+- **Reliability Suite (v1.4.5)**: Extended regression tests for cross-cloud deployment assets.
+
 ## [1.4.4] - 2026-02-10
 
 ### 🚀 Enhanced Observability & CLI UX
