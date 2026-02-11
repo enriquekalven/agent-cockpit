@@ -1,6 +1,6 @@
 import React from 'react';
 import { A2UIComponent } from './types';
-import { Text, Button, Card, Image, List, StatBar } from './components';
+import { Text, Button, Card, Image, List, StatBar, Grid, Metric, Visual } from './components';
 
 const Registry: Record<string, React.FC<any>> = {
   Text,
@@ -10,6 +10,9 @@ const Registry: Record<string, React.FC<any>> = {
   List,
   StatBar,
   Container: Card, // Alias for common A2UI convention
+  Grid,
+  Metric,
+  Visual,
 };
 
 export const A2UIRenderer: React.FC<{ component: A2UIComponent }> = React.memo(({ component }) => {
