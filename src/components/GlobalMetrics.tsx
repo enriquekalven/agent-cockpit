@@ -7,7 +7,8 @@ export const GlobalMetrics: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://agent-engine-697625214430.us-central1.run.app/telemetry/dashboard')
+    // Syncing with the Sovereign Git Bridge for public visibility
+    fetch('https://raw.githubusercontent.com/enriquekalven/agent-cockpit/main/public/fleet_data.json')
       .then(res => res.json())
       .then(data => {
         setFleetData(data);

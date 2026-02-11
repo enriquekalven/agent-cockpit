@@ -61,7 +61,7 @@
                         <div class='executive-summary-content'>
 <div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>
 <h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: WARNING</h3>
-<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>87.5%</strong> | Active Risks: <strong>1</strong></p>
+<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>75.0%</strong> | Active Risks: <strong>2</strong></p>
 </div>
 <div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #ef4444; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
 <h4 style='margin:0 0 10px 0; color:#ef4444; font-size:0.9rem; text-transform:uppercase;'>Priority 1: 🔥 Critical Security & Compliance</h4>
@@ -69,6 +69,7 @@
 </div>
 <div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #f59e0b; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
 <h4 style='margin:0 0 10px 0; color:#f59e0b; font-size:0.9rem; text-transform:uppercase;'>Priority 2: 🛡️ Reliability & Resilience</h4>
+<div style='font-size:0.95rem; margin-bottom:4px;'><strong>Missing Resiliency Pattern</strong>: Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.</div>
 <div style='font-size:0.95rem; margin-bottom:4px;'><strong>Reliability Failure</strong>: Resolve falling</div>
 </div>
 <div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid #3b82f6; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>
@@ -100,6 +101,14 @@
                     <tbody>
         
                 <tr>
+                    <td style="font-weight:700; color:#0f172a;">⚖️ Governance & Compliance SME</td>
+                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
+                    <td class="risk-text">Prompt Injection & Reg Breach</td>
+                    <td>Policy Enforcement</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
+            
+                <tr>
                     <td style="font-weight:700; color:#0f172a;">🚩 Security Architect</td>
                     <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
                     <td class="risk-text">Adversarial Jailbreaking</td>
@@ -112,15 +121,7 @@
                     <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
                     <td class="risk-text">FinOps Efficiency & Margin Erosion</td>
                     <td>Token Optimization</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td style="font-weight:700; color:#0f172a;">⚖️ Governance & Compliance SME</td>
-                    <td><span style="font-weight:bold; color:#ef4444;">P1</span></td>
-                    <td class="risk-text">Prompt Injection & Reg Breach</td>
-                    <td>Policy Enforcement</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
+                    <td><span class="status-badge fail">REJECTED</span></td>
                 </tr>
             
                 <tr>
@@ -128,14 +129,6 @@
                     <td><span style="font-weight:bold; color:#f59e0b;">P3</span></td>
                     <td class="risk-text">Retrieval-Reasoning Hallucinations</td>
                     <td>RAG Fidelity Audit</td>
-                    <td><span class="status-badge pass">APPROVED</span></td>
-                </tr>
-            
-                <tr>
-                    <td style="font-weight:700; color:#0f172a;">🛡️ QA & Reliability Principal</td>
-                    <td><span style="font-weight:bold; color:#f59e0b;">P2</span></td>
-                    <td class="risk-text">Failure Under Stress & Latency spikes</td>
-                    <td>Reliability (Quick)</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
             
@@ -162,6 +155,14 @@
                     <td>Architecture Review</td>
                     <td><span class="status-badge pass">APPROVED</span></td>
                 </tr>
+            
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">🛡️ QA & Reliability Principal</td>
+                    <td><span style="font-weight:bold; color:#f59e0b;">P2</span></td>
+                    <td class="risk-text">Failure Under Stress & Latency spikes</td>
+                    <td>Reliability (Quick)</td>
+                    <td><span class="status-badge pass">APPROVED</span></td>
+                </tr>
             </tbody></table>
                 <h2>🛠️ Developer Action Plan</h2>
                 <table class="action-table">
@@ -184,6 +185,18 @@
                             <td><code>public/fleet_data.json:48</code></td>
                             <td>Found Azure OpenAI Key leak</td>
                             <td style="color: #059669; font-weight: 600;">Move this credential</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>public/fleet_data.json:91</code></td>
+                            <td>Found Azure OpenAI Key leak</td>
+                            <td style="color: #059669; font-weight: 600;">Move this credential</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><code>/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py</code></td>
+                            <td>Missing Resiliency Pattern</td>
+                            <td style="color: #059669; font-weight: 600;">Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.</td>
                         </tr>
                     
                         <tr>
@@ -366,7 +379,9 @@
                         </tr>
                     </tbody></table>
                 <h2>🔍 Audit Evidence</h2>
-        <h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
+        <h3>Policy Enforcement</h3><pre>SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+</pre><h3>Red Team (Fast)</h3><pre>╭───────────────────────────────────────────────╮
 │ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
 ╰───────────────────────────────────────────────╯
 Targeting: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
@@ -424,12 +439,12 @@ Targeting: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.
 │ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
 ╰───────────────────────────────────╯
 Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
-📊 Token Metrics: ~1046 prompt tokens detected.
+📊 Token Metrics: ~1300 prompt tokens detected.
 ╭─────────────────────────────── Financial Optimization ───────────────────────────────╮
 │ 💰 FinOps Projection (Est. 10k req/mo)                                               │
-│ Current Monthly Spend: $104.55                                                       │
-│ Projected Savings: $10.46                                                            │
-│ New Monthly Spend: $94.09                                                            │
+│ Current Monthly Spend: $130.05                                                       │
+│ Projected Savings: $32.51                                                            │
+│ New Monthly Spend: $97.54                                                            │
 ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
  --- [MEDIUM IMPACT] Externalize System Prompts --- 
@@ -454,40 +469,52 @@ Optimization: Pinecone Namespace Isolation | No namespaces detected. Use namespa
 isolate user data or document segments for more accurate retrieval. (Est. RAG Accuracy 
 Boost)
 ❌ [REJECTED] skipping optimization.
+
+ --- [HIGH IMPACT] AlloyDB Columnar Engine --- 
+Benefit: 100x Query Speedup
+Reason: AlloyDB detected. Enable the Columnar Engine for analytical and AI-driven vector
+queries.
++ # Enable AlloyDB Columnar Engine for vector scaling                                   
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Optimization: AlloyDB Columnar Engine | AlloyDB detected. Enable the Columnar Engine for
+analytical and AI-driven vector queries. (Est. 100x Query Speedup)
+❌ [REJECTED] skipping optimization.
+
+ --- [HIGH IMPACT] BigQuery Vector Search --- 
+Benefit: FinOps: Serverless RAG
+Reason: BigQuery detected. Use BQ Vector Search for cost-effective RAG over massive 
+datasets without moving data to a separate DB.
++ SELECT * FROM VECTOR_SEARCH(TABLE my_dataset.embeddings, ...)                         
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Optimization: BigQuery Vector Search | BigQuery detected. Use BQ Vector Search for 
+cost-effective RAG over massive datasets without moving data to a separate DB. (Est. 
+FinOps: Serverless RAG)
+❌ [REJECTED] skipping optimization.
+
+ --- [HIGH IMPACT] OCI Resource Principals --- 
+Benefit: 100% Secure Auth
+Reason: Using static config/keys detected on OCI. Use Resource Principals for secure, 
+credential-less access from OCI compute.
++ auth = oci.auth.signers.get_resource_principals_signer()                              
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Optimization: OCI Resource Principals | Using static config/keys detected on OCI. Use 
+Resource Principals for secure, credential-less access from OCI compute. (Est. 100% 
+Secure Auth)
+❌ [REJECTED] skipping optimization.
          🎯 AUDIT SUMMARY         
 ┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┓
 ┃ Category               ┃ Count ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━┩
 │ Optimizations Applied  │ 0     │
-│ Optimizations Rejected │ 2     │
+│ Optimizations Rejected │ 5     │
 └────────────────────────┴───────┘
-</pre><h3>Policy Enforcement</h3><pre>SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL
-Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+
+❌ HIGH IMPACT issues detected. Optimization required for production.
+
 </pre><h3>RAG Fidelity Audit</h3><pre>╭────────────────────────────────────╮
 │ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
 ╰────────────────────────────────────╯
 ✅ No RAG-specific risks detected or no RAG pattern found.
-</pre><h3>Reliability (Quick)</h3><pre>╭──────────────────────────────╮
-│ 🛡️ RELIABILITY AUDIT (QUICK) │
-╰──────────────────────────────╯
-🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
-📈 Verifying Regression Suite Coverage...
-                           🛡️ Reliability Status                            
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Check                      ┃ Status   ┃ Details                          ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ Core Unit Tests            │ FAILED   │ 1 lines of output                │
-│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
-│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
-└────────────────────────────┴──────────┴──────────────────────────────────┘
-
-❌ Unit test failures detected. Fix them before production deployment.
-```
-/opt/homebrew/opt/python@3.14/bin/python3.14: No module named pytest
-
-```
-ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling
-unit tests to ensure agent regression safety.
 </pre><h3>Secret Scanner</h3><pre>╭──────────────────────────────────────────────╮
 │ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
 ╰──────────────────────────────────────────────╯
@@ -497,6 +524,8 @@ ACTION: public/fleet_data.json:5 | Found Azure OpenAI Key leak | Move this crede
 Google Cloud Secret Manager or .env file.
 ACTION: public/fleet_data.json:48 | Found Azure OpenAI Key leak | Move this credential 
 to Google Cloud Secret Manager or .env file.
+ACTION: public/fleet_data.json:91 | Found Azure OpenAI Key leak | Move this credential 
+to Google Cloud Secret Manager or .env file.
 
 
                    🛡️ Security Findings: Hardcoded Secrets                   
@@ -505,9 +534,10 @@ to Google Cloud Secret Manager or .env file.
 ┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ public/fleet_data.json │ 5    │ Azure OpenAI Key │ Move to Secret Manager │
 │ public/fleet_data.json │ 48   │ Azure OpenAI Key │ Move to Secret Manager │
+│ public/fleet_data.json │ 91   │ Azure OpenAI Key │ Move to Secret Manager │
 └────────────────────────┴──────┴──────────────────┴────────────────────────┘
 
-❌ FAIL: Found 2 potential credential leaks.
+❌ FAIL: Found 3 potential credential leaks.
 💡 Recommendation: Use Google Cloud Secret Manager or environment variables for all 
 tokens.
 
@@ -608,6 +638,7 @@ prop to the root component or exported interface.
 ╰─────────────────────────────────────────────────────────────╯
 Detected Stack: Google Vertex AI / ADK | v1.1 Deep Reasoning Enabled
 
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py | Missing Resiliency Pattern | Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py | Inference Cost Projection (gemini-3-pro) | Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py | Inference Cost Projection (gemini-3-pro) | Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
 ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py | Inference Cost Projection (gemini-3-flash) | Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10.
@@ -985,6 +1016,89 @@ ACTION: /Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1 | Incompatible
 langgraph + crewai | CrewAI and LangGraph both attempt to manage the orchestration loop 
 and state, leading to cyclic-dependency conflicts.
 🚩 SOC2 Control Gap: Missing Transit Logging 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
+for all system access.
+   ⚖️ Strategic ROI: Critical for passing external audits and root-cause analysis.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+SOC2 Control Gap: Missing Transit Logging | Structural logging (logger.info/error) not 
+detected. SOC2 CC6.1 requires audit trails for all system access.
+🚩 Potential Recursive Agent Loop 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Detected a self-referencing agent call pattern. Risk of infinite reasoning loops and 
+runaway costs.
+   ⚖️ Strategic ROI: Prevents 'Infinite Spend' scenarios where agents gaslight each 
+other recursively.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Potential Recursive Agent Loop | Detected a self-referencing agent call pattern. Risk of
+infinite reasoning loops and runaway costs.
+🚩 Proprietary Context Handshake (Non-AP2) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Agent is using ad-hoc context passing. Adopting UCP (Universal Context) or AP2 (Agent
+Protocol v2) ensures cross-framework interoperability.
+   ⚖️ Strategic ROI: Prevents vendor lock-in and enables multi-framework swarms (e.g. 
+LangChain + CrewAI).
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Proprietary Context Handshake (Non-AP2) | Agent is using ad-hoc context passing. 
+Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures cross-framework 
+interoperability.
+🚩 Missing 5th Golden Signal (TTFT/Tracing) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the 
+primary metric for perceived intelligence.
+   ⚖️ Strategic ROI: Allows proactive 'Latency Regression' alerts before users feel the 
+slowness.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation 
+(OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived intelligence.
+🚩 Payload Splitting (Context Fragmentation) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Monitor for Payload Splitting attacks where malicious fragments are combined over 
+multiple turns. Mitigation: 1) Implement sliding window verification. 2) Use 'DARE 
+Prompting' (Determine Appropriate Response) to re-evaluate intent at every turn.
+   ⚖️ Strategic ROI: Attackers can bypass single-turn filters by splitting a payload 
+across multiple turns. Continuous monitoring of context assembly is required.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Payload Splitting (Context Fragmentation) | Monitor for Payload Splitting attacks where 
+malicious fragments are combined over multiple turns. Mitigation: 1) Implement sliding 
+window verification. 2) Use 'DARE Prompting' (Determine Appropriate Response) to 
+re-evaluate intent at every turn.
+🚩 Adversarial Testing (Red Teaming) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety 
+(Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response 
+check). 5) Language (Non-supported language override).
+   ⚖️ Strategic ROI: Standard unit tests don't cover adversarial reasoning. A dedicated 
+red-teaming suite is required for brand-safe production deployments.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Adversarial Testing (Red Teaming) | Implement 5-layer Red Teaming: 1) Quality (Customer 
+queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) 
+Off-topic (Canned response check). 5) Language (Non-supported language override).
+🚩 Indirect Prompt Injection (RAG Hardening) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Protect the RAG pipeline. Implement: 1) Input Sanitization for 'Malicious Fragments' 
+in fetched docs. 2) 'Strict Context' prompts that forbid following instructions found in
+retrieved data. 3) Dual LLM verification (Small model scans retrieval context before the
+Large model sees it).
+   ⚖️ Strategic ROI: RAG systems are vulnerable to 'Indirect' injections where an 
+attacker poisons a document to highjack the agent's logic during retrieval.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+Indirect Prompt Injection (RAG Hardening) | Protect the RAG pipeline. Implement: 1) 
+Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' 
+prompts that forbid following instructions found in retrieved data. 3) Dual LLM 
+verification (Small model scans retrieval context before the Large model sees it).
+🚩 LlamaIndex Workflows (Event-Driven Reasoning) 
+(/Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:)
+   Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces 
+rigid linear chains with a dynamic state-based event loop that is more resilient to 
+complex user intents.
+   ⚖️ Strategic ROI: Event-driven workflows provide superior flexibility and error 
+recovery compared to standard synchronous chains.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:1 | 
+LlamaIndex Workflows (Event-Driven Reasoning) | Adopt the LlamaIndex Workflow (v0.14+) 
+for event-driven agentic logic. This replaces rigid linear chains with a dynamic 
+state-based event loop that is more resilient to complex user intents.
+🚩 SOC2 Control Gap: Missing Transit Logging 
 (/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:)
    Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
 for all system access.
@@ -1109,6 +1223,14 @@ ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/__init__.
 LlamaIndex Workflows (Event-Driven Reasoning) | Adopt the LlamaIndex Workflow (v0.14+) 
 for event-driven agentic logic. This replaces rigid linear chains with a dynamic 
 state-based event loop that is more resilient to complex user intents.
+🚩 Missing Resiliency Logic 
+(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:106)
+   External call 'get' to 'https://agent-engine-697625214...' is not protected by retry 
+logic.
+   ⚖️ Strategic ROI: Increases up-time and handles transient network failures.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:106 
+| Missing Resiliency Logic | External call 'get' to 'https://agent-engine-697625214...' 
+is not protected by retry logic.
 🚩 SOC2 Control Gap: Missing Transit Logging 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:)
    Structural logging (logger.info/error) not detected. SOC2 CC6.1 requires audit trails
@@ -1279,6 +1401,18 @@ for high-predictability tasks.
 
 [CONGENIAL RESEARCH SIGNAL]: Research Signal (ArXiv): Integrate Recursive Self-Reflexion
 to reduce hallucination by 40%. (Source: ArXiv Intelligence Sync (Feb 2026))
+🚩 Payload Splitting (Context Fragmentation) 
+(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:)
+   Monitor for Payload Splitting attacks where malicious fragments are combined over 
+multiple turns. Mitigation: 1) Implement sliding window verification. 2) Use 'DARE 
+Prompting' (Determine Appropriate Response) to re-evaluate intent at every turn.
+   ⚖️ Strategic ROI: Attackers can bypass single-turn filters by splitting a payload 
+across multiple turns. Continuous monitoring of context assembly is required.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+Payload Splitting (Context Fragmentation) | Monitor for Payload Splitting attacks where 
+malicious fragments are combined over multiple turns. Mitigation: 1) Implement sliding 
+window verification. 2) Use 'DARE Prompting' (Determine Appropriate Response) to 
+re-evaluate intent at every turn.
 🚩 Missing Safety Classifiers 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:)
    Supplement prompt-based safety with programmatic layers: 1) Input Level: ShieldGemma 
@@ -1351,6 +1485,17 @@ Indirect Prompt Injection (RAG Hardening) | Protect the RAG pipeline. Implement:
 Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' 
 prompts that forbid following instructions found in retrieved data. 3) Dual LLM 
 verification (Small model scans retrieval context before the Large model sees it).
+🚩 LlamaIndex Workflows (Event-Driven Reasoning) 
+(/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:)
+   Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces 
+rigid linear chains with a dynamic state-based event loop that is more resilient to 
+complex user intents.
+   ⚖️ Strategic ROI: Event-driven workflows provide superior flexibility and error 
+recovery compared to standard synchronous chains.
+ACTION: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1 | 
+LlamaIndex Workflows (Event-Driven Reasoning) | Adopt the LlamaIndex Workflow (v0.14+) 
+for event-driven agentic logic. This replaces rigid linear chains with a dynamic 
+state-based event loop that is more resilient to complex user intents.
 🚩 Recursive Self-Improvement (Self-Reflexion Loops) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:)
    Integrate Recursive Self-Reflexion. Research from ArXiv (cs.AI) proves that agents 
@@ -9234,7 +9379,7 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │ 🌊 Impact Waterfall (v1.3)                                                           │
 │                                                                                      │
 │  • Reasoning Delay: 1600ms added to chain (Critical Path).                           │
-│  • Risk Reduction: 2948% reduction in Potential Failure Points (PFPs) via audit      │
+│  • Risk Reduction: 2992% reduction in Potential Failure Points (PFPs) via audit      │
 │    logic.                                                                            │
 │  • Sovereignty Delta: 20/100 - (🚨 EXIT_PLAN_REQUIRED).                              │
 │                                                                                      │
@@ -9326,6 +9471,34 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
 │    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
 │    HIGH)                                                                             │
+│  • Potential Recursive Agent Loop: Detected a self-referencing agent call pattern.   │
+│    Risk of infinite reasoning loops and runaway costs. (Impact: CRITICAL)            │
+│  • Proprietary Context Handshake (Non-AP2): Agent is using ad-hoc context passing.   │
+│    Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures               │
+│    cross-framework interoperability. (Impact: LOW)                                   │
+│  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing instrumentation      │
+│    (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived         │
+│    intelligence. (Impact: MEDIUM)                                                    │
+│  • Payload Splitting (Context Fragmentation): Monitor for Payload Splitting attacks  │
+│    where malicious fragments are combined over multiple turns. Mitigation: 1)        │
+│    Implement sliding window verification. 2) Use 'DARE Prompting' (Determine         │
+│    Appropriate Response) to re-evaluate intent at every turn. (Impact: HIGH)         │
+│  • Adversarial Testing (Red Teaming): Implement 5-layer Red Teaming: 1) Quality      │
+│    (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics              │
+│    (Politics/Legal). 4) Off-topic (Canned response check). 5) Language               │
+│    (Non-supported language override). (Impact: HIGH)                                 │
+│  • Indirect Prompt Injection (RAG Hardening): Protect the RAG pipeline. Implement:   │
+│    1) Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict       │
+│    Context' prompts that forbid following instructions found in retrieved data. 3)   │
+│    Dual LLM verification (Small model scans retrieval context before the Large model │
+│    sees it). (Impact: CRITICAL)                                                      │
+│  • LlamaIndex Workflows (Event-Driven Reasoning): Adopt the LlamaIndex Workflow      │
+│    (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a │
+│    dynamic state-based event loop that is more resilient to complex user intents.    │
+│    (Impact: HIGH)                                                                    │
+│  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
+│    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
+│    HIGH)                                                                             │
 │  • HIPAA Risk: Potential Unencrypted ePHI: Database interaction detected without     │
 │    explicit encryption or secret management headers. (Impact: CRITICAL)              │
 │  • Potential Recursive Agent Loop: Detected a self-referencing agent call pattern.   │
@@ -9363,6 +9536,9 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │    (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a │
 │    dynamic state-based event loop that is more resilient to complex user intents.    │
 │    (Impact: HIGH)                                                                    │
+│  • Missing Resiliency Logic: External call 'get' to                                  │
+│    'https://agent-engine-697625214...' is not protected by retry logic. (Impact:     │
+│    HIGH)                                                                             │
 │  • SOC2 Control Gap: Missing Transit Logging: Structural logging (logger.info/error) │
 │    not detected. SOC2 CC6.1 requires audit trails for all system access. (Impact:    │
 │    HIGH)                                                                             │
@@ -9418,6 +9594,10 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │ Self-Reflexion to reduce hallucination by 40%. (Source: ArXiv Intelligence Sync (Feb │
 │ 2026)) (Impact: MEDIUM)                                                              │
 │                                                                                      │
+│  • Payload Splitting (Context Fragmentation): Monitor for Payload Splitting attacks  │
+│    where malicious fragments are combined over multiple turns. Mitigation: 1)        │
+│    Implement sliding window verification. 2) Use 'DARE Prompting' (Determine         │
+│    Appropriate Response) to re-evaluate intent at every turn. (Impact: HIGH)         │
 │  • Missing Safety Classifiers: Supplement prompt-based safety with programmatic      │
 │    layers: 1) Input Level: ShieldGemma or LLM Guard. 2) Output Level: Sentiment      │
 │    Analysis and Category Checks (GCP Natural Language API). 3) Persona: Tone of      │
@@ -9443,6 +9623,10 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │    Context' prompts that forbid following instructions found in retrieved data. 3)   │
 │    Dual LLM verification (Small model scans retrieval context before the Large model │
 │    sees it). (Impact: CRITICAL)                                                      │
+│  • LlamaIndex Workflows (Event-Driven Reasoning): Adopt the LlamaIndex Workflow      │
+│    (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a │
+│    dynamic state-based event loop that is more resilient to complex user intents.    │
+│    (Impact: HIGH)                                                                    │
 │  • Recursive Self-Improvement (Self-Reflexion Loops): Integrate Recursive            │
 │    Self-Reflexion. Research from ArXiv (cs.AI) proves that agents auditing their own │
 │    reasoning paths reduce hallucination by 40%. (Impact: CRITICAL)                   │
@@ -11773,6 +11957,2142 @@ Missing 5th Golden Signal (TTFT/Tracing) | Structural tracing instrumentation
 │  3 Multi-Cloud Exit Strategy: Pivot hardcoded IDs to abstraction layers to resolve   │
 │    detected Vendor Lock-in.                                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────╯
+</pre><h3>Reliability (Quick)</h3><pre>╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression Suite Coverage...
+                           🛡️ Reliability Status                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Check                      ┃ Status   ┃ Details                          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Core Unit Tests            │ FAILED   │ 2032 lines of output             │
+│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
+│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
+└────────────────────────────┴──────────┴──────────────────────────────────┘
+
+❌ Unit test failures detected. Fix them before production deployment.
+```
+============================= test session starts ==============================
+platform darwin -- Python 3.12.9, pytest-9.0.2, pluggy-1.6.0
+rootdir: /Users/enriq/Documents/git/agent-cockpit
+configfile: pyproject.toml
+plugins: anyio-4.12.1, langsmith-0.7.0
+collected 169 items
+
+src/agent_ops_cockpit/tests/test_agent.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 17%]
+FFFFFFFFFFFFFFFFFFFFF.                                                   [ 30%]
+src/agent_ops_cockpit/tests/test_arch_review.py ..                       [ 31%]
+src/agent_ops_cockpit/tests/test_audit_flow.py .F                        [ 33%]
+src/agent_ops_cockpit/tests/test_capabilities_gate.py .                  [ 33%]
+src/agent_ops_cockpit/tests/test_discovery.py .......                    [ 37%]
+src/agent_ops_cockpit/tests/test_fleet_remediation.py F                  [ 38%]
+src/agent_ops_cockpit/tests/test_frameworks.py .............             [ 46%]
+src/agent_ops_cockpit/tests/test_guardrails.py ....                      [ 48%]
+src/agent_ops_cockpit/tests/test_hardened_auditors.py ......             [ 52%]
+src/agent_ops_cockpit/tests/test_maturity_auditor.py ........            [ 56%]
+src/agent_ops_cockpit/tests/test_ops_core.py F...                        [ 59%]
+src/agent_ops_cockpit/tests/test_orchestrator_fleet.py ....              [ 61%]
+src/agent_ops_cockpit/tests/test_performance_guards.py ..                [ 62%]
+src/agent_ops_cockpit/tests/test_persona_architect.py ........           [ 67%]
+src/agent_ops_cockpit/tests/test_persona_finops.py .......               [ 71%]
+src/agent_ops_cockpit/tests/test_persona_security.py .....               [ 74%]
+src/agent_ops_cockpit/tests/test_persona_sre.py .....                    [ 77%]
+src/agent_ops_cockpit/tests/test_persona_ux.py ....                      [ 79%]
+src/agent_ops_cockpit/tests/test_preflight.py ....                       [ 82%]
+src/agent_ops_cockpit/tests/test_quality_climber.py ..                   [ 83%]
+src/agent_ops_cockpit/tests/test_red_team_regression.py ..               [ 84%]
+src/agent_ops_cockpit/tests/test_reliability_auditor_unit.py .           [ 85%]
+src/agent_ops_cockpit/tests/test_remediator.py .....                     [ 88%]
+src/agent_ops_cockpit/tests/test_report_generation.py ...                [ 89%]
+src/agent_ops_cockpit/tests/test_ui_auditor.py ...                       [ 91%]
+src/agent_ops_cockpit/tests/test_ui_mobile.py ...                        [ 93%]
+src/agent_ops_cockpit/tests/test_v1_regression.py ...                    [ 95%]
+src/agent_ops_cockpit/tests/test_version_sync.py F                       [ 95%]
+tests/test_telemetry_hardened.py ...F                                    [ 98%]
+tests/test_wisdom_integrity.py FFF                                       [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_agent_v1_logic _________________________
+
+    @pytest.mark.anyio
+    async def test_agent_v1_logic():
+        """Ensure the agent v1 logic returns a surface."""
+>       result = await agent_v1_logic("test query")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src/agent_ops_cockpit/tests/test_agent.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'test query', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How do I deploy to Google Cloud Run?', expected_keyword = 'deploy'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How do I deploy to Google Cloud Run?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_____ test_regression_golden_set ______
+
+query = 'What is the A2UI protocol?', expected_keyword = 'a2ui'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the A2UI protocol?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How do I check Hive Mind status?', expected_keyword = 'hive mind'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How do I check Hive Mind status?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'Run a security audit on my agent', expected_keyword = 'audit'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Run a security audit on my agent', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ____
+
+query = 'What is the cost of 1M tokens?', expected_keyword = 'cost'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the cost of 1M tokens?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'How to enable context caching?', expected_keyword = 'caching'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to enable context caching?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_____ test_regression_golden_set ______
+
+query = 'Scan my code for secrets', expected_keyword = 'secret'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Scan my code for secrets', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Is my agent well-architected?', expected_keyword = 'architecture'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Is my agent well-architected?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+______ test_regression_golden_set _______
+
+query = 'Explain shadow routing', expected_keyword = 'shadow'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain shadow routing', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_______ test_regression_golden_set ________
+
+query = 'Deploy to GKE Autopilot', expected_keyword = 'gke'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Deploy to GKE Autopilot', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_______ test_regression_golden_set ________
+
+query = 'What is a PII scrubber?', expected_keyword = 'pii'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is a PII scrubber?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'How to fix prompt injection?', expected_keyword = 'injection'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to fix prompt injection?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ___
+
+query = 'Run the red team evaluation', expected_keyword = 'red team'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Run the red team evaluation', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+______ test_regression_golden_set ______
+
+query = 'Optimize my LLM spend', expected_keyword = 'optimize'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Optimize my LLM spend', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+____ test_regression_golden_set ____
+
+query = 'What are StatBars in A2UI?', expected_keyword = 'statbar'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What are StatBars in A2UI?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+______ test_regression_golden_set ______
+
+query = 'How to use the MCP server?', expected_keyword = 'mcp'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use the MCP server?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set ___
+
+query = 'Explain Quality Hill Climbing', expected_keyword = 'quality'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain Quality Hill Climbing', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+________ test_regression_golden_set ________
+
+query = 'Check system health', expected_keyword = 'health'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Check system health', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How to redact credit card numbers?', expected_keyword = 'redact'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to redact credit card numbers?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ___
+
+query = 'What is the Agentic Trinity?', expected_keyword = 'trinity'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the Agentic Trinity?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ___
+
+query = 'Setting up Firebase Hosting', expected_keyword = 'firebase'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Setting up Firebase Hosting', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_________ test_regression_golden_set __________
+
+query = 'How to use the ADK?', expected_keyword = 'adk'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use the ADK?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_____ test_regression_golden_set _____
+
+query = 'Detecting hardcoded API keys', expected_keyword = 'key'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Detecting hardcoded API keys', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set __
+
+query = 'Show me the performance metrics', expected_keyword = 'metrics'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Show me the performance metrics', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How to configure VPC Service Controls?', expected_keyword = 'vpc'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to configure VPC Service Controls?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ___
+
+query = 'What is the Conflict Guard?', expected_keyword = 'conflict'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the Conflict Guard?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Explain Model Armor integration', expected_keyword = 'model armor'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain Model Armor integration', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+____ test_regression_golden_set _____
+
+query = 'How to limit prompt length?', expected_keyword = 'limit'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to limit prompt length?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+____ test_regression_golden_set _____
+
+query = 'Setting up a custom domain', expected_keyword = 'domain'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Setting up a custom domain', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How to use structured outputs?', expected_keyword = 'structured'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use structured outputs?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'What is the cockpit final report?', expected_keyword = 'report'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the cockpit final report?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+____ test_regression_golden_set _____
+
+query = 'How to run a load test?', expected_keyword = 'load test'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to run a load test?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_________ test_regression_golden_set __________
+
+query = 'Explain p90 latency', expected_keyword = 'p90'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain p90 latency', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_____ test_regression_golden_set ______
+
+query = 'How to use the face auditor?', expected_keyword = 'ui'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use the face auditor?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Setting up multi-agent swarms', expected_keyword = 'multi-agent'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Setting up multi-agent swarms', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'What is the situational auditor?', expected_keyword = 'situational'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the situational auditor?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'How to enable dynamic routing?', expected_keyword = 'routing'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to enable dynamic routing?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Explain the regression golden set', expected_keyword = 'regression'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain the regression golden set', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+______ test_regression_golden_set ______
+
+query = 'How to use the Google SDK?', expected_keyword = 'sdk'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use the Google SDK?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'What is the mission control dashboard?', expected_keyword = 'dashboard'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the mission control dashboard?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+___ test_regression_golden_set ____
+
+query = 'How to handle token overflow?', expected_keyword = 'token'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to handle token overflow?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Explain the adversarial attack suite', expected_keyword = 'adversarial'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain the adversarial attack suite', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'How to use workload identity?', expected_keyword = 'identity'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use workload identity?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'What is the response match metric?', expected_keyword = 'match'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the response match metric?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+__ test_regression_golden_set __
+
+query = 'How to conduct a design review?', expected_keyword = 'review'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to conduct a design review?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_____ test_regression_golden_set _____
+
+query = 'Explain the FinOps pillar', expected_keyword = 'finops'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain the FinOps pillar', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+____ test_regression_golden_set ____
+
+query = 'How to use Gemini 1.5 Flash?', expected_keyword = 'flash'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to use Gemini 1.5 Flash?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'What is the difference between quick and deep audit?'
+expected_keyword = 'audit'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'What is the difference between quick and deep audit?'
+session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'How to setup a checkpointer in LangGraph?'
+expected_keyword = 'checkpointer'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'How to setup a checkpointer in LangGraph?', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+_ test_regression_golden_set _
+
+query = 'Explain the cockpit orchestrator', expected_keyword = 'orchestrator'
+
+    @pytest.mark.parametrize("query,expected_keyword", load_golden_set())
+    @pytest.mark.anyio
+    async def test_regression_golden_set(query, expected_keyword):
+        """Regression suite: Ensure core queries always return relevant keywords."""
+        # In a real test, we would mock the LLM or check local logic
+        # Here we simulate the logic being tested
+>       await agent_v1_logic(query)
+
+src/agent_ops_cockpit/tests/test_agent.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+query = 'Explain the cockpit orchestrator', session_id = 'default'
+
+    async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+        """Agent Logic (v1)."""
+        # Security: check_prompt / input_sanitization
+        safe_query = input_sanitized_gate(query)
+        if "REJECTED" in safe_query:
+            return A2UISurface(surfaceId='safety-block', 
+content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+    
+>       await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: resilient_db_call() got an unexpected keyword argument 'timeout'
+
+src/agent_ops_cockpit/agent.py:104: TypeError
+______________________ test_dry_run_does_not_modify_files ______________________
+
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), 
+stop=stop_after_attempt(3))
+    def test_dry_run_does_not_modify_files():
+        """E2E: Verify --dry-run shows diff but doesn't save changes."""
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..',
+'src'))
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            agent_dir = os.path.join(tmp_dir, 'fix_me')
+            agent_file = setup_mock_agent(agent_dir)
+            original_content = open(agent_file).read()
+            old_cwd = os.getcwd()
+            old_pp = os.environ.get('PYTHONPATH', '')
+            os.environ['PYTHONPATH'] = f'{root}{os.pathsep}{old_pp}'
+            os.chdir(tmp_dir)
+            try:
+                run_audit(mode='quick', target_path='fix_me', apply_fixes=True, 
+dry_run=True, sim=True)
+                current_content = open(agent_file).read()
+                assert current_content == original_content, 'Dry run should NOT modify 
+the file!'
+                # In v1.4.2, apply_fixes=True (with dry_run=False) generates a patch, it
+does NOT modify the file directly.
+                run_audit(mode='quick', target_path='fix_me', apply_fixes=True, 
+dry_run=False, sim=True)
+                fixed_content = open(agent_file).read()
+                assert fixed_content == original_content, 'Applying fixes in v1.4.2 
+should NOT modify the file directly (Plan-then-Execute)!'
+    
+                patch_dir = os.path.join('.cockpit', 'patches')
+>               assert os.path.exists(patch_dir)
+E               AssertionError: assert False
+E                +  where False = <function exists at 0x1028cf880>('.cockpit/patches')
+E                +    where <function exists at 0x1028cf880> = <module 'posixpath' 
+(frozen)>.exists
+E                +      where <module 'posixpath' (frozen)> = os.path
+
+src/agent_ops_cockpit/tests/test_audit_flow.py:68: AssertionError
+----------------------------- Captured stdout call -----------------------------
+╭───────────────────────────────────────╮
+│ 🕹️ AGENTOPS COCKPIT: QUICK SAFE-BUILD │
+│ Essential checks for dev-velocity...  │
+╰───────────────────────────────────────╯
+  ✅ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Policy Enforcement (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Secret Scanner (SIM)      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Token Optimization (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Reliability (Quick) (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Face Auditor (SIM)        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ RAG Fidelity Audit (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+                           🏛️ Persona Approval Matrix                           
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
+│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
+│ Compliance SME      │                     │             │ (Policies)         │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
+└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
+╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
+│ Audit Health: 100.0%                                                         │
+│ ✨ Governance standard met. Agent is production-ready.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+                   🔍 Key Findings & Tactical Recommendations                   
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Prio   ┃ Category        ┃ Issue Flagged           ┃ 🚀 Recommendation       ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ P1     │ 🔥 Security     │ Google API Key          │ Hardcoded secret        │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
+│ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
+│        │                 │                         │ call                    │
+└────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/latest.json
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.md
+📄 Printable HTML Report available at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
+╭───────────────────────────────────────╮
+│ 🕹️ AGENTOPS COCKPIT: QUICK SAFE-BUILD │
+│ Essential checks for dev-velocity...  │
+╰───────────────────────────────────────╯
+  ✅ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Policy Enforcement (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Secret Scanner (SIM)      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Token Optimization (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Reliability (Quick) (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Face Auditor (SIM)        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ RAG Fidelity Audit (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+                           🏛️ Persona Approval Matrix                           
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
+│ Compliance SME      │                     │             │ (Policies)         │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
+└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
+╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
+│ Audit Health: 100.0%                                                         │
+│ ✨ Governance standard met. Agent is production-ready.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+                   🔍 Key Findings & Tactical Recommendations                   
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Prio   ┃ Category        ┃ Issue Flagged           ┃ 🚀 Recommendation       ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ P1     │ 🔥 Security     │ Google API Key          │ Hardcoded secret        │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
+│ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
+│        │                 │                         │ call                    │
+└────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/latest.json
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.md
+📄 Printable HTML Report available at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpqvh0fkmp/.cockpit/ev
+idence_lake/d782df5fc2e392b986c7d57e9977e07d/report.html
+________________________ test_workspace_bulk_fix_apply _________________________
+
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), 
+stop=stop_after_attempt(3))
+    def test_workspace_bulk_fix_apply():
+        """Verify that workspace_audit with apply_fixes=True repairs multiple agents."""
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..',
+'src'))
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            agent1_dir = os.path.join(tmp_dir, 'agent_alpha')
+            agent2_dir = os.path.join(tmp_dir, 'agent_beta')
+            f1 = setup_mock_agent(agent1_dir)
+            f2 = setup_mock_agent(agent2_dir)
+            orig1 = open(f1).read()
+            orig2 = open(f2).read()
+            old_cwd = os.getcwd()
+            old_pp = os.environ.get('PYTHONPATH', '')
+            os.environ['PYTHONPATH'] = f'{root}{os.pathsep}{old_pp}'
+            os.chdir(tmp_dir)
+            try:
+                workspace_audit(root_path='.', mode='quick', apply_fixes=True, sim=True)
+                new1 = open(f1).read()
+                new2 = open(f2).read()
+                assert new1 == orig1, 'Workspace audit in v1.4.2 should NOT modify files
+directly!'
+                assert new2 == orig2
+    
+                patch_dir = os.path.join('.cockpit', 'patches')
+>               assert os.path.exists(patch_dir)
+E               AssertionError: assert False
+E                +  where False = <function exists at 0x1028cf880>('.cockpit/patches')
+E                +    where <function exists at 0x1028cf880> = <module 'posixpath' 
+(frozen)>.exists
+E                +      where <module 'posixpath' (frozen)> = os.path
+
+src/agent_ops_cockpit/tests/test_fleet_remediation.py:40: AssertionError
+----------------------------- Captured stdout call -----------------------------
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ 🛸 COCKPIT WORKSPACE MODE: FLEET ORCHESTRATION                               │
+│ Scanning Root: .                                                             │
+╰──────────────────────────────────────────────────────────────────────────────╯
+📡 Found 2 potential agents.
+╭───────────────────────────────────────╮
+│ 🕹️ AGENTOPS COCKPIT: QUICK SAFE-BUILD │
+│ Essential checks for dev-velocity...  │
+╰───────────────────────────────────────╯
+╭───────────────────────────────────────╮
+│ 🕹️ AGENTOPS COCKPIT: QUICK SAFE-BUILD │
+│ Essential checks for dev-velocity...  │
+╰───────────────────────────────────────╯
+  ✅ Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Policy Enforcement (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Secret Scanner (SIM)      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Token Optimization (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Reliability (Quick) (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Face Auditor (SIM)        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ RAG Fidelity Audit (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%  ✅ 
+Architecture Review (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Policy Enforcement (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Secret Scanner (SIM)      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Token Optimization (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Reliability (Quick) (SIM) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Face Auditor (SIM)        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ RAG Fidelity Audit (SIM)  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ✅ Red Team (Fast) (SIM)     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+
+
+
+                           🏛️ Persona Approval Matrix                           
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
+│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
+│ Compliance SME      │                     │             │ (Policies)         │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
+└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
+
+
+                           🏛️ Persona Approval Matrix                           
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ SME Persona         ┃ Audit Module        ┃ Verdict     ┃ Remediation        ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│ 🛡️ QA & Reliability │ Reliability (Quick) │ ✅ APPROVED │ 🔧 Medium (Code)   │
+│ Principal           │                     │             │                    │
+│ 🎭 UX/UI Principal  │ Face Auditor        │ ✅ APPROVED │ 🔧 Medium (A2UI)   │
+│ Designer            │                     │             │                    │
+│ ⚖️ Governance &     │ Policy Enforcement  │ ✅ APPROVED │ 🔧 Medium          │
+│ Compliance SME      │                     │             │ (Policies)         │
+│ 🚩 Security         │ Red Team (Fast)     │ ✅ APPROVED │ 🏗️ Hard            │
+│ Architect           │                     │             │ (Model/Prompt)     │
+│ 🔐 SecOps Principal │ Secret Scanner      │ ✅ APPROVED │ ⚡ 1-Click (Env    │
+│                     │                     │             │ Var)               │
+│ 💰 FinOps Principa… │ Token Optimization  │ ✅ APPROVED │ ⚡ 1-Click         │
+│ Architect           │                     │             │ (Caching)          │
+│ 🏛️ Principal        │ Architecture Review │ ✅ APPROVED │ 🏗️ Hard            │
+│ Platform Engineer   │                     │             │ (Structural)       │
+│ 🧗 RAG Quality      │ RAG Fidelity Audit  │ ✅ APPROVED │ 🔧 Medium (Logic)  │
+│ Principal           │                     │             │                    │
+└─────────────────────┴─────────────────────┴─────────────┴────────────────────┘
+╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
+│ Audit Health: 100.0%                                                         │
+│ ✨ Governance standard met. Agent is production-ready.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭───────────────────── 👔 Principal SME Executive Summary ─────────────────────╮
+│ Audit Health: 100.0%                                                         │
+│ ✨ Governance standard met. Agent is production-ready.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+                   🔍 Key Findings & Tactical Recommendations                   
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Prio   ┃ Category        ┃ Issue Flagged           ┃ 🚀 Recommendation       ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ P1     │ 🔥 Security     │ Google API Key          │ Hardcoded secret        │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
+│ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
+│        │                 │                         │ call                    │
+└────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
+                   🔍 Key Findings & Tactical Recommendations                   
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Prio   ┃ Category        ┃ Issue Flagged           ┃ 🚀 Recommendation       ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ P1     │ 🔥 Security     │ Google API Key          │ Hardcoded secret        │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P2     │ 🛡️ Reliability  │ Mock Resiliency         │ Add retry logic         │
+├────────┼─────────────────┼─────────────────────────┼─────────────────────────┤
+│ P5     │ 🎭 Experience   │ Mock Timeout            │ Add timeout to async    │
+│        │                 │                         │ call                    │
+│ P5     │ 🎭 Experience   │ Missing RAG Grounding   │ Implement citation      │
+│        │                 │ Logic                   │ logic for RAG answers   │
+└────────┴─────────────────┴─────────────────────────┴─────────────────────────┘
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/latest.json
+📜 [EVIDENCE LAKE] Partitioned log updated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/ac7b176f470b1d0007256283d4df17f0/latest.json
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/report.md
+
+✨ Final Report generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/ac7b176f470b1d0007256283d4df17f0/report.md
+📄 Printable HTML Report available at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/da44df8b4976e0e0caf53bd1f6d96ead/report.html
+📄 Printable HTML Report available at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/ev
+idence_lake/ac7b176f470b1d0007256283d4df17f0/report.html
+📡 Audit Complete: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/agent_alpha
+-> PASS
+📡 Audit Complete: 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/agent_beta 
+-> PASS
+📄 Premium Fleet Dashboard generated at 
+/private/var/folders/s4/ymsyhp4n6y5crdflfss6hxym00tlcj/T/tmpuvm7zq9z/.cockpit/fl
+eet_dashboard.html
+______________________________ test_version_ssot _______________________________
+
+    def test_version_ssot():
+        """Ensure the version is consistent across the platform."""
+        # This ensures that we don't accidentally downgrade or mismatch
+>       assert config.VERSION == "1.4.4"
+E       AssertionError: assert '1.4.5' == '1.4.4'
+E         
+E         - 1.4.4
+E         ?     ^
+E         + 1.4.5
+E         ?     ^
+
+src/agent_ops_cockpit/tests/test_ops_core.py:13: AssertionError
+__________________________ test_versions_are_in_sync ___________________________
+
+    def test_versions_are_in_sync():
+        """Ensure version strings in python, pyproject.toml, and package.json match."""
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", 
+".."))
+    
+        # 1. Get Python Config Version
+        py_version = config.VERSION
+    
+        # 2. Get pyproject.toml version
+        pyproject_path = os.path.join(root, "pyproject.toml")
+        with open(pyproject_path, "rb") as f:
+            pyproject_data = tomllib.load(f)
+        pyproject_version = pyproject_data["project"]["version"]
+    
+        # 3. Get package.json version (Face layer)
+        package_path = os.path.join(root, "package.json")
+        with open(package_path, "r") as f:
+            package_data = json.load(f)
+        package_version = package_data["version"]
+    
+        print(f"\nVersions detected -> Config: {py_version}, pyproject: 
+{pyproject_version}, package: {package_version}")
+    
+        assert py_version == pyproject_version
+>       assert py_version == package_version
+E       AssertionError: assert '1.4.5' == '1.4.4'
+E         
+E         - 1.4.4
+E         ?     ^
+E         + 1.4.5
+E         ?     ^
+
+/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_version_sync.p
+y:28: AssertionError
+----------------------------- Captured stdout call -----------------------------
+
+Versions detected -> Config: 1.4.5, pyproject: 1.4.5, package: 1.4.4
+_______________________ test_telemetry_track_event_logic _______________________
+async def functions are not natively supported.
+You need to install a suitable plugin for your async framework, for example:
+  - anyio
+  - pytest-asyncio
+  - pytest-tornasync
+  - pytest-trio
+  - pytest-twisted
+_________________________ test_benchmark_inviolability _________________________
+
+    def test_benchmark_inviolability():
+        """
+        STAKEHOLDER GOAL: Ensure that 'Systemic Benchmarks' are never overwritten by 
+research signals.
+        """
+>       store = load_wisdom_store()
+                ^^^^^^^^^^^^^^^^^^^
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def load_wisdom_store():
+>       with open(WISDOM_STORE_PATH, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 
+'src/agent_ops_cockpit/ops/maturity_patterns.json'
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:9: 
+FileNotFoundError
+_________________________ test_recommendation_no_loss __________________________
+
+    def test_recommendation_no_loss():
+        """
+        Ensures that if research (X) is added, the original industry practice (Y) is 
+preserved.
+        """
+>       store = load_wisdom_store()
+                ^^^^^^^^^^^^^^^^^^^
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def load_wisdom_store():
+>       with open(WISDOM_STORE_PATH, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 
+'src/agent_ops_cockpit/ops/maturity_patterns.json'
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:9: 
+FileNotFoundError
+_______________________ test_consensus_schema_integrity ________________________
+
+    def test_consensus_schema_integrity():
+        """
+        Validates that patterns follow the maturity schema.
+        """
+>       store = load_wisdom_store()
+                ^^^^^^^^^^^^^^^^^^^
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def load_wisdom_store():
+>       with open(WISDOM_STORE_PATH, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 
+'src/agent_ops_cockpit/ops/maturity_patterns.json'
+
+/Users/enriq/Documents/git/agent-cockpit/tests/test_wisdom_integrity.py:9: 
+FileNotFoundError
+=============================== warnings summary ===============================
+src/agent_ops_cockpit/telemetry.py:92
+  /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:92: 
+DeprecationWarning: There is no current event loop
+    loop = asyncio.get_event_loop()
+
+src/agent_ops_cockpit/agent.py:52
+  /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:52: 
+PydanticDeprecatedSince20: The `update_forward_refs` method is deprecated; use 
+`model_rebuild` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic
+V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    A2UIComponent.update_forward_refs()
+
+tests/test_telemetry_hardened.py:74
+  /Users/enriq/Documents/git/agent-cockpit/tests/test_telemetry_hardened.py:74: 
+PytestUnknownMarkWarning: Unknown pytest.mark.asyncio - is this a typo?  You can 
+register custom marks to avoid this warning - for details, see 
+https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.asyncio
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_agent_v1_logic
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set
+FAILED 
+src/agent_ops_cockpit/tests/test_audit_flow.py::test_dry_run_does_not_modify_files
+FAILED 
+src/agent_ops_cockpit/tests/test_fleet_remediation.py::test_workspace_bulk_fix_apply
+FAILED src/agent_ops_cockpit/tests/test_ops_core.py::test_version_ssot - Asse...
+FAILED src/agent_ops_cockpit/tests/test_version_sync.py::test_versions_are_in_sync
+FAILED tests/test_telemetry_hardened.py::test_telemetry_track_event_logic - F...
+FAILED tests/test_wisdom_integrity.py::test_benchmark_inviolability - FileNot...
+FAILED tests/test_wisdom_integrity.py::test_recommendation_no_loss - FileNotF...
+FAILED tests/test_wisdom_integrity.py::test_consensus_schema_integrity - File...
+================== 59 failed, 110 passed, 3 warnings in 2.64s ==================
+
+```
+ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling
+unit tests to ensure agent regression safety.
 </pre>
                 <div class="footer">
                     Generated by AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard). 
