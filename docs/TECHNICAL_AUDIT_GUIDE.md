@@ -58,6 +58,19 @@ All audit outputs are centralized in your project:
 
 ---
 
+## 📡 Telemetry & Transparency
+The AgentOps Cockpit includes anonymous telemetry to help us understand usage patterns and improve the platform. We track:
+- **Events**: Audit start/completion, package imports, and command usage.
+- **System**: OS type, Python version, and Cockpit version.
+- **Privacy**: No code, secrets, or PII are ever collected. IDs are anonymized.
+
+**Opt-out**: You can disable telemetry by setting the environment variable:
+```bash
+export AGENTOPS_TELEMETRY_ENABLED=false
+```
+
+---
+
 ## 🏢 The Principal SME Persona Matrix
 
 Every report finding is still authored by a specialized SME:

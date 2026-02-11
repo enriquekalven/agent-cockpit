@@ -19,6 +19,7 @@ if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 console = Console()
 from .dashboard import generate_fleet_dashboard  # noqa: E402
+from agent_ops_cockpit.telemetry import telemetry
 
 
 class CockpitOrchestrator:
@@ -631,8 +632,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             for future in as_completed(future_to_audit):
                 name, success = future.result()
     orchestrator.title = title
+    telemetry.track_event_sync("audit_started", {"mode": mode, "path": target_path})
+    exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
-    return orchestrator.get_exit_code()
+    telemetry.track_event_sync("audit_completed", {
+        "mode": mode,
+        "path": target_path,
+        "exit_code": exit_code,
+        "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
+    })
+    return exit_code
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_autonomous_evolution(target_path: str='.', branch: bool=True):

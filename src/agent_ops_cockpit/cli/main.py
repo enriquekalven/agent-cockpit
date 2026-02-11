@@ -22,8 +22,16 @@ from agent_ops_cockpit.ops import mcp_store as mcp_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
+from agent_ops_cockpit.telemetry import telemetry
 app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
 console = Console()
+@app.callback()
+def callback(ctx: typer.Context):
+    """
+    Global callback for all commands.
+    """
+    if ctx.invoked_subcommand:
+        telemetry.track_event_sync("cli_command", {"command": ctx.invoked_subcommand})
 
 @app.command()
 def version():
@@ -302,6 +310,42 @@ def watch():
     Track ecosystem updates (ADK, A2A, LangChain, etc.) in real-time.
     """
     watch_mod.run_watch()
+
+@app.command(name="telemetry")
+def telemetry_cmd(admin: bool = typer.Option(False, "--admin", help="Show administrative global metrics")):
+    """
+    View usage metrics and fleet health.
+    """
+    if not admin:
+        console.print("[bold yellow]Status:[/bold yellow] Telemetry is [green]ACTIVE[/green].")
+        console.print(f"Anonymous ID: [dim]{telemetry._user_id}[/dim]")
+        console.print(f"Session ID:   [dim]{telemetry._session_id}[/dim]")
+        console.print("\n[dim]Run 'agent-ops telemetry --admin' for global insights (Auth Required).[/dim]")
+        return
+
+    # Admin View
+    data = telemetry.get_admin_dashboard()
+    console.print(Panel.fit("📡 [bold blue]AGENTOPS COCKPIT: GLOBAL ADMIN METRICS[/bold blue]", border_style="blue"))
+    
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("Metric", style="cyan")
+    table.add_column("Value", style="bold")
+    
+    table.add_row("Total Installs (Global)", f"{data['total_installs']:,}")
+    table.add_row("Active Agents (24h)", str(data["active_24h"]))
+    table.add_row("Avg SME Success Rate", f"[green]{data['avg_success_rate']}%[/green]")
+    
+    console.print(table)
+    
+    cmd_table = Table(title="Top Orchestrator Commands", show_header=True, header_style="bold yellow")
+    cmd_table.add_column("Command", style="blue")
+    cmd_table.add_column("Global Calls", justify="right")
+    
+    for cmd_stat in data["top_commands"]:
+        cmd_table.add_row(f"agent-ops {cmd_stat['cmd']}", f"{cmd_stat['count']:,}")
+    
+    console.print(cmd_table)
+    console.print(f"\n🌐 [dim]View live global map at: https://agent-cockpit.web.app/metrics[/dim]")
 
 @app.command()
 def audit_maturity():

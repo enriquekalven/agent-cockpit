@@ -8,6 +8,7 @@ const DocPage = lazy(() => import('./docs/DocPage').then(m => ({ default: m.DocP
 const DocHome = lazy(() => import('./docs/DocHome').then(m => ({ default: m.DocHome })));
 const Home = lazy(() => import('./components/Home').then(m => ({ default: m.Home })));
 const ReportSamples = lazy(() => import('./components/ReportSamples').then(m => ({ default: m.ReportSamples })));
+const GlobalMetrics = lazy(() => import('./components/GlobalMetrics').then(m => ({ default: m.GlobalMetrics })));
 
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
 import { ThemeToggle } from './components/ThemeToggle';
@@ -33,6 +34,7 @@ function App() {
         </Route>
 
         <Route path="/samples" element={<ReportSamples />} />
+        <Route path="/metrics" element={<GlobalMetrics />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
