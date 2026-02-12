@@ -142,3 +142,10 @@ test-regression: ## Run Full Regression Suite (Unit + Smoke)
 
 upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
+
+lab-bootstrap: ## Setup the 'Broken Agent' for the Cockpit Lab
+	@echo "🧪 Bootstrapping broken agent for lab..."
+	@mkdir -p my-super-agent
+	@echo 'import os\nimport vertexai\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n# INTENTIONAL DEBT: No retries, no timeouts, no structured types, PII exposure\ndef get_user_data(email: str):\n    return f"Extracting PII: {email}"\n\n@app.get("/task")\ndef solve_task(q: str):\n    # MISSING: Context Caching\n    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")\n    return model.generate_content(q).text\n' > my-super-agent/agent.py
+	@echo "google-cloud-aiplatform\nfastapi\nuvicorn" > my-super-agent/requirements.txt
+	@echo "✅ Lab environment ready in ./my-super-agent"

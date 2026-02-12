@@ -2,6 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.0] - 2026-02-12
+
+### 🛡️ The "Watchtower Standard" Release
+- **Sovereign Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs (`audit`, `fleet`, `deploy`, `fix`, `test`, `sys`, `create`) for high-fidelity operations.
+- **Sentinel Oversight**: Reasoning-based runtime anomaly detection and proactive quarantine via `fleet anomaly`.
+- **Context Architect**: Deep audit for token windows and context caching efficiency (`audit context`).
+- **Persona-Based Simulation**: Stress-test agents against adversarial user personas (`test simulate`).
+- **Unified Command Parity**: Verified parity across `make`, CLI, and `uvx` execution layers.
+- **Professional Alias Bridge**: Non-breaking legacy aliases for all deprecated commands.
+
 ## [1.5.0] - 2026-02-11
 
 ### 🛰️ The "Autonomous SRE" Release
