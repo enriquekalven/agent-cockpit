@@ -2,6 +2,17 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.5.0] - 2026-02-11
+
+### 🛰️ The "Autonomous SRE" Release
+- **Fleet Manager**: Stateful Day 2 registry for tracking deployed agent health, endpoints, and versions across multi-cloud environments.
+- **FinOps: Mothballing**: Scale-to-zero capability for inactive fleets to minimize cloud spend (`mothball`, `resume`).
+- **Inner Loop Tunneling**: Local-to-cloud bridge allowing Gemini Enterprise to interact with agents running on `localhost` for faster iteration (`tunnel`).
+- **Watchtower (Agent Anomaly Detection)**: Reasoning-based runtime oversight layer for identifying behavioral anomalies and suspicious intent.
+- **Proactive Enforcement**: Integrated "Response Framework" for auto-mothballing rogue agents detected during runtime audits.
+- **Zero-Trust Hydration**: Upgraded deployment asset generation to enforce security best practices (non-root users, security contexts).
+- **Fleet-Wide Status**: New `fleet-status` command for a unified dashboard of the entire agentic ecosystem.
+
 ## [1.4.7] - 2026-02-11
 
 ### 🚀 The "Fleet Sovereign" Release

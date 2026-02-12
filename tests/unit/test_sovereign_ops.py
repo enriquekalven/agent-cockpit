@@ -44,3 +44,36 @@ async def test_simulator_hydration_verification():
     assert verification is True
     
     shutil.rmtree(sim.tmp_dir)
+
+def test_fleet_manager_registration():
+    from agent_ops_cockpit.ops.fleet import FleetManager
+    with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        manager = FleetManager(db_path=tmp.name)
+        manager.register_agent("test-agent", "/tmp/path", "google", "https://test.url", "1.5.0")
+        
+        fleet = manager.list_fleet()
+        assert len(fleet) == 1
+        assert fleet[0]["name"] == "test-agent"
+        assert fleet[0]["status"] == "HEALTHY"
+
+def test_fleet_manager_mothballing():
+    from agent_ops_cockpit.ops.fleet import FleetManager
+    with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        manager = FleetManager(db_path=tmp.name)
+        manager.register_agent("agent-1", "/tmp/1", "google", "https://url1", "1.5.0")
+        manager.register_agent("agent-2", "/tmp/2", "aws", "https://url2", "1.5.0")
+        
+        # Mothball AWS
+        count = manager.mothball_fleet(cloud="aws")
+        assert count == 1
+        
+        fleet = manager.list_fleet()
+        a1 = next(a for a in fleet if a["name"] == "agent-1")
+        a2 = next(a for a in fleet if a["name"] == "agent-2")
+        
+        assert a1["status"] == "HEALTHY"
+        assert a2["status"] == "MOTHBALLED"
+        
+        # Resume all
+        manager.resume_fleet()
+        assert all(a["status"] == "HEALTHY" for a in manager.list_fleet())

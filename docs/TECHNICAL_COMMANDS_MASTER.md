@@ -1,60 +1,60 @@
 # 🕹️ Master Guide: AgentOps Cockpit Commands
-## The "Autonomous Standard" Command Registry (v1.4.2 Stable)
+## The "Watchtower Standard" Hub Registry (v1.6.0 Stable)
 
-This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It consolidates the commands found across all specialized technical guides.
-
----
-
-## 🏗️ Master Orchestration (The Cockpit)
-These commands trigger cross-functional audits and generate high-fidelity executive reports.
-
-| Command (Make) | CLI Equivalent | Objective | Impact |
-| :--- | :--- | :--- | :--- |
-| `make audit` | `agent-ops report` | **Safe-Build** | Quick scan for secrets, reliability, and code waste. |
-| `make audit-deep` | `agent-ops report --mode deep`| **Final Exam** | Full benchmarks, red-team security, and stress tests. |
-| `make apply-fixes`| `agent-ops apply-fixes` | **Remediation** | Triggers AST-based code patches for detected gaps. |
-| `make sovereign`  | `agent-ops sovereign`   | **End-to-End**  | [10X] Audit -> Fix -> Hydrate -> Deploy -> Register. |
-| `make register`   | `agent-ops register`    | **Registry**     | Connects production agents to Gemini via Agent Engine/A2A. |
-| `make deploy-prod`| `agent-ops deploy-prod` | **Readiness** | Full ecosystem-wide production-readiness gate. |
-| `make diagnose` | `agent-ops diagnose` | **Health Check** | Environment and dependency validation. |
+This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It follows the **Sovereign Hub Hierarchy** introduced in v1.6.
 
 ---
 
-## 🏛️ Pillar-Specific Shortcuts
-Direct entry points into the specialized audit engines.
+## 🏗️ The Hub Registry (CLI)
+The CLI is organized into 7 logical "Hubs" for high-fidelity operations.
 
-| Command (Make) | CLI Equivalent | Objective | Impact |
-| :--- | :--- | :--- | :--- |
-| `make quality` | `agent-ops quality` | **Hill Climbing**| Iteratively optimizes prompts for reasoning peak. |
-| `make scan-secrets`| `agent-ops secrets` | **Zero-Trust** | Scans for hardcoded keys and PII leaks. |
-| `make ui-audit` | `agent-ops face` | **GenUI Scan** | Validates A2UI protocol and `surfaceId` mapping. |
-| `make mcp-serve` | `agent-ops mcp-server`| **Interop Hub** | Starts the Model Context Protocol execution hub. |
-| `make watch` | `agent-ops watch` | **Ecosystem Sync**| Tracks updates to ADK, Vertex, and LangChain. |
-
----
-
-## 🚀 Lifecycle & Deployment
-From local dev to sovereign cloud deployment.
-
-| Command (Make) | Objective | Impact |
+| Hub | Command | Objective |
 | :--- | :--- | :--- |
-| `make dev` | **Local Stack** | Starts Engine (FastAPI) + Face (Vite/TS) dev server. |
-| `make build` | **Build Bundle** | Compiles assets for Cloud Run and Firebase. |
-| `make deploy-cloud-run`| **Cloud Run** | One-click deployment of the reasoning engine. |
-| `make deploy-firebase` | **Firebase** | Global distribution of the user interface. |
+| `audit` | `report` | **Master Audit**: Launch multi-persona architecture, security, and cost reviews. |
+| | `security` | **Guardian**: Red Team adversarial evaluation and secret scanning. |
+| | `arch` | **Strategist**: AST-based architecture and design review. |
+| | `maturity` | **Expertise**: Visualize cockpit maturity levels across personas. |
+| | `context` | **Architect**: Visualize Token window usage and Caching efficiency. |
+| `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
+| | `mothball` | **FinOps**: Scale inactive agents to zero to stop costs. |
+| | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior in live telemetry. |
+| | `tunnel` | **Inner Loop**: Local-to-cloud bridge for GE tool-use iteration. |
+| `deploy` | `sovereign` | **Factory**: [10X] Audit -> Fix -> Hydrate -> Deploy -> Register. |
+| | `migrate` | **Multi-Cloud**: Move agents between GCP, AWS, and Azure. |
+| `fix` | `issue` | **Remediation**: Apply a targeted code fix for a specific audit finding. |
+| | `evolve` | **Synthesis**: Autonomous PR generation and code hardening. |
+| `test` | `unit` | **Integrity**: Run standard reliability unit tests. |
+| | `smoke` | **Journeys**: Validates end-to-end "pipes" across all Persona Lenses. |
+| | `regression`| **Master Suite**: Combines unit + smoke + compliance checks. |
+| | `simulate` | **Simulation**: Stress-test reasoning with Persona-based User Simulation. |
+| `sys` | `doctor` | **Health**: Validate environment variables, SDKs, and artifact paths. |
 
 ---
 
-## 🧗 Persona Filtering (CLI Only)
-The CLI allows you to run a report but only for specific domains.
+## 🏛️ Makefile Shortcuts (Persona Lenses)
+Standard operational shortcuts aligned with the Trinity Persona Lenses.
+
+| Command (Make) | CLI Equivalent | Objective |
+| :--- | :--- | :--- |
+| `make audit-report` | `agent-ops audit report` | Full System Audit. |
+| `make audit-security`| `agent-ops audit security`| Adversarial Guard. |
+| `make deploy-sovereign`| `agent-ops deploy sovereign`| Global Factory. |
+| `make fleet-status` | `agent-ops fleet status` | SRE Dashboard. |
+| `make fleet-anomaly` | `agent-ops fleet anomaly` | Anomaly Oversight. |
+| `make smoke-test` | `agent-ops test smoke` | Pipe Validation. |
+
+---
+
+## 🧗 Hub-Based Sub-commands
+The CLI is now strictly hierarchical. Use `--help` on any hub to see detailed options.
 
 ```bash
-# Run only security checks
-agent-ops report --only security
+# Get help for the audit hub
+agent-ops audit --help
 
-# Skip heavy benchmarks for fast CI
-agent-ops report --skip quality --skip red-team
+# Run a security scan for a specific folder
+agent-ops audit security ./my_agent
 ```
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.4.2 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.6.0 Stable).*

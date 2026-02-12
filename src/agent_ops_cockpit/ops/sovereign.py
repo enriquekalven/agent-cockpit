@@ -10,6 +10,7 @@ from agent_ops_cockpit.ops import orchestrator as orch_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.ops import discovery as discovery_mod
+from agent_ops_cockpit.ops import fleet as fleet_mod
 
 console = Console()
 
@@ -21,6 +22,7 @@ class SovereignOrchestrator:
     
     def __init__(self, target_cloud: str = "google"):
         self.target_cloud = target_cloud
+        self.fleet_manager = fleet_mod.FleetManager()
 
     async def run_pipeline(self, path: str, fleet: bool = False):
         """Orchestrates the full flow for one or many agents."""
@@ -117,6 +119,17 @@ class SovereignOrchestrator:
             engine.auto_register_to_gemini(service_id, a2a_proxy=use_a2a)
 
             console.print(f"  ✨ [green]Agent {agent_name} is LIVE![/] [dim]({deploy_url})[/]\n")
+            
+            # Step 5: Stateful Fleet Registration (Day 2 Ops)
+            from agent_ops_cockpit.config import config
+            self.fleet_manager.register_agent(
+                name=agent_name,
+                path=agent_path,
+                cloud=self.target_cloud,
+                endpoint=deploy_url,
+                version=config.VERSION
+            )
+            
             return {"agent": agent_name, "status": "success", "url": deploy_url}
         
         except Exception as e:
@@ -164,3 +177,34 @@ class SovereignOrchestrator:
             title="Sovereign Pipeline Summary",
             border_style="green" if all(r['status'] == 'success' for r in results) else "red"
         ))
+
+    def list_fleet(self):
+        """Displays the stateful fleet registry."""
+        agents = self.fleet_manager.list_fleet()
+        if not agents:
+            console.print("ℹ️  [yellow]Fleet is currently empty.[/]")
+            return
+        
+        from rich.table import Table
+        table = Table(title="Sovereign Fleet Registry")
+        table.add_column("Agent", style="cyan")
+        table.add_column("Cloud", style="magenta")
+        table.add_column("Status", style="green")
+        table.add_column("Endpoint", style="dim")
+        table.add_column("Last Seen", style="dim")
+        
+        for a in agents:
+            status_style = "green" if a['status'] == "HEALTHY" else "yellow" if a['status'] == "MOTHBALLED" else "red"
+            table.add_row(a['name'], a['cloud'], f"[{status_style}]{a['status']}[/]", a['endpoint'], a['last_seen'])
+        
+        console.print(table)
+
+    def mothball_fleet(self, cloud: str = None):
+        """FinOps: Scale fleet to zero."""
+        count = self.fleet_manager.mothball_fleet(cloud)
+        console.print(f"📉 [bold green]FinOps Action:[/] Mothballed {count} agents in {cloud or 'all clouds'}. (Scale to zero optimized)")
+
+    def resume_fleet(self, cloud: str = None):
+        """FinOps: Resume fleet."""
+        count = self.fleet_manager.resume_fleet(cloud)
+        console.print(f"📈 [bold green]FinOps Action:[/] Resumed {count} agents in {cloud or 'all clouds'}.")

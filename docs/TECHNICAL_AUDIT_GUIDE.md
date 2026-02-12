@@ -1,90 +1,84 @@
-## The "Command Simplification" Release (v1.4.7 Stable)
+## The "Hub-Based Governance" Release (v1.6.0 Stable)
 
-The AgentOps Cockpit has been simplified. We have moved from fragmented SME commands to a unified **Master Orchestrator**. The heartbeat of the ecosystem is now `agent-ops report`.
+The AgentOps Cockpit has evolved from a flat list into a **Sovereign Hub Hierarchy**. This ensures that Day-2 operations, security reviews, and autonomous synthesis are grouped by domain expertise.
 
 👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
 ---
 
-## 🏗️ The Agentic Trinity 2.0
-Every audit is framed against the Trinity architecture, where **Sovereignty & Compliance** act as a mandatory horizontal layer securing the Engine, Face, and Cockpit.
+## 🏗️ The Hub Lifecycle
 
-```mermaid
-graph TD
-   subgraph Trinity [The Agentic Trinity 2.0]
-       E(The Engine: Reasoning)
-       F(The Face: Interface)
-       C(The Cockpit: Operations)
-       S{Sovereignty & Compliance}
-   end
-   E <--> C
-   F <--> C
-   E <--> F
-   E -.-> S
-   F -.-> S
-   C -.-> S
-   style Trinity fill:#1e293b,stroke:#334155,stroke-width:2px,color:#fff
-   style S fill:#0ea5e9,color:#fff,stroke:#0284c7
-```
+We have organized all capabilities into 7 logical "Hubs".
+
+| Hub | Objective | Core Command |
+| :--- | :--- | :--- |
+| **`audit`** | **Verification** | `agent-ops audit report` |
+| **`fleet`** | **Runtime SRE** | `agent-ops fleet status` |
+| **`deploy`** | **Factory** | `agent-ops deploy sovereign` |
+| **`fix`** | **Synthesis** | `agent-ops fix evolve` |
+| **`test`** | **Reliability** | `agent-ops test regression` |
+| **`create`**| **Bootstrapping**| `agent-ops create trinity` |
+| **`sys`** | **Health** | `agent-ops sys doctor` |
 
 ---
 
 ## 🛠️ Unified Audit Lifecycle
 
-We have reduced permutations to focus on the **mode** of the audit rather than the specific SME.
-
-| Command | Objective | Impact |
+| Command | Objective | Hub |
 | :--- | :--- | :--- |
-| `make audit` | **Safe-Build** | Quick: Secrets, Reliability, and Fast Security. |
-| `make audit-deep` | **Deep Probe** | The "Final Exam": RAG Fidelity, stress tests, and benchmarks. |
-| `make apply-fixes`| **Remediation** | Triggers AST-based code patches for detected gaps. |
-| `agent-ops audit` | **Interactive** | Real-time optimization loop for `agent.py`. |
-| `agent-ops sovereign`| **End-to-End**| [10X] The ultimate factory: Audit -> Fix -> Hydrate -> Deploy -> Register. |
-| `agent-ops workbench`| **Negotiation** | Review and approve autonomous fixes (v1.4.2). |
+| `make audit-report` | **Safe-Build** | `audit` |
+| `make audit-security`| **Deep Probe** | `audit` |
+| `make deploy-sovereign`| **End-to-End**| `deploy` |
+| `make fleet-anomaly`| **Runtime Oversight**| `fleet` |
+| `agent-ops fix evolve`| **PR Closure** | `fix` |
 
 ---
 
-## 🎯 Modular Auditing & Filtering
-High-precision filtering allows you to run a full report but only for specific personas:
-- **`--only security`**: Run only the SecOps Principal checks.
-- **`--skip quality`**: Exclude heavy Hill Climbing for faster CI.
+## 🎯 Hub Filtering & Persona Lenses
+The hierarchy allows you to run a full report but only for specific domains. Use the Hub-level flags:
 
----
-
-## 📁 Artifact Sovereignty: The `.cockpit/` Store
-All audit outputs are centralized in your project:
-- **`.cockpit/patches/`**: Proposed code fixes (v1.4.2).
-- **`.cockpit/cockpit_report.html`**: The unified stakeholder dashboard.
-- **`.cockpit/evidence_lake.json`**: The technical truth for the audit.
-
----
-
-## 📡 Telemetry & Transparency
-The AgentOps Cockpit includes anonymous telemetry to help us understand usage patterns and improve the platform. We track:
-- **Events**: Audit start/completion, package imports, and command usage.
-- **System**: OS type, Python version, and Cockpit version.
-- **Privacy**: No code, secrets, or PII are ever collected. IDs are anonymized.
-
-**Opt-out**: You can disable telemetry by setting the environment variable:
 ```bash
-export AGENTOPS_TELEMETRY_ENABLED=false
+# Security-only deep audit
+agent-ops audit report --only security
+
+# Skip quality during fast CI
+agent-ops audit report --skip quality
 ```
 
 ---
 
-## 🏢 The Principal SME Persona Matrix
+## 🕵️ Watchtower: Runtime Anomaly Detection (v1.6)
+The Cockpit now extends beyond the "Audit" phase into the "Runtime" phase.
+- **`fleet anomaly`**: Leverages reasoning-based oversight to detect tool misuse and rogue intent in live telemetry.
+- **Proactive Enforcement**: Automatically triggers the `mothball` command to isolate agents that fall below safety thresholds.
+
+---
+
+---
+ 
++## 🧠 Context Architecture & Token Audit (v1.7 Preview)
++The Cockpit now visualizes context layers to improve reasoning performance and reduce costs.
++- **`audit context`**: Analyzes token windows (Static vs. Dynamic) and identifies caching opportunities for RAG snippets and system preambles.
++
++## 🎭 Persona-Based User Simulation (v1.7 Preview)
++Stress-test your agents before they hit real users.
++- **`test simulate`**: Launches a swarm of "Verifier Agents" with adversarial personas (Skeptic, Confused, Power User) to validate reasoning depth and alignment thresholds.
++
++---
++
+ ## 🏢 The Principal SME Persona Matrix
 
 Every report finding is still authored by a specialized SME:
 1. **🔐 SecOps Principal**: Credential hygiene and zero-trust.
 2. **🏛️ Autonomous Architect**: Structural integrity and remediation.
 3. **🧗 AI Quality SME**: RAG fidelity and prompt peak optimization.
-4. **⚖️ Governance SME**: Policy enforcement and sovereignty gate.
-5. **🎭 UX/UI Principal**: A2UI protocol and Face pillar alignment.
+4. **🛡️ Sentinel SME**: Runtime behavior and anomaly detection (NEW).
+5. **🌐 SRE Principal**: Network debt and fleet health.
 
 ---
 
 ## 🚀 Production Readiness Auditor
-Run `make deploy-prod` before a production deployment. This triggers the **Full Stress Test** and **Deep Red Team** to ensure the system survives enterprise-scale reasoning load and complies with all Sovereign standards.
+Run `make smoke-test` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses, ensuring that your logic works consistently across Make, CLI, and portable automation layers.
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v1.4.7 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v1.6.0 Stable).*

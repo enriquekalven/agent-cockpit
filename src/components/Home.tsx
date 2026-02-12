@@ -71,8 +71,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.4.7</span>
-          <span className="banner-text"><b>Fleet Sovereign v1.4.7:</b> Introducing Unified Fleet Factory, GKE Autopilot integration, and Cross-Cloud A2A Tooling.</span>
+          <span className="banner-tag">STABLE v1.5.0</span>
+          <span className="banner-text"><b>Fleet SRE v1.5.0:</b> Autonomous Lifecycle Management, FinOps Mothballing, and Local-to-Cloud Bridge (Tunnel).</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">

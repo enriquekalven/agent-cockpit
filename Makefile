@@ -98,13 +98,47 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Sovereign Fleet Pipeline (End-to-End)
+# Sovereign Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
-# Run the end-to-end factory: Audit -> Fix -> Hydrate -> Deploy -> Register -> TDD
-# Usage: make sovereign [PATH=path/to/fleet] [TARGET=google|aws|azure] [FLEET=true|false]
-sovereign:
-	@PYTHONPATH=src uv run agentops-cockpit sovereign --path $(if $(PATH),$(PATH),.) --target $(if $(TARGET),$(TARGET),google) --$(if $(filter false,$(FLEET)),no-fleet,fleet)
+create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
+	@PYTHONPATH=src uv run agentops-cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
 
-sovereign-sim: ## Battle-test Sovereign Pipeline across GCP, AWS, and Azure
-	PYTHONPATH=src uv run agentops-cockpit simulate-sovereign
+audit-report: ## Launch Master Audit (Arch, Quality, Security, Cost)
+	@PYTHONPATH=src uv run agentops-cockpit audit report --path $(if $(P),$(P),.)
+
+audit-security: ## Run Red Team and Secret Scanning
+	@PYTHONPATH=src uv run agentops-cockpit audit security --path $(if $(P),$(P),.)
+
+audit-arch: ## Architecture Design Review
+	@PYTHONPATH=src uv run agentops-cockpit audit arch --path $(if $(P),$(P),.)
+
+deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run agentops-cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+
+fleet-status: ## Display stateful registry of deployed agents
+	@PYTHONPATH=src uv run agentops-cockpit fleet status
+
+fleet-mothball: ## FinOps: Scale fleet to zero
+	@PYTHONPATH=src uv run agentops-cockpit fleet mothball --cloud $(CLOUD)
+
+fleet-resume: ## FinOps: Resume mothballed fleet
+	@PYTHONPATH=src uv run agentops-cockpit fleet resume --cloud $(CLOUD)
+
+fleet-tunnel: ## Inner Loop: Local-to-Cloud Bridge
+	@PYTHONPATH=src uv run agentops-cockpit fleet tunnel --port $(if $(PORT),$(PORT),8080)
+
+fleet-watch: ## Track ecosystem updates
+	@PYTHONPATH=src uv run agentops-cockpit fleet watch
+
+fleet-anomaly: ## Trace behavior anomalies
+	@PYTHONPATH=src uv run agentops-cockpit fleet anomaly --name $(if $(NAME),$(NAME),my-agent) $(if $(ROGUE),--rogue,)
+
+smoke-test: ## Run Trinity Smoke Tests (Hub-based validation)
+	@PYTHONPATH=src uv run python3 -m agent_ops_cockpit.ops.reliability audit --smoke
+
+test-regression: ## Run Full Regression Suite (Unit + Smoke)
+	@PYTHONPATH=src uv run agentops-cockpit test regression
+
+upgrade: ## Upgrade all packages to latest stable versions
+	uv sync --upgrade
