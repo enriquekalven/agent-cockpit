@@ -107,6 +107,8 @@ create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
 audit-report: ## Launch Master Audit (Arch, Quality, Security, Cost)
 	@PYTHONPATH=src uv run agentops-cockpit audit report --path $(if $(P),$(P),.)
 
+audit-deep: audit-report ## [Alias] Launch Master Audit (Full Benchmarks)
+
 audit-security: ## Run Red Team and Secret Scanning
 	@PYTHONPATH=src uv run agentops-cockpit audit security --path $(if $(P),$(P),.)
 
@@ -139,6 +141,9 @@ smoke-test: ## Run Trinity Smoke Tests (Hub-based validation)
 
 test-regression: ## Run Full Regression Suite (Unit + Smoke)
 	@PYTHONPATH=src uv run agentops-cockpit test regression
+
+test-simulate: ## Run Persona-based User Simulation
+	@PYTHONPATH=src uv run agentops-cockpit test simulate
 
 upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
