@@ -75,7 +75,10 @@ class CodeRemediator:
             return
         has_import = 'ContextCacheConfig' in self.content
         if not has_import:
-            self._add_edit(1, 0, 1, 0, "from google.adk.agents.context_cache_config import ContextCacheConfig\n")
+            self._add_edit(1, 0, 1, 0, """try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError, ModuleNotFoundError):
+    ContextCacheConfig = None\n""")
             
         for node in ast.walk(self.tree):
             if isinstance(node, ast.Call):

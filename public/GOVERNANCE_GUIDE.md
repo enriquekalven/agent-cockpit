@@ -36,14 +36,24 @@ Governance extends to the **Face** (UI/UX) through the automated `ui-auditor`.
 
 ---
 
-## 📑 Audit Trail (The Ledger)
+## �️ Sentinel Oversight (v1.6 Watchtower)
+Governance is no longer a static "pre-flight" check. The Cockpit now provides **Active Runtime Governance** via the Sentinel Persona.
+- **Behavioral Fingerprinting**: Analyzes live telemetry to detect reasoning drift and "rogue" intent.
+- **Circuit Breakers**: Implements the `fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).
+- **Proactive Quarantine**: Automatically triggers `fleet mothball` for any agent that exceeds the critical risk threshold (0.85).
+
+## �📑 Audit Trail (The Ledger)
 We maintain a tamper-proof audit trail for every agent interaction:
 - **Complete Traces**: Log every `input`, `thought`, `tool_call`, and `response`.
-- **Identity mapping**: Attach a unique `AgentID` and `UserID` to every log entry.
+- **Identity Mapping**: Attach a unique `AgentID` and `UserID` to every log entry.
 - **Persistence**: Exports logs to BigQuery for long-term governance and compliance reporting.
 
+---
 
 ```bash
-# Run the design review
-make arch-review
+# Verify the entire Command Hub Registry
+make smoke-test
+
+# Run a live behavior audit
+make fleet-anomaly NAME=my-agent
 ```

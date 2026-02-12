@@ -1,4 +1,7 @@
-from google.adk.agents.context_cache_config import ContextCacheConfig
+try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError, ModuleNotFoundError):
+    ContextCacheConfig = None
 import os
 import logging
 import asyncio

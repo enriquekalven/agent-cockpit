@@ -112,12 +112,15 @@ class MigrationEngine:
         """Prepare Cloud-specific Dockerfiles and IaC templates."""
         agent_dir = os.path.dirname(agent_path)
         
-        # Base Dockerfile
+        # Base Dockerfile with v1.5.0 Security Hardening
         docker_base = """FROM python:3.11-slim
+# v1.5.0 Zero-Trust Hydration: Non-root user setup
+RUN groupadd -r sovereign && useradd -r -g sovereign sovereign
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
+COPY --chown=sovereign:sovereign . .
+USER sovereign
 """
         
         if target_cloud == 'google':

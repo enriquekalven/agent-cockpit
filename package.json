@@ -1,7 +1,7 @@
 {
   "name": "agent-ops-cockpit",
   "private": true,
-  "version": "1.4.7",
+  "version": "1.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

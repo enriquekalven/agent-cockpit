@@ -70,26 +70,17 @@ graph TD
 
 ---
 
-## 🕹️ v1.4.7: The "Sovereign Evolution" Release (NEW)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.7 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.6.0: The "Watchtower" Release (LATEST)
+The ultimate end-to-end management platform for professional AI agents. The Cockpit has been refactored into a **Sovereign Hub Hierarchy** for simplified operations.
 
-- **🛡️ Validation Automation**: Integrated `/validate` workflow to enforce 100% SME approval and regression safety.
-
----
-
-## 🚢 v1.4.7: The "Fleet Sovereign" Release (LATEST)
-The ultimate end-to-end factory for professional AI agents.
-
-- **🚢 Sovereign Fleet Pipeline (10X)**: Unified orchestrator (`uv run agentops-cockpit sovereign`) that Audits, Hardens, Hydrates, Deploys, and Registers fleets of 1 to 50+ agents in a single command.
-- **🌊 Multi-Cloud Sovereign Factory**: Full end-to-end support for **AWS App Runner** and **Azure Container Apps**, including cloud-specific hydration assets (`Dockerfile.aws`, `aws-sam.json`, `azure-deploy.json`).
-- **🛫 Phase 0: Pre-flight Handshake**: Identity and toolchain verification gate that ensures IAM principals and CLIs are active before expensive fleet operations launch.
-- **🌉 Cross-Cloud A2A Bridge**: Seamlessly register your AWS/Azure agents as native Vertex AI tools via the **A2A Proxy Registration** logic.
-- **☸️ Industrial GKE Autopilot**: Native Kubernetes support for high-scale agent fleets, including LoadBalancer exposure and resource-aware scaling.
-- **📡 Gemini Enterprise Tool-use**: Seamlessly register your cross-cloud agents as native Vertex AI tools via the Agent Engine and A2A Bridge.
-- **💧 ADK-Native Transition**: Automatically upgrades generic agents to the high-fidelity Agent Development Kit (ADK) standard.
-- **🧗 Autonomous Evolution (10X)**: The "PR Closer" mode. Surgically fixes detected gaps and creates a hardened deployment branch automatically.
-- **🕵️ Shadow Mode (10X)**: Differential reasoning analysis to detect drift, latency, and cost delta between agent versions.
-- **💰 SME Consensus 2.0**: Unified approval engine requiring a unanimous "Sovereign Standard" from all 11 Principal SMEs.
+- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, scale with `mothball`/`resume`, and iterative with `tunnel`.
+- **🛡️ Audit Hub (`audit`)**: Principal SME Principal board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
+- **🧪 Reliability Hub (`test`)**: Regression and smoke validation. Run unit tests with `test unit`, persona journeys with `test smoke`, and adversarial user stress-testing with `test simulate`.
+- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-end pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
+- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue` or trigger the `fix evolve` "PR Closer".
+- **🕵️ Sentinel Journey**: Reasoning-based runtime oversight. Identifies behavioral anomalies, suspicious intent, and tool misuse via `fleet anomaly`.
+- **🚨 Proactive Enforcement**: High-fidelity "Kill Switch". The Cockpit automatically mothballs agents that exhibit critical risks during runtime audits.
+- **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified Engine/Face/Cockpit projects via `create trinity`.
 
 ---
 
