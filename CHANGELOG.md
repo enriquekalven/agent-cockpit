@@ -2,7 +2,13 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.8.0] - 2026-02-13
+## [1.8.1] - 2026-02-13
+
+### 🛡️ Full-Stack Security & Auto-Remediation
+- **Expanded Infra Scanning**: The `InfraAuditor` now scans `docker-compose.yml` (Privileged containers) and Terraform `.tf` files (Public Ingress/0.0.0.0 rules).
+- **Auto-Generate MCP Wrappers**: Added `agentops-cockpit rag blueprint` to autonomously generate a working `mcp_server.py` shell from legacy tool code.
+- **RAG CLI Refactor**: Fixed a critical bug in the `rag` hub where extra arguments caused CLI failures. Standardized on `agentops-cockpit rag audit`.
+- **Cloud-Aware Secret Manager Advice**: The `SecretScanner` now detects if you are on AWS or GCP and tailors its "Actionable Recommendation" (e.g., suggesting *AWS Secrets Manager* for AWS projects).
 
 ### 🏗️ Infrastructure Sovereignty & Cloud Context
 - **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).

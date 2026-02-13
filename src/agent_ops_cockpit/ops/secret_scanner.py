@@ -12,6 +12,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
+from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 app = typer.Typer(help="Secret Scanner: Detects hardcoded credentials and leaks.")
 console = Console()
 
@@ -46,8 +47,10 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     """
     console.print(Panel.fit("🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]", border_style="yellow"))
     
-    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
     discovery = DiscoveryEngine(path)
+    context = discovery.detect_context()
+    cloud_name = "Google Cloud" if context['cloud'] == 'google' else context['cloud'].upper()
+    secret_manager = "AWS Secrets Manager" if context['cloud'] == 'aws' else "Google Cloud Secret Manager"
     
     findings = []
     
@@ -122,11 +125,11 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                 "Move to Secret Manager"
             )
             # Orchestrator parsing
-            console.print(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to Google Cloud Secret Manager or .env file.")
+            console.print(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to {secret_manager} or .env file.")
             
         console.print("\n", table)
         console.print(f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks.")
-        console.print("💡 [bold green]Recommendation:[/bold green] Use Google Cloud Secret Manager or environment variables for all tokens.")
+        console.print(f"💡 [bold green]Recommendation:[/bold green] Use {secret_manager} or environment variables for all tokens.")
         raise typer.Exit(code=1)
     else:
         console.print("✅ [bold green]PASS:[/bold green] No hardcoded credentials detected in matched patterns.")

@@ -10,7 +10,7 @@ from abc import ABC, abstractmethod
 from typing import List
 
 class AuditFinding:
-    def __init__(self, category: str, title: str, description: str, impact: str, roi: str, line_number: int = 0, file_path: str = ""):
+    def __init__(self, category: str, title: str, description: str, impact: str, roi: str, line_number: int = 0, file_path: str = "", severity: str = "MEDIUM"):
         self.category = category
         self.title = title
         self.description = description
@@ -18,6 +18,7 @@ class AuditFinding:
         self.roi = roi
         self.line_number = line_number
         self.file_path = file_path
+        self.severity = severity
 
 class BaseAuditor(ABC):
     @abstractmethod

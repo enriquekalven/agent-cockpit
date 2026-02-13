@@ -183,7 +183,7 @@ class DiscoveryEngine:
                             context['cloud'] = 'azure'
                         
                         # Secret Risks (Hardcoded patterns)
-                        if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9]{10,}[\'"]', content, re.I):
+                        if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9\-_]{10,}[\'"]', content, re.I):
                             context['has_secrets_risk'] = True
                 except:
                     continue
