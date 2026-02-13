@@ -15,8 +15,12 @@ const Registry: Record<string, React.FC<any>> = {
   Visual,
 };
 
+const UnknownComponent: React.FC<{ type: string }> = ({ type }) => (
+  <div className="unknown">Unknown: {type}</div>
+);
+
 export const A2UIRenderer: React.FC<{ component: A2UIComponent }> = React.memo(({ component }) => {
-  const Component = Registry[component.type] || (() => <div className="unknown">Unknown: {component.type}</div>);
+  const TargetComponent = Registry[component.type];
 
   // v1.0 Autonomous Accessibility Injection
   const autoProps = { ...component.props };
@@ -29,10 +33,14 @@ export const A2UIRenderer: React.FC<{ component: A2UIComponent }> = React.memo((
     <A2UIRenderer key={child.id || i} component={child} />
   )) || null;
 
+  if (!TargetComponent) {
+    return <UnknownComponent type={component.type} />;
+  }
+
   return (
-    <Component {...autoProps}>
+    <TargetComponent {...autoProps}>
       {children}
-    </Component>
+    </TargetComponent>
   );
 }, (prev, next) => {
   // Deep comparison of component structure to prevent unnecessary re-renders

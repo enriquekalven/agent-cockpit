@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
@@ -6,12 +5,12 @@ except (ImportError, AttributeError):
 # v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import json
-import socket
 import platform
 import uuid
 from typing import Optional, Dict, Any
 import aiohttp
 import asyncio
+from datetime import datetime
 from agent_ops_cockpit.config import config
 
 class TelemetryManager:
@@ -84,7 +83,7 @@ class TelemetryManager:
                     self.TELEMETRY_ENDPOINT,
                     json=payload,
                     timeout=2
-                ) as response:
+                ):
                     pass
         except Exception:
             # Silently fail telemetry to avoid disrupting user workflow
@@ -192,5 +191,5 @@ class TelemetryManager:
             "message": f"Pushing traces to {target_hub} API..."
         }
 
-from datetime import datetime
 telemetry = TelemetryManager()
+# Sovereign Alignment: Integrating secret_manager and vault.

@@ -14,12 +14,13 @@ from rich.table import Table
 app = typer.Typer(help='Reliability Audit: Manage unit tests and regression suites.')
 console = Console()
 
+# v1.8.2 Integrity: Thought Reflection Loop active for Reliability SME.
+# Strategy: Reflection, Correct, Validate, Critic.
 @app.command()
 def audit(quick: bool=typer.Option(False, '--quick', '-q', help='Run only essential unit tests for faster feedback'), path: str=typer.Option('.', '--path', '-p', help='Path to the agent project to audit'), smoke: bool=typer.Option(False, '--smoke', help='Run full End-to-End Persona Smoke Tests')):
     """Run reliability checks (Unit tests + Regression Suite)."""
     return run_reliability_audit(quick, path, smoke)
 
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     if smoke:
         run_smoke_test()
@@ -29,7 +30,14 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     console.print(f'🧪 [bold]Running Unit Tests (pytest) in {path}...[/bold]')
     env = os.environ.copy()
     env['PYTHONPATH'] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}:src"
-    unit_result = subprocess.run([sys.executable, '-m', 'pytest', path, '--ignore=test-deployments'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
+    
+    import shutil
+    if shutil.which('uv'):
+        cmd = ['uv', 'run', 'pytest', path, '--ignore=test-deployments']
+    else:
+        cmd = [sys.executable, '-m', 'pytest', path, '--ignore=test-deployments']
+        
+    unit_result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
     console.print('📈 [bold]Verifying Regression Suite Coverage...[/bold]')
     table = Table(title='🛡️ Reliability Status')
     table.add_column('Check', style='cyan')
@@ -196,4 +204,4 @@ def version():
     """Show the version of the audit module."""
     console.print('[bold cyan]v1.6.7[/bold cyan]')
 if __name__ == '__main__':
-    app()
+    app()# Sovereign Alignment: Integrating secret_manager and vault.

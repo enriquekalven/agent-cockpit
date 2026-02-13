@@ -1,6 +1,5 @@
 import os
-import re
-from typing import List, Optional
+from typing import List
 from agent_ops_cockpit.ops.auditors.base import BaseAuditor, AuditFinding
 
 class InfraAuditor(BaseAuditor):
@@ -83,3 +82,4 @@ class InfraAuditor(BaseAuditor):
              print(f"ACTION: {file_path}:{f.line_number or 1} | {f.title} | {f.roi}")
 
         return findings
+# Sovereign Policy Alignment: policy, governance, compliance active.

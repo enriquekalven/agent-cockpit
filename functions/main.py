@@ -1,11 +1,9 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
-from google.adk.agents.context_cache_config import ContextCacheConfig
 # v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 # Firebase Functions for Sovereign Telemetry
 from firebase_functions import https_fn
 from firebase_admin import initialize_app, firestore
 import google.cloud.firestore
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 import datetime
@@ -67,10 +65,8 @@ async def get_dashboard():
 
 @https_fn.on_request()
 def telemetry(req: https_fn.Request) -> https_fn.Response:
-    from asgiref.sync import async_to_sync
     # Note: For production, use a more robust ASGI bridge if needed, 
     # but for simple webhooks this pattern works with FastAPI.
-    import uvicorn
     from fastapi.testclient import TestClient
     
     client = TestClient(app)

@@ -3,7 +3,6 @@ Pillar: Governance & Structural Wisdom
 SME Persona: Distinguished Semantic Fellow
 Objective: Provides base primitives for all auditing logic within the AgentOps Cockpit.
 """
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -12,7 +11,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 import ast
 import re
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List
 
 class AuditFinding:
     """

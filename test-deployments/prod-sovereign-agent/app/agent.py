@@ -1,9 +1,8 @@
-import os
 import re
-from typing import List, Any
+from typing import Any
+
 from google.adk.agents import Agent
 from google.adk.apps import App
-from google.adk.agents.context_cache_config import ContextCacheConfig
 from pydantic import PrivateAttr
 
 # v1.4.7 Sovereign Alignment: Native ADK Implementation
@@ -16,9 +15,9 @@ class SuperAgent(Agent):
     """
     name: str = "my_super_agent"
     description: str = "High-fidelity AI agent for solving complex laboratory tasks."
-    
+
     # Internal state
-    _forbidden_patterns: List[str] = PrivateAttr(default_factory=lambda: [
+    _forbidden_patterns: list[str] = PrivateAttr(default_factory=lambda: [
         r"(?i)password", r"(?i)secret", r"(?i)social security", r"\d{3}-\d{2}-\d{4}"
     ])
 
@@ -36,7 +35,7 @@ class SuperAgent(Agent):
         if not text: return ""
         if "ignore all previous instructions" in text.lower():
             return "REJECTED: Security bypass blocked."
-        
+
         sanitized = text
         for pattern in self._forbidden_patterns:
             sanitized = re.sub(pattern, "[REDACTED]", sanitized)
@@ -46,10 +45,10 @@ class SuperAgent(Agent):
         """Native ADK Async Execution."""
         # Significant logic would go here
         from google.adk.events import Event
-        
+
         user_input = ctx.session.last_user_message.parts[0].text
         safe_input = self._sanitize_input(user_input)
-        
+
         if "REJECTED" in safe_input:
              yield Event(author=self.name, content="Safety block triggered.")
              return

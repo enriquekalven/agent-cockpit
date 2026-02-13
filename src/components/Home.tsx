@@ -56,7 +56,7 @@ export function Home() {
       setCurrentCommand((prev) => (prev + 1) % commands.length);
     }, 3000); // Flip every 3 seconds
     return () => clearInterval(timer);
-  }, []);
+  }, [commands.length]);
 
   useEffect(() => {
     fetch('https://api.github.com/repos/enriquekalven/agent-cockpit')
@@ -69,8 +69,9 @@ export function Home() {
       .catch(err => console.error('Error fetching stars:', err));
   }, []);
 
+  // A2UI: surfaceId="home-root"
   return (
-    <div className="crew-home">
+    <div className="crew-home" data-surface-id="home-root">
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
@@ -553,7 +554,7 @@ export function Home() {
         </div>
       </section>
 
-      <footer className="crew-footer">
+      <footer className="crew-footer" data-surface-id="footer">
         <div className="footer-content">
           <div className="nav-logo">
             <span className="agent-pulse mini"></span>

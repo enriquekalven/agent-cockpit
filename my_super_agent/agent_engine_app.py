@@ -1,4 +1,3 @@
-import os
 import vertexai
 from typing import Any
 from vertexai.agent_engines.templates.adk import AdkApp

@@ -1,7 +1,6 @@
 import os
 import json
 from datetime import datetime
-from .discovery import DiscoveryEngine
 
 class TDDGenerator:
     """
@@ -34,7 +33,7 @@ class TDDGenerator:
                     if line.strip():
                         try:
                             registry.append(json.loads(line))
-                        except:
+                        except Exception:
                             continue
         return registry
 
@@ -52,7 +51,7 @@ class TDDGenerator:
             
             findings = ""
             for module, result in data.get('results', {}).items():
-                icon = "✅" if result.get('success') else "❌"
+                "✅" if result.get('success') else "❌"
                 color = "#34d399" if result.get('success') else "#f87171"
                 findings += f"""
                 <div class="finding-item" style="border-left: 3px solid {color};">

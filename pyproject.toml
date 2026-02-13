@@ -90,3 +90,18 @@ asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",
 ]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = [
+    "test-deployments",
+    "lab-tutorial-agent-alt",
+    "app",
+    "tests/mixed_bag_agent.py",
+    "temp_mixed"
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I"]
+ignore = ["B904", "E701"]

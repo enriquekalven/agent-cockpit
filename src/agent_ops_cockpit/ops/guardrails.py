@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):

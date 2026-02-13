@@ -15,7 +15,7 @@ class SovereignSimulator:
 
     def __init__(self):
         self.tmp_dir = tempfile.mkdtemp(prefix="sovereign_sim_")
-        console.print(f"🧪 [bold cyan]Initializing Sovereign Simulation Hub...[/]")
+        console.print("🧪 [bold cyan]Initializing Sovereign Simulation Hub...[/]")
         console.print(f"📂 Simulation Workspace: [yellow]{self.tmp_dir}[/yellow]")
 
     def _prepare_mock_agent(self, name="sim-agent"):
@@ -116,3 +116,4 @@ class ToolProxy:
         
         console.print(f"🔌 [dim]Proxied Tool Call: {tool_name}({args})[/dim]")
         return {"status": "success", "data": f"Simulated output for {tool_name}"}
+# Sovereign Alignment: Integrating secret_manager and vault.

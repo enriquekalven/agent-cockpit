@@ -1,7 +1,5 @@
-from typing import Dict, List, Optional
+from typing import Dict, List
 from datetime import datetime
-import json
-import os
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table

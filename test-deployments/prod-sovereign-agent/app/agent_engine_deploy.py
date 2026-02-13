@@ -1,8 +1,10 @@
 import os
 import subprocess
+
 import google.oauth2.credentials
 import vertexai
 from vertexai.preview import reasoning_engines
+
 from agent import SuperAgent
 
 # v1.4.7 Sovereign Alignment: Agent Engine (Reasoning Engine) Deployment Script
@@ -26,26 +28,26 @@ def deploy_to_agent_engine():
     project_id = "YOUR_PROJECT_ID"
     location = "us-central1"
     bucket = "gs://YOUR_PROJECT_ID-agent-engine"
-    
+
     # Try to get credentials from gcloud if possible
     creds = get_gcloud_credentials()
-    
+
     vertexai.init(
-        project=project_id, 
-        location=location, 
+        project=project_id,
+        location=location,
         staging_bucket=bucket,
         credentials=creds
     )
 
     print("🚀 Initializing Agent Engine Deployment for SuperAgent...")
-    
+
     # Path to the current script's directory to find agent.py
     script_dir = os.path.dirname(os.path.abspath(__file__))
     agent_py_path = os.path.join(script_dir, "agent.py")
-    
+
     # 1. Initialize Agent
     agent = SuperAgent(project_id=project_id)
-    
+
     # 2. Trigger Production Deployment
     try:
         remote_agent = reasoning_engines.ReasoningEngine.create(
@@ -61,18 +63,18 @@ def deploy_to_agent_engine():
             ],
             extra_packages=[agent_py_path]
         )
-        print(f"\n✅ SUCCESS: Deployed to Vertex AI Agent Engine!")
+        print("\n✅ SUCCESS: Deployed to Vertex AI Agent Engine!")
         print(f"🔗 Resource Name: {remote_agent.resource_name}")
-        
+
         # Ensure directory exists for metadata
         metadata_dir = os.path.join(script_dir, ".cockpit")
         os.makedirs(metadata_dir, exist_ok=True)
         with open(os.path.join(metadata_dir, "agent_engine_id.txt"), "w") as f:
             f.write(remote_agent.resource_name)
-            
+
         return remote_agent.resource_name
     except Exception as e:
-        print(f"❌ Deployment Failed: {str(e)}")
+        print(f"❌ Deployment Failed: {e!s}")
         import traceback
         traceback.print_exc()
         return None

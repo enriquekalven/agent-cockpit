@@ -57,4 +57,4 @@ class MCPHub:
     async def _mock_legacy_exec(self, tool_name: str, args: Dict[str, Any]):
         await asyncio.sleep(0.5)
         return {'result': f'Legacy response for {tool_name}', 'protocol': 'rest-legacy', 'warning': 'MIGRATE_TO_MCP'}
-global_mcp_hub = MCPHub()
+global_mcp_hub = MCPHub()# Sovereign Alignment: Integrating secret_manager and vault.

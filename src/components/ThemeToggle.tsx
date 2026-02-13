@@ -20,7 +20,9 @@ export const ThemeToggle: React.FC = () => {
       onClick={toggleTheme}
       className="theme-toggle"
       aria-label="Toggle theme"
+      data-surface-id="theme-toggle"
     >
+      {/* A2UI: surfaceId="theme-toggle" */}
       {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );

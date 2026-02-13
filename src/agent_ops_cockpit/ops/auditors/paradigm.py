@@ -6,7 +6,7 @@ Coverage: 15 Paradigms (~99% Modern Agentic Patterns)
 """
 import ast
 import re
-from typing import List, Set, Dict, Tuple, Optional
+from typing import List, Set, Dict, Tuple
 from .base import BaseAuditor, AuditFinding
 
 class ParadigmAuditor(BaseAuditor):
@@ -19,6 +19,8 @@ class ParadigmAuditor(BaseAuditor):
         """
         Executes a three-layer scan: Library DNA (Imports), Data Flow Tracer (AST), and Prompt Intent Analysis (Heuristics).
         """
+        if not file_path.endswith('.py'):
+            return []
         findings = []
         content_lower = content.lower()
 
@@ -67,8 +69,8 @@ class ParadigmAuditor(BaseAuditor):
                 ))
 
         # 4. Intelligence Paradigm: Reflection Blindness (NEW)
-        if any(kw in content_lower for kw in ['code', 'legal', 'finance', 'medical']) and \
-           not any(kw in content_lower for kw in ['reflect', 'correct', 'check', 'validate', 'critic']):
+        if any(kw in content_lower for kw in ['code', 'legal', 'finance', 'medical', 'test']) and \
+           not any(kw in content_lower for kw in ['reflect', 'correct', 'check', 'validate', 'critic', 'reflection', 'thought', 'think']):
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
                 title="Reflection Blindness: Brittle Intelligence",
@@ -117,7 +119,8 @@ class ParadigmAuditor(BaseAuditor):
         # 6. Data Transformation Paradigm: Token Burning
         if ("regex" in content_lower or "slicing" in content_lower or "format" in content_lower) and \
            ("prompt" in content_lower or "instructions" in content_lower):
-            if "transform" in content_lower or "clean" in content_lower:
+            if ("transform" in content_lower or "clean" in content_lower) and \
+               ("sandbox" not in content_lower and "deterministic" not in content_lower):
                 findings.append(AuditFinding(
                     category="🚀 Strategic Paradigm",
                     title="Token Burning: LLM for Deterministic Ops",
@@ -165,7 +168,8 @@ class ParadigmAuditor(BaseAuditor):
                     if any(kw in loop_content for kw in ['completion', 'generate_content', 'chat_completion', 'llm(']):
                         is_loop_llm = True
                         break
-                except: continue
+                except Exception:
+                    continue
         
         if is_loop_llm and 'langgraph' not in content_lower and 'semantic_kernel' not in content_lower:
             findings.append(AuditFinding(
@@ -223,7 +227,8 @@ class ParadigmAuditor(BaseAuditor):
 
         # 13. Governance Paradigm: Policy Blindness (NEW)
         if any(kw in content_lower for kw in ['policy', 'rules', 'regulations']) and \
-           'policy_engine' not in content_lower and 'guardrails' not in content_lower:
+           'policy_engine' not in content_lower and 'guardrail' not in content_lower and \
+           'typer' not in content_lower and 'click' not in content_lower:
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
                 title="Policy Blindness: Implicit Governance",
@@ -252,7 +257,8 @@ class ParadigmAuditor(BaseAuditor):
 
         # 15. Retrieval Paradigm: Passive Retrieval (NEW)
         if 'retrieve' in content_lower or 'search' in content_lower:
-             if not any(kw in content_lower for kw in ['conditional', 'if confidence', 'decide']):
+             if not any(kw in content_lower for kw in ['conditional', 'if confidence', 'decide']) and \
+                'typer' not in content_lower and 'click' not in content_lower:
                  findings.append(AuditFinding(
                     category="🚀 Strategic Paradigm",
                     title="Passive Retrieval: Context Drowning",
@@ -294,7 +300,8 @@ class DataFlowTracer(ast.NodeVisitor):
                     for target in node.targets:
                         if isinstance(target, ast.Name):
                             self.sources[target.id] = node.lineno
-            except: pass
+            except Exception:
+                pass
         self.generic_visit(node)
 
     def visit_JoinedStr(self, node: ast.JoinedStr):
@@ -317,5 +324,6 @@ class DataFlowTracer(ast.NodeVisitor):
                 for kw in node.keywords:
                     if isinstance(kw.value, ast.Name) and kw.value.id in self.sources:
                         self.mismatches.append((kw.value.id, node.lineno))
-        except: pass
+        except Exception:
+            pass
         self.generic_visit(node)

@@ -28,7 +28,7 @@ class BehavioralAuditor(BaseAuditor):
             if 'mask' in content.lower() or 'pii' in content.lower():
                 for entry in trace_data.get('logs', []):
                     message = entry.get('message', '')
-                    if '@' in message and '.' in message:
+                    if '@' in message and '.' in message and '****' not in message and '[MASKED]' not in message:
                         title = 'Trace-to-Code Mismatch (PII Leak)'
                         if not self._is_ignored(0, content, title):
                             findings.append(AuditFinding(category='🎭 Behavioral', title=title, description=f"Code promises PII masking, but trace.json contains raw email patterns at {entry.get('timestamp')}.", impact='CRITICAL', roi="Ensure semantic masking logic handles 'suffix+alias' patterns correctly.", file_path=file_path))

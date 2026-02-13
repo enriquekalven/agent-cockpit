@@ -1,5 +1,3 @@
-import pytest
-import os
 import tempfile
 from agent_ops_cockpit.ops.auditors.anomaly_auditor import AnomalySME
 from agent_ops_cockpit.ops.fleet import FleetManager

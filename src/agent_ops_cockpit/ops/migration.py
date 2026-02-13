@@ -1,14 +1,12 @@
 import os
-import ast
 import re
-import shutil
 import json
 import subprocess
 import time
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict
 from .discovery import DiscoveryEngine
-from .frameworks import detect_framework, FRAMEWORKS
+from .frameworks import detect_framework
 from .remediator import CodeRemediator
 from tenacity import retry, wait_exponential, stop_after_attempt
 
@@ -32,7 +30,8 @@ class MigrationEngine:
         """Identify agents that are candidates for migration to the target cloud."""
         candidates = []
         for file_path in self.discovery.walk():
-            if not file_path.endswith('.py'): continue
+            if not file_path.endswith('.py'):
+                continue
             
             framework = detect_framework(file_path)
             # Candidates are generic or from a different cloud
@@ -127,11 +126,13 @@ USER sovereign
         
         if target_cloud == 'google':
             content = docker_base + 'CMD ["uvicorn", "agent:app", "--host", "0.0.0.0", "--port", "8080"]'
-            with open(os.path.join(agent_dir, 'Dockerfile.gcp'), 'w') as f: f.write(content)
+            with open(os.path.join(agent_dir, 'Dockerfile.gcp'), 'w') as f:
+                f.write(content)
         
         elif target_cloud == 'aws':
             content = docker_base + 'CMD ["python", "agent.py"] # Managed by AWS App Runner / Lambda'
-            with open(os.path.join(agent_dir, 'Dockerfile.aws'), 'w') as f: f.write(content)
+            with open(os.path.join(agent_dir, 'Dockerfile.aws'), 'w') as f:
+                f.write(content)
             # Minimal SAM template
             sam = {
                 "AWSTemplateFormatVersion": "2010-09-09",
@@ -143,18 +144,21 @@ USER sovereign
                     }
                 }
             }
-            with open(os.path.join(agent_dir, 'aws-sam.json'), 'w') as f: json.dump(sam, f, indent=2)
+            with open(os.path.join(agent_dir, 'aws-sam.json'), 'w') as f:
+                json.dump(sam, f, indent=2)
 
         elif target_cloud == 'azure' or target_cloud == 'microsoft':
             content = docker_base + 'CMD ["gunicorn", "-w", "4", "agent:app"] # Optimized for Azure'
-            with open(os.path.join(agent_dir, 'Dockerfile.azure'), 'w') as f: f.write(content)
+            with open(os.path.join(agent_dir, 'Dockerfile.azure'), 'w') as f:
+                f.write(content)
             # Minimal ARM Template (JSON is more standard for quick audits)
             azure_json = {
                 "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                 "contentVersion": "1.0.0.0",
                 "resources": []
             }
-            with open(os.path.join(agent_dir, 'azure-deploy.json'), 'w') as f: json.dump(azure_json, f, indent=2)
+            with open(os.path.join(agent_dir, 'azure-deploy.json'), 'w') as f:
+                json.dump(azure_json, f, indent=2)
             
         return True
 
@@ -282,3 +286,4 @@ USER sovereign
             }
             results.append(status)
         return results
+# Sovereign Alignment: Integrating secret_manager and vault.

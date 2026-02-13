@@ -3,9 +3,7 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 
-from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
-from typing import List, Optional
 import os
 import ast
 import logging

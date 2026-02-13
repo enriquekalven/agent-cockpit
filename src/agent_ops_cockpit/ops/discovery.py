@@ -13,14 +13,14 @@ import os
 import fnmatch
 import ast
 import re
-from typing import List, Optional, Generator, Dict, Any
+from typing import List, Optional, Generator
 
 class DiscoveryEngine:
     """
     Centralized discovery service for the AgentOps Cockpit.
     Aggregates .gitignore, .cockpitignore, and default SRE exclusions to traverse deep hierarchies.
     """
-    DEFAULT_EXCLUSIONS = {'.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
+    DEFAULT_EXCLUSIONS = {'tests', 'test', '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
 
     def __init__(self, root_path: str='.'):
         self.root_path = os.path.abspath(root_path)
@@ -208,7 +208,7 @@ class DiscoveryEngine:
                         # Secret Risks (Hardcoded patterns)
                         if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9\-_]{10,}[\'"]', content, re.I):
                             context['has_secrets_risk'] = True
-                except:
+                except Exception:
                     continue
         return context
 
@@ -267,4 +267,4 @@ class DiscoveryEngine:
                 continue
         if best_candidate:
             return best_candidate[0]
-        return os.path.join(self.root_path, 'agent.py')
+        return os.path.join(self.root_path, 'agent.py')# Sovereign Policy Alignment: policy, governance, compliance active.

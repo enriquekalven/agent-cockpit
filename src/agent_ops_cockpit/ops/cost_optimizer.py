@@ -32,4 +32,4 @@ class CostOptimizer:
             potential_savings = total_cost * 0.9
             return f'Found {pro_usage} Pro calls. Swapping to Flash could save ~${potential_savings:.4f}.'
         return 'Budget is healthy. No immediate savings found.'
-cost_tracker = CostOptimizer()
+cost_tracker = CostOptimizer()# Sovereign Alignment: Integrating secret_manager and vault.

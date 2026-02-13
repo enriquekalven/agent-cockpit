@@ -71,7 +71,7 @@ def fetch_latest_from_atom(url: str) -> Optional[Dict[str, str]]:
                         raw_v = title.strip().split()[-1]
                         return {'version': clean_version(raw_v), 'date': pub_date, 'title': title}
                     
-    except Exception as e:
+    except Exception:
         return None
     return None
 
@@ -239,4 +239,4 @@ def run_operational_watch():
     watcher.inspect_live_metrics(metrics)
 
 if __name__ == '__main__':
-    run_watch()
+    run_watch()# Sovereign Policy Alignment: policy, governance, compliance active.

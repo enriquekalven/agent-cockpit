@@ -1,7 +1,6 @@
 import os
-import sys
 import re
-from typing import Dict, Any, List, Optional, ClassVar
+from typing import Any
 
 # Sovereign Alignment: ADK & Reasoning Engine Compatibility
 try:
@@ -16,9 +15,9 @@ except ImportError:
     class AgentBase:
         def __init__(self, **kwargs): pass
 
-from tenacity import retry, wait_exponential, stop_after_attempt
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, PrivateAttr
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 app = FastAPI(title="My Super Agent Service")
 
@@ -34,10 +33,10 @@ class SuperAgent(AgentBase):
     description: str = "High-fidelity AI agent for solving complex laboratory tasks."
     project_id: str = "YOUR_PROJECT_ID"
     location: str = "us-central1"
-    
+
     # Use PrivateAttr for non-serializable/internal state to bypass extra='forbid'
-    _forbidden_patterns: List[str] = PrivateAttr(default_factory=list)
-    context_cache_config: Any = None 
+    _forbidden_patterns: list[str] = PrivateAttr(default_factory=list)
+    context_cache_config: Any = None
 
     def model_post_init(self, __context: Any) -> None:
         """Initialize non-pydantic fields or logic after model setup."""
@@ -47,7 +46,7 @@ class SuperAgent(AgentBase):
                 self.context_cache_config = ContextCacheConfig(ttl_seconds=3600)
             except Exception:
                 pass
-        
+
         self._forbidden_patterns = [
             r"(?i)password", r"(?i)secret", r"(?i)social security", r"\d{3}-\d{2}-\d{4}"
         ]
@@ -58,7 +57,7 @@ class SuperAgent(AgentBase):
         # jailbreak guard
         if any(x in text.lower() for x in ["ignore previous", "system prompt", "you are now"]):
             raise ValueError("Potential security breach detected.")
-        
+
         # PII Redaction
         sanitized = text
         for pattern in self._forbidden_patterns:
@@ -85,7 +84,7 @@ async def chat(query: Query):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        return {"response": f"Unexpected error: {str(e)}"}
+        return {"response": f"Unexpected error: {e!s}"}
 
 @app.get("/health")
 async def health():

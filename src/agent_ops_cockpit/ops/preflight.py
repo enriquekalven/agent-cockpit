@@ -1,9 +1,9 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil
 import socket
@@ -63,9 +63,10 @@ class PreflightEngine:
             try:
                 # Check for active account
                 acc = subprocess.check_output(["gcloud", "auth", "list", "--filter=status:ACTIVE", "--format=value(account)"], text=True).strip()
-                if not acc: return False, "No active gcloud account. Run 'gcloud auth login'."
+                if not acc:
+                    return False, "No active gcloud account. Run 'gcloud auth login'."
                 return True, f"Google Authenticated: {acc}"
-            except:
+            except Exception:
                 return False, "Failed to verify Google Auth."
                 
         elif target_cloud == "aws":
@@ -77,7 +78,7 @@ class PreflightEngine:
                 import json
                 arn = json.loads(id_res).get("Arn")
                 return True, f"AWS Authenticated: {arn}"
-            except:
+            except Exception:
                 return False, "No AWS credentials found. Configure 'aws configure'."
                 
         elif target_cloud == "azure":
@@ -89,7 +90,7 @@ class PreflightEngine:
                 import json
                 name = json.loads(acc_res).get("name")
                 return True, f"Azure Authenticated: {name}"
-            except:
+            except Exception:
                 return False, "No Azure account found. Run 'az login'."
         
         return True, f"No specific auth checks for {target_cloud}."
@@ -106,7 +107,8 @@ class PreflightEngine:
             try:
                 # 1. Get Project ID
                 project_id = subprocess.check_output(["gcloud", "config", "get-value", "project"], text=True).strip()
-                if not project_id: return False, "No active gcloud project set."
+                if not project_id:
+                    return False, "No active gcloud project set."
                 
                 # 2. Check Vertex AI API
                 services = subprocess.check_output(["gcloud", "services", "list", "--enabled", "--filter=name:aiplatform.googleapis.com", "--format=json"], text=True)

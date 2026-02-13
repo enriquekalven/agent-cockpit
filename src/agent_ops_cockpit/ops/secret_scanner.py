@@ -1,4 +1,3 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -49,7 +48,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     
     discovery = DiscoveryEngine(path)
     context = discovery.detect_context()
-    cloud_name = "Google Cloud" if context['cloud'] == 'google' else context['cloud'].upper()
+    "Google Cloud" if context['cloud'] == 'google' else context['cloud'].upper()
     secret_manager = "AWS Secrets Manager" if context['cloud'] == 'aws' else "Google Cloud Secret Manager"
     
     findings = []

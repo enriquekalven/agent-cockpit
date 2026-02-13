@@ -5,13 +5,9 @@ Objective: Provides a high-fidelity "Omniscient View" of the agent fleet via the
 """
 import os
 import json
-import hashlib
-from typing import List, Dict, Any
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from rich.layout import Layout
-from rich.live import Live
 from rich.text import Text
 from rich import box
 
@@ -90,23 +86,48 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
 
         console.print(workflow_table)
 
-        # 5. Fleet Summary
+        # 5. Fleet Summary with Audit Integrity
         if deployed_agents:
+            # [v1.8.2] Sovereignty Bridge: Cross-reference with Evidence Lake for Audit Integrity
+            lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
+            lake_data = {}
+            if os.path.exists(lake_path):
+                try:
+                    with open(lake_path, 'r') as f:
+                        lake_data = json.load(f)
+                except Exception:
+                    pass
+
             fleet_table = Table(title="🛰️ Active Sovereign Fleet Registry", expand=True)
             fleet_table.add_column("Agent ID", style="cyan")
             fleet_table.add_column("Cloud", style="magenta")
+            fleet_table.add_column("Audit Integrity", justify="center")
             fleet_table.add_column("Status", style="bold")
-            fleet_table.add_column("Maturity Score", justify="right")
             
             for a in deployed_agents:
                 status_color = "green" if a['status'] == "HEALTHY" else "red"
+                
+                # Try to find audit score in lake
+                abs_path = os.path.abspath(a.get('path', '.'))
+                audit_summary = lake_data.get(abs_path, {}).get('summary', {})
+                health_score = audit_summary.get('health', 0) * 100
+                
+                if health_score > 0:
+                    health_text = f"{health_score:.1f}%"
+                    health_style = "green" if health_score >= 90 else "yellow" if health_score >= 70 else "red"
+                    integrity = f"[{health_style}]{health_text}[/]"
+                else:
+                    integrity = "[dim]No Audit[/]"
+
                 fleet_table.add_row(
                     a['name'], 
                     a['cloud'].upper(), 
-                    f"[{status_color}]{a['status']}[/]", 
-                    "94%"
+                    integrity,
+                    f"[{status_color}]{a['status']}[/]"
                 )
             console.print(fleet_table)
+        else:
+            console.print("[dim]No deployed agents detected in registry. Run 'agent-ops deploy register' or 'audit report' to begin.[/dim]")
         
         console.print("\n💡 [dim]New to the Cockpit? Run [bold]agentops-cockpit sys doctor[/] to check your environment.[/]")
 

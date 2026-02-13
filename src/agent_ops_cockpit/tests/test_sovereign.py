@@ -1,7 +1,5 @@
 import pytest
-import os
-import shutil
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 from agent_ops_cockpit.ops.sovereign import SovereignOrchestrator
 
 @pytest.fixture

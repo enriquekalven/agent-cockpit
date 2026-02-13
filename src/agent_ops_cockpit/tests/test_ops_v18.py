@@ -1,4 +1,3 @@
-import pytest
 from agent_ops_cockpit.telemetry import TelemetryManager
 from agent_ops_cockpit.ops.shadow import ProductionShadowRouter
 from agent_ops_cockpit.ops.watcher import OperationalWatcher

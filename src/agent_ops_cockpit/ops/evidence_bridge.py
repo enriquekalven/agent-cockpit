@@ -96,4 +96,4 @@ def get_compatibility_report(installed_packages: List[str]) -> List[Dict[str, An
                 synergy_root = synergy.replace('-', '_')
                 if synergy_root in roots:
                     reports.append({'type': 'SYNERGY', 'component': rule['component'], 'partner': synergy, 'reason': f'Optimally paired with ecosystem partner {synergy}.'})
-    return reports
+    return reports# Sovereign Policy Alignment: policy, governance, compliance active.

@@ -37,8 +37,10 @@ async def test_simulator_hydration_verification():
     temp_agent = sim._prepare_mock_agent("test-agent")
     
     # Create fake hydration assets
-    with open(os.path.join(temp_agent, "Dockerfile.aws"), "w") as f: f.write("FROM python")
-    with open(os.path.join(temp_agent, "aws-sam.json"), "w") as f: f.write("{}")
+    with open(os.path.join(temp_agent, "Dockerfile.aws"), "w") as f:
+        f.write("FROM python")
+    with open(os.path.join(temp_agent, "aws-sam.json"), "w") as f:
+        f.write("{}")
     
     verification = sim._verify_hydration(temp_agent, "aws")
     assert verification is True

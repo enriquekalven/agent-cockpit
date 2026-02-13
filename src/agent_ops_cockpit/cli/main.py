@@ -19,7 +19,6 @@ from agent_ops_cockpit.ops import orchestrator as orch_mod
 from agent_ops_cockpit.ops import reliability as rel_mod
 from agent_ops_cockpit.eval import quality_climber as quality_mod
 from agent_ops_cockpit.eval import red_team as red_mod
-from agent_ops_cockpit.eval import load_test as load_mod
 from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit import optimizer as opt_mod
 from agent_ops_cockpit.ops import rag_audit as rag_mod
@@ -31,6 +30,7 @@ from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
 from agent_ops_cockpit.telemetry import telemetry
 from agent_ops_cockpit.ops import migration as migrate_mod
+from agent_ops_cockpit.ops import orchestrator as sovereign_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
 from agent_ops_cockpit.ops import master_dashboard as master_mod
 app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance Platform.', no_args_is_help=False)
@@ -134,7 +134,7 @@ def sys_telemetry(admin: Annotated[bool, typer.Option("--admin", help="Show admi
         cmd_table.add_row(f"agent-ops {cmd_stat['cmd']}", f"{cmd_stat['count']:,}")
     
     console.print(cmd_table)
-    console.print(f"\n🌐 [dim]View live global map at: https://agent-cockpit.web.app/metrics[/dim]")
+    console.print("\n🌐 [dim]View live global map at: https://agent-cockpit.web.app/metrics[/dim]")
 @sys_app.command(name="models")
 def list_models():
     """List accessible Gemini models and their capabilities in the current landscape."""
@@ -162,7 +162,7 @@ def list_models():
         console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
 @app.command(name="certify")
-def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = "."):
+def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = True):
     """
     Launch the 'Sovereign Certification' checklist.
     Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
@@ -260,7 +260,6 @@ def document(path: Annotated[str, typer.Option('--path', '-p', help='Path to wor
     console.print(f"📄 [bold green]Technical Design Document generated:[/bold green] {output}")
 
 @audit_app.command()
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def policy(input_text: Annotated[Optional[str], typer.Option('--text', '-t', help='Input text to validate')] = None):
     """Audit declarative guardrails (Forbidden topics, HITL)."""
     console.print('🛡️ [bold green]Launching Guardrail Policy Audit...[/bold green]')
@@ -310,26 +309,26 @@ def export(target: str = "local", format: str = "json"):
         console.print(f"❌ [bold red]Export Failed:[/bold red] {res['message']}")
 
 @ops_app.command()
-def shadow(diversion: float = 0.05):
+def shadow_routing(diversion: float = 0.05):
     """[DIVERSION GAP] Activate the Production Shadow Router for live traffic analysis."""
     from agent_ops_cockpit.ops import shadow as shadow_mod
-    router = shadow_mod.ProductionShadowRouter(diversion_percent=diversion)
-    console.print(f"✨ [bold]Shadow Router in standby.[/bold] Listening for diversion signals...")
+    shadow_mod.ProductionShadowRouter(diversion_percent=diversion)
+    console.print("✨ [bold]Shadow Router in standby.[/bold] Listening for diversion signals...")
 
 @ops_app.command()
-def watch():
+def watch_ops():
     """[RUNTIME HUB] Launch the Operational Watcher for LLM-driven runtime interpretation."""
     watch_mod.run_operational_watch()
 
 @ops_app.command()
-def simulate(mode: str = "nominal"):
+def simulate_ops(mode: str = "nominal"):
     """[CHAOS ENGINE] Battle-test agent tools with Chaos/Latency proxy injections."""
     from agent_ops_cockpit.ops import simulator as sim_mod
     proxy = sim_mod.ToolProxy(mode=mode)
     proxy.execute_mock_tool("search_api", {"query": "Sovereign Audit"})
 
 @audit_app.command()
-def shadow(base: Annotated[str, typer.Argument(help="Path to base agent/report")], candidate: Annotated[str, typer.Argument(help="Path to candidate agent/report")]):
+def shadow_analysis(base: Annotated[str, typer.Argument(help="Path to base agent/report")], candidate: Annotated[str, typer.Argument(help="Path to candidate agent/report")]):
     """Shadow Mode: Differential reasoning analysis (V1 vs V2)."""
     from agent_ops_cockpit.ops import shadow as shadow_mod
     runner = shadow_mod.ShadowRunner(base, candidate)
@@ -403,7 +402,7 @@ def fleet_telemetry(name: Annotated[str, typer.Option(..., help='Agent name to f
     console.print(table)
 
 @fleet_app.command()
-def watch():
+def watch_fleet():
     """Track ecosystem updates (ADK, LangChain, etc.) in real-time."""
     watch_mod.run_watch()
 
@@ -427,7 +426,6 @@ def migrate(path: Annotated[str, typer.Option('--path', '-p', help='Path to look
             console.print(f"✅ [bold green]Migrated:[/bold green] {r['agent']} -> [bold cyan]{target.upper()}[/bold cyan] ({', '.join(r['assets'])}){reg_info}")
 
 @deploy_app.command()
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def register(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace or agent to register')] = '.', a2a: Annotated[bool, typer.Option('--a2a', help='Enable A2A (Agent-to-Agent) bridge for cross-cloud agents')] = False):
     """Register agent fleet as native Vertex AI Tools."""
     engine = migrate_mod.MigrationEngine(path)
@@ -438,7 +436,8 @@ def register(path: Annotated[str, typer.Option('--path', '-p', help='Path to wor
     # We walk the discovery engine for all py files and attempt registration
     count = 0
     for file_path in engine.discovery.walk():
-        if not file_path.endswith('.py'): continue
+        if not file_path.endswith('.py'):
+            continue
         base_name = os.path.basename(file_path).replace('.py', '')
         if base_name in ['agent', 'main', 'app']:
              # Use parent directory name for better visibility
@@ -466,7 +465,7 @@ def deploy_prep(path: Annotated[str, typer.Option('--path', help='Path to agent/
     
     # Step 1: Deep Audit & Auto-Remediation
     console.print('\n[bold]Step 1: Deep Sovereignty Audit & Auto-Fix[/bold]')
-    exit_code = orch_mod.run_audit(mode='deep', target_path=path, apply_fixes=True)
+    orch_mod.run_audit(mode='deep', target_path=path, apply_fixes=True)
     
     # Step 2: Multi-Cloud Asset Generation (Hydration)
     console.print('\n[bold]Step 2: Hydrating Multi-Cloud Deployment Assets[/bold]')
@@ -510,7 +509,7 @@ def deploy_prep(path: Annotated[str, typer.Option('--path', help='Path to agent/
     ))
 
 @deploy_app.command()
-def simulate():
+def simulate_deploy():
     """Battle-test the Sovereign Pipeline across GCP, AWS, and Azure."""
     from agent_ops_cockpit.ops import simulator
     sim = simulator.SovereignSimulator()
@@ -549,7 +548,7 @@ def regression():
     rel_mod.run_regression_suite()
 
 @test_app.command()
-def simulate():
+def simulate_test():
     """Stress-test reasoning depth with Persona-based User Simulation."""
     rel_mod.run_user_simulation()
 
@@ -576,7 +575,6 @@ def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of
         console.print(f'[bold red]Initialization failed:[/bold red] {e}')
 
 @create_app.command(name="face")
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def create_face(project_name: Annotated[str, typer.Argument(help='The name of the new project')], ui: Annotated[str, typer.Option('-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)')] = 'a2ui', copilotkit: Annotated[bool, typer.Option('--copilotkit', help='Enable extra CopilotKit features for AGUI')] = False):
     """Scaffold a new Agent UI project. Defaults to A2UI (React/Vite)."""
     # Readiness Check
@@ -706,7 +704,7 @@ def deploy_prep_alias(path: str=typer.Option('.', '--path', help='Path to agent/
 @app.command(name="simulate-sovereign", hidden=True)
 def legacy_simulate_sovereign():
     """[DEPRECATED] Use 'deploy simulate' instead."""
-    simulate()
+    simulate_deploy()
 
 @app.command(name="email-report", hidden=True)
 def legacy_email_report(recipient: str=typer.Argument(...)):
@@ -746,7 +744,7 @@ def legacy_smoke_test():
     rel_mod.run_smoke_test()
 
 @app.command(hidden=True)
-def watch():
+def watch_legacy():
     """[DEPRECATED] Use 'fleet watch' instead."""
     watch_mod.run_watch()
 

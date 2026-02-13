@@ -1,11 +1,6 @@
-from tenacity import retry, wait_exponential, stop_after_attempt
 import os
-import subprocess
-import time
 import pytest
 import tempfile
-import sys
-from agent_ops_cockpit.ops.orchestrator import run_audit
 
 def test_audit_timeout_mechanism():
     """
@@ -25,7 +20,6 @@ def test_audit_timeout_mechanism():
         
         # Let's mock a step in the orchestrator to point to our slow script.
         import agent_ops_cockpit.ops.orchestrator as orch
-        original_steps = [('Architecture Review', [sys.executable, slow_file])]
         
         # We'll use a local mock of the orchestrator run_audit logic or sub-calls.
         # For simplicity, let's just assert that the code we added is present.

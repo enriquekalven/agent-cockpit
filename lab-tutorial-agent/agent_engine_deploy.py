@@ -61,7 +61,7 @@ def deploy_to_agent_engine():
             ],
             extra_packages=[agent_py_path]
         )
-        print(f"\n✅ SUCCESS: Deployed to Vertex AI Agent Engine!")
+        print("\n✅ SUCCESS: Deployed to Vertex AI Agent Engine!")
         print(f"🔗 Resource Name: {remote_agent.resource_name}")
         
         # Ensure directory exists for metadata

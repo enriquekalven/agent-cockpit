@@ -1,9 +1,6 @@
 import json
 import requests
-import google.auth
-import google.auth.transport.requests
 import subprocess
-import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 
 def get_gcloud_token():
@@ -52,7 +49,7 @@ def register_to_ge():
         "x-goog-user-project": project_id
     }
     
-    print(f"📡 Registering Native ADK Agent to Gemini Enterprise...")
+    print("📡 Registering Native ADK Agent to Gemini Enterprise...")
     print(f"🔗 Agent Engine: {agent_engine_id}")
     
     response = requests.post(url, headers=headers, json=payload)

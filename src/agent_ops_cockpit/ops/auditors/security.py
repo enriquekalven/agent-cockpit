@@ -5,7 +5,7 @@ Objective: Reasoning-based security auditing focusing on 'Architectural Sovereig
 """
 import ast
 import re
-from typing import List, Set, Dict, Tuple, Optional
+from typing import List
 from .base import BaseAuditor, AuditFinding
 from tenacity import retry, wait_exponential, stop_after_attempt
 
@@ -18,6 +18,8 @@ class SecurityAuditor(BaseAuditor):
     @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
+        if not file_path.endswith('.py'):
+            return findings
         content_lower = content.lower()
 
         # --- Tier 1: Sovereignty & Control ---

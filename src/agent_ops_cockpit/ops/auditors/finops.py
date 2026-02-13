@@ -4,7 +4,6 @@ SME Persona: Distinguished FinOps Fellow
 Objective: Project TCO and identify caching/efficiency opportunities in agentic flows.
 Taxonomy: Sovereign FinOps (v1.8.2)
 """
-from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -12,7 +11,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 
 import ast
 import re
-from typing import List, Optional, Dict, Any
+from typing import List, Dict
 from .base import BaseAuditor, AuditFinding
 
 class FinOpsAuditor(BaseAuditor):

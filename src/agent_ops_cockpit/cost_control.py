@@ -3,7 +3,6 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
-from tenacity import retry, wait_exponential, stop_after_attempt
 import functools
 
 def cost_guard(budget_limit=0.1):

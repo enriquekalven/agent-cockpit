@@ -18,19 +18,19 @@ import importlib
 import inspect
 import json
 import logging
+import subprocess
 import warnings
 from typing import Any
 
 import click
 import google.auth
+import google.oauth2.credentials
 import vertexai
 from google.cloud import resourcemanager_v3
 from google.iam.v1 import iam_policy_pb2, policy_pb2
 from vertexai._genai import _agent_engines_utils
 from vertexai._genai.types import AgentEngine, AgentEngineConfig, IdentityType
 
-import google.oauth2.credentials
-import subprocess
 # Suppress google-cloud-storage version compatibility warning
 warnings.filterwarnings(
     "ignore", category=FutureWarning, module="google.cloud.aiplatform"

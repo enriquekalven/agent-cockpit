@@ -314,8 +314,9 @@ export function OperationalJourneys() {
   const [activeTab, setActiveTab] = useState(JOURNEYS[0].id);
   const activeJourney = JOURNEYS.find(j => j.id === activeTab) || JOURNEYS[0];
 
+  // A2UI: surfaceId="operational-journeys"
   return (
-    <section className="journeys-section">
+    <section className="journeys-section" data-surface-id="operational-journeys">
       <div className="container">
         <div className="journeys-header">
           <span className="accent-label">Operational Paths</span>
