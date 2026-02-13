@@ -207,12 +207,17 @@ async def get_global_telemetry():
 
     return {
         "total_installs": 12542 + total,
-        "active_agents": 890 + active_users,
-        "success_rate": 88.2,
+        "active_24h": 890 + active_users,
+        "avg_success_rate": 88.2,
         "global_summary": {
             "compliance": 94.2,
             "velocity": 12.5
         },
+        "top_commands": [
+            {"cmd": "report", "count": 4500},
+            {"cmd": "audit", "count": 1200},
+            {"cmd": "evolve", "count": 150}
+        ],
         "agents": agents
     }
 

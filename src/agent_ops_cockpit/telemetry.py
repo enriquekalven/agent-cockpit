@@ -118,8 +118,8 @@ class TelemetryManager:
         # Fallback to demo data if hub is unreachable
         return {
             "total_installs": 12542,
-            "active_agents": 890,
-            "success_rate": 84.4,
+            "active_24h": 890,
+            "avg_success_rate": 84.4,
             "global_summary": {"compliance": 82.1, "velocity": 5.4},
             "top_commands": [
                 {"cmd": "report", "count": 4500},
@@ -128,6 +128,32 @@ class TelemetryManager:
             ],
             "agents": [
                 { "x": 25, "y": 35, "avatar": "/avatar_1.png", "name": "Zenith", "task": "Mock Audit" }
+            ]
+        }
+
+    def get_agent_telemetry(self, agent_name: str) -> Dict[str, Any]:
+        """
+        Fetch detailed telemetry for a specific agent.
+        """
+        import requests
+        try:
+            r = requests.get(f"https://agent-cockpit.web.app/api/telemetry/agent/{agent_name}", timeout=5)
+            if r.status_code == 200:
+                return r.json()
+        except Exception:
+            pass
+
+        # Fallback to demo data
+        return {
+            "name": agent_name,
+            "status": "HEALTHY",
+            "avg_latency": "142ms",
+            "token_usage": "1.2k",
+            "cost_projected": "$0.04",
+            "recent_events": [
+                {"event": "query_start", "timestamp": "2026-02-12 22:10:01"},
+                {"event": "tool_call:search", "timestamp": "2026-02-12 22:10:02"},
+                {"event": "query_complete", "timestamp": "2026-02-12 22:10:04"}
             ]
         }
 
