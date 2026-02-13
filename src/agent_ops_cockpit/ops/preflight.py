@@ -94,6 +94,40 @@ class PreflightEngine:
         
         return True, f"No specific auth checks for {target_cloud}."
 
+    def check_cloud_readiness(self, target_cloud="google"):
+        """Verify project-level capabilities (Billing, APIs)."""
+        import subprocess
+        import json
+        
+        if os.environ.get("SOVEREIGN_SIMULATION") == "true":
+            return True, f"SIMULATION MOCK: {target_cloud} Project Capability Active"
+            
+        if target_cloud == "google":
+            try:
+                # 1. Get Project ID
+                project_id = subprocess.check_output(["gcloud", "config", "get-value", "project"], text=True).strip()
+                if not project_id: return False, "No active gcloud project set."
+                
+                # 2. Check Vertex AI API
+                services = subprocess.check_output(["gcloud", "services", "list", "--enabled", "--filter=name:aiplatform.googleapis.com", "--format=json"], text=True)
+                if not json.loads(services):
+                    return False, f"Vertex AI API (aiplatform) NOT enabled in {project_id}."
+                
+                # 3. Check Billing Status
+                billing = subprocess.run(["gcloud", "beta", "billing", "projects", "describe", project_id, "--format=json"], capture_output=True, text=True)
+                if billing.returncode != 0:
+                    return False, f"Billing check failed for {project_id}. Ensure Billing API is enabled."
+                
+                billing_data = json.loads(billing.stdout)
+                if not billing_data.get("billingEnabled"):
+                    return False, f"Billing is DISABLED for project {project_id}."
+                
+                return True, f"Project {project_id} (Billing OK, Vertex OK)"
+            except Exception as e:
+                return False, f"Cloud readiness check failed: {str(e)}"
+        
+        return True, "No readiness checks defined for target."
+
     def run_all(self, target_cloud="google"):
         """Executes all pre-flight checks and returns success status."""
         console.print(f"\n🛫 [bold blue]LAUNCHING PRE-FLIGHT SYSTEM VERIFICATION ({target_cloud.upper()})...[/bold blue]")
@@ -102,7 +136,8 @@ class PreflightEngine:
             ("Registry Connectivity", self.check_registry_access),
             ("Tooling Readiness", self.check_tooling),
             ("Env Consistency", self.check_environment_consistency),
-            ("Cloud Sovereignty Auth", lambda: self.check_cloud_auth(target_cloud))
+            ("Cloud Sovereignty Auth", lambda: self.check_cloud_auth(target_cloud)),
+            ("Cloud Project Readiness", lambda: self.check_cloud_readiness(target_cloud))
         ]
         
         table = Table(title="📋 Pre-flight Readiness Checklist", show_header=True, header_style="bold magenta")

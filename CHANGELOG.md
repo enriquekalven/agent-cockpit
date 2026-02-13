@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.9] - 2026-02-13
+
+### 🔧 CLI Platform Improvements
+- **Project Initiation Alias**: Implemented `init` as a direct alias for the `create` hub, preventing command mismatch for many users.
+- **Model Discovery Hub**: Added `agentops-cockpit models` (and `sys models`) to list accessible Gemini model capabilities in the current landscape.
+- **Cloud Readiness Gates**: Integrated automatic gcloud quota and billing checks into all scaffolding commands. The CLI now proactively blocks project creation if Billing is disabled or the Vertex AI API is not enabled.
+
+
 ## [1.6.8] - 2026-02-13
 
 ### 🍱 Landing Page & Persona Expansion

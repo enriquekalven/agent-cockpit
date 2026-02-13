@@ -124,6 +124,31 @@ def sys_telemetry(admin: Annotated[bool, typer.Option("--admin", help="Show admi
     
     console.print(cmd_table)
     console.print(f"\n🌐 [dim]View live global map at: https://agent-cockpit.web.app/metrics[/dim]")
+@sys_app.command(name="models")
+def list_models():
+    """List accessible Gemini models and their capabilities in the current landscape."""
+    console.print(Panel.fit('🧠 [bold blue]AGENTOPS COCKPIT: MODEL CAPABILITY DISCOVERY[/bold blue]', border_style='blue'))
+    try:
+        from google.genai import Client
+        client = Client()
+        models = client.models.list()
+        
+        table = Table(show_header=True, header_style="bold magenta")
+        table.add_column("Model ID", style="cyan")
+        table.add_column("Capabilities", style="dim")
+        table.add_column("Max Tokens", justify="right")
+        
+        for m in models:
+            # Filter for common Gemini models unless verbose
+            if "gemini" in m.name.lower():
+                methods = ", ".join([meth.split(":")[0] for meth in m.supported_generation_methods])
+                table.add_row(m.name, methods, str(m.output_token_limit))
+        
+        console.print(table)
+        console.print("\n✨ [dim]Capabilities: generate_content, count_tokens, embed_content, etc.[/dim]")
+    except Exception as e:
+        console.print(f"[bold red]Discovery Failed:[/bold red] {str(e)}")
+        console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
 @audit_app.command()
 def report(
@@ -456,6 +481,12 @@ def simulate():
 @create_app.command(name="trinity")
 def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of the new project')] = 'my-agent'):
     """Scaffold a unified Cockpit project (Engine + Face)."""
+    # Readiness Check
+    if not pre_mod.run_preflight(target_cloud="google"):
+        console.print("\n[bold red]FATAL: Project environment is not production-ready.[/bold red]")
+        console.print("[dim]Please resolve the BLOCKED checks above before scaffolding.[/dim]")
+        raise typer.Exit(code=1)
+
     console.print(Panel.fit(f'🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]', border_style='green'))
     try:
         console.print('🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)')
@@ -472,6 +503,11 @@ def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def create_face(project_name: Annotated[str, typer.Argument(help='The name of the new project')], ui: Annotated[str, typer.Option('-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)')] = 'a2ui', copilotkit: Annotated[bool, typer.Option('--copilotkit', help='Enable extra CopilotKit features for AGUI')] = False):
     """Scaffold a new Agent UI project. Defaults to A2UI (React/Vite)."""
+    # Readiness Check
+    if not pre_mod.run_preflight(target_cloud="google"):
+         console.print("\n[bold red]FATAL: Project environment is not production-ready.[/bold red]")
+         raise typer.Exit(code=1)
+    
     console.print(Panel(f'🚀 [bold green]Creating project:[/bold green] [bold cyan]{project_name}[/bold cyan]', expand=False))
     if os.path.exists(project_name):
         console.print(f"[bold red]Error:[/bold red] Directory '{project_name}' already exists.")
@@ -709,6 +745,11 @@ app.add_typer(fix_app, name="fix")
 app.add_typer(test_app, name="test")
 app.add_typer(sys_app, name="sys")
 app.add_typer(create_app, name="create")
+app.add_typer(create_app, name="init", hidden=False) # Alias for init hurdle
+@app.command(name="models")
+def top_level_models():
+    """Alias for 'sys models' - List accessible Gemini models."""
+    list_models()
 
 # Integrations
 app.add_typer(rag_mod.app, name='rag')
