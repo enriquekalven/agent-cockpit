@@ -24,7 +24,7 @@ const JOURNEYS = [
       { name: 'A2UI Contract Audit', path: '/master-audit-report.html' },
       { name: 'Unit Test Evidence', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops init',
+    command: 'agentops-cockpit create trinity',
     diagram: '/assets/persona_builder_new.png',
     output: `🚀 Creating new agent: my-agent
 📦 Initializing with Trinity Stack (FastAPI + React + ADK)
@@ -39,7 +39,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Solution Architect',
     icon: <Layout size={24} />,
     color: '#10b981',
-    description: 'Design resilient, multi-cloud agentic systems aligned with v1.4 Wisdom Store patterns.',
+    description: 'Design resilient, multi-cloud agentic systems aligned with v1.6 Wisdom Store patterns.',
     docs: [
       { name: 'Google Architecture', path: '/docs/google-architecture' },
       { name: 'Deployment Strategy', path: '/docs/deployment' },
@@ -49,9 +49,9 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Architecture Review (ADR)', path: '/arch-review-report.html' },
       { name: 'Multi-Cloud Maturity Score', path: '/master-audit-report.html' }
     ],
-    command: 'agent-ops arch-review',
+    command: 'agentops-cockpit audit arch',
     diagram: '/assets/persona_strategist_new.png',
-    output: `🏗️ Starting Architecture Review v1.4.7...
+    output: `🏗️ Starting Architecture Review v1.6.7...
 🔍 Scanning /src for Maturity Wisdom drift
 ✅ AWS Patterns: Bedrock Action Groups detected (Well-Architected)
 ✅ GCP Patterns: Vertex AI Context Caching enabled (+90% savings)
@@ -64,7 +64,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Quality Lead',
     icon: <Activity size={24} />,
     color: '#06b6d4',
-    description: 'v1.4: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
+    description: 'v1.6: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
     docs: [
       { name: 'Quality & Eval Guide', path: '/docs/quality-guide' },
       { name: 'RAG Truth-Sayer SME', path: '/docs/quality-guide' }
@@ -73,7 +73,7 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Quality Scorecard', path: '/quality-audit-report.html' },
       { name: 'RAG Fidelity Trace', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops rag-truth',
+    command: 'agentops-cockpit rag audit',
     diagram: '/assets/persona_optimizer.png',
     output: `🧗 RAG TRUTH-SAYER: FIDELITY AUDIT
 🔍 Detecting Retrieval-Reasoning Drift...
@@ -88,7 +88,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Security Specialist',
     icon: <Shield size={24} />,
     color: '#ef4444',
-    description: 'v1.4: Brand Safety Playbook hardening against advanced adversarial attacks.',
+    description: 'v1.6: Brand Safety Playbook hardening against advanced adversarial attacks.',
     docs: [
       { name: 'Brand Safety Playbook', path: '/docs/redteam-guide' },
       { name: 'Red Team Audits', path: '/docs/redteam-guide' }
@@ -97,7 +97,7 @@ Ready to roll. Run 'make dev' to start.`
       { name: 'Brand Safety scorecard', path: '/red-team-report.html' },
       { name: 'Vulnerability Regression', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops red-team',
+    command: 'agentops-cockpit audit security',
     diagram: '/assets/persona_guardian.png',
     output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0
 🕵️ Testing Payload Splitting: [Attempt 1/10] -> BLOCKED
@@ -121,7 +121,7 @@ Status: SECURE (Compliant with Brand Safety Playbook)`
       { name: 'ROI Waterfall Report', path: '/finops-roi-report.html' },
       { name: 'Optimization Model', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops report --roi',
+    command: 'agentops-cockpit audit roi',
     diagram: '/assets/persona_economist.png',
     output: `💰 FINOPS ROI WATERFALL: TCO MODELING
 1. Gemini 1.5 Flash Pivot: -$3,200/mo savings
@@ -147,7 +147,7 @@ ROI Multiplier: 8.2x efficiency gain confirmed.`
       { name: 'Global Compliance Log', path: '/compliance-audit-report.html' },
       { name: 'Evidence Lake Export', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops report',
+    command: 'agentops-cockpit audit report',
     diagram: '/assets/persona_controller.png',
     output: `🏛️ Global Agent Audit Initiated...
 📂 Scanning Workspace: enriquekalven/agent-cockpit
@@ -173,7 +173,7 @@ Estate Health: 98% Compliant.`
       { name: 'Fleet Health Report', path: '/compliance-audit-report.html' },
       { name: 'Uptime Evidence', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops report --mode deep',
+    command: 'agentops-cockpit audit report',
     diagram: '/assets/persona_reliability.png',
     output: `🛰️ Global Fleet Audit Initiated...
 📂 Scanning Estate: 12 Active Agents
@@ -198,7 +198,7 @@ Estate Health: 98% Compliant.`
       { name: 'Transmission Audit', path: '/master-audit-report.html' },
       { name: 'Interop Consensus', path: '/compliance-evidence.md' }
     ],
-    command: 'agent-ops mcp-server',
+    command: 'agentops-cockpit mcp-server',
     diagram: '/assets/persona_orchestrator.png',
     output: `🔌 Initializing MCP Transmission Hub...
 📡 Discovering Tools: [Search, SQL, Artifacts]
@@ -222,7 +222,7 @@ Protocol Standard: A2A v1.3 compliant.`
       { name: 'FinOps ROI Matrix', path: '/finops-roi-report.html' },
       { name: 'UX Readiness Scorecard', path: '/arch-review-report.html' }
     ],
-    command: 'agent-ops --analyze-roi',
+    command: 'agentops-cockpit audit roi',
     diagram: '/assets/persona_visionary.png',
     output: `📊 Analyzing Agent Performance & ROI...
 💰 Token usage: 48.2K saved (Semantic Cache hit rate: 64%)
@@ -247,7 +247,7 @@ Conclusion: Positive ROI confirmed for Q1.
       { name: 'Ephemeral Audit Log', path: '/master-audit-report.html' },
       { name: 'CI/CD Pass/Fail Evidence', path: '/compliance-evidence.md' }
     ],
-    command: 'uvx agent-ops-cockpit report',
+    command: 'uvx agentops-cockpit audit report',
     diagram: '/assets/persona_automator.png',
     output: `📦 Running Portable AgentOps via UVX...
 🔍 Project: external-repo-auditor

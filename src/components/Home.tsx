@@ -45,7 +45,8 @@ export function Home() {
   const [currentCommand, setCurrentCommand] = useState(0);
   const commands = [
     'pip install agentops-cockpit',
-    'uvx agentops-cockpit report'
+    'uvx agentops-cockpit audit report',
+    'uvx agentops-cockpit fleet anomaly'
   ];
 
   useEffect(() => {
@@ -71,8 +72,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.5.0</span>
-          <span className="banner-text"><b>Fleet SRE v1.5.0:</b> Autonomous Lifecycle Management, FinOps Mothballing, and Local-to-Cloud Bridge (Tunnel).</span>
+          <span className="banner-tag">STABLE v1.6.7</span>
+          <span className="banner-text"><b>v1.6.7 Watchtower Standard:</b> Sovereign Command Hubs, Deep Functional Audits, and MCP Tool Store Integration.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -172,7 +173,7 @@ export function Home() {
               <div className="mock-terminal">
                 <div className="terminal-header">
                   <div className="dots"><span></span><span></span><span></span></div>
-                  <div className="terminal-title">agent-ops --safe-build</div>
+                  <div className="terminal-title">agentops-cockpit audit report</div>
                 </div>
                 <div className="terminal-body">
                   <div className="line terminal-cmd">$ make audit</div>

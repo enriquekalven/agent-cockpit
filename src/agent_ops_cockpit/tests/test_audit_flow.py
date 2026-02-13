@@ -59,10 +59,10 @@ def test_dry_run_does_not_modify_files():
             run_audit(mode='quick', target_path='fix_me', apply_fixes=True, dry_run=True, sim=True)
             current_content = open(agent_file).read()
             assert current_content == original_content, 'Dry run should NOT modify the file!'
-            # In v1.4.2, apply_fixes=True (with dry_run=False) generates a patch, it does NOT modify the file directly.
+            # In v1.6.7, apply_fixes=True (with dry_run=False) generates a patch, it does NOT modify the file directly.
             run_audit(mode='quick', target_path='fix_me', apply_fixes=True, dry_run=False, sim=True)
             fixed_content = open(agent_file).read()
-            assert fixed_content == original_content, 'Applying fixes in v1.4.2 should NOT modify the file directly (Plan-then-Execute)!'
+            assert fixed_content == original_content, 'Applying fixes in v1.6.7 should NOT modify the file directly (Plan-then-Execute)!'
             
             patch_dir = os.path.join('.cockpit', 'patches')
             assert os.path.exists(patch_dir)

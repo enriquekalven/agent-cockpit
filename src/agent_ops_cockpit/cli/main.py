@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List, Annotated
@@ -645,7 +645,7 @@ def audit_maturity():
     [DEPRECATED] Use 'audit maturity' instead.
     Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
     """
-    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.4.7)[/bold blue]", border_style="blue"))
+    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.6.7)[/bold blue]", border_style="blue"))
     
     # 1. Persona Matrix
     persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")

@@ -3,7 +3,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from abc import ABC, abstractmethod

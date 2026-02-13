@@ -3,7 +3,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from typing import List
@@ -53,7 +53,7 @@ class ReasoningAuditor(BaseAuditor):
         # (Simulated reasoning: we look for model strings and for loops together)
         if re.search(r"gemini-3-pro|gpt-5\.2|claude-4\.6", content) and re.search(r"for\s+\w+\s+in", content):
              if any(x in content.lower() for x in ["classify", "label", "is_", "has_"]):
-                title = "Model Efficiency Regression (v1.4.7)"
+                title = "Model Efficiency Regression (v1.6.7)"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
                         category="💰 FinOps",

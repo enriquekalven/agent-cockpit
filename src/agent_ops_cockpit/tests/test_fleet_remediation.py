@@ -33,7 +33,7 @@ def test_workspace_bulk_fix_apply():
             workspace_audit(root_path='.', mode='quick', apply_fixes=True, sim=True)
             new1 = open(f1).read()
             new2 = open(f2).read()
-            assert new1 == orig1, 'Workspace audit in v1.4.2 should NOT modify files directly!'
+            assert new1 == orig1, 'Workspace audit in v1.6.7 should NOT modify files directly!'
             assert new2 == orig2
             
             patch_dir = os.path.join('.cockpit', 'patches')

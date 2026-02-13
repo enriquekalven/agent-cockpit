@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
 from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 import re

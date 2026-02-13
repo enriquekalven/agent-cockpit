@@ -9,7 +9,7 @@ console = Console()
 
 class SovereignSimulator:
     """
-    Sovereign Battle-Testing Suite (v1.4.7).
+    Sovereign Battle-Testing Suite (v1.6.7).
     Simulates the end-to-end factory across Multi-Cloud (GCP, AWS, Azure).
     """
 

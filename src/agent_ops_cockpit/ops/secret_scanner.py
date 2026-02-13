@@ -3,7 +3,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import re
 import math
@@ -83,7 +83,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                             if is_ignored_file:
                                 continue
 
-                            # 3. Entropy & Verification Layer (v1.4.2)
+                            # 3. Entropy & Verification Layer (v1.6.7)
                             # Only apply to random-looking strings, skip standard prose or hex indices
                             secret_value = match.group(0)
                             entropy = _calculate_entropy(secret_value)
@@ -134,7 +134,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
 @app.command()
 def version():
     """Show the version of the Secret Scanner."""
-    console.print('[bold cyan]v1.4.2[/bold cyan]')
+    console.print('[bold cyan]v1.6.7[/bold cyan]')
 
 if __name__ == "__main__":
     app()

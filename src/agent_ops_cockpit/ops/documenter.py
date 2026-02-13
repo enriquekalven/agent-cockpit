@@ -5,7 +5,7 @@ from .discovery import DiscoveryEngine
 
 class TDDGenerator:
     """
-    Sovereign Documenter v1.4.7 (Enterprise Grade).
+    Sovereign Documenter v1.6.7 (Enterprise Grade).
     Generates a professional, high-fidelity Technical Design Document (TDD).
     """
 
@@ -567,7 +567,7 @@ class TDDGenerator:
             </section>
 
             <footer>
-                <strong>AgentOps Cockpit v1.4.7</strong><br/>
+                <strong>AgentOps Cockpit v1.6.7</strong><br/>
                 Sovereign Factory Operations | Confidential & Proprietary | Build 17647929
             </footer>
         </div>

@@ -3,7 +3,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import json
 import socket
