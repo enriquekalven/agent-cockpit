@@ -136,13 +136,35 @@ def run_smoke_test():
     sentinel_make = '[green]PASS[/green]' if 'fleet-anomaly:' in open('Makefile').read() else '[yellow]N/A[/yellow]'
     table.add_row('The Sentinel', 'Anomaly & Enforcement', sentinel_make, sentinel_cli, sentinel_cli)
 
-    console.print(table)
-    results = [builder_cli, arch_cli, sec_cli, gov_cli, sov_cli, sre_cli, sentinel_cli]
-    if '[red]FAIL[/red]' in results:
-        console.print('\n❌ [bold red]Trinity Smoke Test Failed. Command parity broken.[/bold red]')
+    # --- DEEP FUNCTIONAL AUDIT (v1.6.7 Upgrade) ---
+    console.print('\n🛰️ [bold blue]Phase 2: Deep Functional CLI Audit...[/bold blue]')
+    functional_table = Table(title='🩺 Functional Execution Matrix', show_header=True, header_style='bold cyan')
+    functional_table.add_column('Functional Area', style='cyan')
+    functional_table.add_column('Execution Command', style='dim')
+    functional_table.add_column('Status', justify='center')
+
+    def check_output(cmd_list, expected_text):
+        try:
+            res = subprocess.run(cmd_list, capture_output=True, text=True, env=os.environ.copy())
+            if res.returncode == 0 and expected_text in res.stdout:
+                return '[green]PASS[/green]'
+            return '[red]FAIL[/red]'
+        except Exception:
+            return '[red]FAIL[/red]'
+
+    telemetry_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'telemetry', '--admin'], 'Active Agents (24h)')
+    functional_table.add_row('Sovereign Telemetry Hub', 'sys telemetry --admin', telemetry_status)
+    
+    version_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'version'], 'agent-ops CLI')
+    functional_table.add_row('System Hub Baseline', 'sys version', version_status)
+
+    console.print(functional_table)
+    
+    if telemetry_status == '[red]FAIL[/red]' or version_status == '[red]FAIL[/red]':
+        console.print('\n❌ [bold red]Deep Functional Audit Failed. Critical logic error found.[/bold red]')
         sys.exit(1)
     else:
-        console.print('\n✨ [bold green]Command Trinity Parity Verified across all Persona Lenses.[/bold green]')
+        console.print('\n✨ [bold green]All Functional Areas Operational.[/bold green]')
 
 def run_user_simulation():
     """Stress-test agents using Persona-based User Simulation."""

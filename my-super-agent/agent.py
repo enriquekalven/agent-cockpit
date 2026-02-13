@@ -1,8 +1,8 @@
+from typing import Literal
+from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import vertexai
 from fastapi import FastAPI
-from google.adk.agents import Agent
-from google.adk.models import Gemini
 
 app = FastAPI()
 
@@ -16,9 +16,3 @@ def solve_task(q: str):
     model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")
     return model.generate_content(q).text
 
-# Wrap in Root Agent for Eval Parity
-root_agent = Agent(
-    name="lab_agent",
-    model=Gemini(model="gemini-1.5-flash"),
-    instruction="You are a lab assistant."
-)
