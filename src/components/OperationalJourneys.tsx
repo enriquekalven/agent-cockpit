@@ -256,6 +256,57 @@ Conclusion: Positive ROI confirmed for Q1.
 ⚠️ Security: 2 vulnerable packages found.
 ✅ Compliance: Google Well-Architected standard met.
 [CI/CD] Build Gate: PASSED.`
+  },
+  {
+    id: 'compliance',
+    name: 'The Compliance Officer',
+    persona: 'Legal / Compliance SME',
+    icon: <FileText size={24} />,
+    color: '#a855f7',
+    description: 'Audit for legal defensibility, PII masking, and ISO/SOC2 enterprise policy alignment.',
+    docs: [
+      { name: 'Governance & Policy', path: '/docs/audit-guide' },
+      { name: 'PII Guardrails', path: '/docs/audit-guide' },
+      { name: 'Evidence Packing', path: '/docs/audit-guide' }
+    ],
+    reports: [
+      { name: 'Policy Compliance Log', path: '/compliance-audit-report.html' },
+      { name: 'Evidence Lake Trace', path: '/compliance-evidence.md' }
+    ],
+    command: 'agentops-cockpit audit policy',
+    diagram: '/assets/persona_controller.png',
+    output: `🕵️ POLICY AUDIT: ENTERPRISE DATA DEFENSE
+🔍 Scanning for Policy ID: ISO-27001-AI
+✅ PII Scrubber: Active (Emails/SSNs masked)
+✅ Evidence Packing: 100% Attribution found
+⚠️ Data Residency: 1 tool path using EU-WEST1 (Policy mandates US)
+⚖️ Compliance Status: 92% (Legal SME approval required)`
+  },
+  {
+    id: 'operator',
+    name: 'The SITL Pilot',
+    persona: 'Human-in-the-Loop / Ops',
+    icon: <Activity size={24} />,
+    color: '#f43f5e',
+    description: 'Monitor autonomous tool triggers and maintain manual oversight on high-stakes actions.',
+    docs: [
+      { name: 'HITL Workflows', path: '/docs/cockpit-guide' },
+      { name: 'Tool Approvals', path: '/docs/cockpit-guide' },
+      { name: 'Sentinel Oversight', path: '/docs/cockpit-guide' }
+    ],
+    reports: [
+      { name: 'HITL Audit Trail', path: '/compliance-audit-report.html' },
+      { name: 'Intervention Metrics', path: '/master-audit-report.html' }
+    ],
+    command: 'agentops-cockpit fleet watch',
+    diagram: '/assets/persona_reliability.png',
+    output: `🕹️ FLEET WATCH: ACTIVE MONITORING
+🟢 sales-agent: IDLE
+🟡 finance-agent: PENDING APPROVAL (Action: transfer_funds)
+   - Reason: Amount > $1,000 threshold
+   - Surface: A2UI Approval Node #412
+🔘 Waiting for human intervention...
+✅ User approved. Executing tool securely.`
   }
 ];
 
