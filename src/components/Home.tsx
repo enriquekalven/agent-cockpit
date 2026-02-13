@@ -45,6 +45,7 @@ export function Home() {
   const [currentCommand, setCurrentCommand] = useState(0);
   const commands = [
     'pip install agentops-cockpit',
+    'uvx agentops-cockpit sys certify',
     'uvx agentops-cockpit audit report',
     'uvx agentops-cockpit fleet anomaly'
   ];
@@ -72,8 +73,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.6.7</span>
-          <span className="banner-text"><b>v1.6.7 Watchtower Standard:</b> Sovereign Command Hubs, Deep Functional Audits, and MCP Tool Store Integration.</span>
+          <span className="banner-tag">STABLE v1.6.9</span>
+          <span className="banner-text"><b>v1.6.9 Platform Refresh:</b> Project Scaffolding Gates, Model Capability Discovery, and 'sys certify' Production Checklists.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -173,15 +174,14 @@ export function Home() {
               <div className="mock-terminal">
                 <div className="terminal-header">
                   <div className="dots"><span></span><span></span><span></span></div>
-                  <div className="terminal-title">agentops-cockpit audit report</div>
+                  <div className="terminal-title">agentops-cockpit sys certify</div>
                 </div>
                 <div className="terminal-body">
-                  <div className="line terminal-cmd">$ make audit</div>
-                  <div className="line text-blue-400">🕹️ Running Persona-Based Audit...</div>
-                  <div className="line text-green-400">🏛️ Platform SME: APPROVED</div>
-                  <div className="line text-green-400">⚖️ Legal SME: APPROVED</div>
-                  <div className="line text-green-400">💰 FinOps SME: APPROVED</div>
-                  <div className="line text-green-400">🎭 UX SME: APPROVED</div>
+                  <div className="line terminal-cmd">$ agentops-cockpit sys certify</div>
+                  <div className="line text-blue-400">🛫 Running Pre-flight... READY</div>
+                  <div className="line text-blue-400">🛰️ Running Deep Audit... APPROVED</div>
+                  <div className="line text-blue-400">🧪 Running Regression... PASSED</div>
+                  <div className="line text-green-400">🏆 CERTIFICATION GRANTED</div>
                   <div className="line blink">_</div>
                 </div>
               </div>

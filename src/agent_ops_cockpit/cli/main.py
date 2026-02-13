@@ -150,6 +150,41 @@ def list_models():
         console.print(f"[bold red]Discovery Failed:[/bold red] {str(e)}")
         console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
+@sys_app.command(name="certify")
+def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = "."):
+    """
+    Launch the 'Sovereign Certification' checklist.
+    Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
+    """
+    console.print(Panel.fit('🏅 [bold blue]AGENTOPS COCKPIT: PRODUCTION READINESS CERTIFICATION[/bold blue]', border_style='blue'))
+    
+    # 1. Environment Pre-flight
+    if not pre_mod.run_preflight(target_path=path, target_cloud="google"):
+        console.print("\n[bold red]CERTIFICATION DENIED:[/bold red] Pre-flight environment check failed.")
+        raise typer.Exit(code=1)
+
+    # 2. Deep Functional & Security Audit
+    console.print("\n🛰️ [bold blue]Step 2: Deep Functional, Security & Load Audit...[/bold blue]")
+    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT')
+    
+    # 3. Full Regression Suite (Unit + Smoke Tests)
+    console.print("\n🧪 [bold blue]Step 3: Full Regression Suite (Unit + Smoke tests)...[/bold blue]")
+    try:
+        rel_mod.run_regression_suite()
+        regression_passed = True
+    except Exception as e:
+        console.print(f"[bold red]Regression Suite Failed:[/bold red] {str(e)}")
+        regression_passed = False
+
+    # 4. Final Verdict
+    console.print("\n" + "="*80)
+    if audit_exit_code == 0 and regression_passed:
+        console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
+    else:
+        console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
+        console.print("[dim]Review the reports above and in the .cockpit/ directory for remediation steps.[/dim]")
+        raise typer.Exit(code=2)
+
 @audit_app.command()
 def report(
     mode: Annotated[str, typer.Option('--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks")] = 'quick',

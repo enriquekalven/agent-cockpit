@@ -148,6 +148,9 @@ test-simulate: ## Run Persona-based User Simulation
 upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
 
+certify: ## Launch Full Production Readiness Certification
+	@PYTHONPATH=src uv run agentops-cockpit sys certify
+
 lab-bootstrap: ## Setup the 'Broken Agent' for the Cockpit Lab
 	@echo "🧪 Bootstrapping broken agent for lab..."
 	@mkdir -p my_super_agent
