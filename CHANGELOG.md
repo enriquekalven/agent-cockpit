@@ -2,7 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.8.1] - 2026-02-13
+## [1.8.2] - 2026-02-13
+
+### 🧠 Strategic Architectural Paradigm Auditor
+- **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
+- **Pattern: Structured Data Math via Prompt**: Automatically detects when an agent tries to perform arithmetic over raw CSV/JSON text. Recommends **NL2SQL** or **Code Interpreter**.
+- **Pattern: Manual State Machines**: Detects recursive LLM calls inside standard loops. Recommends **LangGraph** for reliable multi-turn logic.
+- **Pattern: Low-Fidelity RAG**: Detects "Context Stuffing" of unstructured files. Recommends **Vector DB** for scalable retrieval.
+- **"Structural Wisdom" Feedback**: Enhanced the `ArchReviewer` to provide "Don't use X, use Y" feedback, reducing mental friction for developers.
 
 ### 🛡️ Full-Stack Security & Auto-Remediation
 - **Expanded Infra Scanning**: The `InfraAuditor` now scans `docker-compose.yml` (Privileged containers) and Terraform `.tf` files (Public Ingress/0.0.0.0 rules).

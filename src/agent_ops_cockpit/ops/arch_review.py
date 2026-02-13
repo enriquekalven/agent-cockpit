@@ -26,18 +26,19 @@ from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor, InteropAuditor
 from agent_ops_cockpit.ops.auditors.pivot import PivotAuditor
 from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
 from agent_ops_cockpit.ops.auditors.infra import InfraAuditor
+from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-app = typer.Typer(help='Agent Architecture Reviewer v1.6.7: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
+app = typer.Typer(help='Agent Architecture Reviewer v1.8.2: Enterprise Architect (Paradigm & Structural Wisdom)')
 console = Console()
 
 def run_scan(path: str, verbose: bool = False, context: dict = None):
     """Helper to run AST scan and return all findings."""
     import time
     start_time = time.time()
-    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor()]
+    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor(), ParadigmAuditor()]
     all_findings = []
     file_count = 0
     discovery = DiscoveryEngine(path)

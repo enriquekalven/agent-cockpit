@@ -74,8 +74,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.8.1</span>
-          <span className="banner-text"><b>v1.8.1 Security Pilot:</b> Multi-Cloud Secret Scanning, Terraform/Compose Audits, and Auto-Generated MCP Wrappers.</span>
+          <span className="banner-tag">STABLE v1.8.2</span>
+          <span className="banner-text"><b>v1.8.2 Strategic Pilot:</b> Strategic Paradigm Auditor for identifying design mismatches (RAG vs NL2SQL).</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
