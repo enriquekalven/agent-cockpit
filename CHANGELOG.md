@@ -2,6 +2,15 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.8] - 2026-02-13
+
+### 🍱 Landing Page & Persona Expansion
+- **Watchtower Standard UI**: Refreshed the homepage with v1.6.7+ Watchtower branding and hub-based command highlights.
+- **Mission Control Expansion**: Added 2 new specialized personas: **Compliance Officer** (Legal SME) and **SITL Pilot** (HITL Oversight).
+- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v1.6.7 architecture standards and new command hub names.
+- **Documentation Sync**: Fully updated the Master Guide, UVX Guide, and Audit Guide to reflect all 12 operational journeys.
+
+
 ## [1.6.7] - 2026-02-12
 
 ### 🛰️ Deep Functional Auditing & Wisdom Store
