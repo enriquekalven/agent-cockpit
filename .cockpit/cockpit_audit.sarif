@@ -7,7 +7,158 @@
           "name": "AgentOps Cockpit"
         }
       },
-      "results": []
+      "results": [
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/lab-tutorial-agent-alt/app_utils/deploy.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_resiliency_pattern",
+          "message": {
+            "text": "Add @retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5)) to handle rate limits efficiently."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/app/app_utils/deploy.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_red_team_regression.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Implement Vertex AI Context Caching via Antigravity to reduce repeated prefix costs by 90%."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/documenter.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "prompt_bloat_warning",
+          "message": {
+            "text": "Large"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": ":1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/app/agent.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-pro)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "inference_cost_projection_(gemini-3-flash)",
+          "message": {
+            "text": "Pivot to Gemini 3 Flash via Antigravity/Cursor to reduce projected cost to $0.10."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cost_control.py"
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

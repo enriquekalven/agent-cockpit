@@ -42,7 +42,7 @@ class ReasoningAuditor(BaseAuditor):
                     findings.append(AuditFinding(
                         category="🧗 Reliability",
                         title=title,
-                        description=f"Function '{func.name}' has {len(awaits)} sequential await calls. This increases latency lineary (T1+T2+T3).",
+                        description=f"Function '{func.name}' has {len(awaits)} sequential await calls. This increases latency linearly (T1+T2+T3).",
                         impact="MEDIUM",
                         roi="Parallelizing these calls could reduce latency by up to 60%.",
                         line_number=func.lineno,

@@ -48,8 +48,9 @@ async def test_simulator_hydration_verification():
 def test_fleet_manager_registration():
     from agent_ops_cockpit.ops.fleet import FleetManager
     with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        from agent_ops_cockpit.config import config
         manager = FleetManager(db_path=tmp.name)
-        manager.register_agent("test-agent", "/tmp/path", "google", "https://test.url", "1.5.0")
+        manager.register_agent("test-agent", "/tmp/path", "google", "https://test.url", config.VERSION)
         
         fleet = manager.list_fleet()
         assert len(fleet) == 1
@@ -59,9 +60,10 @@ def test_fleet_manager_registration():
 def test_fleet_manager_mothballing():
     from agent_ops_cockpit.ops.fleet import FleetManager
     with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        from agent_ops_cockpit.config import config
         manager = FleetManager(db_path=tmp.name)
-        manager.register_agent("agent-1", "/tmp/1", "google", "https://url1", "1.5.0")
-        manager.register_agent("agent-2", "/tmp/2", "aws", "https://url2", "1.5.0")
+        manager.register_agent("agent-1", "/tmp/1", "google", "https://url1", config.VERSION)
+        manager.register_agent("agent-2", "/tmp/2", "aws", "https://url2", config.VERSION)
         
         # Mothball AWS
         count = manager.mothball_fleet(cloud="aws")

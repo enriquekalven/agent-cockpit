@@ -2,8 +2,8 @@
 
 First off, thank you for helping us build the future of **Autonomous Agent Operations**! 🚀 Evolving the **Trinity** standard requires high-fidelity engineering and the discipline of a professional logic layer.
 
-## 🏛️ v1.6.4 Vision: The "Ecosystem Expansion"
-In v1.6.4, we have evolved beyond simple compliance into a **Lifecycle Management Platform**. We are building the **Autonomous Patching Engine**—a system that not only detects architectural gaps but synthesizes remediation across RAG pipelines, analytical DBs (BigQuery/Snowflake), and multi-cloud architectures.
+## 🏛️ v1.6.5 Vision: The "Ecosystem Expansion"
+In v1.6.5, we have evolved beyond simple compliance into a **Lifecycle Management Platform**. We are building the **Autonomous Patching Engine**—a system that not only detects architectural gaps but synthesizes remediation across RAG pipelines, analytical DBs (BigQuery/Snowflake), and multi-cloud architectures.
 
 ## 🏗️ Architecture Philosophy
 We strictly follow the **Trinity Model**:
@@ -43,7 +43,7 @@ Don't wait for CI/CD to tell you there's a problem. Run the **Master Cockpit Aud
 - `make dev`: Starts the local Engine + Face stack.
 - `make audit`: Runs the **Quick Safe-Build** (Secrets, Reliability).
 - `make audit-deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
-- `make arch-review`: Runs the v1.6.4 Autonomous Architect review.
+- `make arch-review`: Runs the v1.6.5 Autonomous Architect review.
 - `make maturity`: Runs the **Expertise Matrix** dashboard.
 
 ### Specialized Audits

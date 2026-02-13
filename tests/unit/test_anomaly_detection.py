@@ -31,8 +31,9 @@ def test_anomaly_sme_detection():
 
 def test_fleet_manager_anomaly_enforcement():
     with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        from agent_ops_cockpit.config import config
         manager = FleetManager(db_path=tmp.name)
-        manager.register_agent("rogue-agent", "/tmp/path", "google", "https://rogue.url", "1.5.0")
+        manager.register_agent("rogue-agent", "/tmp/path", "google", "https://rogue.url", config.VERSION)
         
         # Simulate critical telemetry
         telemetry = [

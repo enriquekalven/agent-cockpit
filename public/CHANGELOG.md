@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.5] - 2026-02-12
+
+### 🧪 Test Suite Hardening
+- **Dynamic Versioning**: Updated unit tests to use `Config.VERSION` dynamically, ensuring registry and anomaly detection tests are resilient to future version bumps.
+- **Dependency Optimization**: Explicitly defined `optional-dependencies` for `lint` and `eval` to streamline CI/CD workflows.
+
 ## [1.6.4] - 2026-02-12
 
 ### 🛡️ Stability & Resiliency Hardening
