@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "2026-02-13T13:59:30.959120",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  },
+  {
+    "timestamp": "2026-02-13T13:55:50.884046",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  },
+  {
+    "timestamp": "2026-02-13T14:02:21.113526",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  },
+  {
+    "timestamp": "2026-02-13T13:59:01.675193",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  },
+  {
+    "timestamp": "2026-02-13T14:00:47.481062",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  },
+  {
+    "timestamp": "2026-02-13T14:01:16.365045",
+    "query": "test",
+    "base_response": "base",
+    "candidate_response": "cand",
+    "drift_detected": true
+  }
+]

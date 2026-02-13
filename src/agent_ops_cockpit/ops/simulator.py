@@ -87,3 +87,32 @@ class SovereignSimulator:
 if __name__ == "__main__":
     sim = SovereignSimulator()
     asyncio.run(sim.run_battle_test())
+
+class ToolProxy:
+    """
+    [MOCKING DEPTH GAP] The Tool Proxy (Mocking Engine).
+    Wraps external API calls during simulation to inject failures, 
+    latency, or malformed data to test agent resiliency.
+    """
+    
+    def __init__(self, mode: str = "nominal"):
+        self.mode = mode
+        console.print(f"🛠️ [bold cyan]AgentOps Tool Proxy active in {mode.upper()} mode.[/bold cyan]")
+
+    def execute_mock_tool(self, tool_name: str, args: dict):
+        """
+        Intercepts tool execution and returns simulated results based on proxy mode.
+        """
+        if self.mode == "chaos":
+            import random
+            failure = random.choice(["500 Internal Server Error", "Timeout (30s)", "Malformed JSON Response", "Rate Limit Exceeded"])
+            console.print(f"🔥 [red][CHAOS] Injecting failure into {tool_name}: {failure}[/red]")
+            return {"status": "error", "message": failure}
+        
+        if self.mode == "latency":
+             import time
+             console.print(f"⏳ [yellow][LATENCY] Delaying {tool_name} by 2.5s...[/yellow]")
+             time.sleep(2.5)
+        
+        console.print(f"🔌 [dim]Proxied Tool Call: {tool_name}({args})[/dim]")
+        return {"status": "success", "data": f"Simulated output for {tool_name}"}

@@ -1,5 +1,5 @@
 # 🏁 AgentOps Cockpit: PRODUCTION CERTIFICATION AUDIT
-**Timestamp**: 2026-02-13 13:06:10
+**Timestamp**: 2026-02-13 14:04:43
 **Status**: ❌ FAIL
 
 ---
@@ -17,9 +17,9 @@ Findings are prioritized by Business Impact & Blast Radius.
 - **Structured Output Enforcement**: Eliminate parsing failures. 1) OpenAI: Use 'Structured Outputs'
 
 ### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)
-- **Missing Legal Disclaimer or Privacy Policy link**: Add a footer link to the mandatory Privacy Policy / TOS.
 - **Policy Blindness: Implicit Governance**: Centralizes alignment and simplifies regulatory updates.
 - **Reflection Blindness: Brittle Intelligence**: Significantly reduces reasoning hallucinations and logic errors.
+- **Passive Retrieval: Context Drowning**: Reduces context window waste and improves reasoning focus.
 
 ### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)
 - **Optimization: Externalize System Prompts**: Keeping large system prompts
@@ -41,11 +41,11 @@ Each pillar of your agent has been reviewed by a specialized SME persona.
 - **🔐 SecOps Fellow** ([Secret Scanner]): ✅ APPROVED
 - **🚀 SRE & Performance Fellow** ([Load Test (Baseline)]): ✅ APPROVED
 - **🎭 UX/UI Fellow** ([Face Auditor]): ✅ APPROVED
-- **🧗 AI Quality Fellow** ([Quality Hill Climbing]): ✅ APPROVED
 - **💰 FinOps Fellow** ([Token Optimization]): ❌ REJECTED [Remediation: ⚡ 1-Click (Caching)]
 - **🏛️ Distinguished Platform Fellow** ([Architecture Review]): ✅ APPROVED
 - **📜 Legal & Transparency Fellow** ([Evidence Packing Audit]): ✅ APPROVED
 - **🛡️ QA & Reliability Fellow** ([Reliability (Quick)]): ✅ APPROVED
+- **🧗 AI Quality Fellow** ([Quality Hill Climbing]): ✅ APPROVED
 
 ## 🚀 Step-by-Step Implementation Guide
 To transition this agent to production-hardened status, follow these prioritized phases:
@@ -92,6 +92,9 @@ To transition this agent to production-hardened status, follow these prioritized
    - ✨ Recommended Fix: Dockerfile does not specify a non-root user. This
 1. **Trace-to-Code Mismatch (PII Leak)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/Makefile:1`
+   - ✨ Recommended Fix: Code promises PII masking, but trace.json contains raw
+1. **Trace-to-Code Mismatch (PII Leak)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
    - ✨ Recommended Fix: Code promises PII masking, but trace.json contains raw
 1. **Trace-to-Code Mismatch (PII Leak)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/README.md:1`
@@ -347,6 +350,9 @@ To transition this agent to production-hardened status, follow these prioritized
    - ✨ Recommended Fix: Dockerfile does not specify a non-root user. This
 1. **Trace-to-Code Mismatch (PII Leak)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/Makefile:1`
+   - ✨ Recommended Fix: Code promises PII masking, but trace.json contains raw
+1. **Trace-to-Code Mismatch (PII Leak)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
    - ✨ Recommended Fix: Code promises PII masking, but trace.json contains raw
 1. **Trace-to-Code Mismatch (PII Leak)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/README.md:1`
@@ -941,16 +947,13 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Structured Output Enforcement**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/base.py:1`
    - ✨ Recommended Fix: Eliminate parsing failures.
-1. **Reliability Failure**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit`
-   - ✨ Recommended Fix: Resolve falling unit tests to ensure agent regression safety.
 
 ### 🏗️ Phase 3: Architectural Alignment
-1. **Missing Legal Disclaimer or Privacy Policy link**
-   - 📍 Location: `src/docs/DocPage.tsx:1`
-   - ✨ Recommended Fix: Add a footer link to the mandatory Privacy Policy / TOS.
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/CAPABILITIES_REGISTRY.md:1`
@@ -1028,7 +1031,13 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/components/FlightRecorder.tsx:1`
@@ -1063,6 +1072,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1`
    - ✨ Recommended Fix: Detected complex policy/rule
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement logic
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/CAPABILITIES_REGISTRY.md:1`
    - ✨ Recommended Fix: Detected complex policy/rule
@@ -1271,7 +1283,13 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1`
    - ✨ Recommended Fix: Detected complex policy/rule
 1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement
+1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1`
    - ✨ Recommended Fix: Detected complex policy/rule enforcement
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/components/FlightRecorder.tsx:1`
@@ -1285,6 +1303,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/knowledge/example_policy.txt:1`
    - ✨ Recommended Fix: Structural tracing
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars) detected
@@ -1360,11 +1381,17 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/sovereign.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars)
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Detected complex
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
@@ -1397,6 +1424,9 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/CAPABILITIES_REGISTRY.md:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
@@ -1472,7 +1502,13 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1`
+   - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1`
    - ✨ Recommended Fix: Centralizes alignment and simplifies regulatory updates.
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/components/FlightRecorder.tsx:1`
@@ -1507,6 +1543,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1`
    - ✨ Recommended Fix: Detected complex policy/rule
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement logic
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/CAPABILITIES_REGISTRY.md:1`
    - ✨ Recommended Fix: Detected complex policy/rule
@@ -1715,7 +1754,13 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1`
    - ✨ Recommended Fix: Detected complex policy/rule
 1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement
+1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1`
+   - ✨ Recommended Fix: Detected complex policy/rule enforcement
+1. **Policy Blindness: Implicit Governance**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1`
    - ✨ Recommended Fix: Detected complex policy/rule enforcement
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/components/FlightRecorder.tsx:1`
@@ -1729,6 +1774,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/knowledge/example_policy.txt:1`
    - ✨ Recommended Fix: Structural tracing
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars) detected
@@ -1804,11 +1852,17 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/sovereign.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars)
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Policy Blindness: Implicit Governance**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Detected complex
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1`
+   - ✨ Recommended Fix: Massive static context (>5k chars)
+1. **Architectural Prompt Bloat**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Massive static context (>5k chars)
 1. **Architectural Prompt Bloat**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
@@ -2759,6 +2813,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
    - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
+1. **Reflection Blindness: Brittle Intelligence**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
 1. **Passive Retrieval: Context Drowning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/projects.txt:1`
    - ✨ Recommended Fix: Reduces context window waste and improves reasoning focus.
@@ -2836,6 +2893,9 @@ To transition this agent to production-hardened status, follow these prioritized
    - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
+   - ✨ Recommended Fix: Improves perceived latency and retention.
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
    - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/TECHNICAL_DESIGN_DOCUMENT.html:1`
@@ -3119,6 +3179,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
+1. **Latency Trap: Brute-Force Local Search**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Enables sub-second discovery over enterprise datasets.
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Improves perceived latency and retention.
@@ -3248,6 +3311,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Paradigm Drift: RAG for Math**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1`
    - ✨ Recommended Fix: Eliminates reasoning drift in analytical operations.
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Passive Retrieval: Context Drowning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
    - ✨ Recommended Fix: Reduces context window waste and improves reasoning focus.
@@ -3773,6 +3839,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Tool Modernization (MCP Blueprint)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/Makefile:1`
    - ✨ Recommended Fix: Use 'agentops-cockpit mcp blueprint' to auto-generate
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/setup_gcp.sh:1`
    - ✨ Recommended Fix: retrieved data from external sources
@@ -3962,6 +4034,15 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **LlamaIndex Workflows (Event-Driven Reasoning)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_README.md:1`
    - ✨ Recommended Fix: Adopt the LlamaIndex Workflow
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Structural logging (logger.info/error) not
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Structural tracing instrumentation (OTEL/Cloud
+1. **Reflection Blindness: Brittle Intelligence**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Detected high-stakes reasoning
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/projects.txt:1`
    - ✨ Recommended Fix: retrieved data from external sources
@@ -4034,6 +4115,24 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/MANIFEST.in:1`
    - ✨ Recommended Fix: Structural tracing instrumentation (OTEL/Cloud
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **Strategic Conflict: Multi-Orchestrator Setup**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/README.md:1`
    - ✨ Recommended Fix: Detected both LangGraph and CrewAI. Using two
@@ -4361,6 +4460,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/deployment_metadata.json:1`
    - ✨ Recommended Fix: Structural tracing instrumentation
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tsconfig.json:1`
    - ✨ Recommended Fix: Structural logging (logger.info/error) not
@@ -4694,6 +4799,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/arch_review_v1.1.html:1`
    - ✨ Recommended Fix: Detected non-streaming generation for
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.gcloudignore:1`
    - ✨ Recommended Fix: Structural logging (logger.info/error) not
@@ -5118,6 +5229,12 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/.gitignore:1`
    - ✨ Recommended Fix: Structural tracing instrumentation
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11152127690396857390:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -5138,6 +5255,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/12368228848217710799:1`
    - ✨ Recommended Fix: Detected non-streaming
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
    - ✨ Recommended Fix: Structural logging
@@ -5157,6 +5280,24 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
    - ✨ Recommended Fix: Detected non-streaming
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -5172,6 +5313,33 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1`
    - ✨ Recommended Fix: For high-stakes
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Excessive Agency & Privilege (OWASP LLM06)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Audit tool
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -5187,6 +5355,21 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1`
    - ✨ Recommended Fix: For high-stakes
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: For high-stakes
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -5196,6 +5379,30 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1`
    - ✨ Recommended Fix: Ensure users
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Payload Splitting (Context Fragmentation)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Monitor for Payload
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Monitor the Agentic
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: For high-stakes
+1. **Mental Model Discovery (HAX Guideline 01)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Don't leave users
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Detected non-streaming
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -5204,6 +5411,33 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1`
    - ✨ Recommended Fix: Ensure users
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Proprietary Context Handshake (Non-AP2)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Agent is using
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Explainable Reasoning (HAX Guideline 11)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Ensure users
+1. **Indirect Prompt Injection (RAG Hardening)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Protect the RAG
 1. **Sub-Optimal Resource Profile**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/TECHNICAL_DESIGN_DOCUMENT.html:1`
    - ✨ Recommended Fix: LLM
@@ -8873,6 +9107,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Agentic Observability (Golden Signals)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Monitor the Agentic
+1. **Explainable Reasoning (HAX Guideline 11)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Ensure users understand
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Protect the RAG
@@ -8888,6 +9125,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Detected high-stakes
+1. **Latency Trap: Brute-Force Local Search**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Detected local filesystem
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Detected non-streaming
@@ -9482,6 +9722,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py:1`
    - ✨ Recommended Fix: Detected
+1. **Economic Inefficiency: Model Over-Privilege**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1`
+   - ✨ Recommended Fix: Using a High-Tier
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1`
    - ✨ Recommended Fix: Structural logging
@@ -10226,6 +10469,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
    - ✨ Recommended Fix: Structural tracing
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
+   - ✨ Recommended Fix: Monitor the Agentic
 1. **Multi-Agent Debate (MAD) & Consensus**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
    - ✨ Recommended Fix: For high-stakes
@@ -10328,6 +10574,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Adversarial Testing (Red Teaming)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Implement 5-layer Red Teaming:
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Monitor the Agentic
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Ensure users understand
@@ -10337,6 +10586,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Protect the RAG
+1. **LlamaIndex Workflows (Event-Driven Reasoning)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Adopt the
 1. **Recursive Self-Improvement (Self-Reflexion Loops)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Integrate
@@ -10445,12 +10697,18 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Ensure users understand
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: For high-stakes reasoning,
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Protect the RAG
 1. **Recursive Self-Improvement (Self-Reflexion Loops)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Integrate
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: Detected non-streaming
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
    - ✨ Recommended Fix: retrieved data from
@@ -11372,6 +11630,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/pyproject.toml:1`
    - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
+1. **Reflection Blindness: Brittle Intelligence**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
 1. **Passive Retrieval: Context Drowning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/projects.txt:1`
    - ✨ Recommended Fix: Reduces context window waste and improves reasoning focus.
@@ -11449,6 +11710,9 @@ To transition this agent to production-hardened status, follow these prioritized
    - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
+   - ✨ Recommended Fix: Improves perceived latency and retention.
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
    - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/TECHNICAL_DESIGN_DOCUMENT.html:1`
@@ -11732,6 +11996,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Significantly reduces reasoning hallucinations and logic errors.
+1. **Latency Trap: Brute-Force Local Search**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Enables sub-second discovery over enterprise datasets.
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Improves perceived latency and retention.
@@ -11861,6 +12128,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Paradigm Drift: RAG for Math**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1`
    - ✨ Recommended Fix: Eliminates reasoning drift in analytical operations.
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: Improves perceived latency and retention.
 1. **Passive Retrieval: Context Drowning**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
    - ✨ Recommended Fix: Reduces context window waste and improves reasoning focus.
@@ -12386,6 +12656,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Tool Modernization (MCP Blueprint)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/Makefile:1`
    - ✨ Recommended Fix: Use 'agentops-cockpit mcp blueprint' to auto-generate
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/setup_gcp.sh:1`
    - ✨ Recommended Fix: retrieved data from external sources
@@ -12575,6 +12851,15 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **LlamaIndex Workflows (Event-Driven Reasoning)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/starter_pack_README.md:1`
    - ✨ Recommended Fix: Adopt the LlamaIndex Workflow
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Structural logging (logger.info/error) not
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Structural tracing instrumentation (OTEL/Cloud
+1. **Reflection Blindness: Brittle Intelligence**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1`
+   - ✨ Recommended Fix: Detected high-stakes reasoning
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/projects.txt:1`
    - ✨ Recommended Fix: retrieved data from external sources
@@ -12647,6 +12932,24 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/MANIFEST.in:1`
    - ✨ Recommended Fix: Structural tracing instrumentation (OTEL/Cloud
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **Strategic Conflict: Multi-Orchestrator Setup**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/README.md:1`
    - ✨ Recommended Fix: Detected both LangGraph and CrewAI. Using two
@@ -12974,6 +13277,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/deployment_metadata.json:1`
    - ✨ Recommended Fix: Structural tracing instrumentation
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/tsconfig.json:1`
    - ✨ Recommended Fix: Structural logging (logger.info/error) not
@@ -13307,6 +13616,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/arch_review_v1.1.html:1`
    - ✨ Recommended Fix: Detected non-streaming generation for
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.gcloudignore:1`
    - ✨ Recommended Fix: Structural logging (logger.info/error) not
@@ -13731,6 +14046,12 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/.gitignore:1`
    - ✨ Recommended Fix: Structural tracing instrumentation
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11152127690396857390:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -13751,6 +14072,12 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/12368228848217710799:1`
    - ✨ Recommended Fix: Detected non-streaming
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1`
+   - ✨ Recommended Fix: Structural tracing
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
    - ✨ Recommended Fix: Structural logging
@@ -13770,6 +14097,24 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1`
    - ✨ Recommended Fix: Detected non-streaming
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -13785,6 +14130,33 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1`
    - ✨ Recommended Fix: For high-stakes
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Excessive Agency & Privilege (OWASP LLM06)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1`
+   - ✨ Recommended Fix: Audit tool
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -13800,6 +14172,21 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1`
    - ✨ Recommended Fix: For high-stakes
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1`
+   - ✨ Recommended Fix: For high-stakes
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -13809,6 +14196,30 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1`
    - ✨ Recommended Fix: Ensure users
 1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Payload Splitting (Context Fragmentation)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Monitor for Payload
+1. **Adversarial Testing (Red Teaming)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Implement 5-layer Red
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Monitor the Agentic
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: For high-stakes
+1. **Mental Model Discovery (HAX Guideline 01)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Don't leave users
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1`
+   - ✨ Recommended Fix: Detected non-streaming
+1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1`
    - ✨ Recommended Fix: Structural logging
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
@@ -13817,6 +14228,33 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1`
    - ✨ Recommended Fix: Ensure users
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **SOC2 Control Gap: Missing Transit Logging**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Structural logging
+1. **Proprietary Context Handshake (Non-AP2)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Agent is using
+1. **Missing 5th Golden Signal (TTFT/Tracing)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Structural tracing
+1. **Explainable Reasoning (HAX Guideline 11)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Ensure users
+1. **Indirect Prompt Injection (RAG Hardening)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1`
+   - ✨ Recommended Fix: Protect the RAG
 1. **Sub-Optimal Resource Profile**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/TECHNICAL_DESIGN_DOCUMENT.html:1`
    - ✨ Recommended Fix: LLM
@@ -17486,6 +17924,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Agentic Observability (Golden Signals)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Monitor the Agentic
+1. **Explainable Reasoning (HAX Guideline 11)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Ensure users understand
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Protect the RAG
@@ -17501,6 +17942,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Detected high-stakes
+1. **Latency Trap: Brute-Force Local Search**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
+   - ✨ Recommended Fix: Detected local filesystem
 1. **Looming Latency: Blocking Inference**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1`
    - ✨ Recommended Fix: Detected non-streaming
@@ -18095,6 +18539,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Reflection Blindness: Brittle Intelligence**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py:1`
    - ✨ Recommended Fix: Detected
+1. **Economic Inefficiency: Model Over-Privilege**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1`
+   - ✨ Recommended Fix: Using a High-Tier
 1. **SOC2 Control Gap: Missing Transit Logging**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1`
    - ✨ Recommended Fix: Structural logging
@@ -18839,6 +19286,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT/Tracing)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
    - ✨ Recommended Fix: Structural tracing
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
+   - ✨ Recommended Fix: Monitor the Agentic
 1. **Multi-Agent Debate (MAD) & Consensus**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1`
    - ✨ Recommended Fix: For high-stakes
@@ -18941,6 +19391,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Adversarial Testing (Red Teaming)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Implement 5-layer Red Teaming:
+1. **Agentic Observability (Golden Signals)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Monitor the Agentic
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Ensure users understand
@@ -18950,6 +19403,9 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Protect the RAG
+1. **LlamaIndex Workflows (Event-Driven Reasoning)**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
+   - ✨ Recommended Fix: Adopt the
 1. **Recursive Self-Improvement (Self-Reflexion Loops)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1`
    - ✨ Recommended Fix: Integrate
@@ -19058,12 +19514,18 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Explainable Reasoning (HAX Guideline 11)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Ensure users understand
+1. **Multi-Agent Debate (MAD) & Consensus**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: For high-stakes reasoning,
 1. **Indirect Prompt Injection (RAG Hardening)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Protect the RAG
 1. **Recursive Self-Improvement (Self-Reflexion Loops)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
    - ✨ Recommended Fix: Integrate
+1. **Looming Latency: Blocking Inference**
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1`
+   - ✨ Recommended Fix: Detected non-streaming
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/migration.py:1`
    - ✨ Recommended Fix: retrieved data from
@@ -19957,8 +20419,6 @@ To transition this agent to production-hardened status, follow these prioritized
 ## 👔 Executive Risk Scorecard
 🚨 **Risk Alert**: 1 governance gates REJECTED (including Token Optimization). Production deployment currently **BLOCKED**.
 
-### 📈 Maturity Velocity: +3.4% Compliance Change
-
 ---
 
 ## 🔍 Raw System Artifacts
@@ -20060,11 +20520,11 @@ Total Requests: 50 | Concurrency: 5
 ┃ Metric           ┃ Value        ┃ SLA Threshold ┃
 ┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
 │ Total Requests   │ 50           │ -             │
-│ Throughput (RPS) │ 480.70 req/s │ > 5.0         │
+│ Throughput (RPS) │ 668.81 req/s │ > 5.0         │
 │ Success Rate     │ 100.0%       │ > 99%         │
-│ Avg Latency      │ 0.104s       │ < 2.0s        │
-│ Est. TTFT        │ 0.031s       │ < 0.5s        │
-│ p90 Latency      │ 0.476s       │ < 3.5s        │
+│ Avg Latency      │ 0.075s       │ < 2.0s        │
+│ Est. TTFT        │ 0.022s       │ < 0.5s        │
+│ p90 Latency      │ 0.388s       │ < 3.5s        │
 │ Total Errors     │ 0            │ 0             │
 └──────────────────┴──────────────┴───────────────┘
 
@@ -20090,27 +20550,6 @@ Total Requests: 50 | Concurrency: 5
 
 ```
 
-### Quality Hill Climbing
-```text
-╭─────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
-│ Optimizing Reasoning Density & Tool Trajectory Stability... │
-╰─────────────────────────────────────────────────────────────╯
-
-🎯 Global Peak (90.0%) Reached! Optimization Stabilized.
-⠸ Iteration 1: Probing Gradient... ━━━━                                      10%
-                   📈 v1.3 Hill Climbing Optimization History                    
-┏━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━┓
-┃ Iter ┃ Consensus Score ┃ Trajectory ┃ Reasoning Density ┃   Status   ┃  Delta ┃
-┡━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━┩
-│  1   │           90.3% │     100.0% │       0.55 Q/kTok │ PEAK FOUND │ +15.3% │
-└──────┴─────────────────┴────────────┴───────────────────┴────────────┴────────┘
-
-✅ SUCCESS: High-fidelity agent stabilized at the 90.3% quality peak.
-🚀 Mathematical baseline verified. Safe for production deployment.
-
-```
-
 ### Token Optimization
 ```text
                                        │
@@ -20126,7 +20565,7 @@ Total Requests: 50 | Concurrency: 5
 │   416 │   │   │   self._add_action_func(exc_check)                                                                                                       │
 │   417 │   │   │   return                                                                                                                                 │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-RetryError: RetryError[<Future at 0x110107d40 state=finished raised Exit>]
+RetryError: RetryError[<Future at 0x113f053d0 state=finished raised Exit>]
 
 ```
 
@@ -20168,35 +20607,49 @@ RetryError: RetryError[<Future at 0x110107d40 state=finished raised Exit>]
 
 ### Reliability (Quick)
 ```text
-p' has this __file__ attribute:
-  /Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/tests/integration/test_agent_engine_app.py
-which is not the same as the test file we want to collect:
-  /Users/enriq/Documents/git/agent-cockpit/tests/integration/test_agent_engine_app.py
-HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
-__________________ ERROR collecting tests/unit/test_dummy.py ___________________
-import file mismatch:
-imported module 'test_dummy' has this __file__ attribute:
-  /Users/enriq/Documents/git/agent-cockpit/test-deployments/prod-sovereign-agent/tests/unit/test_dummy.py
-which is not the same as the test file we want to collect:
-  /Users/enriq/Documents/git/agent-cockpit/tests/unit/test_dummy.py
-HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
-=============================== warnings summary ===============================
-src/agent_ops_cockpit/agent.py:56
-  /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py:56: PydanticDeprecatedSince20: The `update_forward_refs` method is deprecated; use
-`model_rebuild` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
-    A2UIComponent.update_forward_refs()
+╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression Suite Coverage...
+                           🛡️ Reliability Status                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Check                      ┃ Status   ┃ Details                          ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Core Unit Tests            │ PASSED   │ 51 lines of output               │
+│ Contract Compliance (A2UI) │ VERIFIED │ Verified Engine-to-Face protocol │
+│ Regression Golden Set      │ FOUND    │ 50 baseline scenarios active     │
+└────────────────────────────┴──────────┴──────────────────────────────────┘
 
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-=========================== short test summary info ============================
-ERROR test-deployments/prod-sovereign-agent/tests/integration/test_agent.py
-ERROR tests/integration/test_agent.py
-ERROR tests/integration/test_agent_engine_app.py
-ERROR tests/unit/test_dummy.py
-!!!!!!!!!!!!!!!!!!! Interrupted: 4 errors during collection !!!!!!!!!!!!!!!!!!!!
-========================= 1 warning, 4 errors in 9.82s =========================
+✅ System check complete.
 
 ```
-ACTION: /Users/enriq/Documents/git/agent-cockpit | Reliability Failure | Resolve falling unit tests to ensure agent regression safety.
+
+### Quality Hill Climbing
+```text
+╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰─────────────────────────────────────────────────────────────╯
+  Iteration 10: Probing Gradient... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+                   📈 v1.3 Hill Climbing Optimization History                    
+┏━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━┓
+┃ Iter ┃ Consensus Score ┃ Trajectory ┃ Reasoning Density ┃   Status   ┃  Delta ┃
+┡━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━┩
+│  1   │           89.6% │     100.0% │       0.55 Q/kTok │ PEAK FOUND │ +14.6% │
+│  2   │           88.5% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -1.2% │
+│  3   │           88.2% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -1.5% │
+│  4   │           89.1% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -0.5% │
+│  5   │           89.1% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -0.6% │
+│  6   │           89.9% │     100.0% │       0.55 Q/kTok │ PEAK FOUND │  +0.3% │
+│  7   │           89.9% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.1% │
+│  8   │           88.8% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -1.1% │
+│  9   │           89.4% │     100.0% │       0.54 Q/kTok │ REGRESSION │  -0.6% │
+│  10  │           89.8% │     100.0% │       0.55 Q/kTok │ REGRESSION │  -0.1% │
+└──────┴─────────────────┴────────────┴───────────────────┴────────────┴────────┘
+
+⚠️ WARNING: Optimization plateaued below threshold. Current quality: 89.9%.
+💡 Recommendation: Run `make simulation-run` to detect context-saturation points.
 
 ```
 

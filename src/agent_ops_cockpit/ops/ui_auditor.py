@@ -32,7 +32,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     trigger_pattern = re.compile(r"onTrigger|handleTrigger|agentAction")
     ux_feedback_pattern = re.compile(r"Skeleton|Loading|Spinner|Progress")
     a11y_pattern = re.compile(r"aria-label|role=|tabIndex|alt=")
-    legal_pattern = re.compile(r"Copyright|PrivacyPolicy|Disclaimer|TermsOfService|©")
+    legal_pattern = re.compile(r"Copyright|Privacy\s*Policy|Disclaimer|Terms\s*of\s*Service|©", re.IGNORECASE)
     marketing_pattern = re.compile(r"og:image|meta\s+name=['\"]description['\"]|favicon|logo")
     hitl_pattern = re.compile(r"HumanInTheLoop|confirm|Approve|Reject|Gate")
     streaming_pattern = re.compile(r"Suspense|Stream|Markdown|chunk")

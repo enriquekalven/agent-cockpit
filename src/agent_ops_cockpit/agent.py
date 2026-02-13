@@ -53,7 +53,7 @@ class A2UISurface(BaseModel):
     surfaceId: str
     content: List[A2UIComponent]
 
-A2UIComponent.update_forward_refs()
+A2UIComponent.model_rebuild()
 
 # Reliability Markers (tenacity @retry)
 try:

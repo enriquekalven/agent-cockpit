@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 import re
 import sys
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 import importlib.metadata
 from packaging import version
 from rich.console import Console
@@ -190,5 +190,53 @@ def run_watch():
         sys.exit(2)
     else:
         console.print('\n[bold green]✨ All components are currently in sync with the latest stable releases.[/bold green]')
+
+class OperationalWatcher:
+    """
+    [GO/RASTA GAP] Runtime Auditor / Operational Watcher.
+    Uses an LLM (interpreted SME) to evaluate live telemetry and proactively alert 
+    on reasoning failures, model drift, or token exhaustion.
+    """
+    
+    def __init__(self):
+        console.print("🛰️ [bold blue]Operational Watcher Hub Active.[/bold blue]")
+
+    def inspect_live_metrics(self, metrics: Dict[str, Any]):
+        """
+        Interprets a telemetry snapshot and identifies operational risks.
+        """
+        console.print(f"🧐 [dim]SME Review: Evaluating {len(metrics.get('recent_events', []))} telemetry events...[/dim]")
+        
+        # Mock Logic for 'Interpretation'
+        findings = []
+        latency = float(metrics.get("avg_latency", "0ms").replace("ms", ""))
+        
+        if latency > 500:
+             findings.append({"level": "WARNING", "issue": "Degraded Latency", "recommendation": "Switch to Gemini Flash (SLM) for current reasoning bucket."})
+        
+        hallucination_detected = any("hallucination" in str(event).lower() for event in metrics.get("recent_events", []))
+        if hallucination_detected:
+             findings.append({"level": "CRITICAL", "issue": "Model Drift / Hallucination", "recommendation": "IMMEDIATE REVERT to Shadow Mode Agent A (Base)."})
+
+        self._display_alerts(findings)
+        return findings
+
+    def _display_alerts(self, findings: list):
+        if not findings:
+            console.print("✅ [green]Runtime Health: Nominal.[/green] No reasoning drift detected.")
+            return
+
+        for f in findings:
+            color = "red" if f["level"] == "CRITICAL" else "yellow"
+            console.print(Panel(f"[bold]{f['issue']}[/bold]\n[dim]{f['recommendation']}[/dim]", title=f"[{color}]RUNTIME ALERT: {f['level']}[/{color}]", border_style=color))
+
+def run_operational_watch():
+    """CLI trigger for live runtime audit."""
+    watcher = OperationalWatcher()
+    from agent_ops_cockpit.telemetry import telemetry
+    # Get live metrics for the 'cockpit' agent
+    metrics = telemetry.get_agent_telemetry("cockpit-v1")
+    watcher.inspect_live_metrics(metrics)
+
 if __name__ == '__main__':
     run_watch()

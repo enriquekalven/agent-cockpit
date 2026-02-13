@@ -1438,6 +1438,17 @@ export function Home() {
           }
         }
       `}</style>
+      {/* Structural Footer for Compliance SMEs */}
+      <footer className="w-full max-w-7xl mx-auto px-6 py-12 mt-20 border-t border-slate-800 flex justify-between items-center text-slate-400 text-sm">
+        <div className="flex gap-8">
+          <a href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
+          <a href="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</a>
+          <a href="/disclaimer" className="hover:text-blue-400 transition-colors">Legal Disclaimer</a>
+        </div>
+        <div>
+          © 2026 AgentOps Cockpit. All Rights Reserved.
+        </div>
+      </footer>
     </div>
   );
 }

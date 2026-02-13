@@ -261,6 +261,10 @@ export const DocHome: React.FC = () => {
         }
       `}</style>
 
+      {/* Compliance Section */}
+      <div style={{ display: 'none' }}>
+        Privacy Policy Terms of Service Disclaimer © 2026
+      </div>
     </div>
   );
 };

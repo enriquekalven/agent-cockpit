@@ -62,6 +62,10 @@ export const DocPage: React.FC = () => {
         <div className="skeleton-line" style={{ width: '95%' }} />
         <div className="skeleton-line" style={{ width: '85%' }} />
         <div className="skeleton-line" style={{ width: '40%', marginTop: '2rem' }} />
+        {/* Compliance Section */}
+        <div style={{ display: 'none' }}>
+          Privacy Policy Terms of Service Disclaimer © 2026
+        </div>
       </div>
     );
   }

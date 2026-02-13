@@ -94,6 +94,51 @@ class ShadowRunner:
         console.print(drift_table)
         console.print("\n✨ [bold green]Shadow Audit Passed.[/bold green] Candidate is [bold]13% more reliable[/bold] with [bold]-8% latency[/bold].")
 
+class ProductionShadowRouter:
+    """
+    [DIVERSION GAP] Production Shadow Router.
+    Diverts a percentage of production traffic to a 'Shadow' (Candidate) agent 
+    for side-by-side verification without impacting the user response.
+    """
+    
+    def __init__(self, diversion_percent: float = 0.05):
+        self.diversion_percent = diversion_percent
+        console.print(f"🛰️ [bold green]Production Shadow Router Active.[/bold green] Diversion: [bold]{diversion_percent*100}%[/bold]")
+
+    def route(self, user_input: str, base_agent_fn: callable, candidate_agent_fn: callable):
+        """
+        Executes the Base agent (Live) and optionally 'side-swipes' to the Candidate.
+        """
+        import random
+        
+        # 1. Primary path (User Response)
+        base_response = base_agent_fn(user_input)
+        
+        # 2. Shadow path (Diversion)
+        should_shadow = random.random() < self.diversion_percent
+        if should_shadow:
+            try:
+                candidate_response = candidate_agent_fn(user_input)
+                self._record_differential(user_input, base_response, candidate_response)
+            except Exception as e:
+                console.print(f"⚠️ [red]Shadow path failed:[/red] {e}")
+        
+        return base_response
+
+    def _record_differential(self, query: str, base_res: str, cand_res: str):
+        """Record the trace for the analysis SME to review later."""
+        trace_path = os.path.join(os.getcwd(), ".cockpit", "traces", f"diff_{datetime.now().strftime('%H%M%S')}.json")
+        os.makedirs(os.path.dirname(trace_path), exist_ok=True)
+        
+        with open(trace_path, "w") as f:
+            json.dump({
+                "timestamp": datetime.now().isoformat(),
+                "query": query,
+                "base_response": base_res,
+                "candidate_response": cand_res,
+                "drift_detected": base_res != cand_res
+            }, f)
+
 if __name__ == "__main__":
     runner = ShadowRunner("agent_v1.py", "agent_v2.py")
     runner.run_differential()

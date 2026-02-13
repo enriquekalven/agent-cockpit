@@ -47,6 +47,7 @@ deploy_app = typer.Typer(help="🚀 Deployment Hub: Project hydration, migration
 fix_app = typer.Typer(help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis.")
 test_app = typer.Typer(help="🧪 Reliability Hub: Unit tests and Persona smoke tests.")
 sys_app = typer.Typer(help="🩺 System Hub: Health diagnosis and version tracking.")
+ops_app = typer.Typer(help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers.")
 create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization and UI creation.")
 
 console = Console()
@@ -296,6 +297,36 @@ def face(path: Annotated[str, typer.Option('--path', help='Path to Face folder')
     """Audit the Face (Frontend) for A2UI alignment."""
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
     ui_mod.audit(path)
+
+# --- OPERATIONS HUB ---
+@ops_app.command()
+def export(target: str = "local", format: str = "json"):
+    """[OBSERVABILITY BRIDGE] Export telemetry traces to 3rd party hubs (Arize, LangSmith)."""
+    console.print(f"📡 [bold blue]AgentOps Export: Exporting traces to {target} ({format})...[/bold blue]")
+    res = telemetry.export_traces(format=format, target_hub=target)
+    if res["status"] == "success":
+        console.print(f"✅ [bold green]Export Complete![/bold green] {res.get('file', res.get('message'))}")
+    else:
+        console.print(f"❌ [bold red]Export Failed:[/bold red] {res['message']}")
+
+@ops_app.command()
+def shadow(diversion: float = 0.05):
+    """[DIVERSION GAP] Activate the Production Shadow Router for live traffic analysis."""
+    from agent_ops_cockpit.ops import shadow as shadow_mod
+    router = shadow_mod.ProductionShadowRouter(diversion_percent=diversion)
+    console.print(f"✨ [bold]Shadow Router in standby.[/bold] Listening for diversion signals...")
+
+@ops_app.command()
+def watch():
+    """[RUNTIME HUB] Launch the Operational Watcher for LLM-driven runtime interpretation."""
+    watch_mod.run_operational_watch()
+
+@ops_app.command()
+def simulate(mode: str = "nominal"):
+    """[CHAOS ENGINE] Battle-test agent tools with Chaos/Latency proxy injections."""
+    from agent_ops_cockpit.ops import simulator as sim_mod
+    proxy = sim_mod.ToolProxy(mode=mode)
+    proxy.execute_mock_tool("search_api", {"query": "Sovereign Audit"})
 
 @audit_app.command()
 def shadow(base: Annotated[str, typer.Argument(help="Path to base agent/report")], candidate: Annotated[str, typer.Argument(help="Path to candidate agent/report")]):
@@ -789,6 +820,7 @@ app.add_typer(deploy_app, name="deploy")
 app.add_typer(fix_app, name="fix")
 app.add_typer(test_app, name="test")
 app.add_typer(sys_app, name="sys")
+app.add_typer(ops_app, name="ops")
 app.add_typer(create_app, name="create")
 app.add_typer(create_app, name="init", hidden=False) # Alias for init hurdle
 @app.command(name="models")

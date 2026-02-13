@@ -23,6 +23,14 @@
     ],
     "log_reasoning_traces": true,
     "sovereign_gate_threshold": 90,
-    "mandatory_mcp_migration": true
+    "trace_export_protocol": {
+      "mandatory": true,
+      "format": "JSON_A2A",
+      "hubs": [
+        "arize",
+        "langsmith",
+        "local"
+      ]
+    }
   }
 }

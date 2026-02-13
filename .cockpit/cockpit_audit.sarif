@@ -227,6 +227,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "trace-to-code_mismatch_(pii_leak)",
+          "message": {
+            "text": "Code promises PII masking, but trace.json contains raw"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/README.md:1"
                 }
               }
@@ -1502,6 +1517,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "trace-to-code_mismatch_(pii_leak)",
+          "message": {
+            "text": "Code promises PII masking, but trace.json contains raw"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/README.md:1"
                 }
               }
@@ -4449,30 +4479,15 @@
           ]
         },
         {
-          "ruleId": "reliability_failure",
+          "ruleId": "policy_blindness:_implicit_governance",
           "message": {
-            "text": "Resolve falling unit tests to ensure agent regression safety."
+            "text": "Centralizes alignment and simplifies regulatory updates."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_legal_disclaimer_or_privacy_policy_link",
-          "message": {
-            "text": "Add a footer link to the mandatory Privacy Policy / TOS."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocPage.tsx:1"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1"
                 }
               }
             }
@@ -4487,7 +4502,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1"
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
                 }
               }
             }
@@ -4877,7 +4892,37 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Centralizes alignment and simplifies regulatory updates."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Centralizes alignment and simplifies regulatory updates."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1"
                 }
               }
             }
@@ -5043,6 +5088,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
                 }
               }
             }
@@ -6092,7 +6152,37 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1"
                 }
               }
             }
@@ -6153,6 +6243,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/knowledge/example_policy.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
                 }
               }
             }
@@ -6534,6 +6639,21 @@
           ]
         },
         {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "policy_blindness:_implicit_governance",
           "message": {
             "text": "Detected complex"
@@ -6558,6 +6678,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
                 }
               }
             }
@@ -6722,6 +6857,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Centralizes alignment and simplifies regulatory updates."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/CAPABILITIES_REGISTRY.md:1"
                 }
               }
@@ -7097,7 +7247,37 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Centralizes alignment and simplifies regulatory updates."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Centralizes alignment and simplifies regulatory updates."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1"
                 }
               }
             }
@@ -7263,6 +7443,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/starter_pack_pyproject.toml:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
                 }
               }
             }
@@ -8312,7 +8507,37 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocPage.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocLayout.tsx:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "policy_blindness:_implicit_governance",
+          "message": {
+            "text": "Detected complex policy/rule enforcement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/docs/DocHome.tsx:1"
                 }
               }
             }
@@ -8373,6 +8598,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/knowledge/example_policy.txt:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
                 }
               }
             }
@@ -8754,6 +8994,21 @@
           ]
         },
         {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "policy_blindness:_implicit_governance",
           "message": {
             "text": "Detected complex"
@@ -8778,6 +9033,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "architectural_prompt_bloat",
+          "message": {
+            "text": "Massive static context (>5k chars)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
                 }
               }
             }
@@ -13509,6 +13779,21 @@
           ]
         },
         {
+          "ruleId": "reflection_blindness:_brittle_intelligence",
+          "message": {
+            "text": "Significantly reduces reasoning hallucinations and logic errors."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "passive_retrieval:_context_drowning",
           "message": {
             "text": "Reduces context window waste and improves reasoning focus."
@@ -13893,6 +14178,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
                 }
               }
             }
@@ -15309,6 +15609,21 @@
           ]
         },
         {
+          "ruleId": "latency_trap:_brute-force_local_search",
+          "message": {
+            "text": "Enables sub-second discovery over enterprise datasets."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "looming_latency:_blocking_inference",
           "message": {
             "text": "Improves perceived latency and retention."
@@ -15948,6 +16263,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
                 }
               }
             }
@@ -18579,6 +18909,36 @@
           ]
         },
         {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "untrusted_context_trap:_indirect_injection",
           "message": {
             "text": "retrieved data from external sources"
@@ -19524,6 +19884,51 @@
           ]
         },
         {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging (logger.info/error) not"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing instrumentation (OTEL/Cloud"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "reflection_blindness:_brittle_intelligence",
+          "message": {
+            "text": "Detected high-stakes reasoning"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "untrusted_context_trap:_indirect_injection",
           "message": {
             "text": "retrieved data from external sources"
@@ -19878,6 +20283,96 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/MANIFEST.in:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1"
                 }
               }
             }
@@ -21513,6 +22008,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/deployment_metadata.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1"
                 }
               }
             }
@@ -23178,6 +23703,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/arch_review_v1.1.html:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1"
                 }
               }
             }
@@ -25307,6 +25862,36 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11152127690396857390:1"
                 }
               }
@@ -25398,6 +25983,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/12368228848217710799:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1"
                 }
               }
             }
@@ -25502,6 +26117,96 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1"
                 }
               }
@@ -25577,6 +26282,141 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "excessive_agency_&_privilege_(owasp_llm06)",
+          "message": {
+            "text": "Audit tool"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1"
                 }
               }
@@ -25652,6 +26492,81 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1"
                 }
               }
@@ -25697,6 +26612,126 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "payload_splitting_(context_fragmentation)",
+          "message": {
+            "text": "Monitor for Payload"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "mental_model_discovery_(hax_guideline_01)",
+          "message": {
+            "text": "Don't leave users"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Detected non-streaming"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1"
                 }
               }
@@ -25728,6 +26763,141 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "proprietary_context_handshake_(non-ap2)",
+          "message": {
+            "text": "Agent is using"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "explainable_reasoning_(hax_guideline_11)",
+          "message": {
+            "text": "Ensure users"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "indirect_prompt_injection_(rag_hardening)",
+          "message": {
+            "text": "Protect the RAG"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
                 }
               }
             }
@@ -44079,6 +45249,21 @@
           ]
         },
         {
+          "ruleId": "explainable_reasoning_(hax_guideline_11)",
+          "message": {
+            "text": "Ensure users understand"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
@@ -44142,6 +45327,21 @@
           "ruleId": "reflection_blindness:_brittle_intelligence",
           "message": {
             "text": "Detected high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "latency_trap:_brute-force_local_search",
+          "message": {
+            "text": "Detected local filesystem"
           },
           "locations": [
             {
@@ -47118,6 +48318,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "economic_inefficiency:_model_over-privilege",
+          "message": {
+            "text": "Using a High-Tier"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1"
                 }
               }
             }
@@ -50844,6 +52059,21 @@
           ]
         },
         {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "multi-agent_debate_(mad)_&_consensus",
           "message": {
             "text": "For high-stakes"
@@ -51354,6 +52584,21 @@
           ]
         },
         {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "explainable_reasoning_(hax_guideline_11)",
           "message": {
             "text": "Ensure users understand"
@@ -51387,6 +52632,21 @@
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "llamaindex_workflows_(event-driven_reasoning)",
+          "message": {
+            "text": "Adopt the"
           },
           "locations": [
             {
@@ -51939,6 +53199,21 @@
           ]
         },
         {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes reasoning,"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
@@ -51957,6 +53232,21 @@
           "ruleId": "recursive_self-improvement_(self-reflexion_loops)",
           "message": {
             "text": "Integrate"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Detected non-streaming"
           },
           "locations": [
             {
@@ -56574,6 +57864,21 @@
           ]
         },
         {
+          "ruleId": "reflection_blindness:_brittle_intelligence",
+          "message": {
+            "text": "Significantly reduces reasoning hallucinations and logic errors."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "passive_retrieval:_context_drowning",
           "message": {
             "text": "Reduces context window waste and improves reasoning focus."
@@ -56958,6 +58263,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/8427811464391924829:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
                 }
               }
             }
@@ -58374,6 +59694,21 @@
           ]
         },
         {
+          "ruleId": "latency_trap:_brute-force_local_search",
+          "message": {
+            "text": "Enables sub-second discovery over enterprise datasets."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "looming_latency:_blocking_inference",
           "message": {
             "text": "Improves perceived latency and retention."
@@ -59013,6 +60348,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/remediator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
                 }
               }
             }
@@ -61644,6 +62994,36 @@
           ]
         },
         {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1401.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "untrusted_context_trap:_indirect_injection",
           "message": {
             "text": "retrieved data from external sources"
@@ -62589,6 +63969,51 @@
           ]
         },
         {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging (logger.info/error) not"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing instrumentation (OTEL/Cloud"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "reflection_blindness:_brittle_intelligence",
+          "message": {
+            "text": "Detected high-stakes reasoning"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/PRIVACY.md:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "untrusted_context_trap:_indirect_injection",
           "message": {
             "text": "retrieved data from external sources"
@@ -62943,6 +64368,96 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/MANIFEST.in:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1359.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1400.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1403.json:1"
                 }
               }
             }
@@ -64578,6 +66093,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/deployment_metadata.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1402.json:1"
                 }
               }
             }
@@ -66243,6 +67788,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/arch_review_v1.1.html:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/cockpit_export_20260213_1404.json:1"
                 }
               }
             }
@@ -68372,6 +69947,36 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15479019105455210660:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11152127690396857390:1"
                 }
               }
@@ -68463,6 +70068,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/12368228848217710799:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/18012988631640918864:1"
                 }
               }
             }
@@ -68567,6 +70202,96 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/1505263532291348371:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13204135840459260279:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11330239396958480066:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2856453580451705595:1"
                 }
               }
@@ -68642,6 +70367,141 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13327194174410686970:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "excessive_agency_&_privilege_(owasp_llm06)",
+          "message": {
+            "text": "Audit tool"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/3336258314350730477:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/14974807609837271765:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/2484493673498083478:1"
                 }
               }
@@ -68717,6 +70577,81 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15266217497942171809:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/4234370242755566905:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11294931599537751374:1"
                 }
               }
@@ -68762,6 +70697,126 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "payload_splitting_(context_fragmentation)",
+          "message": {
+            "text": "Monitor for Payload"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "adversarial_testing_(red_teaming)",
+          "message": {
+            "text": "Implement 5-layer Red"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "mental_model_discovery_(hax_guideline_01)",
+          "message": {
+            "text": "Don't leave users"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Detected non-streaming"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/9355430847581747568:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1"
                 }
               }
@@ -68793,6 +70848,141 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/13614771546622510630:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/15946850270007610618:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/11409823250132618240:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "soc2_control_gap:_missing_transit_logging",
+          "message": {
+            "text": "Structural logging"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "proprietary_context_handshake_(non-ap2)",
+          "message": {
+            "text": "Agent is using"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "missing_5th_golden_signal_(ttft/tracing)",
+          "message": {
+            "text": "Structural tracing"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "explainable_reasoning_(hax_guideline_11)",
+          "message": {
+            "text": "Ensure users"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "indirect_prompt_injection_(rag_hardening)",
+          "message": {
+            "text": "Protect the RAG"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/.ruff_cache/0.14.11/17552983191350195621:1"
                 }
               }
             }
@@ -87144,6 +89334,21 @@
           ]
         },
         {
+          "ruleId": "explainable_reasoning_(hax_guideline_11)",
+          "message": {
+            "text": "Ensure users understand"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
@@ -87207,6 +89412,21 @@
           "ruleId": "reflection_blindness:_brittle_intelligence",
           "message": {
             "text": "Detected high-stakes"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "latency_trap:_brute-force_local_search",
+          "message": {
+            "text": "Detected local filesystem"
           },
           "locations": [
             {
@@ -90183,6 +92403,21 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/rag_audit.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "economic_inefficiency:_model_over-privilege",
+          "message": {
+            "text": "Using a High-Tier"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/policies.json:1"
                 }
               }
             }
@@ -93909,6 +96144,21 @@
           ]
         },
         {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/simulator.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "multi-agent_debate_(mad)_&_consensus",
           "message": {
             "text": "For high-stakes"
@@ -94419,6 +96669,21 @@
           ]
         },
         {
+          "ruleId": "agentic_observability_(golden_signals)",
+          "message": {
+            "text": "Monitor the Agentic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "explainable_reasoning_(hax_guideline_11)",
           "message": {
             "text": "Ensure users understand"
@@ -94452,6 +96717,21 @@
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/watcher.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "llamaindex_workflows_(event-driven_reasoning)",
+          "message": {
+            "text": "Adopt the"
           },
           "locations": [
             {
@@ -95004,6 +97284,21 @@
           ]
         },
         {
+          "ruleId": "multi-agent_debate_(mad)_&_consensus",
+          "message": {
+            "text": "For high-stakes reasoning,"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "indirect_prompt_injection_(rag_hardening)",
           "message": {
             "text": "Protect the RAG"
@@ -95022,6 +97317,21 @@
           "ruleId": "recursive_self-improvement_(self-reflexion_loops)",
           "message": {
             "text": "Integrate"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/shadow.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Detected non-streaming"
           },
           "locations": [
             {
