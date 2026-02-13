@@ -557,6 +557,12 @@ class CockpitOrchestrator:
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False):
+    # DEFENSIVE: Typer sometimes leaks OptionInfo objects when called as functions
+    if only and not isinstance(only, (list, tuple)):
+        only = None
+    if skip and not isinstance(skip, (list, tuple)):
+        skip = None
+    
     orchestrator = CockpitOrchestrator()
     orchestrator.plain = plain
     abs_path = os.path.abspath(target_path)

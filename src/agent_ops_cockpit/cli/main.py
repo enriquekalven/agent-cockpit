@@ -503,7 +503,7 @@ def legacy_register(path: str=typer.Option('.', '--path', '-p', help='Path to wo
 @app.command(name="fleet-status", hidden=True)
 def legacy_fleet_status():
     """[DEPRECATED] Use 'fleet status' instead."""
-    fleet_status()
+    status()
 
 @app.command(name="mothball", hidden=True)
 def legacy_mothball(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to mothball')):
@@ -550,7 +550,8 @@ def legacy_email_report(recipient: str=typer.Argument(...)):
 @app.command(name="face", hidden=True)
 def legacy_face(path: str='src'):
     """[DEPRECATED] Use 'audit face' instead."""
-    face(path)
+    from agent_ops_cockpit.ops import ui_auditor as ui_mod
+    ui_mod.audit(path)
 
 @app.command(name="secrets", hidden=True)
 def legacy_secrets(path: str=typer.Argument('.', help='Directory to scan')):
@@ -565,8 +566,8 @@ def legacy_doctor():
 
 @app.command(name="init", hidden=True)
 def legacy_init(project_name: str=typer.Argument('my-agent', help='The name of the new project')):
-    """[DEPRECATED] Use 'create trinity' instead."""
-    init(project_name)
+    """[DEPRECATED] Use 'create agent' or 'create face' instead."""
+    create_agent(project_name)
 
 @app.command(name="create", hidden=True)
 def legacy_create(project_name: str=typer.Argument(..., help='The name of the new project'), ui: str=typer.Option('a2ui', '-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)'), copilotkit: bool=typer.Option(False, '--copilotkit', help='Enable extra CopilotKit features for AGUI')):
