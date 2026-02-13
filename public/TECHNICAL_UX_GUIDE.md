@@ -1,5 +1,5 @@
 # 🎭 Technical Guide: Face Auditor & A2UI Protocol
-## The "Standardized Ecosystem" Standard (v1.6.3 Stable)
+## The "Standardized Ecosystem" Standard (v1.6.4 Stable)
 
 The `make ui-audit` command activates the **UX/UI Principal Designer** persona. This SME specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is not just a static dashboard, but a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide high-fidelity visual feedback and seamless surface transitions to maintain user trust.
 
@@ -12,7 +12,7 @@ The `make ui-audit` command activates the **UX/UI Principal Designer** persona. 
 | `make ui-audit` | **GenUI Component Scan**| Scans React/TS code for `surfaceId` mapping and A2UI triggers. | `ui_auditor.py` (React AST parser) |
 | `make smoke-test` | **Interactive Journey** | Validates the "Face" logic during E2E persona journey simulations. | `cypress` / `playwright` (Mocked) |
 | `make audit` | **UX Baseline** | Includes a summary of Face Auditor findings in the daily report. | `audit.py` Integration |
-| `make maturity`| **Expertise Matrix**| Displays the Cockpit's UX competency and persona status (v1.6.3). | `ops audit-maturity` |
+| `make maturity`| **Expertise Matrix**| Displays the Cockpit's UX competency and persona status (v1.6.4). | `ops audit-maturity` |
 
 ---
 

@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.4] - 2026-02-12
+
+### 🛡️ Stability & Resiliency Hardening
+- **End-to-End Resiliency**: Injected `@retry` decorators into all Gemini Enterprise registration and Agent Engine deployment scripts to handle transient network/API failures.
+- **Documentation Overhaul**: Synchronized all technical guides (Audit, FinOps, SRE, Architecture) with the v1.6 "Watchtower" operational standards.
+
 ## [1.6.3] - 2026-02-12
 
 ### 🏗️ Scaffolding & Trinity Restoration
