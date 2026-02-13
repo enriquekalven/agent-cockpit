@@ -1,33 +1,48 @@
 # 🕹️ Master Guide: AgentOps Cockpit Commands
-## The "Watchtower Standard" Hub Registry (v1.6.0 Stable)
+## The "Watchtower Standard" Hub Registry (v1.6.7 Stable)
 
 This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It follows the **Sovereign Hub Hierarchy** introduced in v1.6.
 
 ---
 
 ## 🏗️ The Hub Registry (CLI)
-The CLI is organized into 7 logical "Hubs" for high-fidelity operations.
+The CLI is organized into 9 logical "Hubs" for high-fidelity operations.
 
 | Hub | Command | Objective |
 | :--- | :--- | :--- |
 | `audit` | `report` | **Master Audit**: Launch multi-persona architecture, security, and cost reviews. |
 | | `security` | **Guardian**: Red Team adversarial evaluation and secret scanning. |
+| | `quality` | **Optimizer**: Run Hill Climbing quality optimization cycles. |
 | | `arch` | **Strategist**: AST-based architecture and design review. |
-| | `maturity` | **Expertise**: Visualize cockpit maturity levels across personas. |
 | | `context` | **Architect**: Visualize Token window usage and Caching efficiency. |
-| `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
-| | `mothball` | **FinOps**: Scale inactive agents to zero to stop costs. |
-| | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior in live telemetry. |
-| | `tunnel` | **Inner Loop**: Local-to-cloud bridge for GE tool-use iteration. |
-| `deploy` | `sovereign` | **Factory**: [10X] Audit -> Fix -> Hydrate -> Deploy -> Register. |
-| | `migrate` | **Multi-Cloud**: Move agents between GCP, AWS, and Azure. |
+| | `policy` | **Governance**: Audit declarative guardrails (Forbidden topics, HITL). |
+| | `face` | **Experience**: Audit the Face (Frontend) for A2UI alignment. |
+| | `shadow` | **Differential**: Shadow Mode: Differential reasoning analysis (V1 vs V2). |
+| | `maturity` | **Expertise**: Visualize cockpit maturity matrix across personas. |
+| | `roi` | **FinOps**: Model cost-per-task and suggest optimization pivots. |
 | `fix` | `issue` | **Remediation**: Apply a targeted code fix for a specific audit finding. |
 | | `evolve` | **Synthesis**: Autonomous PR generation and code hardening. |
+| | `workbench`| **Interactive**: Review and approve autonomous fixes in real-time. |
+| `create`| `trinity` | **Scaffold**: Scaffold a unified project (Engine + Face). |
+| | `face` | **Frontend**: Scaffold a new A2UI Agent UI project. |
+| `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
+| | `watch` | **Ecosystem**: Track ecosystem updates (ADK, LangChain, etc.). |
+| | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior. |
+| | `telemetry`| **Metrics**: Fetch live telemetry metrics for a specific agent. |
+| | `mothball` | **FinOps**: Scale inactive agents to zero. |
+| | `tunnel` | **Inner Loop**: Local-to-cloud bridge for GE tool-use iteration. |
+| `deploy`| `sovereign`| **Factory**: [10X] Audit -> Fix -> Hydrate -> Deploy. |
+| | `migrate` | **Multi-Cloud**: Move agents between GCP, AWS, and Azure. |
+| | `prep` | **Staging**: Generate multi-cloud assets without deployment. |
 | `test` | `unit` | **Integrity**: Run standard reliability unit tests. |
-| | `smoke` | **Journeys**: Validates end-to-end "pipes" across all Persona Lenses. |
-| | `regression`| **Master Suite**: Combines unit + smoke + compliance checks. |
-| | `simulate` | **Simulation**: Stress-test reasoning with Persona-based User Simulation. |
-| `sys` | `doctor` | **Health**: Validate environment variables, SDKs, and artifact paths. |
+| | `smoke` | **Journeys**: Validates end-to-end "pipes" across Persona Lenses. |
+| | `regression`| **Master Suite**: Combines unit + smoke + performance. |
+| | `simulate` | **Simulation**: Stress-test reasoning with User Simulation. |
+| `sys` | `doctor` | **Health**: Validate environment, SDKs, and artifact paths. |
+| | `telemetry`| **Analytics**: View usage metrics and global fleet health. |
+| `rag` | `audit` | **Grounding**: Audits Reranking and Grounding fidelity. |
+| `mcp` | `list/install`| **Store**: Discover and integrate MCP tools. |
+| `mcp-server`| `launch`| **Bridge**: Launch the Cockpit as an MCP server. |
 
 ---
 
@@ -36,25 +51,28 @@ Standard operational shortcuts aligned with the Trinity Persona Lenses.
 
 | Command (Make) | CLI Equivalent | Objective |
 | :--- | :--- | :--- |
-| `make audit-report` | `agent-ops audit report` | Full System Audit. |
-| `make audit-security`| `agent-ops audit security`| Adversarial Guard. |
-| `make deploy-sovereign`| `agent-ops deploy sovereign`| Global Factory. |
-| `make fleet-status` | `agent-ops fleet status` | SRE Dashboard. |
-| `make fleet-anomaly` | `agent-ops fleet anomaly` | Anomaly Oversight. |
-| `make smoke-test` | `agent-ops test smoke` | Pipe Validation. |
+| `make audit-report` | `agentops-cockpit audit report` | Full System Audit. |
+| `make audit-security`| `agentops-cockpit audit security`| Adversarial Guard. |
+| `make deploy-sovereign`| `agentops-cockpit deploy sovereign`| Global Factory. |
+| `make fleet-status` | `agentops-cockpit fleet status` | SRE Dashboard. |
+| `make fleet-watch` | `agentops-cockpit fleet watch` | Ecosystem Sync. |
+| `make fleet-anomaly` | `agentops-cockpit fleet anomaly` | Anomaly Oversight. |
+| `make smoke-test` | `agentops-cockpit test smoke` | Pipe Validation. |
+| `make test-regression`| `agentops-cockpit test regression`| Gate Certification. |
+| `make upgrade` | `uv sync --upgrade` | Package Synchronization. |
 
 ---
 
 ## 🧗 Hub-Based Sub-commands
-The CLI is now strictly hierarchical. Use `--help` on any hub to see detailed options.
+The CLI is strictly hierarchical. Use `--help` on any hub to see detailed options.
 
 ```bash
 # Get help for the audit hub
-agent-ops audit --help
+agentops-cockpit audit --help
 
-# Run a security scan for a specific folder
-agent-ops audit security ./my_agent
+# Run a security scan for a specific project
+agentops-cockpit audit security ./my_agent
 ```
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.6.0 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.6.7 Stable).*

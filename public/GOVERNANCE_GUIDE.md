@@ -24,25 +24,25 @@ OpenAI recommends "showing sources" for all grounded generations. The Cockpit's 
 
 ## 🔐 Secret Governance (The Vault)
 To maintain the highest level of trust, the Cockpit enforces a **Zero-Secret Policy** in source code.
-- **Automated Scanning**: The `make scan-secrets` command uses specialized regex to detect Google Cloud, AWS, and OpenAI keys before they are committed.
+- **Automated Scanning**: The `agentops-cockpit audit security` command uses specialized regex to detect Google Cloud, AWS, and OpenAI keys before they are committed.
 - **Abstraction**: We mandate the use of **Google Cloud Secret Manager** to abstract credentials from the runtime environment.
 - **Audit Failure**: The deployment pipeline is hard-coded to fail if any unencrypted keys are detected.
 
 ## 🎭 Face Architecture Review (UI/UX Trust)
-Governance extends to the **Face** (UI/UX) through the automated `ui-auditor`.
+Governance extends to the **Face** (UI/UX) through the automated `audit face` command.
 - **A2UI Protocol**: Ensures all streaming surfaces provide unique `surfaceId`s for downstream auditability.
 - **Accessibility (a11y)**: Mandates `aria-labels` on all agentic interactive triggers to ensure the interface is inclusive.
-- **Performance**: High-fidelity agents require low-latency UIs. We audit for large component trees and non-reactive patterns in **Angular** and **Lit**.
+- **Performance**: High-fidelity agents require low-latency UIs. We audit for performance bottlenecks in React/Vite/A2UI.
 
 ---
 
-## �️ Sentinel Oversight (v1.6 Watchtower)
+## 🕵️ Sentinel Oversight (v1.6.7 Watchtower)
 Governance is no longer a static "pre-flight" check. The Cockpit now provides **Active Runtime Governance** via the Sentinel Persona.
 - **Behavioral Fingerprinting**: Analyzes live telemetry to detect reasoning drift and "rogue" intent.
-- **Circuit Breakers**: Implements the `fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).
-- **Proactive Quarantine**: Automatically triggers `fleet mothball` for any agent that exceeds the critical risk threshold (0.85).
+- **Circuit Breakers**: Implements the `agentops-cockpit fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).
+- **Proactive Enforcement**: Automatically triggers `agentops-cockpit fleet mothball` for any agent that exceeds the critical risk threshold.
 
-## �📑 Audit Trail (The Ledger)
+## 📑 Audit Trail (The Ledger)
 We maintain a tamper-proof audit trail for every agent interaction:
 - **Complete Traces**: Log every `input`, `thought`, `tool_call`, and `response`.
 - **Identity Mapping**: Attach a unique `AgentID` and `UserID` to every log entry.
@@ -52,8 +52,8 @@ We maintain a tamper-proof audit trail for every agent interaction:
 
 ```bash
 # Verify the entire Command Hub Registry
-make smoke-test
+make test-regression
 
 # Run a live behavior audit
-make fleet-anomaly NAME=my-agent
+agentops-cockpit fleet anomaly --name my-agent
 ```

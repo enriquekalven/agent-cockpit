@@ -19,23 +19,19 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **FinOps Savings Projection**: Dollar-amount financial forecasting for token optimization.
 - [x] **Triple-State Situational Analysis**: Version-aware optimization for Legacy vs Modern SDKs.
 - [x] **Agent "Cockpit Score"**: A single grade (A-F) for production-readiness based on Well-Architected principles.
+- [x] **The ROI Predictor Waterfall**: Comparative analysis of TCO across model families (e.g., GPT-4 vs Gemini Flash) with reasoning-match validation.
 - [x] **Multi-Agent Orchestrator & Conflict Guard**: Support for Swarm patterns with cross-framework stability checks.
 - [ ] **VPC-Native Hive Mind**: Managed semantic caching for AlloyDB and Memorystore.
 - [ ] **Dynamic Model Routing**: Automatic switching between Flash and Pro based on prompt complexity and budget.
-- [ ] **The ROI Predictor Waterfall**: Comparative analysis of TCO across model families (e.g., GPT-4 vs Gemini Flash) with reasoning-match validation.
 - [ ] **Adversarial Hallucination Sandbox**: Live simulation of prompt injections in a safe "pre-flight" environment before deployment.
 
 ## 🎭 Phase 3: The Ecosystem (Quarter 3) - "Widespread Adoption"
 *Focus: Interoperability and community growth.*
 - [x] **Framework Connectors**: Governed audits for LangChain, CrewAI, AutoGen, and CopilotKit.
 - [x] **Native MCP Server Export**: Launch the Cockpit as a Model Context Protocol server.
+- [x] **The Maturity Matrix**: High-fidelity visualization of persona competence and persona status.
+- [x] **Sovereign Fleet Pipeline**: End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register) for 1 to 50+ agents with a single command.
 - [ ] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard.
-- [ ] **Proactive Copilot (LSP)**: A VS Code extension providing real-time "Architectural Debt" squiggles and auto-remediation suggestions.
-- [ ] **Deep-Fake Persona Detection**: Multilingual bypass engine to detect reasoning-layer leaks across 40+ languages.
-- [ ] **Drift Detection for Swarms**: Monitoring of version and configuration inconsistency across large-scale multi-agent deployments.
-- [ ] **Policy-as-Code (PaC) Registry**: "Terraform for Agents" sharing standardized, community-vetted policy packs.
-- [ ] **Visual Reasoning Trace**: Interactive dashboard for visualizing Chain-of-Thought (CoT) trajectories and tool execution paths.
-- [ ] **Sovereign Fleet Pipeline**: End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register) for 1 to 50+ agents with a single command.
 - [ ] **GCP Marketplace Integration**: Deploy the Cockpit as a managed service on Google Cloud.
 - [ ] **Plugin System**: Community-contributed tools and auditors.
 

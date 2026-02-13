@@ -70,18 +70,20 @@ graph TD
 
 ---
 
-## 🕹️ v1.6.6: The "Watchtower Standard" Release (LATEST)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.6.6 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.6.7: The "Watchtower Standard" Release (LATEST)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.6.7 Release Notes**](/CHANGELOG.md).
 The ultimate end-to-end management platform for professional AI agents. The Cockpit has been refactored into a **Sovereign Hub Hierarchy** for simplified operations.
 
-- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, scale with `mothball`/`resume`, and iterative with `tunnel`.
-- **🛡️ Audit Hub (`audit`)**: Principal SME Principal board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
+- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, watch ecosystem sync with `fleet watch`, and iterate with `fleet tunnel`.
+- **🛡️ Audit Hub (`audit`)**: Principal SME board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
 - **🧪 Reliability Hub (`test`)**: Regression and smoke validation. Run unit tests with `test unit`, persona journeys with `test smoke`, and adversarial user stress-testing with `test simulate`.
-- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-end pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
-- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue` or trigger the `fix evolve` "PR Closer".
+- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-End pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
+- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue`, trigger the `fix evolve` "PR Closer", or use the `fix workbench` for interactive remediation.
 - **🕵️ Sentinel Journey**: Reasoning-based runtime oversight. Identifies behavioral anomalies, suspicious intent, and tool misuse via `fleet anomaly`.
 - **🚨 Proactive Enforcement**: High-fidelity "Kill Switch". The Cockpit automatically mothballs agents that exhibit critical risks during runtime audits.
-- **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified Engine/Face/Cockpit projects via `create trinity`.
+- **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified projects via `create trinity` or UIs via `create face`.
+- **🧠 Knowledge Hub (`rag`)**: RAG Truth-Sayer. Audits RAG pipelines for grounding, fidelity, and retrieval-reasoning drift via `rag audit`.
+- **📡 Interop Hub (`mcp`)**: Tool Governance. Discover and integrate Model Context Protocol (MCP) tools via `mcp list/install`. Start the MCP bridge with `mcp-server launch`.
 
 ---
 

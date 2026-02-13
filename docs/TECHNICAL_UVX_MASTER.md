@@ -1,35 +1,47 @@
 # ⌨️ Master Guide: AgentOps UVX Commands
-## Portable Governance & Automation (v1.4.2 Stable)
+## Portable Governance & Automation (v1.6.7 Stable)
 
 This document provides a consolidated reference for all **`uvx`** commands available in the AgentOps ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing external repositories.
 
-The primary package is **`agentops-cockpit`**, which exposes the **`agentops-cockpit`** (alias `agent-ops`) binaries.
+The primary package is **`agentops-cockpit`**, which exposes the **`agentops-cockpit`** binary.
 
 ---
 
-## 🏗️ The Orchestration Engine (Primary Entry Points)
-We have simplified the command surface to focus on two main workflows: **Reporting** (Batch/CI) and **Auditing** (Interactive/Dev).
+## 🏗️ The Hub-Based Engine (Master Entry Points)
+We have simplified the command surface into logical hubs for high-fidelity operations.
 
-| Command | Objective | Mode/Flags |
+| Command | Objective | Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit report` | **Master Audit** | `--mode quick` (default) or `deep` |
-| `uvx agentops-cockpit audit` | **Interactive Audit** | Standard `agent.py` optimization loop. |
-| `uvx agentops-cockpit version` | **Version Check** | Display current CLI and Engine version. |
-| `uvx agentops-cockpit diagnose`| **System Check** | Verify GCP Auth and environment paths. |
+| `uvx agentops-cockpit audit report` | **Master Audit** | Launch multi-persona architecture, security, and cost reviews. |
+| `uvx agentops-cockpit audit security`| **Red Team** | Adversarial security evaluation and credential hygiene. |
+| `uvx agentops-cockpit deploy sovereign`| **Factory** | End-to-End: Audit -> Fix -> Hydrate -> Deploy. |
+| `uvx agentops-cockpit sys doctor` | **Health Check** | Verify GCP Auth, environment paths, and SDK versions. |
+| `uvx agentops-cockpit sys version` | **Version Sync** | Display core CLI and engine orchestration versions. |
 
 ---
 
-## 🧪 Specialized Shorthands
-While `report` is the recommended path, these shorthands provide direct access to persona-specific logic.
+## 🧪 Specialized Persona Shorthands
+Direct access to specialized SME logic via the `audit` hub.
 
 | Command | Objective | Key Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit arch` | **Architecture** | Google Well-Architected Framework scan. |
-| `uvx agentops-cockpit secrets` | **Security** | Zero-trust credential hygiene scan. |
-| `uvx agentops-cockpit quality` | **Quality** | Iterative Hill Climbing optimization loop. |
-| `uvx agentops-cockpit red-team` | **Red Team** | Adversarial security evaluation. |
-| `uvx agentops-cockpit face` | **UX/UI** | Face pillar (A2UI) protocol audit. |
-| `uvx agentops-cockpit mcp-server`| **Interop** | Launch the Model Context Protocol Hub. |
+| `uvx agentops-cockpit audit arch` | **Architecture** | AST-based Architecture Design Review. |
+| `uvx agentops-cockpit audit quality` | **Quality** | Iterative Hill Climbing optimization loop. |
+| `uvx agentops-cockpit audit face` | **UX/UI** | Face pillar (A2UI) protocol compliance audit. |
+| `uvx agentops-cockpit audit shadow` | **Differential** | Comparative reasoning analysis (V1 vs V2). |
+| `uvx agentops-cockpit audit context` | **Context** | Token strategy and Context Caching optimization. |
+
+---
+
+## 🧗 Remote Governance & Lifecycle
+Initialize and manage fleets across cloud boundaries.
+
+| Command | Objective | Flags |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Scaffold Engine + Face + Cockpit project. |
+| `uvx agentops-cockpit fleet status` | **SRE Dashboard** | View stateful registry of all deployed agents. |
+| `uvx agentops-cockpit fleet watch` | **Watcher** | Synchronize with latest ecosystem intelligence. |
+| `uvx agentops-cockpit mcp list` | **MCP Store** | Discover and integrate Model Context Protocol tools. |
 
 ---
 
@@ -38,22 +50,11 @@ Use filters to isolate specific results when running a full report.
 
 ```bash
 # Run only security and finops checks
-uvx agentops-cockpit report --only security --only finops
+uvx agentops-cockpit audit report --only security --only finops
 
 # Skip heavy benchmarks for fast CI feedback
-uvx agentops-cockpit report --skip quality --skip red-team
+uvx agentops-cockpit audit report --skip quality --skip red-team
 ```
-
----
-
-## 🚀 Scaffolding & Deployment
-Initialize new projects and push to Google Cloud with zero configuration.
-
-| Command | Objective | Flags |
-| :--- | :--- | :--- |
-| `uvx agentops-cockpit init` | **Trinity Scaffolder** | Scaffolds Engine + Face + Cockpit. |
-| `uvx agentops-cockpit deploy` | **1-Click Cloud Run** | Audit + Build + Deploy to Cloud Run. |
-| `uvx agentops-cockpit deploy-prod`| **Readiness Gate** | Full Deep Audit before production sync. |
 
 ---
 
@@ -62,8 +63,8 @@ If you encounter a **401 Unauthorized** error during `uvx`, the Cockpit automati
 
 ```bash
 # Manual Override:
-UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report
+UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit audit report
 ```
 
 ---
-*Generated by the AgentOps Cockpit. Global Automation Division (v1.4.2 Stable).*
+*Generated by the AgentOps Cockpit. Global Automation Division (v1.6.7 Stable).*

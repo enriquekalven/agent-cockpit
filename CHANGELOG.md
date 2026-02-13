@@ -2,6 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.7] - 2026-02-12
+
+### 🛰️ Deep Functional Auditing & Wisdom Store
+- **Functional Execution Gate**: Implemented a mandatory "Phase 2: Deep Functional CLI Audit" in the reliability engine. This move ensures that CLI command outputs (like `sys telemetry`) maintain schema integrity across updates.
+- **Maturity Wisdom Store v1.6.7**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
+- **Hub Command Expansion**: Formally expanded the CLI across 9 logical hubs, introducing dedicated `rag` and `mcp` orchestration layers.
+- **Lab Agent Hardening**: Standardized the Cockpit Lab environment with resilient `@retry` patterns and strict typing for the "Broken Agent" tutorial.
+
 ## [1.6.6] - 2026-02-12
 
 ### 🧪 Test Suite Hardening

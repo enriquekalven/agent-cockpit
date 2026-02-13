@@ -1,24 +1,24 @@
-# 🏛️ Technical Guide: Autonomous Architect Review v1.4.7 Stable
+# 🏛️ Technical Guide: Autonomous Architect Review v1.6.7 Stable
 ## The "Ecosystem Expansion" Standard
 
-The `make arch-review` engine has evolved into an **Autonomous Architect SME**. In v1.4, this persona oversees the **PR Scorecard CI/CD Action** and the **MCP Tool Store**, ensuring that every tool integration is secure, compliant, and documented.
+The `agentops-cockpit audit arch` engine has evolved into an **Autonomous Architect SME**. In v1.6, this persona oversees the **Sovereign Pipeline** and the **MCP Tool Store**, ensuring that every tool integration is secure, compliant, and documented.
 
 ---
 
 ## 🛠️ Operational Commands
 
-| Command | Lifecycle Phase | Impact | Technical Driver |
-| :--- | :--- | :--- | :--- |
-| `make arch-review` | **Evaluation** | Runs autonomous scan and generates ADR. | `arch_review.py` SME Orchestration |
-| `ops mcp` | **Governance** | v1.4: Registry for governed MCP tool integrations. | `mcp_store.py` (Tool Governance) |
-| `ops workbench` | **Evolution** | v1.4: TUI-based review of synthesized patches. | `workbench.py` (Patch Workbench) |
-| `make apply-fixes` | **Execution** | Trigger AST-based code synthesis. | `remediator.py` (The "Closer" Engine) |
+| Command | Hub | Impact |
+| :--- | :--- | :--- |
+| `make audit-arch` | `audit` | Runs autonomous scan and generates ADR report. |
+| `agentops-cockpit mcp list` | `mcp` | Registry for governed MCP tool integrations. |
+| `agentops-cockpit fix workbench`| `fix` | TUI-based review of synthesized patches. |
+| `agentops-cockpit fix evolve` | `fix` | Trigger AST-based code synthesis and PR generation. |
 
 ---
 
-## 🧠 What v1.0.0 "Autonomous Architect" Now Covers
+## 🧠 What v1.6 "Autonomous Architect" Now Covers
 
-The v1.0.0 surge introduces **Strategic Evolution** and **Synthetic Stress Testing**:
+The v1.6 release introduces **Strategic Evolution** and **Synthetic Stress Testing**:
 
 ### 1. 🚀 Context-Aware Synthesis (The Closer Engine)
 *   **The "Closer" Logic**: Operates on a **Synthesize-Validate-Verify** loop. The `CodeRemediator` transforms the Python AST to inject resiliency decorators (`@retry`), missing timeouts, and schema Literals.
@@ -27,33 +27,33 @@ The v1.0.0 surge introduces **Strategic Evolution** and **Synthetic Stress Testi
 
 ### 🧪 2. Digital Twin Stress Testing
 *   **Reasoning Degradation**: Monitors the **Contextual Thread Integrity**. If the agent loses the ability to reference message `n-5` under pressure, the Architect flags a "Reasoning Failure."
-*   **Synthetic Traffic**: Parallelized `swarm.py` execution simulates 100 adversarial users, identifying edge cases where tool-calling loops become non-deterministic.
+*   **Synthetic Traffic**: Parallelized `test simulate` execution simulates adversarial users, identifying edge cases where tool-calling loops become non-deterministic.
 
 ### 🌍 3. Multi-Cloud Exit & TCO (The Sovereign Score)
-The v1.3 Architect calculates a **Sovereignty Score (0.0 - 1.0)** based on:
-1.  **Vendor Lock-in TCO**: Quantifies the cost and effort of moving from Vertex AI to open-source (Gemma/vLLM).
+The v1.6 Architect calculates a **Sovereignty Score (0.0 - 1.0)** based on:
+1.  **Vendor Lock-in TCO**: Quantifies the cost and effort of moving between Vertex AI, AWS Bedrock, and Azure OpenAI.
 2.  **Data Resident Proximity**: Measures the latency overhead between the Model and the Vector DB.
 3.  **Exit Plan**: Automatically generates the "Exit Strategy" report for the CFO.
 
-### 🌊 4. Impact Waterfall (v1.3 Visual)
+### 🌊 4. Impact Waterfall (v1.6 Visual)
 The architect maps the **Cascading Failures** of an agentic workflow:
 *   **Reasoning Waterfall**: Visualizes how a 200ms delay in a sub-tool "Hops" can lead to a 5s delay in the final response.
 *   **Risk Waterfall**: Projects how a single PII leak in a tool output can compromise the entire conversation audit log.
 
-### 🔍 5. Multi-Target Recursive Discovery (v1.3.1)
+### 🔍 5. Multi-Target Recursive Discovery (v1.6)
 The Architect now supports distributed project structures:
 - **Global `targets` Support**: Define multiple entry points via `cockpit.yaml` to audit entire agent fleets in parallel.
-- **Template Isolation**: Intelligently ignores Jinja/Cookiecutter placeholders to focus on the active execution path.
+- **Template Isolation**: Intelligently ignores boilerplate placeholders to focus on the active execution path.
 
 ---
 
-## 🏛️ v1.0.0 Strategic Action Plan
+## 🏛️ v1.6 Strategic Action Plan
 
-The v1.0.0 ADR transforms gaps into **Strategic ROI**:
+The v1.6 Architecture Review transforms gaps into **Strategic ROI**:
 
-1.  **Autonomous Fix**: Context-aware fix synthesized for detected resiliency issues in `agent.py`.
-2.  **Simulation Result**: 12% probability of "Reasoning Failure" detected under 5s latency spike.
-3.  **TCO Report**: -12% OpEx projected by pivoting to Gemma 2. Exit effort: 14 lines.
+1.  **Autonomous Fix**: Context-aware fix synthesized for detected resiliency issues via `fix evolve`.
+2.  **Simulation Result**: Persona-based validation detected reasoning failures under high concurrency.
+3.  **TCO Report**: OpEx optimization projected by pivoting to optimized models or local hosting.
 
 ---
-*Generated by the AgentOps Cockpit v1.4.7 Stable. Autonomous Architect Division.*
+*Generated by the AgentOps Cockpit v1.6.7 Stable. Autonomous Architect Division.*
