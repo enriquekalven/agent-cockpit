@@ -1,7 +1,7 @@
 # 🎭 Technical Guide: Face Auditor & A2UI Protocol
 ## The "Standardized Ecosystem" Standard (v1.4.7 Stable)
 
-The `make ui-audit` command activates the **UX/UI Principal Designer** persona. This SME specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is not just a static dashboard, but a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide high-fidelity visual feedback and seamless surface transitions to maintain user trust.
+The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **UX/UI Principal Designer** persona. This SME specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is not just a static dashboard, but a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide high-fidelity visual feedback and seamless surface transitions to maintain user trust.
 
 ---
 
@@ -9,10 +9,10 @@ The `make ui-audit` command activates the **UX/UI Principal Designer** persona. 
 
 | Command | Objective | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make ui-audit` | **GenUI Component Scan**| Scans React/TS code for `surfaceId` mapping and A2UI triggers. | `ui_auditor.py` (React AST parser) |
-| `make smoke-test` | **Interactive Journey** | Validates the "Face" logic during E2E persona journey simulations. | `cypress` / `playwright` (Mocked) |
-| `make audit` | **UX Baseline** | Includes a summary of Face Auditor findings in the daily report. | `audit.py` Integration |
-| `make maturity`| **Expertise Matrix**| Displays the Cockpit's UX competency and persona status (v1.4.7). | `ops audit-maturity` |
+| `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide UX health and interface maturity summary. | Unified Master Dashboard. |
+| `agentops-cockpit audit report`| **GenUI Component Scan**| Scans React/TS code for `surfaceId` mapping and A2UI triggers. | `ui_auditor.py` (React AST parser) |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final validation of the "Face" pillar for production. | The 🏅 Certification Checklist. |
+| `agentops-cockpit test regression`| **Reliability Check** | Ensures UX logic stays stable across core persona journeys. | Regression Test Suite. |
 
 ---
 

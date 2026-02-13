@@ -1,16 +1,44 @@
+"""
+Pillar: Governance & Structural Wisdom
+SME Persona: Distinguished Semantic Fellow
+Objective: Provides base primitives for all auditing logic within the AgentOps Cockpit.
+"""
 from tenacity import retry, wait_exponential, stop_after_attempt
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
+
 import ast
 import re
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 class AuditFinding:
-    def __init__(self, category: str, title: str, description: str, impact: str, roi: str, line_number: int = 0, file_path: str = "", severity: str = "MEDIUM"):
+    """
+    Representation of a single architectural or tactical finding.
+    
+    Attributes:
+        category: The hub category (Security, FinOps, Architecture, etc.)
+        title: Short descriptive title of the issue.
+        description: Detailed explanation and strategic move.
+        impact: Qualitative assessment of the risk (LOW, MEDIUM, HIGH, CRITICAL).
+        roi: The business value or technical gain from fixing the issue.
+        line_number: Source code line where the issue was detected.
+        file_path: Absolute or relative path to the file.
+        severity: Quantitative urgency for remediation.
+    """
+    def __init__(
+        self, 
+        category: str, 
+        title: str, 
+        description: str, 
+        impact: str, 
+        roi: str, 
+        line_number: int = 0, 
+        file_path: str = "", 
+        severity: str = "MEDIUM"
+    ):
         self.category = category
         self.title = title
         self.description = description
@@ -21,8 +49,20 @@ class AuditFinding:
         self.severity = severity
 
 class BaseAuditor(ABC):
+    """
+    Abstract base class for all Cockpit auditors.
+    Enforces a standardized interface for AST and heuristic-based scanning.
+    """
     @abstractmethod
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        """
+        Performs the audit logic and returns a list of findings.
+        
+        Args:
+            tree: The parsed Abstract Syntax Tree of the file.
+            content: The raw string content of the file.
+            file_path: The path to the file being audited.
+        """
         pass
 
     def _is_ignored(self, line_number: int, content: str, title: str) -> bool:

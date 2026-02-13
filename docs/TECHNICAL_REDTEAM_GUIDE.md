@@ -1,6 +1,6 @@
 ## The "Adversarial SRE" Standard (v1.4.7 Stable)
 
-The `make red-team` command activates the **Red Team Principal**. In v1.3.5, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
+The `agentops-cockpit certify` and `agentops-cockpit audit security` commands activate the **Red Team Principal**. In v1.8.2, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
 
 ---
 
@@ -8,10 +8,10 @@ The `make red-team` command activates the **Red Team Principal**. In v1.3.5, thi
 
 | Command | Objective | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make scan-secrets` | **Zero-Trust Hygiene** | Scans codebase for hardcoded keys and tokens. | `secret_scanner.py` (SecOps SME) |
-| `make red-team` | **Adversarial Probing** | Unleashes simulated attacks against logic filters. | `red_team.py` (v1.3.5: Golden Sets) |
-| `make audit` | **Security Baseline** | Daily safe-build check for prompt hygiene. | `audit.py` (v1.3.5: Pre-flight) |
-| `make simulation-run`| **Digital Twin Test** | Runs 100+ agents to stress-test **Reasoning Stability**. | `swarm.py` Execution Layer |
+| `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide security posture summary. | Unified Master Dashboard. |
+| `agentops-cockpit audit security`| **Adversarial Probing** | Scans for hardcoded secrets and logic vulnerabilities. | `SecurityAuditor` & `SecretScanner`. |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Security + Stability). | The 🏅 Certification Checklist. |
+| `agentops-cockpit test simulate`| **Digital Twin Test** | Runs 100+ agents to stress-test **Reasoning Stability**. | User Persona Simulation. |
 
 ---
 

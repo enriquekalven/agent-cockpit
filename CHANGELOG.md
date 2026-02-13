@@ -4,6 +4,12 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.8.2] - 2026-02-13
 
+### 🏛️ The "One Command" Sovereign Strategy
+- **Master Entry Point**: Established `agentops-cockpit cockpit` as the primary entry point, defaults to the **Master Cockpit Dashboard**.
+- **Hero Command: `certify`**: Promoted the certification checklist to a top-level command for production-readiness verification.
+- **Hero Command: `mcp blueprint`**: Launched the modernization engine for auto-generating MCP server wrappers from legacy tools.
+- **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
+
 ### 🧠 Strategic Architectural Paradigm Auditor
 - **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
 - **Pattern: Structured Data Math via Prompt**: Automatically detects when an agent tries to perform arithmetic over raw CSV/JSON text. Recommends **NL2SQL** or **Code Interpreter**.

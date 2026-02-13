@@ -1,6 +1,6 @@
 ## The "Economic Sustainability" Standard (v1.4.7 Stable)
 
-The `make optimizer-audit` and `ops roi` commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
+The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
 
 ### 💼 The Persona's Mandate
 The FinOps Principal doesn't just look at line items; they evaluate the **Unit Economics of Intelligence**. Their goal is to maximize **Reasoning Density**—the ratio of task completion quality over token expenditure—ensuring that every cent spent on inference generates measurable business value.
@@ -11,11 +11,10 @@ The FinOps Principal doesn't just look at line items; they evaluate the **Unit E
 
 | Command | Objective | Impact | Technical Implementation |
 | :--- | :--- | :--- | :--- |
-| `ops roi waterfall`| **Cost Projection** | v1.4: Modeling cost-per-task and model-tier optimization pivots. | Analysis of Evidence Lake telemetry and token distribution. |
-| `make optimizer-audit` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. | Uses `ast` to detect large prompt constants and `router` patterns. |
-| `make arch-review` | **Strategic Pivot Audit** | Recommends structural shifts (e.g., GPT-4 to Gemma2) to maximize ROI. | `PivotAuditor` heuristics for model-compute-protocol alignment. |
-| `ops report` | **Optimization** | v1.4: Generates the HTML dashboard with maturity radar visualization. | Comprehensive view of economic vs. capability health. |
-| `make apply-fixes` | **Auto-Remediation** | Triggers the `CodeRemediator` to inject caching and compaction patterns. | `CodeRemediator` AST injection of `@retry` and `ContextCacheConfig`. |
+| `agentops-cockpit cockpit`| **Mission Control** | v1.8: Real-time cost oversight and fleet health summary. | Unified dashboard with persona-based ROI summaries. |
+| `agentops-cockpit audit report` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. | Uses `ast` to detect large prompt constants and `router` patterns. |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Tests + Costs + Security). | Comprehensive view of economic vs. capability health. |
+| `agentops-cockpit deploy sovereign` | **Factory** | End-to-End flow: Audit -> Auto-Fix -> Deploy. | Triggers high-margin multi-cloud hydration. |
 
 ---
 

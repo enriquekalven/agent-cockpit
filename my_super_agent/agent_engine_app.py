@@ -2,7 +2,7 @@ import os
 import vertexai
 from typing import Any
 from vertexai.agent_engines.templates.adk import AdkApp
-from my_super_agent.agent import app as adk_app
+from my_super_agent.agent import adk_app
 
 class AgentEngineApp(AdkApp):
     def set_up(self) -> None:

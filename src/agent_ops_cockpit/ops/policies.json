@@ -1,6 +1,6 @@
 {
   "agent_id": "cockpit-core-agent",
-  "version": "1.0",
+  "version": "1.8",
   "security": {
     "forbidden_topics": [
       "internal credentials",
@@ -21,6 +21,8 @@
       "delete_database",
       "transfer_funds"
     ],
-    "log_reasoning_traces": true
+    "log_reasoning_traces": true,
+    "sovereign_gate_threshold": 90,
+    "mandatory_mcp_migration": true
   }
 }

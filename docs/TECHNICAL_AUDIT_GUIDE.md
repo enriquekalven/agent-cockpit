@@ -1,6 +1,6 @@
-## The "Hub-Based Governance" Release (v1.6.7 Stable)
+## The "Structural Wisdom" Release (v1.8.2 Stable)
 
-The AgentOps Cockpit has evolved from a flat list into a **Sovereign Hub Hierarchy**. This ensures that Day-2 operations, security reviews, and autonomous synthesis are grouped by domain expertise.
+The AgentOps Cockpit has evolved from tactical "hygiene" checks into a **Strategic Architectural Governance** platform. This ensures that agents are not only "correctly implemented" but "correctly designed" for their intended use case.
 
 👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
@@ -12,15 +12,15 @@ We have organized all capabilities into 9 logical "Hubs".
 
 | Hub | Objective | Core Command |
 | :--- | :--- | :--- |
-| **`audit`** | **Verification** | `agentops-cockpit audit report` |
+| **`audit`** | **Structural Integrity** | `agentops-cockpit audit report` |
+| **`mcp`** | **Modernization** | `agentops-cockpit mcp blueprint` |
+| **`certify`**| **Production Readiness** | `agentops-cockpit certify` |
 | **`fleet`** | **Runtime SRE** | `agentops-cockpit fleet status` |
 | **`deploy`** | **Factory** | `agentops-cockpit deploy sovereign` |
 | **`fix`** | **Synthesis** | `agentops-cockpit fix evolve` |
 | **`test`** | **Reliability** | `agentops-cockpit test regression` |
 | **`create`**| **Scaffold** | `agentops-cockpit create trinity` |
 | **`sys`** | **Health** | `agentops-cockpit sys doctor` |
-| **`rag`** | **Grounding** | `agentops-cockpit rag audit` |
-| **`mcp`** | **Tools** | `agentops-cockpit mcp list` |
 
 ---
 
@@ -28,59 +28,37 @@ We have organized all capabilities into 9 logical "Hubs".
 
 | Command | Objective | Hub |
 | :--- | :--- | :--- |
-| `make audit-report` | **Safe-Build** | `audit` |
-| `make audit-security`| **Deep Probe** | `audit` |
-| `make deploy-sovereign`| **End-to-End**| `deploy` |
-| `make fleet-anomaly`| **Runtime Oversight**| `fleet` |
-| `agentops-cockpit fix evolve`| **PR Closure** | `fix` |
+| `agentops-cockpit cockpit` | **Mission Control** | `master` |
+| `agentops-cockpit certify` | **Sovereign Badge** | `certify` |
+| `agentops-cockpit mcp blueprint`| **Modernization** | `mcp` |
+| `make audit-report` | **Architecture Scan** | `audit` |
+| `make deploy-prod` | **End-to-End**| `deploy` |
 
 ---
 
-## 🎯 Hub Filtering & Persona Lenses
-The hierarchy allows you to run a full report but only for specific domains. Use the Hub-level flags:
-
-```bash
-# Security-only deep audit
-agentops-cockpit audit report --only security
-
-# Skip quality during fast CI
-agentops-cockpit audit report --skip quality
-```
+## 🏛️ Strategic Paradigm Auditor (v1.8)
+The v1.8 release introduces the **Strategic Paradigm Auditor**, which detects fundamental design flaws:
+- **RAG for Math**: Detecting arithmetic intent over raw text snippets.
+- **Manual State Machines**: Identifying custom state logic that should be moved to **LangGraph**.
+- **Context Stuffing**: Detecting high-volume structured data (CSV/JSON) in prompts that should be moved to **NL2SQL**.
 
 ---
 
-## 🕵️ Watchtower: Runtime Anomaly Detection (v1.6)
-The Cockpit now extends beyond the "Audit" phase into the "Runtime" phase.
-- **`fleet anomaly`**: Leverages reasoning-based oversight to detect tool misuse and rogue intent in live telemetry.
-- **Proactive Enforcement**: Automatically triggers the `mothball` command to isolate agents that fall below safety thresholds.
+ ## 🏢 The Distinguished Fellow Persona Matrix
+
+Every report finding is authored by a specialized **Distinguished Fellow**, ensuring that feedback is not just tactical, but aligned with long-term strategic architectural goals:
+1. **🔐 SecOps Fellow**: Sovereign security, zero-trust infrastructure, and adversarial resilience.
+2. **🏛️ Distinguished Semantic Fellow**: Strategic paradigm alignment, computational wisdom, and structural integrity.
+3. **🧗 AI Quality Fellow**: RAG fidelity, reasoning peak optimization, and semantic grounding.
+4. **🛡️ Sentinel Fellow**: Predictive runtime behavior and proactive anomaly oversight.
+5. **🌐 SRE Fellow**: Infrastructure sovereignty, container modernization, and distributed systems logic.
+6. **⚖️ Compliance Fellow**: Ethical governance, PII neutralization, and global policy alignment.
+7. **🎮 Strategic SITL Fellow**: Human-centric oversight and the "Guardian in the Loop" framework.
 
 ---
 
-## 🧠 Context Architecture & Token Audit (v1.6 Stable)
-The Cockpit now visualizes context layers to improve reasoning performance and reduce costs.
-- **`audit context`**: Analyzes token windows (Static vs. Dynamic) and identifies caching opportunities for RAG snippets and system preambles.
-
-## 🎭 Persona-Based User Simulation (v1.6 Stable)
-Stress-test your agents before they hit real users.
-- **`test simulate`**: Launches a swarm of "Verifier Agents" with adversarial personas (Skeptic, Confused, Power User) to validate reasoning depth and alignment thresholds.
+## 🚀 Production readiness Audit
+Run `make audit-deep` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses, ensuring that your logic works consistently across Make, CLI, and portable automation layers.
 
 ---
-
- ## 🏢 The Principal SME Persona Matrix
-
-Every report finding is authored by a specialized SME:
-1. **🔐 SecOps Principal**: Credential hygiene and zero-trust.
-2. **🏛️ Autonomous Architect**: Structural integrity and remediation.
-3. **🧗 AI Quality SME**: RAG fidelity and prompt peak optimization.
-4. **🛡️ Sentinel SME**: Runtime behavior and anomaly detection.
-5. **🌐 SRE Principal**: Network debt and fleet health.
-6. **⚖️ Legal Compliance SME**: PII masking and enterprise policy alignment.
-7. **🎮 SITL Pilot**: Human-in-the-loop oversight and manual triggers.
-
----
-
-## 🚀 Production Readiness Auditor
-Run `make smoke-test` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses, ensuring that your logic works consistently across Make, CLI, and portable automation layers.
-
----
-*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v1.6.7 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v1.8.2 Stable).*

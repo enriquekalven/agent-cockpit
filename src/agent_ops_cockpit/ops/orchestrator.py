@@ -1,3 +1,8 @@
+"""
+Pillar: Fleet Orchestration
+SME Persona: Distinguished Platform Fellow
+Objective: Orchestrates autonomous audits, evidence packing, and remediation loops across the agent fleet.
+"""
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -137,7 +142,20 @@ class CockpitOrchestrator:
             self.results[name] = {'success': False, 'output': str(e)}
             progress.update(task_id, description=f'[red]💥 {name} Error', completed=100)
             return (name, False)
-    PERSONA_MAP = {'Architecture Review': '🏛️ Principal Platform Engineer', 'Policy Enforcement': '⚖️ Governance & Compliance SME', 'Secret Scanner': '🔐 SecOps Principal', 'Token Optimization': '💰 FinOps Principal Architect', 'Reliability (Quick)': '🛡️ QA & Reliability Principal', 'Quality Hill Climbing': '🧗 AI Quality SME', 'Red Team Security (Full)': '🚩 Red Team Principal (White-Hat)', 'Red Team (Fast)': '🚩 Security Architect', 'Load Test (Baseline)': '🚀 SRE & Performance Principal', 'Evidence Packing Audit': '📜 Legal & Transparency SME', 'Face Auditor': '🎭 UX/UI Principal Designer', 'RAG Fidelity Audit': '🧗 RAG Quality Principal'}
+    PERSONA_MAP = {
+        'Architecture Review': '🏛️ Distinguished Platform Fellow',
+        'Policy Enforcement': '⚖️ Governance & Compliance Fellow',
+        'Secret Scanner': '🔐 SecOps Fellow',
+        'Token Optimization': '💰 FinOps Fellow',
+        'Reliability (Quick)': '🛡️ QA & Reliability Fellow',
+        'Quality Hill Climbing': '🧗 AI Quality Fellow',
+        'Red Team Security (Full)': '🚩 Red Team Fellow (White-Hat)',
+        'Red Team (Fast)': '🚩 Security Fellow',
+        'Load Test (Baseline)': '🚀 SRE & Performance Fellow',
+        'Evidence Packing Audit': '📜 Legal & Transparency Fellow',
+        'Face Auditor': '🎭 UX/UI Fellow',
+        'RAG Fidelity Audit': '🧗 RAG Quality Fellow'
+    }
     PRIMARY_RISK_MAP = {'Secret Scanner': 'Credential Leakage & Unauthorized Access', 'Architecture Review': 'Systemic Rigidity & Technical Debt', 'Policy Enforcement': 'Prompt Injection & Reg Breach', 'Token Optimization': 'FinOps Efficiency & Margin Erosion', 'Reliability (Quick)': 'Failure Under Stress & Latency spikes', 'Red Team (Fast)': 'Adversarial Jailbreaking', 'Face Auditor': 'A2UI Protocol Drift', 'RAG Fidelity Audit': 'Retrieval-Reasoning Hallucinations'}
     EFFORT_MAP = {'Secret Scanner': '⚡ 1-Click (Env Var)', 'Token Optimization': '⚡ 1-Click (Caching)', 'Policy Enforcement': '🔧 Medium (Policies)', 'Reliability (Quick)': '🔧 Medium (Code)', 'Architecture Review': '🏗️ Hard (Structural)', 'Face Auditor': '🔧 Medium (A2UI)', 'Red Team (Fast)': '🏗️ Hard (Model/Prompt)', 'RAG Fidelity Audit': '🔧 Medium (Logic)'}
 
@@ -194,7 +212,7 @@ class CockpitOrchestrator:
             return '\n'.join(summary)
         else:
             health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-            summary = [f'## 👔 Principal SME Executive Summary (TLDR: {health_score:.1f}%)']
+            summary = [f'## 👔 Distinguished Fellow Executive Summary (TLDR: {health_score:.1f}%)']
             summary.append('Findings are prioritized by Business Impact & Blast Radius.')
             headers = {0: '### 🟥 Priority 1: 🔥 Critical Security & Compliance (Action Required)', 1: '### 🟨 Priority 2: 🛡️ Reliability & Resilience (Stability)', 2: '### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)', 3: '### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)', 4: '### ⬜ Priority 5: 🎭 Experience & Minor Refinements'}
             p_found = False
@@ -245,7 +263,7 @@ class CockpitOrchestrator:
         if getattr(self, 'plain', False):
             console.print(f'--- SME Executive Summary ---\n{summary_text}\n-----------------------------')
         else:
-            console.print(Panel(summary_text, title='👔 Principal SME Executive Summary', border_style='blue'))
+            console.print(Panel(summary_text, title='👔 Distinguished Fellow Executive Summary', border_style='blue'))
         title = '🔍 Key Findings & Tactical Recommendations'
         if getattr(self, 'plain', False):
             console.print(f'\n{title}')
@@ -288,7 +306,7 @@ class CockpitOrchestrator:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
         report.extend(self.generate_executive_summary(developer_actions))
         report.append('\n---')
-        report.append('\n## 🧑\u200d💼 Principal SME Persona Approvals')
+        report.append('\n## 🧑\u200d💼 Distinguished Fellow Persona Approvals')
         report.append('Each pillar of your agent has been reviewed by a specialized SME persona.')
         persona_table = Table(title='🏛️ Persona Approval Matrix', show_header=True, header_style='bold blue')
         persona_table.add_column('SME Persona', style='cyan')
@@ -376,7 +394,7 @@ class CockpitOrchestrator:
             raw_out = data['output'][-2000:] if data['output'] else 'No output.'
             report.append(raw_out)
             report.append('```')
-        report.append('\n\n*Generated by the AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard).*')
+        report.append(f'\n*Generated by the AgentOps Cockpit Orchestrator (v1.8.2 Stable). Distinguished Fellow Strategic Council.*')
         console.print('\n', persona_table)
         self.print_terminal_v13_summary(developer_actions)
         with open(self.report_path, 'w') as f:
@@ -495,8 +513,45 @@ class CockpitOrchestrator:
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def _generate_html_report(self, developer_actions, developer_sources):
-        """Generates a v1.2 Principal SME Grade HTML report with Professional Mode toggle."""
-        html_content = f"""\n        <!DOCTYPE html>\n        <html lang="en">\n        <head>\n            <meta charset="UTF-8">\n            <title>Principal SME Audit: {getattr(self, 'title', 'Build Report')}</title>\n            <style>\n                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');\n                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f1f5f9; }}\n                .report-card {{ background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }}\n                \n                /* Professional Mode Toggle */\n                .mode-toggle {{ position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }}\n                #prof-mode-checkbox {{ cursor: pointer; }}\n                body.prof-mode .report-card {{ border-top: 8px solid #1e3a8a; border-radius: 8px; }}\n                body.prof-mode h1 {{ font-family: 'Georgia', serif; letter-spacing: 0; }}\n\n                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}\n                \n                h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}\n                h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}\n                \n                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }}\n                .pass {{ background: #dcfce7; color: #166534; }}\n                .fail {{ background: #fee2e2; color: #991b1b; }}\n                .warning {{ background: #fef9c3; color: #854d0e; }}\n\n                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }}\n                th, td {{ text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }}\n                th {{ background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }}\n                \n                .persona-table th {{ background: #f0f9ff; color: #0369a1; }}\n                .risk-text {{ font-size: 0.8rem; color: #64748b; font-style: italic; }}\n\n                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }}\n                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}\n                \n                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}\n            </style>\n        </head>\n        <body>\n            <div class="report-card">\n                <div class="mode-toggle">\n                    <label for="prof-mode-checkbox">Professional Mode</label>\n                    <input type="checkbox" id="prof-mode-checkbox" onchange="document.body.classList.toggle('prof-mode')">\n                </div>\n\n                <header>\n                    <div>\n                        <h1>🏛️ SME Executive Review</h1>\n                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Protocol: {getattr(self, 'title', 'Principal Build')}</p>\n                        <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">\n                            Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}\n                        </span>\n                    </div>\n                </header>\n\n                <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #e2e8f0;">\n                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#64748b;">Board-Level Executive Summary</h3>\n                    <div style="font-size:1.05rem;">\n                        {self.generate_executive_summary(developer_actions, as_html=True)}\n                    </div>\n                </div>\n\n                <h2>🧑\u200d💼 Principal SME Persona Approval Matrix</h2>\n                <table class="persona-table">\n                    <thead>\n                        <tr>\n                            <th>SME Persona</th>\n                            <th>Priority</th>\n                            <th>Primary Business Risk</th>\n                            <th>Module</th>\n                            <th>Verdict</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n        """
+        """Generates a v1.8.2 Distinguished Fellow Grade HTML report with Professional Mode toggle."""
+        html_content = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Distinguished Fellow Audit: {getattr(self, 'title', 'Build Report')}</title>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');
+                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f1f5f9; }}\n                .report-card {{ background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }}\n                \n                /* Professional Mode Toggle */\n                .mode-toggle {{ position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }}\n                #prof-mode-checkbox {{ cursor: pointer; }}\n                body.prof-mode .report-card {{ border-top: 8px solid #1e3a8a; border-radius: 8px; }}\n                body.prof-mode h1 {{ font-family: 'Georgia', serif; letter-spacing: 0; }}\n\n                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}\n                \n                h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}\n                h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}\n                \n                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }}\n                .pass {{ background: #dcfce7; color: #166534; }}\n                .fail {{ background: #fee2e2; color: #991b1b; }}\n                .warning {{ background: #fef9c3; color: #854d0e; }}\n\n                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }}\n                th, td {{ text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }}\n                th {{ background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }}\n                \n                .persona-table th {{ background: #f0f9ff; color: #0369a1; }}\n                .risk-text {{ font-size: 0.8rem; color: #64748b; font-style: italic; }}\n\n                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }}\n                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}\n                \n                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}\n            </style>\n        </head>\n        <body>\n            <div class="report-card">\n                <div class="mode-toggle">\n                    <label for="prof-mode-checkbox">Professional Mode</label>\n                    <input type="checkbox" id="prof-mode-checkbox" onchange="document.body.classList.toggle('prof-mode')">\n                </div>\n\n                <header>
+                    <div>
+                        <h1>🏛️ Distinguished Fellow Review</h1>
+                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Protocol: {getattr(self, 'title', 'Principal Build')}</p>
+                        <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
+                            Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
+                        </span>
+                    </div>
+                </header>
+
+                <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#64748b;">Board-Level Executive Summary</h3>
+                    <div style="font-size:1.05rem;">
+                        {self.generate_executive_summary(developer_actions, as_html=True)}
+                    </div>
+                </div>
+
+                <h2>🧑‍💼 Distinguished Fellow Persona Approval Matrix</h2>
+                <table class="persona-table">
+                    <thead>
+                        <tr>
+                            <th>SME Persona</th>
+                            <th>Priority</th>
+                            <th>Primary Business Risk</th>
+                            <th>Module</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        """
         for name, data in self.results.items():
             persona = self.PERSONA_MAP.get(name, 'Automated Auditor')
             risk = self.PRIMARY_RISK_MAP.get(name, 'Architectural Neutrality')

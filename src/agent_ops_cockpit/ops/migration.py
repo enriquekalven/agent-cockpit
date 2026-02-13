@@ -58,9 +58,8 @@ class MigrationEngine:
         }
         cloud_header = header_map.get(target_cloud, "# v1.6.7 Multi-Cloud Optimized Agent\n")
         
-        # Remove any existing Sovereign Alignment header
-        if "Sovereign Alignment" in remediator.content:
-            remediator.content = re.sub(r"^# v1\.4\..+ Sovereign Alignment: .+\n", "", remediator.content)
+        # Remove any existing Sovereign Alignment header (any version)
+        remediator.content = re.sub(r"^# v\d+\.\d+\.\d+(?:\.\d+)? Sovereign Alignment: .+\n", "", remediator.content, flags=re.MULTILINE)
         
         remediator._add_edit(1, 0, 1, 0, cloud_header)
 
@@ -101,6 +100,9 @@ class MigrationEngine:
         remediator.apply_resiliency(type('Finding', (), {'line_number': 1}))
 
         # 4. A2A Enablement (If target is not Google Cloud or explicitly requested)
+        # Remove existing A2A blocks to prevent accumulation
+        remediator.content = re.sub(r"\n# A2A Handbook Interface \(Sovereign Multi-Cloud enabled\)\nasync def a2a_handshake\(\):\n    return \{'status': 'ALIVE', 'protocol': 'A2UI', 'cloud': '.*'\}\n", "", remediator.content)
+
         if target_cloud != 'google':
             remediator.content += "\n# A2A Handbook Interface (Sovereign Multi-Cloud enabled)\n"
             remediator.content += "async def a2a_handshake():\n    return {'status': 'ALIVE', 'protocol': 'A2UI', 'cloud': '" + target_cloud + "'}\n"

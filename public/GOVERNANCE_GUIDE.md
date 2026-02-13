@@ -42,6 +42,12 @@ Governance is no longer a static "pre-flight" check. The Cockpit now provides **
 - **Circuit Breakers**: Implements the `agentops-cockpit fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).
 - **Proactive Enforcement**: Automatically triggers `agentops-cockpit fleet mothball` for any agent that exceeds the critical risk threshold.
 
+## 🏛️ Strategic Paradigm Governance (v1.8.2 Structural Wisdom)
+Governance moves beyond tactical implementation to **Strategic Paradigm Alignment**. The Cockpit now audits the fundamental design of your agent.
+- **Paradigm Mismatch Detection**: Identifying structural flaws like "RAG for Math" or "Prompt-Stuffed Structured Data."
+- **Data Flow Tracing**: AST-based "Source-to-Sink" analysis (The "God Move") to detect if raw database objects are being "stuffed" into context windows.
+- **Architectural Guidance**: Shifting from "linting errors" to "strategic pivots," recommending NL2SQL, LangGraph, or specialized MCP tools when implementation intent is missed.
+
 ## 📑 Audit Trail (The Ledger)
 We maintain a tamper-proof audit trail for every agent interaction:
 - **Complete Traces**: Log every `input`, `thought`, `tool_call`, and `response`.
@@ -52,7 +58,7 @@ We maintain a tamper-proof audit trail for every agent interaction:
 
 ```bash
 # Verify the entire Command Hub Registry
-make test-regression
+agentops-cockpit test regression
 
 # Run a live behavior audit
 agentops-cockpit fleet anomaly --name my-agent

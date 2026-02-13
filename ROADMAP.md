@@ -18,9 +18,11 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Audit-to-Action (Auto-Fix)**: Direct code injection of production best-practices via CLI.
 - [x] **FinOps Savings Projection**: Dollar-amount financial forecasting for token optimization.
 - [x] **Triple-State Situational Analysis**: Version-aware optimization for Legacy vs Modern SDKs.
-- [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) for production-readiness with the official `agentops-cockpit sys certify` operational checklist.
+- [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) for production-readiness with the official `agentops-cockpit certify` operational checklist.
 - [x] **The ROI Predictor Waterfall**: Comparative analysis of TCO across model families (e.g., GPT-4 vs Gemini Flash) with reasoning-match validation.
 - [x] **Multi-Agent Orchestrator & Conflict Guard**: Support for Swarm patterns with cross-framework stability checks.
+- [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math, Prompt-Stuffed Analysis) via the **Principal Semantic Architect** (v1.8.2).
+- [x] **"One Command" Sovereignty**: Unified the entry point into the Master Cockpit Dashboard.
 - [ ] **VPC-Native Hive Mind**: Managed semantic caching for AlloyDB and Memorystore.
 - [ ] **Dynamic Model Routing**: Automatic switching between Flash and Pro based on prompt complexity and budget.
 - [ ] **Adversarial Hallucination Sandbox**: Live simulation of prompt injections in a safe "pre-flight" environment before deployment.

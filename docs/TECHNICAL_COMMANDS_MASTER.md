@@ -1,30 +1,28 @@
 # 🕹️ Master Guide: AgentOps Cockpit Commands
-## The "Watchtower Standard" Hub Registry (v1.6.9 Stable)
+## The "Structural Wisdom" Hub Registry (v1.8.2 Stable)
 
-This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It follows the **Sovereign Hub Hierarchy** introduced in v1.6.
+This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It follows the **Sovereign Hub Hierarchy** and incorporates the v1.8 Strategic Paradigm Auditor.
 
 ---
 
 ## 🏗️ The Hub Registry (CLI)
-The CLI is organized into 9 logical "Hubs" for high-fidelity operations.
+The CLI is organized into logical "Hubs" for high-fidelity operations.
 
 | Hub | Command | Objective |
 | :--- | :--- | :--- |
 | `audit` | `report` | **Master Audit**: Launch multi-persona architecture, security, and cost reviews. |
 | | `security` | **Guardian**: Red Team adversarial evaluation and secret scanning. |
 | | `quality` | **Optimizer**: Run Hill Climbing quality optimization cycles. |
-| | `arch` | **Strategist**: AST-based architecture and design review. |
+| | `arch` | **Strategic Architect**: Detect paradigm mismatches (RAG for Math, etc.). |
 | | `context` | **Architect**: Visualize Token window usage and Caching efficiency. |
 | | `policy` | **Compliance**: Legal defensibility, PII masking, and policy alignment. |
 | | `face` | **Experience**: Audit the Face (Frontend) for A2UI alignment. |
 | | `shadow` | **Differential**: Shadow Mode: Differential reasoning analysis (V1 vs V2). |
 | | `maturity` | **Expertise**: Visualize cockpit maturity matrix across personas. |
-| | `roi` | **FinOps**: Model cost-per-task and suggest optimization pivots. |
 | `fix` | `issue` | **Remediation**: Apply a targeted code fix for a specific audit finding. |
 | | `evolve` | **Synthesis**: Autonomous PR generation and code hardening. |
 | | `workbench`| **Interactive**: Review and approve autonomous fixes in real-time. |
 | `create`| `trinity` | **Scaffold**: Scaffold a unified project (Engine + Face). |
-| | `face` | **Frontend**: Scaffold a new A2UI Agent UI project. |
 | `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
 | | `watch` | **Sentinel**: Ecosystem sync and SITL (Human-in-the-Loop) oversight. |
 | | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior. |
@@ -33,16 +31,13 @@ The CLI is organized into 9 logical "Hubs" for high-fidelity operations.
 | | `tunnel` | **Inner Loop**: Local-to-cloud bridge for GE tool-use iteration. |
 | `deploy`| `sovereign`| **Factory**: [10X] Audit -> Fix -> Hydrate -> Deploy. |
 | | `migrate` | **Multi-Cloud**: Move agents between GCP, AWS, and Azure. |
-| | `prep` | **Staging**: Generate multi-cloud assets without deployment. |
 | `test` | `unit` | **Integrity**: Run standard reliability unit tests. |
 | | `smoke` | **Journeys**: Validates end-to-end "pipes" across Persona Lenses. |
 | | `regression`| **Master Suite**: Combines unit + smoke + performance. |
-| | `simulate` | **Simulation**: Stress-test reasoning with User Simulation. |
 | `sys` | `doctor` | **Health**: Validate environment, SDKs, and artifact paths. |
 | | `certify` | **Checklist**: Full Production Readiness (Audit + Tests + Security). |
-| | `models` | **Discovery**: List accessible Gemini models and capabilities. |
-| | `telemetry`| **Analytics**: View usage metrics and global fleet health. |
 | `rag` | `audit` | **Grounding**: Audits Reranking and Grounding fidelity. |
+| | `blueprint` | **Strategy**: Generate optimized indexing and retrieval strategy. |
 | `mcp` | `list/install`| **Store**: Discover and integrate MCP tools. |
 | `mcp-server`| `launch`| **Bridge**: Launch the Cockpit as an MCP server. |
 
@@ -54,13 +49,11 @@ Standard operational shortcuts aligned with the Trinity Persona Lenses.
 | Command (Make) | CLI Equivalent | Objective |
 | :--- | :--- | :--- |
 | `make audit-report` | `agentops-cockpit audit report` | Full System Audit. |
+| `make audit-deep` | `agentops-cockpit audit report --deep`| Deep Strategic Audit. |
 | `make audit-security`| `agentops-cockpit audit security`| Adversarial Guard. |
-| `make deploy-sovereign`| `agentops-cockpit deploy sovereign`| Global Factory. |
+| `make deploy-prod` | `agentops-cockpit deploy sovereign`| Global Factory Deployment. |
 | `make fleet-status` | `agentops-cockpit fleet status` | SRE Dashboard. |
-| `make fleet-watch` | `agentops-cockpit fleet watch` | Ecosystem Sync. |
-| `make fleet-anomaly` | `agentops-cockpit fleet anomaly` | Anomaly Oversight. |
 | `make smoke-test` | `agentops-cockpit test smoke` | Pipe Validation. |
-| `make test-regression`| `agentops-cockpit test regression`| Gate Certification. |
 | `make upgrade` | `uv sync --upgrade` | Package Synchronization. |
 | `make certify` | `agentops-cockpit sys certify` | Full Production Certificate. |
 
@@ -73,9 +66,9 @@ The CLI is strictly hierarchical. Use `--help` on any hub to see detailed option
 # Get help for the audit hub
 agentops-cockpit audit --help
 
-# Run a security scan for a specific project
-agentops-cockpit audit security ./my_agent
+# Run a Strategic Architectural Audit
+agentops-cockpit audit arch ./my_agent
 ```
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.6.9 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.8.2 Stable).*

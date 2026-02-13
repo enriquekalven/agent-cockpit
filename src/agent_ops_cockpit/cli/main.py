@@ -32,9 +32,16 @@ from agent_ops_cockpit.config import config
 from agent_ops_cockpit.telemetry import telemetry
 from agent_ops_cockpit.ops import migration as migrate_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
-from agent_ops_cockpit.ops import sovereign as sovereign_mod
-app = typer.Typer(help='AgentOps Cockpit: The AI Agent Operations Platform', no_args_is_help=True)
+from agent_ops_cockpit.ops import master_dashboard as master_mod
+app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance Platform.', no_args_is_help=False)
 audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
+
+# --- MASTER HUB ---
+@app.command(name="cockpit")
+def master_dashboard(path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+    """🚀 Mission Control: The 'One Command' to manage your entire agent fleet."""
+    dashboard = master_mod.MasterCockpit(path)
+    dashboard.render_landing()
 fleet_app = typer.Typer(help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling.")
 deploy_app = typer.Typer(help="🚀 Deployment Hub: Project hydration, migration, and cloud factory.")
 fix_app = typer.Typer(help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis.")
@@ -44,10 +51,13 @@ create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization a
 
 console = Console()
 
-@app.callback()
+@app.callback(invoke_without_command=True)
 def callback(ctx: typer.Context):
-    """Global callback for all commands."""
-    if ctx.invoked_subcommand:
+    """Global callback for all commands. Defaults to 'cockpit' if none provided."""
+    if ctx.invoked_subcommand is None:
+        dashboard = master_mod.MasterCockpit(".")
+        dashboard.render_landing()
+    else:
         telemetry.track_event_sync("cli_command", {"command": ctx.invoked_subcommand})
 
 # --- SYSTEM HUB ---
@@ -150,7 +160,7 @@ def list_models():
         console.print(f"[bold red]Discovery Failed:[/bold red] {str(e)}")
         console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
-@sys_app.command(name="certify")
+@app.command(name="certify")
 def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = "."):
     """
     Launch the 'Sovereign Certification' checklist.

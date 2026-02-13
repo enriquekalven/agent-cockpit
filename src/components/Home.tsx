@@ -116,7 +116,7 @@ export function Home() {
               <span className="hero-headline-text">The Professional Logic Layer for <span className="gradient-text">Agentic Apps</span></span>
             </h1>
             <p className="hero-description">
-              Move beyond basic prompt engineering. The AgentOps Cockpit is a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
+              <strong>The Industry Standard Logic Layer for production AI agents.</strong> Move beyond basic prompt engineering with a high-performance distribution for managing, optimizing, and securing AI agents across <strong>all major cloud providers and LLM ecosystems.</strong>
             </p>
             <div className="hero-actions flex-wrap">
               <Link to="/docs/getting-started" className="btn-primary">
@@ -194,6 +194,39 @@ export function Home() {
               <div className="floating-stat stat-2 purple-vibrant">
                 <Shield size={16} />
                 <span>100% Red Team Pass</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Mission Section */}
+      <section className="mission-section py-20 bg-slate-900/50 border-y border-white/5">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">Our Mission</h2>
+            <p className="text-xl text-slate-300 leading-relaxed mb-12">
+              "To become the <strong>Industry Standard Logic Layer</strong> for production AI agents."
+              <br /><br />
+              Infrastructure gives you the pipes. We give you the <strong>Intelligence</strong>.
+              The AgentOps Cockpit provides the framework-agnostic governance, safety, and cost guardrails
+              required for the entire agentic ecosystem to move beyond tactical scripts into strategic autonomy.
+            </p>
+            <div className="grid md:grid-cols-3 gap-8 text-left">
+              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all">
+                <Shield className="text-blue-400 mb-4" size={32} />
+                <h3 className="text-lg font-semibold text-white mb-2">Governance-as-Code</h3>
+                <p className="text-slate-400 text-sm">Audit against Google Well-Architected best practices with real-time citations.</p>
+              </div>
+              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-green-500/50 transition-all">
+                <Cpu className="text-green-400 mb-4" size={32} />
+                <h3 className="text-lg font-semibold text-white mb-2">SME Persona Audits</h3>
+                <p className="text-slate-400 text-sm">Parallel review by Principal SMEs across FinOps, SecOps, and Architecture.</p>
+              </div>
+              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all">
+                <Zap className="text-purple-400 mb-4" size={32} />
+                <h3 className="text-lg font-semibold text-white mb-2">A2A Connectivity</h3>
+                <p className="text-slate-400 text-sm">Secure swarm orchestration via the Agent-to-Agent Transmission Standard.</p>
               </div>
             </div>
           </div>

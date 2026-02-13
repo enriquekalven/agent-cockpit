@@ -37,6 +37,23 @@ Most AI agent templates stop at a single Python file and an API key. **The Agent
 - **A2A Connectivity**: Implements the [**Agent-to-Agent Transmission Standard**](docs/TECHNICAL_A2A_GUIDE.md) for secure swarm orchestration.
 - **MCP Native**: Registration as a [Model Context Protocol](https://modelcontextprotocol.io) server for 1P/2P/3P tool consumption.
 
+## 🚀 Quick Start: One Command to Rule Them All
+
+The AgentOps Cockpit is designed for high-velocity fleet management. If you are overwhelmed by the options, just remember **one command**:
+
+```bash
+# 🕹️ Mission Control: Master Audit, Persona Review, & Fleet Tracking
+agentops-cockpit cockpit
+```
+
+This single command launches the **Distinguished Fellow Master Dashboard**, where the principal SMEs (Architecture, Security, FinOps) provide a summary of your workspace and guide you toward deeper persona mandates.
+
+### 🏛️ The Sovereign Workflow
+1. **Explore**: `agentops-cockpit cockpit` (Mission Control)
+2. **Modernize**: `agentops-cockpit mcp blueprint` (Legacy -> MCP Bridge)
+3. **Certify**: `agentops-cockpit certify` (Production Readiness Badge)
+4. **Evolve**: `agentops-cockpit deploy sovereign` (The Master Move)
+
 ---
 
 ## 🏗️ The Agentic Trinity
@@ -70,19 +87,17 @@ graph TD
 
 ---
 
-## 🕹️ v1.6.7: The "Watchtower Standard" Release (LATEST)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.6.7 Release Notes**](/CHANGELOG.md).
-The ultimate end-to-end management platform for professional AI agents. The Cockpit has been refactored into a **Sovereign Hub Hierarchy** for simplified operations.
+## 🏛️ v1.8.2: The "Structural Wisdom" Release (LATEST)
+Evolving into a full Strategic Governance Platform for AI Agents. See the [**v1.8.2 Release Notes**](/CHANGELOG.md).
+The ultimate end-to-end management platform for professional AI agents. v1.8 introduces the **Principal Semantic Architect**, shifting focus from tactical implementation to strategic architectural paradigm alignment.
 
+- **🏛️ Strategic Paradigm Auditor (`audit arch`)**: Detect high-level architectural mismatches. Are you using RAG for math? Prompt-stuffed structured data analysis? Manual state machines instead of dedicated frameworks?
 - **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, watch ecosystem sync with `fleet watch`, and iterate with `fleet tunnel`.
 - **🛡️ Audit Hub (`audit`)**: Principal SME board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
-- **🧪 Reliability Hub (`test`)**: Regression and smoke validation. Run unit tests with `test unit`, persona journeys with `test smoke`, and adversarial user stress-testing with `test simulate`.
 - **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-End pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
 - **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue`, trigger the `fix evolve` "PR Closer", or use the `fix workbench` for interactive remediation.
-- **🕵️ Sentinel Journey**: Reasoning-based runtime oversight. Identifies behavioral anomalies, suspicious intent, and tool misuse via `fleet anomaly`.
-- **🚨 Proactive Enforcement**: High-fidelity "Kill Switch". The Cockpit automatically mothballs agents that exhibit critical risks during runtime audits.
 - **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified projects via `create trinity` or UIs via `create face`.
-- **🧠 Knowledge Hub (`rag`)**: RAG Truth-Sayer. Audits RAG pipelines for grounding, fidelity, and retrieval-reasoning drift via `rag audit`.
+- **🧠 Knowledge Hub (`rag`)**: RAG Truth-Sayer. Audits RAG pipelines for grounding, and introduces **`rag blueprint`** for generating optimized indexing strategies.
 - **📡 Interop Hub (`mcp`)**: Tool Governance. Discover and integrate Model Context Protocol (MCP) tools via `mcp list/install`. Start the MCP bridge with `mcp-server launch`.
 
 ---

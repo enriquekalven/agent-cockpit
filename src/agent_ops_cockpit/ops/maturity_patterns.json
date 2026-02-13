@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-02-12T23:35:44.304497",
-  "version": "1.4.0212",
+  "last_updated": "2026-02-13T13:10:00.000000",
+  "version": "1.8.2",
   "patterns": [
     {
       "id": "MP-001",
@@ -322,6 +322,33 @@
       "rationale": "Manual remediation is too slow for v1.4 maturity velocity. Agent-first IDEs leverage the same reasoning patterns (Gemini 3 Deep Think) used by the Cockpit.",
       "impact": "MEDIUM",
       "source": "Google Developer Intelligence v1.4"
+    },
+    {
+      "id": "MP-031",
+      "category": "ARCHITECTURE",
+      "title": "Sovereign Certification (Production Readiness)",
+      "indicators": [
+        "certify",
+        "production_ready"
+      ],
+      "recommendation": "Adopt the 'agentops-cockpit certify' operational standard. This ensures that every agent project passes the 🏅 Sovereign Badge pre-flight, security, and regression gates before deployment.",
+      "rationale": "Ad-hoc certification processes lead to 'Production Drift'. Standardized badges provide a uniform quality gate across the entire fleet.",
+      "impact": "CRITICAL",
+      "source": "AgentOps Cockpit v1.8.2"
+    },
+    {
+      "id": "MP-032",
+      "category": "PROTOCOL",
+      "title": "Tool Modernization (MCP Blueprint)",
+      "indicators": [
+        "blueprint",
+        "legacy_tool",
+        "wrap_mcp"
+      ],
+      "recommendation": "Use 'agentops-cockpit mcp blueprint' to auto-generate Model Context Protocol (MCP) server wrappers for legacy tool logic. This modernizes your tools for consumption by any MCP-compliant agent (Claude, Gemini, ChatGPT).",
+      "rationale": "Legacy REST tools create vendor lock-in. MCP wrappers enable universal tool interoperability and centralized governance.",
+      "impact": "HIGH",
+      "source": "AgentOps Cockpit v1.8.2"
     }
   ],
   "compatibility_constraints": [

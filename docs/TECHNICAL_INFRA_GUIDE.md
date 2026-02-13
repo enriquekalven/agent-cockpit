@@ -1,7 +1,7 @@
 # 🌐 Technical Guide: AI Infrastructure & Networking
 ## The "Autonomous SRE" Standard (v1.4.7 Stable)
 
-The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Principal**. This version moves infrastructure from a "background cost" to a **"Strategic Intelligence Multiplier."** By framing networking and compute through the lens of **"Latent Intelligence,"** we link SRE performance directly to AI reasoning quality.
+The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **Cloud SRE Principal**. This version moves infrastructure from a "background cost" to a **"Strategic Intelligence Multiplier."** By framing networking and compute through the lens of **"Latent Intelligence,"** we link SRE performance directly to AI reasoning quality.
 
 ---
 
@@ -9,12 +9,10 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 
 | Command | Objective | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make arch-review` | **Autonomous SRE Scan**| Identifies networking debt and **Time-to-Reasoning (TTR)**. | `sre_a2a.py` Auditor |
-| `make load-test` | **Saturation Benchmarking**| Empirically measures tokens per second (TPS) and TTFT. | `load_test.py` (Locust/k6 based) |
-| `make simulation-run` | **Digital Twin Test** | Verifies reasoning stability under high infra latency. | `swarm.py` Simulation Engine |
-| `make audit` | **Operational Health**  | Validates **Sovereign Gate** compliance. | `config/cockpit.yaml` Enforcement |
-| `make sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.4.7). | `sovereign.py` Factory |
-| `make maturity`| **Expertise Matrix**| Displays the Cockpit's SRE competency and persona status (v1.4.7). | `ops audit-maturity` |
+| `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide infrastructure health and latency oversight. | Unified Master Dashboard. |
+| `agentops-cockpit audit report`| **Autonomous SRE Scan**| Identifies networking debt and **Time-to-Reasoning (TTR)**. | `sre_a2a.py` Auditor |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Infra + Scaling + Security). | The 🏅 Certification Checklist. |
+| `agentops-cockpit deploy sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.8.2). | `deploy.py` Factory |
 
 ---
 

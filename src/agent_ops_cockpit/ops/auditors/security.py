@@ -1,68 +1,147 @@
-try:
-    from google.adk.agents.context_cache_config import ContextCacheConfig
-except (ImportError, AttributeError, ModuleNotFoundError):
-    ContextCacheConfig = None
-# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
+"""
+Pillar: Sovereign Security
+SME Persona: Distinguished SecOps Fellow
+Objective: Reasoning-based security auditing focusing on 'Architectural Sovereignty' and 'Risk Blinds'.
+"""
 import ast
 import re
-from typing import List
+from typing import List, Set, Dict, Tuple, Optional
 from .base import BaseAuditor, AuditFinding
+from tenacity import retry, wait_exponential, stop_after_attempt
 
 class SecurityAuditor(BaseAuditor):
     """
-    Reasoning-based Security Auditor.
-    Scans for 'Seams' where unsanitized user input flows into LLM calls or Tool execution.
+    Sovereign Security Auditor: Evaluates the system for architectural security failures.
+    Moves beyond signature-based secrets to 'Intent-Implementation' security gaps.
     """
+    
     @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
-        
-        # Track variables that might contain raw user input
-        input_vars = set(["prompt", "user_input", "query", "request"])
-        sanitized_vars = set()
-        
-        for node in ast.walk(tree):
-            # Track sanitization calls
-            if isinstance(node, ast.Assign):
-                if isinstance(node.value, ast.Call):
-                    # If we call a scrubber, mark the target as sanitized
-                    func_name = ""
-                    if isinstance(node.value.func, ast.Name):
-                        func_name = node.value.func.id
-                    elif isinstance(node.value.func, ast.Attribute):
-                        func_name = node.value.func.attr
-                    
-                    if any(x in func_name.lower() for x in ["scrub", "mask", "sanitize", "guard", "filter"]):
-                        for target in node.targets:
-                            if isinstance(target, ast.Name):
-                                sanitized_vars.add(target.id)
-            
-            # Detect LLM invocations with unsanitized inputs
-            if isinstance(node, ast.Call):
-                func_name = ""
-                if isinstance(node.func, ast.Name):
-                    func_name = node.func.id
-                elif isinstance(node.func, ast.Attribute):
-                    func_name = node.func.attr
-                
-                if any(x in func_name.lower() for x in ["invoke", "generate", "call", "chat", "predict"]):
-                    # Check arguments
-                    for arg in node.args:
-                        if isinstance(arg, ast.Name) and (arg.id in input_vars) and (arg.id not in sanitized_vars):
-                            title = "Prompt Injection Susceptibility"
-                            if not self._is_ignored(node.lineno, content, title):
-                                findings.append(AuditFinding(
-                                    category="🛡️ Security",
-                                    title=title,
-                                    description=f"The variable '{arg.id}' flows into an LLM call without detected sanitization logic (e.g., scrub/guard).",
-                                    impact="CRITICAL",
-                                    roi="Prevents prompt injection attacks by 99%.",
-                                    line_number=node.lineno,
-                                    file_path=file_path
-                                ))
+        content_lower = content.lower()
 
-        # Secret Scanning (v1.1)
+        # --- Tier 1: Sovereignty & Control ---
+        
+        # 1. Ungated Production Access (The Sovereignty Gap)
+        sensitive_ops = ['delete', 'drop', 'execute_payment', 'transfer', 'terminate', 'provision']
+        if any(op in content_lower for op in sensitive_ops) and \
+           not any(kw in content_lower for kw in ['approve', 'hitl', 'gate', 'human_in_loop']):
+            title = "Sovereignty Gap: Ungated Production Access"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""Detected sensitive infrastructure or financial operations without an explicit Human-in-the-Loop (HITL) gate.
+[bold red]Structural Risk:[/bold red] Autonomous agents must not have ungated write access to production assets.
+[bold green]RECOMMENDATION:[/bold green] Implement a **Governance Gate** or a 2-Factor Approval trigger.""",
+                    impact="CRITICAL",
+                    roi="Protects enterprise assets from autonomous logic failures.",
+                    file_path=file_path
+                ))
+
+        # 2. Insecure Output Handling (The 'eval' Trap)
+        if 'eval(' in content or 'exec(' in content:
+            title = "Insecure Output Handling: Execution Trap"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""Detected `eval()` or `exec()` on strings. 
+[bold red]Critical Vulnerability:[/bold red] If an agent generates code that is then executed via `eval`, it creates a RCE path.
+[bold green]RECOMMENDATION:[/bold green] Pivot to a **Python Sandbox** or use a typed JSON parser like Pydantic.""",
+                    impact="CRITICAL",
+                    roi="Eliminates Remote Code Execution (RCE) vectors.",
+                    file_path=file_path
+                ))
+
+        # --- Tier 2: Information Protection ---
+
+        # 3. PII Osmosis (Implicit Data Leakage)
+        crm_imports = ['salesforce', 'hubspot', 'crm', 'db_client']
+        if any(imp in content_lower for imp in crm_imports) and \
+           not any(kw in content_lower for kw in ['scrub', 'mask', 'pii', 'anonymize', 'guard']):
+             title = "PII Osmosis: Implicit Leakage Risk"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""Detected CRM or customer data interaction without visible PII scrubbing or masking logic.
+[bold yellow]Compliance Risk:[/bold yellow] Sending raw customer data to shared LLM endpoints creates GDPR/SOC2 liability.
+[bold green]RECOMMENDATION:[/bold green] Implement a **Pre-Inference Scrubber** to mask sensitive identifiers.""",
+                    impact="HIGH",
+                    roi="Closes the compliance gap for data privacy regulations.",
+                    file_path=file_path
+                ))
+
+        # 4. Credential Proximity (Shadow ENV)
+        if '.env' in content_lower and ('os.environ' in content or 'os.getenv' in content):
+             if 'secret_manager' not in content_lower and 'vault' not in content_lower:
+                title = "Credential Proximity: Shadow ENV Usage"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Sovereign Security",
+                        title=title,
+                        description="""Detected use of local `.env` files for secrets in an agentic environment.
+[bold purple]Security Gap:[/bold purple] Local ENVs can be leaked into the agent's context if it gains file-read or environment access.
+[bold green]RECOMMENDATION:[/bold green] Pivot to **Google Secret Manager (GCP)** or **AWS Secrets Manager**.""",
+                        impact="MEDIUM",
+                        roi="Prevents cross-contamination of secrets into training/logging channels.",
+                        file_path=file_path
+                    ))
+
+        # --- Tier 3: Injection & Integrity ---
+
+        # 5. Indirect Prompt Injection (Trusted Context Trap)
+        if ('retrieve' in content_lower or 'search' in content_lower or 'read_url' in content_lower) and \
+           not any(kw in content_lower for kw in ['sanitize', 'untrust', 'instruction_check']):
+            title = "Untrusted Context Trap: Indirect Injection"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""retrieved data from external sources (RAG/Web) is being fed to the LLM without sanitization.
+[bold red]Vulnerability:[/bold red] Indirect Prompt Injection occurs when a malicious website or document 'hijacks' the agent via retrieval.
+[bold green]RECOMMENDATION:[/bold green] Implement **Delimited Context** or a 'Safety Critic' turn to verify the retrieval payload.""",
+                    impact="HIGH",
+                    roi="Prevents 3rd-party data from overtaking the agent's system instructions.",
+                    file_path=file_path
+                ))
+
+        # 6. Lateral Movement (Tool Over-Privilege)
+        if ('subprocess' in content or 'shutil' in content or 'os.system' in content) and \
+           'restricted' not in content_lower and 'sandbox' not in content_lower:
+            title = "Lateral Movement: Tool Over-Privilege"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""Detected system-level execution capabilities without a restricted sandbox.
+[bold red]Exploitation Risk:[/bold red] A compromised agent could move laterally within the host system.
+[bold green]RECOMMENDATION:[/bold green] Run agent tasks in a **Docker Sandbox** or use isolated gVisor runtimes.""",
+                    impact="CRITICAL",
+                    roi="Isolates the agent's blast radius to its immediate task shell.",
+                    file_path=file_path
+                ))
+
+        # 7. Knowledge Base Poisoning
+        if ('upsert' in content_lower or 'index.add' in content_lower) and \
+           'verify' not in content_lower and 'admin' not in content_lower:
+             title = "Knowledge Base Poisoning: Ungated Ingestion"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🛡️ Sovereign Security",
+                    title=title,
+                    description="""Detected high-volume data ingestion into the Vector Store without a verification gate.
+[bold blue]Integrity Risk:[/bold blue] Users could poison the agent's 'truth' by feeding it malicious data for RAG.
+[bold green]RECOMMENDATION:[/bold green] Implement an **Ingestion Guardrail** to audit data before it hits the production index.""",
+                    impact="MEDIUM",
+                    roi="Maintains the 'Truth Integrity' of the RAG Knowledge Base.",
+                    file_path=file_path
+                ))
+
+        # --- Standard Pattern Matches ---
+        
+        # Secrets Scanner (Hardcoded)
         for node in ast.walk(tree):
             if isinstance(node, ast.Assign):
                 for target in node.targets:
@@ -74,27 +153,13 @@ class SecurityAuditor(BaseAuditor):
                                     title = "Hardcoded Secret Detected"
                                     if not self._is_ignored(node.lineno, content, title):
                                         findings.append(AuditFinding(
-                                            category="🛡️ Security",
+                                            category="🛡️ Sovereign Security",
                                             title=title,
-                                            description=f"Variable '{target.id}' appears to contain a hardcoded credential.",
+                                            description="Detected a potential high-entropy credential hardcoded in source.",
                                             impact="CRITICAL",
-                                            roi="Prevent catastrophic credential leaks by using Google Secret Manager.",
+                                            roi="Prevent total system compromise via leaked credentials.",
                                             line_number=node.lineno,
                                             file_path=file_path
                                         ))
-
-        # Look for TODOs in comments
-        if "// todo" in content.lower() or "# todo" in content.lower():
-            if "mask" in content.lower() or "pii" in content.lower():
-                 title = "Incomplete PII Protection"
-                 if not self._is_ignored(0, content, title):
-                     findings.append(AuditFinding(
-                        category="🛡️ Security",
-                        title=title,
-                        description="Source code contains 'TODO' comments related to PII masking. Active protection is currently absent.",
-                        impact="HIGH",
-                        roi="Closes compliance gap for GDPR/SOC2.",
-                        file_path=file_path
-                    ))
 
         return findings

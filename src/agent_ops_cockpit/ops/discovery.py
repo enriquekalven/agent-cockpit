@@ -1,19 +1,24 @@
+"""
+Pillar: Fleet Discovery
+SME Persona: Distinguished Platform Fellow
+Objective: High-fidelity discovery of agentic 'Brains', respecting enterprise exclusion patterns and .gitignore.
+"""
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+
 from tenacity import retry, wait_exponential, stop_after_attempt
 import os
 import fnmatch
 import ast
 import re
-from typing import List, Optional, Generator
+from typing import List, Optional, Generator, Dict, Any
 
 class DiscoveryEngine:
     """
-    Centralized discovery engine for AgentOps Cockpit.
-    Respects .gitignore, handles default exclusions, and identifies the agentic 'brain'.
+    Centralized discovery service for the AgentOps Cockpit.
+    Aggregates .gitignore, .cockpitignore, and default SRE exclusions to traverse deep hierarchies.
     """
     DEFAULT_EXCLUSIONS = {'.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
 
@@ -128,6 +133,24 @@ class DiscoveryEngine:
         if '{{' in rel_path and '}}' in rel_path:
             return True
         return False
+
+    def discover_agent_roots(self) -> List[str]:
+        """
+        Fleet Discovery: Identifies autonomous agent roots within the workspace.
+        An agent root is defined as a directory containing an 'agent.py' or 'pyproject.toml'.
+        """
+        discovered = []
+        for root, dirs, files in os.walk(self.root_path):
+            if self.should_ignore(root):
+                dirs[:] = []
+                continue
+                
+            if "agent.py" in files or "pyproject.toml" in files:
+                abs_root = os.path.abspath(root)
+                # Check for redundancy
+                if not any(abs_root.startswith(d + os.sep) for d in discovered):
+                    discovered.append(abs_root)
+        return discovered
 
     def walk(self, start_path: Optional[str]=None) -> Generator[str, None, None]:
         """

@@ -95,10 +95,11 @@ class TelemetryManager:
         if not self.enabled:
             return
         try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
+            try:
+                loop = asyncio.get_running_loop()
                 loop.create_task(self.track_event(event_name, properties))
-            else:
+            except RuntimeError:
+                # No running loop, use asyncio.run or create a temporary one
                 asyncio.run(self.track_event(event_name, properties))
         except Exception:
             pass

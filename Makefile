@@ -101,6 +101,15 @@ register-gemini-enterprise:
 # Sovereign Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
+cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
+	@PYTHONPATH=src uv run agentops-cockpit cockpit --path $(if $(P),$(P),.)
+
+certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
+	@PYTHONPATH=src uv run agentops-cockpit certify --path $(if $(P),$(P),.)
+
+mcp-blueprint: ## 🛰️ Modernize: Generate MCP Server Wrappers for Legacy Tools
+	@PYTHONPATH=src uv run agentops-cockpit mcp blueprint --path $(if $(P),$(P),.)
+
 create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
 	@PYTHONPATH=src uv run agentops-cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
 
@@ -147,9 +156,6 @@ test-simulate: ## Run Persona-based User Simulation
 
 upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
-
-certify: ## Launch Full Production Readiness Certification
-	@PYTHONPATH=src uv run agentops-cockpit sys certify
 
 lab-bootstrap: ## Setup the 'Broken Agent' for the Cockpit Lab
 	@echo "🧪 Bootstrapping broken agent for lab..."
