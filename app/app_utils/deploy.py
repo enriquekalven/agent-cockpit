@@ -20,6 +20,7 @@ import json
 import logging
 import warnings
 from typing import Any
+from tenacity import retry, wait_exponential, stop_after_attempt
 
 import click
 import google.auth
@@ -264,6 +265,7 @@ def setup_agent_identity(client: Any, project: str, display_name: str) -> Any:
     default=False,
     help="Enable agent identity for per-agent IAM access control (Preview feature)",
 )
+@retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5))
 def deploy_agent_engine_app(
     project: str | None,
     location: str,

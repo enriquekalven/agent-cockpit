@@ -70,14 +70,18 @@ graph TD
 
 ---
 
-## 🕹️ v1.4.7: The "Ecosystem Expansion" Release (NEW)
-Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.4.7 Release Notes**](/CHANGELOG.md).
+## 🕹️ v1.6.3: The "Watchtower Standard" Release (LATEST)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.6.3 Release Notes**](/CHANGELOG.md).
+The ultimate end-to-end management platform for professional AI agents. The Cockpit has been refactored into a **Sovereign Hub Hierarchy** for simplified operations.
 
-- **🧗 RAG Truth-Sayer SME**: Dedicated auditor for retrieval-reasoning fidelity and grounding logic.
-- **🚀 PR Scorecard Action**: Automated maturity scorecard for pull requests to increase velocity and trust.
-- **🛠️ Remediation Workbench**: TUI-based review loop for approving autonomous code patches.
-- **💰 ROI Waterfall**: Advanced modeling for cost-per-task projections and model-tier optimization.
-- **📦 MCP Tool Store**: Centralized registry for discovering and scaffolding MCP tool integrations.
+- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, scale with `mothball`/`resume`, and iterative with `tunnel`.
+- **🛡️ Audit Hub (`audit`)**: Principal SME Principal board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
+- **🧪 Reliability Hub (`test`)**: Regression and smoke validation. Run unit tests with `test unit`, persona journeys with `test smoke`, and adversarial user stress-testing with `test simulate`.
+- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-end pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
+- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue` or trigger the `fix evolve` "PR Closer".
+- **🕵️ Sentinel Journey**: Reasoning-based runtime oversight. Identifies behavioral anomalies, suspicious intent, and tool misuse via `fleet anomaly`.
+- **🚨 Proactive Enforcement**: High-fidelity "Kill Switch". The Cockpit automatically mothballs agents that exhibit critical risks during runtime audits.
+- **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified Engine/Face/Cockpit projects via `create trinity`.
 
 ---
 
@@ -144,10 +148,30 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ## 🚀 Production Readiness Auditor
 The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
-1. **v1.4.7 Deep System Audit**: Benchmarks models (Gemini 3 Pro/Flash) and logic.
+1. **v1.6.3 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash) and logic.
 2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
 3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
 4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.
+
+---
+
+---
+
+## 🛡️ Privacy & Telemetry
+The AgentOps Cockpit follows a **Privacy-First, Sovereign Standard**. 
+
+By default, the CLI sends anonymous operational metrics (e.g., event names, OS type, success rates) to the **Global Pulse** hub to help us understand fleet health and prioritize improvements. **We do not collect names, emails, code snippets, secrets, or folder paths.**
+
+### 🌑 How to Opt-Out
+If you prefer 100% isolation, you can disable telemetry by setting the following environment variable in your shell:
+```bash
+export AGENTOPS_TELEMETRY_ENABLED=false
+```
+Alternatively, you can set it in your local `cockpit.yaml`:
+```yaml
+telemetry:
+  enabled: false
+```
 
 ---
 

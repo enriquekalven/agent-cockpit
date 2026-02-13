@@ -5,7 +5,9 @@ import requests
 import google.auth
 import google.auth.transport.requests
 from google.oauth2.credentials import Credentials
+from tenacity import retry, wait_exponential, stop_after_attempt
 
+@retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5))
 def register():
     project_id = "YOUR_PROJECT_ID"
     location = "global"

@@ -2,6 +2,89 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.3] - 2026-02-12
+
+### 🏗️ Scaffolding & Trinity Restoration
+- **Trinity Identity Restoration**: Restored the `trinity` command name in the `create` hub to maintain compatibility with foundation benchmarks.
+- **Bootstrapping Alignment**: Synchronized `legacy_init` with `create_trinity` to ensure a seamless "Builder Persona" experience.
+
+## [1.6.2] - 2026-02-12
+
+### 🐛 Legacy Alias Hardening
+- **NameError Resolution**: Fixed `NameError` bugs in legacy aliases by properly mapping internal calls to the new Sovereign Hub command structure.
+- **Fleet Alias Fix**: Corrected `fleet-status` legacy command to point to the new `fleet status` implementation.
+
+## [1.6.1] - 2026-02-12
+
+### 🛡️ CLI Argument Hardening
+- **Annotated Type Implementation**: Implemented `Annotated` for all Typer command signatures to prevent `OptionInfo` leakage when commands are called as functions.
+- **Signature Integrity**: Ensured proper default value handling across all 40+ CLI commands to improve reliability in nested calls.
+
+## [1.6.0] - 2026-02-12
+
+### 🛡️ The "Watchtower Standard" Release
+- **Sovereign Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs (`audit`, `fleet`, `deploy`, `fix`, `test`, `sys`, `create`) for high-fidelity operations.
+- **Sentinel Oversight**: Reasoning-based runtime anomaly detection and proactive quarantine via `fleet anomaly`.
+- **Context Architect**: Deep audit for token windows and context caching efficiency (`audit context`).
+- **Persona-Based Simulation**: Stress-test agents against adversarial user personas (`test simulate`).
+- **Unified Command Parity**: Verified parity across `make`, CLI, and `uvx` execution layers.
+- **Professional Alias Bridge**: Non-breaking legacy aliases for all deprecated commands.
+
+## [1.5.0] - 2026-02-11
+
+### 🛰️ The "Autonomous SRE" Release
+- **Fleet Manager**: Stateful Day 2 registry for tracking deployed agent health, endpoints, and versions across multi-cloud environments.
+- **FinOps: Mothballing**: Scale-to-zero capability for inactive fleets to minimize cloud spend (`mothball`, `resume`).
+- **Inner Loop Tunneling**: Local-to-cloud bridge allowing Gemini Enterprise to interact with agents running on `localhost` for faster iteration (`tunnel`).
+- **Watchtower (Agent Anomaly Detection)**: Reasoning-based runtime oversight layer for identifying behavioral anomalies and suspicious intent.
+- **Proactive Enforcement**: Integrated "Response Framework" for auto-mothballing rogue agents detected during runtime audits.
+- **Zero-Trust Hydration**: Upgraded deployment asset generation to enforce security best practices (non-root users, security contexts).
+- **Fleet-Wide Status**: New `fleet-status` command for a unified dashboard of the entire agentic ecosystem.
+
+## [1.4.7] - 2026-02-11
+
+### 🚀 The "Fleet Sovereign" Release
+- **Sovereign Fleet Factory**: Unified orchestrator for auditing, hardening, hydrating, and deploying fleets in a single command (`sovereign`).
+- **GKE Autopilot Native**: Integrated support for cluster-wide deployments with automated manifest generation.
+- **Cross-Cloud A2A Bridge**: Seamlessly register AWS and Azure agents as native Vertex AI tools via the Agent Engine.
+- **TDD Generation**: High-fidelity Technical Design Document generation (HTML) documenting the reasoning and infrastructure of the fleet.
+
+## [1.4.6] - 2026-02-11
+
+### 🛡️ Pre-flight Verification & Azure Support
+- **Phase 0: Pre-flight Handshake**: Identity and toolchain verification gate that ensures IAM principals and CLIs are active before operations.
+- **Azure Container Apps**: Native support for Microsoft Azure deployments with ARM template generation.
+- **Multi-Cloud Simulation**: Battle-testing framework for validating deployment assets across three clouds simultaneously.
+
+## [1.4.5] - 2026-02-10
+
+### 🌊 AWS Optimization & Sovereign Alignment
+- **AWS App Runner Optimization**: Specialized Dockerfiles and SAM templates for AWS serverless agent deployments.
+- **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols for non-Google environments.
+- **Reliability Suite (v1.4.5)**: Extended regression tests for cross-cloud deployment assets.
+
+## [1.4.7] - 2026-02-10
+
+### 🚀 Enhanced Observability & CLI UX
+- **Global Verbose Mode**: Exposed the `--verbose` flag in the main `report` command, allowing developers to debug performance across all audit steps simultaneously.
+- **Improved Circuit Breakers**: Standardized audit step timeouts to 15 minutes to allow for large-scale analysis without hanging.
+
+## [1.4.3] - 2026-02-10
+
+### 🚀 Audit Performance & Ecosystem Observability
+- **Audit Circuit Breaker**: Implemented a mandatory 15-minute (900s) timeout for all audit steps in `orchestrator.py` to prevent hanging on large repositories or infinite loops.
+- **Verbose Arch Review**: Added `--verbose` flag to the Architecture Review auditor to enable real-time file-by-file performance tracking.
+- **Ecosystem Synergy**: Integrated **Agent Starter Pack** recommendations for Google Cloud and ADK agents to enforce best-in-class tracing and observability.
+- **Stability Core**: Verified 162/162 tests passed, including new performance guard regressions.
+
+## [1.4.2] - 2026-02-09
+
+### 🚀 High-Fidelity Ignore & Viral Reboot
+- **High-Fidelity Ignore (#cockpit-ignore)**: Integrated surgical finding suppression across all SME auditors. Supports per-finding slug matching (`# cockpit-ignore: issue-slug`) and whole-file ignores (`# cockpit-ignore: all`).
+- **Viral Dogfooding Reboot**: Updated `DOGFOODING.md` with a high-energy "Roast Your Agent" theme and gamified review steps.
+- **Auditor Hardening**: Integrated `# cockpit-ignore` into Security, FinOps, Compliance, RAG Fidelity, and Deep Graph auditors.
+- **Stability Core**: Verified 160/160 tests passed, ensuring 100% regression safety for existing capabilities.
+
 ## [1.4.7] - 2026-02-09
 
 ### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety

@@ -70,7 +70,8 @@ graph TD
 
 ---
 
-## 🕹️ v1.6.0: The "Watchtower" Release (LATEST)
+## 🕹️ v1.6.3: The "Watchtower Standard" Release (LATEST)
+Evolving into a full Lifecycle Management Platform for AI Agents. See the [**v1.6.3 Release Notes**](/CHANGELOG.md).
 The ultimate end-to-end management platform for professional AI agents. The Cockpit has been refactored into a **Sovereign Hub Hierarchy** for simplified operations.
 
 - **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, scale with `mothball`/`resume`, and iterative with `tunnel`.
@@ -147,7 +148,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ## 🚀 Production Readiness Auditor
 The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
-1. **v1.4.7 Deep System Audit**: Benchmarks models (Gemini 3 Pro/Flash) and logic.
+1. **v1.6.3 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash) and logic.
 2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
 3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
 4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.

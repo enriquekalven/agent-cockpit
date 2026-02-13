@@ -1,1 +1,0 @@
-{"id": "sovereign-my-super-agent", "display_name": "Sovereign Agent Agent Engine: my-super-agent", "description": "Enterprise-grade agent registered via AgentOps Cockpit.", "api_spec": "http://34.135.249.104/openapi.json", "auth": {"type": "A2A_HMAC"}, "registered_at": "2026-02-11T16:08:12.165715", "provider": "Agent Engine (A2A)", "interface": "A2UI v1.0"}

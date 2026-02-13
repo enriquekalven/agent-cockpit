@@ -4,6 +4,7 @@ import google.auth
 import google.auth.transport.requests
 import subprocess
 import os
+from tenacity import retry, wait_exponential, stop_after_attempt
 
 def get_gcloud_token():
     try:
@@ -11,6 +12,7 @@ def get_gcloud_token():
     except Exception:
         return None
 
+@retry(wait=wait_exponential(min=1, max=60), stop=stop_after_attempt(5))
 def register_to_ge():
     project_id = "YOUR_PROJECT_ID"
     project_number = "697625214430"

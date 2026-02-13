@@ -2,6 +2,24 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+## [1.6.3] - 2026-02-12
+
+### 🏗️ Scaffolding & Trinity Restoration
+- **Trinity Identity Restoration**: Restored the `trinity` command name in the `create` hub to maintain compatibility with foundation benchmarks.
+- **Bootstrapping Alignment**: Synchronized `legacy_init` with `create_trinity` to ensure a seamless "Builder Persona" experience.
+
+## [1.6.2] - 2026-02-12
+
+### 🐛 Legacy Alias Hardening
+- **NameError Resolution**: Fixed `NameError` bugs in legacy aliases by properly mapping internal calls to the new Sovereign Hub command structure.
+- **Fleet Alias Fix**: Corrected `fleet-status` legacy command to point to the new `fleet status` implementation.
+
+## [1.6.1] - 2026-02-12
+
+### 🛡️ CLI Argument Hardening
+- **Annotated Type Implementation**: Implemented `Annotated` for all Typer command signatures to prevent `OptionInfo` leakage when commands are called as functions.
+- **Signature Integrity**: Ensured proper default value handling across all 40+ CLI commands to improve reliability in nested calls.
+
 ## [1.6.0] - 2026-02-12
 
 ### 🛡️ The "Watchtower Standard" Release
