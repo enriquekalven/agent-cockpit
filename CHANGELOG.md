@@ -2,13 +2,14 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.7.0] - 2026-02-13
+## [1.8.0] - 2026-02-13
 
-### 🏅 Operational Certification & Platform Refresh
-- **Sovereign Certification Hub**: Launched `agentops-cockpit sys certify`. This single command aggregates Environment Pre-flight, Deep Security/Load Audits, and Full Regression (Unit + Smoke tests) into a single production readiness scorecard.
-- **Project Initiation Alias**: Implemented `init` as a direct alias for the `create` hub, preventing command mismatch for many users.
-- **Model Discovery Hub**: Added `agentops-cockpit models` (and `sys models`) to list accessible Gemini model capabilities in the current landscape.
-- **Cloud Readiness Gates**: Integrated automatic gcloud quota and billing checks into all scaffolding commands. The CLI now proactively blocks project creation if Billing is disabled or the Vertex AI API is not enabled.
+### 🏗️ Infrastructure Sovereignty & Cloud Context
+- **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).
+- **Cloud Context Autodetection**: The `DiscoveryEngine` now automatically identifies if you are running on **AWS**, **GCP**, or **Azure**.
+- **Context-Aware Remediation**: Audit findings now automatically tailor their advice based on the detected cloud (e.g., suggesting *AWS Secrets Manager* instead of *Google Secret Manager* when AWS patterns are detected).
+- **MCP Migration Blueprints**: Enhanced `PivotAuditor` to provide a step-by-step technical blueprint for migrating legacy REST tools to the **Model Context Protocol (MCP)**.
+- **Framework Modernization**: Proactively detects synchronous framework bottlenecks and suggests FastAPI for high-concurrency agent tool-use.
 
 
 ## [1.6.8] - 2026-02-13

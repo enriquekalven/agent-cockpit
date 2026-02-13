@@ -41,7 +41,7 @@ wheels = [
 
 [[package]]
 name = "agentops-cockpit"
-version = "1.6.9"
+version = "1.7.0"
 source = { editable = "." }
 dependencies = [
     { name = "agent-starter-pack" },

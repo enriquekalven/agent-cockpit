@@ -73,8 +73,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v1.6.9</span>
-          <span className="banner-text"><b>v1.6.9 Platform Refresh:</b> Project Scaffolding Gates, Model Capability Discovery, and 'sys certify' Production Checklists.</span>
+          <span className="banner-tag">STABLE v1.8.0</span>
+          <span className="banner-text"><b>v1.8.0 Sovereign Infrastructure:</b> Cloud Context Autodetection (AWS/GCP), Dockerfile Security Audits, and MCP Migration Blueprints.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">

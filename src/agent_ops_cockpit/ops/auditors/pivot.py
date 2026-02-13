@@ -39,7 +39,12 @@ class PivotAuditor(BaseAuditor):
             findings.append(AuditFinding(
                 category="🚀 Strategic Pivot",
                 title="Legacy Tooling -> MCP Migration",
-                description="Detected raw REST calls in a tool-heavy module. Migrating to Model Context Protocol (MCP) would provide unified governance, better tool discovery, and standardized error handling.",
+                description="""Detected raw REST calls in a tool-heavy module. 
+[bold cyan]Migration Blueprint:[/bold cyan]
+1. Install MCP SDK: `pip install mcp`
+2. Wrap your tool functions in an `mcp.Server` instance.
+3. Replace `requests.get()` with `ctx.session.read_resource()` or `ctx.call_tool()`.
+Standardizing on MCP enables discovery and governance across the fleet.""",
                 impact="MEDIUM",
                 roi="Future-proofs the tool layer and enables interoperability with MCP-native ecosystems.",
                 file_path=file_path

@@ -151,6 +151,44 @@ class DiscoveryEngine:
         library_indicators = {'venv', '.venv', 'site-packages', 'node_modules', 'dist', 'build'}
         return any((part in library_indicators for part in parts))
 
+    def detect_context(self) -> dict:
+        """
+        v1.8.0 Discovery Upgrade: Detects Cloud Provider and Web Framework.
+        Used for tailoring architecture advice and remediation blueprints.
+        """
+        context = {'cloud': 'google', 'framework': 'fastapi', 'is_containerized': False, 'has_secrets_risk': False}
+        
+        # Check for Dockerfile
+        if os.path.exists(os.path.join(self.root_path, 'Dockerfile')):
+            context['is_containerized'] = True
+            
+        # Scan files for indicators
+        for file_path in self.walk():
+            filename = os.path.basename(file_path)
+            
+            # Framework Detection
+            if filename in ['requirements.txt', 'pyproject.toml'] or file_path.endswith('.py'):
+                try:
+                    with open(file_path, 'r', errors='ignore') as f:
+                        content = f.read()
+                        if 'flask' in content.lower():
+                            context['framework'] = 'flask'
+                        if 'django' in content.lower():
+                            context['framework'] = 'django'
+                        
+                        # Cloud Detection
+                        if 'boto3' in content or 'aws' in content.lower() or 'amazon' in content.lower():
+                            context['cloud'] = 'aws'
+                        elif 'azure' in content.lower():
+                            context['cloud'] = 'azure'
+                        
+                        # Secret Risks (Hardcoded patterns)
+                        if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9]{10,}[\'"]', content, re.I):
+                            context['has_secrets_risk'] = True
+                except:
+                    continue
+        return context
+
     def find_agent_brain(self) -> str:
         """
         Identifies the core agent file using config, heuristics, and AST analysis.

@@ -25,36 +25,47 @@ from agent_ops_cockpit.ops.auditors.sme_v12 import HITLAuditor
 from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor, InteropAuditor
 from agent_ops_cockpit.ops.auditors.pivot import PivotAuditor
 from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
+from agent_ops_cockpit.ops.auditors.infra import InfraAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
+from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
 app = typer.Typer(help='Agent Architecture Reviewer v1.6.7: Enterprise Architect (Deep Reasoning & Behavioral Audit)')
 console = Console()
 
-def run_scan(path: str, verbose: bool = False):
+def run_scan(path: str, verbose: bool = False, context: dict = None):
     """Helper to run AST scan and return all findings."""
     import time
     start_time = time.time()
-    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor()]
+    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor()]
     all_findings = []
     file_count = 0
-    for root, dirs, files in os.walk(path):
-        dirs[:] = [d for d in dirs if not (d.startswith('venv') or d.startswith('.venv')) and d not in ['node_modules', '.git', '__pycache__', 'dist', 'build']]
-        for file in files:
-            if file.endswith(('.py', 'pyproject.toml', 'requirements.txt')):
-                file_path = os.path.join(root, file)
-                file_count += 1
-                if verbose:
-                    console.print(f"🔍 [dim]Scanning {file_path}...[/dim]")
-                try:
-                    with open(file_path, 'r') as f:
-                        content = f.read()
-                    tree = ast.parse(content) if file.endswith('.py') else ast.parse('')
-                    for auditor in auditors:
-                        all_findings.extend(auditor.audit(tree, content, file_path))
-                except Exception as e:
-                    if verbose:
-                        console.print(f"⚠️ [red]Error scanning {file_path}: {e}[/red]")
+    discovery = DiscoveryEngine(path)
+    for file_path in discovery.walk():
+        if discovery.is_library_file(file_path):
+            continue
+        file_count += 1
+        if verbose:
+            console.print(f"🔍 [dim]Scanning {file_path}...[/dim]")
+        try:
+            with open(file_path, 'r', errors='ignore') as f:
+                content = f.read()
+            tree = ast.parse(content) if file_path.endswith('.py') else ast.parse('')
+            for auditor in auditors:
+                # Tailor findings based on context if available
+                res = auditor.audit(tree, content, file_path)
+                if context:
+                    for f in res:
+                        if context['cloud'] == 'aws':
+                            f.description = f.description.replace('Google Cloud Secret Manager', 'AWS Secrets Manager')
+                            f.description = f.description.replace('Cloud Logging', 'CloudWatch')
+                            f.description = f.description.replace('Vertex AI', 'Amazon Bedrock')
+                        if context['framework'] == 'flask' and 'Synchronous' in f.title:
+                            f.description += " [blue]Recommendation: Pivot to FastAPI for true Agentic Concurrency.[/blue]"
+                all_findings.extend(res)
+        except Exception as e:
+            if verbose:
+                console.print(f"⚠️ [red]Error scanning {file_path}: {e}[/red]")
     duration = time.time() - start_time
     if verbose:
         console.print(f"⏱️ [bold blue]Scan complete. Processed {file_count} files in {duration:.2f}s.[/bold blue]")
@@ -184,14 +195,16 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
     Run the Enterprise Architect Design Review v1.1.
     Uses AST Reasoning, Behavioral Trace Audit, and Contextual Graphing.
     """
+    discovery = DiscoveryEngine(path)
+    context = discovery.detect_context()
     framework_key = detect_framework(path)
     framework_data = FRAMEWORKS[framework_key]
     checklist = framework_data['checklist'] + NIST_AI_RMF_CHECKLIST
     framework_name = framework_data['name']
-    console.print(Panel.fit(f'🏛️ [bold blue]{framework_name.upper()}: ENTERPRISE ARCHITECT REVIEW v1.1[/bold blue]', border_style='blue'))
-    console.print(f'Detected Stack: [bold green]{framework_name}[/bold green] | [bold yellow]v1.1 Deep Reasoning Enabled[/bold yellow]\n')
-    with console.status('[bold blue]Performing Multi-Modal Scan (AST + Behavior)...'):
-        all_findings = run_scan(path, verbose=verbose)
+    console.print(Panel.fit(f'🏛️ [bold blue]{framework_name.upper()}: ENTERPRISE ARCHITECT REVIEW v1.8[/bold blue]', border_style='blue'))
+    console.print(f'Detected Stack: [bold green]{framework_name}[/bold green] | [bold cyan]Cloud Context: {context["cloud"].upper()}[/bold cyan] | [bold magenta]Framework: {context["framework"].upper()}[/bold magenta]\n')
+    with console.status('[bold blue]Performing Multi-Modal Scan (AST + Behavior + Infra)...'):
+        all_findings = run_scan(path, verbose=verbose, context=context)
     total_checks = 0.0
     passed_checks = 0.0
     weights = {'🛡️': 1.5, '🧗': 1.2, '💰': 1.0, '📉': 1.2, '🌍': 1.1, '🌐': 1.3, '🏗️': 1.3, '🚀': 1.4, '⚖️': 1.3, '🎭': 1.4}
