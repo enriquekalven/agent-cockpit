@@ -15,7 +15,7 @@ The CLI is organized into 9 logical "Hubs" for high-fidelity operations.
 | | `quality` | **Optimizer**: Run Hill Climbing quality optimization cycles. |
 | | `arch` | **Strategist**: AST-based architecture and design review. |
 | | `context` | **Architect**: Visualize Token window usage and Caching efficiency. |
-| | `policy` | **Governance**: Audit declarative guardrails (Forbidden topics, HITL). |
+| | `policy` | **Compliance**: Legal defensibility, PII masking, and policy alignment. |
 | | `face` | **Experience**: Audit the Face (Frontend) for A2UI alignment. |
 | | `shadow` | **Differential**: Shadow Mode: Differential reasoning analysis (V1 vs V2). |
 | | `maturity` | **Expertise**: Visualize cockpit maturity matrix across personas. |
@@ -26,7 +26,7 @@ The CLI is organized into 9 logical "Hubs" for high-fidelity operations.
 | `create`| `trinity` | **Scaffold**: Scaffold a unified project (Engine + Face). |
 | | `face` | **Frontend**: Scaffold a new A2UI Agent UI project. |
 | `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
-| | `watch` | **Ecosystem**: Track ecosystem updates (ADK, LangChain, etc.). |
+| | `watch` | **Sentinel**: Ecosystem sync and SITL (Human-in-the-Loop) oversight. |
 | | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior. |
 | | `telemetry`| **Metrics**: Fetch live telemetry metrics for a specific agent. |
 | | `mothball` | **FinOps**: Scale inactive agents to zero. |

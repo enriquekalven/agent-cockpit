@@ -463,8 +463,8 @@ def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of
         console.print('🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)')
         console.print(f'   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]')
         console.print('🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)')
-        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.3 Policies...[/dim]')
-        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agent-ops audit report[/dim]\n\n[dim]Architecture: Trinity v1.3 compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
+        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.6.7 Policies...[/dim]')
+        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v1.6.7 compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
     except Exception as e:
         console.print(f'[bold red]Initialization failed:[/bold red] {e}')
 

@@ -30,6 +30,7 @@ Direct access to specialized SME logic via the `audit` hub.
 | `uvx agentops-cockpit audit face` | **UX/UI** | Face pillar (A2UI) protocol compliance audit. |
 | `uvx agentops-cockpit audit shadow` | **Differential** | Comparative reasoning analysis (V1 vs V2). |
 | `uvx agentops-cockpit audit context` | **Context** | Token strategy and Context Caching optimization. |
+| `uvx agentops-cockpit audit policy` | **Compliance** | Legal defensibility and enterprise policy alignment. |
 
 ---
 
@@ -40,7 +41,7 @@ Initialize and manage fleets across cloud boundaries.
 | :--- | :--- | :--- |
 | `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Scaffold Engine + Face + Cockpit project. |
 | `uvx agentops-cockpit fleet status` | **SRE Dashboard** | View stateful registry of all deployed agents. |
-| `uvx agentops-cockpit fleet watch` | **Watcher** | Synchronize with latest ecosystem intelligence. |
+| `uvx agentops-cockpit fleet watch` | **Sentinel** | SITL Oversight and Ecosystem intelligence. |
 | `uvx agentops-cockpit mcp list` | **MCP Store** | Discover and integrate Model Context Protocol tools. |
 
 ---

@@ -74,6 +74,8 @@ Every report finding is authored by a specialized SME:
 3. **🧗 AI Quality SME**: RAG fidelity and prompt peak optimization.
 4. **🛡️ Sentinel SME**: Runtime behavior and anomaly detection.
 5. **🌐 SRE Principal**: Network debt and fleet health.
+6. **⚖️ Legal Compliance SME**: PII masking and enterprise policy alignment.
+7. **🎮 SITL Pilot**: Human-in-the-loop oversight and manual triggers.
 
 ---
 
