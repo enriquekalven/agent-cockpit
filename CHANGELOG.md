@@ -2,9 +2,10 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.6.9] - 2026-02-13
+## [1.7.0] - 2026-02-13
 
-### 🔧 CLI Platform Improvements
+### 🏅 Operational Certification & Platform Refresh
+- **Sovereign Certification Hub**: Launched `agentops-cockpit sys certify`. This single command aggregates Environment Pre-flight, Deep Security/Load Audits, and Full Regression (Unit + Smoke tests) into a single production readiness scorecard.
 - **Project Initiation Alias**: Implemented `init` as a direct alias for the `create` hub, preventing command mismatch for many users.
 - **Model Discovery Hub**: Added `agentops-cockpit models` (and `sys models`) to list accessible Gemini model capabilities in the current landscape.
 - **Cloud Readiness Gates**: Integrated automatic gcloud quota and billing checks into all scaffolding commands. The CLI now proactively blocks project creation if Billing is disabled or the Vertex AI API is not enabled.
