@@ -398,8 +398,8 @@ def simulate():
     rel_mod.run_user_simulation()
 
 # --- SCAFFOLDING HUB ---
-@create_app.command(name="agent")
-def create_agent(project_name: Annotated[str, typer.Argument(help='The name of the new project')] = 'my-agent'):
+@create_app.command(name="trinity")
+def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of the new project')] = 'my-agent'):
     """Scaffold a unified Cockpit project (Engine + Face)."""
     console.print(Panel.fit(f'🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]', border_style='green'))
     try:
@@ -487,8 +487,7 @@ def legacy_sovereign(
     fleet: Annotated[bool, typer.Option("--fleet", help="Run for all agents in the path")] = False
 ):
     """[DEPRECATED] Use 'deploy sovereign' instead."""
-    orchestrator = sovereign_mod.SovereignOrchestrator(target_cloud=target.lower())
-    asyncio.run(orchestrator.run_pipeline(path, fleet=fleet))
+    sovereign(path, fleet, target)
 
 @app.command(name="document", hidden=True)
 def legacy_document(path: str=typer.Option('.', '--path', '-p', help='Path to workspace')):
@@ -503,7 +502,7 @@ def legacy_register(path: str=typer.Option('.', '--path', '-p', help='Path to wo
 @app.command(name="fleet-status", hidden=True)
 def legacy_fleet_status():
     """[DEPRECATED] Use 'fleet status' instead."""
-    status()
+    fleet_status()
 
 @app.command(name="mothball", hidden=True)
 def legacy_mothball(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to mothball')):
@@ -567,7 +566,7 @@ def legacy_doctor():
 @app.command(name="init", hidden=True)
 def legacy_init(project_name: str=typer.Argument('my-agent', help='The name of the new project')):
     """[DEPRECATED] Use 'create agent' or 'create face' instead."""
-    create_agent(project_name)
+    create_trinity(project_name)
 
 @app.command(name="create", hidden=True)
 def legacy_create(project_name: str=typer.Argument(..., help='The name of the new project'), ui: str=typer.Option('a2ui', '-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)'), copilotkit: bool=typer.Option(False, '--copilotkit', help='Enable extra CopilotKit features for AGUI')):
