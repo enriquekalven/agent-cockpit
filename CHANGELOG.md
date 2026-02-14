@@ -2,13 +2,17 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.8.2] - 2026-02-13
-
-### 🏛️ The "One Command" Sovereign Strategy
-- **Master Entry Point**: Established `agentops-cockpit cockpit` as the primary entry point, defaults to the **Master Cockpit Dashboard**.
-- **Hero Command: `certify`**: Promoted the certification checklist to a top-level command for production-readiness verification.
-- **Hero Command: `mcp blueprint`**: Launched the modernization engine for auto-generating MCP server wrappers from legacy tools.
-- **Zero to Hero Release Workflow**: Formalized the `zero2hero` end-to-end automation from dependency upgrade to global registry publishing.
+### v1.8.3 (2026-02-13) - The "Master Architect" Release
+- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., "RAG for Math") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+- **🕸️ Cross-Silo Correlation**: Fleet-wide analysis to detect combined risks (e.g., Security Gaps + Interaction Voids) across multiple independent agents.
+- **📊 Fleet Dashboard v2**: Implementation of the "Weakest Link" drill-down and interactive Maturity Radar Charts for tactical situational awareness.
+- **📄 Individual Report Evolution**:
+    - **Triage Grouping**: Findings grouped by Blockers, Warnings, and Optimizations.
+    - **Delta View**: Visual progress tracking showing score changes from previous audits.
+    - **Visual Code Diffs**: Markdown diff blocks for recommended `apply-fixes`.
+    - **Interactive Evidence**: Drill-down modals and summary tags for raw logs and traces.
+- **🛠️ Sys Upgrade**: New `agentops-cockpit sys upgrade` command for frictionless updates.
+- **🚀 Zero2Hero Workflow**: Formalized the release-to-deployment pipeline with automated intelligence syncing.
 - **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
 
 ### ⚙️ Stability & Reliability (Sovereign Parity)

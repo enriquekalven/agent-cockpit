@@ -126,7 +126,7 @@ def upgrade_cockpit():
     except Exception as e:
         console.print(f"\n[bold yellow]⚠️ Could not reach PyPI to verify version:[/bold yellow] {str(e)}")
         console.print("You can manually attempt an upgrade using:")
-        console.print(Panel(f"[bold green]pip install --upgrade agentops-cockpit[/bold green]", border_style="dim"))
+        console.print(Panel("[bold green]pip install --upgrade agentops-cockpit[/bold green]", border_style="dim"))
 
 # --- AUDIT HUB ---
 @sys_app.command(name="telemetry")

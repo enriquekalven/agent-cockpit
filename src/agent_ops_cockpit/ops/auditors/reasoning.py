@@ -77,4 +77,23 @@ class ReasoningAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
+        # 5. Semantic Paradigm Auditor: RAG for Math (The "Judge's Verdict" miss)
+        # We look for keywords like 'calculate', 'sum', 'total', 'average' in prompts
+        # OR when the code uses a vector store (RAG) and asks for arithmetic.
+        math_indicators = [r'calculate', r'sum', r'total', r'average', r'math', r'count']
+        has_math_intent = any(re.search(pat, content.lower()) for pat in math_indicators)
+        is_rag_active = any(x in content.lower() for x in ['vector', 'retriever', 'chroma', 'pinecone', 'search'])
+        
+        if has_math_intent and is_rag_active:
+             title = "Architectural Mismatch: RAG for Math"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🏛️ Architecture",
+                    title=title,
+                    description="Detected mathematical intent being processed via a RAG (Retrieval-Augmented Generation) pipeline. RAG is designed for semantic search, not arithmetic accuracy over raw text.",
+                    impact="HIGH",
+                    roi="[MASTER ARCHITECT RECOMMENDATION]: Pivot to an **NL2SQL** pattern or a **Code Interpreter** tool. These provide 100% deterministic accuracy for calculations, whereas LLMs over RAG can only 'approximate' sums.",
+                    file_path=file_path
+                ))
+
         return findings

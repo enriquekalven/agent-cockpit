@@ -33,7 +33,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Native MCP Server Export**: Launch the Cockpit as a Model Context Protocol server.
 - [x] **The Maturity Matrix**: High-fidelity visualization of persona competence and persona status.
 - [x] **Sovereign Fleet Pipeline**: End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register) for 1 to 50+ agents with a single command.
-- [ ] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard.
+- [x] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard (v1.8.2).
 - [ ] **GCP Marketplace Integration**: Deploy the Cockpit as a managed service on Google Cloud.
 - [ ] **Plugin System**: Community-contributed tools and auditors.
 

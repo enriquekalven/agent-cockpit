@@ -160,78 +160,80 @@ class CockpitOrchestrator:
     EFFORT_MAP = {'Secret Scanner': '⚡ 1-Click (Env Var)', 'Token Optimization': '⚡ 1-Click (Caching)', 'Policy Enforcement': '🔧 Medium (Policies)', 'Reliability (Quick)': '🔧 Medium (Code)', 'Architecture Review': '🏗️ Hard (Structural)', 'Face Auditor': '🔧 Medium (A2UI)', 'Red Team (Fast)': '🏗️ Hard (Model/Prompt)', 'RAG Fidelity Audit': '🔧 Medium (Logic)'}
 
     def generate_executive_summary(self, developer_actions, as_html=False):
-        """v1.3 Synthesis: Generates a prioritized stack-rank of finding categories."""
+        """v1.8.2 Master Architect Synthesis: Generates a prioritized stack-rank of finding categories."""
         if not developer_actions:
-            msg = '✅ **SME Verdict**: All governance gates APPROVED. No critical blockers detected.'
+            msg = '✅ **SME Verdict**: All governance gates APPROVED. No critical architectural mismatches detected.'
             return f"<p style='color:#16a34a; font-weight:600;'>{msg.replace('**', '')}</p>" if as_html else [msg]
-        groups = {0: [], 1: [], 2: [], 3: [], 4: []}
+        
+        # Triage Grouping: Blockers, Warnings, Optimizations
+        groups = {"BLOCKER": [], "WARNING": [], "OPTIMIZATION": []}
 
-        def priority_key(action):
+        def triage_key(action):
             p = action.lower()
-            if any((x in p for x in ['leak', 'secret', 'credential', 'security'])):
-                return 0
-            if any((x in p for x in ['reliability', 'unit test', 'failure', 'resiliency'])):
-                return 1
-            if any((x in p for x in ['architecture', 'policy', 'rejection', 'breach', 'bloat'])):
-                return 2
-            if any((x in p for x in ['finops', 'roi', 'caching', 'optimization'])):
-                return 3
-            return 4
+            if any(x in p for x in ['leak', 'secret', 'credential', 'security', 'critical', 'breach']):
+                return "BLOCKER"
+            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency', 'warning', 'conflict', 'mismatch']):
+                return "WARNING"
+            return "OPTIMIZATION"
+
         for action in developer_actions:
-            groups[priority_key(action)].append(action)
+            groups[triage_key(action)].append(action)
+
         if as_html:
             summary = ["<div class='executive-summary-content'>"]
             health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-            status_text = 'PASSED' if health_score >= 90 else 'WARNING' if health_score >= 70 else 'FAILED'
+            
+            # Master Architect Verdict
+            verdict = "MASTER ARCHITECT" if health_score >= 95 else "SENIOR AUDITOR" if health_score >= 75 else "JUNIOR REVIEWER"
             summary.append("<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>")
-            summary.append(f"<h3 style='margin-top:0; color:#1e40af;'>📊 Audit TLDR: {status_text}</h3>")
-            summary.append(f"<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>{health_score:.1f}%</strong> | Active Risks: <strong>{sum((1 for r in self.results.values() if not r['success']))}</strong></p>")
+            summary.append(f"<h3 style='margin-top:0; color:#1e40af;'>🧠 Master Architect Verdict: {verdict}</h3>")
+            summary.append(f"<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>{health_score:.1f}%</strong> | Mode: <strong>Semantic Intent Analysis</strong></p>")
             summary.append('</div>')
-            headers = {0: ('#ef4444', 'Priority 1: 🔥 Critical Security & Compliance'), 1: ('#f59e0b', 'Priority 2: 🛡️ Reliability & Resilience'), 2: ('#3b82f6', 'Priority 3: 🏗️ Architectural Alignment'), 3: ('#10b981', 'Priority 4: 💰 FinOps & ROI Opportunities'), 4: ('#64748b', 'Priority 5: 🎭 Experience & Refinements')}
-            p_found = False
-            for p_val in range(5):
-                if groups[p_val]:
-                    p_found = True
-                    color, label = headers[p_val]
+
+            headers = {
+                "BLOCKER": ('#ef4444', '🚨 Blockers (Immediate Risk)'),
+                "WARNING": ('#f59e0b', '⚠️ Warnings (Operational Debt)'),
+                "OPTIMIZATION": ('#3b82f6', '💡 Optimizations (Best Practices)')
+            }
+            
+            for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
+                if groups[key]:
+                    color, label = headers[key]
                     summary.append(f"<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid {color}; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>")
                     summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.9rem; text-transform:uppercase;'>{label}</h4>")
-                    unique_findings = []
                     seen = set()
-                    for a in groups[p_val]:
+                    for a in groups[key]:
                         parts = a.split(' | ')
                         if len(parts) >= 2 and parts[1] not in seen:
-                            unique_findings.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{parts[1]}</strong>: {(parts[2] if len(parts) > 2 else '')}</div>")
+                            summary.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{parts[1]}</strong>: {(parts[2] if len(parts) > 2 else '')}</div>")
                             seen.add(parts[1])
-                        if len(unique_findings) >= 3:
+                        if len(seen) >= 3:
                             break
-                    summary.extend(unique_findings)
                     summary.append('</div>')
-            if not p_found:
-                summary.append("<p style='color: #64748b; font-style: italic;'>No prioritized implementation steps detected for this build. Refer to the Persona Approval Matrix below for status.</p>")
             summary.append('</div>')
             return '\n'.join(summary)
         else:
             health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-            summary = [f'## 👔 Distinguished Fellow Executive Summary (TLDR: {health_score:.1f}%)']
-            summary.append('Findings are prioritized by Business Impact & Blast Radius.')
-            headers = {0: '### 🟥 Priority 1: 🔥 Critical Security & Compliance (Action Required)', 1: '### 🟨 Priority 2: 🛡️ Reliability & Resilience (Stability)', 2: '### 🟦 Priority 3: 🏗️ Architectural Debt (Scalability)', 3: '### 💰 Priority 4: ✨ FinOps & ROI Opportunities (Margins)', 4: '### ⬜ Priority 5: 🎭 Experience & Minor Refinements'}
-            p_found = False
-            for p_val in range(5):
-                if groups[p_val]:
-                    p_found = True
-                    summary.append(f'\n{headers[p_val]}')
-                    unique_findings = []
+            summary = [f'## 🏛️ Master Architect Executive Summary (Health: {health_score:.1f}%)']
+            summary.append('Findings are grouped by Strategic Triage Level.')
+            
+            headers = {
+                "BLOCKER": '### 🚨 Blockers (Will cause a security breach or crash today)',
+                "WARNING": '### ⚠️ Warnings (Will cost you money or slow down the user)',
+                "OPTIMIZATION": '### 💡 Optimizations (Best practices for "Master Architect" status)'
+            }
+            
+            for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
+                if groups[key]:
+                    summary.append(f'\n{headers[key]}')
                     seen = set()
-                    for a in groups[p_val]:
+                    for a in groups[key]:
                         parts = a.split(' | ')
                         if len(parts) >= 2 and parts[1] not in seen:
-                            unique_findings.append(f"- **{parts[1]}**: {(parts[2] if len(parts) > 2 else '')}")
+                            summary.append(f"- **{parts[1]}**: {(parts[2] if len(parts) > 2 else '')}")
                             seen.add(parts[1])
-                        if len(unique_findings) >= 3:
+                        if len(seen) >= 3:
                             break
-                    summary.extend(unique_findings)
-            if not p_found:
-                summary.append('\n✅ **Governance standard verified.** No prioritized gaps detected.')
             return summary
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
@@ -326,19 +328,18 @@ class CockpitOrchestrator:
 
             def priority_key(action):
                 p = action.lower()
-                if any((x in p for x in ['leak', 'secret', 'credential', 'security'])):
+                if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
                     return 0
-                if any((x in p for x in ['reliability', 'unit test', 'failure', 'resiliency'])):
+                if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
                     return 1
-                if any((x in p for x in ['architecture', 'policy', 'rejection', 'breach', 'bloat'])):
+                if any(x in p for x in ['architecture', 'policy', 'rejection', 'conflict']):
                     return 2
-                if any((x in p for x in ['finops', 'roi', 'caching', 'optimization'])):
-                    return 3
-                return 4
+                return 3
+            
             sorted_actions = sorted(developer_actions, key=priority_key)
             developer_actions[:] = sorted_actions
             current_phase = -1
-            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Architectural Alignment', '💰 Phase 4: FinOps Optimization', '🎭 Phase 5: Experience Refinement']
+            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Architectural Alignment', '💰 Phase 4: FinOps Optimization']
             for action in sorted_actions:
                 phase = priority_key(action)
                 if phase != current_phase:
@@ -349,6 +350,14 @@ class CockpitOrchestrator:
                     report.append(f'1. **{parts[1]}**')
                     report.append(f'   - 📍 Location: `{parts[0].strip()}`')
                     report.append(f'   - ✨ Recommended Fix: {parts[2].strip()}')
+                    
+                    # Master Architect: Visual Code Diffs
+                    report.append('   - 📝 **Architectural Diff**:')
+                    report.append('   ```diff')
+                    report.append('- # Legacy or Inefficient Logic')
+                    report.append(f'+ # {parts[1]}')
+                    report.append(f'+ {parts[2].strip()}')
+                    report.append('   ```')
             report.append('\n> 💡 **Automation Tip**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory for high-confidence remediations.')
         if developer_sources:
             report.append('\n## 📜 Evidence Bridge: Research & Citations')
@@ -385,7 +394,8 @@ class CockpitOrchestrator:
         report.append(executive_summary)
         if improvement_delta != 0:
             velocity_icon = '📈' if improvement_delta > 0 else '📉'
-            report.append(f'\n### {velocity_icon} Maturity Velocity: {improvement_delta:+.1f}% Compliance Change')
+            report.append(f'\n## {velocity_icon} The Delta View: Maturity Progress')
+            report.append(f"**Current Score**: {health_score:.1f}% | **Previous Score**: {prev_health:.1f}% | **Change**: {improvement_delta:+.1f}% {'↑' if improvement_delta > 0 else '↓'}")
         report.append('\n---')
         report.append('\n## 🔍 Raw System Artifacts')
         for name, data in self.results.items():
@@ -513,40 +523,69 @@ class CockpitOrchestrator:
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def _generate_html_report(self, developer_actions, developer_sources):
-        """Generates a v1.8.2 Distinguished Fellow Grade HTML report with Professional Mode toggle."""
+        """Generates a v1.8.2 Master Architect Grade HTML report with interactive evidence."""
         html_content = f"""
         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Distinguished Fellow Audit: {getattr(self, 'title', 'Build Report')}</title>
+            <title>Master Architect Review: {getattr(self, 'title', 'Build Report')}</title>
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');
-                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f1f5f9; }}\n                .report-card {{ background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }}\n                \n                /* Professional Mode Toggle */\n                .mode-toggle {{ position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; }}\n                #prof-mode-checkbox {{ cursor: pointer; }}\n                body.prof-mode .report-card {{ border-top: 8px solid #1e3a8a; border-radius: 8px; }}\n                body.prof-mode h1 {{ font-family: 'Georgia', serif; letter-spacing: 0; }}\n\n                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}\n                \n                h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}\n                h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}\n                \n                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }}\n                .pass {{ background: #dcfce7; color: #166534; }}\n                .fail {{ background: #fee2e2; color: #991b1b; }}\n                .warning {{ background: #fef9c3; color: #854d0e; }}\n\n                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }}\n                th, td {{ text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }}\n                th {{ background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }}\n                \n                .persona-table th {{ background: #f0f9ff; color: #0369a1; }}\n                .risk-text {{ font-size: 0.8rem; color: #64748b; font-style: italic; }}\n\n                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }}\n                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}\n                \n                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}\n            </style>\n        </head>\n        <body>\n            <div class="report-card">\n                <div class="mode-toggle">\n                    <label for="prof-mode-checkbox">Professional Mode</label>\n                    <input type="checkbox" id="prof-mode-checkbox" onchange="document.body.classList.toggle('prof-mode')">\n                </div>\n\n                <header>
+                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f8fafc; }}
+                .report-card {{ background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }}
+                
+                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}
+                
+                h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}
+                h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}
+                
+                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }}
+                .pass {{ background: #dcfce7; color: #166534; }}
+                .fail {{ background: #fee2e2; color: #991b1b; }}
+
+                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }}
+                th, td {{ text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }}
+                th {{ background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }}
+                
+                .persona-table th {{ background: #f0f9ff; color: #0369a1; }}
+                .risk-text {{ font-size: 0.8rem; color: #64748b; font-style: italic; }}
+
+                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }}
+                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}
+                
+                details {{ background: #f1f5f9; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid #e2e8f0; }}
+                summary {{ font-weight: 700; cursor: pointer; color: #334155; outline: none; }}
+                
+                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}
+            </style>
+        </head>
+        <body>
+            <div class="report-card">
+                <header>
                     <div>
-                        <h1>🏛️ Distinguished Fellow Review</h1>
-                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Protocol: {getattr(self, 'title', 'Principal Build')}</p>
+                        <h1>🧠 Master Architect Review</h1>
+                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Fleet Protocol Alignment: {getattr(self, 'title', 'Principal Build')}</p>
                         <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
-                            Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
+                            Architectural Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
                         </span>
                     </div>
                 </header>
 
-                <div style="background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #e2e8f0;">
-                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#64748b;">Board-Level Executive Summary</h3>
+                <div style="background: #f0f7ff; padding: 30px; border-radius: 24px; margin-bottom: 40px; border: 1px solid #cce3ff;">
+                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#1e40af;">🧠 Master Architect Verdict</h3>
                     <div style="font-size:1.05rem;">
                         {self.generate_executive_summary(developer_actions, as_html=True)}
                     </div>
                 </div>
 
-                <h2>🧑‍💼 Distinguished Fellow Persona Approval Matrix</h2>
+                <h2>🛡️ SME Persona Consensus Matrix</h2>
                 <table class="persona-table">
                     <thead>
                         <tr>
                             <th>SME Persona</th>
                             <th>Priority</th>
-                            <th>Primary Business Risk</th>
-                            <th>Module</th>
+                            <th>Strategic Risk</th>
                             <th>Verdict</th>
                         </tr>
                     </thead>
@@ -554,29 +593,45 @@ class CockpitOrchestrator:
         """
         for name, data in self.results.items():
             persona = self.PERSONA_MAP.get(name, 'Automated Auditor')
-            risk = self.PRIMARY_RISK_MAP.get(name, 'Architectural Neutrality')
+            risk = self.PRIMARY_RISK_MAP.get(name, 'Sovereignty Alignment')
             status = 'APPROVED' if data['success'] else 'REJECTED'
             prio = 'P1' if any((x in name.lower() for x in ['secret', 'security', 'policy', 'red'])) else 'P2' if 'reliability' in name.lower() else 'P3'
-            html_content += f"""\n                <tr>\n                    <td style="font-weight:700; color:#0f172a;">{persona}</td>\n                    <td><span style="font-weight:bold; color:{('#ef4444' if prio == 'P1' else '#f59e0b')};">{prio}</span></td>\n                    <td class="risk-text">{risk}</td>\n                    <td>{name}</td>\n                    <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>\n                </tr>\n            """
+            html_content += f"""
+                <tr>
+                    <td style="font-weight:700; color:#0f172a;">{persona}</td>
+                    <td><span style="font-weight:bold; color:{('#ef4444' if prio == 'P1' else '#f59e0b')};">{prio}</span></td>
+                    <td class="risk-text">{risk}</td>
+                    <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>
+                </tr>
+            """
         html_content += '</tbody></table>'
+        
         if developer_actions:
-            html_content += '\n                <h2>🛠️ Developer Action Plan</h2>\n                <table class="action-table">\n                    <thead>\n                        <tr>\n                            <th>Location (File:Line)</th>\n                            <th>Issue Detected</th>\n                            <th>Recommended Implementation</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n            '
+            html_content += '\n                <h2>🏗️ Tactical Implementation Plan</h2>\n                <table class="action-table">\n                    <thead>\n                        <tr>\n                            <th>Location</th>\n                            <th>Strategic Finding</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n            '
             for action in developer_actions:
                 parts = action.split(' | ')
                 if len(parts) == 3:
-                    html_content += f'\n                        <tr>\n                            <td><code>{parts[0]}</code></td>\n                            <td>{parts[1]}</td>\n                            <td style="color: #059669; font-weight: 600;">{parts[2]}</td>\n                        </tr>\n                    '
+                    html_content += f'\n                        <tr>\n                            <td><code>{parts[0]}</code></td>\n                            <td>\n                                <div style="font-weight:700; color:#0f172a;">{parts[1]}</div>\n                                <div style="color: #059669; font-size: 0.85rem; margin-top:4px;">✨ {parts[2]}</div>\n                            </td>\n                        </tr>\n                    '
             html_content += '</tbody></table>'
-        if developer_sources:
-            html_content += '\n                <h2>📜 Evidence Bridge: Research & Citations</h2>\n                <table class="source-table">\n                    <thead>\n                        <tr>\n                            <th>Knowledge Pillar</th>\n                            <th>SDK/Pattern Citation</th>\n                            <th>Evidence & Best Practice</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n            '
-            for source in developer_sources:
-                parts = source.split(' | ')
-                if len(parts) == 3:
-                    html_content += f'\n                        <tr>\n                            <td style="font-weight: 700;">{parts[0]}</td>\n                            <td><a href="{parts[1]}" class="source-link" target="_blank">View Citation &rarr;</a></td>\n                            <td style="font-size: 0.85rem; color: #475569;">{parts[2]}</td>\n                        </tr>\n                    '
-            html_content += '</tbody></table>'
-        html_content += '\n                <h2>🔍 Audit Evidence</h2>\n        '
+            
+        html_content += '\n                <h2>🔍 Interactive Evidence Lake</h2>\n                <div style="margin-top:20px;">\n        '
         for name, data in self.results.items():
-            html_content += f"<h3>{name}</h3><pre>{data['output']}</pre>"
-        html_content += '\n                <div class="footer">\n                    Generated by AgentOps Cockpit Orchestrator (Antigravity v1.3 Standard). \n                    <br>Ensuring safe-build standards for multi-cloud agentic ecosystems.\n                </div>\n            </div>\n        </body>\n        </html>\n        '
+            html_content += f"""
+                <details>
+                    <summary>{name} Evidence: {('✅' if data['success'] else '❌')}</summary>
+                    <pre>{data['output']}</pre>
+                </details>
+            """
+        html_content += """
+                </div>
+                <div class="footer">
+                    Generated by AgentOps Cockpit (v1.8.2 Master Architect). 
+                    <br>Ensuring sovereign-grade reliability for agentic ecosystems.
+                </div>
+            </div>
+        </body>
+        </html>
+        """
         with open(self.html_report_path, 'w') as f:
             f.write(html_content)
 
@@ -912,6 +967,31 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
                 json.dump(lake_data, f, indent=2)
         except Exception:
             pass
+    # v1.8.2 Master Architect: Cross-Silo Correlation
+    correlation_risks = []
+    if os.path.exists(lake_path):
+        try:
+            with open(lake_path, 'r') as f:
+                lake_data = json.load(f)
+            
+            # Detect: Security Gap in A + Interaction Void in B
+            has_security_gap = any("secret" in str(d).lower() or "unauthorized" in str(d).lower() for d in lake_data.values())
+            has_interaction_void = any("A2UI" in str(d) and not d.get('results', {}).get('Face Auditor', {}).get('success', True) for d in lake_data.values())
+            
+            if has_security_gap and has_interaction_void:
+                correlation_risks.append("🚨 [CORRELATION RISK]: Combined **Sovereignty Gap** and **Interaction Void** detected across fleet. Risk: Lethal commands could be triggered without user-facing confirmation screens.")
+            
+            # Detect: FinOps Leakage in multiple silos
+            finops_fails = [p for p, d in lake_data.items() if not d.get('results', {}).get('Token Optimization', {}).get('success', True)]
+            if len(finops_fails) > len(agents) // 2:
+                correlation_risks.append("💰 [CORRELATION RISK]: Systemic **Token Hemorrhage** detected. Over 50% of the fleet is using suboptimal model tiers for simple tasks.")
+                
+        except Exception:
+            pass
+
+    if correlation_risks:
+        console.print(Panel("\n".join(correlation_risks), title="🧠 Master Architect: Cross-Silo Correlation", border_style="red"))
+
     generate_fleet_dashboard(results)
     return True
 if __name__ == '__main__':

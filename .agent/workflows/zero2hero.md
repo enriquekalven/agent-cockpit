@@ -21,10 +21,12 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
 3. **Version Alignment**: 
    Ensure `pyproject.toml`, `package.json`, and `src/agent_ops_cockpit/` version strings are synchronized.
 4. **Synchronize Wisdom Store**: 
-   - Update `src/agent_ops_cockpit/ops/maturity_patterns.json` (Architectural heuristics).
-   - Update `src/agent_ops_cockpit/ops/policies.json` (Governance rules).
-   - Update `src/agent_ops_cockpit/ops/watchlist.json` (Ecosystem intelligence).
-   - Update `CAPABILITIES_REGISTRY.md` (System capabilities).
+   - **Automated Pulse**: Run `agentops-cockpit fleet watch` to ingest the latest research signals and ecosystem patterns into the intelligence core.
+   - **Manual Verification**: 
+     - Update `src/agent_ops_cockpit/ops/maturity_patterns.json` (Architectural heuristics).
+     - Update `src/agent_ops_cockpit/ops/policies.json` (Governance rules).
+     - Update `src/agent_ops_cockpit/ops/watchlist.json` (Ecosystem intelligence).
+     - Update `CAPABILITIES_REGISTRY.md` (System capabilities).
 5. **Strategic Documentation**:
    Update `ROADMAP.md`, `CHANGELOG.md`, `README.md`, and all guides in `/docs/` and `/public/` to reflect the latest release capabilities and versioning.
 
