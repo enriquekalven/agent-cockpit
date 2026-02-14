@@ -36,7 +36,7 @@ Governance extends to the **Face** (UI/UX) through the automated `audit face` co
 
 ---
 
-## 🕵️ Sentinel Oversight (v1.6.7 Watchtower)
+## 🕵️ Sentinel Oversight (v1.8.2 Watchtower)
 Governance is no longer a static "pre-flight" check. The Cockpit now provides **Active Runtime Governance** via the Sentinel Persona.
 - **Behavioral Fingerprinting**: Analyzes live telemetry to detect reasoning drift and "rogue" intent.
 - **Circuit Breakers**: Implements the `agentops-cockpit fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).

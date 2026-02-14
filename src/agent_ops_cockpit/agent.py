@@ -17,7 +17,7 @@ from .shadow.router import ShadowRouter
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-# v1.6.7 Master Sovereign Alignment
+# v1.8.2 Master Sovereign Alignment
 # optimization: external_prompts, context_caching, hive_mind, semantic_caching
 # gcp_observability: trace, otel, cloud_trace, monitoring
 # tech_debt: cpu_boost, identity, columnar, vector_search, resource_principal, orchestra, actiongroup

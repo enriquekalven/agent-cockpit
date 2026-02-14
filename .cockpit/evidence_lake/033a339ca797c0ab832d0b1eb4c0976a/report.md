@@ -1026,7 +1026,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: retrieved
-1. **Model Efficiency Regression (v1.6.7)**
+1. **Model Efficiency Regression (v1.8.2)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: Frontier reasoning
 1. **Economic Risk: Inference Loop Detected**
@@ -1233,7 +1233,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Untrusted Context Trap: Indirect Injection**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: retrieved
-1. **Model Efficiency Regression (v1.6.7)**
+1. **Model Efficiency Regression (v1.8.2)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: Frontier reasoning
 1. **Economic Risk: Inference Loop Detected**
@@ -5927,7 +5927,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Strategic Conflict: Multi-Orchestrator Setup**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: Detected
-1. **Model Efficiency Regression (v1.6.7)**
+1. **Model Efficiency Regression (v1.8.2)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: Frontier
 1. **Economic Review: High-Cost Inference**
@@ -10946,7 +10946,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Strategic Conflict: Multi-Orchestrator Setup**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: Detected
-1. **Model Efficiency Regression (v1.6.7)**
+1. **Model Efficiency Regression (v1.8.2)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: Frontier
 1. **Economic Review: High-Cost Inference**

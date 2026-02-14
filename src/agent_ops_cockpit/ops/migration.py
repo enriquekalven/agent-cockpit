@@ -17,7 +17,7 @@ except (ImportError, AttributeError):
 
 class MigrationEngine:
     """
-    Sovereign Multi-Cloud Migration Engine v1.6.7.
+    Sovereign Multi-Cloud Migration Engine v1.8.2.
     Automates Discovery, Planning, Hydrating, and Generating Multi-Cloud Assets.
     Supports: Google Cloud, AWS, Azure, Anthropic (Claude), and Microsoft.
     """
@@ -49,13 +49,13 @@ class MigrationEngine:
         
         # 1. Inject Sovereign Headers based on Cloud
         header_map = {
-            'google': "# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
-            'aws': "# v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)\n",
-            'azure': "# v1.6.7 Sovereign Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
-            'anthropic': "# v1.6.7 Sovereign Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
-            'microsoft': "# v1.6.7 Sovereign Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
+            'google': "# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
+            'aws': "# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)\n",
+            'azure': "# v1.8.2 Sovereign Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
+            'anthropic': "# v1.8.2 Sovereign Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
+            'microsoft': "# v1.8.2 Sovereign Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
         }
-        cloud_header = header_map.get(target_cloud, "# v1.6.7 Multi-Cloud Optimized Agent\n")
+        cloud_header = header_map.get(target_cloud, "# v1.8.2 Multi-Cloud Optimized Agent\n")
         
         # Remove any existing Sovereign Alignment header (any version)
         remediator.content = re.sub(r"^# v\d+\.\d+\.\d+(?:\.\d+)? Sovereign Alignment: .+\n", "", remediator.content, flags=re.MULTILINE)
@@ -113,9 +113,9 @@ class MigrationEngine:
         """Prepare Cloud-specific Dockerfiles and IaC templates."""
         agent_dir = os.path.dirname(agent_path)
         
-        # Base Dockerfile with v1.6.7 Security Hardening
+        # Base Dockerfile with v1.8.2 Security Hardening
         docker_base = """FROM python:3.11-slim
-# v1.6.7 Zero-Trust Hydration: Non-root user setup
+# v1.8.2 Zero-Trust Hydration: Non-root user setup
 RUN groupadd -r sovereign && useradd -r -g sovereign sovereign
 WORKDIR /app
 COPY requirements.txt .

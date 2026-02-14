@@ -7,7 +7,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.6.7 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 import sys
@@ -660,6 +660,9 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             console.print(f'⚡ [bold green]SKIP:[/bold green] No changes detected in {target_path}. Reusing evidence lake artifacts.')
             orchestrator.results = source_data.get('results', {})
             orchestrator.generate_report()
+            # Ensure dashboard is updated even on skips
+            from .dashboard import generate_fleet_dashboard
+            generate_fleet_dashboard({target_path: orchestrator.get_exit_code()})
             return orchestrator.get_exit_code()
     subtitle = 'Essential checks for dev-velocity' if mode == 'quick' else 'Full benchmarks & stress-testing'
     console.print(Panel.fit(f'🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...', border_style='blue'))
@@ -754,10 +757,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 if patch_path:
                     console.print(f"🏜️  [yellow]DRY RUN: Patch generated at {patch_path}[/yellow]")
             else:
-                # In v1.6.7+ we actually default to PATCHING for safety unless forced
+                # In v1.8.2+ we actually default to PATCHING for safety unless forced
                 # But the tests expect a patch even if dry_run is False? 
                 # Let's check test_audit_flow.py line 65. 
-                # It says: 'Applying fixes in v1.6.7 should NOT modify the file directly'
+                # It says: 'Applying fixes in v1.8.2 should NOT modify the file directly'
                 rem.save_patch()
                 console.print(f"📦 [bold green]Autonomous Remediation Staged:[/bold green] Patch created for {os.path.basename(path)}")
 
@@ -910,6 +913,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
         except Exception:
             pass
     generate_fleet_dashboard(results)
+    return True
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()

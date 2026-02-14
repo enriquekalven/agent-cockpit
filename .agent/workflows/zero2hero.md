@@ -10,14 +10,22 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
 ## Phase 1: Preparation & Intelligence Sync
 1. **Upgrade Dependencies**: 
    `uv sync --upgrade` and `npm install`
-2. **Version Alignment**: 
+2. **Sovereign Parity Verification**: 
+   Ensure `agentops-cockpit sys version` matches the version in `pyproject.toml` and the latest version on PyPI.
+   Also verify that `uv` and `make` (or `gmake`) are at the latest stable versions.
+   `agentops-cockpit sys version`
+   `grep version pyproject.toml`
+   `pip index versions agentops-cockpit --index-url https://pypi.org/simple/`
+   `uv --version`
+   `make --version` (or `gmake --version`)
+3. **Version Alignment**: 
    Ensure `pyproject.toml`, `package.json`, and `src/agent_ops_cockpit/` version strings are synchronized.
-3. **Synchronize Wisdom Store**: 
+4. **Synchronize Wisdom Store**: 
    - Update `src/agent_ops_cockpit/ops/maturity_patterns.json` (Architectural heuristics).
    - Update `src/agent_ops_cockpit/ops/policies.json` (Governance rules).
    - Update `src/agent_ops_cockpit/ops/watchlist.json` (Ecosystem intelligence).
    - Update `CAPABILITIES_REGISTRY.md` (System capabilities).
-4. **Strategic Documentation**:
+5. **Strategic Documentation**:
    Update `ROADMAP.md`, `CHANGELOG.md`, `README.md`, and all guides in `/docs/` and `/public/` to reflect the latest release capabilities and versioning.
 
 ## Phase 2: Structural Verification (The Build Gates)

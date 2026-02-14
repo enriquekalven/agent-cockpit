@@ -1,4 +1,4 @@
-# v1.6.7 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import ast
 import difflib
 import os
@@ -8,7 +8,7 @@ class CodeRemediator:
     """
     Phase 4: The 'Closer' - Automated Remediation Engine.
     Transforms code surgically based on audit findings to inject best practices
-    while preserving license headers, comments, and formatting. (v1.6.7 Smart Diffing)
+    while preserving license headers, comments, and formatting. (v1.8.2 Smart Diffing)
     """
 
     def __init__(self, file_path: str):
