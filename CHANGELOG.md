@@ -8,7 +8,15 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Master Entry Point**: Established `agentops-cockpit cockpit` as the primary entry point, defaults to the **Master Cockpit Dashboard**.
 - **Hero Command: `certify`**: Promoted the certification checklist to a top-level command for production-readiness verification.
 - **Hero Command: `mcp blueprint`**: Launched the modernization engine for auto-generating MCP server wrappers from legacy tools.
+- **Zero to Hero Release Workflow**: Formalized the `zero2hero` end-to-end automation from dependency upgrade to global registry publishing.
 - **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
+
+### ⚙️ Stability & Reliability (Sovereign Parity)
+- **Sovereign Parity Verification**: Added mandatory version and toolchain checks (`uv`, `make`, `agentops-cockpit`) to the release lifecycle.
+- **Dashboard Resiliency**: Fixed critical bugs where the **Fleet Dashboard** failed to update during "intelligent skip" paths or empty workspace scans.
+- **CLI Return Integrity**: Standardized exit codes for `workspace_audit` to ensure enterprise CI/CD pipelines correctly identify completion status.
+- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v1.8.2-stable standards.
+- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v1.8.2 across 95+ files.
 
 ### 🧠 Strategic Architectural Paradigm Auditor
 - **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
