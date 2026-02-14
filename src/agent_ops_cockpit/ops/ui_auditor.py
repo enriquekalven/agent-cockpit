@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import re
 import typer
@@ -37,6 +37,8 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     streaming_pattern = re.compile(r"Suspense|Stream|Markdown|chunk")
     mobile_pattern = re.compile(r"@media\s*\(max-width:|max-width:\s*\d+px|viewport|flex-direction:\s*column")
     mcp_ui_pattern = re.compile(r"MCPClient|mcp-server|stdio-client|ModelContextProtocol")
+    agui_pattern = re.compile(r"AgenticGraph|GraphView|StateNode|Edge|GraphRegistry")
+    mcp_apps_pattern = re.compile(r"MCPApp|ToolSurface|McpToolRenderer|mcp-tool-id")
 
 
     for root, dirs, files in os.walk(path):
@@ -104,6 +106,12 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                     if not mcp_ui_pattern.search(content) and ("MCP" in file or "Tool" in file):
                          findings.append({"line": 1, "issue": "MCP-UI protocol misalignment", "fix": "Ensure component uses 'MCPClient' for standardized tool discovery in the UI."})
 
+                    if not agui_pattern.search(content) and ("Graph" in file or "Flow" in file or "Workflow" in file):
+                         findings.append({"line": 1, "issue": "Missing AGUI (Agentic Graph UI) mapping", "fix": "Implement AGUI StateNodes and Edges to visualize agentic graph transitions."})
+
+                    if not mcp_apps_pattern.search(content) and ("App" in file and "MCP" in file):
+                         findings.append({"line": 1, "issue": "Non-compliant MCP Apps UI", "fix": "Use McpToolRenderer for standardized UI-to-tool binding in MCP applications."})
+
 
                     if findings:
                         issues.append({"file": rel_path, "findings": findings})
@@ -121,6 +129,8 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
         "interactive component without triggers": 10,
         "Missing a11y labels": 10,
         "Missing Mobile Responsiveness": 10,
+        "Missing AGUI mapping": 15,
+        "Non-compliant MCP Apps UI": 10,
         "Missing Legal/SEO": 5
     }
 
@@ -150,6 +160,8 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     summary.add_row("Latency Tolerance", "Low" if "Missing 'Thinking' feedback" in unique_issues else "Premium")
     summary.add_row("Autonomous Risk (HITL)", "HIGH" if "Missing HITL" in unique_issues else "Secured")
     summary.add_row("Streaming Fluidity", "Flicker-Prone" if "Missing Streaming Resilience" in unique_issues else "Smooth")
+    summary.add_row("AGUI Interoperability", "None" if "Missing AGUI mapping" in unique_issues else "Visualized")
+    summary.add_row("MCP App Compliance", "Legacy" if "Non-compliant MCP Apps UI" in unique_issues else "Modern")
     
     console.print(Panel(summary, border_style="green" if score >= 85 else "yellow"))
 

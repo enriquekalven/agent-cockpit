@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import time
 from typing import Dict, Any, List
 

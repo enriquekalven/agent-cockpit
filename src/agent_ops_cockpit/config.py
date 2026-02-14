@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 
 class Config:
@@ -10,7 +10,7 @@ class Config:
     Centralized Configuration for AgentOps Cockpit.
     Improvement #6: Centralized Configuration
     """
-    VERSION = "1.8.2"
+    VERSION = "1.8.4"
     DEFAULT_AGENT_PATH = "src/agent_ops_cockpit/agent.py"
     REPO_URL = "https://github.com/enriquekalven/agent-ui-starter-pack"
     

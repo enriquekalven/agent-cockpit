@@ -1,6 +1,6 @@
 ## The "Adversarial SRE" Standard (v1.4.7 Stable)
 
-The `agentops-cockpit certify` and `agentops-cockpit audit security` commands activate the **Red Team Principal**. In v1.8.2, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
+The `agentops-cockpit certify` and `agentops-cockpit audit security` commands activate the **Red Team Principal**. In v1.8.4, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
 
 ---
 

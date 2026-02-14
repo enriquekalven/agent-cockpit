@@ -87,8 +87,8 @@ graph TD
 
 ---
 
-## 🏛️ v1.8.2: The "Structural Wisdom" Release (LATEST)
-Evolving into a full Strategic Governance Platform for AI Agents. See the [**v1.8.2 Release Notes**](/CHANGELOG.md).
+## 🏛️ v1.8.4: The "Structural Wisdom" Release (LATEST)
+Evolving into a full Strategic Governance Platform for AI Agents. See the [**v1.8.4 Release Notes**](/CHANGELOG.md).
 The ultimate end-to-end management platform for professional AI agents. v1.8 introduces the **Principal Semantic Architect**, shifting focus from tactical implementation to strategic architectural paradigm alignment.
 
 - **🏛️ Strategic Paradigm Auditor (`audit arch`)**: Detect high-level architectural mismatches. Are you using RAG for math? Prompt-stuffed structured data analysis? Manual state machines instead of dedicated frameworks?
@@ -121,7 +121,7 @@ The Cockpit now performs platform-specific performance and security audits for *
 
 ---
 
-### 🛡️ Advanced Governance & Discovery (v1.8.2)
+### 🛡️ Advanced Governance & Discovery (v1.8.4)
 Modern agents don't just live in `agent.py`. The Cockpit uses a centralized **Discovery Engine** to intelligently map your project:
 - **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
 - **Multi-Target Logic**: Define `targets: []` in `cockpit.yaml` to audit distributed agents in a single pass.
@@ -165,7 +165,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ## 🚀 Production Readiness Auditor
 The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
-1. **v1.8.2 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash) and logic.
+1. **v1.8.4 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash) and logic.
 2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
 3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
 4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.

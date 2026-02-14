@@ -21,7 +21,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) for production-readiness with the official `agentops-cockpit certify` operational checklist.
 - [x] **The ROI Predictor Waterfall**: Comparative analysis of TCO across model families (e.g., GPT-4 vs Gemini Flash) with reasoning-match validation.
 - [x] **Multi-Agent Orchestrator & Conflict Guard**: Support for Swarm patterns with cross-framework stability checks.
-- [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math, Prompt-Stuffed Analysis) via the **Principal Semantic Architect** (v1.8.2).
+- [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math, Prompt-Stuffed Analysis) via the **Principal Semantic Architect** (v1.8.4).
 - [x] **"One Command" Sovereignty**: Unified the entry point into the Master Cockpit Dashboard.
 - [ ] **VPC-Native Hive Mind**: Managed semantic caching for AlloyDB and Memorystore.
 - [ ] **Dynamic Model Routing**: Automatic switching between Flash and Pro based on prompt complexity and budget.
@@ -33,7 +33,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Native MCP Server Export**: Launch the Cockpit as a Model Context Protocol server.
 - [x] **The Maturity Matrix**: High-fidelity visualization of persona competence and persona status.
 - [x] **Sovereign Fleet Pipeline**: End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register) for 1 to 50+ agents with a single command.
-- [x] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard (v1.8.2).
+- [x] **Visual "Mission Control" UI**: Real-time log streaming, token usage graphs, and agent **Maturity Radar Charts** in a cinematic dashboard (v1.8.4).
 - [ ] **GCP Marketplace Integration**: Deploy the Cockpit as a managed service on Google Cloud.
 - [ ] **Plugin System**: Community-contributed tools and auditors.
 

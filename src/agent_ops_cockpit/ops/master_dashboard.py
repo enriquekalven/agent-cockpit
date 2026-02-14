@@ -40,7 +40,7 @@ class MasterCockpit:
         # 2. Hero Panel
         hero_text = Text.from_markup(f"""
 [bold white]🕹️ Sovereign Agent Operations Command Center[/]
-[dim]v1.8.2 Stable | Distinguished Fellow Governance[/]
+[dim]v1.8.4 Stable | Distinguished Fellow Governance[/]
 
 Detected [bold cyan]{len(agents)}[/] Local Agent Silos in Workspace.
 Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instances.
@@ -88,7 +88,7 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
 
         # 5. Fleet Summary with Audit Integrity
         if deployed_agents:
-            # [v1.8.2] Sovereignty Bridge: Cross-reference with Evidence Lake for Audit Integrity
+            # [v1.8.4] Sovereignty Bridge: Cross-reference with Evidence Lake for Audit Integrity
             lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
             lake_data = {}
             if os.path.exists(lake_path):

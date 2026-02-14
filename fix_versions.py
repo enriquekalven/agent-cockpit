@@ -5,9 +5,9 @@ with open('files_to_fix.txt', 'r') as f:
     files_to_fix = [line.strip() for line in f if line.strip()]
 
 versions_to_replace = {
-    '1.6.7': '1.8.2',
-    '1.6.6': '1.8.2',
-    '1.3.5': '1.8.2'
+    '1.6.7': '1.8.4',
+    '1.6.6': '1.8.4',
+    '1.3.5': '1.8.4'
 }
 
 for file_path in files_to_fix:

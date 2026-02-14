@@ -2,7 +2,7 @@
 Pillar: Economic Sustainability
 SME Persona: Distinguished FinOps Fellow
 Objective: Project TCO and identify caching/efficiency opportunities in agentic flows.
-Taxonomy: Sovereign FinOps (v1.8.2)
+Taxonomy: Sovereign FinOps (v1.8.4)
 """
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
@@ -20,7 +20,7 @@ class FinOpsAuditor(BaseAuditor):
     Focuses on 'Architectural Waste' and 'Inference Over-Privilege'.
     """
     
-    # v1.8.2 Pricing Index (Sovereign Rates)
+    # v1.8.4 Pricing Index (Sovereign Rates)
     MODEL_PRICES: Dict[str, float] = {
         'gemini-2.0-pro': 1.25, 
         'gemini-3-pro': 1.25, 

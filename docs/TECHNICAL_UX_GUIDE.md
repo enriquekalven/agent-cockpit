@@ -1,4 +1,4 @@
-# 🎭 Technical Guide: Face Auditor & A2UI Protocol
+# 🎭 Technical Guide: Face Auditor & Agentic UI Ecosystem (A2UI, AGUI, MCP)
 ## The "Standardized Ecosystem" Standard (v1.4.7 Stable)
 
 The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **UX/UI Principal Designer** persona. This SME specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is not just a static dashboard, but a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide high-fidelity visual feedback and seamless surface transitions to maintain user trust.
@@ -41,6 +41,16 @@ The UX Principal evaluates your frontend architecture across four critical GenUI
 *   **Vector**: Detecting "Dangerous" tools (e.g., `delete_database`, `send_payment`) that execute without a UI confirmation.
 *   **Implementation**: High-impact tools must be mapped to a **Gated Surface**. The A2UI Protocol mandates a `status: "PENDING_APPROVAL"` phase for these tools, requiring a manual human `onclick`.
 
+### 🕸️ 4. AG UI: Agentic Graph Visualization
+*   **Vector**: Identifying "Logic Blindness" where the user cannot see the agent's decision graph or state transitions.
+*   **Implementation**: Use the `AGUI` framework to map `StateNodes` and `Edges`. This allows users to visualize multi-agent handoffs and complex task branching in real-time.
+*   **Audit Logic**: Scans for `GraphRegistry` and `StateNode` definitions in workflow-heavy components.
+
+### 🍱 5. MCP Apps UI: Standardized Tool Binding
+*   **Vector**: Detecting proprietary, non-interoperable tool UIs that break the **Model Context Protocol** governance.
+*   **Implementation**: Implement `McpToolRenderer` for all tools discovered via MCP. This ensures a consistent, secure interface regardless of the underlying tool implementation.
+*   **Audit Logic**: Enforces `MCPApp` compliance for any UI module interacting with standardized MCP servers.
+
 #### 🏗️ The GenUI Dispatch Flow (Visualized)
 
 ```mermaid
@@ -62,6 +72,8 @@ graph LR
 | **Operational Logic** | Pull-based (User clicks). | **Push-based (Agent dispatches surface)**. |
 | **State Awareness** | Local/Global state. | **Reasoning-aware state (CoT alignment)**. |
 | **Trust Layer** | None. | **HITL Gating** for destructive actions. |
+| **Logic Visibility**| Black Box. | **AGUI Graph Visualization** (Logic transparency). |
+| **Tool Uniformity** | Ad-hoc UI. | **MCP Apps UI** (Standardized tool binding). |
 | **Perceived Speed** | Optimization of assets. | **Optimization of "Thinking" feedback**. |
 
 ---

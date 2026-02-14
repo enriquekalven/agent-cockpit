@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 # [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil

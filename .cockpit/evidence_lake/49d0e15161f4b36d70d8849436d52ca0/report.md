@@ -256,7 +256,7 @@ Total Requests: 50 | Concurrency: 5
 │ ╭────────────────────────────────────────────── locals ──────────────────────────────────────────────╮ │
 │ │       fut = <Future at 0x1354139e0 state=finished raised RetryError>                               │ │
 │ │ retry_exc = RetryError(<Future at 0x1354139e0 state=finished raised RetryError>)                   │ │
-│ │        rs = <RetryCallState 5188328896: attempt #3; slept for 8.0; last result: failed (RetryError │ │
+│ │        rs = <RetryCallState 51.8.48896: attempt #3; slept for 8.0; last result: failed (RetryError │ │
 │ │             RetryError[<Future at 0x135413980 state=finished raised AttributeError>])>             │ │
 │ │      self = <Retrying object at 0x1353f9ac0 (stop=<tenacity.stop.stop_after_attempt object at      │ │
 │ │             0x1353f94c0>, wait=<tenacity.wait.wait_exponential object at 0x1353f9490>,             │ │

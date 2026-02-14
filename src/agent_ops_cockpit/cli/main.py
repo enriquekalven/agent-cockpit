@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List, Annotated
@@ -595,8 +595,8 @@ def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of
         console.print('🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)')
         console.print(f'   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]')
         console.print('🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)')
-        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.8.2 Policies...[/dim]')
-        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v1.8.2 compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
+        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and v1.8.4 Policies...[/dim]')
+        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v1.8.4 compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
     except Exception as e:
         console.print(f'[bold red]Initialization failed:[/bold red] {e}')
 
@@ -781,7 +781,7 @@ def audit_maturity():
     [DEPRECATED] Use 'audit maturity' instead.
     Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
     """
-    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.8.2)[/bold blue]", border_style="blue"))
+    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.8.4)[/bold blue]", border_style="blue"))
     
     # 1. Persona Matrix
     persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")

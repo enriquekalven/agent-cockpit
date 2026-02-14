@@ -2,8 +2,9 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-### v1.8.3 (2026-02-13) - The "Master Architect" Release
-- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., "RAG for Math") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+### v1.8.4 (2026-02-14) - The "Master Architect" Release
+- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., \"RAG for Math\") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+- **🕸️ Multi-Protocol UX Governance**: Evolved Face Auditor supporting A2UI, AGUI (Agentic Graph), and MCP Apps UI standards.
 - **🕸️ Cross-Silo Correlation**: Fleet-wide analysis to detect combined risks (e.g., Security Gaps + Interaction Voids) across multiple independent agents.
 - **📊 Fleet Dashboard v2**: Implementation of the "Weakest Link" drill-down and interactive Maturity Radar Charts for tactical situational awareness.
 - **📄 Individual Report Evolution**:
@@ -19,8 +20,8 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Sovereign Parity Verification**: Added mandatory version and toolchain checks (`uv`, `make`, `agentops-cockpit`) to the release lifecycle.
 - **Dashboard Resiliency**: Fixed critical bugs where the **Fleet Dashboard** failed to update during "intelligent skip" paths or empty workspace scans.
 - **CLI Return Integrity**: Standardized exit codes for `workspace_audit` to ensure enterprise CI/CD pipelines correctly identify completion status.
-- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v1.8.2-stable standards.
-- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v1.8.2 across 95+ files.
+- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v1.8.4-stable standards.
+- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v1.8.4 across 95+ files.
 
 ### 🧠 Strategic Architectural Paradigm Auditor
 - **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
@@ -46,21 +47,21 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 ## [1.6.8] - 2026-02-13
 
 ### 🍱 Landing Page & Persona Expansion
-- **Watchtower Standard UI**: Refreshed the homepage with v1.8.2+ Watchtower branding and hub-based command highlights.
+- **Watchtower Standard UI**: Refreshed the homepage with v1.8.4+ Watchtower branding and hub-based command highlights.
 - **Mission Control Expansion**: Added 2 new specialized personas: **Compliance Officer** (Legal SME) and **SITL Pilot** (HITL Oversight).
-- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v1.8.2 architecture standards and new command hub names.
+- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v1.8.4 architecture standards and new command hub names.
 - **Documentation Sync**: Fully updated the Master Guide, UVX Guide, and Audit Guide to reflect all 12 operational journeys.
 
 
-## [1.8.2] - 2026-02-12
+## [1.8.4] - 2026-02-12
 
 ### 🛰️ Deep Functional Auditing & Wisdom Store
 - **Functional Execution Gate**: Implemented a mandatory "Phase 2: Deep Functional CLI Audit" in the reliability engine. This move ensures that CLI command outputs (like `sys telemetry`) maintain schema integrity across updates.
-- **Maturity Wisdom Store v1.8.2**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
+- **Maturity Wisdom Store v1.8.4**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
 - **Hub Command Expansion**: Formally expanded the CLI across 9 logical hubs, introducing dedicated `rag` and `mcp` orchestration layers.
 - **Lab Agent Hardening**: Standardized the Cockpit Lab environment with resilient `@retry` patterns and strict typing for the "Broken Agent" tutorial.
 
-## [1.8.2] - 2026-02-12
+## [1.8.4] - 2026-02-12
 
 ### 🧪 Test Suite Hardening
 - **Dynamic Versioning**: Updated unit tests to use `Config.VERSION` dynamically, ensuring registry and anomaly detection tests are resilient to future version bumps.
@@ -173,13 +174,13 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Rebranding**: Reverted all system strings from "Agent Optimizer" back to "AgentOps Cockpit" to maintain ecosystem consistency.
 - **SSOT**: Fixed version drift across `pyproject.toml`, `package.json`, and `config.py`.
 
-## [1.8.2] - 2026-02-06
+## [1.8.4] - 2026-02-06
 
-### 🕹️ The Strategic Refinement (Antigravity v1.8.2 Release)
+### 🕹️ The Strategic Refinement (Antigravity v1.8.4 Release)
 - **Pre-flight: Environment Readiness**: Added a `PreflightEngine` that verifies registry connectivity, tool readiness, and environment consistency before auditing (Recommendation #2).
 - **Security: Standardized Guardrails**: Introduced a `CockpitGuardrails` middleware with reusable PII scrubbing and prompt validation logic (Recommendation #1).
 - **Regression: Automated Golden Sets**: Red Team audits now automatically generate and persist failed test cases to a `vulnerability_regression.json` file for future stability checks (Recommendation #5).
-- **Terminal: Summaries Hardened**: Ensured v1.8.2 terminal headers explicitly show the stack version for better observability.
+- **Terminal: Summaries Hardened**: Ensured v1.8.4 terminal headers explicitly show the stack version for better observability.
 
 ## [1.3.4] - 2026-02-06
 

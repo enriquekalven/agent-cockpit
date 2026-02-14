@@ -12,7 +12,7 @@ The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate 
 | `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide infrastructure health and latency oversight. | Unified Master Dashboard. |
 | `agentops-cockpit audit report`| **Autonomous SRE Scan**| Identifies networking debt and **Time-to-Reasoning (TTR)**. | `sre_a2a.py` Auditor |
 | `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Infra + Scaling + Security). | The 🏅 Certification Checklist. |
-| `agentops-cockpit deploy sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.8.2). | `deploy.py` Factory |
+| `agentops-cockpit deploy sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.8.4). | `deploy.py` Factory |
 
 ---
 

@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
 import os
@@ -31,7 +31,7 @@ from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-app = typer.Typer(help='Agent Architecture Reviewer v1.8.2: Enterprise Architect (Paradigm & Structural Wisdom)')
+app = typer.Typer(help='Agent Architecture Reviewer v1.8.4: Enterprise Architect (Paradigm & Structural Wisdom)')
 console = Console()
 
 def run_scan(path: str, verbose: bool = False, context: dict = None):
@@ -75,9 +75,9 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
 @app.command()
 def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', help='Skip saving patches')):
     """
-    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.8.2 Plan-then-Execute)
+    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.8.4 Plan-then-Execute)
     """
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.8.2)[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.8.4)[/bold blue]', border_style='blue'))
     findings = run_scan(path)
     if not findings:
         console.print('✅ [bold green]No remediable issues found. Architecture is hardened.[/bold green]')
