@@ -102,6 +102,32 @@ def diagnose():
     console.print(table)
     console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops audit report' for a deep audit.[/bold blue]")
 
+@sys_app.command(name="upgrade")
+def upgrade_cockpit():
+    """Check for and install the latest version of the AgentOps Cockpit."""
+    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: SOVEREIGN UPGRADE ENGINE[/bold blue]', border_style='blue'))
+    console.print(f"Current Local Version: [bold cyan]v{config.VERSION}[/bold cyan]")
+    
+    try:
+        import urllib.request
+        import json
+        with urllib.request.urlopen("https://pypi.org/pypi/agentops-cockpit/json", timeout=3) as response:
+            if response.status == 200:
+                data = json.load(response)
+                latest_version = data['info']['version']
+                console.print(f"Latest PyPI Version:  [bold green]v{latest_version}[/bold green]")
+                
+                if latest_version != config.VERSION:
+                    console.print("\n✨ [bold yellow]A new version is available![/bold yellow]")
+                    console.print("To upgrade, run the following Hero Command:")
+                    console.print(Panel(f"[bold green]pip install --upgrade agentops-cockpit --index-url {config.PUBLIC_PYPI_URL}[/bold green]", border_style="cyan"))
+                else:
+                    console.print("\n✅ [bold green]You are running the latest version. No action needed.[/bold green]")
+    except Exception as e:
+        console.print(f"\n[bold yellow]⚠️ Could not reach PyPI to verify version:[/bold yellow] {str(e)}")
+        console.print("You can manually attempt an upgrade using:")
+        console.print(Panel(f"[bold green]pip install --upgrade agentops-cockpit[/bold green]", border_style="dim"))
+
 # --- AUDIT HUB ---
 @sys_app.command(name="telemetry")
 def sys_telemetry(admin: Annotated[bool, typer.Option("--admin", help="Show administrative global metrics")] = True):
