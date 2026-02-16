@@ -20,7 +20,7 @@ For immediate high-fidelity evaluation of any repository, utilize the portable g
 ```bash
 uvx agentops-cockpit report
 ```
-*This command auto-discovers agents, enforces v1.4 compliance gates, and generates a Principal-grade HTML report with **Maturity Radar Charts**—zero installation required.*
+*This command auto-discovers agents, enforces v1.8.4 compliance gates, and generates a Principal-grade HTML report with **Maturity Radar Charts**—zero installation required.*
 
 ---
 
@@ -29,15 +29,15 @@ uvx agentops-cockpit report
 | Module | Objective | Focus |
 | :--- | :--- | :--- |
 | **Executive Summary** | **Strategic Alignment** | The high-level "Why" and "How" for leadership. Includes **Radar Charts**. |
-| **RAG Truth-Sayer** | **Retrieval Accuracy** | Dedicated SME for RAG Fidelity, citations, and grounding logic (v1.4). |
+| **RAG Truth-Sayer** | **Retrieval Accuracy** | Dedicated SME for RAG Fidelity, citations, and grounding logic (v1.8.4). |
 | **Adversarial Red-Team** | **Safety & Security** | Probing system instructions, multilingual jailbreaks, and PII leakage. |
-| **FinOps ROI Waterfall**| **Economic Margin** | Modeling cost-per-task and strategic model-tier optimization (v1.4). |
-| **Remediation Workbench**| **Interactive Fixes** | TUI-based review loop for autonomous architectural evolution (v1.4). |
-| **MCP Protocol Store** | **Tool Registry** | Centralized hub for discovering and scaffolding MCP tool integrations (v1.4). |
+| **FinOps ROI Waterfall**| **Economic Margin** | Modeling cost-per-task and strategic model-tier optimization (v1.8.4). |
+| **Remediation Workbench**| **Interactive Fixes** | TUI-based review loop for autonomous architectural evolution (v1.8.4). |
+| **MCP Protocol Store** | **Tool Registry** | Centralized hub for discovering and scaffolding MCP tool integrations (v1.8.4). |
 
 ---
 
-## 🚀 Strategic Roadmap (v1.4.x)
+## 🚀 Strategic Roadmap (v1.8.4.x)
 - **Ecosystem Expansion**: Transforming from a standalone auditor into a full **Lifecycle Management Platform**.
 - **Visual Maturity Intelligence**: Real-time visualization of agent compliance via interactive Radar Charts.
 - **Human-in-the-Loop Patching**: Scaling autonomous evolution with developer-approved remediation loops.

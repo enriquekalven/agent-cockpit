@@ -1,5 +1,5 @@
 # 🚀 Quickstart: Production-Grade AgentOps
-## The "Ecosystem Expansion" (v1.4.0 Stable)
+## The "Ecosystem Expansion" (v1.8.4.0 Stable)
 
 "From `pip install` to `Well-Architected` in 60 seconds."
 
@@ -46,7 +46,7 @@ make audit
 The Cockpit now includes a mandatory **Governance & Regression Framework**:
 - **Capabilities Registry**: Every core feature is mapped to a mandatory regression test in `CAPABILITIES_REGISTRY.md`.
 - **Meta-Test Guardrails**: CI/CD automatically fails if core features (like the Fleet Dashboard) are removed or broken.
-- **Discovery Engine v1.3**: Automatically respects `.gitignore` and isolates library noise using `cockpit.yaml`.
+- **Discovery Engine v1.8.4**: Automatically respects `.gitignore` and isolates library noise using `cockpit.yaml`.
 
 > 🛠️ **Dev Tip**: If you encounter a `401 Unauthorized` registry error while running `uvx`, bypass it with the **Public Failover**:  
 > `UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report`

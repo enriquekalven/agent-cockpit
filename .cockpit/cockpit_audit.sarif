@@ -39,21 +39,6 @@
           ]
         },
         {
-          "ruleId": "secret_leak",
-          "message": {
-            "text": "Use Secret Manager.\""
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "\"output\": \" config.py"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "looming_latency:_blocking_inference",
           "message": {
             "text": "Improves perceived latency and retention."
@@ -108,51 +93,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reliability.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reliability_failure",
-          "message": {
-            "text": "Fix failing"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "\"output\": \" tests/test_agent.py"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reliability_failure",
-          "message": {
-            "text": "Resolve falling"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "policy_blindness:_implicit_governance",
-          "message": {
-            "text": "Centralizes alignment and simplifies regulatory updates."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1"
                 }
               }
             }
@@ -234,21 +174,6 @@
           ]
         },
         {
-          "ruleId": "policy_blindness:_implicit_governance",
-          "message": {
-            "text": "Centralizes alignment and simplifies regulatory updates."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "passive_retrieval:_context_drowning",
           "message": {
             "text": "Reduces context window waste and improves reasoning focus."
@@ -324,294 +249,9 @@
           ]
         },
         {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the root"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/App.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_branding_(logo)_or_seo_metadata_(og/description)",
-          "message": {
-            "text": "Add meta"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/App.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/a2ui/components/lit-component-example.ts:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocPage.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocLayout.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId' prop to the"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/docs/DocHome.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId'"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/ReportSamples.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "missing_'surfaceid'_mapping",
-          "message": {
-            "text": "Add 'surfaceId'"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/components/FlightRecorder.tsx:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "sre_warning:_missing_resource_consternation",
-          "message": {
-            "text": "Medium"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/Dockerfile:1"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "reflection_blindness:_brittle_intelligence",
           "message": {
             "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/register_to_ge.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "pattern_mismatch:_structured_data_stuffing",
-          "message": {
-            "text": "Reduces token burn and hallucination risk."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/temp_test/paradigm_test_case.py:8"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "passive_retrieval:_context_drowning",
-          "message": {
-            "text": "Reduces context window waste and improves reasoning focus."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/lab-tutorial-agent/agent_engine_deploy.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "paradigm_drift:_rag_for_math",
-          "message": {
-            "text": "Eliminates reasoning drift in analytical operations."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/functions/main.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/my_super_agent/agent_engine_app.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "legacy_shadowing:_http_instead_of_mcp",
-          "message": {
-            "text": "Enables swarm interoperability and standardized tool-use."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "latency_trap:_brute-force_local_search",
-          "message": {
-            "text": "Enables sub-second discovery over enterprise datasets."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "path_rigidness:_sequential_blindness",
-          "message": {
-            "text": "Increases successful task completion rates on open-ended goals."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "passive_retrieval:_context_drowning",
-          "message": {
-            "text": "Reduces context window waste and improves reasoning focus."
           },
           "locations": [
             {
@@ -693,6 +333,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "monolithic_fatigue_detected",
+          "message": {
+            "text": "Reduces context pollution and enables parallel scaling."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
                 }
               }
             }
@@ -1419,189 +1089,9 @@
           ]
         },
         {
-          "ruleId": "legacy_rest_vs_mcp",
-          "message": {
-            "text": "Pivot to"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/uv.lock:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "sre_warning:_missing_resource_consternation",
-          "message": {
-            "text": "Medium"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/Dockerfile:1"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "reflection_blindness:_brittle_intelligence",
           "message": {
             "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/register_to_ge.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "pattern_mismatch:_structured_data_stuffing",
-          "message": {
-            "text": "Reduces token burn and hallucination risk."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/temp_test/paradigm_test_case.py:8"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "passive_retrieval:_context_drowning",
-          "message": {
-            "text": "Reduces context window waste and improves reasoning focus."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/lab-tutorial-agent/agent_engine_deploy.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "paradigm_drift:_rag_for_math",
-          "message": {
-            "text": "Eliminates reasoning drift in analytical operations."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/scripts/aggregate_telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/functions/main.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/my_super_agent/agent_engine_app.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "legacy_shadowing:_http_instead_of_mcp",
-          "message": {
-            "text": "Enables swarm interoperability and standardized tool-use."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "reflection_blindness:_brittle_intelligence",
-          "message": {
-            "text": "Significantly reduces reasoning hallucinations and logic errors."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "latency_trap:_brute-force_local_search",
-          "message": {
-            "text": "Enables sub-second discovery over enterprise datasets."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "path_rigidness:_sequential_blindness",
-          "message": {
-            "text": "Increases successful task completion rates on open-ended goals."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/telemetry.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "passive_retrieval:_context_drowning",
-          "message": {
-            "text": "Reduces context window waste and improves reasoning focus."
           },
           "locations": [
             {
@@ -1683,6 +1173,36 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "monolithic_fatigue_detected",
+          "message": {
+            "text": "Reduces context pollution and enables parallel scaling."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "looming_latency:_blocking_inference",
+          "message": {
+            "text": "Improves perceived latency and retention."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1"
                 }
               }
             }
@@ -2403,36 +1923,6 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/load_test.py:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "legacy_rest_vs_mcp",
-          "message": {
-            "text": "Pivot to"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/Users/enriq/Documents/git/agent-cockpit/uv.lock:1"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "context_caching_opportunity",
-          "message": {
-            "text": "Implement"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "\"output\": \" agent.py"
                 }
               }
             }

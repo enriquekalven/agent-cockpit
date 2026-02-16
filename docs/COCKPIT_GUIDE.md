@@ -30,11 +30,11 @@ Every audit result is framed through the lens of a [**Principal SME Persona**](T
 ## 🚦 Human-in-the-Loop (HITL)
 For high-stakes actions, the Cockpit allows you to define "Gatekeeper" tools.
 - When an agent calls a gated tool, the Cockpit pauses execution and requests human approval via the **Face (A2UI)**.
-- **A2UI v1.3 Features**: Leverage new adaptive surfaces for structured human feedback. [**Read UX Guide**](TECHNICAL_UX_GUIDE.md).
+- **A2UI v1.8.4 Features**: Leverage new adaptive surfaces for structured human feedback. [**Read UX Guide**](TECHNICAL_UX_GUIDE.md).
 
 ---
 
-## 🏛️ Autonomous Evolution (New in v1.3)
+## 🏛️ Autonomous Evolution (New in v1.8.4)
 The Cockpit no longer just finds problems; it synthesizes fixes.
 *   **Autonomous Architect**: Runs `make arch-review` to generate ADRs and ROI analysis. [**Read Architect Guide**](TECHNICAL_ARCH_REVIEW.md).
 *   **Context-Aware Patching**: Trigger code synthesis to harden your agent's logic.

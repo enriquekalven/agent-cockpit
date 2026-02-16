@@ -36,11 +36,19 @@ We have organized all capabilities into 9 logical "Hubs".
 
 ---
 
-## 🏛️ Strategic Paradigm Auditor (v1.8)
-The v1.8 release introduces the **Strategic Paradigm Auditor**, which detects fundamental design flaws:
-- **RAG for Math**: Detecting arithmetic intent over raw text snippets.
-- **Manual State Machines**: Identifying custom state logic that should be moved to **LangGraph**.
-- **Context Stuffing**: Detecting high-volume structured data (CSV/JSON) in prompts that should be moved to **NL2SQL**.
+## 🏛️ Strategic Paradigm Auditor (v1.8.4 - The Master Architect)
+The v1.8.4 release introduces the **Strategic Paradigm Auditor**, moving the Cockpit from "Passive Evaluation" to **"Proactive Steering"**:
+- **Semantic Paradigm Shift**: Detects fundamental design flaws like **RAG for Math** (arithmetic over raw snippets) and suggests deterministic pivots to NL2SQL or Code Interpreters.
+- **AIPR (Architectural Pivot Pull-Requests)**: When a paradigm mismatch is detected, the Cockpit generates a complete branch that refactors the logic (e.g., replacing RAG with a deterministic tool), including unit tests.
+- **Dependency Shielding**: Automatically handles **Registry-Blind** scenarios (like 401 errors on private indices) by providing a local mock-proxy or credential validation wizard, ensuring reliability scores aren't artificially tanked.
+
+---
+
+## 🗺️ Compliance Heatmap & Visibility
+The dashboard has pivoted from a simple "Agent List" to a **Strategic Compliance View**:
+- **Regulatory Mapping**: Audits are mapped against the **NIST AI RMF**, **OWASP LLM Top 10**, and **SOC2** standards.
+- **Visual Risk Index**: A fleet-wide Heatmap allows security teams to visualize "The Weakest Link" in their sovereign swarm at a glance.
+- **Opportunity Modeling**: Quantifies "Total Potential Loss" vs. "Remediation ROI" to justify security investment.
 
 ---
 

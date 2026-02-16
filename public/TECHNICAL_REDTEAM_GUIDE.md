@@ -1,6 +1,6 @@
 ## The "Adversarial SRE" Standard (v1.8.4 Stable)
 
-The `make red-team` command activates the **Red Team Principal**. In v1.8.4, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
+The `agentops-cockpit certify` and `agentops-cockpit audit security` commands activate the **Red Team Principal**. In v1.8.4, this persona has evolved into an **Adversarial SRE**, focusing on **Reasoning Degradation**, **Automated Regression Tracking**, and systemic safety.
 
 ---
 
@@ -8,14 +8,14 @@ The `make red-team` command activates the **Red Team Principal**. In v1.8.4, thi
 
 | Command | Objective | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make scan-secrets` | **Zero-Trust Hygiene** | Scans codebase for hardcoded keys and tokens. | `secret_scanner.py` (SecOps SME) |
-| `make red-team` | **Adversarial Probing** | Unleashes simulated attacks against logic filters. | `red_team.py` (v1.8.4: Golden Sets) |
-| `make audit` | **Security Baseline** | Daily safe-build check for prompt hygiene. | `audit.py` (v1.8.4: Pre-flight) |
-| `make simulation-run`| **Digital Twin Test** | Runs 100+ agents to stress-test **Reasoning Stability**. | `swarm.py` Execution Layer |
+| `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide security posture summary. | Unified Master Dashboard. |
+| `agentops-cockpit audit security`| **Adversarial Probing** | Scans for hardcoded secrets and logic vulnerabilities. | `SecurityAuditor` & `SecretScanner`. |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Security + Stability). | The 🏅 Certification Checklist. |
+| `agentops-cockpit test simulate`| **Digital Twin Test** | Runs 100+ agents to stress-test **Reasoning Stability**. | User Persona Simulation. |
 
 ---
 
-## 📡 Adversarial Attack Vectors v1.3
+## 📡 Adversarial Attack Vectors v1.8.4
 
 ### 🔐 0. Zero-Trust Hygiene
 *   **Vector**: Detecting hardcoded API keys, project IDs, or service account tokens.
@@ -34,6 +34,15 @@ The `make red-team` command activates the **Red Team Principal**. In v1.8.4, thi
 ### 🔓 3. Multilingual Jailbreak (Polyglot Probes)
 *   **Vector**: Attacks in Cantonese, Spanish, or French to bypass English-tuned safety filters.
 *   **Strategic Risk**: **Persona Breach / Data Leak**.
+
+### 🎭 4. Shadow Critic (Autonomous Adversary)
+*   **Vector**: Static payloads (Swiss Cheese jailbreaks) are insufficient for complex swarms.
+*   **Implementation**: A **"Shadow Agent"** remains in the loop, attempting to hijack the specific reasoning logic found in the agent's tool signatures.
+*   **Feature**: **Tool-Aware Injection**. If the agent has a `trigger_payment` tool, the Red Team specifically attempts to trick the agent into executing it via indirect injection from a retrieved document.
+
+### 🧠 5. Reflection Blindness
+*   **Vector**: Detecting agents that perform actions without self-auditing their reasoning path.
+*   **Mitigation**: The Red Team verifies the implementation of **Self-Reflexion Loops** (MP-PRIN-REFLEXION) to ensure the agent audits its own output before execution.
 
 ---
 
@@ -55,7 +64,7 @@ graph TD
 
 ## 📊 Comparison: Standard Security vs. Adversarial SRE
 
-| Vector | Legacy Security Audit | AgentOps Red Team v1.3 |
+| Vector | Legacy Security Audit | AgentOps Red Team v1.8.4 |
 | :--- | :--- | :--- |
 | **Logic Integrity** | SQL Injection. | **Adversarial Gaslighting Audits.** |
 | **Performance** | Load testing (Latency). | **Reasoning Load (Hallucination Rate).** |
@@ -76,7 +85,7 @@ The Red Team Principal issues a verdict based on the following adversarial press
 
 ---
 
-## 🚀 Principal Defense: v1.3 Best Practices
+## 🚀 Principal Defense: v1.8.4 Best Practices
 
 If your agent fails the Red Team audit, the Adversarial SRE recommends:
 *   **Context-Aware Patching**: Run `make apply-fixes` to synthesize the necessary `HarmCategory` thresholds and retry logic.

@@ -15,11 +15,11 @@ Run the full range of AgentOps intelligence against any project or file.
 
 | Command | Objective | Mode/Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit report` | **Full Master Audit** | `--mode quick` (default) or `deep` |
-| `uvx agentops-cockpit version` | **Version Check** | Display current CLI and Engine version. |
-| `uvx agentops-cockpit diagnose`| **System Check** | Verify GCP Auth, API keys, and environment paths. |
-| `uvx agentops-cockpit audit-maturity`| **Maturity Matrix**| v1.8.4: Expert competency and persona status dashboard. |
-| `uvx agentops-cockpit email-report`| **Stakeholder Sync** | Send latest report (Usage: `... email-report user@example.com`) |
+| `uvx agentops-cockpit cockpit` | **Mission Control** | Main dashboard for fleet-wide visibility. |
+| `uvx agentops-cockpit audit report` | **Full Master Audit** | `--mode quick` (default) or `deep` |
+| `uvx agentops-cockpit sys version` | **Version Check** | Display current CLI and Engine version. |
+| `uvx agentops-cockpit sys doctor`| **System Check** | Verify GCP Auth, API keys, and environment paths. |
+| `uvx agentops-cockpit audit maturity`| **Maturity Matrix**| v1.8.4: Expert competency and persona status dashboard. |
 
 ---
 
@@ -28,8 +28,8 @@ Audit designs against the Google Well-Architected Framework and Multi-Cloud Matu
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit arch-review`| **Architecture Review**| v1.4: Maturity Wisdom Store integration. |
-| `uvx agentops-cockpit mcp-server` | **MCP Hub** | Start the Model Context Protocol Hub. |
+| `uvx agentops-cockpit audit arch`| **Architecture Review**| v1.8.4: Semantic Paradigm Auditor. |
+| `uvx agentops-cockpit ops mcp` | **MCP Hub** | Manage and scaffold MCP tool servers. |
 
 ---
 
@@ -38,10 +38,10 @@ Iterative science for the reasoning layer.
 
 | Command | Objective | Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit quality-baseline`| **Hill Climbing** | Iterative prompt optimization loop. |
-| `uvx agentops-cockpit rag-truth` | **RAG Fidelity** | v1.4: Citation and grounding logic audit. |
-| `uvx agentops-cockpit reliability` | **Unit Regression** | Runs core reliability suite. Use `--smoke` for E2E. |
-| `uvx agentops-cockpit smoke-test` | **Persona Journey** | Validates the "Face" pillar via interactive pipelines. |
+| `uvx agentops-cockpit eval quality`| **Hill Climbing** | Iterative prompt optimization loop. |
+| `uvx agentops-cockpit audit rag` | **RAG Fidelity** | v1.4: Citation and grounding logic audit. |
+| `uvx agentops-cockpit test unit` | **Unit Regression** | Runs core reliability suite (pytest). |
+| `uvx agentops-cockpit test smoke` | **Persona Journey** | Validates the "Face" pillar via interactive pipelines. |
 
 ---
 
@@ -50,9 +50,9 @@ Adversarial audits and declarative guardrail enforcement.
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit red-team` | **Adversarial Audit** | v1.4: Brand Safety Playbook integration. |
-| `uvx agentops-cockpit policy-audit` | **Guardrail Check** | `--text "query"` to validate against the Policy Engine. |
-| `uvx agentops-cockpit scan-secrets` | **Credential Leak Scan** | Scans for keys with Library Isolation. |
+| `uvx agentops-cockpit eval red-team` | **Adversarial Audit** | v1.8.4: Brand Safety & Cross-Silo Risk. |
+| `uvx agentops-cockpit audit policy` | **Guardrail Check** | Validate queries against the Policy Engine. |
+| `uvx agentops-cockpit audit secrets` | **Credential Leak Scan** | High-fidelity secret scanning via AST. |
 
 ---
 
@@ -71,9 +71,9 @@ Economic engineering and performance benchmarking.
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit audit` | **Token Optimizer** | `--quick` to skip live evidence; `--no-interactive` for CI. |
-| `uvx agentops-cockpit report --roi` | **ROI Waterfall** | v1.4: Monthly cost modeling and efficiency pivots. |
-| `uvx agentops-cockpit load-test` | **Stress Benchmarking** | `--url`, `--requests`, `--concurrency`. |
+| `uvx agentops-cockpit audit --quick` | **Token Optimizer** | Dev-velocity audit for secrets and reliability. |
+| `uvx agentops-cockpit fleet --roi` | **ROI Waterfall** | v1.4: Monthly cost modeling and efficiency pivots. |
+| `uvx agentops-cockpit test load` | **Stress Benchmarking** | LLM latency and concurrency stress-testing. |
 
 ---
 
@@ -82,7 +82,7 @@ Auditing the "Face" pillar for protocol compliance.
 
 | Command | Objective | Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit ui-audit` | **Face Auditor** | Scans frontend code for A2UI / `surfaceId` alignment. |
+| `uvx agentops-cockpit audit ui` | **Face Auditor** | Scans frontend code for A2UI / AGUI / MCP alignment. |
 
 ---
 
@@ -91,8 +91,8 @@ Initialize new projects and push to Google Cloud.
 
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit init` | **Trinity Scaffolder** | Fast-path initialization of Engine + Face + Cockpit. |
-| `uvx agentops-cockpit deploy-prod` | **Readiness Audit** | Full Master Audit gate for production-readiness benchmarking. |
+| `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Fast-path initialization of Engine + Face + Cockpit. |
+| `uvx agentops-cockpit deploy sovereign` | **End-to-End Factory** | Audit -> Fix -> Hydrate -> Deploy in one command. |
 
 ---
 

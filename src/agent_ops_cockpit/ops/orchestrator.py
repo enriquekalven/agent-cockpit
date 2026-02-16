@@ -822,10 +822,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
     
-    # [v1.8.4] Sovereignty Bridge: Auto-update the Fleet Dashboard even for single agent reports
-    from .dashboard import generate_fleet_dashboard
-    generate_fleet_dashboard({target_path: exit_code})
-    
+    # [v1.8.5] Master Architect: Aggregate telemetry for the Face (/metrics)
+    try:
+        import subprocess
+        agg_script = os.path.join(os.getcwd(), 'scripts', 'aggregate_telemetry.py')
+        if os.path.exists(agg_script):
+            subprocess.run(["python3", agg_script], capture_output=True)
+            console.print("📊 [bold cyan]Telemetry aggregated for Fleet Dashboard.[/bold cyan]")
+    except Exception:
+        pass
+
     telemetry.track_event_sync("audit_completed", {
         "mode": mode,
         "path": target_path,

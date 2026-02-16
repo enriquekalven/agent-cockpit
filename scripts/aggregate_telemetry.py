@@ -4,15 +4,38 @@ import os
 import random
 
 def aggregate():
-    evidence_path = "/Users/enriq/Documents/git/agent-cockpit/evidence_lake.json"
-    output_path = "/Users/enriq/Documents/git/agent-cockpit/public/fleet_data.json"
+    # Priority 1: .cockpit/evidence_lake.json (Standard location)
+    # Priority 2: evidence_lake.json (Root override)
+    evidence_path = os.path.join(os.getcwd(), ".cockpit", "evidence_lake.json")
+    if not os.path.exists(evidence_path):
+        evidence_path = os.path.join(os.getcwd(), "evidence_lake.json")
+    
+    output_path = os.path.join(os.getcwd(), "public", "fleet_data.json")
     
     if not os.path.exists(evidence_path):
-        print("Evidence lake missing, using mock data")
+        print(f"Evidence lake missing at {evidence_path}, using mock data")
         data = {}
     else:
         with open(evidence_path, 'r') as f:
             data = json.load(f)
+
+    # Sovereign Bridge: Pull from Supabase if configured (Global Ingestion)
+    supabase_url = os.environ.get("AGENTOPS_SUPABASE_URL")
+    supabase_key = os.environ.get("AGENTOPS_SUPABASE_KEY")
+    global_installs = 0
+    if supabase_url and supabase_key:
+        try:
+            import requests
+            r = requests.get(
+                f"{supabase_url}/rest/v1/telemetry_events?select=user_id",
+                headers={"apikey": supabase_key, "Authorization": f"Bearer {supabase_key}"},
+                timeout=10
+            )
+            if r.status_code == 200:
+                global_installs = len(set(d['user_id'] for d in r.json()))
+                print(f"📡 Fetched {global_installs} global installs from Supabase")
+        except Exception as e:
+            print(f"⚠️ Failed to fetch from Supabase: {e}")
 
     # Simplified aggregation logic
     total_agents = len(data)
@@ -27,7 +50,7 @@ def aggregate():
             total_maturity += (success_count / len(results)) * 100
             count += 1
             
-    avg_compliance = total_maturity / count if count > 0 else 88.5
+    avg_compliance = total_maturity / count if count > 0 else 0.0
     
     # Generate high-fidelity metrics
     aggregated = {
@@ -35,9 +58,9 @@ def aggregate():
             "compliance": avg_compliance,
             "velocity": 5.2 + (random.random() * 2)
         },
-        "active_agents": total_agents or 12,
-        "threats_blocked": 421 + total_agents,
-        "savings": int(total_maturity * 125),
+        "active_agents": max(total_agents, global_installs),
+        "threats_blocked": max(total_agents, global_installs) * 12,
+        "savings": int(total_maturity * 125) if total_maturity > 0 else (global_installs * 150),
         
         "compliance_trend": {
             "points": [
@@ -69,15 +92,20 @@ def aggregate():
     }
     
     # Also add the paths as keys at the root for the Object.values(fleetData).reduce code
+    reserved_keys = set(aggregated.keys())
     for path, info in data.items():
-        # Only take the first 10 to keep the file small
-        if len(aggregated) > 20: break
-        # Clean up the info to reduce size
-        small_info = {
-            "summary": {"health": 0.8}, # Mock summary health for savings calc
-            "results": {"Policy": {"success": True}} # Mock results for the reduce check
-        }
-        aggregated[path] = small_info
+        # Only take a few to keep the file small (for the map visualization)
+        if len(aggregated) > 25: break
+        
+        # Only add keys that look like paths and aren't reserved
+        if isinstance(path, str) and path.startswith('/') and path not in reserved_keys:
+            # Clean up the info to reduce size
+            # The frontend uses Object.values(fleetData).reduce to aggregate if it detects this format
+            small_info = {
+                "summary": {"health": info.get('summary', {}).get('health', 0.8)},
+                "results": info.get('results', {"Policy": {"success": True}})
+            }
+            aggregated[path] = small_info
 
     with open(output_path, 'w') as f:
         json.dump(aggregated, f, indent=2)

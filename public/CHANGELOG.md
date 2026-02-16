@@ -2,6 +2,71 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v1.8.5 (2026-02-16) - The "Sovereign Supabase" Release
+- **📡 100% Free Telemetry Bridge**: Integrated Supabase and GitHub Actions to enable global telemetry ingestion without Google Cloud billing requirements.
+- **🛰️ GitHub-as-a-Backend**: Automated ecosystem-wide sync via GitHub Actions, Commit, and Deploy loops.
+- **📊 Real-time Dashboard Aggregation**: Orchestrator now automatically triggers local telemetry updates after every audit report.
+- **🛡️ Secure Anonymous Ingestion**: Implemented Supabase RLS policies for anonymous write-only telemetry collection.
+
+### v1.8.4 (2026-02-14) - The "Master Architect" Release
+- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., \"RAG for Math\") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+- **🕸️ Multi-Protocol UX Governance**: Evolved Face Auditor supporting A2UI, AGUI (Agentic Graph), and MCP Apps UI standards.
+- **🕸️ Cross-Silo Correlation**: Fleet-wide analysis to detect combined risks (e.g., Security Gaps + Interaction Voids) across multiple independent agents.
+- **📊 Fleet Dashboard v2**: Implementation of the "Weakest Link" drill-down and interactive Maturity Radar Charts for tactical situational awareness.
+- **📄 Individual Report Evolution**:
+    - **Triage Grouping**: Findings grouped by Blockers, Warnings, and Optimizations.
+    - **Delta View**: Visual progress tracking showing score changes from previous audits.
+    - **Visual Code Diffs**: Markdown diff blocks for recommended `apply-fixes`.
+    - **Interactive Evidence**: Drill-down modals and summary tags for raw logs and traces.
+- **🛠️ Sys Upgrade**: New `agentops-cockpit sys upgrade` command for frictionless updates.
+- **🚀 Zero2Hero Workflow**: Formalized the release-to-deployment pipeline with automated intelligence syncing.
+- **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
+
+### ⚙️ Stability & Reliability (Sovereign Parity)
+- **Sovereign Parity Verification**: Added mandatory version and toolchain checks (`uv`, `make`, `agentops-cockpit`) to the release lifecycle.
+- **Dashboard Resiliency**: Fixed critical bugs where the **Fleet Dashboard** failed to update during "intelligent skip" paths or empty workspace scans.
+- **CLI Return Integrity**: Standardized exit codes for `workspace_audit` to ensure enterprise CI/CD pipelines correctly identify completion status.
+- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v1.8.4-stable standards.
+- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v1.8.4 across 95+ files.
+
+### 🧠 Strategic Architectural Paradigm Auditor
+- **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
+- **Pattern: Structured Data Math via Prompt**: Automatically detects when an agent tries to perform arithmetic over raw CSV/JSON text. Recommends **NL2SQL** or **Code Interpreter**.
+- **Pattern: Manual State Machines**: Detects recursive LLM calls inside standard loops. Recommends **LangGraph** for reliable multi-turn logic.
+- **Pattern: Low-Fidelity RAG**: Detects "Context Stuffing" of unstructured files. Recommends **Vector DB** for scalable retrieval.
+- **"Structural Wisdom" Feedback**: Enhanced the `ArchReviewer` to provide "Don't use X, use Y" feedback, reducing mental friction for developers.
+
+### 🛡️ Full-Stack Security & Auto-Remediation
+- **Expanded Infra Scanning**: The `InfraAuditor` now scans `docker-compose.yml` (Privileged containers) and Terraform `.tf` files (Public Ingress/0.0.0.0 rules).
+- **Auto-Generate MCP Wrappers**: Added `agentops-cockpit rag blueprint` to autonomously generate a working `mcp_server.py` shell from legacy tool code.
+- **RAG CLI Refactor**: Fixed a critical bug in the `rag` hub where extra arguments caused CLI failures. Standardized on `agentops-cockpit rag audit`.
+- **Cloud-Aware Secret Manager Advice**: The `SecretScanner` now detects if you are on AWS or GCP and tailors its "Actionable Recommendation" (e.g., suggesting *AWS Secrets Manager* for AWS projects).
+
+### 🏗️ Infrastructure Sovereignty & Cloud Context
+- **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).
+- **Cloud Context Autodetection**: The `DiscoveryEngine` now automatically identifies if you are running on **AWS**, **GCP**, or **Azure**.
+- **Context-Aware Remediation**: Audit findings now automatically tailor their advice based on the detected cloud (e.g., suggesting *AWS Secrets Manager* instead of *Google Secret Manager* when AWS patterns are detected).
+- **MCP Migration Blueprints**: Enhanced `PivotAuditor` to provide a step-by-step technical blueprint for migrating legacy REST tools to the **Model Context Protocol (MCP)**.
+- **Framework Modernization**: Proactively detects synchronous framework bottlenecks and suggests FastAPI for high-concurrency agent tool-use.
+
+
+## [1.6.8] - 2026-02-13
+
+### 🍱 Landing Page & Persona Expansion
+- **Watchtower Standard UI**: Refreshed the homepage with v1.8.4+ Watchtower branding and hub-based command highlights.
+- **Mission Control Expansion**: Added 2 new specialized personas: **Compliance Officer** (Legal SME) and **SITL Pilot** (HITL Oversight).
+- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v1.8.4 architecture standards and new command hub names.
+- **Documentation Sync**: Fully updated the Master Guide, UVX Guide, and Audit Guide to reflect all 12 operational journeys.
+
+
+## [1.8.4] - 2026-02-12
+
+### 🛰️ Deep Functional Auditing & Wisdom Store
+- **Functional Execution Gate**: Implemented a mandatory "Phase 2: Deep Functional CLI Audit" in the reliability engine. This move ensures that CLI command outputs (like `sys telemetry`) maintain schema integrity across updates.
+- **Maturity Wisdom Store v1.8.4**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
+- **Hub Command Expansion**: Formally expanded the CLI across 9 logical hubs, introducing dedicated `rag` and `mcp` orchestration layers.
+- **Lab Agent Hardening**: Standardized the Cockpit Lab environment with resilient `@retry` patterns and strict typing for the "Broken Agent" tutorial.
+
 ## [1.8.4] - 2026-02-12
 
 ### 🧪 Test Suite Hardening

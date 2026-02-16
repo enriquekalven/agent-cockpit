@@ -29,9 +29,26 @@
     ],
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "telemetry"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "venv",
+        ".git",
+        "firebase-debug.log",
+        "firebase-analytics-debug.log"
+      ],
+      "runtime": "python311"
+    }
+  ]
 }

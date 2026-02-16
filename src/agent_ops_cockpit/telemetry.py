@@ -19,7 +19,10 @@ class TelemetryManager:
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    TELEMETRY_ENDPOINT = "https://agent-cockpit.web.app/api/telemetry/event"
+    # Sovereign Bridge: If these are set, telemetry goes to Supabase (100% Free Route)
+    SUPABASE_URL = os.environ.get("AGENTOPS_SUPABASE_URL", "")
+    SUPABASE_KEY = os.environ.get("AGENTOPS_SUPABASE_KEY", "")
+    TELEMETRY_ENDPOINT = os.environ.get("AGENTOPS_TELEMETRY_URL", "https://agent-cockpit.web.app/api/telemetry/event")
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
     
     def __init__(self):
@@ -67,16 +70,41 @@ class TelemetryManager:
         if not self.enabled:
             return
 
+        if self.SUPABASE_URL and self.SUPABASE_KEY:
+            # 100% Free Route: Posting to Supabase
+            url = f"{self.SUPABASE_URL}/rest/v1/telemetry_events"
+            headers = {
+                "apikey": self.SUPABASE_KEY,
+                "Authorization": f"Bearer {self.SUPABASE_KEY}",
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            }
+            # Flatten payload for Supabase columns
+            supabase_payload = {
+                "event_name": event_name,
+                "user_id": self._user_id,
+                "session_id": self._session_id,
+                "properties": properties or {},
+                "context": self._get_system_info()
+            }
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.post(url, json=supabase_payload, headers=headers, timeout=2):
+                        pass
+            except Exception:
+                pass
+            return
+
+        # Default Route: Firebase/Cloud Run
         payload = {
             "event": event_name,
             "user_id": self._user_id,
             "session_id": self._session_id,
-            "timestamp": os.path.getmtime(__file__) if os.path.exists(__file__) else 0, # Placeholder for real time
+            "timestamp": datetime.now().timestamp(),
             "properties": properties or {},
             "context": self._get_system_info()
         }
 
-        # We fire and forget with a short timeout to not block the CLI
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(
@@ -86,7 +114,6 @@ class TelemetryManager:
                 ):
                     pass
         except Exception:
-            # Silently fail telemetry to avoid disrupting user workflow
             pass
 
     def track_event_sync(self, event_name: str, properties: Optional[Dict[str, Any]] = None):
@@ -108,6 +135,29 @@ class TelemetryManager:
         [ADMIN ONLY] Fetch and format telemetry insights from the central hub.
         """
         import requests
+        if self.SUPABASE_URL and self.SUPABASE_KEY:
+            # Fetch summary from Supabase
+            try:
+                # Get unique user count
+                r = requests.get(
+                    f"{self.SUPABASE_URL}/rest/v1/telemetry_events?select=user_id",
+                    headers={"apikey": self.SUPABASE_KEY, "Authorization": f"Bearer {self.SUPABASE_KEY}"},
+                    timeout=5
+                )
+                if r.status_code == 200:
+                    users = set(d['user_id'] for d in r.json())
+                    total_installs = len(users)
+                    return {
+                        "total_installs": total_installs,
+                        "active_24h": total_installs, # Simplified for now
+                        "avg_success_rate": 0.0,
+                        "global_summary": {"compliance": 0.0, "velocity": 0.0},
+                        "top_commands": [],
+                        "agents": []
+                    }
+            except Exception:
+                pass
+
         try:
             r = requests.get("https://agent-cockpit.web.app/api/telemetry/dashboard", timeout=5)
             if r.status_code == 200:
@@ -115,20 +165,14 @@ class TelemetryManager:
         except Exception:
             pass
 
-        # Fallback to demo data if hub is unreachable
+        # Reset to zero for Stage 1 Production Launch
         return {
-            "total_installs": 12542,
-            "active_24h": 890,
-            "avg_success_rate": 84.4,
-            "global_summary": {"compliance": 82.1, "velocity": 5.4},
-            "top_commands": [
-                {"cmd": "report", "count": 4500},
-                {"cmd": "audit", "count": 1200},
-                {"cmd": "evolve", "count": 150}
-            ],
-            "agents": [
-                { "x": 25, "y": 35, "avatar": "/avatar_1.png", "name": "Zenith", "task": "Mock Audit" }
-            ]
+            "total_installs": 0,
+            "active_24h": 0,
+            "avg_success_rate": 0.0,
+            "global_summary": {"compliance": 0.0, "velocity": 0.0},
+            "top_commands": [],
+            "agents": []
         }
 
     def get_agent_telemetry(self, agent_name: str) -> Dict[str, Any]:
@@ -143,18 +187,14 @@ class TelemetryManager:
         except Exception:
             pass
 
-        # Fallback to demo data
+        # Reset to zero for Stage 1 Production Launch
         return {
             "name": agent_name,
-            "status": "HEALTHY",
-            "avg_latency": "142ms",
-            "token_usage": "1.2k",
-            "cost_projected": "$0.04",
-            "recent_events": [
-                {"event": "query_start", "timestamp": "2026-02-12 22:10:01"},
-                {"event": "tool_call:search", "timestamp": "2026-02-12 22:10:02"},
-                {"event": "query_complete", "timestamp": "2026-02-12 22:10:04"}
-            ]
+            "status": "INITIALIZING",
+            "avg_latency": "0ms",
+            "token_usage": "0",
+            "cost_projected": "$0.00",
+            "recent_events": []
         }
 
     def export_traces(self, format: str = "json", target_hub: str = "local"):

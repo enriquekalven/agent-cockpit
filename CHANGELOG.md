@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v1.8.5 (2026-02-16) - The "Sovereign Supabase" Release
+- **📡 100% Free Telemetry Bridge**: Integrated Supabase and GitHub Actions to enable global telemetry ingestion without Google Cloud billing requirements.
+- **🛰️ GitHub-as-a-Backend**: Automated ecosystem-wide sync via GitHub Actions, Commit, and Deploy loops.
+- **📊 Real-time Dashboard Aggregation**: Orchestrator now automatically triggers local telemetry updates after every audit report.
+- **🛡️ Secure Anonymous Ingestion**: Implemented Supabase RLS policies for anonymous write-only telemetry collection.
+
 ### v1.8.4 (2026-02-14) - The "Master Architect" Release
 - **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., \"RAG for Math\") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
 - **🕸️ Multi-Protocol UX Governance**: Evolved Face Auditor supporting A2UI, AGUI (Agentic Graph), and MCP Apps UI standards.

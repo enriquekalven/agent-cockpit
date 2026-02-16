@@ -43,22 +43,19 @@ async def get_dashboard():
     for doc in docs:
         events.append(doc.to_dict())
         
-    total_installs = 12542 + len(events)
-    active_agents = 890 + len(set(e.get('user_id') for e in events))
+    total_installs = len(events)
+    active_agents = len(set(e.get('user_id') for e in events))
     
-    # Default visual agents
-    agents = [
-        { "x": 25, "y": 35, "avatar": "/avatar_1.png", "name": "Zenith-Core", "task": "Global Audit" },
-        { "x": 48, "y": 42, "avatar": "/avatar_2.png", "name": "Sentinel-7", "task": "Token Optimization" }
-    ]
+    # Empty for launch
+    agents = []
 
     return {
         "total_installs": total_installs,
         "active_agents": active_agents,
-        "success_rate": 88.2,
+        "success_rate": 0.0,
         "global_summary": {
-            "compliance": 94.2,
-            "velocity": 12.5
+            "compliance": 0.0,
+            "velocity": 0.0
         },
         "agents": agents
     }
