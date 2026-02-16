@@ -366,6 +366,37 @@
       "rationale": "RAG is designed for semantic search, not arithmetic accuracy. Mathematical operations require structured data tools or precise execution environments.",
       "impact": "HIGH",
       "source": "Master Architect Feedback (Feb 2026)"
+    },
+    {
+      "id": "MP-034",
+      "category": "SCALABILITY",
+      "title": "Context Drowning Mitigation (Sovereign Cache)",
+      "indicators": [
+        "massive_context",
+        "long_context",
+        "history",
+        "append"
+      ],
+      "recommendation": "Detected high context volume without explicit caching. Implementation: 1) Google Cloud: Use 'Content Caching' for Gemini to reduce TTFT and costs for repeated long prompts. 2) Local: Implement a sliding window or 'Semantic Summarizer' for long-running sessions.",
+      "rationale": "Long-lived agent sessions eventually drown in their own context, leading to increased latency and decreased reasoning quality.",
+      "impact": "HIGH",
+      "source": "Sovereign Engineering Standard v1.8.5"
+    },
+    {
+      "id": "MP-035",
+      "category": "SECURITY",
+      "title": "Ungated High-Stake Action",
+      "indicators": [
+        "delete",
+        "update",
+        "transfer",
+        "execute",
+        "commit"
+      ],
+      "recommendation": "Critical actions detected in tool definitions without Human-In-The-Loop (HITL) gates. v1.8.5 standard requires 'require_confirmation=True' for all destructive or financial tools.",
+      "rationale": "Autonomous agents must not have permission to modify state without external validation for high-impact operations.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM06 / Sovereign Security SME"
     }
   ],
   "compatibility_constraints": [

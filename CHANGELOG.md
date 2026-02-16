@@ -2,6 +2,13 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v1.9.0 (2026-02-16) - The "Hill Climbing" Release
+- **🧗 Hill Climbing Evolution**: Implementation of the autonomous self-improvement loop (`scripts/hill_climber.py`). The Cockpit now iterates over multiple agent repos to identify and absorb new architectural patterns.
+- **📈 Cumulative Intelligence Gains**: Deep audits across 5 diverse agent silos successfully refined the Maturity, SRE, and FinOps fellows.
+- **🏗️ Resource Consternation**: New SRE auditor check for mandatory CPU/Memory quotas in deployment manifests.
+- **💰 Frontier Pricing v1.9**: Updated FinOps index for 2026 model economics (GPT-5, Gemini 3).
+- **🛡️ High-Stake Guardrails**: Mandatory Human-In-The-Loop (HITL) detection for destructive agent tools.
+
 ### v1.8.5 (2026-02-16) - The "Sovereign Supabase" Release
 - **📡 100% Free Telemetry Bridge**: Integrated Supabase and GitHub Actions to enable global telemetry ingestion without Google Cloud billing requirements.
 - **🛰️ GitHub-as-a-Backend**: Automated ecosystem-wide sync via GitHub Actions, Commit, and Deploy loops.

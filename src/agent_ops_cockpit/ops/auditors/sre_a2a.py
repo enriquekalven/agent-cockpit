@@ -108,11 +108,10 @@ class SREAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # 7. KV-Cache Awareness: Resource Profile
         if "memory" not in content.lower() and "cloud run" in content.lower():
-             title = "Sub-Optimal Resource Profile"
-             if not self._is_ignored(0, content, title):
-                 findings.append(AuditFinding(
+            title = "Sub-Optimal Resource Profile"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
                     category="🏗️ Compute",
                     title=title,
                     description="LLM workloads are Memory-Bound (KV-Cache). Low-memory instances degrade reasoning speed. Consider memory-optimized nodes (>4GB).",
@@ -121,6 +120,20 @@ class SREAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
+        # 8. SRE Warning: Missing Resource Consternation
+        if "docker" in file_path.lower() or "deploy" in file_path.lower() or "yaml" in file_path.lower():
+            if "memory:" not in content.lower() and "cpu:" not in content.lower():
+                title = "SRE Warning: Missing Resource Consternation"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛠️ Reliability",
+                        title=title,
+                        description="Deployment manifest detected without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy Neighbor' effects and OOM kills in production clusters.",
+                        impact="MEDIUM",
+                        roi="Ensures deterministic resource availability and prevents cluster-wide cascading failures.",
+                        file_path=file_path
+                    ))
+        
         return findings
 
 class InteropAuditor(BaseAuditor):
