@@ -1,8 +1,13 @@
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+import re
 import ast
 import difflib
 import os
 from datetime import datetime
+
+try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError, ModuleNotFoundError):
+    ContextCacheConfig = None
 
 class CodeRemediator:
     """

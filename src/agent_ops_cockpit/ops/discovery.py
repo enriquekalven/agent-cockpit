@@ -4,9 +4,10 @@ SME Persona: Distinguished Platform Fellow
 Objective: High-fidelity discovery of agentic 'Brains', respecting enterprise exclusion patterns and .gitignore.
 """
 try:
-    from google.adk.agents.context_cache_config import ContextCacheConfig
+    # ContextCacheConfig check (unused in discovery)
+    pass
 except (ImportError, AttributeError, ModuleNotFoundError):
-    ContextCacheConfig = None
+    pass
 
 from tenacity import retry, wait_exponential, stop_after_attempt
 import os

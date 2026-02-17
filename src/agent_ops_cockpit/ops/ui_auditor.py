@@ -63,10 +63,10 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                     
                     # Heuristic with Line Numbers
                     if not surface_id_pattern.search(content):
-                        findings.append({"line": 1, "issue": "Missing 'surfaceId' mapping", "fix": "Add 'surfaceId' prop to the root component or exported interface."})
+                        findings.append({"line": 1, "issue": "Missing 'surfaceId' mapping", "fix": "Add 'surfaceId: string' to props. Snippet: `interface Props { surfaceId: string; ... }`"})
                     
                     if not registry_pattern.search(content) and "Registry" in file:
-                        findings.append({"line": 1, "issue": "Registry component without A2UIRegistry registration", "fix": "Wrap component in A2UIRegistry.registerComponent()."})
+                        findings.append({"line": 1, "issue": "Registry component without A2UIRegistry registration", "fix": "Wrap with: `export const MyComponent = A2UIRegistry.registerComponent('my-id', Component);`"})
                     
                     if "Button" in file and not trigger_pattern.search(content):
                         # Try to find the button line
@@ -75,10 +75,10 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                             if "<button" in line.lower() or "<Button" in line:
                                 line_no = i + 1
                                 break
-                        findings.append({"line": line_no, "issue": "Interactive component without Tool/Agent triggers", "fix": "Ensure the button calls an agent tool trigger (onTrigger)."})
+                        findings.append({"line": line_no, "issue": "Interactive component without Tool/Agent triggers", "fix": "Add: `onClick={() => onTrigger({ action: 'click', surfaceId })}`"})
 
                     if not ux_feedback_pattern.search(content) and ("Page" in file or "View" in file):
-                         findings.append({"line": 1, "issue": "Missing 'Thinking' feedback (Skeleton/Spinner)", "fix": "Implement a Loading state or Skeleton component for agent latency."})
+                         findings.append({"line": 1, "issue": "Missing 'Thinking' feedback (Skeleton/Spinner)", "fix": "Add: `{isThinking && <Skeleton className='h-4 w-[250px]' />}`"})
                     
                     if not a11y_pattern.search(content) and ("Button" in file or "Input" in file):
                         line_no = 1
@@ -86,31 +86,32 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                             if "<button" in line.lower() or "<input" in line.lower():
                                 line_no = i + 1
                                 break
-                        findings.append({"line": line_no, "issue": "Missing i18n/Accessibility labels (aria-label)", "fix": "Add aria-label or alt tags for screen readers and i18n."})
+                        findings.append({"line": line_no, "issue": "Missing i18n/Accessibility labels (aria-label)", "fix": "Add: `<button aria-label={t('actions.submit')}>`"})
 
                     if not legal_pattern.search(content) and ("Page" in file or "Layout" in file or "Footer" in file):
-                        findings.append({"line": 1, "issue": "Missing Legal Disclaimer or Privacy Policy link", "fix": "Add a footer link to the mandatory Privacy Policy / TOS."})
+                        findings.append({"line": 1, "issue": "Missing Legal Disclaimer or Privacy Policy link", "fix": "Add footer: `<footer><a href='/privacy'>Privacy Policy</a></footer>`"})
                     
                     if not marketing_pattern.search(content) and ("index" in file.lower() or "head" in file.lower() or "App" in file):
-                        findings.append({"line": 1, "issue": "Missing Branding (Logo) or SEO Metadata (OG/Description)", "fix": "Add meta tags (og:image, description) and project logo."})
+                        findings.append({"line": 1, "issue": "Missing Branding (Logo) or SEO Metadata (OG/Description)", "fix": "Add: `<meta property='og:image' content='/logo.png' />`"})
 
                     if not hitl_pattern.search(content) and ("Action" in file or "Tool" in file or "Transfer" in file):
-                         findings.append({"line": 1, "issue": "Missing HITL (Human-in-the-Loop) Gating", "fix": "Add confirmation modals or 'Approve/Reject' gates for high-impact actions."})
+                         findings.append({"line": 1, "issue": "Missing HITL (Human-in-the-Loop) Gating", "fix": "Add: `if (impact === 'high') return <ConfirmationModal onConfirm={proceed} />`"})
                     
                     if not streaming_pattern.search(content) and ("Chat" in file or "Thread" in file or "Log" in file):
-                         findings.append({"line": 1, "issue": "Missing Streaming Resilience (Suspense/Stream)", "fix": "Implement Suspense or stream-aware handlers to prevent UI flickering during token rendering."})
+                         findings.append({"line": 1, "issue": "Missing Streaming Resilience (Suspense/Stream)", "fix": "Wrap with: `<Suspense fallback={<Loader />}>{children}</Suspense>`"})
 
                     if not mobile_pattern.search(content) and ("Layout" in file or "Page" in file or "Home" in file or file.endswith(".css")):
-                         findings.append({"line": 1, "issue": "Missing Mobile Responsiveness (@media queries)", "fix": "Add media queries to handle mobile viewports (max-width: 768px)."})
+                         findings.append({"line": 1, "issue": "Missing Mobile Responsiveness (@media queries)", "fix": "Add: `@media (max-width: 768px) { .container { flex-direction: column; } }`"})
 
                     if not mcp_ui_pattern.search(content) and ("MCP" in file or "Tool" in file):
-                         findings.append({"line": 1, "issue": "MCP-UI protocol misalignment", "fix": "Ensure component uses 'MCPClient' for standardized tool discovery in the UI."})
+                         findings.append({"line": 1, "issue": "MCP-UI protocol misalignment", "fix": "Use: `const { callTool } = useMCPClient();`"})
 
                     if not agui_pattern.search(content) and ("Graph" in file or "Flow" in file or "Workflow" in file):
-                         findings.append({"line": 1, "issue": "Missing AGUI (Agentic Graph UI) mapping", "fix": "Implement AGUI StateNodes and Edges to visualize agentic graph transitions."})
+                         findings.append({"line": 1, "issue": "Missing AGUI (Agentic Graph UI) mapping", "fix": "Add: `<AgenticGraph data={flowData} onNodeClick={handleNode} />`"})
 
                     if not mcp_apps_pattern.search(content) and ("App" in file and "MCP" in file):
-                         findings.append({"line": 1, "issue": "Non-compliant MCP Apps UI", "fix": "Use McpToolRenderer for standardized UI-to-tool binding in MCP applications."})
+                         findings.append({"line": 1, "issue": "Non-compliant MCP Apps UI", "fix": "Use: `<McpToolRenderer toolId={selectedTool} />`"})
+
 
 
                     if findings:

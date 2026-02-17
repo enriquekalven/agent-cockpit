@@ -1,6 +1,5 @@
 import os
 import subprocess
-import time
 from rich.console import Console
 from rich.panel import Panel
 

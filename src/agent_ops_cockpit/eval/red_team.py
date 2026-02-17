@@ -39,20 +39,25 @@ def audit(
     # If it's a directory, try to find the agent entry point
     if os.path.isdir(agent_path):
         found = False
-        # Priority search for Trinity-compliant structures
-        for entry in ["src/agent_ops_cockpit/agent.py", "agent.py", "main.py", "app.py"]:
+        # Priority search for Trinity-compliant structures across languages
+        for entry in [
+            "src/agent_ops_cockpit/agent.py", "agent.py", "main.py", "app.py",
+            "src/agent.ts", "agent.ts", "index.ts", "main.ts",
+            "src/agent.js", "agent.js", "index.js", "main.js",
+            "main.go", "agent.go"
+        ]:
             candidate = os.path.join(agent_path, entry)
             if os.path.exists(candidate):
                 agent_path = candidate
                 found = True
                 break
         if not found:
-            # Look for any .py file if common names aren't found
+            # Look for any agentic file if common names aren't found
             for root, _, files in os.walk(agent_path):
-                if any(d in root for d in [".venv", "node_modules", ".git"]):
+                if any(d in root for d in [".venv", "node_modules", ".git", "dist", "build"]):
                     continue
                 for f in files:
-                    if f.endswith(".py") and f != "__init__.py":
+                    if f.endswith((".py", ".ts", ".js", ".go")) and f != "__init__.py":
                         agent_path = os.path.join(root, f)
                         found = True
                         break
@@ -60,8 +65,9 @@ def audit(
                     break
         
         if not found:
-            console.print(f"❌ [red]Error: No python entry point found in {agent_path}[/red]")
+            console.print(f"❌ [red]Error: No supported agent entry point (.py, .ts, .js, .go) found in {agent_path}[/red]")
             raise typer.Exit(1)
+
 
     console.print(f"Targeting: [yellow]{agent_path}[/yellow]")
 

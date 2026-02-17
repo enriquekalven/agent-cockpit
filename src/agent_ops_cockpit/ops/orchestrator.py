@@ -166,18 +166,24 @@ class CockpitOrchestrator:
             return f"<p style='color:#16a34a; font-weight:600;'>{msg.replace('**', '')}</p>" if as_html else [msg]
         
         # Triage Grouping: Blockers, Warnings, Optimizations
-        groups = {"BLOCKER": [], "WARNING": [], "OPTIMIZATION": []}
+        groups = {"BLOCKER": {}, "WARNING": {}, "OPTIMIZATION": {}}
 
         def triage_key(action):
             p = action.lower()
             if any(x in p for x in ['leak', 'secret', 'credential', 'security', 'critical', 'breach']):
                 return "BLOCKER"
-            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency', 'warning', 'conflict', 'mismatch']):
+            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency', 'warning', 'conflict', 'mismatch', 'zombie', 'timeout']):
                 return "WARNING"
             return "OPTIMIZATION"
 
         for action in developer_actions:
-            groups[triage_key(action)].append(action)
+            key = triage_key(action)
+            parts = action.split(' | ')
+            if len(parts) >= 2:
+                title = parts[1]
+                if title not in groups[key]:
+                    groups[key][title] = []
+                groups[key][title].append(parts[0])
 
         if as_html:
             summary = ["<div class='executive-summary-content'>"]
@@ -200,40 +206,31 @@ class CockpitOrchestrator:
                 if groups[key]:
                     color, label = headers[key]
                     summary.append(f"<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid {color}; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>")
-                    summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.9rem; text-transform:uppercase;'>{label}</h4>")
-                    seen = set()
-                    for a in groups[key]:
-                        parts = a.split(' | ')
-                        if len(parts) >= 2 and parts[1] not in seen:
-                            summary.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{parts[1]}</strong>: {(parts[2] if len(parts) > 2 else '')}</div>")
-                            seen.add(parts[1])
-                        if len(seen) >= 3:
-                            break
+                    summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.8rem; text-transform:uppercase;'>{label}</h4>")
+                    
+                    for title, files in groups[key].items():
+                        count_suffix = f" ({len(files)} files)" if len(files) > 1 else ""
+                        summary.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{title}</strong>{count_suffix}</div>")
                     summary.append('</div>')
             summary.append('</div>')
             return '\n'.join(summary)
         else:
             health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
             summary = [f'## 🏛️ Master Architect Executive Summary (Health: {health_score:.1f}%)']
-            summary.append('Findings are grouped by Strategic Triage Level.')
+            summary.append('Findings are semantically grouped to prevent notification fatigue.')
             
             headers = {
-                "BLOCKER": '### 🚨 Blockers (Will cause a security breach or crash today)',
-                "WARNING": '### ⚠️ Warnings (Will cost you money or slow down the user)',
-                "OPTIMIZATION": '### 💡 Optimizations (Best practices for "Master Architect" status)'
+                "BLOCKER": '### 🚨 Blockers (Security & Critical Caps)',
+                "WARNING": '### ⚠️ Warnings (Operational & Reliability Debt)',
+                "OPTIMIZATION": '### 💡 Optimizations (Best Practice Drift)'
             }
             
             for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
                 if groups[key]:
                     summary.append(f'\n{headers[key]}')
-                    seen = set()
-                    for a in groups[key]:
-                        parts = a.split(' | ')
-                        if len(parts) >= 2 and parts[1] not in seen:
-                            summary.append(f"- **{parts[1]}**: {(parts[2] if len(parts) > 2 else '')}")
-                            seen.add(parts[1])
-                        if len(seen) >= 3:
-                            break
+                    for title, files in groups[key].items():
+                        count_suffix = f" ({len(files)} occurrences)" if len(files) > 1 else ""
+                        summary.append(f"- **{title}**{count_suffix}")
             return summary
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
@@ -496,8 +493,28 @@ class CockpitOrchestrator:
         agent_dir = os.path.join(lake_root, agent_hash)
         os.makedirs(agent_dir, exist_ok=True)
         data = {'target_path': target_abs, 'timestamp': self.timestamp, 'hash': self.get_dir_hash(target_abs), 'results': self.results, 'summary': {'passed': all((r['success'] for r in self.results.values())), 'health': sum((1 for r in self.results.values() if r['success'])) / len(self.results) if self.results else 0}}
-        with open(os.path.join(agent_dir, 'latest.json'), 'w') as f:
+        
+        latest_file = os.path.join(agent_dir, 'latest.json')
+        with open(latest_file, 'w') as f:
             json.dump(data, f, indent=2)
+            
+        # Improvement #4: Human-Readable Aliases (Symlinks)
+        try:
+            latest_link = os.path.join(lake_root, 'latest_audit')
+            if os.path.islink(latest_link) or os.path.exists(latest_link):
+                os.remove(latest_link)
+            os.symlink(agent_hash, latest_link)
+            
+            # Agent-specific naming
+            agent_name = os.path.basename(target_abs)
+            if agent_name:
+                name_link = os.path.join(lake_root, f"agent_{agent_name}")
+                if os.path.islink(name_link) or os.path.exists(name_link):
+                    os.remove(name_link)
+                os.symlink(agent_hash, name_link)
+        except Exception as e:
+            console.print(f"[dim]Failed to create evidence lake symlink: {e}[/dim]")
+
         lake_path = self.lake_path
         fleet_data = {}
         if os.path.exists(lake_path):
@@ -510,6 +527,7 @@ class CockpitOrchestrator:
         with open(lake_path, 'w') as f:
             json.dump(fleet_data, f)
         console.print(f'📜 [EVIDENCE LAKE] Partitioned log updated at {agent_dir}/latest.json')
+
 
     def _generate_sarif_report(self, developer_actions):
         sarif = {'version': '2.1.0', 'runs': [{'tool': {'driver': {'name': 'AgentOps Cockpit'}}, 'results': []}]}

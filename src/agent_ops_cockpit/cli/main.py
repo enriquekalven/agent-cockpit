@@ -638,14 +638,21 @@ def create_face(project_name: Annotated[str, typer.Argument(help='The name of th
 def legacy_report(
     mode: Annotated[str, typer.Option('--mode', '-m')] = 'quick', 
     path: Annotated[str, typer.Option('--path', '-p')] = '.', 
-    workspace: Annotated[bool, typer.Option('--workspace', '-w')] = False
+    workspace: Annotated[bool, typer.Option('--workspace', '-w')] = False,
+    heal: Annotated[bool, typer.Option('--heal', help='Automatically apply fixes')] = False
 ):
     """[DEPRECATED] Use 'audit report' instead."""
-    report(mode=mode, path=path, workspace=workspace)
+    cmd = f"audit report --mode {mode}"
+    if heal: 
+        cmd += " --apply-fixes"
+    console.print(f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]")
+    report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
 @app.command(name="reliability", hidden=True)
 def legacy_reliability(smoke: Annotated[bool, typer.Option('--smoke', help='Run End-to-End Persona Smoke Tests')] = False):
     """[DEPRECATED] Use 'test smoke' or 'test unit' instead."""
+    cmd = "test smoke" if smoke else "test unit"
+    console.print(f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]")
     if smoke:
         rel_mod.run_smoke_test()
     else:
@@ -655,20 +662,23 @@ def legacy_reliability(smoke: Annotated[bool, typer.Option('--smoke', help='Run 
 def legacy_audit(
     file_path: Annotated[str, typer.Argument(help='Path to the agent code to audit')] = 'agent.py', 
     interactive: Annotated[bool, typer.Option('--interactive/--no-interactive', '-i', help='Run in interactive mode')] = True, 
-    quick: Annotated[bool, typer.Option('--quick', '-q', help='Skip live evidence fetching for faster execution')] = False
+    quick: Annotated[bool, typer.Option('--quick', '-q', help='Skip live evidence fetching for faster execution')] = False,
+    heal: Annotated[bool, typer.Option('--heal', help='Automatically apply fixes')] = False
 ):
     """[DEPRECATED] Use 'audit report' or 'audit interactive' instead."""
-    console.print('🔍 [bold blue]Running Agent Operations Audit...[/bold blue]')
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit report' on your behalf...[/bold blue]")
     opt_mod.audit(file_path, interactive, quick=quick)
 
 @app.command(name="fix", hidden=True)
 def legacy_fix(issue_id: str=typer.Argument(..., help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace')):
     """[DEPRECATED] Use 'fix issue' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fix issue' on your behalf...[/bold blue]")
     fix_issue(issue_id, path)
 
 @app.command(name="red-team", hidden=True)
 def legacy_red_team(agent_path: Annotated[str, typer.Argument(help='Path to the agent code to audit')] = 'src/agent_ops_cockpit/agent.py'):
     """[DEPRECATED] Use 'audit security' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]")
     red_mod.audit(agent_path)
 
 @app.command(name="sovereign", hidden=True)
@@ -678,100 +688,119 @@ def legacy_sovereign(
     fleet: Annotated[bool, typer.Option("--fleet", help="Run for all agents in the path")] = False
 ):
     """[DEPRECATED] Use 'deploy sovereign' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy sovereign' on your behalf...[/bold blue]")
     sovereign(path, fleet, target)
 
 @app.command(name="document", hidden=True)
 def legacy_document(path: str=typer.Option('.', '--path', '-p', help='Path to workspace')):
     """[DEPRECATED] Use 'audit document' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit document' on your behalf...[/bold blue]")
     document(path)
 
 @app.command(name="register", hidden=True)
 def legacy_register(path: str=typer.Option('.', '--path', '-p', help='Path to workspace or agent to register'), fleet: bool=typer.Option(True, '--fleet', help='Register all production-ready agents in the workspace'), a2a: bool=typer.Option(False, '--a2a', help='Enable A2A (Agent-to-Agent) bridge for cross-cloud agents')):
     """[DEPRECATED] Use 'deploy register' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy register' on your behalf...[/bold blue]")
     register(path, a2a)
 
 @app.command(name="fleet-status", hidden=True)
 def legacy_fleet_status():
     """[DEPRECATED] Use 'fleet status' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet status' on your behalf...[/bold blue]")
     fleet_status()
 
 @app.command(name="mothball", hidden=True)
 def legacy_mothball(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to mothball')):
     """[DEPRECATED] Use 'fleet mothball' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet mothball' on your behalf...[/bold blue]")
     mothball(cloud)
 
 @app.command(name="resume", hidden=True)
 def legacy_resume(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to resume')):
     """[DEPRECATED] Use 'fleet resume' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet resume' on your behalf...[/bold blue]")
     resume(cloud)
 
 @app.command(name="tunnel", hidden=True)
 def legacy_tunnel(path: str=typer.Option('.', '--path', '-p', help='Path to local agent'),
            port: int=typer.Option(8080, '--port', help='Local port the agent is running on')):
     """[DEPRECATED] Use 'fleet tunnel' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet tunnel' on your behalf...[/bold blue]")
     tunnel(path, port)
 
 @app.command(name="anomaly-check", hidden=True)
 def anomaly_check_deprecated(name: str=typer.Option(..., help='Agent name to audit'), 
                   sim_rogue: bool=typer.Option(False, '--rogue', help='Simulate rogue PII exfiltration')):
     """[DEPRECATED] Use 'fleet anomaly' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet anomaly' on your behalf...[/bold blue]")
     anomaly_check(name, sim_rogue)
 
 @app.command(name="evolve", hidden=True)
 def legacy_evolve(path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace'), branch: bool=typer.Option(True, '--branch/--no-branch', help='Create a new git branch for the fixes')):
     """[DEPRECATED] Use 'fix evolve' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fix evolve' on your behalf...[/bold blue]")
     evolve(path, branch)
 
 @app.command(hidden=True)
 def deploy_prep_alias(path: str=typer.Option('.', '--path', help='Path to agent/workspace'), target: str=typer.Option('google', '--target', help='Primary target cloud')):
     """[DEPRECATED] Use 'deploy prep' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy prep' on your behalf...[/bold blue]")
     deploy_prep(path, target)
 
 @app.command(name="simulate-sovereign", hidden=True)
 def legacy_simulate_sovereign():
     """[DEPRECATED] Use 'deploy simulate' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy simulate' on your behalf...[/bold blue]")
     simulate_deploy()
 
 @app.command(name="email-report", hidden=True)
 def legacy_email_report(recipient: str=typer.Argument(...)):
     """[DEPRECATED] Use 'audit email' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit email' on your behalf...[/bold blue]")
     email(recipient)
 
 @app.command(name="face", hidden=True)
 def legacy_face(path: str='src'):
     """[DEPRECATED] Use 'audit face' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit face' on your behalf...[/bold blue]")
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
     ui_mod.audit(path)
 
 @app.command(name="secrets", hidden=True)
 def legacy_secrets(path: str=typer.Argument('.', help='Directory to scan')):
     """[DEPRECATED] Use 'audit security' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]")
     from agent_ops_cockpit.ops import secret_scanner as secret_mod
     secret_mod.scan(path)
 
 @app.command(name="doctor", hidden=True)
 def legacy_doctor():
     """[DEPRECATED] Use 'sys doctor' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'sys doctor' on your behalf...[/bold blue]")
     diagnose()
 
 @app.command(name="init", hidden=True)
 def legacy_init(project_name: str=typer.Argument('my-agent', help='The name of the new project')):
     """[DEPRECATED] Use 'create agent' or 'create face' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'create trinity' on your behalf...[/bold blue]")
     create_trinity(project_name)
 
 @app.command(name="create", hidden=True)
 def legacy_create(project_name: str=typer.Argument(..., help='The name of the new project'), ui: str=typer.Option('a2ui', '-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)'), copilotkit: bool=typer.Option(False, '--copilotkit', help='Enable extra CopilotKit features for AGUI')):
     """[DEPRECATED] Use 'create face' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'create face' on your behalf...[/bold blue]")
     create_face(project_name, ui, copilotkit)
 
 @app.command(name="smoke-test", hidden=True)
 def legacy_smoke_test():
     """[DEPRECATED] Use 'test smoke' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'test smoke' on your behalf...[/bold blue]")
     rel_mod.run_smoke_test()
 
 @app.command(hidden=True)
 def watch_legacy():
     """[DEPRECATED] Use 'fleet watch' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet watch' on your behalf...[/bold blue]")
     watch_mod.run_watch()
 
 
@@ -781,7 +810,7 @@ def audit_maturity():
     [DEPRECATED] Use 'audit maturity' instead.
     Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
     """
-    console.print(Panel.fit("🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v1.8.4)[/bold blue]", border_style="blue"))
+    console.print(Panel.fit(f"🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v{config.VERSION})[/bold blue]", border_style="blue"))
     
     # 1. Persona Matrix
     persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")
