@@ -6,7 +6,6 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil
-import socket
 from rich.console import Console
 from rich.table import Table
 

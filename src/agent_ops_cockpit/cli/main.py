@@ -57,15 +57,16 @@ def legacy_report(
     ctx: typer.Context,
     mode: str = 'quick',
     path: str = '.',
+    workspace: bool = typer.Option(False, "--workspace", "-w", help="Scan and audit all agents in the workspace"),
     heal: bool = typer.Option(False, "--heal", help="Deprecated: Use --apply-fixes instead")
 ):
     """[DEPRECATED] Master Architect: Auto-aliasing to 'audit report'."""
-    console.print(f"🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]...")
+    console.print("🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]...")
     if heal:
         console.print("🔧 [dim]Detected legacy --heal flag. Mapping to --apply-fixes...[/dim]")
     
     # Forward the call to audit report
-    report(mode=mode, path=path, apply_fixes=heal)
+    report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
 console = Console()
 
@@ -653,19 +654,6 @@ def create_face(project_name: Annotated[str, typer.Argument(help='The name of th
         raise typer.Exit(code=1)
 
 # --- LEGACY ALIASES (Non-breaking) ---
-@app.command(name="report", hidden=True)
-def legacy_report(
-    mode: Annotated[str, typer.Option('--mode', '-m')] = 'quick', 
-    path: Annotated[str, typer.Option('--path', '-p')] = '.', 
-    workspace: Annotated[bool, typer.Option('--workspace', '-w')] = False,
-    heal: Annotated[bool, typer.Option('--heal', help='Automatically apply fixes')] = False
-):
-    """[DEPRECATED] Use 'audit report' instead."""
-    cmd = f"audit report --mode {mode}"
-    if heal: 
-        cmd += " --apply-fixes"
-    console.print(f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]")
-    report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
 
 @app.command(name="reliability", hidden=True)
