@@ -214,7 +214,7 @@ class DiscoveryEngine:
                         elif 'azure' in content.lower() or 'semantic-kernel' in content.lower():
                             context['cloud'] = 'azure'
                         
-                        # Secret Risks
+                        # Secret Risks (Hardcoded patterns)
                         if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9\-_]{10,}[\'"]', content, re.I):
                             context['has_secrets_risk'] = True
                 except Exception:

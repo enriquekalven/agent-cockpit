@@ -83,8 +83,8 @@ def test_kb_schema_validity():
         assert all((k in p for k in ['id', 'category', 'title', 'indicators', 'recommendation', 'impact']))
         assert isinstance(p['indicators'], list)
 
-def test_v141_maturity_patterns():
-    """Verify detection of v1.8.4 premium maturity patterns (MP-020 to MP-026)."""
+def test_v200_maturity_patterns():
+    """Verify detection of v2.0.0 premium maturity patterns (MP-020 to MP-026)."""
     auditor = MaturityAuditor()
     content = 'def call_tool(name, args): pass'
     tree = ast.parse(content)

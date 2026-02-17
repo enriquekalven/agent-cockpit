@@ -105,6 +105,7 @@ class TelemetryManager:
             "context": self._get_system_info()
         }
 
+
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(
@@ -114,6 +115,7 @@ class TelemetryManager:
                 ):
                     pass
         except Exception:
+
             pass
 
     def track_event_sync(self, event_name: str, properties: Optional[Dict[str, Any]] = None):
