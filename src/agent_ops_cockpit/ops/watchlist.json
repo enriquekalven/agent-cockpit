@@ -41,6 +41,15 @@
       "package": "agent-starter-pack",
       "description": "Agent Starter Pack - Core reference for architecture & templates",
       "min_version_for_optimizations": "0.33.0"
+    },
+    "ibm-bee": {
+      "feed": "https://github.com/i-am-bee/bee-agent-framework/releases.atom",
+      "package": "bee-agent-framework",
+      "description": "IBM Bee Agent Framework - Scalable agentic workflows"
+    },
+    "agent-squad": {
+      "package": "agentsquad",
+      "description": "AWS Agent Squad - Multi-agent orchestration for Bedrock"
     }
   },
   "platform_services": {
