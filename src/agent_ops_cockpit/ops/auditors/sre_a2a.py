@@ -1,0 +1,234 @@
+try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError, ModuleNotFoundError):
+    ContextCacheConfig = None
+# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+from tenacity import retry, wait_exponential, stop_after_attempt
+import ast
+import re
+from typing import List
+from .base import BaseAuditor, AuditFinding
+
+class SREAuditor(BaseAuditor):
+    """
+    v1.2 Principal SME: AI Infrastructure & Networking Auditor.
+    Focuses on Networking Debt, Compute Efficiency, and CI/CD Audit Gates.
+    Separates Infra from Agent Architecture logic.
+    """
+    
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
+    def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        findings = []
+        
+        # 1. Networking Debt: REST vs gRPC for Vector DBs
+        if ("pinecone" in content.lower() or "alloydb" in content.lower()) and "grpc" not in content.lower():
+            title = "Sub-Optimal Vector Networking (REST)"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🌐 Networking",
+                    title=title,
+                    description="Detected REST-based vector retrieval. High-concurrency agents should use gRPC to reduce 'Cognitive Tax' by 40% and prevent tail-latency spikes.",
+                    impact="MEDIUM",
+                    roi="Faster response times for RAG-heavy agents. Prevents P99 latency cascading.",
+                    file_path=file_path
+                ))
+
+        # 2. Compute Efficiency: Time-to-Reasoning (TTR) Cold Start
+        if "cloud run" in content.lower():
+            is_boosted = "startup_cpu_boost" in content.lower()
+            title = "Time-to-Reasoning (TTR) Risk"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🏗️ Infrastructure",
+                    title=title,
+                    description=f"Cloud Run detected. {'Startup Boost active.' if is_boosted else 'MISSING startup_cpu_boost. High risk of 10s+ cold starts.'} A slow TTR makes the agent's first response 'Dead on Arrival' for users.",
+                    impact="HIGH" if not is_boosted else "INFO",
+                    roi="Reduces TTR by 50%. Ensures immediate 'Latent Intelligence' activation.",
+                    file_path=file_path
+                ))
+
+        # 3. CI/CD Governance: The Sovereign Gate
+        if "github/workflows" in file_path and "make audit" not in content:
+            title = "Sovereign Gate: Bypass Detected"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🚀 CI/CD",
+                    title=title,
+                    description="CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score gate. This allows un-audited reasoning logic to touch production data.",
+                    impact="CRITICAL",
+                    roi="Enforces the 'Sovereign standard' (score > 90) as a blocking gate.",
+                    file_path=file_path
+                ))
+
+        # 4. Regional Proximity: Regional Affinity Routing
+        if "us-central1" in content.lower() and ("europe-west1" in content.lower() or "asia-east" in content.lower()):
+            title = "Regional Proximity Breach"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="📍 Networking",
+                    title=title,
+                    description="Detected cross-region latency (>100ms). Reasoning (LLM) and Retrieval (Vector DB) must be co-located in the same zone to hit <10ms tail latency.",
+                    impact="HIGH",
+                    roi="Eliminates 'Reasoning Drift' caused by network hops.",
+                    file_path=file_path
+                ))
+
+        # 5. State Persistence: Short-Term Memory (STM) Audit
+        if ("session" in content.lower() or "persistence" in content.lower() or "memory" in content.lower()) and "redis" not in content.lower() and "memorystore" not in content.lower():
+            if "dict" in content.lower() or "self.history" in content.lower():
+                title = "Short-Term Memory (STM) at Risk"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🧠 State",
+                        title=title,
+                        description="Agent is storing session state in local pod memory (dictionaries). A GKE restart or Cloud Run scale-down wipes the agent's brain.",
+                        impact="HIGH",
+                        roi="Implementing Redis for STM ensures persistent agent context across pod lifecycles.",
+                        file_path=file_path
+                    ))
+
+        # 6. Observability: The 5th Golden Signal (TTFT)
+        # Scan for opentelemetry or cloud-trace imports
+        has_tracing = False
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                if any(kw in ast.dump(node).lower() for kw in ['opentelemetry', 'google.cloud.trace', 'honeycomb', 'datadog']):
+                    has_tracing = True
+                    break
+        
+        if not has_tracing and "ttft" not in content.lower():
+            title = "Missing 5th Golden Signal (TTFT/Tracing)"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🚀 Observability",
+                    title=title,
+                    description="Structural tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary metric for perceived intelligence.",
+                    impact="MEDIUM",
+                    roi="Allows proactive 'Latency Regression' alerts before users feel the slowness.",
+                    file_path=file_path
+                ))
+
+        if "memory" not in content.lower() and "cloud run" in content.lower():
+            title = "Sub-Optimal Resource Profile"
+            if not self._is_ignored(0, content, title):
+                findings.append(AuditFinding(
+                    category="🏗️ Compute",
+                    title=title,
+                    description="LLM workloads are Memory-Bound (KV-Cache). Low-memory instances degrade reasoning speed. Consider memory-optimized nodes (>4GB).",
+                    impact="LOW",
+                    roi="Maximizes Token Throughput by preventing memory-swapping during inference.",
+                    file_path=file_path
+                ))
+
+        # 8. SRE Warning: Missing Resource Consternation
+        if "docker" in file_path.lower() or "deploy" in file_path.lower() or "yaml" in file_path.lower():
+            if "memory:" not in content.lower() and "cpu:" not in content.lower():
+                title = "SRE Warning: Missing Resource Consternation"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛠️ Reliability",
+                        title=title,
+                        description="Deployment manifest detected without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy Neighbor' effects and OOM kills in production clusters.",
+                        impact="MEDIUM",
+                        roi="Ensures deterministic resource availability and prevents cluster-wide cascading failures.",
+                        file_path=file_path
+                    ))
+        
+        return findings
+
+class InteropAuditor(BaseAuditor):
+    """
+    v1.2 Principal SME: Ecosystem Interoperability Auditor (A2X).
+    Scans for MCP, A2UI, UCP, AP2, and AGUI framework compliance.
+    Ensures the agent ecosystem doesn't collapse into 'Chatter Bloat'.
+    """
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
+    def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
+        findings = []
+        
+        # 1. Chatter Bloat (Existing check)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call):
+                for arg in node.args:
+                    if isinstance(arg, ast.Name) and arg.id in ["state", "full_context", "messages", "history"]:
+                        title = "A2A Chatter Bloat Detected"
+                        if not self._is_ignored(node.lineno, content, title):
+                            findings.append(AuditFinding(
+                                category="📉 A2A Efficiency",
+                                title=title,
+                                description=f"Passing entire variable '{arg.id}' to tool/agent call. This introduces high latency and token waste.",
+                                impact="MEDIUM",
+                                roi="Reduces token cost and latency by 30-50% through surgical state passing.",
+                                line_number=node.lineno,
+                                file_path=file_path
+                            ))
+
+        # 2. Handshake Missing (Schema-less calls)
+        if "agent_call" in content.lower() and "schema" not in content.lower():
+             title = "Schema-less A2A Handshake"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🤝 A2A Protocol",
+                    title=title,
+                    description="Agent-to-Agent call detected without explicit input/output schema validation. High risk of 'Reasoning Drift'.",
+                    impact="HIGH",
+                    roi="Ensures interoperability between agents from different teams or providers.",
+                    file_path=file_path
+                ))
+
+        # 3. Recursive Loop Detection (Infinite Spend)
+        if re.search(r"def\s+(\w+).*?\1\(", content, re.DOTALL):
+             title = "Potential Recursive Agent Loop"
+             if not self._is_ignored(0, content, title):
+                 findings.append(AuditFinding(
+                    category="🛑 Protocol Logic",
+                    title=title,
+                    description="Detected a self-referencing agent call pattern. Risk of infinite reasoning loops and runaway costs.",
+                    impact="CRITICAL",
+                    roi="Prevents 'Infinite Spend' scenarios where agents gaslight each other recursively.",
+                    file_path=file_path
+                ))
+
+        # 4. MCP Compliance: Tools over Logic
+        if "subprocess.run" in content.lower() or "requests.get" in content.lower():
+            if "mcp" not in content.lower() and "tools" in file_path.lower():
+                title = "Legacy Tooling detected (Non-MCP)"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛠️ MCP Protocol",
+                        title=title,
+                        description="Detected raw system/network calls in a tool module. Standardizing on Model Context Protocol (MCP) provides unified governance and discovery.",
+                        impact="MEDIUM",
+                        roi="Allows tools to be consumed by any MCP-native agent ecosystem.",
+                        file_path=file_path
+                    ))
+
+        # 5. A2UI / AGUI: Generative Interface Handshake
+        if "return" in content.lower() and "html" in content.lower():
+            if "surfaceid" not in content.lower() and "a2ui" not in content.lower():
+                title = "Missing GenUI Surface Mapping"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🎭 A2UI Protocol",
+                        title=title,
+                        description="Agent is returning raw HTML/UI strings without A2UI surfaceId mapping. This breaks the 'Push-based GenUI' standard.",
+                        impact="HIGH",
+                        roi="Enables proactive visual updates to the user through the Face layer.",
+                        file_path=file_path
+                    ))
+
+        # 6. UCP / AP2: Universal Context & Agent Protocol
+        if "context" in content.lower() and "headers" not in content.lower():
+             if "ap2" not in content.lower() and "ucp" not in content.lower():
+                title = "Proprietary Context Handshake (Non-AP2)"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🤝 Standard Protocols",
+                        title=title,
+                        description="Agent is using ad-hoc context passing. Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures cross-framework interoperability.",
+                        impact="LOW",
+                        roi="Prevents vendor lock-in and enables multi-framework swarms (e.g. LangChain + CrewAI).",
+                        file_path=file_path
+                    ))
+
+        return findings

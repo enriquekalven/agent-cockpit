@@ -1,0 +1,42 @@
+name: 📡 Global Telemetry Sync
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: pip install requests
+        
+      - name: Aggregate Telemetry
+        env:
+          AGENTOPS_SUPABASE_URL: ${{ secrets.AGENTOPS_SUPABASE_URL }}
+          AGENTOPS_SUPABASE_KEY: ${{ secrets.AGENTOPS_SUPABASE_KEY }}
+        run: python3 scripts/aggregate_telemetry.py
+        
+      - name: Commit changes
+        run: |
+          git config --global user.name "Sovereign Bot"
+          git config --global user.email "bot@agentops.io"
+          git add public/fleet_data.json
+          git commit -m "data: sync global telemetry pulse" || echo "No changes to commit"
+          git push
+          
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AGENT_COCKPIT }}
+          projectId: esai-31177
+          channelId: live

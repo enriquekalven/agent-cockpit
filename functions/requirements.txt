@@ -1,0 +1,7 @@
+firebase-functions
+firebase-admin
+fastapi
+pydantic
+httpx
+asgiref
+uvicorn

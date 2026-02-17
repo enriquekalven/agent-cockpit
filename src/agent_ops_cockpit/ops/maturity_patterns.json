@@ -1,0 +1,460 @@
+{
+  "last_updated": "2026-02-17T11:42:43.986687",
+  "version": "2.0.0",
+  "patterns": [
+    {
+      "id": "MP-001",
+      "category": "SCALABILITY",
+      "title": "Vector Store Evolution (Chroma DB)",
+      "indicators": [
+        "chromadb",
+        "chroma"
+      ],
+      "recommendation": "For enterprise scaling, evaluate: 1) Google Cloud: Vertex AI Search for handled grounding. 2) AWS: Amazon Bedrock Knowledge Bases. 3) General: BigQuery Vector Search for high-scale analytical joins.",
+      "rationale": "Detected Chroma DB. While excellent for local POCs, production agents often require the managed durability and global indexing provided by major cloud providers.",
+      "impact": "HIGH",
+      "source": "Maturity Auditor SME"
+    },
+    {
+      "id": "MP-003",
+      "category": "PROTOCOL",
+      "title": "Legacy REST vs MCP",
+      "indicators": [
+        "requests.get",
+        "requests.post",
+        "aiohttp",
+        "httpx"
+      ],
+      "recommendation": "Pivot to Model Context Protocol (MCP) for tool discovery. OpenAI, Anthropic, and Microsoft (Agent Kit) are converging on MCP for standardized tool/resource governance.",
+      "rationale": "Standardized protocols reduce integration debt and enable multi-agent interoperability without custom bridge logic.",
+      "impact": "HIGH",
+      "source": "Maturity Auditor SME"
+    },
+    {
+      "id": "MP-012",
+      "category": "RELIABILITY",
+      "title": "Model Resilience & Fallbacks",
+      "indicators": [
+        "model_name",
+        "GenerativeModel",
+        "ChatOpenAI",
+        "ChatAnthropic"
+      ],
+      "recommendation": "Implement multi-provider fallback. Options: 1) AWS: Apply Generative AI Lens 'Model Fallback' patterns. 2) Azure: Use API Management for cross-region load balancing. 3) LangGraph: Implement conditional edges for a 'Retry with Larger Model' flow.",
+      "rationale": "Relying on a single model/provider creates a SPOF. Multi-provider fallbacks ensure availability during rate limits or service outages.",
+      "impact": "HIGH",
+      "source": "AWS/Azure/LangGraph Best Practices"
+    },
+    {
+      "id": "MP-013",
+      "category": "SECURITY",
+      "title": "Enterprise Identity (Identity Sprawl)",
+      "indicators": [
+        "api_key",
+        "bearer",
+        "auth_header"
+      ],
+      "recommendation": "Move beyond static keys. Implement: 1) GCP: Workload Identity Federation. 2) AWS: Private VPC Endpoints + IAM Role-based access. 3) Azure: Managed Identities for all tool interactions.",
+      "rationale": "Static API keys are a major security liability. Cloud-native managed identities provide automatic rotation and least-privilege scoping.",
+      "impact": "CRITICAL",
+      "source": "GCP/AWS/Azure Well-Architected Framework"
+    },
+    {
+      "id": "MP-014",
+      "category": "ARCHITECTURE",
+      "title": "Orchestration Pattern Selection",
+      "indicators": [
+        "loop",
+        "while True",
+        "iteration"
+      ],
+      "recommendation": "When evaluating orchestration, consider: 1) LangGraph: Use for complex cyclic state machines with persistence (checkpoints). 2) CrewAI: Best for role-based hierarchical collaboration. 3) Anthropic: Prefer 'Workflows over Agents' for high-predictability tasks.\n\n[CONGENIAL RESEARCH SIGNAL]: Research Signal (ArXiv): Integrate Recursive Self-Reflexion to reduce hallucination by 40%. (Source: ArXiv Intelligence Sync (Feb 2026))",
+      "rationale": "Detected custom loop logic. Standardized frameworks provide superior state management and built-in 'Human-in-the-Loop' (HITL) pause points.",
+      "impact": "MEDIUM",
+      "source": "LangGraph/CrewAI/Anthropic Research | ArXiv Intelligence Sync (Feb 2026)"
+    },
+    {
+      "id": "MP-015",
+      "category": "BRAND_SAFETY",
+      "title": "Payload Splitting (Context Fragmentation)",
+      "indicators": [
+        "history.append",
+        "chat_history",
+        "memory"
+      ],
+      "recommendation": "Monitor for Payload Splitting attacks where malicious fragments are combined over multiple turns. Mitigation: 1) Implement sliding window verification. 2) Use 'DARE Prompting' (Determine Appropriate Response) to re-evaluate intent at every turn.",
+      "rationale": "Attackers can bypass single-turn filters by splitting a payload across multiple turns. Continuous monitoring of context assembly is required.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-016",
+      "category": "BRAND_SAFETY",
+      "title": "Missing Safety Classifiers",
+      "indicators": [
+        "system_prompt",
+        "instruction"
+      ],
+      "recommendation": "Supplement prompt-based safety with programmatic layers: 1) Input Level: ShieldGemma or LLM Guard. 2) Output Level: Sentiment Analysis and Category Checks (GCP Natural Language API). 3) Persona: Tone of Voice controllers.",
+      "rationale": "System prompts alone are susceptible to jailbreaking. Programmatic filters provide a deterministic safety net that cannot be 'ignored' by the model.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-017",
+      "category": "SECURITY",
+      "title": "Adversarial Testing (Red Teaming)",
+      "indicators": [
+        "test_",
+        "pytest"
+      ],
+      "recommendation": "Implement 5-layer Red Teaming: 1) Quality (Customer queries). 2) Safety (Slurs/Profanity). 3) Sensitive Topics (Politics/Legal). 4) Off-topic (Canned response check). 5) Language (Non-supported language override).",
+      "rationale": "Standard unit tests don't cover adversarial reasoning. A dedicated red-teaming suite is required for brand-safe production deployments.",
+      "impact": "HIGH",
+      "source": "AI Brand Safety Playbook (Oct 2024)"
+    },
+    {
+      "id": "MP-018",
+      "category": "QUALITY",
+      "title": "Structured Output Enforcement",
+      "indicators": [
+        "json.loads",
+        "parse"
+      ],
+      "recommendation": "Eliminate parsing failures. 1) OpenAI: Use 'Structured Outputs' for guaranteed schema. 2) GCP: Application Mimetype (application/json) enforcement. 3) LangGraph: Pydantic-based state validation.",
+      "rationale": "Markdown-wrapped JSON is brittle. API-level schema enforcement ensures stable agent-to-tool and agent-to-brain handshakes.",
+      "impact": "MEDIUM",
+      "source": "OpenAI/GCP/LangGraph Docs"
+    },
+    {
+      "id": "MP-019",
+      "category": "RELIABILITY",
+      "title": "Agentic Observability (Golden Signals)",
+      "indicators": [
+        "latency",
+        "cost"
+      ],
+      "recommendation": "Monitor the Agentic Trinity: 1) Reasoning Trace (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent. Microsoft Agent Kit recommends 'Trace-based Debugging' for multi-agent loops.",
+      "rationale": "Traditional service metrics (CPU/RAM) aren't enough for agents. Perceived intelligence is tied to TTFT and reasoning path transparency.",
+      "impact": "MEDIUM",
+      "source": "Microsoft Agent Kit / Industry Standards"
+    },
+    {
+      "id": "MP-020",
+      "category": "SECURITY",
+      "title": "Excessive Agency & Privilege (OWASP LLM06)",
+      "indicators": [
+        "tools",
+        "functions",
+        "executor",
+        "call_tool"
+      ],
+      "recommendation": "Audit tool permissions against MITRE ATLAS 'Excessive Agency'. Implement: 1) Granular IAM for tool execution. 2) Human-In-The-Loop (HITL) for destructive actions (Delete/Write). 3) Sandbox isolation for Python execution.",
+      "rationale": "Agents with broad tool access are high-value targets. Restricting agency to the 'Least Privilege' required for the task is critical for safety.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM Top 10 / MITRE ATLAS 2025"
+    },
+    {
+      "id": "MP-021",
+      "category": "UX_SOVEREIGNTY",
+      "title": "Explainable Reasoning (HAX Guideline 11)",
+      "indicators": [
+        "thought",
+        "reasoning",
+        "trace"
+      ],
+      "recommendation": "Ensure users understand 'Why' the agent took an action. Implementation: 1) Microsoft HAX: Make clear 'Why' the system did what it did. 2) Google PAIR: Show the source for RAG claims. 3) UI: Collapse reasoning traces behind 'View Steps' toggles.",
+      "rationale": "Hidden reasoning leads to user distrust. Explainability is a key component of the 5th Golden Signal (User Perception of Intelligence).",
+      "impact": "HIGH",
+      "source": "Microsoft HAX Toolkit / Google PAIR"
+    },
+    {
+      "id": "MP-022",
+      "category": "REASONING_PRIME",
+      "title": "Multi-Agent Debate (MAD) & Consensus",
+      "indicators": [
+        "validate",
+        "check",
+        "critic",
+        "review"
+      ],
+      "recommendation": "For high-stakes reasoning, move beyond single-shot ReAct. Implement: 1) Multi-Agent Debate: One agent proposes, another critiques. 2) Tree-of-Thoughts (ToT): Explore multiple reasoning paths. 3) Self-Reflexion: Agent audits its own output before transmission.",
+      "rationale": "Single-agent loops are prone to hallucinations. Adversarial consensus between specialized 'Reviewer' agents significantly increases reliability.",
+      "impact": "HIGH",
+      "source": "Advanced Agentic Logic Research (2025)"
+    },
+    {
+      "id": "MP-023",
+      "category": "SECURITY",
+      "title": "Indirect Prompt Injection (RAG Hardening)",
+      "indicators": [
+        "retrieval",
+        "context",
+        "vector_search"
+      ],
+      "recommendation": "Protect the RAG pipeline. Implement: 1) Input Sanitization for 'Malicious Fragments' in fetched docs. 2) 'Strict Context' prompts that forbid following instructions found in retrieved data. 3) Dual LLM verification (Small model scans retrieval context before the Large model sees it).",
+      "rationale": "RAG systems are vulnerable to 'Indirect' injections where an attacker poisons a document to highjack the agent's logic during retrieval.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM01:2025 / MITRE ATLAS"
+    },
+    {
+      "id": "MP-024",
+      "category": "UX_SOVEREIGNTY",
+      "title": "Mental Model Discovery (HAX Guideline 01)",
+      "indicators": [
+        "help",
+        "capabilities",
+        "what can you do"
+      ],
+      "recommendation": "Don't leave users guessing. Implementation: 1) HAX: Make clear what the system can do. 2) UI: Provide 'Capability Cards' or proactive tool suggestions. 3) Discovery: Show sample queries on empty state.",
+      "rationale": "User frustration often stems from 'Mental Model Mismatch' (expecting the agent to do things it cannot). Proactive disclosure of capabilities resolves this.",
+      "impact": "MEDIUM",
+      "source": "Microsoft HAX Toolkit / Google PAIR"
+    },
+    {
+      "id": "MP-NEW-20260209",
+      "category": "RELIABILITY",
+      "title": "Universal Context Protocol (UCP) Migration",
+      "indicators": [
+        "ad-hoc context",
+        "manual_context",
+        "pass_context"
+      ],
+      "recommendation": "Adopt Universal Context Protocol (UCP) for standardized cross-agent memory handshakes.",
+      "rationale": "Detected ad-hoc memory passing. UCP reduces context-fragmentation and allows memory to persist across framework transitions.",
+      "impact": "MEDIUM",
+      "source": "GCP Architecture Framework (Daily Sync)"
+    },
+    {
+      "id": "MP-025",
+      "category": "ARCHITECTURE",
+      "title": "Agent Starter Pack Template Adoption",
+      "indicators": [
+        "agent-starter-pack",
+        "agent_starter_pack",
+        "StarterPack"
+      ],
+      "recommendation": "Leverage production-grade Generative AI templates from the GoogleCloudPlatform/agent-starter-pack. Benefits: 1) Pre-built LangGraph patterns. 2) IAM-hardened deployments. 3) Standardized tool-use hooks.",
+      "rationale": "Starter Pack patterns ensure architectural alignment with Google's production-ready agent blueprints.",
+      "impact": "HIGH",
+      "source": "GoogleCloudPlatform Ecosystem (v1.4.7 Sync)"
+    },
+    {
+      "id": "MP-026",
+      "category": "REASONING_PRIME",
+      "title": "LlamaIndex Workflows (Event-Driven Reasoning)",
+      "indicators": [
+        "llama-index",
+        "Workflow",
+        "Event"
+      ],
+      "recommendation": "Adopt the LlamaIndex Workflow (v0.14+) for event-driven agentic logic. This replaces rigid linear chains with a dynamic state-based event loop that is more resilient to complex user intents.",
+      "rationale": "Event-driven workflows provide superior flexibility and error recovery compared to standard synchronous chains.",
+      "impact": "HIGH",
+      "source": "LlamaIndex Research (v0.14.0 Stable)"
+    },
+    {
+      "id": "MP-PRIN-20260209",
+      "category": "REASONING_PRIME",
+      "title": "Recursive Self-Improvement (Self-Reflexion Loops)",
+      "indicators": [
+        "loop",
+        "reflexion",
+        "self-correct"
+      ],
+      "recommendation": "Integrate Recursive Self-Reflexion. Research from ArXiv (cs.AI) proves that agents auditing their own reasoning paths reduce hallucination by 40%.",
+      "rationale": "Ad-hoc loops lack a termination-of-reasoning proof. Standardizing on Reflexion increases deterministic reliability.",
+      "impact": "CRITICAL",
+      "source": "ArXiv Intelligence Sync (cs.AI)"
+    },
+    {
+      "id": "MP-027",
+      "category": "ARCHITECTURE",
+      "title": "Retrieval-Augmented Execution (RAE) + 2026 Context Moat",
+      "indicators": [
+        "massive_retrieval",
+        "long_context",
+        "chunk_strategy"
+      ],
+      "recommendation": "Sovereign Standard Feb 2026: Use Gemini 3 Pro's 10M+ context for full-document 'SME ingestion' (RAE). Reasoning: Multi-agent debate on SWE-bench proves chunking-based RAG fails on 'Global Systematic Design'.",
+      "rationale": "Legacy chunking destroys reasoning cohesion. Gemini 3's context moat enables zero-latency retrieval by holding the entire codebase in active memory.",
+      "impact": "HIGH",
+      "source": "Google DeepMind / SWE-bench 2026"
+    },
+    {
+      "id": "MP-028",
+      "category": "SECURITY",
+      "title": "Multi-Cloud Workload Identity Federation",
+      "indicators": [
+        "gcp_key",
+        "aws_secret",
+        "azure_token"
+      ],
+      "recommendation": "Eliminate cross-cloud static secrets. Implement: 1) GCP: Workload Identity Federation for AWS/Azure. 2) IAM: Use OIDC tokens for peer-to-peer agent trust. Pattern: 'Zero-Secret Architectural Tunnel'.",
+      "rationale": "Static secrets are the #1 attack vector in multi-cloud agent swarms. Federated identity provides a zero-trust handshake without rotation overhead.",
+      "impact": "CRITICAL",
+      "source": "AWS/Azure/GCP Well-Architected Framework (Principal SME)"
+    },
+    {
+      "id": "MP-029",
+      "category": "FINOPS",
+      "title": "SLM-on-the-Edge (Gemma 3 / Phi-4 Optimization)",
+      "indicators": [
+        "sub_agent",
+        "worker",
+        "map_reduce"
+      ],
+      "recommendation": "Offload deterministic sub-tasks (JSON parsing, routing) to Gemma 3-2b or Phi-4-mini on local edge. Reasoning: Token cost for Feb 2026 frontier models makes SLM offloading an 85% OpEx win.",
+      "rationale": "Using Frontier Models (GPT-5.2 / Gemini 3) for simple parsing is architectural debt. Federated reasoning between SLM and LLM is the v1.4.7 standard.",
+      "impact": "HIGH",
+      "source": "Anthropic Research / Microsoft Research (Feb 2026)"
+    },
+    {
+      "id": "MP-030",
+      "category": "DEVELOPER_EXPERIENCE",
+      "title": "Agent-First IDE Adoption (Antigravity/Cursor/Claude Code)",
+      "indicators": [
+        "manual fix",
+        "human_debug",
+        "vscode"
+      ],
+      "recommendation": "Pivot to Agent-First IDEs for codebase remediation. Recommendation: Use Google Antigravity (Manager View) or Claude Code for multi-agent autonomous fixes based on Cockpit-detected gaps.",
+      "rationale": "Manual remediation is too slow for v1.4 maturity velocity. Agent-first IDEs leverage the same reasoning patterns (Gemini 3 Deep Think) used by the Cockpit.",
+      "impact": "MEDIUM",
+      "source": "Google Developer Intelligence v1.4"
+    },
+    {
+      "id": "MP-031",
+      "category": "ARCHITECTURE",
+      "title": "Sovereign Certification (Production Readiness)",
+      "indicators": [
+        "certify",
+        "production_ready"
+      ],
+      "recommendation": "Adopt the 'agentops-cockpit certify' operational standard. This ensures that every agent project passes the \ud83c\udfc5 Sovereign Badge pre-flight, security, and regression gates before deployment.",
+      "rationale": "Ad-hoc certification processes lead to 'Production Drift'. Standardized badges provide a uniform quality gate across the entire fleet.",
+      "impact": "CRITICAL",
+      "source": "AgentOps Cockpit v2.0.0"
+    },
+    {
+      "id": "MP-032",
+      "category": "PROTOCOL",
+      "title": "Tool Modernization (MCP Blueprint)",
+      "indicators": [
+        "blueprint",
+        "legacy_tool",
+        "wrap_mcp"
+      ],
+      "recommendation": "Use 'agentops-cockpit mcp blueprint' to auto-generate Model Context Protocol (MCP) server wrappers for legacy tool logic. This modernizes your tools for consumption by any MCP-compliant agent (Claude, Gemini, ChatGPT).",
+      "rationale": "Legacy REST tools create vendor lock-in. MCP wrappers enable universal tool interoperability and centralized governance.",
+      "impact": "HIGH",
+      "source": "AgentOps Cockpit v2.0.0"
+    },
+    {
+      "id": "MP-033",
+      "category": "ARCHITECTURE",
+      "title": "Architectural Mismatch: RAG for Math",
+      "indicators": [
+        "calculate",
+        "sum",
+        "total",
+        "average",
+        "vector",
+        "retriever"
+      ],
+      "recommendation": "Detected mathematical intent being processed via RAG (Retrieval-Augmented Generation). Pivot to an **NL2SQL** pattern or a **Code Interpreter** tool. These provide deterministic accuracy for calculations, whereas LLMs over RAG only approximate.",
+      "rationale": "RAG is designed for semantic search, not arithmetic accuracy. Mathematical operations require structured data tools or precise execution environments.",
+      "impact": "HIGH",
+      "source": "Master Architect Feedback (Feb 2026)"
+    },
+    {
+      "id": "MP-034",
+      "category": "SCALABILITY",
+      "title": "Context Drowning Mitigation (Sovereign Cache)",
+      "indicators": [
+        "massive_context",
+        "long_context",
+        "history",
+        "append"
+      ],
+      "recommendation": "Detected high context volume without explicit caching. Implementation: 1) Google Cloud: Use 'Content Caching' for Gemini to reduce TTFT and costs for repeated long prompts. 2) Local: Implement a sliding window or 'Semantic Summarizer' for long-running sessions.",
+      "rationale": "Long-lived agent sessions eventually drown in their own context, leading to increased latency and decreased reasoning quality.",
+      "impact": "HIGH",
+      "source": "Sovereign Engineering Standard v1.8.5"
+    },
+    {
+      "id": "MP-035",
+      "category": "SECURITY",
+      "title": "Ungated High-Stake Action",
+      "indicators": [
+        "delete",
+        "update",
+        "transfer",
+        "execute",
+        "commit"
+      ],
+      "recommendation": "Critical actions detected in tool definitions without Human-In-The-Loop (HITL) gates. v1.8.5 standard requires 'require_confirmation=True' for all destructive or financial tools.",
+      "rationale": "Autonomous agents must not have permission to modify state without external validation for high-impact operations.",
+      "impact": "CRITICAL",
+      "source": "OWASP LLM06 / Sovereign Security SME"
+    },
+    {
+      "id": "MP-036",
+      "category": "INFRASTRUCTURE",
+      "title": "Unified Toolset Mastery (Composio / MCP)",
+      "indicators": [
+        "composio",
+        "mcp-sdk",
+        "LastMile",
+        "LangChainMCPAdapter"
+      ],
+      "recommendation": "Leverage Composio or direct MCP SDKs for high-scale tool orchestration. Composio provides managed auth and session handling that complements the Cockpit's auditing capabilities.",
+      "rationale": "Ad-hoc tool execution blocks are architectural debt. Converging on MCP-compliant toolsets enables cross-silo tool portability.",
+      "impact": "HIGH",
+      "source": "Ecosystem Sync (v2.0.0)"
+    },
+    {
+      "id": "MP-037",
+      "category": "ARCHITECTURE",
+      "title": "Frontier Framework Adoption (Vercel / Praison / Strands)",
+      "indicators": [
+        "vercel-ai",
+        "praisonai",
+        "strands",
+        "CopilotKit"
+      ],
+      "recommendation": "Integrate Vercel AI SDK for frontend-streaming logic or Praison AI for role-based multi-agent swarms. Ensure A2UI compliance for visual consistency.",
+      "rationale": "High-velocity development requires framework-native hooks (React/Vite). Combining these with the Cockpit's governance provides a 'Safe-Speed' release cycle.",
+      "impact": "MEDIUM",
+      "source": "Ecosystem Sync (v2.0.0)"
+    },
+    {
+      "id": "MP-038",
+      "category": "ARCHITECTURE",
+      "title": "Enterprise Logic Layer (Semantic Kernel)",
+      "indicators": [
+        "semantic-kernel",
+        "KernelFunction",
+        "Plugin"
+      ],
+      "recommendation": "Use Microsoft Semantic Kernel for bridge-scaling between .NET and Python. Leverage SK's 'Function Calling' and 'Planners' combined with Cockpit's 'Principle Architect' for design parity.",
+      "rationale": "Semantic Kernel provides a robust, typed foundation for enterprise agents, especially in multi-language environments.",
+      "impact": "HIGH",
+      "source": "Microsoft Enterprise Standard (Feb 2026)"
+    }
+  ],
+  "compatibility_constraints": [
+    {
+      "component_a": "langgraph",
+      "component_b": "crewai",
+      "status": "INCOMPATIBLE",
+      "reason": "CrewAI and LangGraph both attempt to manage the orchestration loop and state, leading to cyclic-dependency conflicts."
+    },
+    {
+      "component_a": "google-adk",
+      "component_b": "pyautogen",
+      "status": "INCOMPATIBLE",
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration. Pair with Agent Starter Pack for tracing, observability, and logging best practices."
+    }
+  ]
+}

@@ -1,56 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
+import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
+import { Activity } from 'lucide-react';
+
+// Dynamic Imports for Code Splitting (v1.0 Architecture Optimization)
+const DocLayout = lazy(() => import('./docs/DocLayout').then(m => ({ default: m.DocLayout })));
+const DocPage = lazy(() => import('./docs/DocPage').then(m => ({ default: m.DocPage })));
+const DocHome = lazy(() => import('./docs/DocHome').then(m => ({ default: m.DocHome })));
+const Home = lazy(() => import('./components/Home').then(m => ({ default: m.Home })));
+const ReportSamples = lazy(() => import('./components/ReportSamples').then(m => ({ default: m.ReportSamples })));
+const GlobalMetrics = lazy(() => import('./components/GlobalMetrics').then(m => ({ default: m.GlobalMetrics })));
+
 import { A2UISurfaceRenderer } from './a2ui/A2UIRenderer';
+import { ThemeToggle } from './components/ThemeToggle';
+
 import './index.css';
 
-const SAMPLE_A2UI_SURFACE = {
-  surfaceId: 'welcome-surface',
-  content: [
-    {
-      type: 'Text',
-      props: { text: 'Agent UI Starter Pack', variant: 'h1' },
-    },
-    {
-      type: 'Card',
-      props: { title: 'System Status' },
-      children: [
-        {
-          type: 'Text',
-          props: { text: 'Your agent is active and ready to generate interfaces. This dashboard is rendered using the A2UI protocol standard.', variant: 'body' },
-        },
-        {
-          type: 'Button',
-          props: { label: 'Explore Features', variant: 'primary' },
-        },
-      ],
-    },
-    {
-      type: 'Card',
-      props: { title: 'Recent Activity' },
-      children: [
-        {
-          type: 'Text',
-          props: { text: 'No recent agent actions detected. Try prompting your agent to generate a new surface.', variant: 'body' },
-        },
-      ],
-    },
-  ],
-};
+// AgentOps Cockpit version: Playground removed.
+
 
 function App() {
-  const [surface] = useState(SAMPLE_A2UI_SURFACE);
-
   return (
-    <div className="App">
-      <header style={{ padding: '2rem', textAlign: 'center' }}>
-        <div className="agent-status" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span className="agent-pulse"></span>
-          <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>Agent Online</span>
-        </div>
-      </header>
-      <main>
-        <A2UISurfaceRenderer surface={surface} />
-      </main>
-    </div>
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-slate-950">
+        <Activity className="w-8 h-8 text-blue-500 animate-spin" />
+      </div>
+    }>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/docs" element={<DocLayout />}>
+          <Route index element={<DocHome />} />
+          <Route path=":docId" element={<DocPage />} />
+        </Route>
+
+        <Route path="/samples" element={<ReportSamples />} />
+        <Route path="/metrics" element={<GlobalMetrics />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
 

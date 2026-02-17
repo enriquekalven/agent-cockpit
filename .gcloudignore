@@ -3,6 +3,7 @@ dist/
 .git/
 .npm/
 .dockerignore
-Dockerfile
 firebase.json
 *.log
+.venv/
+.agent/

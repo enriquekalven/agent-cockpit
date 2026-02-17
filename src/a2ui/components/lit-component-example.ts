@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { A2UIComponent } from '../types';
+import type { A2UIComponent } from '../types';
 
 /**
  * A sample Lit-based A2UI component.

@@ -1,0 +1,19 @@
+include README.md
+include A2A_GUIDE.md
+include DEPLOYMENT.md
+include BE_INTEGRATION_GUIDE.md
+include firebase.json
+include Makefile
+include Dockerfile
+include package.json
+include tsconfig.json
+include vite.config.ts
+include index.html
+recursive-include src *
+recursive-include public *
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .git
+global-exclude .firebase
+global-exclude dist
+global-exclude node_modules

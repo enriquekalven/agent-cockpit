@@ -1,0 +1,210 @@
+{
+  "orchestration_frameworks": {
+    "google-adk": {
+      "feed": "https://github.com/google/adk-python/releases.atom",
+      "package": "google-adk",
+      "description": "Agent Development Kit - Core reasoning & tool orchestration",
+      "min_version_for_optimizations": "0.15.0"
+    },
+    "crewai": {
+      "feed": "https://github.com/crewAIInc/crewAI/releases.atom",
+      "package": "crewai",
+      "description": "CrewAI - Role-playing multi-agent systems",
+      "min_version_for_optimizations": "1.0.0"
+    },
+    "langgraph": {
+      "feed": "https://github.com/langchain-ai/langgraph/releases.atom",
+      "package": "langgraph",
+      "description": "LangGraph - Stateful multi-agent orchestration",
+      "min_version_for_optimizations": "0.1.0"
+    },
+    "autogen": {
+      "feed": "https://github.com/microsoft/autogen/releases.atom",
+      "package": "pyautogen",
+      "description": "Microsoft AutoGen - Conversational agent framework",
+      "min_version_for_optimizations": "0.4.0"
+    },
+    "openai-agents": {
+      "feed": "https://github.com/openai/openai-agents-python/releases.atom",
+      "package": "openai-agents",
+      "description": "OpenAI Agents SDK - Multi-agent workflows",
+      "min_version_for_optimizations": "0.5.0"
+    },
+    "copilotkit": {
+      "feed": "https://github.com/CopilotKit/CopilotKit/releases.atom",
+      "package": "@copilotkit/react-core",
+      "description": "In-app AI Copilots & UX components",
+      "min_version_for_optimizations": "1.20.0"
+    },
+    "agent-starter-pack": {
+      "feed": "https://github.com/GoogleCloudPlatform/agent-starter-pack/releases.atom",
+      "package": "agent-starter-pack",
+      "description": "Agent Starter Pack - Core reference for architecture & templates",
+      "min_version_for_optimizations": "0.33.0"
+    }
+  },
+  "platform_services": {
+    "agent-engine": {
+      "feed": "https://github.com/googleapis/python-aiplatform/releases.atom",
+      "package": "google-cloud-aiplatform",
+      "description": "Vertex AI Agent Engine - Managed agent execution",
+      "min_version_for_optimizations": "1.70.0"
+    },
+    "pinecone": {
+      "feed": "https://github.com/pinecone-io/pinecone-python-client/releases.atom",
+      "package": "pinecone-client",
+      "description": "Pinecone - Managed vector database for RAG"
+    },
+    "weaviate": {
+      "feed": "https://github.com/weaviate/weaviate-python-client/releases.atom",
+      "package": "weaviate-client",
+      "description": "Weaviate - Open source vector database"
+    },
+    "chromadb": {
+      "feed": "https://github.com/chroma-core/chroma/releases.atom",
+      "package": "chromadb",
+      "description": "Chroma - The AI-native open-source embedding database"
+    },
+    "llamaindex": {
+      "feed": "https://github.com/run-llama/llama_index/releases.atom",
+      "package": "llama-index",
+      "description": "LlamaIndex - Data framework for LLM applications"
+    },
+    "langsmith": {
+      "feed": "https://github.com/langchain-ai/langsmith-sdk/releases.atom",
+      "package": "langsmith",
+      "description": "LangSmith - Debugging, testing, and monitoring for LLMs"
+    },
+    "ollama": {
+      "feed": "https://github.com/ollama/ollama/releases.atom",
+      "package": "ollama",
+      "description": "Ollama - Run LLMs locally"
+    },
+    "composio": {
+      "package": "composio-core",
+      "description": "Composio - Toolset for AI agents"
+    },
+    "mcp-python-sdk": {
+      "package": "mcp",
+      "description": "MCP Python SDK - Model Context Protocol implementation"
+    },
+    "mcp-typescript-sdk": {
+      "package": "@modelcontextprotocol/sdk",
+      "description": "MCP TypeScript SDK - Model Context Protocol implementation"
+    },
+    "vercel-ai-sdk": {
+      "package": "ai",
+      "description": "Vercel AI SDK - Framework for building AI applications"
+    },
+    "praison-ai": {
+      "package": "praisonai",
+      "description": "Praison AI - Multi-agent framework"
+    },
+    "semantic-kernel": {
+      "package": "semantic-kernel",
+      "description": "Microsoft Semantic Kernel - SDK for integrating AI into apps"
+    },
+    "strands-agents": {
+      "description": "Strands - Agentic workflow automation"
+    }
+  },
+  "compatibility_rules": [
+    {
+      "component": "langgraph",
+      "works_well_with": [
+        "google-adk",
+        "openai-agents"
+      ],
+      "incompatible_with": [
+        "crewai"
+      ],
+      "reason": "CrewAI and LangGraph both attempt to manage the orchestration loop and state, leading to cyclic-dependency conflicts."
+    },
+    {
+      "component": "google-adk",
+      "works_well_with": [
+        "langgraph",
+        "mcp",
+        "agent-starter-pack"
+      ],
+      "incompatible_with": [
+        "pyautogen"
+      ],
+      "reason": "AutoGen's conversational loop pattern conflicts with ADK's strictly typed tool orchestration. Pair with Agent Starter Pack for tracing, observability, and logging best practices."
+    },
+    {
+      "component": "mcp",
+      "works_well_with": [
+        "google-adk",
+        "langgraph",
+        "openai-agents"
+      ],
+      "incompatible_with": [],
+      "reason": "MCP is a universal standard and thrives in multi-framework environments."
+    }
+  ],
+  "deep_research_scouts": {
+    "arxiv-ai": {
+      "feed": "http://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=lastUpdatedDate&sortOrder=descending",
+      "description": "ArXiv: Artificial Intelligence - Latest research papers on reasoning and planning",
+      "relevancy_focus": [
+        "Search-based Planning",
+        "Tree-of-Thoughts",
+        "Recursive Self-Improvement"
+      ]
+    },
+    "openai-research": {
+      "feed": "https://openai.com/blog/research/rss.xml",
+      "description": "OpenAI Research Blog - Breakthroughs in Frontier Models",
+      "relevancy_focus": [
+        "Prompting Heuristics",
+        "Agentic Reasoning",
+        "Safety RLHF"
+      ]
+    },
+    "anthropic-news": {
+      "feed": "https://www.anthropic.com/news/rss.xml",
+      "description": "Anthropic News - Constitutional AI and Tool-Use specs",
+      "relevancy_focus": [
+        "MCP Protocol",
+        "Context Caching",
+        "System Prompt Hardening"
+      ]
+    },
+    "google-ai-blog": {
+      "feed": "https://blog.google/technology/ai/rss/",
+      "description": "Google AI Blog - Gemini updates and infrastructure breakthroughs",
+      "relevancy_focus": [
+        "Long-Context Logic",
+        "Vertex AI Extensions",
+        "Agentic Trinity Patterns"
+      ]
+    }
+  },
+  "security_policy_feeds": {
+    "nist-news": {
+      "feed": "https://www.nist.gov/news-events/news/rss",
+      "description": "NIST AI RMF Updates - National standards for AI Risk Management",
+      "relevancy_focus": [
+        "Risk Assessment",
+        "Biannual AI Safety Checkpoints"
+      ]
+    },
+    "owasp-llm-top-10": {
+      "feed": "https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/releases.atom",
+      "description": "OWASP LLM Security - Latest adversarial defense patterns",
+      "relevancy_focus": [
+        "Agentic Privilege",
+        "Indirect Vector Injection"
+      ]
+    }
+  },
+  "research_sources": {
+    "well_architected": "https://cloud.google.com/architecture/framework",
+    "aws_genai_lens": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+    "azure_ai_waf": "https://learn.microsoft.com/en-us/azure/architecture/guide/ai/well-architected-framework-ai",
+    "security_best_practices": "https://cloud.google.com/architecture/framework/security",
+    "cost_optimization": "https://cloud.google.com/architecture/framework/cost-optimization",
+    "operational_excellence": "https://cloud.google.com/architecture/framework/operational-excellence"
+  }
+}

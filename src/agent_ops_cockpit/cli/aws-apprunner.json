@@ -1,0 +1,16 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS App Runner Service for Sovereign Agent",
+  "Resources": {
+    "AgentService": {
+      "Type": "AWS::AppRunner::Service",
+      "Properties": {
+        "SourceConfiguration": {
+          "AuthenticationConfiguration": {
+            "ConnectionArn": "arn:aws:apprunner:region:account:connection/name"
+          }
+        }
+      }
+    }
+  }
+}

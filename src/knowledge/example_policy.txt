@@ -1,0 +1,5 @@
+This is a sample document for the Agent UI RAG Dropzone.
+It contains the company's cloud storage optimization policies:
+1. Always use Lifecycle Policies for data older than 365 days.
+2. Archive logs to Coldline storage.
+3. Optimize database snapshots weekly.

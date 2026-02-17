@@ -1,0 +1,108 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentops-cockpit"
+version = "2.0.0"
+description = "Production-grade Agent Operations (AgentOps) Platform"
+readme = "README.md"
+authors = [
+    { name = "Enrique", email = "enriquekalven@gmail.com" }
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "GitPython>=3.1.0",
+    "mcp>=0.1.0",
+    "aiohttp>=3.9.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "pydantic>=2.0.0",
+    "packaging>=23.0",
+    "tenacity>=8.0.0",
+    "pytest>=8.0.0",
+    "langchain>=0.2.0",
+    "crewai>=0.40.0",
+    "langgraph>=1.0.8",
+    "chromadb>=1.5.0",
+    "langsmith>=0.7.0",
+    "agent-starter-pack>=0.34.0",
+    "llama-index>=0.14.0",
+    "ollama>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "google-adk>=1.24.0",
+    "pytest-asyncio>=0.23.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+lint = [
+    "codespell>=2.2.0",
+    "ruff>=0.1.0",
+    "ty>=0.0.1",
+]
+eval = [
+    "google-adk[eval]>=1.24.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/enriquekalven/agent-ops-cockpit"
+"Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
+
+[project.scripts]
+agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+ops = "agent_ops_cockpit.cli.main:app"
+aops = "agent_ops_cockpit.cli.main:app"
+agent-ops = "agent_ops_cockpit.cli.main:app"
+agent-ops-mcp = "agent_ops_cockpit.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_ops_cockpit"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/docs",
+    "/public",
+    "README.md",
+    "A2A_GUIDE.md",
+    "DEPLOYMENT.md",
+    "BE_INTEGRATION_GUIDE.md",
+    "firebase.json",
+    "Makefile",
+    "Dockerfile",
+    "package.json",
+    "tsconfig.json",
+    "vite.config.ts",
+    "index.html",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "functions"]
+testpaths = ["tests", "src/agent_ops_cockpit/tests"]
+asyncio_mode = "auto"
+markers = [
+    "asyncio: mark test as asyncio-based",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = [
+    "test-deployments",
+    "lab-tutorial-agent-alt",
+    "app",
+    "tests",
+    "temp_mixed"
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I"]
+ignore = ["B904", "E701"]

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "esai-31177"
+  },
+  "targets": {
+    "esai-31177": {
+      "hosting": {
+        "agent-ui": [
+          "agent-cockpit"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

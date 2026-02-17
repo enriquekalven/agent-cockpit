@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+google-cloud-aiplatform
+tenacity
+pydantic
+google-adk

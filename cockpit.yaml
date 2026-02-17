@@ -1,0 +1,29 @@
+project:
+  name: "agent-ops-cockpit"
+  version: "1.8.2"
+
+exclude:
+  - "tests"
+  - "src/agent_ops_cockpit/tests"
+  - "src/agent_ops_cockpit/cli"
+  - "test-deployments"
+  - "lab-tutorial-agent-alt"
+  - "app"
+  - "node_modules"
+  - "dist"
+  - "build"
+  - "temp_mixed"
+  - "examples"
+  - "*.log"
+  - "*.md"
+
+threshold: 90
+
+ui:
+  registry_path: "src/a2ui/registry.ts"
+  default_surface: "ExecutiveSummary"
+
+finops:
+  max_token_ceiling: 10000
+  preferred_model: "gemini-2.0-flash"
+  caching_enabled: true

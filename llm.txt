@@ -1,0 +1,39 @@
+# 🕹️ AgentOps Cockpit - LLM Manifesto
+
+This file provides the explicit context for LLMs to assist in developing and operating the **AgentOps Cockpit**.
+
+## 🎯 The Purpose
+The **AgentOps Cockpit** is for "Day 2" Artificial Intelligence Operations. It is the governance layer that ensures agents are **Cost-Efficient**, **Secure**, and **Optimized** after the initial prototyping phase is over.
+
+## 🧱 The agent-ops-cockpit Package
+- **Package Name**: `agent-ops-cockpit`
+- **CLI Command**: `agent-ops`
+- **Primary Goal**: To take an agent from "demo" to "production" by adding auditing, safety, and efficiency middlewares.
+
+## 🛠️ Core Capabilities (The "Cockpit" Features)
+1. **The Optimizer (`optimizer.py`)**: A heuristic code analyzer that prevents "Token Waste". It suggests Gemini Context Caching and Flash-first routing.
+2. **Red Team (`red_team.py`)**: A security gatekeeper that runs adversarial payloads (Injection, PII leaks) against the agent.
+3. **Shadow Mode (`shadow/router.py`)**: Parallel v1/v2 execution logic for safe model promotion.
+4. **Hive Mind (`cache/semantic_cache.py`)**: Semantic caching layer for 40%+ cost reduction.
+5. **Memory Optimizer (`ops/memory_optimizer.py`)**: Manages the "Leaky Bucket" conversation context to prevent system instruction bloat.
+6. **Cost Tracker (`ops/cost_optimizer.py`)**: Provides real-time budget auditing and savings recommendations.
+7. **Load Tester (`eval/load_test.py`)**: Concurrency-based stress testing for performance validation.
+
+## 🏗️ Architecture: The Trinity
+- **Engine**: The Python backend reasoning (managed by this repo's `agent.py`).
+- **Face**: The A2UI frontend (managed by `src/a2ui/`).
+- **Cockpit**: The glue that binds everything with operational intelligence (managed by `src/agent_ops_cockpit/ops/`).
+
+## 🚢 CI/CD Standard: Code Lime
+Deployment requires passing the "Code Lime" standard:
+- **Clean**: Code passes `ruff` linting.
+- **Lean**: Passes `make audit` for token efficiency.
+- **Integrated**: Uses MCP for tool connections.
+- **Monitored**: Integrated with Cloud Trace/Logging.
+- **Evaluated**: Passes `make red-team` security audit.
+
+## ⌨️ CLI Usage
+- `agent-ops version`: Get current version.
+- `agent-ops create <name>`: Scaffold a new agent project.
+- `make audit`: Run the optimization auditor.
+- `make red-team`: Run the adversarial security evaluator.
