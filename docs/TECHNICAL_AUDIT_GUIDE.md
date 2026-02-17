@@ -1,6 +1,6 @@
-## The "Structural Wisdom" Release (v1.8.4 Stable)
+## The "Sovereign Evolution" Release (v2.0.1)
 
-The AgentOps Cockpit has evolved from tactical "hygiene" checks into a **Strategic Architectural Governance** platform. This ensures that agents are not only "correctly implemented" but "correctly designed" for their intended use case.
+The AgentOps Cockpit v2.0.1 has evolved into a **Sovereign Fleet Governance** platform. This release introduces polyglot support, autonomous scaffolding, and resilient registry failover.
 
 👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
@@ -24,38 +24,36 @@ We have organized all capabilities into 9 logical "Hubs".
 
 ---
 
-## 🛠️ Unified Audit Lifecycle
+## 🛠️ v2.0.1 Sovereign Features
 
-| Command | Objective | Hub |
-| :--- | :--- | :--- |
-| `agentops-cockpit cockpit` | **Mission Control** | `master` |
-| `agentops-cockpit certify` | **Sovereign Badge** | `certify` |
-| `agentops-cockpit mcp blueprint`| **Modernization** | `mcp` |
-| `make audit-report` | **Architecture Scan** | `audit` |
-| `make deploy-prod` | **End-to-End**| `deploy` |
+### 1. 🌈 Polyglot Red-Teaming (Python & TS/Node)
+The Security Auditor now performs deep scans for both Python and TypeScript/Node.js agents.
+- **Next.js Route Gaps**: Detects ungated `route.ts` endpoints in `@openai/agents` implementations.
+- **Client-Side Injection**: Identifies insecure `dangerouslySetInnerHTML` patterns in agentic frontends.
+- **Sovereignty Gaps**: Scans for ungated production access and PII osmosis across languages.
 
----
+### 2. 🏗️ Autonomous "Policy Scaffolding"
+When the Cockpit detects an agent attempting complex logic (like arithmetic or date manipulation) via RAG, it can now autonomously scaffold a **Deterministic Policy Engine** (`policy_engine.ts`) to harden the architecture.
 
-## 🏛️ Strategic Paradigm Auditor (v1.8.4 - The Master Architect)
-The v1.8.4 release introduces the **Strategic Paradigm Auditor**, moving the Cockpit from "Passive Evaluation" to **"Proactive Steering"**:
-- **Semantic Paradigm Shift**: Detects fundamental design flaws like **RAG for Math** (arithmetic over raw snippets) and suggests deterministic pivots to NL2SQL or Code Interpreters.
-- **AIPR (Architectural Pivot Pull-Requests)**: When a paradigm mismatch is detected, the Cockpit generates a complete branch that refactors the logic (e.g., replacing RAG with a deterministic tool), including unit tests.
-- **Dependency Shielding**: Automatically handles **Registry-Blind** scenarios (like 401 errors on private indices) by providing a local mock-proxy or credential validation wizard, ensuring reliability scores aren't artificially tanked.
+### 3. 📡 Golden Signal "Auto-Instrumentation"
+Automatically ejects standardized **Telemetry Libraries** (Logging/Tracing) into target projects, ensuring every agent project starts with production-grade observability.
 
----
-
-## 🗺️ Compliance Heatmap & Visibility
-The dashboard has pivoted from a simple "Agent List" to a **Strategic Compliance View**:
-- **Regulatory Mapping**: Audits are mapped against the **NIST AI RMF**, **OWASP LLM Top 10**, and **SOC2** standards.
-- **Visual Risk Index**: A fleet-wide Heatmap allows security teams to visualize "The Weakest Link" in their sovereign swarm at a glance.
-- **Opportunity Modeling**: Quantifies "Total Potential Loss" vs. "Remediation ROI" to justify security investment.
+### 4. 🌐 Silent Registry Resilience
+The `audit` command now features transparent failover. If a private registry returns a `401 Unauthorized` or is unreachable, the Cockpit silently pivots to public PyPI mirrors to ensure continuous auditing.
 
 ---
 
- ## 🏢 The Distinguished Fellow Persona Matrix
+## 🏛️ Strategic Paradigm Auditor (v2.0.1 - The Master Architect)
+- **Semantic Finding Deduplication**: Repetitive findings are clustered into high-level architectural insights, preventing "Notification Fatigue".
+- **Evidence Lake Navigability**: The evidence lake now includes a `latest_audit` symlink for rapid human discovery of findings.
+- **Smart Aliasing**: Legacy CLI commands (like `agent-ops report --heal`) are gracefully redirected to the modern `audit report --apply-fixes` workflow.
 
-Every report finding is authored by a specialized **Distinguished Fellow**, ensuring that feedback is not just tactical, but aligned with long-term strategic architectural goals:
-1. **🔐 SecOps Fellow**: Sovereign security, zero-trust infrastructure, and adversarial resilience.
+---
+
+## 🏢 The Distinguished Fellow Persona Matrix
+
+Every report finding is authored by a specialized **Distinguished Fellow**:
+1. **🔐 SecOps Fellow**: Sovereign security, polyglot red-teaming, and adversarial resilience.
 2. **🏛️ Distinguished Semantic Fellow**: Strategic paradigm alignment, computational wisdom, and structural integrity.
 3. **🧗 AI Quality Fellow**: RAG fidelity, reasoning peak optimization, and semantic grounding.
 4. **🛡️ Sentinel Fellow**: Predictive runtime behavior and proactive anomaly oversight.
@@ -65,8 +63,8 @@ Every report finding is authored by a specialized **Distinguished Fellow**, ensu
 
 ---
 
-## 🚀 Production readiness Audit
-Run `make audit-deep` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses, ensuring that your logic works consistently across Make, CLI, and portable automation layers.
+## 🚀 Production Readiness Audit
+Run `make audit-deep` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses.
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v1.8.4 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v2.0.1 Stable).*

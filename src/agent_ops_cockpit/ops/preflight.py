@@ -22,13 +22,28 @@ class PreflightEngine:
         self.results = {}
 
     def check_registry_access(self, registry_url="https://pypi.org/simple"):
-        """Verify if the current environment can reach the specified registry."""
+        """
+        [v2.0.1 Registry Resilience] 
+        Verify if the environment can reach the registry. Failover to public PyPI on 401/403.
+        """
+        import urllib.request
         try:
-            # Quick socket check
-            host = registry_url.replace("https://", "").replace("http://", "").split("/")[0]
-            socket.create_connection((host, 443), timeout=3)
-            return True, f"Reachable: {host}"
+            # Check primary
+            req = urllib.request.Request(registry_url)
+            with urllib.request.urlopen(req, timeout=3) as response:
+                if response.status == 200:
+                    return True, f"Reachable: {registry_url}"
         except Exception as e:
+            # Check if it's a 401/403 or connection error
+            if "401" in str(e) or "403" in str(e) or "Timeout" in str(e) or "unreachable" in str(e).lower():
+                console.print(f"⚠️  [yellow]Registry Auth/Conn failure ({registry_url}). Attempting Resilient Failover...[/yellow]")
+                try:
+                    with urllib.request.urlopen("https://pypi.org/simple", timeout=3) as response:
+                        if response.status == 200:
+                            os.environ['UV_INDEX_URL'] = 'https://pypi.org/simple'
+                            return True, "Resilient Failover: Public PyPI mirrors active."
+                except Exception:
+                    pass
             return False, f"Unreachable: {registry_url} ({e})"
 
     def check_tooling(self):

@@ -702,6 +702,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     agent_hash = hashlib.md5(abs_path.encode()).hexdigest()
     lake_agent_dir = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash)
     os.makedirs(lake_agent_dir, exist_ok=True)
+    
+    # [v2.0.1] Navigability: Symlink the latest audit for human discovery
+    latest_symlink = os.path.join(orchestrator.output_root, 'evidence_lake', 'latest_audit')
+    try:
+        if os.path.lexists(latest_symlink):
+            os.remove(latest_symlink)
+        os.symlink(agent_hash, latest_symlink)
+    except Exception:
+        pass # Fallback if symlinks are not supported on this OS
+
     orchestrator.report_path = os.path.join(lake_agent_dir, 'report.md')
     orchestrator.html_report_path = os.path.join(lake_agent_dir, 'report.html')
     target_path = abs_path
@@ -823,6 +833,14 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     rem.apply_caching(finding)
                 elif any(x in title.lower() for x in ['hallucination', 'poka-yoke', 'literal']):
                     rem.apply_tool_hardening(finding)
+                elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
+                    # Autonomous Scaffolding
+                    rem.scaffold_policy_engine(os.path.dirname(full_path))
+                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] policy_engine.ts created in {os.path.dirname(full_path)}")
+                elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
+                    # Auto-Instrumentation
+                    rem.eject_telemetry_lib(os.path.dirname(full_path))
+                    console.print(f"📡 [bold green]Telemetry Ejected:[/bold green] lib/logger.ts and lib/trace.ts created.")
 
         for path, rem in remediators.items():
             if dry_run:
@@ -837,6 +855,41 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 rem.save_patch()
                 console.print(f"📦 [bold green]Autonomous Remediation Staged:[/bold green] Patch created for {os.path.basename(path)}")
 
+    # [v2.0.1] Semantic Finding Deduplication: Group repetitive findings to avoid 'Notification Fatigue'
+    deduplicated_results = {}
+    for name, data in orchestrator.results.items():
+        if not data.get('output'):
+            deduplicated_results[name] = data
+            continue
+            
+        lines = data['output'].split('\n')
+        actions = [l for l in lines if 'ACTION:' in l]
+        other_lines = [l for l in lines if 'ACTION:' not in l]
+        
+        # Cluster logic for common repetitive findings
+        clustered_actions = []
+        surface_targets = []
+        rest_actions = []
+        
+        for action in actions:
+            if 'surfaceId' in action or 'GenUI' in action:
+                file_info = action.split(' | ')[0].split(':')[0]
+                surface_targets.append(file_info)
+            else:
+                rest_actions.append(action)
+                
+        if len(surface_targets) > 3:
+            summary_action = f"Architecture | Missing GenUI Surface Mapping | Impacts {len(surface_targets)} files: {', '.join(surface_targets[:3])}..."
+            clustered_actions.append(f"ACTION: {summary_action}")
+        else:
+            for target in surface_targets:
+                clustered_actions.append(f"ACTION: {target}:1 | Missing GenUI Surface | Map this surface to the A2UI Protocol.")
+        
+        clustered_actions.extend(rest_actions)
+        data['output'] = '\n'.join(other_lines + clustered_actions)
+        deduplicated_results[name] = data
+        
+    orchestrator.results = deduplicated_results
     exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
     

@@ -18,8 +18,12 @@ class SecurityAuditor(BaseAuditor):
     @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
-        if not file_path.endswith('.py'):
+        is_python = file_path.endswith('.py')
+        is_ts_js = file_path.endswith(('.ts', '.js', '.tsx', '.jsx'))
+        
+        if not (is_python or is_ts_js):
             return findings
+            
         content_lower = content.lower()
 
         # --- Tier 1: Sovereignty & Control ---
@@ -141,7 +145,39 @@ class SecurityAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # --- Standard Pattern Matches ---
+        # --- Tier 4: Polyglot Security (TS/Node) ---
+        if is_ts_js:
+            # 8. Ungated Agentic Routes (The 'route.ts' Gap)
+            if 'route.ts' in file_path and ('post' in content_lower or 'get' in content_lower):
+                if '@openai/agents' in content or 'agent' in content_lower:
+                    if not any(kw in content_lower for kw in ['auth', 'middleware', 'protect', 'clerk', 'next-auth']):
+                        title = "Ungated Agentic Route (TypeScript)"
+                        if not self._is_ignored(0, content, title):
+                            findings.append(AuditFinding(
+                                category="🛡️ Sovereign Security",
+                                title=title,
+                                description="""Detected a potential Next.js/Node.js agentic route without visible authentication or protecting middleware.
+[bold red]Vulnerability:[/bold red] Exposed agent endpoints can be abused for unauthorized LLM consumption or prompt injection.
+[bold green]RECOMMENDATION:[/bold green] Wrap route handlers in an **Auth Middleware** (e.g., Clerk, NextAuth).""",
+                                impact="CRITICAL",
+                                roi="Prevents unauthorized API abuse and cost-spikes.",
+                                file_path=file_path
+                            ))
+
+            # 9. Insecure Context Injection (TS RAG)
+            if 'dangerouslySetInnerHTML' in content or 'eval(' in content:
+                title = "Insecure Client-Side Injection"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Sovereign Security",
+                        title=title,
+                        description="""Detected `dangerouslySetInnerHTML` or `eval` in a TS/JS agent frontend.
+[bold red]Risk:[/bold red] Agent-generated markdown/HTML could contain XSS payloads if rendered without sanitization.
+[bold green]RECOMMENDATION:[/bold green] Use a **Sanitization Library** (e.g., DOMPurify) before rendering agent outputs.""",
+                        impact="HIGH",
+                        roi="Eliminates Client-Side Prompt Injection and XSS vectors.",
+                        file_path=file_path
+                    ))
         
         # Secrets Scanner (Hardcoded)
         for node in ast.walk(tree):

@@ -51,6 +51,22 @@ sys_app = typer.Typer(help="🩺 System Hub: Health diagnosis and version tracki
 ops_app = typer.Typer(help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers.")
 create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization and UI creation.")
 
+# --- LEGACY REDIRECTS (v2.0.1 Smart Aliasing) ---
+@app.command(name="report", hidden=True)
+def legacy_report(
+    ctx: typer.Context,
+    mode: str = 'quick',
+    path: str = '.',
+    heal: bool = typer.Option(False, "--heal", help="Deprecated: Use --apply-fixes instead")
+):
+    """[DEPRECATED] Master Architect: Auto-aliasing to 'audit report'."""
+    console.print(f"🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]...")
+    if heal:
+        console.print("🔧 [dim]Detected legacy --heal flag. Mapping to --apply-fixes...[/dim]")
+    
+    # Forward the call to audit report
+    report(mode=mode, path=path, apply_fixes=heal)
+
 console = Console()
 
 @app.callback(invoke_without_command=True)

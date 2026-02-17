@@ -266,3 +266,53 @@ class CloudBridge:
             return branch_name
         except Exception:
             return ""
+    def scaffold_policy_engine(self, target_dir: str):
+        """Generates a policy_engine.ts boilerplate for deterministic business rules."""
+        engine_path = os.path.join(target_dir, 'policy_engine.ts')
+        content = """/**
+ * v2.0.1 Sovereign Policy Engine: Deterministic Business Rules
+ * [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
+ */
+export class PolicyEngine {
+  /**
+   * Example: Validate return eligibility based on purchase date.
+   * Replace this with your specific business rules.
+   */
+  static isEligibleForReturn(purchaseDate: Date, returnDaysLimit: number = 30): boolean {
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - purchaseDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= returnDaysLimit;
+  }
+
+  static calculateDiscount(total: number, promoCode: string): number {
+    // Implement deterministic pricing logic here
+    if (promoCode === 'SOVEREIGN20') return total * 0.8;
+    return total;
+  }
+}
+"""
+        with open(engine_path, 'w') as f:
+            f.write(content)
+        return engine_path
+
+    def eject_telemetry_lib(self, target_dir: str):
+        """Injects AgentOps standard library shims for Logging and Tracing."""
+        lib_dir = os.path.join(target_dir, 'lib')
+        os.makedirs(lib_dir, exist_ok=True)
+        
+        logger_path = os.path.join(lib_dir, 'logger.ts')
+        with open(logger_path, 'w') as f:
+            f.write("""export const logger = {
+  info: (msg: string, meta?: any) => console.log(`[INFO] ${new Date().toISOString()} - ${msg}`, meta || ''),
+  error: (msg: string, err?: any) => console.error(`[ERROR] ${new Date().toISOString()} - ${msg}`, err || ''),
+  audit: (action: string, actor: string) => console.log(`[AUDIT] ${action} by ${actor}`)
+};""")
+
+        trace_path = os.path.join(lib_dir, 'trace.ts')
+        with open(trace_path, 'w') as f:
+            f.write("""export const tracer = {
+  startSpan: (name: string) => ({ end: () => console.log(`[TRACE] End span: ${name}`) }),
+  trackTool: (name: string, args: any) => console.log(`[TRACE] Tool: ${name}`, args)
+};""")
+        return lib_dir
