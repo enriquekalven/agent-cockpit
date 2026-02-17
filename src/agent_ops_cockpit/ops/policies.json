@@ -1,6 +1,6 @@
 {
   "agent_id": "cockpit-core-agent",
-  "version": "1.8",
+  "version": "2.0.0",
   "security": {
     "forbidden_topics": [
       "internal credentials",

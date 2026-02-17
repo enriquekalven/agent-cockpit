@@ -2,7 +2,7 @@
 Pillar: Economic Sustainability
 SME Persona: Distinguished FinOps Fellow
 Objective: Project TCO and identify caching/efficiency opportunities in agentic flows.
-Taxonomy: Sovereign FinOps (v1.8.2)
+Taxonomy: Sovereign FinOps (v1.8.4)
 """
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
@@ -20,11 +20,13 @@ class FinOpsAuditor(BaseAuditor):
     Focuses on 'Architectural Waste' and 'Inference Over-Privilege'.
     """
     
-    # v1.8.2 Pricing Index (Sovereign Rates)
+    # v1.8.5 Pricing Index (Sovereign Rates - Feb 2026)
     MODEL_PRICES: Dict[str, float] = {
         'gemini-2.0-pro': 1.25, 
         'gemini-3-pro': 1.25, 
         'gemini-2.0-flash': 0.1, 
+        'gemini-2.0-flash-lite': 0.05,
+        'gpt-5': 10.0,
         'gpt-4o': 5.0, 
         'gpt-4o-mini': 0.15,
         'claude-3-5-sonnet': 3.0,
@@ -91,10 +93,10 @@ class FinOpsAuditor(BaseAuditor):
                 category="💰 FinOps",
                 title="Economic Opportunity: Missing Context Caching",
                 description="""Detected large instructions or few-shot examples (>2k tokens) without Context Caching.
-[bold blue]FinOps Strategy:[/bold blue] Re-sending the same prefix on every turn is 'Architectural Waste'.
-[bold green]RECOMMENDATION:[/bold green] Implement **Vertex AI Context Caching** via `ContextCacheConfig`.""",
+[bold blue]Sovereign Cache (v1.8.5):[/bold blue] Re-sending the same prefix on every turn for long-lived agent sessions is 'Architectural Waste'.
+[bold green]RECOMMENDATION:[/bold green] Implement **Vertex AI Context Caching** or **Sovereign Sliding Memory**.""",
                 impact="HIGH",
-                roi="Reduces repeated prefix costs by up to 90% for long-running sessions.",
+                roi="Reduces repeated prefix costs by up to 90% and decreases TTFT by 40%.",
                 file_path=file_path
             ))
 

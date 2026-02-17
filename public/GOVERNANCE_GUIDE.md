@@ -36,13 +36,13 @@ Governance extends to the **Face** (UI/UX) through the automated `audit face` co
 
 ---
 
-## 🕵️ Sentinel Oversight (v1.8.2 Watchtower)
+## 🕵️ Sentinel Oversight (v1.8.4 Watchtower)
 Governance is no longer a static "pre-flight" check. The Cockpit now provides **Active Runtime Governance** via the Sentinel Persona.
 - **Behavioral Fingerprinting**: Analyzes live telemetry to detect reasoning drift and "rogue" intent.
 - **Circuit Breakers**: Implements the `agentops-cockpit fleet anomaly` command to identify tool misuse loops (e.g., recursive tool calls).
 - **Proactive Enforcement**: Automatically triggers `agentops-cockpit fleet mothball` for any agent that exceeds the critical risk threshold.
 
-## 🏛️ Strategic Paradigm Governance (v1.8.2 Structural Wisdom)
+## 🏛️ Strategic Paradigm Governance (v1.8.4 Structural Wisdom)
 Governance moves beyond tactical implementation to **Strategic Paradigm Alignment**. The Cockpit now audits the fundamental design of your agent.
 - **Paradigm Mismatch Detection**: Identifying structural flaws like "RAG for Math" or "Prompt-Stuffed Structured Data."
 - **Data Flow Tracing**: AST-based "Source-to-Sink" analysis (The "God Move") to detect if raw database objects are being "stuffed" into context windows.

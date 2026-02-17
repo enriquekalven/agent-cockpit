@@ -2,7 +2,87 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-## [1.8.2] - 2026-02-12
+### v2.0.0 (2026-02-17) - The "Industry Scale" Release
+- **🌍 Sovereign Cloud Bridge**: Multi-cloud abstraction layer that decouples agents from direct provider SDKs (AWS Bedrock, GCP Vertex, Azure Foundry).
+- **🕹️ Universal Remediator**: Autonomous v2.0 engine that auto-heals "Monocultural Bias" and "Manifest Drift".
+- **📜 Manifest Auditor v2.0**: Specialized scanner for `package.json`, `pyproject.toml`, and `mcp-config.json` to detect SDK latency and "Legacy Intelligence".
+- **⚔️ Simulation Auditor**: Adversarial hypothesis testing on prompts to detect "Semantic Permissiveness" and logic overrides.
+- **🏗️ Dogfood Fleet Hardening**: Validated across 13 industry repositories from Google, OpenAI, Anthropic, MSFT, and AWS.
+- **🛡️ Industry Debt Remediation**: codified fixes for ~70% of identified monocultural hardcoding in public samples.
+
+### v1.9.0 (2026-02-16) - The "Hill Climbing" Release
+- **🧗 Hill Climbing Evolution**: Implementation of the autonomous self-improvement loop (`scripts/hill_climber.py`). The Cockpit now iterates over multiple agent repos to identify and absorb new architectural patterns.
+- **📈 Cumulative Intelligence Gains**: Deep audits across 5 diverse agent silos successfully refined the Maturity, SRE, and FinOps fellows.
+- **🏗️ Resource Consternation**: New SRE auditor check for mandatory CPU/Memory quotas in deployment manifests.
+- **💰 Frontier Pricing v1.9**: Updated FinOps index for 2026 model economics (GPT-5, Gemini 3).
+- **🛡️ High-Stake Guardrails**: Mandatory Human-In-The-Loop (HITL) detection for destructive agent tools.
+
+### v1.8.5 (2026-02-16) - The "Sovereign Supabase" Release
+- **📡 100% Free Telemetry Bridge**: Integrated Supabase and GitHub Actions to enable global telemetry ingestion without Google Cloud billing requirements.
+- **🛰️ GitHub-as-a-Backend**: Automated ecosystem-wide sync via GitHub Actions, Commit, and Deploy loops.
+- **📊 Real-time Dashboard Aggregation**: Orchestrator now automatically triggers local telemetry updates after every audit report.
+- **🛡️ Secure Anonymous Ingestion**: Implemented Supabase RLS policies for anonymous write-only telemetry collection.
+
+### v2.0.0 (2026-02-14) - The "Master Architect" Release
+- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., \"RAG for Math\") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+- **🕸️ Multi-Protocol UX Governance**: Evolved Face Auditor supporting A2UI, AGUI (Agentic Graph), and MCP Apps UI standards.
+- **🕸️ Cross-Silo Correlation**: Fleet-wide analysis to detect combined risks (e.g., Security Gaps + Interaction Voids) across multiple independent agents.
+- **📊 Fleet Dashboard v2**: Implementation of the "Weakest Link" drill-down and interactive Maturity Radar Charts for tactical situational awareness.
+- **📄 Individual Report Evolution**:
+    - **Triage Grouping**: Findings grouped by Blockers, Warnings, and Optimizations.
+    - **Delta View**: Visual progress tracking showing score changes from previous audits.
+    - **Visual Code Diffs**: Markdown diff blocks for recommended `apply-fixes`.
+    - **Interactive Evidence**: Drill-down modals and summary tags for raw logs and traces.
+- **🛠️ Sys Upgrade**: New `agentops-cockpit sys upgrade` command for frictionless updates.
+- **🚀 Zero2Hero Workflow**: Formalized the release-to-deployment pipeline with automated intelligence syncing.
+- **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
+
+### ⚙️ Stability & Reliability (Sovereign Parity)
+- **Sovereign Parity Verification**: Added mandatory version and toolchain checks (`uv`, `make`, `agentops-cockpit`) to the release lifecycle.
+- **Dashboard Resiliency**: Fixed critical bugs where the **Fleet Dashboard** failed to update during "intelligent skip" paths or empty workspace scans.
+- **CLI Return Integrity**: Standardized exit codes for `workspace_audit` to ensure enterprise CI/CD pipelines correctly identify completion status.
+- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v2.0.0-stable standards.
+- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v2.0.0 across 95+ files.
+
+### 🧠 Strategic Architectural Paradigm Auditor
+- **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
+- **Pattern: Structured Data Math via Prompt**: Automatically detects when an agent tries to perform arithmetic over raw CSV/JSON text. Recommends **NL2SQL** or **Code Interpreter**.
+- **Pattern: Manual State Machines**: Detects recursive LLM calls inside standard loops. Recommends **LangGraph** for reliable multi-turn logic.
+- **Pattern: Low-Fidelity RAG**: Detects "Context Stuffing" of unstructured files. Recommends **Vector DB** for scalable retrieval.
+- **"Structural Wisdom" Feedback**: Enhanced the `ArchReviewer` to provide "Don't use X, use Y" feedback, reducing mental friction for developers.
+
+### 🛡️ Full-Stack Security & Auto-Remediation
+- **Expanded Infra Scanning**: The `InfraAuditor` now scans `docker-compose.yml` (Privileged containers) and Terraform `.tf` files (Public Ingress/0.0.0.0 rules).
+- **Auto-Generate MCP Wrappers**: Added `agentops-cockpit rag blueprint` to autonomously generate a working `mcp_server.py` shell from legacy tool code.
+- **RAG CLI Refactor**: Fixed a critical bug in the `rag` hub where extra arguments caused CLI failures. Standardized on `agentops-cockpit rag audit`.
+- **Cloud-Aware Secret Manager Advice**: The `SecretScanner` now detects if you are on AWS or GCP and tailors its "Actionable Recommendation" (e.g., suggesting *AWS Secrets Manager* for AWS projects).
+
+### 🏗️ Infrastructure Sovereignty & Cloud Context
+- **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).
+- **Cloud Context Autodetection**: The `DiscoveryEngine` now automatically identifies if you are running on **AWS**, **GCP**, or **Azure**.
+- **Context-Aware Remediation**: Audit findings now automatically tailor their advice based on the detected cloud (e.g., suggesting *AWS Secrets Manager* instead of *Google Secret Manager* when AWS patterns are detected).
+- **MCP Migration Blueprints**: Enhanced `PivotAuditor` to provide a step-by-step technical blueprint for migrating legacy REST tools to the **Model Context Protocol (MCP)**.
+- **Framework Modernization**: Proactively detects synchronous framework bottlenecks and suggests FastAPI for high-concurrency agent tool-use.
+
+
+## [1.6.8] - 2026-02-13
+
+### 🍱 Landing Page & Persona Expansion
+- **Watchtower Standard UI**: Refreshed the homepage with v2.0.0+ Watchtower branding and hub-based command highlights.
+- **Mission Control Expansion**: Added 2 new specialized personas: **Compliance Officer** (Legal SME) and **SITL Pilot** (HITL Oversight).
+- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v2.0.0 architecture standards and new command hub names.
+- **Documentation Sync**: Fully updated the Master Guide, UVX Guide, and Audit Guide to reflect all 12 operational journeys.
+
+
+## [1.8.4] - 2026-02-12
+
+### 🛰️ Deep Functional Auditing & Wisdom Store
+- **Functional Execution Gate**: Implemented a mandatory "Phase 2: Deep Functional CLI Audit" in the reliability engine. This move ensures that CLI command outputs (like `sys telemetry`) maintain schema integrity across updates.
+- **Maturity Wisdom Store v2.0.0**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
+- **Hub Command Expansion**: Formally expanded the CLI across 9 logical hubs, introducing dedicated `rag` and `mcp` orchestration layers.
+- **Lab Agent Hardening**: Standardized the Cockpit Lab environment with resilient `@retry` patterns and strict typing for the "Broken Agent" tutorial.
+
+## [1.8.4] - 2026-02-12
 
 ### 🧪 Test Suite Hardening
 - **Dynamic Versioning**: Updated unit tests to use `Config.VERSION` dynamically, ensuring registry and anomaly detection tests are resilient to future version bumps.
@@ -115,13 +195,13 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Rebranding**: Reverted all system strings from "Agent Optimizer" back to "AgentOps Cockpit" to maintain ecosystem consistency.
 - **SSOT**: Fixed version drift across `pyproject.toml`, `package.json`, and `config.py`.
 
-## [1.8.2] - 2026-02-06
+## [1.8.4] - 2026-02-06
 
-### 🕹️ The Strategic Refinement (Antigravity v1.8.2 Release)
+### 🕹️ The Strategic Refinement (Antigravity v2.0.0 Release)
 - **Pre-flight: Environment Readiness**: Added a `PreflightEngine` that verifies registry connectivity, tool readiness, and environment consistency before auditing (Recommendation #2).
 - **Security: Standardized Guardrails**: Introduced a `CockpitGuardrails` middleware with reusable PII scrubbing and prompt validation logic (Recommendation #1).
 - **Regression: Automated Golden Sets**: Red Team audits now automatically generate and persist failed test cases to a `vulnerability_regression.json` file for future stability checks (Recommendation #5).
-- **Terminal: Summaries Hardened**: Ensured v1.8.2 terminal headers explicitly show the stack version for better observability.
+- **Terminal: Summaries Hardened**: Ensured v2.0.0 terminal headers explicitly show the stack version for better observability.
 
 ## [1.3.4] - 2026-02-06
 
@@ -132,7 +212,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.3.3] - 2026-02-06
 
-### 📊 The Reporting Clarity (Antigravity v1.3.3 Release)
+### 📊 The Reporting Clarity (Antigravity v2.0.0.3 Release)
 - **Reporting: Priority-First TLDR**: Added a dedicated "Audit TLDR" section to both terminal and HTML reports, providing a high-level build status at a glance.
 - **Reporting: P1-P5 Prioritization**: Introduced explicit priority columns (P1-P5) in the implementation findings tables to help developers focus on critical fixes first.
 - **Orchestration: Robust Finding Capture**: Hardened the `ACTION:` line parsing to ensure findings are always captured even when build modules fail early.
@@ -140,7 +220,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.3.2] - 2026-02-06
 
-### 🛠️ The Agentic Safety (Antigravity v1.3.2 Release)
+### 🛠️ The Agentic Safety (Antigravity v2.0.0.2 Release)
 - **Git: Agentic "Safety Mode"**: Automatically detects `commit.gpgsign` and uses `--no-gpg-sign` for autonomous commits, resolving the "ioctl for device" error in agentic headless workflows.
 - **Remediation: Targeted Fixes (1-Click)**: New `agentops-cockpit fix <issue-id>` command to apply specific remediations from audit results.
 - **A2UI: Automated Surface Discovery**: Introduced `withSurfaceDiscovery` HOC and `AutoSurface` component for zero-instrumentation UI auditing.
@@ -149,7 +229,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.3.1] - 2026-02-06
 
-### 🚀 The Executive Sovereignty (Antigravity v1.3.1 Release)
+### 🚀 The Executive Sovereignty (Antigravity v2.0.0.1 Release)
 - **Discovery: Recursive Intelligence**: Support for `targets: []` in `cockpit.yaml` for multi-entry point fleets and template placeholder isolation (`{{...}}`).
 - **Operations: Auth Doctor (diagnose)**: New pre-flight command to diagnose GCP ADC credentials and environment health before audits.
 - **Artifacts: Sovereign Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
@@ -162,11 +242,11 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 ### 🚀 The Autonomous Architect (Antigravity Mobile-Hardened Release)
 - **Engine: Context Engineering (Poka-Yoke)**: New `ToolHardening` and `ContextCompaction` auditors. The remediator now injects `Literal` types and summarization skeletons to prevent reasoning drift.
 - **UX: Mobile Hardening Standard**: Fully adapted the Face layer (Home, Docs, Journeys) for iPhone and smartphone viewports. Introduced the "GenUI Readiness" score in the UI Auditor.
-- **Governance: Antigravity v1.3 Contribution Guide**: Overhauled `CONTRIBUTING.md` with uv-first setup, persona-based auditing standards, and the Autonomous Architect vision.
-- **Remediation: Autonomous Synthesis v1.3**: Upgraded AST patching to handle complex function signatures and absolute path resolution across partitioned workspaces.
+- **Governance: Antigravity v2.0.0 Contribution Guide**: Overhauled `CONTRIBUTING.md` with uv-first setup, persona-based auditing standards, and the Autonomous Architect vision.
+- **Remediation: Autonomous Synthesis v2.0.0**: Upgraded AST patching to handle complex function signatures and absolute path resolution across partitioned workspaces.
 - **Operations: High-Fidelity Simulation (SIM)**: Hardened simulation mode to accurately mock multi-persona audit findings for CI/CD validation.
 - **Architecture: Global Path Normalization**: Fixed orchestrator path resolution to ensure auto-remediation correctly identifies target files in deep directory structures.
-- **Documentation: master v1.3 Refresh**: Full update of all technical guides (FinOps, UX, Architecture, Commands) to reflect autonomous evolution capabilities.
+- **Documentation: master v2.0.0 Refresh**: Full update of all technical guides (FinOps, UX, Architecture, Commands) to reflect autonomous evolution capabilities.
 - **Reliability: Master Regression Suite**: Verified 132 unit tests and 5 Persona-based Smoke Tests across the entire Command Trinity.
 
 ## [1.0.0] - 2026-02-04
@@ -176,7 +256,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Quality: Capabilities Gate Meta-Test**: Implemented a build-time guardrail that fails CI/CD if core capabilities lack valid regression tests.
 - **Remediation: Context-Aware AST Matching**: Hardened `CodeRemediator` to intelligently detect parent function definitions for decorator injection.
 - **Orchestration: Absolute Path Resolution**: Resolved critical path mismatches in multi-agent workspace scans, ensuring audit metadata follows the agent.
-- **Operations: Fleet Reliability v1.3**: Verified parity for parallel audit orchestration across 50+ agent scenarios in the regression suite.
+- **Operations: Fleet Reliability v2.0.0**: Verified parity for parallel audit orchestration across 50+ agent scenarios in the regression suite.
 - **Documentation: Governance Master Guide**: Updated `TECHNICAL_AUDIT_GUIDE.md` to reflect the new regression-first standard.
 
 ## [1.0.0-rc1] - 2026-02-04
@@ -205,8 +285,8 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Sovereign Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
 - **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `agent-ops` CLI, and `uvx` simulations for all 10 persona lenses.
 - **Operational Introduction**: Launched a high-level documentation landing page (`INTRODUCTION.md`) separate from technical guides for strategic stakeholder onboarding.
-- **Discovery Engine v1.3**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.
-- **Multi-Framework Ecosystem**: Explicitly added support and documentation for **LangGraph**, **CrewAI**, and **Autogen** to the v1.3 audit standard.
+- **Discovery Engine v2.0.0**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.
+- **Multi-Framework Ecosystem**: Explicitly added support and documentation for **LangGraph**, **CrewAI**, and **Autogen** to the v2.0.0 audit standard.
 - **Visual Branding Hardening**: Verified and restored the high-fidelity **Kokpi** mascot asset across all system-generated reports.
 
 ## [0.9.7] - 2026-02-02

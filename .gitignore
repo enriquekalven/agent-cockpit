@@ -200,3 +200,33 @@ my_env.tfvars
 
 # A2A Inspector
 tools/a2a-inspector/
+
+# Industry Release v2.0.0 Refinement
+dogfood/
+.cockpit/
+test-deployments/
+app/
+my_super_agent/
+temp_mixed/
+temp_test/
+lab_e2e_test/
+dist_py/
+dist_release/
+dist_v16*/
+cockpit_export_*.json
+trace.json
+traces/
+projects.txt
+projects_new.txt
+test_out.log
+files_to_fix.txt
+ui_audit_result.txt
+final_ui_audit.txt
+TECHNICAL_DESIGN_DOCUMENT.html
+cockpit_report.html
+evidence_lake.json
+public/fleet_data.json
+.cockpit/
+.cockpit/
+public/fleet_data.json
+evidence_lake.json

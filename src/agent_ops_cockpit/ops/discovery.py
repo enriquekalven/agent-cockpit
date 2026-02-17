@@ -4,9 +4,10 @@ SME Persona: Distinguished Platform Fellow
 Objective: High-fidelity discovery of agentic 'Brains', respecting enterprise exclusion patterns and .gitignore.
 """
 try:
-    from google.adk.agents.context_cache_config import ContextCacheConfig
+    # ContextCacheConfig check (unused in discovery)
+    pass
 except (ImportError, AttributeError, ModuleNotFoundError):
-    ContextCacheConfig = None
+    pass
 
 from tenacity import retry, wait_exponential, stop_after_attempt
 import os
@@ -137,15 +138,16 @@ class DiscoveryEngine:
     def discover_agent_roots(self) -> List[str]:
         """
         Fleet Discovery: Identifies autonomous agent roots within the workspace.
-        An agent root is defined as a directory containing an 'agent.py' or 'pyproject.toml'.
+        v2.0: Supports Python, TypeScript, and Protocol-specific (MCP) roots.
         """
         discovered = []
+        indicators = ["agent.py", "pyproject.toml", "package.json", "mcp-config.json", "mcp-server.json", "semantic-kernel.json"]
         for root, dirs, files in os.walk(self.root_path):
             if self.should_ignore(root):
                 dirs[:] = []
                 continue
                 
-            if "agent.py" in files or "pyproject.toml" in files:
+            if any(ind in files for ind in indicators):
                 abs_root = os.path.abspath(root)
                 # Check for redundancy
                 if not any(abs_root.startswith(d + os.sep) for d in discovered):
@@ -176,10 +178,9 @@ class DiscoveryEngine:
 
     def detect_context(self) -> dict:
         """
-        v1.8.0 Discovery Upgrade: Detects Cloud Provider and Web Framework.
-        Used for tailoring architecture advice and remediation blueprints.
+        v2.0 Discovery Upgrade: Detects Cloud Provider, Web Framework, and Protocol (MCP/A2UI).
         """
-        context = {'cloud': 'google', 'framework': 'fastapi', 'is_containerized': False, 'has_secrets_risk': False}
+        context = {'cloud': 'google', 'framework': 'fastapi', 'is_containerized': False, 'has_secrets_risk': False, 'protocol': None}
         
         # Check for Dockerfile
         if os.path.exists(os.path.join(self.root_path, 'Dockerfile')):
@@ -189,8 +190,14 @@ class DiscoveryEngine:
         for file_path in self.walk():
             filename = os.path.basename(file_path)
             
+            # Protocol Detection
+            if "mcp" in filename.lower() or "mcp" in file_path.lower():
+                context['protocol'] = 'mcp'
+            if "a2ui" in filename.lower() or "a2ui" in file_path.lower():
+                context['protocol'] = 'a2ui'
+
             # Framework Detection
-            if filename in ['requirements.txt', 'pyproject.toml'] or file_path.endswith('.py'):
+            if filename in ['requirements.txt', 'pyproject.toml', 'package.json'] or file_path.endswith(('.py', '.ts', '.js', '.cs')):
                 try:
                     with open(file_path, 'r', errors='ignore') as f:
                         content = f.read()
@@ -198,11 +205,13 @@ class DiscoveryEngine:
                             context['framework'] = 'flask'
                         if 'django' in content.lower():
                             context['framework'] = 'django'
+                        if 'express' in content.lower() or 'next' in content.lower():
+                            context['framework'] = 'nextjs'
                         
                         # Cloud Detection
-                        if 'boto3' in content or 'aws' in content.lower() or 'amazon' in content.lower():
+                        if 'boto3' in content or 'aws' in content.lower() or 'amazon' in content.lower() or 'bedrock' in content.lower():
                             context['cloud'] = 'aws'
-                        elif 'azure' in content.lower():
+                        elif 'azure' in content.lower() or 'semantic-kernel' in content.lower():
                             context['cloud'] = 'azure'
                         
                         # Secret Risks (Hardcoded patterns)

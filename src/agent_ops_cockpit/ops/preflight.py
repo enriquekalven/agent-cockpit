@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 # [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil
@@ -33,12 +33,20 @@ class PreflightEngine:
 
     def check_tooling(self):
         """Check for mandatory CLI tools."""
-        tools = ["python3", "pip", "git"]
+        tools = ["python3", "git"]
         missing = []
         for tool in tools:
             if not shutil.which(tool):
                 missing.append(tool)
         
+        # Special check for pip which might be python3 -m pip or replaced by uv
+        if not shutil.which("pip") and not shutil.which("uv"):
+            import subprocess
+            try:
+                subprocess.check_call(["python3", "-m", "pip", "--version"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except Exception:
+                missing.append("pip or uv")
+
         if missing:
             return False, f"Missing tools: {', '.join(missing)}"
         return True, "All base tools detected."

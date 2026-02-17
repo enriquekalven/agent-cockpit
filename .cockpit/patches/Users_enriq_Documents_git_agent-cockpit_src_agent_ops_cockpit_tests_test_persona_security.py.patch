@@ -1,7 +1,0 @@
---- a//Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py
-+++ b//Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py
-@@ -1,3 +1,4 @@
-+from tenacity import retry, wait_exponential, stop_after_attempt
- import re
- from typer.testing import CliRunner
- from agent_ops_cockpit.eval.red_team import app as red_team_app

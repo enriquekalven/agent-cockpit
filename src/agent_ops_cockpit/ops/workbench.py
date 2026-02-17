@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
 from rich.console import Console
@@ -10,7 +10,7 @@ from rich.panel import Panel
 from rich.syntax import Syntax
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.arch_review import run_scan
-app = typer.Typer(help='Interactive Remediation Workbench v1.8.2: Review and approve autonomous fixes.')
+app = typer.Typer(help='Interactive Remediation Workbench v1.8.4: Review and approve autonomous fixes.')
 console = Console()
 
 @app.command()

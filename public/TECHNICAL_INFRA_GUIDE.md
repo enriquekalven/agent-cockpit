@@ -1,7 +1,7 @@
 # 🌐 Technical Guide: AI Infrastructure & Networking
-## The "Autonomous SRE" Standard (v1.8.2 Stable)
+## The "Autonomous SRE" Standard (v1.8.4 Stable)
 
-The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Principal**. This version moves infrastructure from a "background cost" to a **"Strategic Intelligence Multiplier."** By framing networking and compute through the lens of **"Latent Intelligence,"** we link SRE performance directly to AI reasoning quality.
+The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **Cloud SRE Principal**. This version moves infrastructure from a "background cost" to a **"Strategic Intelligence Multiplier."** By framing networking and compute through the lens of **"Latent Intelligence,"** we link SRE performance directly to AI reasoning quality.
 
 ---
 
@@ -9,15 +9,14 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 
 | Command | Objective | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make arch-review` | **Autonomous SRE Scan**| Identifies networking debt and **Time-to-Reasoning (TTR)**. | `sre_a2a.py` Auditor |
-| `make load-test` | **Saturation Benchmarking**| Empirically measures tokens per second (TPS) and TTFT. | `load_test.py` (Locust/k6 based) |
-| `make simulation-run` | **Digital Twin Test** | Verifies reasoning stability under high infra latency. | `swarm.py` Simulation Engine |
-| `make audit` | **Operational Health**  | Validates **Sovereign Gate** compliance. | `config/cockpit.yaml` Enforcement |
-| `make maturity`| **Expertise Matrix**| Displays the Cockpit's SRE competency and persona status (v1.8.2). | `ops audit-maturity` |
+| `agentops-cockpit cockpit` | **Mission Control** | Fleet-wide infrastructure health and latency oversight. | Unified Master Dashboard. |
+| `agentops-cockpit audit report`| **Autonomous SRE Scan**| Identifies networking debt and **Time-to-Reasoning (TTR)**. | `sre_a2a.py` Auditor |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Infra + Scaling + Security). | The 🏅 Certification Checklist. |
+| `agentops-cockpit deploy sovereign`| **End-to-End Sync** | Unified orchestrator for GKE/Cloud Run fleets (v1.8.4). | `deploy.py` Factory |
 
 ---
 
-## 🏛️ SME Judgment: The AI-Infra Standard (v1.3)
+## 🏛️ SME Judgment: The AI-Infra Standard (v1.8.4)
 
 > "By treating networking as a cognitive tax, you provide a narrative that CTOs can get behind. This isn't just about uptime; it's about the **IQ Ceiling** of the agentic swarm."
 > — *Principal SME, Infrastructure & Networking*
@@ -35,8 +34,11 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 *   **Principal Insight**: Every 100ms of lag kills agent responsiveness. We audit for **gRPC stream multiplexing** to hit <10ms tail latency.
 *   **Regional Affinity**: The Cockpit recommends clustering the Reasoning Engine (Vertex/LLM) and the Vector Retrieval (AlloyDB/Pinecone) in the same zone (e.g., `us-central1-a`) to eliminate cross-region billing and latency.
 
-### 2. 🏗️ Compute Sovereignty (TTR & KV-Cache)
+### 2. 🏗️ Compute Sovereignty (GKE & Cloud Run)
 *   **Vector**: Calculating a **"Time-to-Reasoning" (TTR)** score. If a serverless pod takes 12s to cold start, the agent is "Dead on Arrival."
+*   **GKE Autopilot Integration**: v1.8.4 introduces native support for **GKE Autopilot** as the preferred high-scale sovereign runtime. The Cockpit automates:
+    *   **External IP Polling**: Automatically polls the Kubernetes API for the `LoadBalancer` status and External IP (e.g., `34.xxx.xxx.xxx`).
+    *   **OIDC Identity Injection**: Injects Google Cloud Workload Identity for secure model access without long-lived keys.
 *   **The Warm-Pod Strategy**: Injects `min_instances: 1` or uses placeholder "Warmup" requests to ensure the LLM's **KV-cache** is ready. The KV-cache allows the model to reuse prefixes (System Prompts), reducing Time to First Token (TTFT) by up to 80%.
 
 ### 3. 🧠 Stateful Persistence (STM Persistence)
@@ -49,13 +51,13 @@ The `make arch-review` (via SREAuditor) command activates the **Cloud SRE Princi
 
 ### 🚀 4. The 5th Golden Signal (TTFT)
 *   **Vector**: Implementing **Time to First Token (TTFT)** monitoring.
-*   **Critical Threshold**: If TTFT exceeds 800ms, the Cockpit triggers a **"Latency Regression"** alert relative to the reasoning chain. In v1.3, this manifests as a "Slow Reasoning" warning in the Evidence Lake.
+*   **Critical Threshold**: If TTFT exceeds 800ms, the Cockpit triggers a **"Latency Regression"** alert relative to the reasoning chain. In v1.8.4, this manifests as a "Slow Reasoning" warning in the Evidence Lake.
 
 ---
 
 ## 🧪 Saturation & Stress Testing
 
-The v1.3 SRE Principal distinguishes between **System Saturation** and **Reasoning Degradation**:
+The v1.8.4 SRE Principal distinguishes between **System Saturation** and **Reasoning Degradation**:
 
 ### **A. System Saturation (`make load-test`)**
 *   **Logic**: Standard HTTP benchmarking of the API endpoint.
@@ -82,9 +84,9 @@ graph TD
 
 ---
 
-## 📊 Comparison: Standard DevOps vs. AI SRE v1.3
+## 📊 Comparison: Standard DevOps vs. AI SRE v1.8.4
 
-| Vector | Standard DevOps | AgentOps AI SRE v1.3 |
+| Vector | Standard DevOps | AgentOps AI SRE v1.8.4 |
 | :--- | :--- | :--- |
 | **Orchestration** | K8s Horizontal Pod Autoscaler. | **Predictive KV-Cache Warmup.** |
 | **Networking** | Internal Load Balancers. | **Regional Affinity Routing (Reasoning-Local).** |
@@ -94,7 +96,7 @@ graph TD
 ---
 
 ## 📊 The "Fleet Dashboard" (Mission Control)
-The v1.3 Cockpit provides a centralized **Fleet Governance Hub** (accessible via the **Operational Guide**) for managing multiple agent swarms.
+The v1.8.4 Cockpit provides a centralized **Fleet Governance Hub** (accessible via the **Operational Guide**) for managing multiple agent swarms.
 
 ### **Key Fleet Observability:**
 *   **Shadow Mode Real-Time**: Side-by-side comparison of v1 vs v2 across the entire estate.
@@ -118,11 +120,11 @@ The v1.3 Cockpit provides a centralized **Fleet Governance Hub** (accessible via
 
 ---
 
-## 🚀 Principal Defense: SRE Remediations v1.3
+## 🚀 Principal Defense: SRE Remediations v1.8.4
 
 *   **Regional Affinity**: Force-cluster Reasoning (LLM) and Retrieval (Vector DB) into the same GCP zone to hit <10ms tail latency.
 *   **Warm-Pod Strategies**: Use placeholder pods to ensure the KV-cache is pre-warmed for immediate inference.
 *   **TTR Minimization**: Inject `startup_cpu_boost` and pre-load model artifacts to reduce Time-to-Reasoning by 60%.
 
 ---
-*Generated by the AgentOps Cockpit. Sovereign Systems Division (v1.8.2 Stable).*
+*Generated by the AgentOps Cockpit. Sovereign Systems Division (v1.8.4 Stable).*

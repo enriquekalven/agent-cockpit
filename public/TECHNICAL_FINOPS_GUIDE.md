@@ -1,6 +1,6 @@
-## The "Economic Sustainability" Standard (v1.8.2 Stable)
+## The "Economic Sustainability" Standard (v1.8.4 Stable)
 
-The `make optimizer-audit` and `ops roi` commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
+The `agentops-cockpit cockpit` and `agentops-cockpit certify` commands activate the **FinOps Principal** persona. This SME specializes in **Economic Architecture**, ensuring that your agentic workflows are not just functional but "Engineered for Margin." In the current AI landscape, a functional agent that isn't cost-optimized is a liability.
 
 ### 💼 The Persona's Mandate
 The FinOps Principal doesn't just look at line items; they evaluate the **Unit Economics of Intelligence**. Their goal is to maximize **Reasoning Density**—the ratio of task completion quality over token expenditure—ensuring that every cent spent on inference generates measurable business value.
@@ -11,11 +11,10 @@ The FinOps Principal doesn't just look at line items; they evaluate the **Unit E
 
 | Command | Objective | Impact | Technical Implementation |
 | :--- | :--- | :--- | :--- |
-| `ops roi waterfall`| **Cost Projection** | v1.4: Modeling cost-per-task and model-tier optimization pivots. | Analysis of Evidence Lake telemetry and token distribution. |
-| `make optimizer-audit` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. | Uses `ast` to detect large prompt constants and `router` patterns. |
-| `make arch-review` | **Strategic Pivot Audit** | Recommends structural shifts (e.g., GPT-4 to Gemma2) to maximize ROI. | `PivotAuditor` heuristics for model-compute-protocol alignment. |
-| `ops report` | **Optimization** | v1.4: Generates the HTML dashboard with maturity radar visualization. | Comprehensive view of economic vs. capability health. |
-| `make apply-fixes` | **Auto-Remediation** | Triggers the `CodeRemediator` to inject caching and compaction patterns. | `CodeRemediator` AST injection of `@retry` and `ContextCacheConfig`. |
+| `agentops-cockpit cockpit`| **Mission Control** | v1.8: Real-time cost oversight and fleet health summary. | Unified dashboard with persona-based ROI summaries. |
+| `agentops-cockpit audit report` | **Token Efficiency Scan** | Scans code for model routing waste and missing caching layers. | Uses `ast` to detect large prompt constants and `router` patterns. |
+| `agentops-cockpit certify` | **Sovereign Badge** | Final production validation (Tests + Costs + Security). | Comprehensive view of economic vs. capability health. |
+| `agentops-cockpit deploy sovereign` | **Factory** | End-to-End flow: Audit -> Auto-Fix -> Deploy. | Triggers high-margin multi-cloud hydration. |
 
 ---
 
@@ -62,18 +61,19 @@ The FinOps Principal evaluates your codebase across four primary economic pillar
 *   **Vector**: Detecting loosely-defined tools and unmanaged conversation histories.
 *   **Audit Logic**: Scans for missing `Literal` types in tool schemas and lacks of summarization strategies.
 *   **Auto-Remedy**: Injects `compact_history` logic to maintain a fixed token window (Reasoning Density).
-    ```python
-    def compact_history(messages, limit=10):
-        # Keeps System Prompt + Sliding Window
-        return [messages[0]] + messages[-(limit-1):]
-    ```
 *   **Business Impact**: **Stability & Token Optimization** (Trajectory preservation).
+
+### 🔮 Predictive Token Costing (PTC) & "What-If" Simulation
+*   **Vector**: Static audits are too vague for high-scale agent swarms.
+*   **Audit Logic**: Simulates "Context Window Waste" by analyzing archival retrieval frequency and prompt repetition across the fleet.
+*   **Feature**: The **"What-If" Panel** in the dashboard provides tactical guidance: *"If you pivot this RAG agent to a 'Context Caching' model, you save $45/mo with 0% impact on fidelity."*
+*   **Business Impact**: **Tactical OpEx Steering** for enterprise stakeholders.
 
 ---
 
-## 🧗 Deep Dive: Quality Hill Climbing (v1.3)
+## 🧗 Deep Dive: Quality Hill Climbing (v1.8.4)
 
-The v1.3 Cockpit introduces a mathematical approach to FinOps via the `QualityClimber`. Instead of guessing settings, we iteratively "climb" toward the peak of efficiency.
+The v1.8.4 Cockpit introduces a mathematical approach to FinOps via the `QualityClimber`. Instead of guessing settings, we iteratively "climb" toward the peak of efficiency.
 
 ### 📐 The Reasoning Density Metric
 The primary KPI for the FinOps persona is **Reasoning Density (RD)**:
@@ -105,9 +105,9 @@ graph TD
     C1 -->|Smart Routing| C2[70% Savings on Simple Tasks]
     C2 -->|Semantic Caching| C3[50% Savings on Redundancy]
     C3 -->|Final Margin| Profit[Economic Sustainability]
-    style C1 fill:#dcfce7,stroke:#1.8.24
-    style C2 fill:#dcfce7,stroke:#1.8.24
-    style C3 fill:#dcfce7,stroke:#1.8.24
+    style C1 fill:#dcfce7,stroke:#166534
+    style C2 fill:#dcfce7,stroke:#166534
+    style C3 fill:#dcfce7,stroke:#166534
     style Profit border:double,fill:#3b82f6,color:#fff
 ```
 
@@ -115,7 +115,7 @@ graph TD
 
 ## 📊 Comparison: The "Strategic Margin" Advantage
 
-| Capability | Standard AI Development | AgentOps FinOps Principal v1.3 |
+| Capability | Standard AI Development | AgentOps FinOps Principal v1.8.4 |
 | :--- | :--- | :--- |
 | **Data Retrieval** | Send whole chunks. | **Atomic RAG & BigQuery Vector Search.** |
 | **Model Logic** | One model fits all. | **Tiered Orchestration (Router Pattern).** |
@@ -136,7 +136,7 @@ graph TD
 
 ---
 
-## 🔍 The v1.4 "Ecosystem Expansion" Roadmap
+## 🔍 The v1.8.4 "Ecosystem Expansion" Roadmap
 To push beyond "Top of Class," we are now utilizing **Visual Maturity Intelligence**:
 *   **ROI Waterfall Reports**: Strategic executive exports projecting quarterly savings across wait-times and token burns.
 *   **Interactive Workbench**: Developers now review and approve AST-based economic patches before they are merged.
@@ -150,4 +150,4 @@ To push beyond "Top of Class," we are now utilizing **Visual Maturity Intelligen
 > "This version is Market-Ready. It speaks the language of the CFO while providing the 'Cabling' for the SRE. It completes the transition from a technical tool to a **Lifecycle Management Platform**."
 
 ---
-*Generated by the AgentOps Cockpit. Economic Sustainability Division (v1.8.2 Stable).*
+*Generated by the AgentOps Cockpit. Economic Sustainability Division (v1.8.4 Stable).*

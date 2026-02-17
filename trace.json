@@ -1,8 +1,0 @@
-{
-  "logs": [
-    {
-      "timestamp": "2026-02-02T14:02:00Z",
-      "message": "Sending prompt with masked email user+****@example.com to Gemini Pro"
-    }
-  ]
-}

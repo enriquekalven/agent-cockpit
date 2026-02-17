@@ -1,4 +1,4 @@
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 from __future__ import annotations
 from tenacity import retry, wait_exponential, stop_after_attempt
 import os

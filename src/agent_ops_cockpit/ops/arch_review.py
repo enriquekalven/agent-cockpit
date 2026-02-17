@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 from tenacity import retry, wait_exponential, stop_after_attempt
 import typer
 import os
@@ -27,18 +27,20 @@ from agent_ops_cockpit.ops.auditors.pivot import PivotAuditor
 from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
 from agent_ops_cockpit.ops.auditors.infra import InfraAuditor
 from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
+from agent_ops_cockpit.ops.auditors.manifest import ManifestAuditor
+from agent_ops_cockpit.ops.auditors.simulation import SimulationAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-app = typer.Typer(help='Agent Architecture Reviewer v1.8.2: Enterprise Architect (Paradigm & Structural Wisdom)')
+app = typer.Typer(help='Agent Architecture Reviewer v1.8.4: Enterprise Architect (Paradigm & Structural Wisdom)')
 console = Console()
 
 def run_scan(path: str, verbose: bool = False, context: dict = None):
     """Helper to run AST scan and return all findings."""
     import time
     start_time = time.time()
-    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor(), ParadigmAuditor()]
+    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor(), ParadigmAuditor(), ManifestAuditor(), SimulationAuditor()]
     all_findings = []
     file_count = 0
     discovery = DiscoveryEngine(path)
@@ -75,9 +77,9 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
 @app.command()
 def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', help='Skip saving patches')):
     """
-    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.8.2 Plan-then-Execute)
+    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.8.4 Plan-then-Execute)
     """
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.8.2)[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.8.4)[/bold blue]', border_style='blue'))
     findings = run_scan(path)
     if not findings:
         console.print('✅ [bold green]No remediable issues found. Architecture is hardened.[/bold green]')
@@ -116,6 +118,26 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
                 remediator.apply_context_compaction(f)
                 applied_count += 1
                 console.print(f'   🛠️ Planned: [green]Context Compaction Strategy[/green] ({f.title})')
+            elif 'Reflection' in f.title:
+                remediator.apply_sovereign_reflection(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Sovereign Reflection Loop[/green] ({f.title})')
+            elif 'Over-Privilege' in f.title or 'HITL Gate' in f.title:
+                remediator.apply_mcp_gating(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]HITL MCP Gate[/green] ({f.title})')
+            elif 'Monocultural' in f.title or 'Provider Bias' in f.title:
+                remediator.apply_cloud_abstraction(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Sovereign Cloud Bridge[/green] ({f.title})')
+            elif 'Legacy Intelligence' in f.title or 'SDK Latency' in f.title:
+                remediator.apply_manifest_drift_fix(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Frontier SDK Upgrade[/green] ({f.title})')
+            elif 'Malformed MCP' in f.title or 'Protocol Fragility' in f.title:
+                remediator.apply_mcp_validation(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Protocol Manifest Fix[/green] ({f.title})')
         if applied_count > 0:
             if dry_run:
                 console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {file_path}[/yellow]\n')

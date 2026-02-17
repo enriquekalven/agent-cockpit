@@ -13,10 +13,13 @@ class InfraAuditor(BaseAuditor):
 
         # 1. Dockerfile Analysis
         if filename == 'Dockerfile':
-            if 'USER root' in content or ('USER' not in content and 'FROM' in content):
+            has_user = 'USER' in content
+            is_root = 'USER root' in content
+            
+            if is_root or (not has_user and 'FROM' in content):
                 findings.append(AuditFinding(
                     title="Security Risk: Container Running as Root",
-                    description="Dockerfile does not specify a non-root user. This is a critical security vulnerability.",
+                    description="Dockerfile either lacks a USER or explicitly uses 'root'.",
                     category="🛡️ Security",
                     impact="High: Root containers allow for host exploitation.",
                     roi="High: Mandatory for enterprise grade security.",
@@ -24,6 +27,9 @@ class InfraAuditor(BaseAuditor):
                     line_number=1,
                     file_path=file_path
                 ))
+            elif 'USER appuser' in content:
+                # Recognition of Sovereign-Hardened pattern
+                print(f"🔒 [SecOps] Verified Hardened Non-Root for {file_path}")
             
             if 'memory' not in content.lower() and 'cpu' not in content.lower():
                 findings.append(AuditFinding(

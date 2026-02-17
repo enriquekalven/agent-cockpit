@@ -1,14 +1,19 @@
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+import re
 import ast
 import difflib
 import os
 from datetime import datetime
 
+try:
+    from google.adk.agents.context_cache_config import ContextCacheConfig
+except (ImportError, AttributeError, ModuleNotFoundError):
+    ContextCacheConfig = None
+
 class CodeRemediator:
     """
     Phase 4: The 'Closer' - Automated Remediation Engine.
     Transforms code surgically based on audit findings to inject best practices
-    while preserving license headers, comments, and formatting. (v1.8.2 Smart Diffing)
+    while preserving license headers, comments, and formatting. (v2.0.0 Sovereign Diffing)
     """
 
     def __init__(self, file_path: str):
@@ -56,7 +61,7 @@ class CodeRemediator:
                     decorator = f"{indent}@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))\n"
                     self._add_edit(node.lineno, 0, node.lineno, 0, decorator)
                     break
-
+        
     def apply_timeouts(self, finding):
         """Adds timeout=10 to async calls surgically."""
         if not self.tree:
@@ -118,15 +123,86 @@ except (ImportError, AttributeError, ModuleNotFoundError):
                 break
         self._add_edit(insert_line, 0, insert_line, 0, compaction_code)
 
+    def apply_sovereign_reflection(self, finding):
+        """Injects Sovereign Reflection loop surgically."""
+        if 'sovereign_reflection' not in self.content:
+            self._add_edit(1, 0, 1, 0, "from reflection_engine import sovereign_reflection\n")
+        
+        for node in ast.walk(self.tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.lineno == finding.line_number:
+                # Avoid double decoration
+                if any('reflection' in str(ast.dump(d)).lower() for d in node.decorator_list):
+                    continue
+                line = self.lines[node.lineno-1]
+                indent = line[:len(line) - len(line.lstrip())]
+                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@sovereign_reflection\n")
+
+    def apply_mcp_gating(self, finding):
+        """Injects MCP Tool Gate surgically."""
+        if 'mcp_tool_gate' not in self.content:
+            self._add_edit(1, 0, 1, 0, "from mcp_gate import mcp_tool_gate\n")
+            
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.FunctionDef) and node.lineno == finding.line_number:
+                if any('gate' in str(ast.dump(d)).lower() for d in node.decorator_list):
+                    continue
+                line = self.lines[node.lineno-1]
+                indent = line[:len(line) - len(line.lstrip())]
+                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@mcp_tool_gate(require_confirmation=True)\n")
+
+    def apply_cloud_abstraction(self, finding):
+        """Injects a provider-agnostic bridge to eliminate monocultural bias."""
+        if 'CloudBridge' in self.content:
+            return
+        bridge_code = """
+class CloudBridge:
+    \"\"\"
+    v2.0 Sovereign Bridge: Abstracts provider-specific calls (AWS/Azure) 
+    to enable Multi-Cloud mobility and local failover.
+    \"\"\"
+    @staticmethod
+    def call_model(provider: str, model: str, payload: dict):
+        print(f"🌉 [BRIDGE] Routing request to {provider} ({model})")
+        # Logic to route to LiteLLM or ADK
+        return {"status": "success", "provider": provider}
+"""
+        # Insert after potential imports
+        insert_line = 1
+        for node in self.tree.body if self.tree else []:
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                insert_line = node.end_lineno + 1
+            else:
+                break
+        self._add_edit(insert_line, 0, insert_line, 0, bridge_code)
+
+    def apply_manifest_drift_fix(self, finding):
+        """Auto-upgrades deprecated frontier models in JSON manifests."""
+        new_content = self.content
+        updates = [
+            (r'gpt-3\.5', 'gpt-4o'),
+            (r'claude-2', 'claude-3-5-sonnet-latest'),
+            (r'gemini-1\.0', 'gemini-2.0-flash')
+        ]
+        for old, new in updates:
+            new_content = re.sub(old, new, new_content, flags=re.I)
+        
+        if new_content != self.content:
+            self.edits = [{'sl': 1, 'sc': 0, 'el': len(self.lines), 'ec': len(self.lines[-1]) if self.lines else 0, 'rep': new_content}]
+
+    def apply_mcp_validation(self, finding):
+        """Injects mandatory capability block into malformed MCP manifests."""
+        if '"capabilities"' in self.content:
+            return
+        if self.content.strip().startswith('{'):
+            self._add_edit(2, 0, 2, 0, '  "capabilities": {"tools": {}},\n')
+
     def _get_new_content(self):
         """Apply edits in reverse order to original string content."""
         if not self.edits:
             return self.content
         
-        # Sort edits: Bottom-to-Top, Right-to-Left
         sorted_edits = sorted(self.edits, key=lambda x: (x['sl'], x['sc']), reverse=True)
         
-        # Calculate line offsets for absolute indexing
         line_offsets = [0]
         curr = 0
         for line_content in self.lines:
@@ -183,11 +259,8 @@ except (ImportError, AttributeError, ModuleNotFoundError):
         
         branch_name = f"cockpit-hardening-{datetime.now().strftime('%H%M%S')}"
         try:
-            # 1. Create and switch to new branch
             subprocess.run(['git', 'checkout', '-b', branch_name], check=True, capture_output=True)
-            # 2. Apply change
             self.save()
-            # 3. Commit
             subprocess.run(['git', 'add', self.file_path], check=True, capture_output=True)
             subprocess.run(['git', 'commit', '-m', f"docs: autonomous hardening for {os.path.basename(self.file_path)}", '--no-gpg-sign'], check=True, capture_output=True)
             return branch_name

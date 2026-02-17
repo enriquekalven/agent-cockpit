@@ -51,7 +51,7 @@ Ready to roll. Run 'make dev' to start.`
     ],
     command: 'agentops-cockpit audit arch',
     diagram: '/assets/persona_strategist_new.png',
-    output: `🏗️ Starting Architecture Review v1.8.2...
+    output: `🏗️ Starting Architecture Review v1.8.4...
 🔍 Scanning /src for Maturity Wisdom drift
 ✅ AWS Patterns: Bedrock Action Groups detected (Well-Architected)
 ✅ GCP Patterns: Vertex AI Context Caching enabled (+90% savings)

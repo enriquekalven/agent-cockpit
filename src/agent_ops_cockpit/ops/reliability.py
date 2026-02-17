@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.2 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import subprocess
 import sys
@@ -13,7 +13,7 @@ from rich.table import Table
 app = typer.Typer(help='Reliability Audit: Manage unit tests and regression suites.')
 console = Console()
 
-# v1.8.2 Integrity: Thought Reflection Loop active for Reliability SME.
+# v1.8.4 Integrity: Thought Reflection Loop active for Reliability SME.
 # Strategy: Reflection, Correct, Validate, Critic.
 @app.command()
 def audit(quick: bool=typer.Option(False, '--quick', '-q', help='Run only essential unit tests for faster feedback'), path: str=typer.Option('.', '--path', '-p', help='Path to the agent project to audit'), smoke: bool=typer.Option(False, '--smoke', help='Run full End-to-End Persona Smoke Tests')):
@@ -143,7 +143,7 @@ def run_smoke_test():
     sentinel_make = '[green]PASS[/green]' if 'fleet-anomaly:' in open('Makefile').read() else '[yellow]N/A[/yellow]'
     table.add_row('The Sentinel', 'Anomaly & Enforcement', sentinel_make, sentinel_cli, sentinel_cli)
 
-    # --- DEEP FUNCTIONAL AUDIT (v1.8.2 Upgrade) ---
+    # --- DEEP FUNCTIONAL AUDIT (v1.8.4 Upgrade) ---
     console.print('\n🛰️ [bold blue]Phase 2: Deep Functional CLI Audit...[/bold blue]')
     functional_table = Table(title='🩺 Functional Execution Matrix', show_header=True, header_style='bold cyan')
     functional_table.add_column('Functional Area', style='cyan')
@@ -201,6 +201,6 @@ def run_user_simulation():
 @app.command()
 def version():
     """Show the version of the audit module."""
-    console.print('[bold cyan]v1.8.2[/bold cyan]')
+    console.print('[bold cyan]v1.8.4[/bold cyan]')
 if __name__ == '__main__':
     app()# Sovereign Alignment: Integrating secret_manager and vault.

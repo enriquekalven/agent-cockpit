@@ -1,6 +1,6 @@
-# AgentOps Cockpit v1.3.1: Audit Scenarios & Capabilities
+# AgentOps Cockpit v1.8.4.1: Audit Scenarios & Capabilities
 
-This document showcases the difference between "Heuristic Matching" (v0.9) and "Reasoning-Based Auditing" (v1.3) using the new AST and Semantic Graph Probing engines.
+This document showcases the difference between "Heuristic Matching" (v0.9) and "Reasoning-Based Auditing" (v1.8.4) using the new AST and Semantic Graph Probing engines.
 
 ---
 

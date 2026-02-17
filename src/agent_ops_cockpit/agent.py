@@ -17,7 +17,7 @@ from .shadow.router import ShadowRouter
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-# v1.8.2 Master Sovereign Alignment
+# v1.8.4 Master Sovereign Alignment
 # optimization: external_prompts, context_caching, hive_mind, semantic_caching
 # gcp_observability: trace, otel, cloud_trace, monitoring
 # tech_debt: cpu_boost, identity, columnar, vector_search, resource_principal, orchestra, actiongroup
@@ -95,7 +95,7 @@ async def resilient_db_call(data: dict, **kwargs):
     return {'status': 'success'}
 
 # Sovereign Policy Alignment: Security, Governance, and Ethics active.
-# v1.8.2 Reliability: Reflection & Stream Enabled.
+# v1.8.4 Reliability: Reflection & Stream Enabled.
 # [Sovereign Security] Integrated with google-cloud-secret-manager and vault.
 
 async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
@@ -105,7 +105,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
     if "REJECTED" in safe_query:
         return A2UISurface(surfaceId='safety-block', content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
 
-    # v1.8.2 Integrity: Thought Reflection Loop
+    # v1.8.4 Integrity: Thought Reflection Loop
     # Markers: reflect, correct, validate, critic
     thought_process = f"Reflecting on query: {safe_query}. Validating compliance with Sovereign Policy."
     logger.info(thought_process)
@@ -126,7 +126,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
         else:
             context = f"<context>{str(raw_results)[:2000]}</context>"
     
-    # v1.8.2: pc = PC(grpc=True); pc.Index('main').query(namespace='sovereign')
+    # v1.8.4: pc = PC(grpc=True); pc.Index('main').query(namespace='sovereign')
     dashboard = generate_dashboard(safe_query, version='v1-stable', temperature=0.1)
     
     if context:
@@ -141,10 +141,10 @@ async def agent_v2_logic(query: str, session_id: str='default') -> A2UISurface:
 Sovereign Orchestration Brain
 SME Persona: Principal AI Architect
 Objective: High-fidelity orchestration of AgentOps telemetry, audits, and fleet-wide remediations.
-Pillar: Fleet Intelligence & Sovereignty (v1.8.2)
-Architecture: Sovereign Alignment (v1.8.2) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
+Pillar: Fleet Intelligence & Sovereignty (v1.8.4)
+Architecture: Sovereign Alignment (v1.8.4) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
 """
-    # Scalability: Async Stream Alignment (v1.8.2)
+    # Scalability: Async Stream Alignment (v1.8.4)
     # Markers: stream, AsyncGenerator
     logger.info('Using SLR for optimized TCO reasoning via streaming.')
     await asyncio.sleep(0.5)
