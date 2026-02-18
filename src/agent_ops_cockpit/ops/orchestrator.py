@@ -323,20 +323,20 @@ class CockpitOrchestrator:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
         report.extend(self.generate_executive_summary(developer_actions))
         report.append('\n---')
-        report.append('\n## 🧑\u200d💼 Distinguished Fellow Persona Approvals')
-        report.append('Each pillar of your agent has been reviewed by a specialized SME persona.')
-        persona_table = Table(title='🏛️ Persona Approval Matrix', show_header=True, header_style='bold blue')
-        persona_table.add_column('SME Persona', style='cyan')
+        report.append('\n## �️ Audit Pillar Approvals')
+        report.append('Each pillar of your agent has been reviewed by specialized auditors.')
+        persona_table = Table(title='🏛️ Pillar Approval Matrix', show_header=True, header_style='bold blue')
+        persona_table.add_column('Audit Pillar', style='cyan')
         persona_table.add_column('Audit Module', style='magenta')
         persona_table.add_column('Verdict', style='bold')
         persona_table.add_column('Remediation', style='dim')
         for name, data in self.results.items():
             status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
-            persona = self.PERSONA_MAP.get(name, '👤 Automated Auditor')
+            pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
             effort = self.EFFORT_MAP.get(name, 'Manual')
-            persona_table.add_row(persona, name, status, effort)
+            persona_table.add_row(pillar, name, status, effort)
             effort_str = f' [Remediation: {effort}]' if not data['success'] else ''
-            report.append(f'- **{persona}** ([{name}]): {status}{effort_str}')
+            report.append(f'- **{pillar}** ([{name}]): {status}{effort_str}')
         if developer_actions:
             report.append('\n## 🚀 Step-by-Step Implementation Guide')
             report.append('To transition this agent to production-hardened status, follow these prioritized phases:')
@@ -347,19 +347,18 @@ class CockpitOrchestrator:
                     return 0
                 if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
                     return 1
-                if any(x in p for x in ['architecture', 'policy', 'rejection', 'conflict']):
-                    return 2
-                return 3
+                return 2
             
             sorted_actions = sorted(developer_actions, key=priority_key)
             developer_actions[:] = sorted_actions
             current_phase = -1
-            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Architectural Alignment', '💰 Phase 4: FinOps Optimization']
+            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Strategic Alignment']
             for action in sorted_actions:
                 phase = priority_key(action)
                 if phase != current_phase:
                     current_phase = phase
-                    report.append(f'\n### {phases[phase]}')
+                    if phase < len(phases):
+                        report.append(f'\n### {phases[phase]}')
                 parts = action.split(' | ')
                 if len(parts) == 3:
                     report.append(f'1. **{parts[1]}**')
