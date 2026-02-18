@@ -14,7 +14,9 @@ import sys
 import subprocess
 import json
 import hashlib
+import yaml
 from datetime import datetime
+from typing import List
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
 from rich.console import Console
 from rich.panel import Panel
@@ -28,6 +30,7 @@ src_dir = os.path.dirname(os.path.dirname(script_dir))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 from .dashboard import generate_fleet_dashboard  # noqa: E402
+from agent_ops_cockpit.ops.auditors.base import AuditFinding # noqa: E402
 from agent_ops_cockpit.telemetry import telemetry  # noqa: E402
 console = Console()
 
@@ -699,6 +702,70 @@ class CockpitOrchestrator:
         except Exception as e:
             console.print(f'[red]❌ Email failed: {e}[/red]')
             return False
+
+    def load_latest_findings(self, path: str) -> List[AuditFinding]:
+        """Loads the findings from the most recent audit in the evidence lake."""
+        evidence_path = os.path.join(path, '.cockpit', 'evidence_lake')
+        if not os.path.exists(evidence_path):
+            console.print(f"[dim]No evidence lake found at {evidence_path}[/dim]")
+            return []
+        
+        # Find the latest hash directory (agent-specific)
+        agent_hash = hashlib.md5(os.path.abspath(path).encode()).hexdigest()
+        agent_dir = os.path.join(evidence_path, agent_hash)
+        
+        if not os.path.exists(agent_dir):
+            # Try finding the latest link
+            latest_link = os.path.join(evidence_path, 'latest_audit')
+            if os.path.exists(latest_link):
+                agent_dir = os.path.join(evidence_path, os.readlink(latest_link))
+        
+        latest_json = os.path.join(agent_dir, 'latest.json')
+        if not os.path.exists(latest_json):
+            return []
+            
+        with open(latest_json, 'r') as f:
+            data = json.load(f)
+            # Findings are nested in modules' output. We need to parse ACTIONS
+            findings = []
+            results = data.get('results', {})
+            for module_name, mod_data in results.items():
+                output = mod_data.get('output', '')
+                for line in output.split('\n'):
+                    if 'ACTION:' in line:
+                        parts = line.replace('ACTION:', '').strip().split(' | ')
+                        if len(parts) >= 3:
+                            file_info = parts[0].split(':')
+                            findings.append(AuditFinding(
+                                category=module_name,
+                                title=parts[1],
+                                description=parts[2],
+                                impact="HIGH",
+                                roi="Remediation",
+                                line_number=int(file_info[1]) if len(file_info) > 1 else 1,
+                                file_path=file_info[0]
+                            ))
+            return findings
+
+    def ignore_finding(self, title: str, reason: str, path: str):
+        """Adds a finding to the local cockpit.yaml ignore list."""
+        config_path = os.path.join(path, 'cockpit.yaml')
+        config_data = {}
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config_data = yaml.safe_load(f) or {}
+        
+        if 'ignores' not in config_data:
+            config_data['ignores'] = []
+            
+        config_data['ignores'].append({
+            'title': title,
+            'reason': reason,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        with open(config_path, 'w') as f:
+            yaml.dump(config_data, f)
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False):

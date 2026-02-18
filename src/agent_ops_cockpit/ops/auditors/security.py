@@ -30,20 +30,26 @@ class SecurityAuditor(BaseAuditor):
         
         # 1. Ungated Production Access (The Sovereignty Gap)
         sensitive_ops = ['delete', 'drop', 'execute_payment', 'transfer', 'terminate', 'provision']
-        if any(op in content_lower for op in sensitive_ops) and \
-           not any(kw in content_lower for kw in ['approve', 'hitl', 'gate', 'human_in_loop']):
-            title = "Sovereignty Gap: Ungated Production Access"
-            if not self._is_ignored(0, content, title):
-                findings.append(AuditFinding(
-                    category="🛡️ Security",
-                    title=title,
-                    description="""Detected sensitive infrastructure or financial operations without an explicit Human-in-the-Loop (HITL) gate.
+        if any(op in content_lower for op in sensitive_ops):
+            # v2.0.2 Semantic Pivot: Ask the Policy SME if this is actually gated
+            is_gated = self.semantic_verify(
+                content, 
+                "Does this code enforce a Human-in-the-Loop (HITL) gate or manual approval for sensitive operations like delete, payment, or termination?"
+            )
+            
+            if not is_gated:
+                title = "Sovereignty Gap: Ungated Production Access"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Security",
+                        title=title,
+                        description="""Semantic verify failed: Detected sensitive operations without a functional Human-in-the-Loop (HITL) gate.
 [bold red]Structural Risk:[/bold red] Autonomous agents must not have ungated write access to production assets.
 [bold green]RECOMMENDATION:[/bold green] Implement a **Governance Gate** or a 2-Factor Approval trigger.""",
-                    impact="CRITICAL",
-                    roi="Protects enterprise assets from autonomous logic failures.",
-                    file_path=file_path
-                ))
+                        impact="CRITICAL",
+                        roi="Protects enterprise assets from autonomous logic failures.",
+                        file_path=file_path
+                    ))
 
         # 2. Insecure Output Handling (The 'eval' Trap)
         if 'eval(' in content or 'exec(' in content:

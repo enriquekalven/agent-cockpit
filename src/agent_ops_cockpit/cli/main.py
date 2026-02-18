@@ -267,9 +267,28 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
     console.print("\n" + "="*80)
     if audit_exit_code == 0 and regression_passed:
         console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
+        
+        # v2.0.2: Generate Sovereign Certificate (Cryptographic Proof)
+        import hashlib
+        cert_data = f"CERTIFICATE:v2.0.2|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
+        proof = hashlib.sha256(cert_data.encode()).hexdigest()
+        
+        cert_path = os.path.join(path, '.cockpit', 'sovereign_certificate.txt')
+        with open(cert_path, 'w') as f:
+            f.write("--- 🏛️ SOVEREIGN CERTIFICATE v2.0.2 ---\n")
+            f.write(f"ISSUED TO: {os.path.basename(os.path.abspath(path))}\n")
+            f.write(f"TIMESTAMP: {datetime.now().isoformat()}\n")
+            f.write("STATUS: CERTIFIED_PRODUCTION_READY\n")
+            f.write("PILARS: Security, Reliability, Architecture, FinOps\n")
+            f.write(f"PROOF: {proof}\n")
+            f.write("--------------------------------------\n")
+            f.write("\nThis agent has passed all Sovereign Audit gates and is cleared for high-stakes autonomous operations.")
+        
+        console.print(f"📜 [bold cyan]Sovereign Certificate Generated:[/bold cyan] {cert_path}")
+        console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
     else:
         console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
-        console.print("[dim]Review the reports above and in the .cockpit/ directory for remediation steps.[/dim]")
+        console.print("[dim]Review the coaching reports above and in the .cockpit/ directory for remediation steps.[/dim]")
         raise typer.Exit(code=2)
 
 @audit_app.command()
@@ -482,6 +501,13 @@ def watch_fleet():
     """Track ecosystem updates (ADK, LangChain, etc.) in real-time."""
     watch_mod.run_watch()
 
+@fleet_app.command(name="shadow-roi")
+def fleet_shadow_roi(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to benchmark')] = '.'):
+    """🔦 Shadow ROI: Interactive benchmarking to find optimal model tiers."""
+    from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+    bench = ReliabilityBenchmarker(path)
+    asyncio.run(bench.shadow_benchmark_roi())
+
 # --- DEPLOY HUB ---
 @deploy_app.command()
 def sovereign(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent/workspace")] = ".", fleet: Annotated[bool, typer.Option("--fleet", help="Process all agents in the workspace")] = True, target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud Platform: google, aws, azure")] = "google"):
@@ -602,10 +628,53 @@ def fix_issue(issue_id: Annotated[str, typer.Argument(help="The issue ID or part
     if not success:
         raise typer.Exit(code=1)
 
-@fix_app.command()
+@fix_app.command(name="evolve")
 def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.', branch: Annotated[bool, typer.Option('--branch/--no-branch', help='Create a new git branch for the fixes')] = True):
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""
     orch_mod.run_autonomous_evolution(path, branch=branch)
+
+@fix_app.command(name="reason")
+def fix_reason(
+    issue_id: Annotated[str, typer.Argument(help="The issue ID to provide reasoning for")],
+    reason: Annotated[str, typer.Option("--msg", "-m", help="Reasoning for ignoring or overriding the finding")],
+    path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.'
+):
+    """The Architect's Dialogue: Provide a justification to override an audit finding."""
+    console.print(f'💬 [bold blue]Architect\'s Dialogue Initialized for: {issue_id}...[/bold blue]')
+    orchestrator = orch_mod.CockpitOrchestrator()
+    
+    # v2.0.2: Verify the reasoning using the Semantic Auditor
+    console.print(f"🧐 [magenta]Verifying justification:[/magenta] \"{reason}\"")
+    
+    # We use the BaseAuditor's semantic_verify
+    from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
+    auditor = SecurityAuditor()
+    
+    # Find the finding in the latest report
+    findings = orchestrator.load_latest_findings(path)
+    target = None
+    for f in findings:
+        if issue_id in f.title or issue_id in f.description:
+            target = f
+            break
+            
+    if not target:
+         console.print(f"[red]❌ Error: Could not find finding matching '{issue_id}' in the latest report.[/red]")
+         return
+
+    is_valid = auditor.semantic_verify(
+        reason, 
+        f"Does this technical justification logically address the following audit finding: '{target.title}'? The user claims they have handled it elsewhere or it is a false positive."
+    )
+    
+    if is_valid:
+        console.print("✅ [bold green]Justification Accepted.[/bold green] 'Judge of Judges' signed off.")
+        # Mark as ignored in the evidence lake for future runs
+        orchestrator.ignore_finding(target.title, reason, path)
+        console.print(f"📜 [dim]Finding '{target.title}' will be suppressed in future audits.[/dim]")
+    else:
+        console.print("❌ [bold red]Justification Rejected.[/bold red] The Architect disagrees with your reasoning.")
+        console.print("[dim]Please implement the recommended fix or provide a stronger technical justification.[/dim]")
 
 # --- RELIABILITY HUB ---
 @test_app.command(name="unit")

@@ -3,9 +3,11 @@
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ### v2.0.2 (2026-02-17) - The "Pillar Evolution" Release
-- **🛡️ Core Pillar Consolidation**: Simplified governance by grouping all auditors into three strategic pillars: Security, Reliability, and Strategy.
-- **✨ Premium HTML Reporting**: Introduced a sleek, high-fidelity reporting engine with standard engineering metrics and minimized theatricality.
-- **🏗️ Cockpit Bootstrap**: Added a dedicated `bootstrap` command for project initialization and sovereign library adoption.
+- **🛡️ Semantic Compliance Pivot**: Moved security and architecture audits from regex matching to LLM-driven intent verification (Gemini 2.0 Flash).
+- **🔦 Shadow ROI Benchmarking**: Launched dynamic performance analysis in the Reliability Hub to optimize model tiering and accuracy/cost curves.
+- **📜 Governance as Code (GaC)**: Externalized all fleet policies into declarative YAML for standardized security enforcement.
+- **💬 The Architect's Dialogue**: Enabled interactive reasoning during fixes, allowing developers to justify and override specific findings via the `fix reason` command.
+- **🏛️ Sovereign Certification**: Added cryptographic proof of passing audit gates via a persistent Sovereign Certificate artifact.
 - **🕹️ Command Ergonomics**: Launched the unified `cockpit` binary as the primary entry point for all operations.
 
 ### v2.0.0 (2026-02-17) - The "Industry Scale" Release

@@ -70,7 +70,6 @@ class BaseAuditor(ABC):
         Example: # cockpit-ignore: hardcoded-secret intentional-testing
         """
         lines = content.splitlines()
-        # Clean title to create a reliable slug
         clean_title = re.sub(r"[^a-zA-Z0-9\s]", "", title.lower())
         issue_slug = clean_title.replace(" ", "-")
 
@@ -103,6 +102,47 @@ class BaseAuditor(ABC):
             if issue_slug in comment_part:
                 return True
         return False
+
+    def semantic_verify(self, code_snippet: str, objective: str) -> bool:
+        """
+        v2.0.2 Semantic Compliance (Beyond Regex): 
+        Uses a Policy SME model to verify if the code functionally meets a security objective.
+        """
+        try:
+            from google.adk.agents import Agent
+            from google.genai import types as genai_types
+            
+            # Lightweight Policy SME
+            sme = Agent(
+                name="policy_sme",
+                model="gemini-2.0-flash",
+                instruction=f"You are a Distinguished Security SME. Your task is to verify if the following code functionally achieves the objective: '{objective}'."
+            )
+            
+            prompt = f"Objective: {objective}\n\nCode:\n```python\n{code_snippet}\n```\n\nDoes this code functionally achieve the objective? Answer only 'YES' or 'NO'."
+            # This is a synchronous-wrapped call for an auditor environment
+            import asyncio
+            from google.adk.runners import Runner
+            from google.adk.sessions import InMemorySessionService
+            
+            async def _check():
+                session_service = InMemorySessionService()
+                await session_service.create_session("cockpit", "system", "audit_turn")
+                runner = Runner(agent=sme, app_name="cockpit", session_service=session_service)
+                resp = ""
+                async for event in runner.run_async(
+                    user_id="system", 
+                    session_id="audit_turn",
+                    new_message=genai_types.Content(role="user", parts=[genai_types.Part.from_text(text=prompt)])
+                ):
+                    if event.is_final_response():
+                        resp = event.content.parts[0].text
+                return "YES" in resp.upper()
+
+            return asyncio.run(_check())
+        except Exception:
+            # Fallback to False (conservative) if model fails
+            return False
 
 class SymbolScanner(ast.NodeVisitor):
     def __init__(self):

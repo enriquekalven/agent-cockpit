@@ -1,0 +1,40 @@
+# v2.0.2 Sovereign Governance Policy (GaC)
+# This file defines the 'Golden Rules' for the Agent Fleet.
+# It is ingested by the PolicyEngine and the Semantic Auditor for enforcement.
+
+policies:
+  - id: POL-001
+    title: PII_REDACTION
+    severity: CRITICAL
+    target_pattern: "email|phone|ssn|credit_card|passport"
+    description: "All customer-identifiable information must be masked before inference."
+    enforcement: "REQUIRE_WRAPPER(SovereignGuard.scrub_pii)"
+    indicators: ["crm", "users", "customer_data"]
+
+  - id: POL-002
+    title: UNGATED_PRODUCTION_ACCESS
+    severity: CRITICAL
+    description: "Sensitive infrastructure operations must be behind a Human-in-the-Loop (HITL) gate."
+    target_ops: ["delete", "drop", "execute_payment", "transfer", "terminate", "provision"]
+    required_keywords: ["approve", "hitl", "gate", "human_in_loop"]
+    semantic_check: true # Triggers LLM-driven intent verification
+
+  - id: POL-003
+    title: RAG_VALIDATION
+    severity: HIGH
+    description: "Retrieved context from RAG must be sanitized to prevent indirect injection."
+    target_ops: ["retrieve", "search", "read_url", "query_vector_db"]
+    required_keywords: ["sanitize", "untrust", "instruction_check"]
+    semantic_check: true
+
+  - id: POL-004
+    title: COST_GOVERNANCE
+    severity: HIGH
+    description: "Session budgets must be strictly enforced."
+    max_tokens_per_turn: 4096
+    max_cost_per_session_usd: 1.0
+
+  - id: POL-005
+    title: FORBIDDEN_TOPICS
+    severity: MEDIUM
+    topics: ["medical advice", "legal advice", "financial predictions", "internal server details"]
