@@ -38,11 +38,42 @@ app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance
 audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
 
 # --- MASTER HUB ---
-@app.command(name="cockpit")
-def master_dashboard(path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+cockpit_app = typer.Typer(help="🚀 Cockpit: Manage your agent fleet and project health.")
+
+@cockpit_app.callback(invoke_without_command=True)
+def cockpit_main(ctx: typer.Context, path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
     """🚀 Mission Control: The 'One Command' to manage your entire agent fleet."""
-    dashboard = master_mod.MasterCockpit(path)
-    dashboard.render_landing()
+    if ctx.invoked_subcommand is None:
+        dashboard = master_mod.MasterCockpit(path)
+        dashboard.render_landing()
+
+@cockpit_app.command()
+def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to project")] = "."):
+    """🏗️ Bootstrap: Explicitly initialize Cockpit manifests and adopt sovereign libraries."""
+    console.print(Panel.fit('🏗️ [bold blue]COCKPIT BOOTSTRAP: PROJECT INITIALIZATION[/bold blue]', border_style='blue'))
+    
+    # 1. Create cockpit.yaml if missing
+    config_path = os.path.join(path, 'cockpit.yaml')
+    if not os.path.exists(config_path):
+        with open(config_path, 'w') as f:
+            f.write("# AgentOps Cockpit Manifest\nversion: 2.0.2\nentry_point: agent.py\ncloud: google\nframework: fastapi\n")
+        console.print("✅ Created [bold]cockpit.yaml[/bold]")
+    else:
+        console.print("⌛ [dim]cockpit.yaml already exists. Skipping.[/dim]")
+
+    # 2. Create .cockpit directory
+    dot_cockpit = os.path.join(path, '.cockpit')
+    if not os.path.exists(dot_cockpit):
+        os.makedirs(dot_cockpit)
+        console.print("✅ Created [bold].cockpit/[/bold] artifact store.")
+
+    # 3. Adopt libraries (Sovereign Scaffolding)
+    from agent_ops_cockpit.ops.migration import MigrationEngine
+    engine = MigrationEngine(path)
+    engine.generate_scaffolding(path)
+    console.print("✅ Generated [bold]Sovereign Scaffolding[/bold] (policy_engine.ts, etc.)")
+    
+    console.print("\n✨ [bold green]Project bootstrapped successfully.[/bold green] Run [blue]cockpit audit[/blue] to begin.")
 fleet_app = typer.Typer(help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling.")
 deploy_app = typer.Typer(help="🚀 Deployment Hub: Project hydration, migration, and cloud factory.")
 fix_app = typer.Typer(help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis.")
@@ -850,12 +881,9 @@ def audit_maturity():
     persona_table.add_column("Mandate", style="dim")
     persona_table.add_column("Expertise Level", style="bold green")
     
-    persona_table.add_row("🛡️ SecOps Principal", "Zero-Trust & Adversarial Defense", "MASTER (v1.4)")
-    persona_table.add_row("💰 FinOps Principal", "ROI Waterfall & Token Density", "PRINCIPAL (v1.4)")
-    persona_table.add_row("🌐 SRE Principal", "Networking Debt & Latent IQ", "SENIOR (v1.3)")
-    persona_table.add_row("🏛️ Autonomous Architect", "AST Synthesis & Evolution", "MASTER (v1.4)")
-    persona_table.add_row("🧗 AI Quality SME", "Hill Climbing & RAG Fidelity", "PRINCIPAL (v1.4)")
-    persona_table.add_row("🎭 UX Designer", "A2UI Handshake & GenUI Flow", "MASTER (v1.3)")
+    persona_table.add_row("🛡️ Security Pillar", "Zero-Trust & Sovereignty", "MASTER")
+    persona_table.add_row("🛡️ Reliability Pillar", "Resiliency & Performance", "PRINCIPAL")
+    persona_table.add_row("🏗️ Strategy Pillar", "Paradigm & FinOps", "DISTINGUISHED")
     
     console.print(persona_table)
 
@@ -899,7 +927,9 @@ def mcp_server():
     asyncio.run(mcp_mod.main())
 
 # --- REGISTRATION ---
+app.add_typer(cockpit_app, name="cockpit")
 app.add_typer(audit_app, name="audit")
+app.add_typer(audit_app, name="report", hidden=True) # Legacy aliasing
 app.add_typer(fleet_app, name="fleet")
 app.add_typer(deploy_app, name="deploy")
 app.add_typer(fix_app, name="fix")
@@ -907,7 +937,7 @@ app.add_typer(test_app, name="test")
 app.add_typer(sys_app, name="sys")
 app.add_typer(ops_app, name="ops")
 app.add_typer(create_app, name="create")
-app.add_typer(create_app, name="init", hidden=False) # Alias for init hurdle
+app.add_typer(create_app, name="init", hidden=True)
 @app.command(name="models")
 def top_level_models():
     """Alias for 'sys models' - List accessible Gemini models."""

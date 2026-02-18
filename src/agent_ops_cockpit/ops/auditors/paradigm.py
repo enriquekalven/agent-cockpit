@@ -29,25 +29,24 @@ class ParadigmAuditor(BaseAuditor):
         
         # 1. Collaboration Paradigm: Monolithic Fatigue
         if len(content.splitlines()) > 500 and content_lower.count('def ') > 15:
-            findings.append(AuditFinding(
-                category="🚀 Strategic Paradigm",
-                title="Monolithic Fatigue Detected",
-                description="""Detected a single-file agent holding 15+ functions/tools and exceeding 500 lines.
-[bold blue]Strategic Perspective:[/bold blue] Large monolithic agents suffer from reasoning saturation and decreased precision.
-[bold green]RECOMMENDATION:[/bold green] Pivot to a **Multi-Agent Swarm (A2A)** or partitioned specialist agents to improve focus.""",
-                impact="MEDIUM (Agility & Precision)",
-                roi="Reduces context pollution and enables parallel scaling.",
-                file_path=file_path
-            ))
+                findings.append(AuditFinding(
+                    category="🏗️ Strategy",
+                    title="Monolithic Fatigue Detected",
+                    description="""Detected a single-file agent holding 15+ functions/tools and exceeding 500 lines.
+[bold blue]Strategy:[/bold blue] Large monolithic agents suffer from reasoning saturation.
+[bold green]RECOMMENDATION:[/bold green] Partition into specialist agents to improve focus.""",
+                    impact="MEDIUM",
+                    roi="Reduces context pollution and enables parallel scaling.",
+                    file_path=file_path
+                ))
 
         # 2. Infrastructure Paradigm: Legacy Shadowing
         if 'requests' in imports and ('tool' in content_lower or 'mcp' in content_lower):
             findings.append(AuditFinding(
-                category="🚀 Strategic Paradigm",
+                category="🏗️ Strategy",
                 title="Legacy Shadowing: HTTP instead of MCP",
                 description="""Detected manual `requests` calls inside an agentic context.
-[bold blue]Strategic Move:[/bold blue] Migrating to **Model Context Protocol (MCP)** enables tool reuse and better security.
-[bold green]RECOMMENDATION:[/bold green] Pivot to `mcp-server` architecture for external integrations.""",
+[bold green]RECOMMENDATION:[/bold green] Migrate to **Model Context Protocol (MCP)** for standardized tool reuse.""",
                 impact="LOW",
                 roi="Enables swarm interoperability and standardized tool-use.",
                 file_path=file_path
@@ -245,7 +244,7 @@ class ParadigmAuditor(BaseAuditor):
            not any(kw in content_lower for kw in ['plan', 'step_by_step', 'react', 'thought']):
             if content_lower.count(' -> ') > 3 or content_lower.count('then ') > 3:
                 findings.append(AuditFinding(
-                    category="🚀 Strategic Paradigm",
+                    category="🏗️ Strategy",
                     title="Path Rigidness: Sequential Blindness",
                     description="""Detected complex goal intent being handled by a rigid, non-planning execution path.
 [bold red]Strategic Risk:[/bold red] Linear paths fail when edge cases or tool errors occur mid-flight.
@@ -260,7 +259,7 @@ class ParadigmAuditor(BaseAuditor):
              if not any(kw in content_lower for kw in ['conditional', 'if confidence', 'decide']) and \
                 'typer' not in content_lower and 'click' not in content_lower:
                  findings.append(AuditFinding(
-                    category="🚀 Strategic Paradigm",
+                    category="🏗️ Strategy",
                     title="Passive Retrieval: Context Drowning",
                     description="""Detected retrieval execution on every turn without conditional logic.
 [bold yellow]FinOps Waste:[/bold yellow] Fetching documents when the model already 'knows' the answer burns context and cost.

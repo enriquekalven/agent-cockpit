@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v2.0.2 (2026-02-17) - The "Pillar Evolution" Release
+- **🛡️ Core Pillar Consolidation**: Simplified governance by grouping all auditors into three strategic pillars: Security, Reliability, and Strategy.
+- **✨ Premium HTML Reporting**: Introduced a sleek, high-fidelity reporting engine with standard engineering metrics and minimized theatricality.
+- **🏗️ Cockpit Bootstrap**: Added a dedicated `bootstrap` command for project initialization and sovereign library adoption.
+- **🕹️ Command Ergonomics**: Launched the unified `cockpit` binary as the primary entry point for all operations.
+
 ### v2.0.0 (2026-02-17) - The "Industry Scale" Release
 - **🌍 Sovereign Cloud Bridge**: Multi-cloud abstraction layer that decouples agents from direct provider SDKs (AWS Bedrock, GCP Vertex, Azure Foundry).
 - **🕹️ Universal Remediator**: Autonomous v2.0 engine that auto-heals "Monocultural Bias" and "Manifest Drift".
@@ -9,6 +15,8 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **⚔️ Simulation Auditor**: Adversarial hypothesis testing on prompts to detect "Semantic Permissiveness" and logic overrides.
 - **🏗️ Dogfood Fleet Hardening**: Validated across 13 industry repositories from Google, OpenAI, Anthropic, MSFT, and AWS.
 - **🛡️ Industry Debt Remediation**: codified fixes for ~70% of identified monocultural hardcoding in public samples.
+- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., "RAG for Math") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
+- **🛠️ Sys Upgrade**: Added `cockpit sys upgrade` command for frictionless updates.
 
 ### v1.9.0 (2026-02-16) - The "Hill Climbing" Release
 - **🧗 Hill Climbing Evolution**: Implementation of the autonomous self-improvement loop (`scripts/hill_climber.py`). The Cockpit now iterates over multiple agent repos to identify and absorb new architectural patterns.
@@ -23,40 +31,6 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **📊 Real-time Dashboard Aggregation**: Orchestrator now automatically triggers local telemetry updates after every audit report.
 - **🛡️ Secure Anonymous Ingestion**: Implemented Supabase RLS policies for anonymous write-only telemetry collection.
 
-### v2.0.0 (2026-02-14) - The "Master Architect" Release
-- **🧠 Semantic Paradigm Auditor**: New reasoning logic to detect architectural mismatches (e.g., \"RAG for Math\") and suggest high-fidelity patterns (NL2SQL/Code Interpreters).
-- **🕸️ Multi-Protocol UX Governance**: Evolved Face Auditor supporting A2UI, AGUI (Agentic Graph), and MCP Apps UI standards.
-- **🕸️ Cross-Silo Correlation**: Fleet-wide analysis to detect combined risks (e.g., Security Gaps + Interaction Voids) across multiple independent agents.
-- **📊 Fleet Dashboard v2**: Implementation of the "Weakest Link" drill-down and interactive Maturity Radar Charts for tactical situational awareness.
-- **📄 Individual Report Evolution**:
-    - **Triage Grouping**: Findings grouped by Blockers, Warnings, and Optimizations.
-    - **Delta View**: Visual progress tracking showing score changes from previous audits.
-    - **Visual Code Diffs**: Markdown diff blocks for recommended `apply-fixes`.
-    - **Interactive Evidence**: Drill-down modals and summary tags for raw logs and traces.
-- **🛠️ Sys Upgrade**: New `agentops-cockpit sys upgrade` command for frictionless updates.
-- **🚀 Zero2Hero Workflow**: Formalized the release-to-deployment pipeline with automated intelligence syncing.
-- **Mission Integration**: Codified the project mission: *"To become the Industry Standard Logic Layer for production AI agents."*
-
-### ⚙️ Stability & Reliability (Sovereign Parity)
-- **Sovereign Parity Verification**: Added mandatory version and toolchain checks (`uv`, `make`, `agentops-cockpit`) to the release lifecycle.
-- **Dashboard Resiliency**: Fixed critical bugs where the **Fleet Dashboard** failed to update during "intelligent skip" paths or empty workspace scans.
-- **CLI Return Integrity**: Standardized exit codes for `workspace_audit` to ensure enterprise CI/CD pipelines correctly identify completion status.
-- **Ruff Re-formatting**: Executed a global linting sweep to remove unused imports and align with v2.0.0-stable standards.
-- **Unified Versioning**: Executed a global "Structural Wisdom" sweep to synchronize all version markers to v2.0.0 across 95+ files.
-
-### 🧠 Strategic Architectural Paradigm Auditor
-- **New SME: Principal Semantic Architect**: Launched the `ParadigmAuditor` to identify high-level design mismatches.
-- **Pattern: Structured Data Math via Prompt**: Automatically detects when an agent tries to perform arithmetic over raw CSV/JSON text. Recommends **NL2SQL** or **Code Interpreter**.
-- **Pattern: Manual State Machines**: Detects recursive LLM calls inside standard loops. Recommends **LangGraph** for reliable multi-turn logic.
-- **Pattern: Low-Fidelity RAG**: Detects "Context Stuffing" of unstructured files. Recommends **Vector DB** for scalable retrieval.
-- **"Structural Wisdom" Feedback**: Enhanced the `ArchReviewer` to provide "Don't use X, use Y" feedback, reducing mental friction for developers.
-
-### 🛡️ Full-Stack Security & Auto-Remediation
-- **Expanded Infra Scanning**: The `InfraAuditor` now scans `docker-compose.yml` (Privileged containers) and Terraform `.tf` files (Public Ingress/0.0.0.0 rules).
-- **Auto-Generate MCP Wrappers**: Added `agentops-cockpit rag blueprint` to autonomously generate a working `mcp_server.py` shell from legacy tool code.
-- **RAG CLI Refactor**: Fixed a critical bug in the `rag` hub where extra arguments caused CLI failures. Standardized on `agentops-cockpit rag audit`.
-- **Cloud-Aware Secret Manager Advice**: The `SecretScanner` now detects if you are on AWS or GCP and tailors its "Actionable Recommendation" (e.g., suggesting *AWS Secrets Manager* for AWS projects).
-
 ### 🏗️ Infrastructure Sovereignty & Cloud Context
 - **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).
 - **Cloud Context Autodetection**: The `DiscoveryEngine` now automatically identifies if you are running on **AWS**, **GCP**, or **Azure**.
@@ -65,123 +39,68 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Framework Modernization**: Proactively detects synchronous framework bottlenecks and suggests FastAPI for high-concurrency agent tool-use.
 
 
-## [1.6.8] - 2026-02-13
+### v1.6.8 (2026-02-13) - The "Landing Page" Release
+- **🍱 Landing Page & Persona Expansion**: Refreshed the homepage with v2.0.0+ Watchtower branding.
+- **Mission Control Expansion**: Added specialized personas: **Compliance Officer** and **SITL Pilot**.
 
-### 🍱 Landing Page & Persona Expansion
-- **Watchtower Standard UI**: Refreshed the homepage with v2.0.0+ Watchtower branding and hub-based command highlights.
-- **Mission Control Expansion**: Added 2 new specialized personas: **Compliance Officer** (Legal SME) and **SITL Pilot** (HITL Oversight).
-- **Scaffolding Hotfix**: Corrected `create trinity` output to reflect v2.0.0 architecture standards and new command hub names.
-- **Documentation Sync**: Fully updated the Master Guide, UVX Guide, and Audit Guide to reflect all 12 operational journeys.
+### v1.8.4 (2026-02-12)
+- **🛰️ Deep Functional Auditing**: Implemented mandatory CLI execution gates.
+- **🧠 Maturity Wisdom Store v2.0.0**: Synchronized the knowledge base with latest research signals.
+- **🧪 Test Suite Hardening**: Updated unit tests and defined optional dependencies.
+- **🛡️ Resiliency Patterns**: Injected `@retry` decorators into registration and deployment.
 
+### v1.6.4 (2026-02-12)
+- **🛡️ Stability & Resiliency Hardening**: Injected `@retry` into Gemini registrations.
+- **Documentation Overhaul**: Synchronized all technical guides with Watchtower standards.
 
-## [1.8.4] - 2026-02-12
+### v1.6.3 (2026-02-12)
+- **🏗️ Scaffolding & Trinity Restoration**: Restored `trinity` command name.
+- **Bootstrapping Alignment**: Synchronized `legacy_init` with `create_trinity`.
 
-### 🛰️ Deep Functional Auditing & Wisdom Store
-- **Functional Execution Gate**: Implemented a mandatory "Phase 2: Deep Functional CLI Audit" in the reliability engine. This move ensures that CLI command outputs (like `sys telemetry`) maintain schema integrity across updates.
-- **Maturity Wisdom Store v2.0.0**: Synchronized the principal knowledge base with latest ArXiv research signals, including new indicators for Recursive Self-Reflexion and Reasoning Loops.
-- **Hub Command Expansion**: Formally expanded the CLI across 9 logical hubs, introducing dedicated `rag` and `mcp` orchestration layers.
-- **Lab Agent Hardening**: Standardized the Cockpit Lab environment with resilient `@retry` patterns and strict typing for the "Broken Agent" tutorial.
+### v1.6.2 (2026-02-12)
+- **🐛 Legacy Alias Hardening**: Fixed `NameError` bugs in legacy aliases.
+- **Fleet Alias Fix**: Corrected `fleet-status` legacy command mapping.
 
-## [1.8.4] - 2026-02-12
+### v1.6.1 (2026-02-12)
+- **🛡️ CLI Argument Hardening**: Implemented `Annotated` for all Typer command signatures.
 
-### 🧪 Test Suite Hardening
-- **Dynamic Versioning**: Updated unit tests to use `Config.VERSION` dynamically, ensuring registry and anomaly detection tests are resilient to future version bumps.
-- **Dependency Optimization**: Explicitly defined `optional-dependencies` for `lint` and `eval` to streamline CI/CD workflows.
+### v1.6.0 (2026-02-12) - The "Watchtower Standard" Release
+- **Sovereign Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs.
+- **Sentinel Oversight**: Reasoning-based runtime anomaly detection.
+- **Context Architect**: Deep audit for token windows and context caching.
 
-## [1.6.4] - 2026-02-12
+### v1.5.0 (2026-02-11) - The "Autonomous SRE" Release
+- **Fleet Manager**: Stateful Day 2 registry for tracking deployed agents.
+- **FinOps: Mothballing**: Scale-to-zero capability for inactive fleets.
+- **Inner Loop Tunneling**: Local-to-cloud bridge for fast iteration.
 
-### 🛡️ Stability & Resiliency Hardening
-- **End-to-End Resiliency**: Injected `@retry` decorators into all Gemini Enterprise registration and Agent Engine deployment scripts to handle transient network/API failures.
-- **Documentation Overhaul**: Synchronized all technical guides (Audit, FinOps, SRE, Architecture) with the v1.6 "Watchtower" operational standards.
+### v1.4.7 (2026-02-11) - The "Fleet Sovereign" Release
+- **Sovereign Fleet Factory**: Unified orchestrator for auditing and deploying fleets.
+- **GKE Autopilot Native**: Integrated support for cluster-wide deployments.
 
-## [1.6.3] - 2026-02-12
+### v1.4.6 (2026-02-11)
+- **🛡️ Pre-flight Verification**: Identity and toolchain verification gate.
+- **Azure Container Apps**: Native support for Microsoft Azure deployments.
 
-### 🏗️ Scaffolding & Trinity Restoration
-- **Trinity Identity Restoration**: Restored the `trinity` command name in the `create` hub to maintain compatibility with foundation benchmarks.
-- **Bootstrapping Alignment**: Synchronized `legacy_init` with `create_trinity` to ensure a seamless "Builder Persona" experience.
+### v1.4.5 (2026-02-10)
+- **🌊 AWS Optimization**: Specialized Dockerfiles and SAM templates for AWS.
+- **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols.
 
-## [1.6.2] - 2026-02-12
+### v1.4.4 (2026-02-10)
+- **🚀 Enhanced Observability**: Exposed `--verbose` flag in the main report command.
+- **Improved Circuit Breakers**: Standardized audit step timeouts to 15 minutes.
 
-### 🐛 Legacy Alias Hardening
-- **NameError Resolution**: Fixed `NameError` bugs in legacy aliases by properly mapping internal calls to the new Sovereign Hub command structure.
-- **Fleet Alias Fix**: Corrected `fleet-status` legacy command to point to the new `fleet status` implementation.
+### v1.4.3 (2026-02-10)
+- **🚀 Audit Performance**: Implemented mandatory 15-minute timeout for all audit steps.
+- **Verbose Arch Review**: Added `--verbose` flag to Architecture Review.
 
-## [1.6.1] - 2026-02-12
+### v1.4.2 (2026-02-09)
+- **🚀 High-Fidelity Ignore (#cockpit-ignore)**: Surgical finding suppression across auditors.
+- **Viral Dogfooding Reboot**: Updated `DOGFOODING.md` with "Roast Your Agent" theme.
 
-### 🛡️ CLI Argument Hardening
-- **Annotated Type Implementation**: Implemented `Annotated` for all Typer command signatures to prevent `OptionInfo` leakage when commands are called as functions.
-- **Signature Integrity**: Ensured proper default value handling across all 40+ CLI commands to improve reliability in nested calls.
-
-## [1.6.0] - 2026-02-12
-
-### 🛡️ The "Watchtower Standard" Release
-- **Sovereign Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs (`audit`, `fleet`, `deploy`, `fix`, `test`, `sys`, `create`) for high-fidelity operations.
-- **Sentinel Oversight**: Reasoning-based runtime anomaly detection and proactive quarantine via `fleet anomaly`.
-- **Context Architect**: Deep audit for token windows and context caching efficiency (`audit context`).
-- **Persona-Based Simulation**: Stress-test agents against adversarial user personas (`test simulate`).
-- **Unified Command Parity**: Verified parity across `make`, CLI, and `uvx` execution layers.
-- **Professional Alias Bridge**: Non-breaking legacy aliases for all deprecated commands.
-
-## [1.5.0] - 2026-02-11
-
-### 🛰️ The "Autonomous SRE" Release
-- **Fleet Manager**: Stateful Day 2 registry for tracking deployed agent health, endpoints, and versions across multi-cloud environments.
-- **FinOps: Mothballing**: Scale-to-zero capability for inactive fleets to minimize cloud spend (`mothball`, `resume`).
-- **Inner Loop Tunneling**: Local-to-cloud bridge allowing Gemini Enterprise to interact with agents running on `localhost` for faster iteration (`tunnel`).
-- **Watchtower (Agent Anomaly Detection)**: Reasoning-based runtime oversight layer for identifying behavioral anomalies and suspicious intent.
-- **Proactive Enforcement**: Integrated "Response Framework" for auto-mothballing rogue agents detected during runtime audits.
-- **Zero-Trust Hydration**: Upgraded deployment asset generation to enforce security best practices (non-root users, security contexts).
-- **Fleet-Wide Status**: New `fleet-status` command for a unified dashboard of the entire agentic ecosystem.
-
-## [1.4.7] - 2026-02-11
-
-### 🚀 The "Fleet Sovereign" Release
-- **Sovereign Fleet Factory**: Unified orchestrator for auditing, hardening, hydrating, and deploying fleets in a single command (`sovereign`).
-- **GKE Autopilot Native**: Integrated support for cluster-wide deployments with automated manifest generation.
-- **Cross-Cloud A2A Bridge**: Seamlessly register AWS and Azure agents as native Vertex AI tools via the Agent Engine.
-- **TDD Generation**: High-fidelity Technical Design Document generation (HTML) documenting the reasoning and infrastructure of the fleet.
-
-## [1.4.6] - 2026-02-11
-
-### 🛡️ Pre-flight Verification & Azure Support
-- **Phase 0: Pre-flight Handshake**: Identity and toolchain verification gate that ensures IAM principals and CLIs are active before operations.
-- **Azure Container Apps**: Native support for Microsoft Azure deployments with ARM template generation.
-- **Multi-Cloud Simulation**: Battle-testing framework for validating deployment assets across three clouds simultaneously.
-
-## [1.4.5] - 2026-02-10
-
-### 🌊 AWS Optimization & Sovereign Alignment
-- **AWS App Runner Optimization**: Specialized Dockerfiles and SAM templates for AWS serverless agent deployments.
-- **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols for non-Google environments.
-- **Reliability Suite (v1.4.5)**: Extended regression tests for cross-cloud deployment assets.
-
-## [1.4.7] - 2026-02-10
-
-### 🚀 Enhanced Observability & CLI UX
-- **Global Verbose Mode**: Exposed the `--verbose` flag in the main `report` command, allowing developers to debug performance across all audit steps simultaneously.
-- **Improved Circuit Breakers**: Standardized audit step timeouts to 15 minutes to allow for large-scale analysis without hanging.
-
-## [1.4.3] - 2026-02-10
-
-### 🚀 Audit Performance & Ecosystem Observability
-- **Audit Circuit Breaker**: Implemented a mandatory 15-minute (900s) timeout for all audit steps in `orchestrator.py` to prevent hanging on large repositories or infinite loops.
-- **Verbose Arch Review**: Added `--verbose` flag to the Architecture Review auditor to enable real-time file-by-file performance tracking.
-- **Ecosystem Synergy**: Integrated **Agent Starter Pack** recommendations for Google Cloud and ADK agents to enforce best-in-class tracing and observability.
-- **Stability Core**: Verified 162/162 tests passed, including new performance guard regressions.
-
-## [1.4.2] - 2026-02-09
-
-### 🚀 High-Fidelity Ignore & Viral Reboot
-- **High-Fidelity Ignore (#cockpit-ignore)**: Integrated surgical finding suppression across all SME auditors. Supports per-finding slug matching (`# cockpit-ignore: issue-slug`) and whole-file ignores (`# cockpit-ignore: all`).
-- **Viral Dogfooding Reboot**: Updated `DOGFOODING.md` with a high-energy "Roast Your Agent" theme and gamified review steps.
-- **Auditor Hardening**: Integrated `# cockpit-ignore` into Security, FinOps, Compliance, RAG Fidelity, and Deep Graph auditors.
-- **Stability Core**: Verified 160/160 tests passed, ensuring 100% regression safety for existing capabilities.
-
-## [1.4.7] - 2026-02-09
-
-### 🚀 The Deep Intelligence Release: Ecosystem & Brand Safety
-- **Maturity Wisdom Store (v1.4)**: Ingested comprehensive architectural patterns from AWS, Google Cloud, Azure, OpenAI, Anthropic, LangGraph, and CrewAI for "Choice-Based" recommendations.
-- **Brand Safety Playbook Integration**: Hardened Red Team Auditor with adversarial checks for Payload Splitting, Tone of Voice Mismatch, and Domain-Specific Sensitive topics (Finance/Legal).
+### v1.4.1 (2026-02-09) - The "Deep Intelligence" Release
+- **Maturity Wisdom Store (v1.4)**: Ingested architectural patterns from 7 major providers.
+- **Brand Safety Playbook**: Hardened Red Team Auditor with adversarial checks.
 - **RAG Truth-Sayer SME**: New dedicated auditor for retrieval-reasoning fidelity, grounding logic, and temperature drift.
 - **PR Scorecard GitHub Action**: Automated maturity scorecard template for pull requests to increase developer visibility and trust.
 - **Interactive Remediation Workbench**: TUI-based review loop for approving/rejecting autonomous code patches before application.

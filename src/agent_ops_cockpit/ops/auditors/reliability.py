@@ -25,7 +25,7 @@ class ReliabilityAuditor(BaseAuditor):
                 if len(await_nodes) > 2:
                     title = 'Sequential Bottleneck Detected'
                     if not self._is_ignored(node.lineno, content, title):
-                        findings.append(AuditFinding(category='🧗 Reliability & Perf', title=title, description="Multiple sequential 'await' calls identified. This increases total latency linearly.", impact='MEDIUM', roi='Reduces latency by up to 50% using asyncio.gather().', line_number=node.lineno, file_path=file_path))
+                        findings.append(AuditFinding(category='🛡️ Reliability', title=title, description="Multiple sequential 'await' calls identified. This increases total latency linearly.", impact='MEDIUM', roi='Reduces latency by up to 50% using asyncio.gather().', line_number=node.lineno, file_path=file_path))
             
             if isinstance(node, ast.Call):
                 func_name = ''

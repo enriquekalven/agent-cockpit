@@ -14,33 +14,31 @@ from rich.markdown import Markdown
 from agent_ops_cockpit.ops.frameworks import detect_framework, FRAMEWORKS, NIST_AI_RMF_CHECKLIST
 from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
 from agent_ops_cockpit.ops.auditors.reliability import ReliabilityAuditor
-from agent_ops_cockpit.ops.auditors.reasoning import ReasoningAuditor
-from agent_ops_cockpit.ops.auditors.graph import DeepGraphAuditor
-from agent_ops_cockpit.ops.auditors.dependency import DependencyAuditor
-from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
-from agent_ops_cockpit.ops.auditors.compliance import ComplianceAuditor
-from agent_ops_cockpit.ops.auditors.behavioral import BehavioralAuditor
-from agent_ops_cockpit.ops.auditors.sovereignty import SovereigntyAuditor
-from agent_ops_cockpit.ops.auditors.sme_v12 import HITLAuditor
-from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor, InteropAuditor
-from agent_ops_cockpit.ops.auditors.pivot import PivotAuditor
-from agent_ops_cockpit.ops.auditors.maturity import MaturityAuditor
-from agent_ops_cockpit.ops.auditors.infra import InfraAuditor
 from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
 from agent_ops_cockpit.ops.auditors.manifest import ManifestAuditor
-from agent_ops_cockpit.ops.auditors.simulation import SimulationAuditor
+from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor
+from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
-app = typer.Typer(help='Agent Architecture Reviewer v1.8.4: Enterprise Architect (Paradigm & Structural Wisdom)')
+app = typer.Typer(help='Cockpit Project Auditor: Standards & Performance Essentials')
 console = Console()
 
 def run_scan(path: str, verbose: bool = False, context: dict = None):
-    """Helper to run AST scan and return all findings."""
+    """Refined Audit: Scans code for Security, Reliability, and Strategic Strategy gaps."""
     import time
     start_time = time.time()
-    auditors = [SecurityAuditor(), ReliabilityAuditor(), ReasoningAuditor(), DeepGraphAuditor(), DependencyAuditor(), FinOpsAuditor(), ComplianceAuditor(), BehavioralAuditor(), SovereigntyAuditor(), HITLAuditor(), InteropAuditor(), SREAuditor(), PivotAuditor(), MaturityAuditor(), InfraAuditor(), ParadigmAuditor(), ManifestAuditor(), SimulationAuditor()]
+    
+    # Consolidated Pillars for reduced cognitive load
+    auditors = [
+        SecurityAuditor(), 
+        ReliabilityAuditor(), 
+        ParadigmAuditor(),
+        ManifestAuditor(),
+        SREAuditor(),
+        FinOpsAuditor()
+    ]
     all_findings = []
     file_count = 0
     discovery = DiscoveryEngine(path)
@@ -77,9 +75,9 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
 @app.command()
 def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', help='Skip saving patches')):
     """
-    Phase 4: The 'Closer'. Automatically apply remediations for detected architectural gaps. (v1.8.4 Plan-then-Execute)
+    Apply remediations for detected architectural standards gaps.
     """
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: AUTO-REMEDIATION ENGINE (v1.8.4)[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🚀 [bold blue]COCKPIT: AUTOMATED FIX ENGINE[/bold blue]', border_style='blue'))
     findings = run_scan(path)
     if not findings:
         console.print('✅ [bold green]No remediable issues found. Architecture is hardened.[/bold green]')
@@ -109,11 +107,11 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
             elif 'Caching' in f.title:
                 remediator.apply_caching(f)
                 applied_count += 1
-                console.print(f'   🛠️ Planned: [green]Context Cache Activation[/green] ({f.title})')
+                console.print(f'   🛠️ Planned: [green]Performance Caching[/green] ({f.title})')
             elif 'Hardening' in f.title:
                 remediator.apply_tool_hardening(f)
                 applied_count += 1
-                console.print(f'   🛠️ Planned: [green]Poka-Yoke Tool Hardening[/green] ({f.title})')
+                console.print(f'   🛠️ Planned: [green]Schema Validation[/green] ({f.title})')
             elif 'Compaction' in f.title:
                 remediator.apply_context_compaction(f)
                 applied_count += 1
@@ -121,7 +119,7 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
             elif 'Reflection' in f.title:
                 remediator.apply_sovereign_reflection(f)
                 applied_count += 1
-                console.print(f'   🛠️ Planned: [green]Sovereign Reflection Loop[/green] ({f.title})')
+                console.print(f'   🛠️ Planned: [green]Reasoning Reflection Loop[/green] ({f.title})')
             elif 'Over-Privilege' in f.title or 'HITL Gate' in f.title:
                 remediator.apply_mcp_gating(f)
                 applied_count += 1
@@ -129,7 +127,7 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
             elif 'Monocultural' in f.title or 'Provider Bias' in f.title:
                 remediator.apply_cloud_abstraction(f)
                 applied_count += 1
-                console.print(f'   🛠️ Planned: [green]Sovereign Cloud Bridge[/green] ({f.title})')
+                console.print(f'   🛠️ Planned: [green]Cloud Provider Abstraction[/green] ({f.title})')
             elif 'Legacy Intelligence' in f.title or 'SDK Latency' in f.title:
                 remediator.apply_manifest_drift_fix(f)
                 applied_count += 1
@@ -150,9 +148,9 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
 @app.command()
 def propose_fixes(path: str='.'):
     """
-    Phase 5: The 'Ambassador'. Remediate on a new branch and prepare a GitHub PR.
+    Remediate on a new branch and prepare a GitHub PR.
     """
-    console.print(Panel.fit('🌿 [bold green]AGENTOPS COCKPIT: AUTONOMOUS PR FACTORY (v1.1)[/bold green]', border_style='green'))
+    console.print(Panel.fit('🌿 [bold green]COCKPIT: AUTOMATED PR GENERATOR[/bold green]', border_style='green'))
     findings = run_scan(path)
     if not findings:
         console.print('✅ [bold green]Architecture is already optimal. No PR needed.[/bold green]')
@@ -269,24 +267,91 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
             impact_report.append(f'- **{f.title}**: {f.description} (Impact: {f.impact})')
     latency_impact = sum((1 for f in all_findings if 'latency' in f.description.lower())) * 200
     cost_risk = 'HIGH' if any((f.category == '💰 FinOps' and 'pro' in f.description.lower() for f in all_findings)) else 'LOW'
-    sovereignty_score = 100 - sum((1 for f in all_findings if f.category == '🌍 Sovereignty')) * 10
-    sovereignty_score = max(0, sovereignty_score)
-    mermaid_diag = 'graph TD\n    User[User Input] -->|Unsanitized| Brain[Agent Brain]\n    Brain -->|Tool Call| Tools[MCP Tools]\n    Tools -->|Query| DB[(Audit Lake)]\n    Brain -->|Reasoning| Trace(Trace Logs)\n    '
-    adr_md = f"\n# 🏛️ Architecture Decision Record (ADR) v1.3\n**Status**: AUTONOMOUS_REVIEW_COMPLETED\n**Score**: {score:.0f}/100\n\n## 🌊 Impact Waterfall (v1.3)\n- **Reasoning Delay**: {latency_impact}ms added to chain (Critical Path).\n- **Risk Reduction**: {len(all_findings) * 4}% reduction in Potential Failure Points (PFPs) via audit logic.\n- **Sovereignty Delta**: {sovereignty_score}/100 - ({('🚨 EXIT_PLAN_REQUIRED' if sovereignty_score < 90 else '✅ EXIT_READY')}).\n\n## 🛠️ Summary of Findings\n{(chr(10).join(impact_report) if impact_report else 'No critical architectural gaps detected.')}\n\n## 📊 Business Impact Analysis\n- **Projected Inference TCO**: {cost_risk} (Based on 1M token utilization curve).\n- **Compliance Alignment**: {('🚨 NON-COMPLIANT' if any((f.category == '⚖️ Compliance' for f in all_findings)) else '✅ ALIGNED')} (Mapped to NIST AI RMF / HIPAA).\n\n## 🗺️ Contextual Graph (Architecture Visualization)\n```mermaid\n{mermaid_diag}\n```\n\n## 🚀 v1.3 Strategic Recommendations (Autonomous)\n1. **Context-Aware Patching**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory.\n2. **Digital Twin Load Test**: Run `make simulation-run` (Roadmap v1.3) to verify reasoning stability under high latency.\n3. **Multi-Cloud Exit Strategy**: Pivot hardcoded IDs to abstraction layers to resolve detected Vendor Lock-in.\n"
+    
+    adr_md = f"""
+# 📋 Project Integrity Audit Record
+**Status**: AUDIT_COMPLETED | **Score**: {score:.0f}/100
+
+## 🛠️ Summary of Findings
+{(chr(10).join(impact_report) if impact_report else 'No architectural gaps detected.')}
+
+## 🚀 Strategic Recommendations
+1. **Automated Fixing**: Run `cockpit audit --apply-fixes` to resolve identified patterns.
+2. **Cloud Portability**: Review provider-specific logic to ensure multi-cloud readiness.
+3. **Logic Hardening**: Implement reflection and validation hooks for high-stakes tools.
+"""
     console.print()
-    console.print(Panel(Markdown(adr_md), title='📐 v1.3 AUTONOMOUS ARCHITECT ADR', border_style='cyan'))
+    console.print(Panel(Markdown(adr_md), title='📐 COCKPIT AUDIT RECORD', border_style='cyan'))
+    
     if export:
         output_root = os.path.join(os.getcwd(), '.cockpit')
         if not os.path.exists(output_root):
             os.makedirs(output_root, exist_ok=True)
-        report_path_v13 = os.path.join(output_root, 'arch_review_v1.3.html')
-        report_path_v11 = os.path.join(output_root, 'arch_review_v1.1.html')
-        html_report = f"""\n        <!DOCTYPE html>\n        <html>\n        <head>\n            <title>Autonomous Architect Review v1.3</title>\n            <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>\n            <style>\n                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap');\n                body {{ font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; line-height: 1.6; padding: 40px; }}\n                .container {{ max-width: 1100px; margin: 0 auto; background: #1e293b; padding: 60px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid #334155; }}\n                h1 {{ font-weight: 800; font-size: 2.5rem; letter-spacing: -0.05em; margin-bottom: 8px; color: #38bdf8; }}\n                .score {{ font-size: 5rem; font-weight: 800; color: {('#10b981' if score > 80 else '#ef4444')}; margin: 20px 0; }}\n                .badge {{ display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: #0ea5e9; color: white; }}\n                h2 {{ border-bottom: 2px solid #334155; padding-bottom: 12px; margin-top: 40px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 0.05em; color: #94a3b8; }}\n                .metric-grid {{ display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin: 30px 0; }}\n                .metric-card {{ background: #0f172a; padding: 24px; border-radius: 16px; text-align: center; border: 1px solid #334155; }}\n                .metric-val {{ display: block; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; color: #f1f5f9; }}\n                .metric-label {{ font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; }}\n                .waterfall {{ background: #0f172a; padding: 30px; border-radius: 20px; margin: 20px 0; border: 2px dashed #334155; }}\n                .waterfall-item {{ display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #334155; }}\n                .waterfall-val {{ font-weight: 800; color: #38bdf8; }}\n                table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}\n                th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #334155; }}\n                th {{ font-size: 0.75rem; color: #64748b; text-transform: uppercase; }}\n                .mermaid {{ background: #0f172a; padding: 20px; border-radius: 16px; border: 1px solid #334155; }}\n                .finding {{ border-left: 4px solid #ef4444; background: #450a0a; padding: 20px; border-radius: 0 12px 12px 0; margin-bottom: 16px; }}\n                .finding h4 {{ margin: 0 0 8px 0; color: #fca5a5; }}\n            </style>\n        </head>\n        <body>\n            <div class="container">\n                <span class="badge">Autonomous Architect Grade v1.3</span>\n                <h1>🏛️ Enterprise Architecture Audit</h1>\n                <p style="color: #94a3b8;">Strategic Consensus: <strong>{framework_name}</strong> Standardized Swarm</p>\n                \n                <div class="score">{score:.0f}/100</div>\n                <div class="metric-label">Autonomous evolution score</div>\n\n                <div class="waterfall">\n                    <h3>🌊 v1.3 Impact Waterfall</h3>\n                    <div class="waterfall-item"><span>Reasoning Latency Debt</span><span class="waterfall-val">+{latency_impact}ms</span></div>\n                    <div class="waterfall-item"><span>Digital Twin Risk Coverage</span><span class="waterfall-val">84%</span></div>\n                    <div class="waterfall-item"><span>Strategic Exit Readiness</span><span class="waterfall-val">{sovereignty_score}%</span></div>\n                    <div class="waterfall-item"><span>Inter-Agent Pass-through Tax</span><span class="waterfall-val">12%</span></div>\n                </div>\n\n                <div class="metric-grid">\n                    <div class="metric-card">\n                        <span class="metric-val">{sovereignty_score}/100</span>\n                        <span class="metric-label">Sovereignty</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">88%</span>\n                        <span class="metric-label">Reliability</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{('🚨 RISK' if any((f.category == '🛡️ HITL Guardrail' for f in all_findings)) else '✅ PASS')}</span>\n                        <span class="metric-label">HITL Gating</span>\n                    </div>\n                    <div class="metric-card">\n                        <span class="metric-val">{cost_risk}</span>\n                        <span class="metric-label">FinOps Risk</span>\n                    </div>\n                </div>\n\n                <h2>🗺️ Autonomous Architecture Context</h2>\n                <div class="mermaid">\n                    {mermaid_diag}\n                </div>\n\n                <h2>🚩 Strategic Compliance Gaps</h2>\n                {''.join([f'<div class="finding"><h4>{f.title}</h4><p>{f.description}</p><small>ROI: {f.roi}</small></div>' for f in all_findings])}\n\n                <h2>🚀 v1.3 Roadmap: The Next 90 Days</h2>\n                <ol>\n                    <li><strong>LLM-Synthesized PRs:</strong> Pivot <code>make apply-fixes</code> from templates to context-aware synthesis.</li>\n                    <li><strong>Digital Twin Simulations:</strong> Implement <code>make simulation-run</code> to stress-test reasoning.</li>\n                    <li><strong>Vendor Exit Plan:</strong> Execute the {sovereignty_score < 100 and 'detected' or 'completed'} cloud-independent abstraction.</li>\n                </ol>\n\n                <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 20px; font-size: 0.8rem; color: #64748b; text-align: center;">\n                    Generated by AgentOps Cockpit v1.3. Autonomous Architect Division.\n                </div>\n            </div>\n            <script>mermaid.initialize({{startOnLoad:true, theme: 'dark'}});</script>\n        </body>\n        </html>\n        """
-        with open(report_path_v13, 'w') as f:
+        report_path = os.path.join(output_root, 'audit_report.html')
+        html_report = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Cockpit Audit Report</title>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+                body {{ font-family: 'Outfit', sans-serif; background: #fafafa; color: #1e293b; line-height: 1.6; padding: 40px; }}
+                .container {{ max-width: 900px; margin: 0 auto; background: white; padding: 50px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }}
+                h1 {{ font-weight: 800; font-size: 2rem; margin-bottom: 24px; color: #0f172a; }}
+                .score-header {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid #f1f5f9; }}
+                .score {{ font-size: 4rem; font-weight: 800; color: {('#10b981' if score > 80 else '#ef4444')}; }}
+                .badge {{ padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; background: #f1f5f9; color: #64748b; }}
+                .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }}
+                .card {{ background: #f8fafc; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; }}
+                .card-val {{ display: block; font-size: 1.25rem; font-weight: 800; color: #0f172a; }}
+                .card-label {{ font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; }}
+                .finding {{ border-left: 4px solid #ef4444; background: #fef2f2; padding: 20px; border-radius: 8px; margin-bottom: 16px; }}
+                .finding h4 {{ margin: 0 0 8px 0; color: #991b1b; }}
+                .finding p {{ margin: 0; font-size: 0.95rem; color: #7f1d1d; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="score-header">
+                    <div>
+                        <h1>📊 Project Integrity Audit</h1>
+                        <p style="color: #64748b; margin:0;">Analysis for {framework_name} Architecture</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <span class="score">{score:.0f}</span>
+                        <div class="card-label">Overall Health</div>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <span class="card-val">{latency_impact}ms</span>
+                        <span class="card-label">Potential Latency Debt</span>
+                    </div>
+                    <div class="card">
+                        <span class="card-val">{cost_risk}</span>
+                        <span class="card-label">Inference Cost Risk</span>
+                    </div>
+                </div>
+
+                <h2>🚩 Critical Findings</h2>
+                {''.join([f'<div class="finding"><h4>{f.title}</h4><p>{f.description}</p></div>' for f in all_findings]) if all_findings else '<p>No critical gaps found.</p>'}
+
+                <h2>🚀 Next Steps</h2>
+                <ul>
+                    <li>Run <code>cockpit audit --apply-fixes</code> to modernize the code.</li>
+                    <li>Verify agent reasoning loops in the Cockpit Workbench.</li>
+                </ul>
+
+                <div style="margin-top: 60px; border-top: 1px solid #f1f5f9; padding-top: 20px; font-size: 0.8rem; color: #94a3b8; text-align: center;">
+                    Generated by AgentOps Cockpit v2.0.2
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        with open(report_path, 'w') as f:
             f.write(html_report)
-        console.print(f'\n✨ [bold green]Autonomous Architect Report generated (v1.3): {report_path_v13}[/bold green]')
-        with open(report_path_v11, 'w') as f:
-            f.write(html_report)
-        console.print(f'\n✨ [bold green]Executive Architecture Report generated: {report_path_v11}[/bold green]')
+        console.print(f'\n✨ [bold green]Audit Report generated: {report_path}[/bold green]')
 if __name__ == '__main__':
     app()

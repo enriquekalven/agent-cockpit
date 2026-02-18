@@ -102,57 +102,60 @@ register-gemini-enterprise:
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
-	@PYTHONPATH=src uv run agentops-cockpit cockpit --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
+
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt sovereign libraries
+	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
-	@PYTHONPATH=src uv run agentops-cockpit certify --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run cockpit certify --path $(if $(P),$(P),.)
 
 mcp-blueprint: ## 🛰️ Modernize: Generate MCP Server Wrappers for Legacy Tools
-	@PYTHONPATH=src uv run agentops-cockpit mcp blueprint --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run cockpit mcp blueprint --path $(if $(P),$(P),.)
 
 create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
-	@PYTHONPATH=src uv run agentops-cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
+	@PYTHONPATH=src uv run cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
 
-audit-report: ## Launch Master Audit (Arch, Quality, Security, Cost)
-	@PYTHONPATH=src uv run agentops-cockpit audit report --path $(if $(P),$(P),.)
+audit-report: ## 🛡️ Master Audit: Deep scan across Security, Reliability, and Strategy Pillars
+	@PYTHONPATH=src uv run cockpit audit report --path $(if $(P),$(P),.)
 
 audit-deep: audit-report ## [Alias] Launch Master Audit (Full Benchmarks)
 
-audit-security: ## Run Red Team and Secret Scanning
-	@PYTHONPATH=src uv run agentops-cockpit audit security --path $(if $(P),$(P),.)
+audit-security: ## 🔐 Security Pillar: Run Red Team and Secret Scanning
+	@PYTHONPATH=src uv run cockpit audit security --path $(if $(P),$(P),.)
 
-audit-arch: ## Architecture Design Review
-	@PYTHONPATH=src uv run agentops-cockpit audit arch --path $(if $(P),$(P),.)
+audit-arch: ## 🏗️ Strategy Pillar: Architecture Design Review
+	@PYTHONPATH=src uv run cockpit audit arch --path $(if $(P),$(P),.)
 
 deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run agentops-cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
 fleet-status: ## Display stateful registry of deployed agents
-	@PYTHONPATH=src uv run agentops-cockpit fleet status
+	@PYTHONPATH=src uv run cockpit fleet status
 
 fleet-mothball: ## FinOps: Scale fleet to zero
-	@PYTHONPATH=src uv run agentops-cockpit fleet mothball --cloud $(CLOUD)
+	@PYTHONPATH=src uv run cockpit fleet mothball --cloud $(CLOUD)
 
 fleet-resume: ## FinOps: Resume mothballed fleet
-	@PYTHONPATH=src uv run agentops-cockpit fleet resume --cloud $(CLOUD)
+	@PYTHONPATH=src uv run cockpit fleet resume --cloud $(CLOUD)
 
 fleet-tunnel: ## Inner Loop: Local-to-Cloud Bridge
-	@PYTHONPATH=src uv run agentops-cockpit fleet tunnel --port $(if $(PORT),$(PORT),8080)
+	@PYTHONPATH=src uv run cockpit fleet tunnel --port $(if $(PORT),$(PORT),8080)
 
 fleet-watch: ## Track ecosystem updates
-	@PYTHONPATH=src uv run agentops-cockpit fleet watch
+	@PYTHONPATH=src uv run cockpit fleet watch
 
-fleet-anomaly: ## Trace behavior anomalies
-	@PYTHONPATH=src uv run agentops-cockpit fleet anomaly --name $(if $(NAME),$(NAME),my-agent) $(if $(ROGUE),--rogue,)
+fleet-anomaly: ## 🕵️ Behavior Audit: Trace reasoning anomalies
+	@PYTHONPATH=src uv run cockpit fleet anomaly --name $(if $(NAME),$(NAME),my-agent) $(if $(ROGUE),--rogue,)
 
 smoke-test: ## Run Trinity Smoke Tests (Hub-based validation)
 	@PYTHONPATH=src uv run python3 -m agent_ops_cockpit.ops.reliability audit --smoke
 
 test-regression: ## Run Full Regression Suite (Unit + Smoke)
-	@PYTHONPATH=src uv run agentops-cockpit test regression
+	@PYTHONPATH=src uv run cockpit test regression
 
 test-simulate: ## Run Persona-based User Simulation
-	@PYTHONPATH=src uv run agentops-cockpit test simulate
+	@PYTHONPATH=src uv run cockpit test simulate
 
 upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade

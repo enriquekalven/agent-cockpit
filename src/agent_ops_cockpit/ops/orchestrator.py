@@ -142,22 +142,40 @@ class CockpitOrchestrator:
             self.results[name] = {'success': False, 'output': str(e)}
             progress.update(task_id, description=f'[red]💥 {name} Error', completed=100)
             return (name, False)
-    PERSONA_MAP = {
-        'Architecture Review': '🏛️ Distinguished Platform Fellow',
-        'Policy Enforcement': '⚖️ Governance & Compliance Fellow',
-        'Secret Scanner': '🔐 SecOps Fellow',
-        'Token Optimization': '💰 FinOps Fellow',
-        'Reliability (Quick)': '🛡️ QA & Reliability Fellow',
-        'Quality Hill Climbing': '🧗 AI Quality Fellow',
-        'Red Team Security (Full)': '🚩 Red Team Fellow (White-Hat)',
-        'Red Team (Fast)': '🚩 Security Fellow',
-        'Load Test (Baseline)': '🚀 SRE & Performance Fellow',
-        'Evidence Packing Audit': '📜 Legal & Transparency Fellow',
-        'Face Auditor': '🎭 UX/UI Fellow',
-        'RAG Fidelity Audit': '🧗 RAG Quality Fellow'
+    PILLAR_MAP = {
+        'Architecture Review': '�️ Architectural Strategy',
+        'Policy Enforcement': '🏗️ Architectural Strategy',
+        'Secret Scanner': '🔐 Security & Sovereignty',
+        'Token Optimization': '🏗️ Architectural Strategy',
+        'Reliability (Quick)': '🛡️ Reliability & Performance',
+        'Quality Hill Climbing': '🛡️ Reliability & Performance',
+        'Red Team Security (Full)': '� Security & Sovereignty',
+        'Red Team (Fast)': '� Security & Sovereignty',
+        'Load Test (Baseline)': '�️ Reliability & Performance',
+        'Evidence Packing Audit': '🏗️ Architectural Strategy',
+        'Face Auditor': '�️ Architectural Strategy',
+        'RAG Fidelity Audit': '🛡️ Reliability & Performance'
     }
-    PRIMARY_RISK_MAP = {'Secret Scanner': 'Credential Leakage & Unauthorized Access', 'Architecture Review': 'Systemic Rigidity & Technical Debt', 'Policy Enforcement': 'Prompt Injection & Reg Breach', 'Token Optimization': 'FinOps Efficiency & Margin Erosion', 'Reliability (Quick)': 'Failure Under Stress & Latency spikes', 'Red Team (Fast)': 'Adversarial Jailbreaking', 'Face Auditor': 'A2UI Protocol Drift', 'RAG Fidelity Audit': 'Retrieval-Reasoning Hallucinations'}
-    EFFORT_MAP = {'Secret Scanner': '⚡ 1-Click (Env Var)', 'Token Optimization': '⚡ 1-Click (Caching)', 'Policy Enforcement': '🔧 Medium (Policies)', 'Reliability (Quick)': '🔧 Medium (Code)', 'Architecture Review': '🏗️ Hard (Structural)', 'Face Auditor': '🔧 Medium (A2UI)', 'Red Team (Fast)': '🏗️ Hard (Model/Prompt)', 'RAG Fidelity Audit': '🔧 Medium (Logic)'}
+    PRIMARY_RISK_MAP = {
+        'Secret Scanner': 'Credential Leakage',
+        'Architecture Review': 'Technical Debt & Structural Gaps',
+        'Policy Enforcement': 'Governance & Regulatory Breach',
+        'Token Optimization': 'FinOps & Inference Efficiency',
+        'Reliability (Quick)': 'System Instability',
+        'Red Team (Fast)': 'Security Vulnerabilities',
+        'Face Auditor': 'Interaction Protocol Drift',
+        'RAG Fidelity Audit': 'Semantic Hallucinations'
+    }
+    EFFORT_MAP = {
+        'Secret Scanner': '⚡ Automated Fix', 
+        'Token Optimization': '⚡ Automated Fix', 
+        'Policy Enforcement': '🔧 Configuration', 
+        'Reliability (Quick)': '🔧 Code Polish', 
+        'Architecture Review': '🏗️ Structural Logic', 
+        'Face Auditor': '🔧 Protocol Sync', 
+        'Red Team (Fast)': '🏗️ Security Hardening', 
+        'RAG Fidelity Audit': '🔧 Logic Refactoring'
+    }
 
     def generate_executive_summary(self, developer_actions, as_html=False):
         """v2.0.0 Master Architect Synthesis: Generates a prioritized stack-rank of finding categories."""
@@ -580,10 +598,10 @@ class CockpitOrchestrator:
             <div class="report-card">
                 <header>
                     <div>
-                        <h1>🧠 Master Architect Review</h1>
-                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Fleet Protocol Alignment: {getattr(self, 'title', 'Principal Build')}</p>
+                        <h1>📊 Cockpit Audit Report</h1>
+                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Project Integrity Analysis: {getattr(self, 'title', 'Build Report')}</p>
                         <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
-                            Architectural Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
+                            Audit Status: {('PASSED' if all((r['success'] for r in self.results.values())) else 'FAILED')}
                         </span>
                     </div>
                 </header>
@@ -597,26 +615,26 @@ class CockpitOrchestrator:
                 </div>
 
 
-                <h2>🛡️ SME Persona Consensus Matrix</h2>
+                <h2>🛡️ Core Performance Pillars</h2>
                 <table class="persona-table">
                     <thead>
                         <tr>
-                            <th>SME Persona</th>
+                            <th>Audit Pillar</th>
                             <th>Priority</th>
-                            <th>Strategic Risk</th>
-                            <th>Verdict</th>
+                            <th>Target Risk</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
         """
         for name, data in self.results.items():
-            persona = self.PERSONA_MAP.get(name, 'Automated Auditor')
-            risk = self.PRIMARY_RISK_MAP.get(name, 'Sovereignty Alignment')
-            status = 'APPROVED' if data['success'] else 'REJECTED'
+            pillar = self.PILLAR_MAP.get(name, 'General Auditor')
+            risk = self.PRIMARY_RISK_MAP.get(name, 'Structural Integrity')
+            status = 'PASSED' if data['success'] else 'FAILED'
             prio = 'P1' if any((x in name.lower() for x in ['secret', 'security', 'policy', 'red'])) else 'P2' if 'reliability' in name.lower() else 'P3'
             html_content += f"""
                 <tr>
-                    <td style="font-weight:700; color:#0f172a;">{persona}</td>
+                    <td style="font-weight:700; color:#0f172a;">{pillar}</td>
                     <td><span style="font-weight:bold; color:{('#ef4444' if prio == 'P1' else '#f59e0b')};">{prio}</span></td>
                     <td class="risk-text">{risk}</td>
                     <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>
@@ -643,8 +661,8 @@ class CockpitOrchestrator:
         html_content += """
                 </div>
                 <div class="footer">
-                    Generated by AgentOps Cockpit (v2.0.0 Master Architect). 
-                    <br>Ensuring sovereign-grade reliability for agentic ecosystems.
+                    Generated by AgentOps Cockpit v2.0.2. 
+                    <br>Ensuring high-fidelity reliability for agentic ecosystems.
                 </div>
             </div>
         </body>

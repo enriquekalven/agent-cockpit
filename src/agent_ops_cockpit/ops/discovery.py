@@ -1,7 +1,6 @@
 """
-Pillar: Fleet Discovery
-SME Persona: Distinguished Platform Fellow
-Objective: High-fidelity discovery of agentic 'Brains', respecting enterprise exclusion patterns and .gitignore.
+Pillar: Project Discovery
+Primary Objective: Explicit discovery of agentic 'Brains' via manifests (cockpit.yaml) and high-fidelity heuristics.
 """
 try:
     # ContextCacheConfig check (unused in discovery)
@@ -141,7 +140,8 @@ class DiscoveryEngine:
         v2.0: Supports Python, TypeScript, and Protocol-specific (MCP) roots.
         """
         discovered = []
-        indicators = ["agent.py", "pyproject.toml", "package.json", "mcp-config.json", "mcp-server.json", "semantic-kernel.json"]
+        # cockpit.yaml is the primary manifest for Manifest-First Discovery
+        indicators = ["cockpit.yaml", "agent.py", "pyproject.toml", "package.json", "mcp-config.json"]
         for root, dirs, files in os.walk(self.root_path):
             if self.should_ignore(root):
                 dirs[:] = []
@@ -178,9 +178,16 @@ class DiscoveryEngine:
 
     def detect_context(self) -> dict:
         """
-        v2.0 Discovery Upgrade: Detects Cloud Provider, Web Framework, and Protocol (MCP/A2UI).
+        Manifest-First Context Detection: Detects Cloud Provider, Web Framework, and Protocols.
+        Prioritizes cockpit.yaml over heuristic scanning.
         """
-        context = {'cloud': 'google', 'framework': 'fastapi', 'is_containerized': False, 'has_secrets_risk': False, 'protocol': None}
+        context = {
+            'cloud': self.config.get('cloud', 'google'), 
+            'framework': self.config.get('framework', 'fastapi'),
+            'is_containerized': False,
+            'has_secrets_risk': False,
+            'protocol': self.config.get('protocol', None)
+        }
         
         # Check for Dockerfile
         if os.path.exists(os.path.join(self.root_path, 'Dockerfile')):

@@ -57,6 +57,7 @@ eval = [
 "Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
 
 [project.scripts]
+cockpit = "agent_ops_cockpit.cli.main:app"
 agentops-cockpit = "agent_ops_cockpit.cli.main:app"
 ops = "agent_ops_cockpit.cli.main:app"
 aops = "agent_ops_cockpit.cli.main:app"

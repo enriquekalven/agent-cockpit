@@ -35,7 +35,7 @@ class SecurityAuditor(BaseAuditor):
             title = "Sovereignty Gap: Ungated Production Access"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ Security",
                     title=title,
                     description="""Detected sensitive infrastructure or financial operations without an explicit Human-in-the-Loop (HITL) gate.
 [bold red]Structural Risk:[/bold red] Autonomous agents must not have ungated write access to production assets.
@@ -50,7 +50,7 @@ class SecurityAuditor(BaseAuditor):
             title = "Insecure Output Handling: Execution Trap"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ Security",
                     title=title,
                     description="""Detected `eval()` or `exec()` on strings. 
 [bold red]Critical Vulnerability:[/bold red] If an agent generates code that is then executed via `eval`, it creates a RCE path.
@@ -69,7 +69,7 @@ class SecurityAuditor(BaseAuditor):
              title = "PII Osmosis: Implicit Leakage Risk"
              if not self._is_ignored(0, content, title):
                  findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ Security",
                     title=title,
                     description="""Detected CRM or customer data interaction without visible PII scrubbing or masking logic.
 [bold yellow]Compliance Risk:[/bold yellow] Sending raw customer data to shared LLM endpoints creates GDPR/SOC2 liability.
@@ -85,7 +85,7 @@ class SecurityAuditor(BaseAuditor):
                 title = "Credential Proximity: Shadow ENV Usage"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
-                        category="🛡️ Sovereign Security",
+                        category="🛡️ Security",
                         title=title,
                         description="""Detected use of local `.env` files for secrets in an agentic environment.
 [bold purple]Security Gap:[/bold purple] Local ENVs can be leaked into the agent's context if it gains file-read or environment access.
