@@ -1108,3 +1108,15 @@ body {
     padding: 1rem;
   }
 }
+.logo-svg-wrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-svg-wrapper svg {
+  width: 32px;
+  height: 32px;
+}

@@ -87,45 +87,49 @@ graph TD
 
 ---
 
-## 🏛️ v2.0.2: The "Sovereign Orchestrator" Release (LATEST)
+## 🏛️ v2.0.2: The "Sovereign Master Build" (LATEST)
 Evolving into the Industry Standard Logic Layer for production AI agents. See the [**v2.0.2 Release Notes**](/CHANGELOG.md).
-v2.0 introduces the **Sovereign Cloud Bridge**, shifting focus from tactical implementation to cross-provider architectural immunity.
+v2.0.2 introduces **Engineering Resilience** and **Structural Sovereignty**, shifting focus from tactical implementation to cross-provider architectural immunity.
 
-- **🏛️ Strategic Paradigm Auditor (`audit arch`)**: Detect high-level architectural mismatches. Are you using RAG for math? Prompt-stuffed structured data analysis? Manual state machines instead of dedicated frameworks?
-- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status`, watch ecosystem sync with `fleet watch`, and iterate with `fleet tunnel`.
-- **🛡️ Audit Hub (`audit`)**: Principal SME board. Run master reviews with `audit report`, security scans with `audit security`, and context/token visualization with `audit context`.
-- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-End pipelines via `deploy sovereign` and GCP/AWS/Azure migration via `deploy migrate`.
-- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue`, trigger the `fix evolve` "PR Closer", or use the `fix workbench` for interactive remediation.
-- **🏗️ Scaffolding Hub (`create`)**: Trinity Project initialization. Bootstrap unified projects via `create trinity` or UIs via `create face`.
-- **🧠 Knowledge Hub (`rag`)**: RAG Truth-Sayer. Audits RAG pipelines for grounding, and introduces **`rag blueprint`** for generating optimized indexing strategies.
-- **📡 Interop Hub (`mcp`)**: Tool Governance. Discover and integrate Model Context Protocol (MCP) tools via `mcp list/install`. Start the MCP bridge with `mcp-server launch`.
+- **🛡️ SafetyGate SDK**: The official Sovereign Safety SDK for PII scrubbing, HITL (Human-in-the-Loop) gating, and AST-aware Taint Tracking.
+- **🏗️ Structural Monolith Detection**: Automatically identifies oversized agent files (>200 lines) and scaffolds modular splits to maintain reasoning density.
+- **🧗 Resilience Cordon**: Added `--cordon` mode to bypass registry auth failures (401/403) and isolate audit environments.
+- **📦 Venv Isolation**: Automatic sidecar virtual environment provisioning for zero-dependency audit execution.
+- **💰 Opex Simulation**: Predictive token costing heuristics to forecast the monthly budget impact of reliability and security fixes.
+- **🏛️ Strategic Paradigm Auditor (`audit arch`)**: Detect high-level architectural mismatches. Are you using RAG for math? Prompt-stuffed structured data analysis?
+- **🛰️ Fleet Hub (`fleet`)**: Stateful registry and runtime oversight. Monitor health with `fleet status` and watch ecosystem sync with `fleet watch`.
+- **🛡️ Audit Hub (`audit`)**: Principal SME board. Run master reviews with `audit report` and project token deltas with **Opex Sim**.
+- **🚀 Deployment Hub (`deploy`)**: The multi-cloud factory. End-to-End pipelines via `deploy sovereign` for GCP/AWS/Azure.
+- **🔧 Evolution Hub (`fix`)**: Autonomous code synthesis. Apply targeted audit fixes with `fix issue` or trigger the `fix evolve` "PR Closer".
+- **🧠 Knowledge Hub (`rag`)**: RAG Truth-Sayer. Audits RAG pipelines for grounding and indexing loyalty.
+- **📡 Interop Hub (`mcp`)**: Tool Governance. Discover and integrate Model Context Protocol (MCP) tools via `mcp list/install`.
 
 ---
 
 ## 🚀 Key Innovation: The "Intelligence" Layer
 
-### 🛡️ Red Team Auditor (Adversarial SRE)
-Don't wait for your users to find prompt injections. Use the built-in [**Adversarial Evaluator**](docs/TECHNICAL_REDTEAM_GUIDE.md) to launch self-attacks against your agent, testing for PII leaks, instruction overrides, and multilingual jailbreaks.
+### 🛡️ SafetyGate & Taint Tracking
+Don't wait for your users to find prompt injections or PII leaks. Use the built-in [**SafetyGate SDK**](docs/TECHNICAL_AUDIT_GUIDE.md) and **AST Taint Tracking** to detect and block unsanitized user query flows before they hit sensitive tool sinks.
 
-### 🧠 Hive Mind (Semantic Caching)
-**Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
+### 💰 Opex Simulation (Economist Persona)
+**Project your TCO before you scale.** The Economist persona now simulates the token impact of your hardening measures (e.g., "Adding exponential backoff will increase token usage by 15% but save 100% of failed tasks").
 
-### 🏛️ Arch Review & Autonomous Evolution
-Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack and runs a tailored [**Architecture Review**](docs/TECHNICAL_ARCH_REVIEW.md). v2.0.2 introduces **Autonomous Evolution**—the ability to synthesize code fixes directly from audit findings.
+### 🏗️ Arch Review & Structural Monoliths
+Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit now detects "Structural Monoliths"—files that have grown too large for reliable reasoning—and provides the **Managed Router** scaffold to split them.
 
-### 🕹️ MCP Connectivity Hub (Model Context Protocol)
-Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to 1P/2P/3P tools via the standardized Model Context Protocol for secure, audited tool execution. Start the server with `make mcp-serve`.
+### 🕹️ Venv Isolation & Cordoning
+Stop fighting with local Python environments. The Cockpit provisions a managed **Audit Venv** sidecar and uses **Cordon Mode** to bypass corporate registry friction, ensuring your CI/CD gates are always green.
 
-### 🗄️ Situational Database Audits
-The Cockpit now performs platform-specific performance and security audits for **AlloyDB**, **Pinecone**, **BigQuery**, and **Cloud SQL**.
+### 🗄️ Multi-Cloud Sovereign Governance
+Unified security and architectural auditing for **Vertex AI (GCP)**, **Bedrock (AWS)**, and **OpenAI (Azure)**. Provision Bedrock Guardrails or Azure Entra IDs directly from audit recommendations.
 
 ---
 
 ### 🛡️ Advanced Governance & Industry Hardening (v2.0.2)
-Modern agents don't just live in `agent.py`. The Cockpit uses the **Universal Remediator v2.0** to intelligently map and heal your project:
-- **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
-- **Multi-Target Logic**: Define `targets: []` in `cockpit.yaml` to audit distributed agents in a single pass.
-- **Template Isolation**: Automatically ignores raw template placeholders (e.g., Jinja/Cookiecutter) to focus on the active implementation.
+Modern agents don't just live in `agent.py`. The Cockpit uses the **Universal Remediator v2.0.2** to intelligently map and heal your project:
+- **Safety SDK Library**: Automatically injects `SafetyGate` shims for enterprise-grade redaction.
+- **HITL Verification**: Scaffolds A2UI-compatible approval surfaces (`HitlSurface.tsx`) for high-stakes tool calls.
+- **Delta Reporting**: "Diff-Only" report modes to reduce context noise in large fleet audits.
 - **Artifact Store**: All data (SARIF, Evidence, HTML) is now sovereignly stored in the `.cockpit/` directory.
 
 ---

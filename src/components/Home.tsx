@@ -44,11 +44,11 @@ export function Home() {
   const [stars, setStars] = useState<number | null>(null);
   const [currentCommand, setCurrentCommand] = useState(0);
   const commands = [
-    'pip install agentops-cockpit',
-    'uvx agentops-cockpit sys certify',
-    'uvx agentops-cockpit rag blueprint',
-    'uvx agentops-cockpit audit report',
-    'uvx agentops-cockpit fleet anomaly'
+    { cmd: 'pip install agentops-cockpit', desc: 'Install the core engine and CLI tools for local development.' },
+    { cmd: 'uvx agentops-cockpit cockpit', desc: 'Initialize Mission Control and view your global fleet status.' },
+    { cmd: 'uvx agentops-cockpit mcp blueprint', desc: 'Modernize legacy tools into Model Context Protocol servers.' },
+    { cmd: 'uvx agentops-cockpit certify', desc: 'Run the production readiness checklist and regression suite.' },
+    { cmd: 'uvx agentops-cockpit deploy sovereign', desc: 'The Master Move: Audit, fix, and deploy to the cloud.' }
   ];
 
   useEffect(() => {
@@ -75,12 +75,12 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.0</span>
-          <span className="banner-text"><b>v2.0.0 Sovereign Orchestrator:</b> Multi-cloud abstraction bridge and autonomous industry scale hardening.</span>
+          <span className="banner-tag">STABLE v2.0.2</span>
+          <span className="banner-text"><b>v2.0.2 Sovereign Evolution:</b> Multi-cloud abstraction bridge and autonomous industry scale hardening.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
-              <Link to="/samples" className="banner-link">View Sample Reports <ChevronRight size={14} /></Link>
+              <Link to="/metrics" className="banner-link">Live Fleet Pulse <ChevronRight size={14} /></Link>
             </div>
           </div>
         </div>
@@ -201,54 +201,84 @@ export function Home() {
         </div>
       </section>
 
-      {/* The Mission Section */}
-      <section className="mission-section py-20 bg-slate-900/50 border-y border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">Our Mission</h2>
-            <p className="text-xl text-slate-300 leading-relaxed mb-12">
-              "To become the <strong>Industry Standard Logic Layer</strong> for production AI agents."
-              <br /><br />
-              Infrastructure gives you the pipes. We give you the <strong>Intelligence</strong>.
-              The AgentOps Cockpit provides the framework-agnostic governance, safety, and cost guardrails
-              required for the entire agentic ecosystem to move beyond tactical scripts into strategic autonomy.
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 text-left">
-              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all">
-                <Shield className="text-blue-400 mb-4" size={32} />
-                <h3 className="text-lg font-semibold text-white mb-2">Governance-as-Code</h3>
-                <p className="text-slate-400 text-sm">Audit against Google Well-Architected best practices with real-time citations.</p>
+      {/* The Mission Section: Redesigned with Tiles */}
+      <section className="mission-section py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-slate-950 -z-10"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full"></div>
+
+        <div className="container mx-auto px-6 relative">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex flex-col items-center text-center mb-20">
+              <span className="accent-label mb-4">The North Star</span>
+              <h2 className="text-4xl md:text-5xl font-black mb-8 text-white tracking-tight">Our Mission</h2>
+              <div className="p-8 md:p-12 rounded-[32px] bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl relative group overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <p className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                  "To become the <span className="gradient-text">Industry Standard Logic Layer</span> for production AI agents."
+                </p>
+                <div className="mt-8 pt-8 border-t border-white/10 text-lg text-slate-400 max-w-2xl mx-auto">
+                  Infrastructure gives you the pipes. We give you the <strong>Intelligence</strong>. 
+                  We provide the governance required to move beyond tactical scripts into strategic autonomy.
+                </div>
               </div>
-              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-green-500/50 transition-all">
-                <Cpu className="text-green-400 mb-4" size={32} />
-                <h3 className="text-lg font-semibold text-white mb-2">SME Persona Audits</h3>
-                <p className="text-slate-400 text-sm">Parallel review by Principal SMEs across FinOps, SecOps, and Architecture.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="tile-v2 p-8 rounded-[24px] bg-slate-900/40 border border-white/5 hover:border-blue-500/40 transition-all group">
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Shield className="text-blue-400" size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Governance-as-Code</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Deterministic policy enforcement via AST-aware structural audits. Ensure compliance at every build.
+                </p>
               </div>
-              <div className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all">
-                <Zap className="text-purple-400 mb-4" size={32} />
-                <h3 className="text-lg font-semibold text-white mb-2">A2A Connectivity</h3>
-                <p className="text-slate-400 text-sm">Secure swarm orchestration via the Agent-to-Agent Transmission Standard.</p>
+
+              <div className="tile-v2 p-8 rounded-[24px] bg-slate-900/40 border border-white/5 hover:border-green-500/40 transition-all group">
+                <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Cpu className="text-green-400" size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">SME Persona Audits</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Parallel reviews by principal personas in FinOps, SecOps, and Architecture for 360° validation.
+                </p>
+              </div>
+
+              <div className="tile-v2 p-8 rounded-[24px] bg-slate-900/40 border border-white/5 hover:border-purple-500/40 transition-all group">
+                <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Zap className="text-purple-400" size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">A2A Connectivity</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  The Agent-to-Agent standard for secure, high-fidelity swarm orchestration across multi-cloud estates.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Command / Installation Bar */}
+      {/* Quick Command / Installation Bar with Legend */}
       <section className="command-bar-section">
         <div className="container">
-          <div className="command-box-wrapper">
-            <span className="command-label">Start with a single command</span>
-            <div className="command-command">
-              <code key={currentCommand} className="fade-in-shimmer">{commands[currentCommand]}</code>
+          <div className="command-box-wrapper flex flex-col md:flex-row items-center justify-between gap-8 py-10">
+            <div className="flex flex-col gap-2 max-w-sm">
+              <span className="command-label">Get Started Immediately</span>
+              <p className="text-slate-400 text-sm italic fade-in-shimmer" key={currentCommand}>
+                {commands[currentCommand].desc}
+              </p>
+            </div>
+            <div className="command-command min-w-[320px] md:min-w-[500px]">
+              <code key={currentCommand} className="fade-in-shimmer text-lg">{commands[currentCommand].cmd}</code>
               <button
-                className="copy-button"
+                className="copy-button p-2"
                 onClick={() => {
-                  navigator.clipboard.writeText(commands[currentCommand]);
+                  navigator.clipboard.writeText(commands[currentCommand].cmd);
                 }}
                 title="Copy to clipboard"
               >
-                <Copy size={20} />
+                <Copy size={22} />
               </button>
             </div>
           </div>
@@ -260,27 +290,37 @@ export function Home() {
         <div className="container">
           <div className="ecosystem-logos-container">
             <div className="ecosystem-item-v2" title="Google Cloud">
-              <img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud" className="logo-img" />
+              <div className="logo-svg-wrapper" style={{ color: '#4285F4' }}>
+                <GoogleCloudLogo />
+              </div>
               <span>Google Cloud</span>
             </div>
             <div className="ecosystem-item-v2" title="Azure">
-              <img src="https://cdn.simpleicons.org/azure/0078D4" alt="Azure" className="logo-img" />
+              <div className="logo-svg-wrapper" style={{ color: '#0078D4' }}>
+                {azureLogo()}
+              </div>
               <span>Azure</span>
             </div>
             <div className="ecosystem-item-v2" title="OpenAI">
-              <img src="https://cdn.simpleicons.org/openai/412991" alt="OpenAI" className="logo-img" />
+              <div className="logo-svg-wrapper" style={{ color: '#F3F4F6' }}>
+                {openAILogo()}
+              </div>
               <span>OpenAI</span>
             </div>
             <div className="ecosystem-item-v2" title="AWS">
-              <img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS" className="logo-img" />
+              <div className="logo-svg-wrapper" style={{ color: '#FF9900' }}>
+                {awsLogo()}
+              </div>
               <span>AWS</span>
             </div>
             <div className="ecosystem-item-v2" title="Anthropic">
-              <img src="https://cdn.simpleicons.org/anthropic/000000" alt="Anthropic" className="logo-img" />
+              <div className="logo-svg-wrapper" style={{ color: '#F3F4F6' }}>
+                {anthropicLogo()}
+              </div>
               <span>Anthropic</span>
             </div>
             <div className="ecosystem-item-v2" title="LangChain">
-              <img src="https://cdn.simpleicons.org/langchain/1C3C3C" alt="LangChain" className="logo-img" />
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/langchain.svg" alt="LangChain" className="logo-img" style={{ filter: 'invert(1) brightness(2)' }} />
               <span>LangChain</span>
             </div>
           </div>

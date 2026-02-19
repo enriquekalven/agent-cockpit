@@ -1,6 +1,6 @@
 # 📄 Product Requirements Document (PRD): AgentOps Cockpit
 
-**Version**: 2.0.0 (The Sovereign Orchestrator)
+**Version**: 2.0.2 (The Sovereign Master Build)
 **Status**: Stable / Production-Ready
 **Owner**: Enrique Kalven & Agentic AI Engineering Team
 
@@ -9,106 +9,98 @@
 ## 1. Executive Summary
 The **AgentOps Cockpit** is a production-grade operations and governance platform for AI agents. It addresses the "Day 2" challenges of agentic development: cost management, security hardening, architectural alignment, and operational visibility. By implementing the **Agentic Trinity** (Engine, Face, Cockpit), it provides developers with a framework-agnostic "Mission Control" to transition agents from prototypes to reliable production services.
 
-The **v2.0.0 "Sovereign Orchestrator" Milestone** focuses on industry-scale hardening across multi-provider repos, the **Sovereign Cloud Bridge** for provider abstraction, and autonomous remediation of "Monocultural Bias" and "Manifest Drift".
+The **v2.0.2 "Sovereign Master Build" Milestone** focuses on **Engineering Resilience** (Venv Isolation, Cordon Mode), **Proactive Security** (AST Taint Tracking), **Architectural Hardening** (Structural Monolith Detection), and the official **Sovereign Safety SDK** (`SafetyGate`).
 
 ---
 
 ## 2. Motivation
-As AI agent fleets scale from single-digit prototypes to hundreds of production services (145–465+ agents), traditional manual governance fails. The motivation for the Antigravity update is to:
-- **Minimize Friction**: Developers in restricted VPN or proxy environments often face registry auth failures (401/403). The cockpit must be resilient.
-- **Scale Orchestration**: Monolithic logs fail at scale. Partitioned evidence is required for parallelized fleet audits.
-- **Automate Remediation**: Finding issues is not enough; the cockpit must proactively suggest and apply code-level fixes (Auto-Healing).
-- **Hardened Governance**: Security and Architecture violations must be first-class citizens in CI/CD, preventing unsafe deployments through deterministic exit codes.
+As AI agent fleets scale from single-digit prototypes to hundreds of production services, traditional manual governance fails. The motivation for the v2.0.2 update is to:
+- **Minimize Friction**: corporate environments often face registry auth failures (401/403). The cockpit must be resilient via **Cordon Mode**.
+- **Environmental Independence**: Eliminate dependency "blind spots" by automatically provisioning and using isolated **Audit Venvs**.
+- **Automate Remediation**: Move from "reporting" to providing the actual **Safety SDK** (`SafetyGate`) that handles PII, HITL, and Taint Protection.
+- **Architectural Scalability**: Detect and remediate **Structural Monoliths** (large agent files) that degrade reasoning and increase latency.
+- **Economic Visibility**: Provide real-time **Opex Simulations** to forecast the token impact of security and reliability hardening.
 
 ---
 
 ## 3. Target Audience & Personas
 - **The AI Engineer**: Needs instant feedback and auto-remediation to maintain velocity.
-- **The SecOps Lead**: Requires deterministic blocking of deployments containing secrets or PII leaks.
-- **The Platform Architect**: Standardizes "Well-Architected" patterns across massive monorepos using `.cockpitignore` and `cockpit.yaml`.
-- **The DevOps/SRE**: Integrates the cockpit into pipelines via JSON/SARIF reporting and severity-based exit codes.
+- **The SecOps Lead**: Requires deterministic blocking of deployments containing secrets, PII leaks, or unsanitized input flows (Taint Tracking).
+- **The Platform Architect**: Standardizes "Well-Architected" patterns across massive monorepos and enforces modular agent structures.
+- **The DevOps/SRE**: Integrates the cockpit into pipelines via JSON/SARIF reporting, severity-based exit codes, and isolated audit environments.
 
 ---
 
 ## 4. Critical User Journeys (CUJs)
-- **CUJ 1: Zero-Friction Registry Failover**
+- **CUJ 1: Zero-Friction Registry Cordoning**
   - *User:* Developer on a restricted corporate VPN.
   - *Action:* Runs an audit that requires dependency checks.
-  - *Outcome:* The cockpit detects a 401 Unauthorized from the private registry and automatically fails over to the Public PyPI Mirror, unblocking the audit session.
-- **CUJ 2: Fleet-Scale Workspace Audit**
-  - *User:* Platform Architect.
-  - *Action:* Runs `ops report --workspace` at the root of a 400+ agent monorepo.
-  - *Outcome:* The **Smart Discovery Engine** respects `.cockpitignore`, audits all agents in parallel, and saves results to a **Partitioned Evidence Lake**.
-- **CUJ 3: Automated Security Gate (CI/CD)**
+  - *Outcome:* The cockpit's **Cordon Mode** isolates the registry environment, failing over to a Public PyPI Mirror and unblocking the session.
+- **CUJ 2: Venv-Isolated Fleet Audit**
   - *User:* DevOps Engineer.
-  - *Action:* Integration of `ops report --format json` into a GitHub Action.
-  - *Outcome:* Pipeline automatically fails with `EXIT 1` when a hardcoded secret is detected, or `EXIT 2` for architecture violations, while allowing `EXIT 0` for informational warnings.
-- **CUJ 4: Dry-Run Remediation (Auto-Healing)**
-  - *User:* AI Engineer.
-  - *Action:* Runs `ops report --heal --dry-run`.
-  - *Outcome:* Views a "Dry Run Dashboard" in the console showing exactly which decorators (e.g., `@retry`) would be injected, without modifying production code until approved.
-- **CUJ 5: Enterprise Database Audit**
-  - *User:* Data Engineer / Quality SME.
-  - *Action:* Runs `agent-ops audit-maturity` to see database capabilities, or `rag-truth`.
-  - *Outcome:* The auditor detects unbounded queries in BigQuery/Snowflake and non-transactional writes in Firestore/Spanner, providing high-fidelity remediations.
+  - *Action:* Runs an audit in a CI environment with fragmented Python dependencies.
+  - *Outcome:* The cockpit automatically provisions a **Managed Audit Venv**, ensuring 100% dependency discovery without polluting the host.
+- **CUJ 3: Proactive Taint-Tracking Gate**
+  - *User:* SecOps Lead.
+  - *Action:* Code review of an agent tool call.
+  - *Outcome:* The **Security Fellow** uses AST analysis to trace user-query flow to a sensitive shell call, flagging it as a "Sovereign Taint" if unsanitized.
+- **CUJ 4: Structural Split Scaffold**
+  - *User:* Platform Architect.
+  - *Action:* Audits a large, monolithic agent file (>200 lines).
+  - *Outcome:* The cockpit identifies the "Structural Monolith" risk and automatically injects a **Managed Router** scaffold to guide modularization.
+- **CUJ 5: Opex Simulation Report**
+  - *User:* FinOps Principal.
+  - *Action:* Reviews proposed audit fixes (retries, logging, etc.).
+  - *Outcome:* The cockpit generates an **Estimated Monthly Token Delta** (e.g., "+15% for resiliency") before the changes are committed.
 
 ---
 
 ## 5. Functional Requirements
-### R1: Resilient Registry Resolver (Network Resilience)
-- **Automatic Failover**: Must detect 401/403 registry errors and retry using public mirrors (PyPI).
-- **Registry Awareness**: The `diagnose` command must verify connectivity to core indices.
+### R1: Cordon Mode (Network Resilience)
+- **Automatic Failover**: Must isolate SUBPROCESS env and force public index mirrors upon registry auth failure.
+- **Status Visibility**: The cockpit header must clearly indicate `CORDONED` status during execution.
 
-### R2: Partitioned Evidence Lake (Scalability)
-- **Partitioning**: Must move from a single `evidence_lake.json` to agent-specific folder partitioning (`evidence_lake/{agent_hash}/latest.json`).
-- **Parallel Performance**: Support simultaneous writes from concurrent processes without file locking contention.
+### R2: Venv Isolation Sidecar (Environment Purity)
+- **Managed Venv**: Must automatically initialize and use a `.cockpit_venv` if present, ensuring a clean dependency path for auditors.
+- **Binary Discovery**: Intelligently route `python`, `pytest`, and `uv` commands through the isolated sidecar.
 
-### R3: Smart Discovery Engine (Orchestration)
-- **Hieuristic Detection**: Must identify the agent "brain" across `agent/agent.py`, `src/main.py`, etc.
-- **Exclusion Logic**: Must respect `.cockpitignore` and `cockpit.yaml` "Sovereign Gates" to skip non-essential directories.
-- **Database Probing**: Must detect and audit enterprise data stacks (BigQuery, Snowflake, Databricks, Firestore, Spanner).
+### R3: Sovereign Safety SDK (`SafetyGate`)
+- **Sanitization**: Provide a production-grade `sanitize()` utility for PII and data masking.
+- **HITL Gating**: Implement a manual approval decorator (`@hitl_gate`) matched to audit findings.
+- **Taint Tracking**: Utilize AST analysis to trace unsanitized input flow to high-stakes tool calls.
 
-### R6: Maturity Expertise Matrix (Visibility)
-- **Persona Status**: Must display expertise levels across SME personas (SecOps, FinOps, SRE, Architect, Quality, UX).
-- **Control Plane**: Must provide a high-fidelity TUI dashboard via `audit-maturity`.
+### R4: Structural Monolith Detection (Architecture)
+- **Scale Analysis**: Flag any agent file exceeding 200 lines as a structural risk.
+- **Remediation Scaffolding**: Automatically provide "Managed Router" templates for oversized agents.
 
-### R4: Severity-Based Exit Codes (Governance)
-- **Deterministic Blocking**: 
-  - `EXIT 0`: Pass
-  - `EXIT 1`: Security Critical (Secrets)
-  - `EXIT 2`: Architecture/Policy Violation
-  - `EXIT 3`: General Failure
-
-### R5: Machine-Readable Reporting
-- **SARIF/JSON**: Must support `--format json` and `--format sarif` for direct integration with security dashboards (e.g., GitHub Advanced Security).
+### R5: Opex Simulation Engine (FinOps)
+- **Token Forecasting**: Provide percentage-based impact estimates for proposed fixes.
+- **Drivers Analysis**: Identify which hardening measures (Telemetry, Resiliency, Caching) are driving cost changes.
 
 ---
 
 ## 6. Success Criteria (KPIs)
-- **Zero-Block Rate**: 100% of registry auth failures during audits must be resolved via path failover.
-- **Fleet Scalability**: Auditing 400 agents in a workspace must not exceed **2 minutes** (using parallel orchestration).
-- **Compliance Accuracy**: 100% of findings in the Persona Matrix should be categorized with a "Fixability" score (1-Click vs. Structural).
-- **CI/CD Reliability**: Deterministic exit codes must correctly block 100% of identified security leaks in simulation tests.
+- **Zero-Block Rate**: 100% of registry auth failures resolved via Cordon Mode.
+- **Dependency Fidelity**: 0% "ModuleNotFoundError" during audits when Venv Isolation is enabled.
+- **Remediation Density**: Move from 0% to 100% "Actionable Logic" for Security findings via the Safety SDK.
+- **Audit Velocity**: Maintain sub-30s incremental audit speed for targeted personas.
 
 ---
 
 ## 7. Technical Stack
-- **Engine**: Python 3.10+, FastAPI.
-- **Config**: Centralized `config.py` Single Source of Truth.
-- **CLI**: Typer + Rich (Standardized Binary: `agent-ops`, `ops`, `aops`).
+- **Engine**: Python 3.10+, FastAPI, AST/LibCST.
 - **Protocols**: Model Context (MCP), A2UI, UCP, AP2.
-- **Storage**: Multi-tier Evidence Lake (Local Partitioned + Cloud Aggregated).
-- **UI**: React 18 / Vite / A2UI (v2.0.0 standards).
+- **CLI**: Typer + Rich (v2.0.2 Standards).
+- **SDK**: `SafetyGate` Sovereign Safety SDK.
+- **Cloud**: Unified Governance for GCP (Vertex), AWS (Bedrock), and Azure (OpenAI).
 
 ---
 
-## 8. Roadmap: The Antigravity Path
+## 8. Roadmap: The Sovereign Path
 - **v1.0.0**: [x] The Governance & Regression Framework.
-- **v2.0.0.0**: [x] The Autonomous Architect (Mobile-Hardened).
-- **v2.0.0.0**: [x] The Ecosystem Expansion (RAG Truth, ROI Waterfall, MCP).
-- **v2.0.0**: [x] Maturity Expertise Matrix, Enterprise Database Auditing.
-- **v2.0.0**: [x] The Sovereign Orchestrator (Multi-Cloud Bridge, Industry Hardening).
-- **v3.0.0 (Upcoming)**: [ ] A2A Inter-Agent Simulation, Token Traffic Control.
+- **v2.0.0**: [x] The Sovereign Orchestrator (Multi-Cloud Bridge).
+- **v2.0.2**: [x] **The Sovereign Master Build** (Venv, Cordon, Structural, Safety SDK).
+- **v3.0.0 (Upcoming)**: [ ] A2A Inter-Agent Simulation, Visual Face-Scan, Shadow Duel.
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator (v2.0.0).*
+*Generated by the AgentOps Cockpit Orchestrator (v2.0.2).*
