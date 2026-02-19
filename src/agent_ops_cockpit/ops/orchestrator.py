@@ -17,7 +17,7 @@ import hashlib
 import yaml
 from datetime import datetime
 from typing import List
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -241,10 +241,10 @@ class CockpitOrchestrator:
             summary.append('Findings are semantically grouped to prevent notification fatigue.')
             
             headers = {
-                "BLOCKER": '### 🚨 Blockers (Security & Critical Caps)',
-                "WARNING": '### ⚠️ Warnings (Operational & Reliability Debt)',
-                "OPTIMIZATION": '### 💡 Optimizations (Best Practice Drift)'
-            }
+            "BLOCKER": ('#ef4444', '🚨 Blockers (SOC2 CC6.1 - Access Control)'),
+            "WARNING": ('#f59e0b', '⚠️ Warnings (SOC2 CC7.1 - System Monitoring)'),
+            "OPTIMIZATION": ('#3b82f6', '💡 Optimizations (FinOps & Sustainability)')
+        }
             
             for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
                 if groups[key]:
@@ -326,7 +326,7 @@ class CockpitOrchestrator:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
         report.extend(self.generate_executive_summary(developer_actions))
         report.append('\n---')
-        report.append('\n## �️ Audit Pillar Approvals')
+        report.append('\n## ️ Audit Pillar Approvals')
         report.append('Each pillar of your agent has been reviewed by specialized auditors.')
         persona_table = Table(title='🏛️ Pillar Approval Matrix', show_header=True, header_style='bold blue')
         persona_table.add_column('Audit Pillar', style='cyan')
@@ -489,20 +489,44 @@ class CockpitOrchestrator:
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_exit_code(self):
         """
-        Improvement #5: Severity-Based Exit Codes
-        EXIT 0: Pass or Warnings only
-        EXIT 1: Security Leak (Secret Scanner fails)
-        EXIT 2: Architecture/Policy Violation
+        [v2.0.2 Evolution] Fine-Grained Severity-Based Exit Codes
+        EXIT 0: All Governance Gates APPROVED
+        EXIT 1: CRITICAL - Security Leak (Hardcoded Secrets)
+        EXIT 2: BLOCKED - Architecture or Policy Violation (GaC)
+        EXIT 3: WARNING - Reliability/Resiliency Gap (Timeouts/Retries)
+        EXIT 4: SECURITY - Red-Team Breach or Over-Privilege
+        EXIT 5: FINOPS - Optimization Tip (Token/Cost Waste)
         """
         if all((r['success'] for r in self.results.values())):
             return 0
+        
+        # 1. Level 1: Hardcoded Secrets (Immediate Pull/Abuse Risk)
         if not self.results.get('Secret Scanner', {}).get('success', True):
             return 1
+            
+        # 2. Level 2: GaC/Structural (Compliance/Policy Rejection)
         arch_fail = not self.results.get('Architecture Review', {}).get('success', True)
         policy_fail = not self.results.get('Policy Enforcement', {}).get('success', True)
         if arch_fail or policy_fail:
             return 2
-        return 3
+            
+        # 3. Level 3: Reliability/Resiliency (Stability risk)
+        rel_fail = not self.results.get('Reliability (Quick)', {}).get('success', True)
+        if rel_fail:
+            return 3
+
+        # 4. Level 4: Adversarial/Privilege (Systemic security risk)
+        red_fail = not (self.results.get('Red Team (Fast)', {}).get('success', True) and 
+                        self.results.get('Red Team Security (Full)', {}).get('success', True))
+        if red_fail:
+            return 4
+            
+        # 5. Level 5: FinOps (Efficiency/Waste)
+        cost_fail = not self.results.get('Token Optimization', {}).get('success', True)
+        if cost_fail:
+            return 5
+            
+        return 3 # Default to Warning if unknown failure
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def save_to_evidence_lake(self, target_abs: str):
@@ -747,6 +771,19 @@ class CockpitOrchestrator:
                             ))
             return findings
 
+    def get_compliance_map(self, category: str) -> str:
+        """v2.0.2 Compliance Mapping: Maps Cockpit pillars to regulatory controls."""
+        cmap = {
+            '🛡️ Security': 'SOC2 CC6.1 (Logical Access)',
+            '🔐 Security & Sovereignty': 'ISO 27001 A.12.6.1 (Management of Technical Vulnerabilities)',
+            '🏗️ Architecture': 'SOC2 CC8.1 (Change Management)',
+            '🛡️ Reliability': 'SOC2 CC7.2 (System Availability)',
+            '💰 FinOps': 'Inference Economics v1.0',
+            '⭐️ Maturity Wisdom': 'ISO 27001 A.14.2.1 (Secure Development)',
+            '🤝 Protocol': 'Sovereignty A2UI.1'
+        }
+        return cmap.get(category, 'General Control')
+
     def ignore_finding(self, title: str, reason: str, path: str):
         """Adds a finding to the local cockpit.yaml ignore list."""
         config_path = os.path.join(path, 'cockpit.yaml')
@@ -767,8 +804,31 @@ class CockpitOrchestrator:
         with open(config_path, 'w') as f:
             yaml.dump(config_data, f)
 
+    def _discover_plugins(self, target_path: str) -> list:
+        """
+        v2.0.2 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
+        Looks in:
+        1. target_path/.cockpit/auditors/
+        2. cockpit_core/ops/auditors/ (plugins)
+        """
+        plugins = []
+        plugin_dirs = [
+            os.path.join(target_path, '.cockpit', 'auditors'),
+            os.path.join(os.path.dirname(__file__), 'auditors')
+        ]
+        
+        for pdir in plugin_dirs:
+            if os.path.exists(pdir):
+                for f in os.listdir(pdir):
+                    if f.endswith('.py') and not f.startswith('__') and f != 'base.py':
+                        plugin_path = os.path.join(pdir, f)
+                        # Extract a nice name from filename
+                        display_name = f.replace('.py', '').replace('_', ' ').title()
+                        plugins.append((f"Plugin: {display_name}", [sys.executable, plugin_path, target_path]))
+        return plugins
+
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False, interactive: bool=False):
     # DEFENSIVE: Typer sometimes leaks OptionInfo objects when called as functions
     if only and not isinstance(only, (list, tuple)):
         only = None
@@ -849,6 +909,13 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         if verbose:
             arch_cmd.append('--verbose')
         steps = [('Architecture Review', arch_cmd), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
+        
+        # v2.0.2: Plug-and-Play Auditor SDK
+        plugin_steps = orchestrator._discover_plugins(target_path)
+        if plugin_steps:
+            console.print(f"🧩 [bold cyan]Plug-and-Play SDK:[/] Detected {len(plugin_steps)} domain-specific auditors.")
+            steps.extend(plugin_steps)
+
         if mode == 'deep':
             steps.extend([('Quality Hill Climbing', [sys.executable, '-m', f'{base_mod}.eval.quality_climber', 'climb', '--steps', '10']), ('Red Team Security (Full)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]), ('Load Test (Baseline)', [sys.executable, '-m', f'{base_mod}.eval.load_test', 'run', '--requests', '50', '--concurrency', '5']), ('Evidence Packing Audit', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path])])
         else:
@@ -907,6 +974,15 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 rem = remediators[full_path]
                 finding = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num, file_path=full_path)
                 
+                if interactive:
+                    from rich.prompt import Confirm
+                    console.print(f"\n🧠 [bold green]Architect's Dialogue:[/] Remediation needed for [bold cyan]'{title}'[/bold cyan] in {os.path.basename(full_path)}")
+                    rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Sovereignty and SOC2 compliance."
+                    console.print(f"[dim]{rationale}[/dim]")
+                    if not Confirm.ask("Apply this remediation?"):
+                        console.print("⏭️  [yellow]Skipping remediation per architect request.[/yellow]")
+                        continue
+                
                 if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
                     print(f"DEBUG: Applying resiliency to {full_path}")
                     rem.apply_resiliency(finding)
@@ -925,6 +1001,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     # Auto-Instrumentation
                     rem.eject_telemetry_lib(os.path.dirname(full_path))
                     console.print("📡 [bold green]Telemetry Ejected:[/bold green] lib/logger.ts and lib/trace.ts created.")
+                elif any(x in title.lower() for x in ['lateral', 'over-privilege', 'privilege']):
+                    # Code-First Security Hardening
+                    rem.apply_privilege_gate(finding)
+                    console.print(f"🛡️  [bold green]Privilege Gate Injected:[/bold green] Added tool_privilege_check to {os.path.basename(full_path)}")
 
         for path, rem in remediators.items():
             if dry_run:
@@ -1075,29 +1155,20 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     return True
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, apply_fixes: bool=False, dry_run: bool=False, only: list=None, skip: list=None):
+def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, apply_fixes: bool=False, dry_run: bool=False, only: list=None, skip: list=None, interactive: bool=False):
     """Fleet Orchestration: Scans workspace for agents and audits in parallel."""
     console.print(Panel(f'🛸 [bold blue]COCKPIT WORKSPACE MODE: FLEET ORCHESTRATION[/bold blue]\nScanning Root: [dim]{root_path}[/dim]', border_style='cyan'))
     from agent_ops_cockpit.ops.discovery import DiscoveryEngine
     discovery = DiscoveryEngine(root_path)
-    agents = []
-    seen_dirs = set()
-    for file_path in discovery.walk(root_path):
-        dir_name = os.path.dirname(file_path)
-        if dir_name in seen_dirs:
-            continue
-        file_name = os.path.basename(file_path)
-        if file_name in ['agent.py', 'main.py', 'app.py', 'go.mod', 'package.json']:
-            agents.append(dir_name)
-            seen_dirs.add(dir_name)
+    agents = discovery.discover_agent_roots()
     if not agents:
-        console.print('[yellow]⚠️ No agents found in workspace.[/yellow]')
-        return
-    agents.sort()
-    console.print(f'📡 [bold blue]Found {len(agents)} potential agents.[/bold blue]')
+        console.print(f"[yellow]No agent projects found in {root_path}[/yellow]")
+        return True
+    
+    console.print(f"�️  [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
     results = {}
-    with ProcessPoolExecutor(max_workers=5) as executor:
-        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip): a for a in agents}
+    with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
+        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
         for future in as_completed(future_map):
             agent_path = future_map[future]
             try:

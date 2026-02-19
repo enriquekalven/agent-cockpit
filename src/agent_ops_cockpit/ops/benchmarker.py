@@ -140,7 +140,7 @@ class ReliabilityBenchmarker:
             table.add_row(
                 model, 
                 f"{data['accuracy']*100:.1f}%", 
-                f"{data['ttft']:.2fs}", 
+                f"{data['ttft']:.2f}s", 
                 f"${data['monthly_cost_extrapolation']:.2f}",
                 status
             )

@@ -8,8 +8,9 @@ import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List, Annotated
 import shutil
+import jwt  # PyJWT for v2.0.2 Sovereign Attestation
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 import asyncio
 from rich.console import Console
 from rich.panel import Panel
@@ -238,7 +239,9 @@ def list_models():
         console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
 @app.command(name="certify")
-def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = True):
+def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", 
+                  no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = False,
+                  interactive: Annotated[bool, typer.Option("--interactive", "-i", help="Ask for confirmation before applying fixes")] = False):
     """
     Launch the 'Sovereign Certification' checklist.
     Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
@@ -252,7 +255,7 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
 
     # 2. Deep Functional & Security Audit
     console.print("\n🛰️ [bold blue]Step 2: Deep Functional, Security & Load Audit...[/bold blue]")
-    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT')
+    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT', apply_fixes=True, interactive=interactive)
     
     # 3. Full Regression Suite (Unit + Smoke Tests)
     console.print("\n🧪 [bold blue]Step 3: Full Regression Suite (Unit + Smoke tests)...[/bold blue]")
@@ -286,6 +289,27 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
         
         console.print(f"📜 [bold cyan]Sovereign Certificate Generated:[/bold cyan] {cert_path}")
         console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
+        
+        # v2.0.2: Sovereign Attestation (JWT for inter-agent handshake)
+        # In actual production, this would use a HSM or Cloud Key Management Service.
+        # Here we use a standard Sovereign Secret for the build env.
+        secret = os.environ.get("COCKPIT_SOVEREIGN_SECRET", "super-secret-sovereign-key-v202")
+        payload = {
+            "iss": "AgentOps Cockpit",
+            "sub": os.path.basename(os.path.abspath(path)),
+            "iat": datetime.now(),
+            "exp": datetime.now() + timedelta(days=90),
+            "status": "CERTIFIED_PRODUCTION_READY",
+            "proof": proof,
+            "pillars": ["Security", "Reliability", "Architecture", "FinOps"]
+        }
+        token = jwt.encode(payload, secret, algorithm="HS256")
+        token_path = os.path.join(path, '.cockpit', 'sovereign_identity.jwt')
+        with open(token_path, 'w') as f:
+            f.write(token)
+        
+        console.print(f"🛡️  [bold green]Sovereign Identity Issued (MuTI):[/bold green] {token_path}")
+        console.print("🧩 [dim]This JWT enables Mutual-TLS-for-Intelligence handshakes.[/dim]")
     else:
         console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
         console.print("[dim]Review the coaching reports above and in the .cockpit/ directory for remediation steps.[/dim]")
@@ -302,6 +326,7 @@ def report(
     output_format: Annotated[str, typer.Option('--format', help="Output format: 'text', 'json', 'sarif'")] = 'text',
     plain: Annotated[bool, typer.Option('--plain', help='Use plain output without complex Unicode boxes')] = False,
     dry_run: Annotated[bool, typer.Option('--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)')] = False,
+    interactive: Annotated[bool, typer.Option('--interactive', '-i', help='Ask for confirmation before applying each fix')] = False,
     only: Annotated[Optional[List[str]], typer.Option('--only', help='Only run specific categories (e.g. security, finops)')] = None,
     skip: Annotated[Optional[List[str]], typer.Option('--skip', help='Skip specific categories')] = None,
     verbose: Annotated[bool, typer.Option('--verbose', '-v', help='Enable verbose output for debugging')] = False
@@ -312,13 +337,13 @@ def report(
         console.print('🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]')
     if workspace:
         console.print(f'🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]')
-        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip)
+        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip, interactive=interactive)
         if not success:
             raise typer.Exit(code=3)
     else:
         pre_mod.run_preflight(path)
         console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]')
-        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose)
+        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose, interactive=interactive)
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
@@ -414,6 +439,13 @@ def shadow_routing(diversion: float = 0.05):
 def watch_ops():
     """[RUNTIME HUB] Launch the Operational Watcher for LLM-driven runtime interpretation."""
     watch_mod.run_operational_watch()
+
+@ops_app.command()
+def gateway(port: int = 8000):
+    """🛡️ Sovereign Gateway: Launch the local sidecar for PII Scrubbing and Cost Routing."""
+    from agent_ops_cockpit.ops import gateway as gateway_mod
+    console.print(Panel.fit('🛡️ [bold blue]SOVEREIGN GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...', border_style='blue'))
+    gateway_mod.start_gateway(port=port)
 
 @ops_app.command()
 def simulate_ops(mode: str = "nominal"):

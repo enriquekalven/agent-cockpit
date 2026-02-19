@@ -40,6 +40,8 @@ dependencies = [
     "google-adk>=1.24.0",
     "pytest-asyncio>=0.23.0",
     "requests>=2.31.0",
+    "libcst>=1.1.0",
+    "PyJWT>=2.8.0",
 ]
 
 [project.optional-dependencies]

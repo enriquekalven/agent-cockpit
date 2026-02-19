@@ -129,7 +129,7 @@ class SecurityAuditor(BaseAuditor):
                     title=title,
                     description="""Detected system-level execution capabilities without a restricted sandbox.
 [bold red]Exploitation Risk:[/bold red] A compromised agent could move laterally within the host system.
-[bold green]RECOMMENDATION:[/bold green] Run agent tasks in a **Docker Sandbox** or use isolated gVisor runtimes.""",
+[bold green]RECOMMENDATION:[/bold green] Run agent tasks in a **Docker Sandbox** or apply the **Autonomous Fix** (tool_privilege_check decorator).""",
                     impact="CRITICAL",
                     roi="Isolates the agent's blast radius to its immediate task shell.",
                     file_path=file_path

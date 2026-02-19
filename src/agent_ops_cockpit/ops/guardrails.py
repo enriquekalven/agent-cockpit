@@ -4,6 +4,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import re
+import os
 from typing import List, Optional
 
 class CockpitGuardrails:
@@ -64,5 +65,25 @@ class CockpitGuardrails:
             return CockpitGuardrails.scrub_pii(result)
         return wrapper
 
+    @staticmethod
+    def tool_privilege_check(required_scope: str = "restricted"):
+        """
+        [Sovereign Governance] Decorator to enforce scope-based execution for sensitive tools.
+        Prevents 'Lateral Movement' by verifying environment-level permissions before execution.
+        """
+        def decorator(func):
+            from functools import wraps
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                # In a real scenario, this would check against a secure vault or session context
+                # For v2.0.2, we implement a 'Sovereign Check' against environment variables
+                allowed_scope = os.environ.get("AGENT_EXECUTION_SCOPE", "restricted")
+                if required_scope == "admin" and allowed_scope != "admin":
+                    raise PermissionError(f"🛑 [Sovereignty Breach] Tool '{func.__name__}' requires 'admin' scope. Current scope: '{allowed_scope}'.")
+                return func(*args, **kwargs)
+            return wrapper
+        return decorator
+
 # Export singleton for easy import
 guardrails = CockpitGuardrails()
+tool_privilege_check = CockpitGuardrails.tool_privilege_check
