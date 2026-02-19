@@ -213,7 +213,7 @@ class DiscoveryEngine:
             # Framework Detection
             if filename in ['requirements.txt', 'pyproject.toml', 'package.json'] or file_path.endswith(('.py', '.ts', '.js', '.cs')):
                 try:
-                    with open(file_path, 'r', errors='ignore') as f:
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         content = f.read()
                         if 'flask' in content.lower():
                             context['framework'] = 'flask'

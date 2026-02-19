@@ -185,6 +185,46 @@ class SecurityAuditor(BaseAuditor):
                         file_path=file_path
                     ))
         
+        # 10. Semantic Taint Tracking (AST-Aware)
+        # Tracks variable names like 'query', 'input', 'prompt' from entry points to dangerous calls
+        user_input_vars = set()
+        for node in ast.walk(tree):
+            # Find assignments from common input sources (e.g., function args, input())
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                for arg in node.args.args:
+                    if any(x in arg.arg.lower() for x in ['query', 'input', 'prompt', 'task']):
+                        user_input_vars.add(arg.arg)
+            
+            # Find sensitive calls using these variables
+            if isinstance(node, ast.Call):
+                call_name = ""
+                if isinstance(node.func, ast.Name):
+                    call_name = node.func.id
+                elif isinstance(node.func, ast.Attribute):
+                    call_name = node.func.attr
+                
+                if any(x in call_name.lower() for x in ['execute', 'run', 'shell', 'subprocess', 'eval', 'exec', 'mcp']):
+                    # Check if any argument contains a tainted variable
+                    for arg in node.args:
+                        names = [n.id for n in ast.walk(arg) if isinstance(n, ast.Name)]
+                        for name in names:
+                            if name in user_input_vars:
+                                # Simple heuristic: Check for 'sanitize' in the preceding lines
+                                context_start = max(0, node.lineno - 5)
+                                if 'sanitize' not in content.splitlines()[context_start:node.lineno].__str__().lower():
+                                    title = "Sovereign Taint Detected: Unsanitized Input Flow"
+                                    if not self._is_ignored(node.lineno, content, title):
+                                        findings.append(AuditFinding(
+                                            category="🛡️ Sovereign Security",
+                                            title=title,
+                                            description=f"Detected tainted variable `{name}` flowing into sensitive call `{call_name}` without visible sanitization.\n[bold red]Injection Risk:[/bold red] Direct flow from user input to tool execution is a primary attack vector for Prompt Injection.",
+                                            impact="CRITICAL",
+                                            roi="Blocks direct remote manipulation of the agent's tools.",
+                                            line_number=node.lineno,
+                                            file_path=file_path
+                                        ))
+                                        break
+
         # Secrets Scanner (Hardcoded)
         for node in ast.walk(tree):
             if isinstance(node, ast.Assign):

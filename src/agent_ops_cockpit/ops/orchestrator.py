@@ -66,9 +66,15 @@ class CockpitOrchestrator:
             if not f_path.endswith(('.py', '.ts', '.js', '.go', '.json', '.yaml', '.prompt', '.md', 'toml')):
                 continue
             try:
-                with open(f_path, 'rb') as f:
-                    while (chunk := f.read(8192)):
-                        hasher.update(chunk)
+                # Harden encoding for text files, fall back to binary for others or on error
+                if f_path.endswith(('.py', '.ts', '.js', '.go', '.json', '.yaml', '.prompt', '.md', 'toml')):
+                    with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
+                    hasher.update(content.encode('utf-8'))
+                else:
+                    with open(f_path, 'rb') as f:
+                        while (chunk := f.read(8192)):
+                            hasher.update(chunk)
             except Exception:
                 pass
         return hasher.hexdigest()
@@ -109,6 +115,7 @@ class CockpitOrchestrator:
             env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
             env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
             env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
+            # console.print(f"🛡️  [bold yellow]Cordon Mode Active:[/] Isolated environment for {name}.") # Too noisy if in loop, maybe once in run_audit
             
         target_path = getattr(self, 'target_path', '.')
         agent_paths = [target_path, os.path.join(target_path, 'src')]
@@ -153,17 +160,17 @@ class CockpitOrchestrator:
             progress.update(task_id, description=f'[red]💥 {name} Error', completed=100)
             return (name, False)
     PILLAR_MAP = {
-        'Architecture Review': '�️ Architectural Strategy',
+        'Architecture Review': '️ Architectural Strategy',
         'Policy Enforcement': '🏗️ Architectural Strategy',
         'Secret Scanner': '🔐 Security & Sovereignty',
         'Token Optimization': '🏗️ Architectural Strategy',
         'Reliability (Quick)': '🛡️ Reliability & Performance',
         'Quality Hill Climbing': '🛡️ Reliability & Performance',
-        'Red Team Security (Full)': '� Security & Sovereignty',
-        'Red Team (Fast)': '� Security & Sovereignty',
-        'Load Test (Baseline)': '�️ Reliability & Performance',
+        'Red Team Security (Full)': ' Security & Sovereignty',
+        'Red Team (Fast)': ' Security & Sovereignty',
+        'Load Test (Baseline)': '️ Reliability & Performance',
         'Evidence Packing Audit': '🏗️ Architectural Strategy',
-        'Face Auditor': '�️ Architectural Strategy',
+        'Face Auditor': '️ Architectural Strategy',
         'RAG Fidelity Audit': '🛡️ Reliability & Performance'
     }
     PRIMARY_RISK_MAP = {
@@ -720,7 +727,7 @@ class CockpitOrchestrator:
             msg['From'] = f'AgentOps Cockpit Audit <{sender_email}>'
             msg['To'] = recipient
             msg['Subject'] = f"🏁 Audit Report: {getattr(self, 'title', 'Agent Result')}"
-            with open(self.report_path, 'r') as f:
+            with open(self.report_path, 'r', encoding='utf-8', errors='replace') as f:
                 content = f.read()
             msg.attach(MIMEText(content, 'plain'))
             server = smtplib.SMTP(smtp_server, port)
@@ -899,6 +906,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             generate_fleet_dashboard({target_path: orchestrator.get_exit_code()})
             return orchestrator.get_exit_code()
     subtitle = 'Essential checks for dev-velocity' if mode == 'quick' else 'Full benchmarks & stress-testing'
+    if cordon:
+        subtitle += " | [bold yellow]CORDONED[/bold yellow]"
     console.print(Panel.fit(f'🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...', border_style='blue'))
     with Progress(SpinnerColumn(), TextColumn('[progress.description]{task.description}'), BarColumn(bar_width=None), TextColumn('[progress.percentage]{task.percentage:>3.0f}%'), console=console, expand=True) as progress:
         base_mod = 'agent_ops_cockpit'

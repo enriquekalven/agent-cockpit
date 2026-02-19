@@ -49,7 +49,7 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
         if verbose:
             console.print(f"🔍 [dim]Scanning {file_path}...[/dim]")
         try:
-            with open(file_path, 'r', errors='ignore') as f:
+            with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
                 content = f.read()
             tree = ast.parse(content) if file_path.endswith('.py') else ast.parse('')
             for auditor in auditors:
