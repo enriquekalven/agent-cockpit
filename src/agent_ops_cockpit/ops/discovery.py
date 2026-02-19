@@ -20,7 +20,14 @@ class DiscoveryEngine:
     Centralized discovery service for the AgentOps Cockpit.
     Aggregates .gitignore, .cockpitignore, and default SRE exclusions to traverse deep hierarchies.
     """
-    DEFAULT_EXCLUSIONS = {'tests', 'test', '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
+    DEFAULT_EXCLUSIONS = {
+        'tests', 'test', 'mocks', 'mock', 'eval', 'evalsets', 'benchmarks',
+        '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 
+        'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 
+        'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 
+        'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', 
+        '.agent', '.cockpit', '.gcloud', '.firebase', 'conftest.py', 'test_*.py', '*_test.py'
+    }
 
     def __init__(self, root_path: str='.'):
         self.root_path = os.path.abspath(root_path)

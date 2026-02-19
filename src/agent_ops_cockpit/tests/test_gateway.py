@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from agent_ops_cockpit.ops.gateway import app
 

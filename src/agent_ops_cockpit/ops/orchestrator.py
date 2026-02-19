@@ -81,7 +81,7 @@ class CockpitOrchestrator:
         return os.path.relpath(brain, path)
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID, sim: bool = False):
+    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID, sim: bool = False, cordon: bool = False):
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f'[cyan]Running {name}...')
         if sim or getattr(self, 'sim', False):
@@ -103,6 +103,13 @@ class CockpitOrchestrator:
             return (name, True)
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
+        
+        # v2.0.2 Cordon Mode: Isolate registry to prevent 401 friction
+        if cordon:
+            env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
+            env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
+            env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
+            
         target_path = getattr(self, 'target_path', '.')
         agent_paths = [target_path, os.path.join(target_path, 'src')]
         env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{os.pathsep.join(agent_paths)}{os.pathsep}{env.get('PYTHONPATH', '')}"
@@ -828,7 +835,7 @@ class CockpitOrchestrator:
         return plugins
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False, interactive: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False, interactive: bool=False, cordon: bool=False):
     # DEFENSIVE: Typer sometimes leaks OptionInfo objects when called as functions
     if only and not isinstance(only, (list, tuple)):
         only = None
@@ -920,8 +927,23 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             steps.extend([('Quality Hill Climbing', [sys.executable, '-m', f'{base_mod}.eval.quality_climber', 'climb', '--steps', '10']), ('Red Team Security (Full)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]), ('Load Test (Baseline)', [sys.executable, '-m', f'{base_mod}.eval.load_test', 'run', '--requests', '50', '--concurrency', '5']), ('Evidence Packing Audit', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path])])
         else:
             steps.append(('Red Team (Fast)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]))
+        # v2.0.2 Incremental Audit Mode: Skip unrequested steps to speed up loop
         if only:
-            steps = [s for s in steps if any((o.lower() in s[0].lower().replace(' ', '_') for o in only))]
+            only_lower = [o.lower() for o in only]
+            steps = [s for s in steps if any(o in s[0].lower() for o in only_lower)]
+            if not steps:
+                console.print(f"⚠️ [yellow]Incremental Filter Active:[/yellow] No auditors match '{', '.join(only)}'. Running full suite instead.")
+                # Re-establish default steps if filter matched nothing, using the base_mod format
+                steps = [
+                    ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]),
+                    ('Architecture Review', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]),
+                    ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]),
+                    ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']),
+                    # Assuming MCP Logic Hub is also in ops
+                    ('MCP Logic Hub', [sys.executable, '-m', f'{base_mod}.ops.mcp_store']),
+                ]
+            else:
+                 console.print(f"🧗 [bold blue]Incremental Audit Mode:[/bold blue] Only checking {len(steps)} requested personas.")
         if skip:
             steps = [s for s in steps if not any((o.lower() in s[0].lower().replace(' ', '_') for o in skip))]
         
@@ -930,10 +952,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         excluded = config.get('exclude_checks', []) if config else []
         if excluded:
             steps = [s for s in steps if s[0] not in excluded and s[0].lower().replace(' ', '_') not in excluded]
-        tasks = {name: progress.add_task(f'[white]Waiting: {name}', total=100) for name, cmd in steps}
+        
+        # Prepare tasks for ThreadPoolExecutor
+        task_ids = []
+        for name, cmd in steps:
+            task_id = progress.add_task(f'[white]Waiting: {name}', total=100)
+            task_ids.append((name, cmd, task_id))
+
         with ThreadPoolExecutor(max_workers=len(steps)) as executor:
-            future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name], sim=sim): name for name, cmd in steps}
-            for future in as_completed(future_to_audit):
+            future_map = {executor.submit(orchestrator.run_command, name, cmd, progress, task_id, sim=sim, cordon=cordon): name for name, cmd, task_id in task_ids}
+            for future in as_completed(future_map): # Changed from future_to_audit to future_map
                 name, success = future.result()
     orchestrator.title = title
     telemetry.track_event_sync("audit_started", {"mode": mode, "path": target_path})
@@ -1005,6 +1033,12 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     # Code-First Security Hardening
                     rem.apply_privilege_gate(finding)
                     console.print(f"🛡️  [bold green]Privilege Gate Injected:[/bold green] Added tool_privilege_check to {os.path.basename(full_path)}")
+                elif any(x in title.lower() for x in ['passive', 'retrieval', 'rag']):
+                    rem.apply_passive_retrieval(finding)
+                    console.print(f"🌉 [bold green]Managed RAG Refactor:[/bold green] Injected decider logic to {os.path.basename(full_path)}")
+                elif any(x in title.lower() for x in ['monolith', 'structural', 'size']):
+                    rem.apply_structural_split(finding)
+                    console.print(f"🏗️  [bold green]Architectural Split Scaffold:[/bold green] Injected modular router recommendation to {os.path.basename(full_path)}")
 
         for path, rem in remediators.items():
             if dry_run:
@@ -1076,6 +1110,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
+    if apply_fixes:
+        console.print("\n🛡️  [bold cyan]Sovereign Safety Net (Shadow Modeling):[/bold cyan]")
+        console.print(f"Recommended: Run [white]cockpit audit benchmark --path {target_path}[/white] to verify fixes against Golden Set.")
+    
     return exit_code
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))

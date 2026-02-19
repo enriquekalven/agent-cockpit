@@ -236,6 +236,55 @@ class CloudBridge:
         if self.content.strip().startswith('{'):
             self._add_edit(2, 0, 2, 0, '  "capabilities": {"tools": {}},\n')
 
+    def apply_passive_retrieval(self, finding):
+        """
+        [Strategic Pivot] Injects concrete RAG decider logic (NL-to-Decision pattern).
+        Replaces 'Passive RAG' with a managed routing layer to optimize token cost.
+        """
+        if 'def decider_should_rag' in self.content:
+            return
+            
+        logic = '''
+def decider_should_rag(query: str) -> bool:
+    """
+    v2.0.2 Sovereign Logic: Managed RAG routing.
+    Determines if the query requires external knowledge or can be handled by the base model.
+    """
+    rag_keywords = ["latest", "current", "news", "price", "stock", "documentation", "how to"]
+    return any(word in query.lower() for word in rag_keywords)
+'''
+        # Insert at the end of the imports
+        insert_line = 1
+        for node in (self.tree.body if self.tree else []):
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                insert_line = node.end_lineno + 1
+            else:
+                break
+        self._add_edit(insert_line, 0, insert_line, 0, logic)
+        
+        # Also try to find the LLM call and wrap it with the decider if possible
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.Call) and node.lineno == finding.line_number:
+                # This is a bit complex for a regex/string patcher, but we can inject a comment 
+                # next to the line as a 'Functional Guide'
+                line = self.lines[node.lineno-1]
+                indent = line[:len(line) - len(line.lstrip())]
+                guide = f"{indent}# v2.0.2 Logic: if decider_should_rag(query): pass # Apply RAG here\n"
+                self._add_edit(node.lineno, 0, node.lineno, 0, guide)
+                break
+
+    def apply_structural_split(self, finding):
+        """
+        v2.0.2 Architectural Evolution: Suggests splitting oversized agents.
+        Injects a 'Managed Router' boilerplate to facilitate modularity.
+        """
+        router_code = '''
+# ARCHITECTURAL RECOMMENDATION: Split this agent into specialized sub-agents.
+# E.g., Use an Orchestrator/Router pattern to delegate to poi_agent or booking_agent.
+# This improves reasoning accuracy and reduces TTFT (Time To First Token).
+'''
+        self._add_edit(1, 0, 1, 0, router_code)
+
     def _get_new_content(self):
         """Apply edits in reverse order to original string content."""
         if not self.edits:

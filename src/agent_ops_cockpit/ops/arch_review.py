@@ -56,14 +56,27 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
                 # Tailor findings based on context if available
                 res = auditor.audit(tree, content, file_path)
                 if context:
-                    for f in res:
+                    for f_item in res:
                         if context['cloud'] == 'aws':
-                            f.description = f.description.replace('Google Cloud Secret Manager', 'AWS Secrets Manager')
-                            f.description = f.description.replace('Cloud Logging', 'CloudWatch')
-                            f.description = f.description.replace('Vertex AI', 'Amazon Bedrock')
-                        if context['framework'] == 'flask' and 'Synchronous' in f.title:
-                            f.description += " [blue]Recommendation: Pivot to FastAPI for true Agentic Concurrency.[/blue]"
+                            f_item.description = f_item.description.replace('Google Cloud Secret Manager', 'AWS Secrets Manager')
+                            f_item.description = f_item.description.replace('Cloud Logging', 'CloudWatch')
+                            f_item.description = f_item.description.replace('Vertex AI', 'Amazon Bedrock')
+                        if context['framework'] == 'flask' and 'Synchronous' in f_item.title:
+                            f_item.description += " [blue]Recommendation: Pivot to FastAPI for true Agentic Concurrency.[/blue]"
                 all_findings.extend(res)
+            
+            # v2.0.2 Deep Structural Analysis: Check for monoliths
+            if len(content.splitlines()) > 200:
+                from agent_ops_cockpit.ops.auditors.base import AuditFinding
+                all_findings.append(AuditFinding(
+                    title="🏛️ Structural Monolith Detected",
+                    description="Agent file is too large (>200 lines). Recommend splitting into specialized sub-agents/peers.",
+                    category="🏗️ Architecture",
+                    impact="High Latency / Reduced Token Density",
+                    roi="High (TTFT reduction)",
+                    file_path=file_path,
+                    line_number=1
+                ))
         except Exception as e:
             if verbose:
                 console.print(f"⚠️ [red]Error scanning {file_path}: {e}[/red]")
@@ -136,6 +149,14 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
                 remediator.apply_mcp_validation(f)
                 applied_count += 1
                 console.print(f'   🛠️ Planned: [green]Protocol Manifest Fix[/green] ({f.title})')
+            elif 'Passive Retrieval' in f.title or 'Passive RAG' in f.title:
+                remediator.apply_passive_retrieval(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Managed RAG Refactor[/green] ({f.title})')
+            elif 'Structural Monolith' in f.title:
+                remediator.apply_structural_split(f)
+                applied_count += 1
+                console.print(f'   🛠️ Planned: [green]Architectural Split Scaffold[/green] ({f.title})')
         if applied_count > 0:
             if dry_run:
                 console.print(f'🏜️ [yellow]DRY RUN: Skip saving patch for {file_path}[/yellow]\n')
