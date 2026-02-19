@@ -12,6 +12,8 @@ Whether you want a long-term install or a quick one-off run.
 | **Zero-Install (uvx)** | `uvx agentops-cockpit <command>` | Remote/CI execution without installing. |
 | **Dev Setup** | `make install` | Clone and sync for local contributors. |
 
+> 💡 **Pro-Tip**: You can use `ops`, `aops`, or `agent-ops` interchangeably with `cockpit`. For example, `ops report` is the same as `cockpit audit report`.
+
 ---
 
 ## 🏛️ 2. The Sovereign Workflow
@@ -22,7 +24,7 @@ Follow this path to take an agent from prototype to enterprise-grade.
 | **1. Explore**| `cockpit` | `make cockpit` | Launch Master Dashboard & Fleet Status. |
 | **2. Modernize**| `cockpit mcp blueprint` | `make mcp-blueprint` | Generate MCP Wrappers for Legacy Tools. |
 | **3. Certify** | `cockpit certify` | `make certify` | Production Readiness Certification. |
-| **4. Audit** | `cockpit audit report` | `make audit` | Deep Persona SME scan: Sec, ROI, & Arch. |
+| **4. Audit** | `ops report` | `make audit` | Deep Persona SME scan: Sec, ROI, & Arch. |
 | **5. Fix** | `cockpit fix evolve` | `make apply-fixes` | Autonomous remediation & code hardening. |
 | **6. Deploy** | `cockpit deploy sovereign`| `make deploy-prod`| End-to-End: Audit -> Fix -> Deploy. |
 | **7. Monitor**| `cockpit fleet status` | `make fleet-status` | View global production state. |
@@ -65,7 +67,7 @@ Manage your agents once they are live in the wild.
 | Action | Command / Shortcut |
 | :--- | :--- | :--- |
 | **Mission Control** | `cockpit` |
-| **Master Audit** | `make audit` |
+| **Master Audit** | `ops report` |
 | **Apply All Fixes** | `make apply-fixes` |
 | **Certify Project** | `cockpit certify` |
 | **Modernize Tools** | `make arch-review` |

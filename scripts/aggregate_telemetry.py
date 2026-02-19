@@ -95,7 +95,8 @@ def aggregate():
     reserved_keys = set(aggregated.keys())
     for path, info in data.items():
         # Only take a few to keep the file small (for the map visualization)
-        if len(aggregated) > 25: break
+        if len(aggregated) > 25:
+            break
         
         # Only add keys that look like paths and aren't reserved
         if isinstance(path, str) and path.startswith('/') and path not in reserved_keys:

@@ -90,6 +90,7 @@ include = [
 [tool.pytest.ini_options]
 pythonpath = ["src", "functions"]
 testpaths = ["tests", "src/agent_ops_cockpit/tests"]
+norecursedirs = ["dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist"]
 asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",
@@ -103,7 +104,11 @@ exclude = [
     "lab-tutorial-agent-alt",
     "app",
     "tests",
-    "temp_mixed"
+    "temp_mixed",
+    "dogfood",
+    "node_modules",
+    "dist",
+    "build"
 ]
 
 [tool.ruff.lint]

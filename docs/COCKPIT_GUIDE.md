@@ -1,65 +1,51 @@
-The **Cockpit** is the mission control for your AI agents. While the "Engine" handles reasoning, the Cockpit ensures that reasoning is safe, cost-effective, and auditable. In v2.0.2, the Cockpit has evolved from a dashboard into an **Autonomous Evolution Engine** with standardized security middleware.
+# 🛰️ Mission Control (The Cockpit)
+## The "Sovereign Evolution" (v2.0.2 Stable)
+
+The **Cockpit** is the mission control for your Sovereign AI agents. While the "Engine" handles reasoning, the Cockpit ensures that reasoning is safe, cost-effective, and verifiably audited.
 
 ---
 
-## 🛰️ Shadow Routing & Fleet Dashboard
-The **Fleet Dashboard** (Mission Control) allows you to manage multiple agents from a single pane of glass. 
-*   **Shadow Mode**: Deploy a new version (v2) alongside production (v1).
-*   **Estate Health**: Gain visibility into "The Builder", "The Strategist", and "The Guardian" personas.
-*   **Access**: Securely managed via the **`agent-ops` CLI** or the integrated **Operational Guide**.
+## 🏗️ The Governing Board (Principal SMEs)
+Every audit result and remediation is authored by a panel of **Principal SME Personas**. Instead of generic logs, you receive strategic guidance:
+- **SecOps Principal**: Hardening logic against adversarial gaslighting.
+- **FinOps Principal**: Scaling reasoning density and model-tier arbitrage.
+- **SRE Principal**: Managing infrastructure sovereignty and fleet anomalies.
+- **Architect Principal**: Aligning code with the **Agentic Trinity** standards.
 
-## 🧠 Hive Mind (Semantic Caching)
-The Hive Mind is a specialized middleware that prevents redundant LLM calls.
-1. **Request**: User asks a common question.
-2. **Lookup**: Hive Mind checks a Vector Store (AlloyDB/Memorystore) for semantically similar historical answers.
-3. **Hit**: If a match is >90% similar, the answer is served in 10ms for $0 cost.
-[**Read FinOps Guide**](TECHNICAL_FINOPS_GUIDE.md)
+## 🌉 Sovereign Bridge (Multi-Cloud Orchestration)
+The Cockpit abstracts the underlying cloud provider, allowing you to govern agents across GCP, AWS, and Azure from a single interface.
+- **Unified Auth**: Single-command credential validation via `ops sys doctor`.
+- **Cloud Mobility**: Move an agent audited on Vertex AI to AWS Bedrock with zero code changes in the governance layer.
 
-## 🛡️ Standardized Guardrails (v1.8.4)
-The Cockpit now provides a standardized security middleware for agent developers.
-*   **PII Scrubbing**: Automatically mask emails, API keys, and tokens using `guardrails.scrub_pii()`.
-*   **Adversarial Defense**: Use `guardrails.validate_prompt()` to block instruction-overrides and injection attempts before they reach the model.
-*   **Agent Decorators**: Wrap your core reasoning logic with `@guardrails.wrap_agent_call` for unified governance.
+## 🛡️ Sovereign Gateway (The Guardian)
+A real-time sidecar logic layer that governs inter-agent and agent-to-user traffic.
+- **Real-time PII Scrubbing**: Automatically detects and masks sensitive data in transit.
+- **A2A Evidence Packets**: Cryptographically signs reasoning traces to ensure trust in multi-agent swarms.
+- **Guardrail Injection**: Run `make apply-fixes` to autonomously inject these gates into your codebase.
 
-## 📊 Operational Metrics & SME Personas
-Every audit result is framed through the lens of a [**Principal SME Persona**](TECHNICAL_AUDIT_GUIDE.md).
-- **Token Velocity**: Monitoring for prompt runaways or recursive loops.
-- **Reasoning Density**: Quality gained per token spent. [**Read Quality Guide**](TECHNICAL_QUALITY_GUIDE.md).
-- **Cost Drift**: Predictive auditing of monthly Gemini consumption.
+## 🧠 Semantic Hive Mind (Distributed Caching)
+The Hive Mind is a specialized middleware that prevents redundant LLM calls across your entire fleet.
+1. **Shared Memory**: If Agent A answers a complex query, Agent B can recall that answer in <10ms.
+2. **Cost Sashing**: Reduces OpEx by serving semantically identical requests from cache.
 
-## 🚦 Human-in-the-Loop (HITL)
-For high-stakes actions, the Cockpit allows you to define "Gatekeeper" tools.
-- When an agent calls a gated tool, the Cockpit pauses execution and requests human approval via the **Face (A2UI)**.
-- **A2UI v1.8.4 Features**: Leverage new adaptive surfaces for structured human feedback. [**Read UX Guide**](TECHNICAL_UX_GUIDE.md).
+## 🎨 A2UI Protocol Sync
+The Cockpit synchronizes with the **Face** layer to ensure that the agent "understands" the target UI.
+- **Surface Discovery**: The agent can query the A2UI Registry to find the best component for a specific tool output.
+- **HITL Modals**: High-risk actions automatically trigger human-in-the-loop approval surfaces.
 
 ---
 
-## 🏛️ Autonomous Evolution (New in v1.8.4)
-The Cockpit no longer just finds problems; it synthesizes fixes.
-*   **Autonomous Architect**: Runs `make arch-review` to generate ADRs and ROI analysis. [**Read Architect Guide**](TECHNICAL_ARCH_REVIEW.md).
-*   **Context-Aware Patching**: Trigger code synthesis to harden your agent's logic.
-
-## 🛡️ Advanced Governance & Discovery
-The Cockpit uses a centralized **Discovery Engine** to intelligently map and audit your agentic estate.
-
-### 🧩 `cockpit.yaml` Configuration
-Standardize your project's governance by placing a `cockpit.yaml` in your root directory:
+## 🔍 Discovery & Governance Standards
+Place a `cockpit.yaml` in your root directory to customize the **Governing Board's** focus:
 ```yaml
-entry_point: "src/my_agent.py"  # Override autodetection
-exclude:                       # Custom ignore patterns
-  - "legacy_code/**"
-  - "experimental/**"
-threshold: 80                  # Minimum health score for CI/CD pass
+entry_point: "src/sovereign_agent.py"
+exclude: ["legacy/**", "tests/mocks/**"]
+threshold: 95 # Minimum score for prod promotion
 ```
 
-### 🔍 Discovery Engine Capabilities
-*   **`.gitignore` Compliance**: Automatically respects your project's ignore rules to reduce scan noise.
-*   **Library Isolation**: Intelligently ignores third-party libraries (`venv`, `node_modules`) to eliminate false positives in security reports.
-*   **AST Brain Detection**: Uses Abstract Syntax Tree analysis to find where your agent logic (Vertex AI, LangChain, etc.) is actually initialized.
-
-## 🌐 Global Governance Hub
-The Cockpit can act as a **Centralized Auditor** for any agentic codebase.
-*   **External Repos**: Use `make audit-all TARGET=/path/to/remote-repo`. The Discovery Engine will automatically identify the agent's entry point and apply governance standards.
+### Discovery Engine Capabilities
+*   **AST Purity Scan**: Uses deep syntax analysis to detect "Spaghetti Agents" (mixed UI and logic).
+*   **Golden Signal Tracking**: Automatically instruments your agent with TTFT (Time to First Token) and Reasoning Density tracking.
 
 ---
 *Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v2.0.2).*

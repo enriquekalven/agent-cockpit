@@ -1,40 +1,38 @@
 # 🧗 Technical Guide: AI Quality & Evaluation
-## The "Ecosystem Expansion" Standard (v1.8.4 Stable)
+## The "Ecosystem Expansion" Standard (v2.0.2 Evolution)
 
-The `make quality-baseline` and `ops rag-truth` commands activate the **AI Quality SME**. In v1.8.4, this persona has expanded from "Hill Climbing" (reasoning optimization) to **RAG Fidelity Auditing**. We now treat **Grounding Logic** and **Citation Accuracy** as first-class quality citizens, ensuring the agent is as honest as it is intelligent.
+The `ops report --mode deep` and `cockpit certify` commands activate the **Quality Principal SME**. In the Sovereign Evolution, this persona focuses on **Reasoning Stability** and **RAG Fidelity**, ensuring that agents are as honest as they are intelligent.
 
 ---
 
 ## 🛠️ Quality Lifecycle Commands
 
-| Command | Objective | Impact | Technical Driver |
+| Command | Alias / Shortcut | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `ops rag-truth` | **RAG Fidelity Audit** | v1.8.4: Dedicated SME for citation accuracy and grounding logic. | `rag_audit.py` (RAG Fidelity SME) |
-| `make quality-baseline` | **Iterative Optimization**| Runs the **Hill Climbing** loop against the Golden Dataset. | `quality_climber.py` (Hill Climbing SME) |
-| `ops report` | **Visual Maturity** | v1.8.4: Maturity Radar Charts for grounding and reliability. | `dashboard.py` Visualizer |
-| `make audit-deep` | **Final Examination** | Incorporates RAG/Quality metrics into the master report. | `orchestrator.py` Synthesis |
+| **Fidelity Audit** | `ops report` | Scans for grounding & citations. | **Quality SME Reasoning**. |
+| **Iterative Meta-Eval**| `ops report --mode deep` | Runs the **Hill Climbing** loop. | `quality_climber.py` |
+| **Certify Project** | `cockpit certify` | Final production validation. | Sovereign Goal Alignment. |
+| **Trajectory Fix** | `make apply-fixes`| Injects reasoning constraints. | **The Closer Engine**. |
 
 ---
 
-## 🏛️ SME Judgment: The Science of Reasoning (v1.8.4)
-
-> "This version is unassailable. By linking Reasoning Density to FinOps and enforcing a Committee of Judges, you have created a framework that is objective, exhaustive, and mathematically verifiable. This completes the 'Professionalization' of the agentic stack."
-> — *Principal SME, AI Quality & Evaluation*
-
-### 💎 Why this is "Consultancy Killer" Grade
-*   **The "Liar" Detection (Trajectory)**: Most evaluators only measure if the answer is "correct." Our focus on catching **"Data Shortcuts"** (guessing without tools) is the only way to prevent catastrophic failures in regulated industries.
-*   **Gradient-based Reasoning Probes**: Framing prompt adjustments as "probes" into reasoning space recognizes that the LLM is a high-dimensional landscape we must navigate scientifically.
-*   **Committee of Judges**: Implementing cross-model consensus (Gemini + GPT) eliminates "model bias" and ensures the agent's reasoning is robust across multiple intelligence profiles.
+## 🏛️ SME Judgment: The Science of Reasoning (v2.0.2)
+"In a world of stochastic reasoning, stability is the only currency. By linking **A2A Evidence Packets** to grounding metrics, we've transformed 'Vibe Checks' into a cryptographic certainty."
 
 ---
 
-## 🔍 The v1.8.4 "Autonomous Evolution" Roadmap
+## 💎 Sovereign Quality Pillars
 
-### 1. 🛑 "Negative Golden Sets"
-*   **Logic**: Include a dataset of queries the agent **must refuse**. Hill Climbing will penalize any variant that attempts to answer "toxic" or "out-of-scope" prompts.
+### 1. 🧗 Hill Climbing (Autonomous Optimization)
+*   **The Loop**: Automatically mutates and evaluates prompt variants against a **Golden Dataset** until it reaches the peak of efficiency.
+*   **Reasoning Probes**: Measures how small changes in wording impact tool-calling trajectories.
 
-### 2. Context-Window Efficiency
-*   **Metric**: **"Token Efficiency of Thought"**. If two prompt variants yield the same quality peak, the auditor selects the one that consumes fewer context-window tokens.
+### 2. 🖇️ Trajectory Stability (Anti-Hallucination)
+*   **Vector**: Detecting "Data Shortcuts" where an agent guesses an answer without calling mandatory tools.
+*   **Audit Logic**: Uses **A2A Evidence Packets** to verify that every claim in the final response maps to a specific tool output.
+
+### 3. 🛡️ Negative Golden Sets (Refusal Accuracy)
+*   **Logic**: A dataset of queries the agent **must refuse**. The Cockpit penalizes any variant that attempts to answer out-of-scope or toxic prompts.
 
 ---
 
@@ -55,49 +53,30 @@ graph TD
 
 ---
 
-## 📊 Comparison: Manual Tuning vs. Hill Climbing v1.8.4
+## 📊 Comparison: Legcy Tuning vs. Sovereign Eval
 
-| Vector | Manual Prompt Engineering | AgentOps Hill Climbing v1.8.4 |
+| Vector | Legacy Prompt Engineering | v2.0.2 Sovereign Evaluation |
 | :--- | :--- | :--- |
-| **Optimization** | Random "guesses" at wording. | **Gradient-based Reasoning Probes.** |
-| **Ground Truth** | Anecdotal "vibe" checks. | **Strict JSON-Schema Expectations.** |
-| **Audit Scope** | Final output only. | **Step-by-Step Tool Execution Trace.** |
-| **Stability** | Regression-prone. | **Mathematically Verified Baselines.** |
+| **Optimization** | Manual trial and error. | **Gradient-based Hill Climbing.** |
+| **Ground Truth** | Anecdotal "vibe" checks. | **A2A Evidence Packets.** |
+| **Audit Scope** | Final output only. | **Step-by-Step Tool Trace Analysis.** |
+| **Integrity** | Regression-prone. | **Mathematically Verified Baselines.** |
 
 ---
 
 ## 🧗 The Hill Climbing Mechanics
-
-The "Peak Discovery" process transforms the **Reasoning Space** into a measurable landscape. 
-
-### ⚙️ The Gradient Search Space
 The `QualityClimber` defines the search space across several hyperparameters:
-1.  **System Prompt Variants**: Generated via a mutation loop that adjusts "Reasoning Directives" (e.g., "Think step-by-step" vs. "Atomic response").
-2.  **Trajectory Alignment**: The system audits the **Step-by-Step Tool Trace**. If the agent reaches the correct answer but skips a mandatory retrieval step, it is penalized for a "Lucky Guess."
-3.  **Consensus Judging**: A **Committee of Judges** (using `quality_climber.py`'s `QualityJudge` class) averages scores across multiple reasoning models to eliminate single-model bias.
-
-### 📐 Key Metric: Trajectory Stability
-Measured as the variance in tool-calling sequences across 10 identical runs. High variance indicates a "Fragile Prompt" that will likely fail in production.
+1.  **System Prompt Variants**: Generated via a mutation loop that adjusts "Reasoning Directives."
+2.  **Trajectory Alignment**: Audits the tool trace. If the agent reaches the correct answer but skips a step, it is penalized for a "Lucky Guess."
+3.  **Committee of Judges**: Average scores across multiple reasoning models (Gemini + others) to eliminate single-model bias.
 
 ---
 
-## 📊 The Quality Approval Matrix (v1.8.4)
-
-> **Principal Note**: The "Reasoning Density" check is your financial guardrail. We stop climbing when the cost of additional compute for a 0.1% gain results in a negative ROI.
-
-| Persona | Status | Primary Quality Risk | Recommended Move |
-| :--- | :--- | :--- | :--- |
-| 🧗 **Quality** | ⚠️ WARN | **Local Optima**: Stuck at 82%. | Inject "Temperature Spikes" for variants. |
-| 🖇️ **Trajectory** | ❌ FAIL | **Data Shortcut**: Guessed 4/10 answers. | Add "Mandatory Retrieval" constraints. |
-| 💰 **FinOps** | ✅ PASS | Reasoning Density within ROI bounds. | N/A (Efficient) |
+## 🚀 SME Remediation Strategy
+If your agent fails the Quality audit, the SME recommends:
+*   **Self-Correction**: Inject logic that forces the agent to cross-reference tool outputs with the original intent.
+*   **Tighten Constraints**: Use `make apply-fixes` to autonomously inject "Mandatory Retrieval" requirements into the system prompt.
+*   **Evidence Pinning**: Force the agent to include **Evidence Packet** IDs in its internal Chain of Thought.
 
 ---
-
-## 🚀 Principal Defense: Quality Remediations v1.8.4
-
-*   **Self-Correction Blocks**: Injected logic that forces the agent to cross-reference tool outputs with the original user intent.
-*   **Adversarial Slicing**: Focusing Hill Climbing cycles on the 20% of queries that caused the most "Trajectory Drift."
-*   **Consensus Peak**: Final verification by the **Committee of Judges** (Gemini + GPT) to ensure the "Optimal Prompt" is truly model-agnostic.
-
----
-*Generated by the AgentOps Cockpit. Quality & Evaluation Division (v1.8.4 Stable).*
+*Generated by the AgentOps Cockpit. Quality & Evaluation Division (v2.0.2).*

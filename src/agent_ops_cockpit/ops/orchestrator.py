@@ -834,12 +834,10 @@ class CockpitOrchestrator:
         v2.0.2 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
         Looks in:
         1. target_path/.cockpit/auditors/
-        2. cockpit_core/ops/auditors/ (plugins)
         """
         plugins = []
         plugin_dirs = [
-            os.path.join(target_path, '.cockpit', 'auditors'),
-            os.path.join(os.path.dirname(__file__), 'auditors')
+            os.path.join(target_path, '.cockpit', 'auditors')
         ]
         
         for pdir in plugin_dirs:

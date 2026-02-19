@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 
 # Add src to path
 sys.path.append(os.path.abspath('src'))
@@ -20,7 +21,6 @@ results = {
 generate_fleet_dashboard(results)
 
 # Copy it to public/fleet-dashboard-sample.html
-import shutil
 os.makedirs('public', exist_ok=True)
 shutil.copy('.cockpit/fleet_dashboard.html', 'public/fleet-dashboard-sample.html')
 print("Sample fleet dashboard generated at public/fleet-dashboard-sample.html")
