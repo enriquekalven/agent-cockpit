@@ -2,14 +2,15 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v2.0.0 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
+# v2.0.2 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
 
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 from typing import Optional, List, Annotated
 import shutil
+import jwt  # PyJWT for v2.0.2 Sovereign Attestation
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 import asyncio
 from rich.console import Console
 from rich.panel import Panel
@@ -38,11 +39,42 @@ app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance
 audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
 
 # --- MASTER HUB ---
-@app.command(name="cockpit")
-def master_dashboard(path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+cockpit_app = typer.Typer(help="🚀 Cockpit: Manage your agent fleet and project health.")
+
+@cockpit_app.callback(invoke_without_command=True)
+def cockpit_main(ctx: typer.Context, path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
     """🚀 Mission Control: The 'One Command' to manage your entire agent fleet."""
-    dashboard = master_mod.MasterCockpit(path)
-    dashboard.render_landing()
+    if ctx.invoked_subcommand is None:
+        dashboard = master_mod.MasterCockpit(path)
+        dashboard.render_landing()
+
+@cockpit_app.command()
+def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to project")] = "."):
+    """🏗️ Bootstrap: Explicitly initialize Cockpit manifests and adopt sovereign libraries."""
+    console.print(Panel.fit('🏗️ [bold blue]COCKPIT BOOTSTRAP: PROJECT INITIALIZATION[/bold blue]', border_style='blue'))
+    
+    # 1. Create cockpit.yaml if missing
+    config_path = os.path.join(path, 'cockpit.yaml')
+    if not os.path.exists(config_path):
+        with open(config_path, 'w') as f:
+            f.write("# AgentOps Cockpit Manifest\nversion: 2.0.2\nentry_point: agent.py\ncloud: google\nframework: fastapi\n")
+        console.print("✅ Created [bold]cockpit.yaml[/bold]")
+    else:
+        console.print("⌛ [dim]cockpit.yaml already exists. Skipping.[/dim]")
+
+    # 2. Create .cockpit directory
+    dot_cockpit = os.path.join(path, '.cockpit')
+    if not os.path.exists(dot_cockpit):
+        os.makedirs(dot_cockpit)
+        console.print("✅ Created [bold].cockpit/[/bold] artifact store.")
+
+    # 3. Adopt libraries (Sovereign Scaffolding)
+    from agent_ops_cockpit.ops.migration import MigrationEngine
+    engine = MigrationEngine(path)
+    engine.generate_scaffolding(path)
+    console.print("✅ Generated [bold]Sovereign Scaffolding[/bold] (policy_engine.ts, etc.)")
+    
+    console.print("\n✨ [bold green]Project bootstrapped successfully.[/bold green] Run [blue]cockpit audit[/blue] to begin.")
 fleet_app = typer.Typer(help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling.")
 deploy_app = typer.Typer(help="🚀 Deployment Hub: Project hydration, migration, and cloud factory.")
 fix_app = typer.Typer(help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis.")
@@ -50,6 +82,23 @@ test_app = typer.Typer(help="🧪 Reliability Hub: Unit tests and Persona smoke 
 sys_app = typer.Typer(help="🩺 System Hub: Health diagnosis and version tracking.")
 ops_app = typer.Typer(help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers.")
 create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization and UI creation.")
+
+# --- LEGACY REDIRECTS (v2.0.1 Smart Aliasing) ---
+@app.command(name="report", hidden=True)
+def legacy_report(
+    ctx: typer.Context,
+    mode: str = 'quick',
+    path: str = '.',
+    workspace: bool = typer.Option(False, "--workspace", "-w", help="Scan and audit all agents in the workspace"),
+    heal: bool = typer.Option(False, "--heal", help="Deprecated: Use --apply-fixes instead")
+):
+    """[DEPRECATED] Master Architect: Auto-aliasing to 'audit report'."""
+    console.print("🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]...")
+    if heal:
+        console.print("🔧 [dim]Detected legacy --heal flag. Mapping to --apply-fixes...[/dim]")
+    
+    # Forward the call to audit report
+    report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
 console = Console()
 
@@ -190,7 +239,9 @@ def list_models():
         console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
 
 @app.command(name="certify")
-def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = True):
+def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", 
+                  no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = False,
+                  interactive: Annotated[bool, typer.Option("--interactive", "-i", help="Ask for confirmation before applying fixes")] = False):
     """
     Launch the 'Sovereign Certification' checklist.
     Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
@@ -204,7 +255,7 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
 
     # 2. Deep Functional & Security Audit
     console.print("\n🛰️ [bold blue]Step 2: Deep Functional, Security & Load Audit...[/bold blue]")
-    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT')
+    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT', apply_fixes=True, interactive=interactive)
     
     # 3. Full Regression Suite (Unit + Smoke Tests)
     console.print("\n🧪 [bold blue]Step 3: Full Regression Suite (Unit + Smoke tests)...[/bold blue]")
@@ -219,9 +270,49 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
     console.print("\n" + "="*80)
     if audit_exit_code == 0 and regression_passed:
         console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
+        
+        # v2.0.2: Generate Sovereign Certificate (Cryptographic Proof)
+        import hashlib
+        cert_data = f"CERTIFICATE:v2.0.2|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
+        proof = hashlib.sha256(cert_data.encode()).hexdigest()
+        
+        cert_path = os.path.join(path, '.cockpit', 'sovereign_certificate.txt')
+        with open(cert_path, 'w') as f:
+            f.write("--- 🏛️ SOVEREIGN CERTIFICATE v2.0.2 ---\n")
+            f.write(f"ISSUED TO: {os.path.basename(os.path.abspath(path))}\n")
+            f.write(f"TIMESTAMP: {datetime.now().isoformat()}\n")
+            f.write("STATUS: CERTIFIED_PRODUCTION_READY\n")
+            f.write("PILARS: Security, Reliability, Architecture, FinOps\n")
+            f.write(f"PROOF: {proof}\n")
+            f.write("--------------------------------------\n")
+            f.write("\nThis agent has passed all Sovereign Audit gates and is cleared for high-stakes autonomous operations.")
+        
+        console.print(f"📜 [bold cyan]Sovereign Certificate Generated:[/bold cyan] {cert_path}")
+        console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
+        
+        # v2.0.2: Sovereign Attestation (JWT for inter-agent handshake)
+        # In actual production, this would use a HSM or Cloud Key Management Service.
+        # Here we use a standard Sovereign Secret for the build env.
+        secret = os.environ.get("COCKPIT_SOVEREIGN_SECRET", "super-secret-sovereign-key-v202")
+        payload = {
+            "iss": "AgentOps Cockpit",
+            "sub": os.path.basename(os.path.abspath(path)),
+            "iat": datetime.now(),
+            "exp": datetime.now() + timedelta(days=90),
+            "status": "CERTIFIED_PRODUCTION_READY",
+            "proof": proof,
+            "pillars": ["Security", "Reliability", "Architecture", "FinOps"]
+        }
+        token = jwt.encode(payload, secret, algorithm="HS256")
+        token_path = os.path.join(path, '.cockpit', 'sovereign_identity.jwt')
+        with open(token_path, 'w') as f:
+            f.write(token)
+        
+        console.print(f"🛡️  [bold green]Sovereign Identity Issued (MuTI):[/bold green] {token_path}")
+        console.print("🧩 [dim]This JWT enables Mutual-TLS-for-Intelligence handshakes.[/dim]")
     else:
         console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
-        console.print("[dim]Review the reports above and in the .cockpit/ directory for remediation steps.[/dim]")
+        console.print("[dim]Review the coaching reports above and in the .cockpit/ directory for remediation steps.[/dim]")
         raise typer.Exit(code=2)
 
 @audit_app.command()
@@ -235,6 +326,7 @@ def report(
     output_format: Annotated[str, typer.Option('--format', help="Output format: 'text', 'json', 'sarif'")] = 'text',
     plain: Annotated[bool, typer.Option('--plain', help='Use plain output without complex Unicode boxes')] = False,
     dry_run: Annotated[bool, typer.Option('--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)')] = False,
+    interactive: Annotated[bool, typer.Option('--interactive', '-i', help='Ask for confirmation before applying each fix')] = False,
     only: Annotated[Optional[List[str]], typer.Option('--only', help='Only run specific categories (e.g. security, finops)')] = None,
     skip: Annotated[Optional[List[str]], typer.Option('--skip', help='Skip specific categories')] = None,
     verbose: Annotated[bool, typer.Option('--verbose', '-v', help='Enable verbose output for debugging')] = False
@@ -245,13 +337,13 @@ def report(
         console.print('🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]')
     if workspace:
         console.print(f'🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]')
-        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip)
+        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip, interactive=interactive)
         if not success:
             raise typer.Exit(code=3)
     else:
         pre_mod.run_preflight(path)
         console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]')
-        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose)
+        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose, interactive=interactive)
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
@@ -349,6 +441,13 @@ def watch_ops():
     watch_mod.run_operational_watch()
 
 @ops_app.command()
+def gateway(port: int = 8000):
+    """🛡️ Sovereign Gateway: Launch the local sidecar for PII Scrubbing and Cost Routing."""
+    from agent_ops_cockpit.ops import gateway as gateway_mod
+    console.print(Panel.fit('🛡️ [bold blue]SOVEREIGN GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...', border_style='blue'))
+    gateway_mod.start_gateway(port=port)
+
+@ops_app.command()
 def simulate_ops(mode: str = "nominal"):
     """[CHAOS ENGINE] Battle-test agent tools with Chaos/Latency proxy injections."""
     from agent_ops_cockpit.ops import simulator as sim_mod
@@ -429,10 +528,17 @@ def fleet_telemetry(name: Annotated[str, typer.Option(..., help='Agent name to f
     
     console.print(table)
 
-@fleet_app.command()
+@fleet_app.command(name="watch")
 def watch_fleet():
     """Track ecosystem updates (ADK, LangChain, etc.) in real-time."""
     watch_mod.run_watch()
+
+@fleet_app.command(name="shadow-roi")
+def fleet_shadow_roi(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to benchmark')] = '.'):
+    """🔦 Shadow ROI: Interactive benchmarking to find optimal model tiers."""
+    from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+    bench = ReliabilityBenchmarker(path)
+    asyncio.run(bench.shadow_benchmark_roi())
 
 # --- DEPLOY HUB ---
 @deploy_app.command()
@@ -554,10 +660,53 @@ def fix_issue(issue_id: Annotated[str, typer.Argument(help="The issue ID or part
     if not success:
         raise typer.Exit(code=1)
 
-@fix_app.command()
+@fix_app.command(name="evolve")
 def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.', branch: Annotated[bool, typer.Option('--branch/--no-branch', help='Create a new git branch for the fixes')] = True):
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""
     orch_mod.run_autonomous_evolution(path, branch=branch)
+
+@fix_app.command(name="reason")
+def fix_reason(
+    issue_id: Annotated[str, typer.Argument(help="The issue ID to provide reasoning for")],
+    reason: Annotated[str, typer.Option("--msg", "-m", help="Reasoning for ignoring or overriding the finding")],
+    path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.'
+):
+    """The Architect's Dialogue: Provide a justification to override an audit finding."""
+    console.print(f'💬 [bold blue]Architect\'s Dialogue Initialized for: {issue_id}...[/bold blue]')
+    orchestrator = orch_mod.CockpitOrchestrator()
+    
+    # v2.0.2: Verify the reasoning using the Semantic Auditor
+    console.print(f"🧐 [magenta]Verifying justification:[/magenta] \"{reason}\"")
+    
+    # We use the BaseAuditor's semantic_verify
+    from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
+    auditor = SecurityAuditor()
+    
+    # Find the finding in the latest report
+    findings = orchestrator.load_latest_findings(path)
+    target = None
+    for f in findings:
+        if issue_id in f.title or issue_id in f.description:
+            target = f
+            break
+            
+    if not target:
+         console.print(f"[red]❌ Error: Could not find finding matching '{issue_id}' in the latest report.[/red]")
+         return
+
+    is_valid = auditor.semantic_verify(
+        reason, 
+        f"Does this technical justification logically address the following audit finding: '{target.title}'? The user claims they have handled it elsewhere or it is a false positive."
+    )
+    
+    if is_valid:
+        console.print("✅ [bold green]Justification Accepted.[/bold green] 'Judge of Judges' signed off.")
+        # Mark as ignored in the evidence lake for future runs
+        orchestrator.ignore_finding(target.title, reason, path)
+        console.print(f"📜 [dim]Finding '{target.title}' will be suppressed in future audits.[/dim]")
+    else:
+        console.print("❌ [bold red]Justification Rejected.[/bold red] The Architect disagrees with your reasoning.")
+        console.print("[dim]Please implement the recommended fix or provide a stronger technical justification.[/dim]")
 
 # --- RELIABILITY HUB ---
 @test_app.command(name="unit")
@@ -637,19 +786,6 @@ def create_face(project_name: Annotated[str, typer.Argument(help='The name of th
         raise typer.Exit(code=1)
 
 # --- LEGACY ALIASES (Non-breaking) ---
-@app.command(name="report", hidden=True)
-def legacy_report(
-    mode: Annotated[str, typer.Option('--mode', '-m')] = 'quick', 
-    path: Annotated[str, typer.Option('--path', '-p')] = '.', 
-    workspace: Annotated[bool, typer.Option('--workspace', '-w')] = False,
-    heal: Annotated[bool, typer.Option('--heal', help='Automatically apply fixes')] = False
-):
-    """[DEPRECATED] Use 'audit report' instead."""
-    cmd = f"audit report --mode {mode}"
-    if heal: 
-        cmd += " --apply-fixes"
-    console.print(f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]")
-    report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
 
 @app.command(name="reliability", hidden=True)
@@ -846,12 +982,9 @@ def audit_maturity():
     persona_table.add_column("Mandate", style="dim")
     persona_table.add_column("Expertise Level", style="bold green")
     
-    persona_table.add_row("🛡️ SecOps Principal", "Zero-Trust & Adversarial Defense", "MASTER (v1.4)")
-    persona_table.add_row("💰 FinOps Principal", "ROI Waterfall & Token Density", "PRINCIPAL (v1.4)")
-    persona_table.add_row("🌐 SRE Principal", "Networking Debt & Latent IQ", "SENIOR (v1.3)")
-    persona_table.add_row("🏛️ Autonomous Architect", "AST Synthesis & Evolution", "MASTER (v1.4)")
-    persona_table.add_row("🧗 AI Quality SME", "Hill Climbing & RAG Fidelity", "PRINCIPAL (v1.4)")
-    persona_table.add_row("🎭 UX Designer", "A2UI Handshake & GenUI Flow", "MASTER (v1.3)")
+    persona_table.add_row("🛡️ Security Pillar", "Zero-Trust & Sovereignty", "MASTER")
+    persona_table.add_row("🛡️ Reliability Pillar", "Resiliency & Performance", "PRINCIPAL")
+    persona_table.add_row("🏗️ Strategy Pillar", "Paradigm & FinOps", "DISTINGUISHED")
     
     console.print(persona_table)
 
@@ -895,7 +1028,9 @@ def mcp_server():
     asyncio.run(mcp_mod.main())
 
 # --- REGISTRATION ---
+app.add_typer(cockpit_app, name="cockpit")
 app.add_typer(audit_app, name="audit")
+app.add_typer(audit_app, name="report", hidden=True) # Legacy aliasing
 app.add_typer(fleet_app, name="fleet")
 app.add_typer(deploy_app, name="deploy")
 app.add_typer(fix_app, name="fix")
@@ -903,7 +1038,7 @@ app.add_typer(test_app, name="test")
 app.add_typer(sys_app, name="sys")
 app.add_typer(ops_app, name="ops")
 app.add_typer(create_app, name="create")
-app.add_typer(create_app, name="init", hidden=False) # Alias for init hurdle
+app.add_typer(create_app, name="init", hidden=True)
 @app.command(name="models")
 def top_level_models():
     """Alias for 'sys models' - List accessible Gemini models."""

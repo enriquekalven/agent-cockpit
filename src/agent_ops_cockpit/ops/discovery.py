@@ -1,7 +1,6 @@
 """
-Pillar: Fleet Discovery
-SME Persona: Distinguished Platform Fellow
-Objective: High-fidelity discovery of agentic 'Brains', respecting enterprise exclusion patterns and .gitignore.
+Pillar: Project Discovery
+Primary Objective: Explicit discovery of agentic 'Brains' via manifests (cockpit.yaml) and high-fidelity heuristics.
 """
 try:
     # ContextCacheConfig check (unused in discovery)
@@ -21,7 +20,14 @@ class DiscoveryEngine:
     Centralized discovery service for the AgentOps Cockpit.
     Aggregates .gitignore, .cockpitignore, and default SRE exclusions to traverse deep hierarchies.
     """
-    DEFAULT_EXCLUSIONS = {'tests', 'test', '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', '.agent', '.cockpit', '.gcloud', '.firebase'}
+    DEFAULT_EXCLUSIONS = {
+        'tests', 'test', 'mocks', 'mock', 'eval', 'evalsets', 'benchmarks',
+        '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 
+        'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 
+        'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 
+        'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', 
+        '.agent', '.cockpit', '.gcloud', '.firebase', 'conftest.py', 'test_*.py', '*_test.py'
+    }
 
     def __init__(self, root_path: str='.'):
         self.root_path = os.path.abspath(root_path)
@@ -141,7 +147,8 @@ class DiscoveryEngine:
         v2.0: Supports Python, TypeScript, and Protocol-specific (MCP) roots.
         """
         discovered = []
-        indicators = ["agent.py", "pyproject.toml", "package.json", "mcp-config.json", "mcp-server.json", "semantic-kernel.json"]
+        # cockpit.yaml is the primary manifest for Manifest-First Discovery
+        indicators = ["cockpit.yaml", "agent.py", "pyproject.toml", "package.json", "mcp-config.json"]
         for root, dirs, files in os.walk(self.root_path):
             if self.should_ignore(root):
                 dirs[:] = []
@@ -178,9 +185,16 @@ class DiscoveryEngine:
 
     def detect_context(self) -> dict:
         """
-        v2.0 Discovery Upgrade: Detects Cloud Provider, Web Framework, and Protocol (MCP/A2UI).
+        Manifest-First Context Detection: Detects Cloud Provider, Web Framework, and Protocols.
+        Prioritizes cockpit.yaml over heuristic scanning.
         """
-        context = {'cloud': 'google', 'framework': 'fastapi', 'is_containerized': False, 'has_secrets_risk': False, 'protocol': None}
+        context = {
+            'cloud': self.config.get('cloud', 'google'), 
+            'framework': self.config.get('framework', 'fastapi'),
+            'is_containerized': False,
+            'has_secrets_risk': False,
+            'protocol': self.config.get('protocol', None)
+        }
         
         # Check for Dockerfile
         if os.path.exists(os.path.join(self.root_path, 'Dockerfile')):
@@ -199,7 +213,7 @@ class DiscoveryEngine:
             # Framework Detection
             if filename in ['requirements.txt', 'pyproject.toml', 'package.json'] or file_path.endswith(('.py', '.ts', '.js', '.cs')):
                 try:
-                    with open(file_path, 'r', errors='ignore') as f:
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         content = f.read()
                         if 'flask' in content.lower():
                             context['framework'] = 'flask'

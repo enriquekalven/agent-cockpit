@@ -18,35 +18,45 @@ class SecurityAuditor(BaseAuditor):
     @retry(wait=wait_exponential(multiplier=1, min=4, max=60), stop=stop_after_attempt(5))
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
-        if not file_path.endswith('.py'):
+        is_python = file_path.endswith('.py')
+        is_ts_js = file_path.endswith(('.ts', '.js', '.tsx', '.jsx'))
+        
+        if not (is_python or is_ts_js):
             return findings
+            
         content_lower = content.lower()
 
         # --- Tier 1: Sovereignty & Control ---
         
         # 1. Ungated Production Access (The Sovereignty Gap)
         sensitive_ops = ['delete', 'drop', 'execute_payment', 'transfer', 'terminate', 'provision']
-        if any(op in content_lower for op in sensitive_ops) and \
-           not any(kw in content_lower for kw in ['approve', 'hitl', 'gate', 'human_in_loop']):
-            title = "Sovereignty Gap: Ungated Production Access"
-            if not self._is_ignored(0, content, title):
-                findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
-                    title=title,
-                    description="""Detected sensitive infrastructure or financial operations without an explicit Human-in-the-Loop (HITL) gate.
+        if any(op in content_lower for op in sensitive_ops):
+            # v2.0.2 Semantic Pivot: Ask the Policy SME if this is actually gated
+            is_gated = self.semantic_verify(
+                content, 
+                "Does this code enforce a Human-in-the-Loop (HITL) gate or manual approval for sensitive operations like delete, payment, or termination?"
+            )
+            
+            if not is_gated:
+                title = "Sovereignty Gap: Ungated Production Access"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Security",
+                        title=title,
+                        description="""Semantic verify failed: Detected sensitive operations without a functional Human-in-the-Loop (HITL) gate.
 [bold red]Structural Risk:[/bold red] Autonomous agents must not have ungated write access to production assets.
 [bold green]RECOMMENDATION:[/bold green] Implement a **Governance Gate** or a 2-Factor Approval trigger.""",
-                    impact="CRITICAL",
-                    roi="Protects enterprise assets from autonomous logic failures.",
-                    file_path=file_path
-                ))
+                        impact="CRITICAL",
+                        roi="Protects enterprise assets from autonomous logic failures.",
+                        file_path=file_path
+                    ))
 
         # 2. Insecure Output Handling (The 'eval' Trap)
         if 'eval(' in content or 'exec(' in content:
             title = "Insecure Output Handling: Execution Trap"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ Security",
                     title=title,
                     description="""Detected `eval()` or `exec()` on strings. 
 [bold red]Critical Vulnerability:[/bold red] If an agent generates code that is then executed via `eval`, it creates a RCE path.
@@ -65,7 +75,7 @@ class SecurityAuditor(BaseAuditor):
              title = "PII Osmosis: Implicit Leakage Risk"
              if not self._is_ignored(0, content, title):
                  findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ Security",
                     title=title,
                     description="""Detected CRM or customer data interaction without visible PII scrubbing or masking logic.
 [bold yellow]Compliance Risk:[/bold yellow] Sending raw customer data to shared LLM endpoints creates GDPR/SOC2 liability.
@@ -81,7 +91,7 @@ class SecurityAuditor(BaseAuditor):
                 title = "Credential Proximity: Shadow ENV Usage"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
-                        category="🛡️ Sovereign Security",
+                        category="🛡️ Security",
                         title=title,
                         description="""Detected use of local `.env` files for secrets in an agentic environment.
 [bold purple]Security Gap:[/bold purple] Local ENVs can be leaked into the agent's context if it gains file-read or environment access.
@@ -119,7 +129,7 @@ class SecurityAuditor(BaseAuditor):
                     title=title,
                     description="""Detected system-level execution capabilities without a restricted sandbox.
 [bold red]Exploitation Risk:[/bold red] A compromised agent could move laterally within the host system.
-[bold green]RECOMMENDATION:[/bold green] Run agent tasks in a **Docker Sandbox** or use isolated gVisor runtimes.""",
+[bold green]RECOMMENDATION:[/bold green] Run agent tasks in a **Docker Sandbox** or apply the **Autonomous Fix** (tool_privilege_check decorator).""",
                     impact="CRITICAL",
                     roi="Isolates the agent's blast radius to its immediate task shell.",
                     file_path=file_path
@@ -141,8 +151,80 @@ class SecurityAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # --- Standard Pattern Matches ---
+        # --- Tier 4: Polyglot Security (TS/Node) ---
+        if is_ts_js:
+            # 8. Ungated Agentic Routes (The 'route.ts' Gap)
+            if 'route.ts' in file_path and ('post' in content_lower or 'get' in content_lower):
+                if '@openai/agents' in content or 'agent' in content_lower:
+                    if not any(kw in content_lower for kw in ['auth', 'middleware', 'protect', 'clerk', 'next-auth']):
+                        title = "Ungated Agentic Route (TypeScript)"
+                        if not self._is_ignored(0, content, title):
+                            findings.append(AuditFinding(
+                                category="🛡️ Sovereign Security",
+                                title=title,
+                                description="""Detected a potential Next.js/Node.js agentic route without visible authentication or protecting middleware.
+[bold red]Vulnerability:[/bold red] Exposed agent endpoints can be abused for unauthorized LLM consumption or prompt injection.
+[bold green]RECOMMENDATION:[/bold green] Wrap route handlers in an **Auth Middleware** (e.g., Clerk, NextAuth).""",
+                                impact="CRITICAL",
+                                roi="Prevents unauthorized API abuse and cost-spikes.",
+                                file_path=file_path
+                            ))
+
+            # 9. Insecure Context Injection (TS RAG)
+            if 'dangerouslySetInnerHTML' in content or 'eval(' in content:
+                title = "Insecure Client-Side Injection"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Sovereign Security",
+                        title=title,
+                        description="""Detected `dangerouslySetInnerHTML` or `eval` in a TS/JS agent frontend.
+[bold red]Risk:[/bold red] Agent-generated markdown/HTML could contain XSS payloads if rendered without sanitization.
+[bold green]RECOMMENDATION:[/bold green] Use a **Sanitization Library** (e.g., DOMPurify) before rendering agent outputs.""",
+                        impact="HIGH",
+                        roi="Eliminates Client-Side Prompt Injection and XSS vectors.",
+                        file_path=file_path
+                    ))
         
+        # 10. Semantic Taint Tracking (AST-Aware)
+        # Tracks variable names like 'query', 'input', 'prompt' from entry points to dangerous calls
+        user_input_vars = set()
+        for node in ast.walk(tree):
+            # Find assignments from common input sources (e.g., function args, input())
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                for arg in node.args.args:
+                    if any(x in arg.arg.lower() for x in ['query', 'input', 'prompt', 'task']):
+                        user_input_vars.add(arg.arg)
+            
+            # Find sensitive calls using these variables
+            if isinstance(node, ast.Call):
+                call_name = ""
+                if isinstance(node.func, ast.Name):
+                    call_name = node.func.id
+                elif isinstance(node.func, ast.Attribute):
+                    call_name = node.func.attr
+                
+                if any(x in call_name.lower() for x in ['execute', 'run', 'shell', 'subprocess', 'eval', 'exec', 'mcp']):
+                    # Check if any argument contains a tainted variable
+                    for arg in node.args:
+                        names = [n.id for n in ast.walk(arg) if isinstance(n, ast.Name)]
+                        for name in names:
+                            if name in user_input_vars:
+                                # Simple heuristic: Check for 'sanitize' in the preceding lines
+                                context_start = max(0, node.lineno - 5)
+                                if 'sanitize' not in content.splitlines()[context_start:node.lineno].__str__().lower():
+                                    title = "Sovereign Taint Detected: Unsanitized Input Flow"
+                                    if not self._is_ignored(node.lineno, content, title):
+                                        findings.append(AuditFinding(
+                                            category="🛡️ Sovereign Security",
+                                            title=title,
+                                            description=f"Detected tainted variable `{name}` flowing into sensitive call `{call_name}` without visible sanitization.\n[bold red]Injection Risk:[/bold red] Direct flow from user input to tool execution is a primary attack vector for Prompt Injection.",
+                                            impact="CRITICAL",
+                                            roi="Blocks direct remote manipulation of the agent's tools.",
+                                            line_number=node.lineno,
+                                            file_path=file_path
+                                        ))
+                                        break
+
         # Secrets Scanner (Hardcoded)
         for node in ast.walk(tree):
             if isinstance(node, ast.Assign):

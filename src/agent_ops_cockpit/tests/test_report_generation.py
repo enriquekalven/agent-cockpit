@@ -34,14 +34,14 @@ def test_report_prioritization(tmp_path):
     assert "## 🚀 Step-by-Step Implementation Guide" in content
     assert "### 🛡️ Phase 1: Security Hardening" in content
     assert "### 🛡️ Phase 2: Reliability Recovery" in content
-    assert "### 💰 Phase 4: FinOps Optimization" in content
+    assert "### 🏗️ Phase 3: Strategic Alignment" in content
     
     # Check that security comes before reliability (phase index sorting)
     sec_idx = content.find("Phase 1: Security Hardening")
     rel_idx = content.find("Phase 2: Reliability Recovery")
-    fin_idx = content.find("Phase 4: FinOps Optimization")
+    strat_idx = content.find("Phase 3: Strategic Alignment")
     
-    assert sec_idx < rel_idx < fin_idx
+    assert sec_idx < rel_idx < strat_idx
     
     # Check for cleaned formatting for file locations
     assert "Location: `config.py`" in content

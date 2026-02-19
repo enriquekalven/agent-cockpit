@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.1"
+version = "2.0.2"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -40,6 +40,8 @@ dependencies = [
     "google-adk>=1.24.0",
     "pytest-asyncio>=0.23.0",
     "requests>=2.31.0",
+    "libcst>=1.1.0",
+    "PyJWT>=2.8.0",
 ]
 
 [project.optional-dependencies]
@@ -57,6 +59,7 @@ eval = [
 "Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
 
 [project.scripts]
+cockpit = "agent_ops_cockpit.cli.main:app"
 agentops-cockpit = "agent_ops_cockpit.cli.main:app"
 ops = "agent_ops_cockpit.cli.main:app"
 aops = "agent_ops_cockpit.cli.main:app"

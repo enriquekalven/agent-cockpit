@@ -60,7 +60,7 @@ def get_package_evidence(package_name: str) -> Dict[str, Any]:
         if cat_name == 'compatibility_rules':
             continue
         for name, info in cat.items():
-            if info.get('package') == package_name or name == package_name:
+            if isinstance(info, dict) and (info.get('package') == package_name or name == package_name):
                 latest = fetch_latest_from_atom(info['feed'])
                 installed = get_installed_version(package_name)
                 min_v = info.get('min_version_for_optimizations', '0.0.0')

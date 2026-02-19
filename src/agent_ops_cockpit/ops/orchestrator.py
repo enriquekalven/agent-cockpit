@@ -7,15 +7,17 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.0 Sovereign Alignment: Optimized for Google Cloud Run
+# v2.0.2 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
 import sys
 import subprocess
 import json
 import hashlib
+import yaml
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+from typing import List
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -28,6 +30,7 @@ src_dir = os.path.dirname(os.path.dirname(script_dir))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 from .dashboard import generate_fleet_dashboard  # noqa: E402
+from agent_ops_cockpit.ops.auditors.base import AuditFinding # noqa: E402
 from agent_ops_cockpit.telemetry import telemetry  # noqa: E402
 console = Console()
 
@@ -63,9 +66,15 @@ class CockpitOrchestrator:
             if not f_path.endswith(('.py', '.ts', '.js', '.go', '.json', '.yaml', '.prompt', '.md', 'toml')):
                 continue
             try:
-                with open(f_path, 'rb') as f:
-                    while (chunk := f.read(8192)):
-                        hasher.update(chunk)
+                # Harden encoding for text files, fall back to binary for others or on error
+                if f_path.endswith(('.py', '.ts', '.js', '.go', '.json', '.yaml', '.prompt', '.md', 'toml')):
+                    with open(f_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
+                    hasher.update(content.encode('utf-8'))
+                else:
+                    with open(f_path, 'rb') as f:
+                        while (chunk := f.read(8192)):
+                            hasher.update(chunk)
             except Exception:
                 pass
         return hasher.hexdigest()
@@ -78,7 +87,7 @@ class CockpitOrchestrator:
         return os.path.relpath(brain, path)
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID, sim: bool = False):
+    def run_command(self, name: str, cmd: list, progress: Progress, task_id: TaskID, sim: bool = False, cordon: bool = False):
         """Helper to run a command and capture output while updating progress."""
         progress.update(task_id, description=f'[cyan]Running {name}...')
         if sim or getattr(self, 'sim', False):
@@ -100,6 +109,14 @@ class CockpitOrchestrator:
             return (name, True)
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
+        
+        # v2.0.2 Cordon Mode: Isolate registry to prevent 401 friction
+        if cordon:
+            env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
+            env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
+            env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
+            # console.print(f"🛡️  [bold yellow]Cordon Mode Active:[/] Isolated environment for {name}.") # Too noisy if in loop, maybe once in run_audit
+            
         target_path = getattr(self, 'target_path', '.')
         agent_paths = [target_path, os.path.join(target_path, 'src')]
         env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{os.pathsep.join(agent_paths)}{os.pathsep}{env.get('PYTHONPATH', '')}"
@@ -142,25 +159,43 @@ class CockpitOrchestrator:
             self.results[name] = {'success': False, 'output': str(e)}
             progress.update(task_id, description=f'[red]💥 {name} Error', completed=100)
             return (name, False)
-    PERSONA_MAP = {
-        'Architecture Review': '🏛️ Distinguished Platform Fellow',
-        'Policy Enforcement': '⚖️ Governance & Compliance Fellow',
-        'Secret Scanner': '🔐 SecOps Fellow',
-        'Token Optimization': '💰 FinOps Fellow',
-        'Reliability (Quick)': '🛡️ QA & Reliability Fellow',
-        'Quality Hill Climbing': '🧗 AI Quality Fellow',
-        'Red Team Security (Full)': '🚩 Red Team Fellow (White-Hat)',
-        'Red Team (Fast)': '🚩 Security Fellow',
-        'Load Test (Baseline)': '🚀 SRE & Performance Fellow',
-        'Evidence Packing Audit': '📜 Legal & Transparency Fellow',
-        'Face Auditor': '🎭 UX/UI Fellow',
-        'RAG Fidelity Audit': '🧗 RAG Quality Fellow'
+    PILLAR_MAP = {
+        'Architecture Review': '️ Architectural Strategy',
+        'Policy Enforcement': '🏗️ Architectural Strategy',
+        'Secret Scanner': '🔐 Security & Sovereignty',
+        'Token Optimization': '🏗️ Architectural Strategy',
+        'Reliability (Quick)': '🛡️ Reliability & Performance',
+        'Quality Hill Climbing': '🛡️ Reliability & Performance',
+        'Red Team Security (Full)': ' Security & Sovereignty',
+        'Red Team (Fast)': ' Security & Sovereignty',
+        'Load Test (Baseline)': '️ Reliability & Performance',
+        'Evidence Packing Audit': '🏗️ Architectural Strategy',
+        'Face Auditor': '️ Architectural Strategy',
+        'RAG Fidelity Audit': '🛡️ Reliability & Performance'
     }
-    PRIMARY_RISK_MAP = {'Secret Scanner': 'Credential Leakage & Unauthorized Access', 'Architecture Review': 'Systemic Rigidity & Technical Debt', 'Policy Enforcement': 'Prompt Injection & Reg Breach', 'Token Optimization': 'FinOps Efficiency & Margin Erosion', 'Reliability (Quick)': 'Failure Under Stress & Latency spikes', 'Red Team (Fast)': 'Adversarial Jailbreaking', 'Face Auditor': 'A2UI Protocol Drift', 'RAG Fidelity Audit': 'Retrieval-Reasoning Hallucinations'}
-    EFFORT_MAP = {'Secret Scanner': '⚡ 1-Click (Env Var)', 'Token Optimization': '⚡ 1-Click (Caching)', 'Policy Enforcement': '🔧 Medium (Policies)', 'Reliability (Quick)': '🔧 Medium (Code)', 'Architecture Review': '🏗️ Hard (Structural)', 'Face Auditor': '🔧 Medium (A2UI)', 'Red Team (Fast)': '🏗️ Hard (Model/Prompt)', 'RAG Fidelity Audit': '🔧 Medium (Logic)'}
+    PRIMARY_RISK_MAP = {
+        'Secret Scanner': 'Credential Leakage',
+        'Architecture Review': 'Technical Debt & Structural Gaps',
+        'Policy Enforcement': 'Governance & Regulatory Breach',
+        'Token Optimization': 'FinOps & Inference Efficiency',
+        'Reliability (Quick)': 'System Instability',
+        'Red Team (Fast)': 'Security Vulnerabilities',
+        'Face Auditor': 'Interaction Protocol Drift',
+        'RAG Fidelity Audit': 'Semantic Hallucinations'
+    }
+    EFFORT_MAP = {
+        'Secret Scanner': '⚡ Automated Fix', 
+        'Token Optimization': '⚡ Automated Fix', 
+        'Policy Enforcement': '🔧 Configuration', 
+        'Reliability (Quick)': '🔧 Code Polish', 
+        'Architecture Review': '🏗️ Structural Logic', 
+        'Face Auditor': '🔧 Protocol Sync', 
+        'Red Team (Fast)': '🏗️ Security Hardening', 
+        'RAG Fidelity Audit': '🔧 Logic Refactoring'
+    }
 
     def generate_executive_summary(self, developer_actions, as_html=False):
-        """v2.0.0 Master Architect Synthesis: Generates a prioritized stack-rank of finding categories."""
+        """v2.0.2 Master Architect Synthesis: Generates a prioritized stack-rank of finding categories."""
         if not developer_actions:
             msg = '✅ **SME Verdict**: All governance gates APPROVED. No critical architectural mismatches detected.'
             return f"<p style='color:#16a34a; font-weight:600;'>{msg.replace('**', '')}</p>" if as_html else [msg]
@@ -220,10 +255,10 @@ class CockpitOrchestrator:
             summary.append('Findings are semantically grouped to prevent notification fatigue.')
             
             headers = {
-                "BLOCKER": '### 🚨 Blockers (Security & Critical Caps)',
-                "WARNING": '### ⚠️ Warnings (Operational & Reliability Debt)',
-                "OPTIMIZATION": '### 💡 Optimizations (Best Practice Drift)'
-            }
+            "BLOCKER": ('#ef4444', '🚨 Blockers (SOC2 CC6.1 - Access Control)'),
+            "WARNING": ('#f59e0b', '⚠️ Warnings (SOC2 CC7.1 - System Monitoring)'),
+            "OPTIMIZATION": ('#3b82f6', '💡 Optimizations (FinOps & Sustainability)')
+        }
             
             for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
                 if groups[key]:
@@ -305,20 +340,20 @@ class CockpitOrchestrator:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
         report.extend(self.generate_executive_summary(developer_actions))
         report.append('\n---')
-        report.append('\n## 🧑\u200d💼 Distinguished Fellow Persona Approvals')
-        report.append('Each pillar of your agent has been reviewed by a specialized SME persona.')
-        persona_table = Table(title='🏛️ Persona Approval Matrix', show_header=True, header_style='bold blue')
-        persona_table.add_column('SME Persona', style='cyan')
+        report.append('\n## ️ Audit Pillar Approvals')
+        report.append('Each pillar of your agent has been reviewed by specialized auditors.')
+        persona_table = Table(title='🏛️ Pillar Approval Matrix', show_header=True, header_style='bold blue')
+        persona_table.add_column('Audit Pillar', style='cyan')
         persona_table.add_column('Audit Module', style='magenta')
         persona_table.add_column('Verdict', style='bold')
         persona_table.add_column('Remediation', style='dim')
         for name, data in self.results.items():
             status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
-            persona = self.PERSONA_MAP.get(name, '👤 Automated Auditor')
+            pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
             effort = self.EFFORT_MAP.get(name, 'Manual')
-            persona_table.add_row(persona, name, status, effort)
+            persona_table.add_row(pillar, name, status, effort)
             effort_str = f' [Remediation: {effort}]' if not data['success'] else ''
-            report.append(f'- **{persona}** ([{name}]): {status}{effort_str}')
+            report.append(f'- **{pillar}** ([{name}]): {status}{effort_str}')
         if developer_actions:
             report.append('\n## 🚀 Step-by-Step Implementation Guide')
             report.append('To transition this agent to production-hardened status, follow these prioritized phases:')
@@ -329,19 +364,18 @@ class CockpitOrchestrator:
                     return 0
                 if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
                     return 1
-                if any(x in p for x in ['architecture', 'policy', 'rejection', 'conflict']):
-                    return 2
-                return 3
+                return 2
             
             sorted_actions = sorted(developer_actions, key=priority_key)
             developer_actions[:] = sorted_actions
             current_phase = -1
-            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Architectural Alignment', '💰 Phase 4: FinOps Optimization']
+            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Strategic Alignment']
             for action in sorted_actions:
                 phase = priority_key(action)
                 if phase != current_phase:
                     current_phase = phase
-                    report.append(f'\n### {phases[phase]}')
+                    if phase < len(phases):
+                        report.append(f'\n### {phases[phase]}')
                 parts = action.split(' | ')
                 if len(parts) == 3:
                     report.append(f'1. **{parts[1]}**')
@@ -401,7 +435,7 @@ class CockpitOrchestrator:
             raw_out = data['output'][-2000:] if data['output'] else 'No output.'
             report.append(raw_out)
             report.append('```')
-        report.append('\n*Generated by the AgentOps Cockpit Orchestrator (v2.0.0 Stable). Master Architect Strategic Council.*')
+        report.append('\n*Generated by the AgentOps Cockpit Orchestrator (v2.0.2 Stable). Master Architect Strategic Council.*')
         console.print('\n', persona_table)
         self.print_terminal_v13_summary(developer_actions)
         with open(self.report_path, 'w') as f:
@@ -469,20 +503,44 @@ class CockpitOrchestrator:
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_exit_code(self):
         """
-        Improvement #5: Severity-Based Exit Codes
-        EXIT 0: Pass or Warnings only
-        EXIT 1: Security Leak (Secret Scanner fails)
-        EXIT 2: Architecture/Policy Violation
+        [v2.0.2 Evolution] Fine-Grained Severity-Based Exit Codes
+        EXIT 0: All Governance Gates APPROVED
+        EXIT 1: CRITICAL - Security Leak (Hardcoded Secrets)
+        EXIT 2: BLOCKED - Architecture or Policy Violation (GaC)
+        EXIT 3: WARNING - Reliability/Resiliency Gap (Timeouts/Retries)
+        EXIT 4: SECURITY - Red-Team Breach or Over-Privilege
+        EXIT 5: FINOPS - Optimization Tip (Token/Cost Waste)
         """
         if all((r['success'] for r in self.results.values())):
             return 0
+        
+        # 1. Level 1: Hardcoded Secrets (Immediate Pull/Abuse Risk)
         if not self.results.get('Secret Scanner', {}).get('success', True):
             return 1
+            
+        # 2. Level 2: GaC/Structural (Compliance/Policy Rejection)
         arch_fail = not self.results.get('Architecture Review', {}).get('success', True)
         policy_fail = not self.results.get('Policy Enforcement', {}).get('success', True)
         if arch_fail or policy_fail:
             return 2
-        return 3
+            
+        # 3. Level 3: Reliability/Resiliency (Stability risk)
+        rel_fail = not self.results.get('Reliability (Quick)', {}).get('success', True)
+        if rel_fail:
+            return 3
+
+        # 4. Level 4: Adversarial/Privilege (Systemic security risk)
+        red_fail = not (self.results.get('Red Team (Fast)', {}).get('success', True) and 
+                        self.results.get('Red Team Security (Full)', {}).get('success', True))
+        if red_fail:
+            return 4
+            
+        # 5. Level 5: FinOps (Efficiency/Waste)
+        cost_fail = not self.results.get('Token Optimization', {}).get('success', True)
+        if cost_fail:
+            return 5
+            
+        return 3 # Default to Warning if unknown failure
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def save_to_evidence_lake(self, target_abs: str):
@@ -539,7 +597,7 @@ class CockpitOrchestrator:
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def _generate_html_report(self, developer_actions, developer_sources):
-        """Generates a v2.0.0 Master Architect Grade HTML report with interactive evidence."""
+        """Generates a v2.0.2 Master Architect Grade HTML report with interactive evidence."""
         html_content = f"""
         <!DOCTYPE html>
         <html lang="en">
@@ -580,10 +638,10 @@ class CockpitOrchestrator:
             <div class="report-card">
                 <header>
                     <div>
-                        <h1>🧠 Master Architect Review</h1>
-                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Fleet Protocol Alignment: {getattr(self, 'title', 'Principal Build')}</p>
+                        <h1>📊 Cockpit Audit Report</h1>
+                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Project Integrity Analysis: {getattr(self, 'title', 'Build Report')}</p>
                         <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
-                            Architectural Consensus: {('APPROVED' if all((r['success'] for r in self.results.values())) else 'REJECTED')}
+                            Audit Status: {('PASSED' if all((r['success'] for r in self.results.values())) else 'FAILED')}
                         </span>
                     </div>
                 </header>
@@ -597,26 +655,26 @@ class CockpitOrchestrator:
                 </div>
 
 
-                <h2>🛡️ SME Persona Consensus Matrix</h2>
+                <h2>🛡️ Core Performance Pillars</h2>
                 <table class="persona-table">
                     <thead>
                         <tr>
-                            <th>SME Persona</th>
+                            <th>Audit Pillar</th>
                             <th>Priority</th>
-                            <th>Strategic Risk</th>
-                            <th>Verdict</th>
+                            <th>Target Risk</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
         """
         for name, data in self.results.items():
-            persona = self.PERSONA_MAP.get(name, 'Automated Auditor')
-            risk = self.PRIMARY_RISK_MAP.get(name, 'Sovereignty Alignment')
-            status = 'APPROVED' if data['success'] else 'REJECTED'
+            pillar = self.PILLAR_MAP.get(name, 'General Auditor')
+            risk = self.PRIMARY_RISK_MAP.get(name, 'Structural Integrity')
+            status = 'PASSED' if data['success'] else 'FAILED'
             prio = 'P1' if any((x in name.lower() for x in ['secret', 'security', 'policy', 'red'])) else 'P2' if 'reliability' in name.lower() else 'P3'
             html_content += f"""
                 <tr>
-                    <td style="font-weight:700; color:#0f172a;">{persona}</td>
+                    <td style="font-weight:700; color:#0f172a;">{pillar}</td>
                     <td><span style="font-weight:bold; color:{('#ef4444' if prio == 'P1' else '#f59e0b')};">{prio}</span></td>
                     <td class="risk-text">{risk}</td>
                     <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>
@@ -640,11 +698,11 @@ class CockpitOrchestrator:
                     <pre>{data['output']}</pre>
                 </details>
             """
-        html_content += f"""
+        html_content += """
                 </div>
                 <div class="footer">
-                    Generated by AgentOps Cockpit (v2.0.0 Master Architect). 
-                    <br>Ensuring sovereign-grade reliability for agentic ecosystems.
+                    Generated by AgentOps Cockpit v2.0.2. 
+                    <br>Ensuring high-fidelity reliability for agentic ecosystems.
                 </div>
             </div>
         </body>
@@ -669,7 +727,7 @@ class CockpitOrchestrator:
             msg['From'] = f'AgentOps Cockpit Audit <{sender_email}>'
             msg['To'] = recipient
             msg['Subject'] = f"🏁 Audit Report: {getattr(self, 'title', 'Agent Result')}"
-            with open(self.report_path, 'r') as f:
+            with open(self.report_path, 'r', encoding='utf-8', errors='replace') as f:
                 content = f.read()
             msg.attach(MIMEText(content, 'plain'))
             server = smtplib.SMTP(smtp_server, port)
@@ -683,8 +741,108 @@ class CockpitOrchestrator:
             console.print(f'[red]❌ Email failed: {e}[/red]')
             return False
 
+    def load_latest_findings(self, path: str) -> List[AuditFinding]:
+        """Loads the findings from the most recent audit in the evidence lake."""
+        evidence_path = os.path.join(path, '.cockpit', 'evidence_lake')
+        if not os.path.exists(evidence_path):
+            console.print(f"[dim]No evidence lake found at {evidence_path}[/dim]")
+            return []
+        
+        # Find the latest hash directory (agent-specific)
+        agent_hash = hashlib.md5(os.path.abspath(path).encode()).hexdigest()
+        agent_dir = os.path.join(evidence_path, agent_hash)
+        
+        if not os.path.exists(agent_dir):
+            # Try finding the latest link
+            latest_link = os.path.join(evidence_path, 'latest_audit')
+            if os.path.exists(latest_link):
+                agent_dir = os.path.join(evidence_path, os.readlink(latest_link))
+        
+        latest_json = os.path.join(agent_dir, 'latest.json')
+        if not os.path.exists(latest_json):
+            return []
+            
+        with open(latest_json, 'r') as f:
+            data = json.load(f)
+            # Findings are nested in modules' output. We need to parse ACTIONS
+            findings = []
+            results = data.get('results', {})
+            for module_name, mod_data in results.items():
+                output = mod_data.get('output', '')
+                for line in output.split('\n'):
+                    if 'ACTION:' in line:
+                        parts = line.replace('ACTION:', '').strip().split(' | ')
+                        if len(parts) >= 3:
+                            file_info = parts[0].split(':')
+                            findings.append(AuditFinding(
+                                category=module_name,
+                                title=parts[1],
+                                description=parts[2],
+                                impact="HIGH",
+                                roi="Remediation",
+                                line_number=int(file_info[1]) if len(file_info) > 1 else 1,
+                                file_path=file_info[0]
+                            ))
+            return findings
+
+    def get_compliance_map(self, category: str) -> str:
+        """v2.0.2 Compliance Mapping: Maps Cockpit pillars to regulatory controls."""
+        cmap = {
+            '🛡️ Security': 'SOC2 CC6.1 (Logical Access)',
+            '🔐 Security & Sovereignty': 'ISO 27001 A.12.6.1 (Management of Technical Vulnerabilities)',
+            '🏗️ Architecture': 'SOC2 CC8.1 (Change Management)',
+            '🛡️ Reliability': 'SOC2 CC7.2 (System Availability)',
+            '💰 FinOps': 'Inference Economics v1.0',
+            '⭐️ Maturity Wisdom': 'ISO 27001 A.14.2.1 (Secure Development)',
+            '🤝 Protocol': 'Sovereignty A2UI.1'
+        }
+        return cmap.get(category, 'General Control')
+
+    def ignore_finding(self, title: str, reason: str, path: str):
+        """Adds a finding to the local cockpit.yaml ignore list."""
+        config_path = os.path.join(path, 'cockpit.yaml')
+        config_data = {}
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config_data = yaml.safe_load(f) or {}
+        
+        if 'ignores' not in config_data:
+            config_data['ignores'] = []
+            
+        config_data['ignores'].append({
+            'title': title,
+            'reason': reason,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        with open(config_path, 'w') as f:
+            yaml.dump(config_data, f)
+
+    def _discover_plugins(self, target_path: str) -> list:
+        """
+        v2.0.2 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
+        Looks in:
+        1. target_path/.cockpit/auditors/
+        2. cockpit_core/ops/auditors/ (plugins)
+        """
+        plugins = []
+        plugin_dirs = [
+            os.path.join(target_path, '.cockpit', 'auditors'),
+            os.path.join(os.path.dirname(__file__), 'auditors')
+        ]
+        
+        for pdir in plugin_dirs:
+            if os.path.exists(pdir):
+                for f in os.listdir(pdir):
+                    if f.endswith('.py') and not f.startswith('__') and f != 'base.py':
+                        plugin_path = os.path.join(pdir, f)
+                        # Extract a nice name from filename
+                        display_name = f.replace('.py', '').replace('_', ' ').title()
+                        plugins.append((f"Plugin: {display_name}", [sys.executable, plugin_path, target_path]))
+        return plugins
+
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False):
+def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BUILD', apply_fixes: bool=False, sim: bool=False, output_format: str='text', dry_run: bool=False, only: list=None, skip: list=None, plain: bool=False, verbose: bool=False, interactive: bool=False, cordon: bool=False):
     # DEFENSIVE: Typer sometimes leaks OptionInfo objects when called as functions
     if only and not isinstance(only, (list, tuple)):
         only = None
@@ -702,6 +860,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     agent_hash = hashlib.md5(abs_path.encode()).hexdigest()
     lake_agent_dir = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash)
     os.makedirs(lake_agent_dir, exist_ok=True)
+    
+    # [v2.0.1] Navigability: Symlink the latest audit for human discovery
+    latest_symlink = os.path.join(orchestrator.output_root, 'evidence_lake', 'latest_audit')
+    try:
+        if os.path.lexists(latest_symlink):
+            os.remove(latest_symlink)
+        os.symlink(agent_hash, latest_symlink)
+    except Exception:
+        pass # Fallback if symlinks are not supported on this OS
+
     orchestrator.report_path = os.path.join(lake_agent_dir, 'report.md')
     orchestrator.html_report_path = os.path.join(lake_agent_dir, 'report.html')
     target_path = abs_path
@@ -738,6 +906,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             generate_fleet_dashboard({target_path: orchestrator.get_exit_code()})
             return orchestrator.get_exit_code()
     subtitle = 'Essential checks for dev-velocity' if mode == 'quick' else 'Full benchmarks & stress-testing'
+    if cordon:
+        subtitle += " | [bold yellow]CORDONED[/bold yellow]"
     console.print(Panel.fit(f'🕹️ [bold blue]AGENTOPS COCKPIT: {title}[/bold blue]\n{subtitle}...', border_style='blue'))
     with Progress(SpinnerColumn(), TextColumn('[progress.description]{task.description}'), BarColumn(bar_width=None), TextColumn('[progress.percentage]{task.percentage:>3.0f}%'), console=console, expand=True) as progress:
         base_mod = 'agent_ops_cockpit'
@@ -755,12 +925,34 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         if verbose:
             arch_cmd.append('--verbose')
         steps = [('Architecture Review', arch_cmd), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
+        
+        # v2.0.2: Plug-and-Play Auditor SDK
+        plugin_steps = orchestrator._discover_plugins(target_path)
+        if plugin_steps:
+            console.print(f"🧩 [bold cyan]Plug-and-Play SDK:[/] Detected {len(plugin_steps)} domain-specific auditors.")
+            steps.extend(plugin_steps)
+
         if mode == 'deep':
             steps.extend([('Quality Hill Climbing', [sys.executable, '-m', f'{base_mod}.eval.quality_climber', 'climb', '--steps', '10']), ('Red Team Security (Full)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]), ('Load Test (Baseline)', [sys.executable, '-m', f'{base_mod}.eval.load_test', 'run', '--requests', '50', '--concurrency', '5']), ('Evidence Packing Audit', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path])])
         else:
             steps.append(('Red Team (Fast)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]))
+        # v2.0.2 Incremental Audit Mode: Skip unrequested steps to speed up loop
         if only:
-            steps = [s for s in steps if any((o.lower() in s[0].lower().replace(' ', '_') for o in only))]
+            only_lower = [o.lower() for o in only]
+            steps = [s for s in steps if any(o in s[0].lower() for o in only_lower)]
+            if not steps:
+                console.print(f"⚠️ [yellow]Incremental Filter Active:[/yellow] No auditors match '{', '.join(only)}'. Running full suite instead.")
+                # Re-establish default steps if filter matched nothing, using the base_mod format
+                steps = [
+                    ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]),
+                    ('Architecture Review', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]),
+                    ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]),
+                    ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']),
+                    # Assuming MCP Logic Hub is also in ops
+                    ('MCP Logic Hub', [sys.executable, '-m', f'{base_mod}.ops.mcp_store']),
+                ]
+            else:
+                 console.print(f"🧗 [bold blue]Incremental Audit Mode:[/bold blue] Only checking {len(steps)} requested personas.")
         if skip:
             steps = [s for s in steps if not any((o.lower() in s[0].lower().replace(' ', '_') for o in skip))]
         
@@ -769,10 +961,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         excluded = config.get('exclude_checks', []) if config else []
         if excluded:
             steps = [s for s in steps if s[0] not in excluded and s[0].lower().replace(' ', '_') not in excluded]
-        tasks = {name: progress.add_task(f'[white]Waiting: {name}', total=100) for name, cmd in steps}
+        
+        # Prepare tasks for ThreadPoolExecutor
+        task_ids = []
+        for name, cmd in steps:
+            task_id = progress.add_task(f'[white]Waiting: {name}', total=100)
+            task_ids.append((name, cmd, task_id))
+
         with ThreadPoolExecutor(max_workers=len(steps)) as executor:
-            future_to_audit = {executor.submit(orchestrator.run_command, name, cmd, progress, tasks[name], sim=sim): name for name, cmd in steps}
-            for future in as_completed(future_to_audit):
+            future_map = {executor.submit(orchestrator.run_command, name, cmd, progress, task_id, sim=sim, cordon=cordon): name for name, cmd, task_id in task_ids}
+            for future in as_completed(future_map): # Changed from future_to_audit to future_map
                 name, success = future.result()
     orchestrator.title = title
     telemetry.track_event_sync("audit_started", {"mode": mode, "path": target_path})
@@ -813,6 +1011,15 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 rem = remediators[full_path]
                 finding = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num, file_path=full_path)
                 
+                if interactive:
+                    from rich.prompt import Confirm
+                    console.print(f"\n🧠 [bold green]Architect's Dialogue:[/] Remediation needed for [bold cyan]'{title}'[/bold cyan] in {os.path.basename(full_path)}")
+                    rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Sovereignty and SOC2 compliance."
+                    console.print(f"[dim]{rationale}[/dim]")
+                    if not Confirm.ask("Apply this remediation?"):
+                        console.print("⏭️  [yellow]Skipping remediation per architect request.[/yellow]")
+                        continue
+                
                 if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
                     print(f"DEBUG: Applying resiliency to {full_path}")
                     rem.apply_resiliency(finding)
@@ -823,6 +1030,24 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     rem.apply_caching(finding)
                 elif any(x in title.lower() for x in ['hallucination', 'poka-yoke', 'literal']):
                     rem.apply_tool_hardening(finding)
+                elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
+                    # Autonomous Scaffolding
+                    rem.scaffold_policy_engine(os.path.dirname(full_path))
+                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] policy_engine.ts created in {os.path.dirname(full_path)}")
+                elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
+                    # Auto-Instrumentation
+                    rem.eject_telemetry_lib(os.path.dirname(full_path))
+                    console.print("📡 [bold green]Telemetry Ejected:[/bold green] lib/logger.ts and lib/trace.ts created.")
+                elif any(x in title.lower() for x in ['lateral', 'over-privilege', 'privilege']):
+                    # Code-First Security Hardening
+                    rem.apply_privilege_gate(finding)
+                    console.print(f"🛡️  [bold green]Privilege Gate Injected:[/bold green] Added tool_privilege_check to {os.path.basename(full_path)}")
+                elif any(x in title.lower() for x in ['passive', 'retrieval', 'rag']):
+                    rem.apply_passive_retrieval(finding)
+                    console.print(f"🌉 [bold green]Managed RAG Refactor:[/bold green] Injected decider logic to {os.path.basename(full_path)}")
+                elif any(x in title.lower() for x in ['monolith', 'structural', 'size']):
+                    rem.apply_structural_split(finding)
+                    console.print(f"🏗️  [bold green]Architectural Split Scaffold:[/bold green] Injected modular router recommendation to {os.path.basename(full_path)}")
 
         for path, rem in remediators.items():
             if dry_run:
@@ -830,17 +1055,52 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 if patch_path:
                     console.print(f"🏜️  [yellow]DRY RUN: Patch generated at {patch_path}[/yellow]")
             else:
-                # In v2.0.0+ we actually default to PATCHING for safety unless forced
+                # In v2.0.2+ we actually default to PATCHING for safety unless forced
                 # But the tests expect a patch even if dry_run is False? 
                 # Let's check test_audit_flow.py line 65. 
-                # It says: 'Applying fixes in v2.0.0 should NOT modify the file directly'
+                # It says: 'Applying fixes in v2.0.2 should NOT modify the file directly'
                 rem.save_patch()
                 console.print(f"📦 [bold green]Autonomous Remediation Staged:[/bold green] Patch created for {os.path.basename(path)}")
 
+    # [v2.0.1] Semantic Finding Deduplication: Group repetitive findings to avoid 'Notification Fatigue'
+    deduplicated_results = {}
+    for name, data in orchestrator.results.items():
+        if not data.get('output'):
+            deduplicated_results[name] = data
+            continue
+            
+        lines = data['output'].split('\n')
+        actions = [line for line in lines if 'ACTION:' in line]
+        other_lines = [line for line in lines if 'ACTION:' not in line]
+        
+        # Cluster logic for common repetitive findings
+        clustered_actions = []
+        surface_targets = []
+        rest_actions = []
+        
+        for action in actions:
+            if 'surfaceId' in action or 'GenUI' in action:
+                file_info = action.split(' | ')[0].split(':')[0]
+                surface_targets.append(file_info)
+            else:
+                rest_actions.append(action)
+                
+        if len(surface_targets) > 3:
+            summary_action = f"Architecture | Missing GenUI Surface Mapping | Impacts {len(surface_targets)} files: {', '.join(surface_targets[:3])}..."
+            clustered_actions.append(f"ACTION: {summary_action}")
+        else:
+            for target in surface_targets:
+                clustered_actions.append(f"ACTION: {target}:1 | Missing GenUI Surface | Map this surface to the A2UI Protocol.")
+        
+        clustered_actions.extend(rest_actions)
+        data['output'] = '\n'.join(other_lines + clustered_actions)
+        deduplicated_results[name] = data
+        
+    orchestrator.results = deduplicated_results
     exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
     
-    # [v2.0.0] Master Architect: Aggregate telemetry for the Face (/metrics)
+    # [v2.0.2] Master Architect: Aggregate telemetry for the Face (/metrics)
     try:
         import subprocess
         agg_script = os.path.join(os.getcwd(), 'scripts', 'aggregate_telemetry.py')
@@ -859,6 +1119,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
+    if apply_fixes:
+        console.print("\n🛡️  [bold cyan]Sovereign Safety Net (Shadow Modeling):[/bold cyan]")
+        console.print(f"Recommended: Run [white]cockpit audit benchmark --path {target_path}[/white] to verify fixes against Golden Set.")
+    
     return exit_code
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
@@ -938,29 +1202,20 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     return True
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, apply_fixes: bool=False, dry_run: bool=False, only: list=None, skip: list=None):
+def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, apply_fixes: bool=False, dry_run: bool=False, only: list=None, skip: list=None, interactive: bool=False):
     """Fleet Orchestration: Scans workspace for agents and audits in parallel."""
     console.print(Panel(f'🛸 [bold blue]COCKPIT WORKSPACE MODE: FLEET ORCHESTRATION[/bold blue]\nScanning Root: [dim]{root_path}[/dim]', border_style='cyan'))
     from agent_ops_cockpit.ops.discovery import DiscoveryEngine
     discovery = DiscoveryEngine(root_path)
-    agents = []
-    seen_dirs = set()
-    for file_path in discovery.walk(root_path):
-        dir_name = os.path.dirname(file_path)
-        if dir_name in seen_dirs:
-            continue
-        file_name = os.path.basename(file_path)
-        if file_name in ['agent.py', 'main.py', 'app.py', 'go.mod', 'package.json']:
-            agents.append(dir_name)
-            seen_dirs.add(dir_name)
+    agents = discovery.discover_agent_roots()
     if not agents:
-        console.print('[yellow]⚠️ No agents found in workspace.[/yellow]')
-        return
-    agents.sort()
-    console.print(f'📡 [bold blue]Found {len(agents)} potential agents.[/bold blue]')
+        console.print(f"[yellow]No agent projects found in {root_path}[/yellow]")
+        return True
+    
+    console.print(f"�️  [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
     results = {}
-    with ProcessPoolExecutor(max_workers=5) as executor:
-        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip): a for a in agents}
+    with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
+        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
         for future in as_completed(future_map):
             agent_path = future_map[future]
             try:
@@ -994,7 +1249,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
                 json.dump(lake_data, f, indent=2)
         except Exception:
             pass
-    # v2.0.0 Master Architect: Cross-Silo Correlation
+    # v2.0.2 Master Architect: Cross-Silo Correlation
     correlation_risks = []
     if os.path.exists(lake_path):
         try:

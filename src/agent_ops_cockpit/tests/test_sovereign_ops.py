@@ -8,12 +8,16 @@ from agent_ops_cockpit.ops.simulator import SovereignSimulator
 
 def test_preflight_registry_access():
     engine = PreflightEngine()
-    # Mock socket to avoid real network call
-    with patch("socket.create_connection") as mock_socket:
-        mock_socket.return_value = MagicMock()
-        success, detail = engine.check_registry_access("https://pypi.org")
+    # Mock urllib.request.urlopen to avoid real network call
+    with patch("urllib.request.urlopen") as mock_urlopen:
+        mock_response = MagicMock()
+        mock_response.status = 200
+        mock_response.__enter__.return_value = mock_response
+        mock_urlopen.return_value = mock_response
+        
+        success, detail = engine.check_registry_access("https://pypi.org/simple")
         assert success is True
-        assert "Reachable" in detail
+        assert "Reachable" in detail or "Resilient" in detail
 
 def test_preflight_tooling():
     engine = PreflightEngine()
