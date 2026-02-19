@@ -1,4 +1,4 @@
-# 🕹️ AgentOps Cockpit: Core Capabilities Registry (v2.0.0)
+# 🕹️ AgentOps Cockpit: Core Capabilities Registry (v2.0.2)
 
 This registry defines the mandatory features and "build-gates" that must be maintained across all releases. Every capability listed here must have a corresponding regression test.
 

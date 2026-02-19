@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v2.0.0 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
+# v2.0.2 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
 
 import os
 from tenacity import retry, wait_exponential, stop_after_attempt
@@ -528,7 +528,7 @@ def fleet_telemetry(name: Annotated[str, typer.Option(..., help='Agent name to f
     
     console.print(table)
 
-@fleet_app.command()
+@fleet_app.command(name="watch")
 def watch_fleet():
     """Track ecosystem updates (ADK, LangChain, etc.) in real-time."""
     watch_mod.run_watch()

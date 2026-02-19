@@ -39,7 +39,7 @@ class CodeRemediator:
     """
     Phase 4: The 'Closer' - Automated Remediation Engine.
     Transforms code surgically based on audit findings to inject best practices
-    while preserving license headers, comments, and formatting. (v2.0.0 Sovereign Diffing)
+    while preserving license headers, comments, and formatting. (v2.0.2 Sovereign Diffing)
     """
 
     def __init__(self, file_path: str):

@@ -87,8 +87,8 @@ graph TD
 
 ---
 
-## 🏛️ v2.0.0: The "Sovereign Orchestrator" Release (LATEST)
-Evolving into the Industry Standard Logic Layer for production AI agents. See the [**v2.0.0 Release Notes**](/CHANGELOG.md).
+## 🏛️ v2.0.2: The "Sovereign Orchestrator" Release (LATEST)
+Evolving into the Industry Standard Logic Layer for production AI agents. See the [**v2.0.2 Release Notes**](/CHANGELOG.md).
 v2.0 introduces the **Sovereign Cloud Bridge**, shifting focus from tactical implementation to cross-provider architectural immunity.
 
 - **🏛️ Strategic Paradigm Auditor (`audit arch`)**: Detect high-level architectural mismatches. Are you using RAG for math? Prompt-stuffed structured data analysis? Manual state machines instead of dedicated frameworks?
@@ -111,7 +111,7 @@ Don't wait for your users to find prompt injections. Use the built-in [**Adversa
 **Reduce LLM costs by up to 40%.** The Hive Mind checks for semantically similar queries in 10ms, serving cached answers for common questions without calling the LLM.
 
 ### 🏛️ Arch Review & Autonomous Evolution
-Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack and runs a tailored [**Architecture Review**](docs/TECHNICAL_ARCH_REVIEW.md). v2.0.0 introduces **Autonomous Evolution**—the ability to synthesize code fixes directly from audit findings.
+Every agent in the cockpit is graded against a framework-aware checklist. The Cockpit intelligently detects your stack and runs a tailored [**Architecture Review**](docs/TECHNICAL_ARCH_REVIEW.md). v2.0.2 introduces **Autonomous Evolution**—the ability to synthesize code fixes directly from audit findings.
 
 ### 🕹️ MCP Connectivity Hub (Model Context Protocol)
 Stop building one-off tool integrations. The Cockpit provides a unified hub for **MCP Servers**. Connect to 1P/2P/3P tools via the standardized Model Context Protocol for secure, audited tool execution. Start the server with `make mcp-serve`.
@@ -121,7 +121,7 @@ The Cockpit now performs platform-specific performance and security audits for *
 
 ---
 
-### 🛡️ Advanced Governance & Industry Hardening (v2.0.0)
+### 🛡️ Advanced Governance & Industry Hardening (v2.0.2)
 Modern agents don't just live in `agent.py`. The Cockpit uses the **Universal Remediator v2.0** to intelligently map and heal your project:
 - **`.gitignore` Compliance**: Zero-noise scanning that respects your project's ignore rules.
 - **Multi-Target Logic**: Define `targets: []` in `cockpit.yaml` to audit distributed agents in a single pass.
@@ -165,7 +165,7 @@ The Cockpit now features a **Multi-Persona Governance Board**. Every audit resul
 
 ## 🚀 Production Readiness Auditor
 The Cockpit serves as the final gate before production deployment. `make deploy-prod` triggers a deep benchmark of the entire ecosystem:
-1. **v2.0.0 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash, GPT-4o, Claude 3.5) and logic.
+1. **v2.0.2 Deep System Audit**: Benchmarks models (Gemini 2.0 Pro/Flash, GPT-4o, Claude 3.5) and logic.
 2. **Stress Testing**: Load testing endpoints to ensure concurrency safety.
 3. **Red Team Verification**: Adversarial security scans for prompt injection and PII.
 4. **Resiliency Check**: Verifies `@retry` logic and `timeout` guards are active.
