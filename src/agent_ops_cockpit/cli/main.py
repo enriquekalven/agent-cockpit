@@ -32,7 +32,7 @@ from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.config import config
 from agent_ops_cockpit.telemetry import telemetry
 from agent_ops_cockpit.ops import migration as migrate_mod
-from agent_ops_cockpit.ops import orchestrator as sovereign_mod
+from agent_ops_cockpit.ops import sovereign as sovereign_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
 from agent_ops_cockpit.ops import master_dashboard as master_mod
 app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance Platform.', no_args_is_help=False)
