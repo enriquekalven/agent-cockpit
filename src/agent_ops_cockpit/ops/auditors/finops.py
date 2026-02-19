@@ -33,6 +33,41 @@ class FinOpsAuditor(BaseAuditor):
         'claude-3-5-haiku': 0.25
     }
 
+    # v2.0.2 Opex Simulation Heuristics (Estimate % increase in tokens/cost)
+    OPEX_IMPACT_MAP = {
+        'resiliency': 0.15,      # Exponential backoff + retries
+        'telemetry': 0.25,       # Tracing and verbose logging
+        'safety': 0.10,          # PII scrubbing and prompt validation
+        'caching': -0.70,        # Context caching (90% per turn, but ~70% session-avg)
+        'structural': -0.05      # Modular agents (lighter single-pass context)
+    }
+
+    def simulate_opex_impact(self, current_tco: float, findings: List[AuditFinding]) -> Dict:
+        """
+        Calculates the projected economic delta if proposed fixes are applied.
+        """
+        multiplier = 1.0
+        applied_categories = set()
+        for f in findings:
+            title = f.title.lower()
+            if 'resiliency' in title or 'retry' in title:
+                multiplier *= (1 + self.OPEX_IMPACT_MAP['resiliency'])
+                applied_categories.add('Resiliency')
+            if 'telemetry' in title or 'logging' in title or 'tracing' in title:
+                multiplier *= (1 + self.OPEX_IMPACT_MAP['telemetry'])
+                applied_categories.add('Telemetry')
+            if 'caching' in title:
+                multiplier *= (1 + self.OPEX_IMPACT_MAP['caching'])
+                applied_categories.add('Caching')
+        
+        new_tco = current_tco * multiplier
+        return {
+            "initial_tco": current_tco,
+            "projected_tco": new_tco,
+            "delta": new_tco - current_tco,
+            "drivers": list(applied_categories)
+        }
+
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         content_lower = content.lower()

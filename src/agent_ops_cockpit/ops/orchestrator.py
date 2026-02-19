@@ -117,6 +117,17 @@ class CockpitOrchestrator:
             env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
             # console.print(f"🛡️  [bold yellow]Cordon Mode Active:[/] Isolated environment for {name}.") # Too noisy if in loop, maybe once in run_audit
             
+        # [v2.0.2] Venv Isolation Sidecar
+        # If enabled, runs the command through a managed '.cockpit_venv'
+        isolated_venv = os.path.islink(os.path.join(os.getcwd(), '.cockpit_venv')) or os.path.exists(os.path.join(os.getcwd(), '.cockpit_venv'))
+        if isolated_venv and cmd[0] in ['python', 'python3', 'pytest', 'uv']:
+            venv_bin = os.path.join(os.getcwd(), '.cockpit_venv', 'bin' if os.name != 'nt' else 'Scripts')
+            prog = cmd[0]
+            if prog == 'uv':
+                env['UV_PYTHON'] = os.path.join(venv_bin, 'python')
+            else:
+                cmd[0] = os.path.join(venv_bin, prog)
+            
         target_path = getattr(self, 'target_path', '.')
         agent_paths = [target_path, os.path.join(target_path, 'src')]
         env['PYTHONPATH'] = f"{config.get_python_path()}{os.pathsep}{os.pathsep.join(agent_paths)}{os.pathsep}{env.get('PYTHONPATH', '')}"
@@ -1119,6 +1130,31 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
+    # v2.0.2 Sovereign FinOps: Projected Opex Impact
+    # Heuristic: Aggregate drivers from all results
+    all_findings_text = "\n".join([r.get('output', '') for r in orchestrator.results.values()])
+    finops_auditor = None
+    # Find FinOps auditor from steps (simplified)
+    from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
+    from agent_ops_cockpit.ops.auditors.base import AuditFinding
+    finops_auditor = FinOpsAuditor()
+    
+    # Mock some findings to pass to simulator based on text
+    mock_findings = []
+    if any(x in all_findings_text.lower() for x in ['retry', 'resiliency']):
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Resiliency Hardening", description="..", impact="HIGH", roi="High"))
+    if any(x in all_findings_text.lower() for x in ['logging', 'tracing', 'telemetry']):
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Telemetry Influx", description="..", impact="MEDIUM", roi="Medium"))
+    if 'caching' in all_findings_text.lower():
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Caching Optimization", description="..", impact="HIGH", roi="High"))
+    
+    impact = finops_auditor.simulate_opex_impact(100.0, mock_findings) # 100 as base%
+    delta_str = f"[green]-{abs(impact['delta']):.1f}%[/green]" if impact['delta'] < 0 else f"[red]+{impact['delta']:.1f}%[/red]"
+    
+    console.print("\n💰 [bold cyan]Economist Persona: Opex Simulation[/bold cyan]")
+    console.print(f"Projected Monthly Token Delta: {delta_str}")
+    console.print(f"Strategic Drivers: [dim]{', '.join(impact['drivers']) if impact['drivers'] else 'Baseline'}[/dim]")
+
     if apply_fixes:
         console.print("\n🛡️  [bold cyan]Sovereign Safety Net (Shadow Modeling):[/bold cyan]")
         console.print(f"Recommended: Run [white]cockpit audit benchmark --path {target_path}[/white] to verify fixes against Golden Set.")
