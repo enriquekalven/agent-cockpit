@@ -468,6 +468,12 @@ def fleet_status():
     orchestrator = sovereign_mod.SovereignOrchestrator()
     orchestrator.list_fleet()
 
+@fleet_app.command(name="map")
+def fleet_map(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
+    """🛰️ Fleet Map: High-fidelity visual topology of the agent estate."""
+    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator.render_fleet_map(path)
+
 @fleet_app.command()
 def mothball(cloud: Annotated[Optional[str], typer.Option('--cloud', help='Specific cloud to mothball')] = None):
     """Scale fleet to zero to stop incurring costs."""

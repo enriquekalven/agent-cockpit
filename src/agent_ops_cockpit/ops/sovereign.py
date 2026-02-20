@@ -211,4 +211,56 @@ class SovereignOrchestrator:
         """FinOps: Resume fleet."""
         count = self.fleet_manager.resume_fleet(cloud)
         console.print(f"📈 [bold green]FinOps Action:[/] Resumed {count} agents in {cloud or 'all clouds'}.")
+
+    def render_fleet_map(self, path: str = "."):
+        """
+        🛸 Sovereign Fleet Map: High-fidelity visual topology of the agent estate.
+        Visualizes Local Silos vs. Cloud Hydrations.
+        """
+        path = os.path.abspath(path)
+        from agent_ops_cockpit.ops import discovery as discovery_mod
+        discovery = discovery_mod.DiscoveryEngine(path)
+        local_agents = discovery.discover_agent_roots()
+        deployed_agents = self.fleet_manager.list_fleet()
+        
+        from rich.tree import Tree
+        from rich.text import Text
+        
+        root_tree = Tree(f"🏛️  [bold blue]Sovereign Workspace:[/] [white]{os.path.basename(path)}[/]")
+        
+        for agent_root in local_agents:
+            rel_path = os.path.relpath(agent_root, path)
+            agent_name = os.path.basename(agent_root)
+            
+            # Check if this local agent is deployed
+            deployment = None
+            for dp_agent in deployed_agents:
+                # Compare relative paths to be safe (registry uses relative paths)
+                if dp_agent.get('path') == rel_path or dp_agent.get('path') == agent_root:
+                    deployment = dp_agent
+                    break
+            
+            if deployment:
+                status_color = "green" if deployment['status'] == "HEALTHY" else "yellow" if deployment['status'] == "MOTHBALLED" else "red"
+                status_icon = "🟢" if deployment['status'] == "HEALTHY" else "🟡" if deployment['status'] == "MOTHBALLED" else "🔴"
+                
+                agent_node = root_tree.add(Text.from_markup(f"🧠 [bold cyan]{agent_name}[/] [dim]({rel_path})[/]"))
+                cloud_node = agent_node.add(Text.from_markup(f"🛰️  [bold magenta]{deployment['cloud'].upper()}[/] -> [dim]{deployment['endpoint']}[/]"))
+                cloud_node.add(Text.from_markup(f"{status_icon} [bold {status_color}]Status: {deployment['status']}[/]"))
+            else:
+                agent_node = root_tree.add(Text.from_markup(f"📦 [bold white]{agent_name}[/] [dim](Local Only: {rel_path})[/]"))
+                agent_node.add("[dim]Not yet hydrated to cloud.[/]")
+        
+        # Add 'Ghost' agents (deployed but not in local workspace)
+        ghost_agents = [a for a in deployed_agents if not any(os.path.abspath(a['path']) == os.path.abspath(la) or a['path'] == os.path.relpath(la, path) for la in local_agents)]
+        
+        if ghost_agents:
+            ghost_root = root_tree.add("👻 [bold yellow]External Deployments (Ghost Agents)[/]")
+            for ga in ghost_agents:
+                ga_node = ghost_root.add(Text.from_markup(f"🧠 [bold cyan]{ga['name']}[/] [dim](Remote Only)[/]"))
+                status_color = "green" if ga['status'] == "HEALTHY" else "yellow" if ga['status'] == "MOTHBALLED" else "red"
+                ga_node.add(Text.from_markup(f"🛰️  {ga['cloud'].upper()} -> {ga['endpoint']} [[bold {status_color}]{ga['status']}[/]]"))
+
+        console.print(Panel(root_tree, title="⚡ Sovereign Fleet Topology Map", border_style="blue", expand=False))
+        console.print(f"\n✨ [dim]{len(local_agents)} Local Brains | {len(deployed_agents)} Cloud Instances Mapping Complete.[/dim]")
 # Sovereign Alignment: Integrating secret_manager and vault.
