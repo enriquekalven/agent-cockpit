@@ -2,6 +2,12 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v2.0.3 (2026-02-19) - The "Sovereign Evolution" Release
+- **🐍 Language-Native Scaffolding**: Detection-aware polyglot generators for `policy_engine` (Python Pydantic & TypeScript support).
+- **📊 Jetstream UX (Compacted Fleet Reporting)**: Real-time, dynamic live dashboard for workspace audits, eliminating terminal verbosity in large fleets.
+- **🌐 Registry Failover Pre-flights**: Environment-aware registry checks with automatic failover to public PyPI and proactive `--public` bypass guidance.
+- **🏗️ AST-Aware Surgical Remediation**: Enhanced `CodeRemediator` with targeted code injection (Poka-Yoke, Telemetry wrapping).
+
 ### v2.0.2 (2026-02-17) - The "Pillar Evolution" Release
 - **🛡️ Semantic Compliance Pivot**: Moved security and architecture audits from regex matching to LLM-driven intent verification (Gemini 2.0 Flash).
 - **🔦 Shadow ROI Benchmarking**: Launched dynamic performance analysis in the Reliability Hub to optimize model tiering and accuracy/cost curves.
