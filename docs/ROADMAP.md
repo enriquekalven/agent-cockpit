@@ -12,7 +12,14 @@ Zero-touch architectural evolution via AST-aware code hardening and the **Remedi
 *   **Multi-Cloud Abstraction**: Seamlessly orchestrate agents across AWS Bedrock, GCP Vertex, and Azure OpenAI.
 *   **Sovereign Gateway**: Sidecar PII scrubbing and cost control for multi-provider deployments.
 
-## 🌉 3. The Future: A2A & The Hive Mind (v3.0.0)
+## 🩹 3. The "Self-Healing" Loop (v2.1.0)
+**Status: 📅 PLANNED**
+*   **AST-Aware Surgical Patching**: Surgical code transformation (injecting props, wrapping clients).
+*   **Language-Native Scaffolding**: Polyglot generator for `policy_engine` (Python, TS, Go).
+*   **Unified Sovereign Auth**: `cockpit auth login` for seamless cross-cloud registry access.
+*   **Compacted Fleet UX**: Streamlined "Jetstream" view for multi-agent auditing.
+
+## 🌉 4. The Future: A2A & The Hive Mind (v3.0.0)
 **Status: 🛠️ IN ARCHITECTURE**
 *   **A2A Evidence Packets**: Standardized handoff protocol for inter-agent reasoning chains.
 *   **Semantic Hive Mind**: Multi-agent shared caching for sub-millisecond reasoning recall at the edge.
@@ -28,6 +35,8 @@ Zero-touch architectural evolution via AST-aware code hardening and the **Remedi
 | **Master SME Personas** | Auditor | ✅ Live (v2.0.2) |
 | **A2UI Protocol Sync** | UX | ✅ Live (v2.0.2) |
 | **Maturity Radar Charts** | Architect | ✅ Live (v2.0.2) |
+| **Self-Healing Bench** | SRE | 📅 Planned (v2.1) |
+| **Unified Auth** | SRE | 📅 Planned (v2.1) |
 | **Semantic Hive Mind** | SRE | 🛠️ Prototyping (v3.0) |
 
 ---

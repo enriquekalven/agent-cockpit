@@ -43,7 +43,7 @@ class PreflightEngine:
                             return True, "Resilient Failover: Public PyPI mirrors active."
                 except Exception:
                     pass
-            return False, f"Unreachable: {registry_url} ({e})"
+            return False, f"Unreachable: {registry_url} ({e}). [bold red]Recommendation:[/] Use the `--public` flag for immediate failover to public PyPI."
 
     def check_tooling(self):
         """Check for mandatory CLI tools."""

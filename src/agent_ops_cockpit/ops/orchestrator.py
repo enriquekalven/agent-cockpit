@@ -1041,8 +1041,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     rem.apply_tool_hardening(finding)
                 elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
                     # Autonomous Scaffolding
-                    rem.scaffold_policy_engine(os.path.dirname(full_path))
-                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] policy_engine.ts created in {os.path.dirname(full_path)}")
+                    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+                    lang = DiscoveryEngine(os.path.dirname(full_path)).detect_language()
+                    engine_path = rem.scaffold_policy_engine(os.path.dirname(full_path), language=lang)
+                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] {os.path.basename(engine_path)} created in {os.path.dirname(full_path)}")
                 elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
                     # Auto-Instrumentation
                     rem.eject_telemetry_lib(os.path.dirname(full_path))
@@ -1246,18 +1248,25 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
         console.print(f"[yellow]No agent projects found in {root_path}[/yellow]")
         return True
     
-    console.print(f"�️  [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
+    console.print(f"🦾 [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
     results = {}
-    with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
-        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
-        for future in as_completed(future_map):
-            agent_path = future_map[future]
-            try:
-                results[agent_path] = future.result()
-                status = '[green]PASS[/green]' if results[agent_path] == 0 else '[red]FAIL[/red]'
-                console.print(f'📡 [bold]Audit Complete[/bold]: {agent_path} -> {status}')
-            except Exception as e:
-                console.print(f'[red]💥 Error auditing {agent_path}: {e}[/red]')
+    from rich.live import Live
+    table = Table(title="🚢 Sovereign Fleet Audit Dashboard", show_header=True, header_style="bold blue")
+    table.add_column("Agent Site", style="cyan")
+    table.add_column("Audit Mode", style="dim")
+    table.add_column("Status", justify="center")
+    
+    with Live(table, refresh_per_second=4, console=console):
+        with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
+            future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
+            for future in as_completed(future_map):
+                agent_path = future_map[future]
+                try:
+                    results[agent_path] = future.result()
+                    status = "[bold green]✅ PASS[/bold green]" if results[agent_path] == 0 else "[bold red]❌ FAIL[/bold red]"
+                    table.add_row(os.path.relpath(agent_path, root_path), mode.upper(), status)
+                except Exception as e:
+                    table.add_row(os.path.relpath(agent_path, root_path), mode.upper(), f"[bold magenta]ERROR: {e}[/bold magenta]")
     lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
     if os.path.exists(lake_path):
         try:

@@ -355,8 +355,13 @@ def decider_should_rag(query: str) -> bool:
             return branch_name
         except Exception:
             return ""
-    def scaffold_policy_engine(self, target_dir: str):
-        """Generates a policy_engine.ts boilerplate for deterministic business rules."""
+    def scaffold_policy_engine(self, target_dir: str, language: str = 'typescript'):
+        """
+        Generates a language-native policy engine boilerplate for deterministic business rules.
+        """
+        if language == 'python':
+            return self.scaffold_python_policy_engine(target_dir)
+            
         engine_path = os.path.join(target_dir, 'policy_engine.ts')
         content = """/**
  * v2.0.1 Sovereign Policy Engine: Deterministic Business Rules
@@ -380,6 +385,42 @@ export class PolicyEngine {
     return total;
   }
 }
+"""
+        with open(engine_path, 'w') as f:
+            f.write(content)
+        return engine_path
+
+    def scaffold_python_policy_engine(self, target_dir: str):
+        """Generates a policy_engine.py boilerplate using Pydantic."""
+        engine_path = os.path.join(target_dir, 'policy_engine.py')
+        content = """from datetime import datetime, date
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class SovereignPolicy(BaseModel):
+    \"\"\"
+    v2.1.0 Sovereign Policy Engine (Python): Deterministic Business Rules.
+    [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
+    \"\"\"
+    
+    @staticmethod
+    def is_eligible_for_return(purchase_date: date, return_days_limit: int = 30) -> bool:
+        \"\"\"Deterministic date logic to prevent LLM approximation errors.\"\"\"
+        today = date.today()
+        diff = today - purchase_date
+        return diff.days <= return_days_limit
+
+    @staticmethod
+    def calculate_discount(total: float, promo_code: str) -> float:
+        \"\"\"Deterministic pricing logic.\"\"\"
+        if promo_code == 'SOVEREIGN20':
+            return total * 0.8
+        return total
+
+# Example Usage:
+# from policy_engine import SovereignPolicy
+# if SovereignPolicy.is_eligible_for_return(date(2024, 1, 1)):
+#     pass
 """
         with open(engine_path, 'w') as f:
             f.write(content)
