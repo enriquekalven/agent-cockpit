@@ -1,4 +1,4 @@
-# 🕹️ AgentOps Cockpit (v2.0.2 Sovereign Evolution)
+# 🕹️ AgentOps Cockpit (v2.0.3 Sovereign Evolution)
 
 <div align="center">
   <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
@@ -15,7 +15,7 @@
   <br />
   <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
-  <img src="https://img.shields.io/badge/Sovereign-v2.0.2-10b981?style=for-the-badge" alt="Sovereign v2.0.2" />
+  <img src="https://img.shields.io/badge/Sovereign-v2.0.3-10b981?style=for-the-badge" alt="Sovereign v2.0.3" />
   <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
 </div>
 

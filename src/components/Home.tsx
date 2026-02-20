@@ -75,8 +75,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.2</span>
-          <span className="banner-text"><b>v2.0.2 Sovereign Evolution:</b> Multi-cloud abstraction bridge and autonomous industry scale hardening.</span>
+          <span className="banner-tag">STABLE v2.0.3</span>
+          <span className="banner-text"><b>v2.0.3 Sovereign Evolution:</b> Polyglot Scaffolding, Jetstream UX, and Registry Resiliency.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
