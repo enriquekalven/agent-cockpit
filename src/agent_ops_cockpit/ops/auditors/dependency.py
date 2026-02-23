@@ -6,7 +6,9 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 import ast
 import re
 from typing import List
-from .base import BaseAuditor, AuditFinding
+
+from .base import AuditFinding, BaseAuditor
+
 
 class DependencyAuditor(BaseAuditor):
     """
@@ -28,7 +30,7 @@ class DependencyAuditor(BaseAuditor):
         deps = re.findall(r"(['\"]?\w+['\"]?)\s*[>=<]{1,2}\s*([\d\.]*)", content)
         dep_map = {name.strip("'\""): version for name, version in deps}
 
-        for p1, v1_min, p2, v2_min, reason in self.KNOW_CONFLICTS:
+        for p1, _v1_min, p2, _v2_min, reason in self.KNOW_CONFLICTS:
             if p1 in dep_map and p2 in dep_map:
                 title = "Version Drift Conflict Detected"
                 if not self._is_ignored(0, content, title):

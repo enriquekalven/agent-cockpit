@@ -3,15 +3,17 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+import math
 import os
 import re
-import math
+
 import typer
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
 
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+
 app = typer.Typer(help="Secret Scanner: Detects hardcoded credentials and leaks.")
 console = Console()
 

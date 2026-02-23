@@ -1,48 +1,48 @@
 # 🚧 Technical Limitations & Market Positioning
+## The "Sovereign Evolution" Context (v2.0.2)
 
-While the **AgentOps Cockpit** is a powerful "Mission Control" for AI agents, it is designed for **Development Velocity** and **Governance-as-Code**, not as a replacement for specialized enterprise engineering suites.
+While the **AgentOps Cockpit** is a powerful "Mission Control" for Sovereign AI Agents, it is designed for **Development Velocity** and **Governance-as-Code**, not as a replacement for specialized enterprise engineering suites.
 
 ---
 
 ## ⚖️ Comparison & Positioning
 
-### 1. Load Testing vs. Enterprise Tools (JMeter/Locust)
+### 1. Load Testing vs. Enterprise Suites (JMeter/Locust)
 **Is this a replacement?** ❌ No.
 
 | Feature | Cockpit Load Test | JMeter / Locust.io |
 | :--- | :--- | :--- |
-| **Scale** | Local (capped by machine/network) | Distributed (1M+ concurrent users) |
-| **Complexity** | Simple GET "Pings" | Multi-step user scripts (Login -> Search -> Pay) |
-| **Protocols** | HTTP GET/POST | Websockets, gRPC, JDBC, MQTT, etc. |
-| **Analysis** | Summary Table (p90, Avg) | Real-time graphs, APM integration, Heatmaps |
+| **Scale** | Local (capped by machine) | Distributed (1M+ concurrent users) |
+| **Protocols** | HTTP REST / A2UI Handshakes | Websockets, gRPC, MQTT, etc. |
+| **Analysis** | Summary Table (p90, TTFT) | Real-time APM Heatmaps |
 
-**Best Use Case**: A "Safe-Build" sanity check to ensure your Cloud Run/GKE instance doesn't have immediate concurrency bottlenecks before pushing to production.
+**Best Use Case**: A "Safe-Build" sanity check to ensure your **Sovereign Gateway** doesn't have immediate concurrency bottlenecks before promotion.
 
 ---
 
 ### 2. Architecture Review vs. Static Analysis (Snyk/SonarQube)
 **Is this a replacement?** ❌ No.
 
-*   **Logic**: The Cockpit uses **Deep AST (Abstract Syntax Tree) Analysis** and heuristic scanning to detect architectural patterns and vulnerabilities.
-*   **Capabilities**: It performs structural analysis to identify entry points, PII scrubbers, and hardcoded secrets with higher precision than simple regex.
-*   **Best Use Case**: Verifying high-level alignment with the **Google Well-Architected Framework** and ensuring safe-build hygiene.
+*   **Logic**: The Cockpit uses **SME Reasoning** (AST + Semantic Graph Probing) to detect agent-specific architectural debt (e.g. RAG for Math).
+*   **Capabilities**: It performs structural analysis to identify Sovereign Gaps, PII scrubbers, and hardcoded secrets.
+*   **Best Use Case**: Verifying high-fidelity alignment with **Sovereign Evolution** standards.
 
 ---
 
 ### 3. Red Team vs. Penetration Testing
 **Is this a replacement?** ❌ No.
 
-*   **Logic**: Uses a curated set of historical adversarial prompts (Injection, Jailbreaking).
-*   **Limitation**: It lacks the creative pivot capabilities of a human penetration tester or a heavy-duty "Red Team LLM" attacker.
-*   **Best Use Case**: Automated safety regression testing to ensure new code hasn't re-introduced known PII leakage or jailbreak paths.
+*   **Logic**: Uses a curated set of adversarial prompts (Injection, Jailbreaking) authored by the **SecOps SME**.
+*   **Limitation**: It lacks the creative pivot capabilities of a human pen-tester.
+*   **Best Use Case**: Automated safety regression testing to ensure code hardening hasn't regressed.
 
 ---
 
-## 🛠️ Summary of Limitations
+## 🛠️ Summary of Limitations (v2.0.2)
 
-1.  **Framework Dependencies**: Heuristics are currently optimized for Python (ADK, LangChain, CrewAI) and React/TypeScript. Go and Java support are in the roadmap but primitive.
-2.  **Environment Visibility**: The Cockpit audits the *code* and *project structure*. It cannot see your live Google Cloud Console configurations (e.g., if a VPC firewall is actually open or closed).
+1.  **Multi-Cloud Dependency**: While the **Sovereign Bridge** abstracts logic, deployment still requires valid cloud-native credentials/IAM for target regions.
+2.  **Environment Visibility**: The Cockpit audits the *code* and *manifest*. It cannot see live cloud infrastructure states (e.g., if an AWS Security Group is misconfigured).
 3.  **Local Context**: It assumes access to the local filesystem. Remote repository auditing requires a `git clone` first.
 
 ---
-**Verdict**: Use the Cockpit to **Standardize and Accelerate** your Day 2 operations. Use specialized enterprise tools for **Deep Engineering Validation**.
+**Verdict**: Use the Cockpit to **Standardize and Govern** your Sovereign Fleets. Use specialized enterprise tools for **Deep Infrastructure Validation**.

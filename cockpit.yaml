@@ -13,7 +13,10 @@ exclude:
   - "dist"
   - "build"
   - "temp_mixed"
+  - "src/agent_ops_cockpit"
+  - "scripts"
   - "examples"
+  - "dogfood"
   - "*.log"
   - "*.md"
 

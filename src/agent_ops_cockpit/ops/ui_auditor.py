@@ -5,10 +5,11 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import os
 import re
+
 import typer
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
 
 app = typer.Typer(help="Face Auditor: Scan frontend code for A2UI alignment.")
 console = Console()
@@ -41,7 +42,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     mcp_apps_pattern = re.compile(r"MCPApp|ToolSurface|McpToolRenderer|mcp-tool-id")
 
 
-    for root, dirs, files in os.walk(path):
+    for root, _dirs, files in os.walk(path):
         if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
             continue
             

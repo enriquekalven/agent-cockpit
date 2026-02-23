@@ -1,67 +1,58 @@
-# ⌨️ Master Guide: AgentOps UVX Commands
-## Portable Governance & Automation (v1.8.4 Stable)
+# ⌨️ Master Guide: Sovereign UVX Automation
+## Portable Governance & Automation (v2.0.2 Evolution)
 
-This document provides a consolidated reference for all **`uvx`** commands available in the AgentOps ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing external repositories.
+This document provides a consolidated reference for all **`uvx`** commands available in the Sovereign ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing remote repositories.
 
-The primary package is **`agentops-cockpit`**, which exposes the **`agentops-cockpit`** binary.
+The primary package is **`agentops-cockpit`**, which exposes the **`ops`** and **`cockpit`** command surfaces.
 
 ---
 
-## 🏗️ The Hub-Based Engine (Master Entry Points)
-We have simplified the command surface into logical hubs for high-fidelity operations.
+## 🏗️ The Sovereign Command Surface (Portable)
+We have simplified the command surface into logical hubs for high-fidelity automation.
 
 | Command | Objective | Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit audit report` | **Master Audit** | Launch multi-persona architecture, security, and cost reviews. |
-| `uvx agentops-cockpit audit security`| **Red Team** | Adversarial security evaluation and credential hygiene. |
-| `uvx agentops-cockpit deploy sovereign`| **Factory** | End-to-End: Audit -> Fix -> Hydrate -> Deploy. |
-| `uvx agentops-cockpit sys doctor` | **Health Check** | Verify environment paths, GCP Auth, and SDK versions. |
-| `uvx agentops-cockpit sys certify` | **Certification** | Full Production Readiness Certificate. |
+| `uvx agentops-cockpit ops report` | **Master Audit** | Launch the **Governing Board** (Multi-Persona SME Reasoning). |
+| `uvx agentops-cockpit ops report --mode deep` | **Deep Eval** | Iterative Hill Climbing and trajectory analysis. |
+| `uvx agentops-cockpit ops sys doctor` | **Health Check** | Verify environment paths, multi-cloud auth, and SDK stability. |
+| `uvx agentops-cockpit cockpit certify` | **Certification** | Generate a Production Readiness Badge for the current project. |
+| `uvx agentops-cockpit fix evolve` | **Remediation** | Autonomous code hardening via the **Closer Engine**. |
 
 ---
 
-## 🧪 Specialized Persona Shorthands
-Direct access to specialized SME logic via the `audit` hub.
+## 🧗 Remote SRE & Fleet Management
+Initialize and manage fleets across multi-cloud boundaries using zero-install commands.
 
 | Command | Objective | Key Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit audit arch` | **Strategic Architect** | [NEW] Detect Paradigm Mismatches (RAG for Math, etc.). |
-| `uvx agentops-cockpit audit quality` | **Quality** | Iterative Hill Climbing optimization loop. |
-| `uvx agentops-cockpit audit face` | **UX/UI** | Face pillar (A2UI) protocol compliance audit. |
-| `uvx agentops-cockpit audit shadow` | **Differential** | Comparative reasoning analysis (V1 vs V2). |
-| `uvx agentops-cockpit audit maturity` | **Expertise** | Visualize cockpit maturity matrix across personas. |
-
----
-
-## 🧗 Remote Governance & Lifecycle
-Initialize and manage fleets across cloud boundaries.
-
-| Command | Objective | Flags |
-| :--- | :--- | :--- |
-| `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Scaffold Engine + Face + Cockpit project. |
-| `uvx agentops-cockpit fleet status` | **SRE Dashboard** | View stateful registry of all deployed agents. |
-| `uvx agentops-cockpit rag audit` | **Grounding** | Audits RAG grounding and fidelity. |
-| `uvx agentops-cockpit rag blueprint` | **Strategy** | [NEW] Generate optimized indexing strategy. |
-
----
-
-## 🧗 High-Fidelity Filters
-Use filters to isolate specific results when running a full report.
-
-```bash
-# Run only security and architecture checks
-uvx agentops-cockpit audit report --only security --only arch
-```
+| `uvx agentops-cockpit create trinity` | **Scaffolder** | Bootstrap a unified Engine + Face + Cockpit repo. |
+| `uvx agentops-cockpit fleet status` | **SRE Dashboard** | Live stateful registry of the active agentic estate. |
+| `uvx agentops-cockpit deploy sovereign` | **Factory** | End-to-End: Audit -> Fix -> Global Multi-Cloud Deploy. |
 
 ---
 
 ## 🛡️ Registry Resilience & Failover Logic
-If you encounter a **401 Unauthorized** error during `uvx`, the Cockpit automatically attempts a **Logic-Based Failover** to Public PyPI.
+If you encounter a **401 Unauthorized** error during `uvx` (common in restricted VPN environments), the Cockpit automatically attempts a **Path-Based Failover** to public mirrors.
 
 ```bash
-# Manual Override:
-UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit audit report
+# Manual Override if needed:
+UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit ops report
 ```
 
 ---
-*Generated by the AgentOps Cockpit. Global Automation Division (v1.8.4 Stable).*
+
+## 🚀 CI/CD Integration Example
+Add this to your `.github/workflows/sovereign-gate.yml` to enforce the **v2.0.2 Sovereign Standard**:
+
+```yaml
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Sovereign Audit
+        run: uvx agentops-cockpit ops report
+```
+
+---
+*Generated by the AgentOps Cockpit. Global Automation Division (v2.0.2 Stable).*

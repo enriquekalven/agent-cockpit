@@ -3,11 +3,12 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
-import re
-import os
 import json
+import os
+import re
 from datetime import datetime
 from typing import List, Optional
+
 
 class SafetyGate:
     """
@@ -28,7 +29,7 @@ class SafetyGate:
         """Official Sanitization Entry Point. Replaces 'scrub_pii'."""
         if mode == "pii":
             scrubbed = text
-            for name, pattern in SafetyGate.PII_PATTERNS.items():
+            for _name, pattern in SafetyGate.PII_PATTERNS.items():
                 scrubbed = re.sub(pattern, "[REDACTED]", scrubbed, flags=re.IGNORECASE)
             return scrubbed
         return text

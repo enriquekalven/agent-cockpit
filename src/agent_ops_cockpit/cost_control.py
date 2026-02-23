@@ -5,6 +5,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import functools
 
+
 def cost_guard(budget_limit=0.1):
     """
     Middleware/Decorator to enforce cost guardrails on LLM calls.

@@ -3,12 +3,13 @@ distinguished_architect.py
 SME Persona: Principal Architect Fellow
 Objective: Demonstates ADK-native tool consumption of the Cockpit MCP Hub.
 """
-import os
 import asyncio
+
 from google.adk.agents import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types as genai_types
+
 
 # v2.0.2: Programmatic Tool Definition for ADK
 def cockpit_audit_tool(path: str) -> dict:
@@ -49,7 +50,7 @@ def shadow_roi_tool(path: str) -> dict:
 architect_agent = Agent(
     name="distinguished_architect",
     model="gemini-2.0-flash",
-    instruction=\"\"\"
+    instruction="""
     You are a Distinguished Architect Fellow at a major cloud provider.
     Your mission is to ensure every agent in the fleet follows the Google Well-Architected Framework.
     
@@ -59,7 +60,7 @@ architect_agent = Agent(
     
     When a user provides a path, you MUST audit it and provide a strategic executive digest.
     If costs are a concern, suggest a Shadow ROI benchmark.
-    \"\"\",
+    """,
     tools=[cockpit_audit_tool, shadow_roi_tool]
 )
 

@@ -3,25 +3,28 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
-import typer
-import os
 import ast
+import os
+
+import typer
 from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
 from rich.markdown import Markdown
-from agent_ops_cockpit.ops.frameworks import detect_framework, FRAMEWORKS, NIST_AI_RMF_CHECKLIST
-from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
-from agent_ops_cockpit.ops.auditors.reliability import ReliabilityAuditor
-from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
-from agent_ops_cockpit.ops.auditors.manifest import ManifestAuditor
-from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor
+from rich.panel import Panel
+from rich.table import Table
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
-from agent_ops_cockpit.ops.remediator import CodeRemediator
-from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-from agent_ops_cockpit.ops.git_portal import GitPortal
+from agent_ops_cockpit.ops.auditors.manifest import ManifestAuditor
+from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
+from agent_ops_cockpit.ops.auditors.reliability import ReliabilityAuditor
+from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
+from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+from agent_ops_cockpit.ops.frameworks import FRAMEWORKS, NIST_AI_RMF_CHECKLIST, detect_framework
+from agent_ops_cockpit.ops.git_portal import GitPortal
+from agent_ops_cockpit.ops.remediator import CodeRemediator
+
 app = typer.Typer(help='Cockpit Project Auditor: Standards & Performance Essentials')
 console = Console()
 
@@ -258,7 +261,7 @@ def audit(path: str=typer.Option('.', '--path', '-p', help='Path to the agent pr
         table.add_column('Verification', style='dim')
         cat_prefix = section['category'][:2]
         weight = weights.get(cat_prefix, 1.0)
-        for check_text, rationale in section['checks']:
+        for check_text, _rationale in section['checks']:
             total_checks += weight
             check_key = check_text.lower()
             matching_finding = next((f for f in all_findings if f.category[:2] == cat_prefix and f.title.lower() in check_key), None)

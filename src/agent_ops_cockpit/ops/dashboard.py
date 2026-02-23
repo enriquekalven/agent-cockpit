@@ -2,13 +2,15 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
-import os
-import json
+
 import hashlib
+import json
+import os
 from datetime import datetime
+
 from rich.console import Console
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 console = Console()
 
 @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
@@ -22,23 +24,35 @@ def generate_fleet_dashboard(results: dict):
                 fleet_data = json.load(f)
         except Exception:
             pass
-    total = len(results)
+            
+    total = len(results) or 1
     global_summary = fleet_data.get('global_summary', {})
     compliance_score = global_summary.get('compliance', 0)
     passed_count = sum((1 for r in results.values() if r == 0))
-    display_compliance = compliance_score if passed_count == 0 else passed_count / total * 100
+    display_compliance = compliance_score if passed_count == 0 else (passed_count / total * 100)
+    
     total_savings = sum((r.get('savings', 0) for r in fleet_data.values() if isinstance(r, dict) and 'savings' in r))
     if total_savings == 0:
         total_savings = 12.5 * total
+        
     global_velocity = global_summary.get('velocity', 0)
     velocity_color = '#059669' if global_velocity >= 0 else '#dc2626'
     velocity_icon = '📈' if global_velocity >= 0 else '📉'
+    
     radar_labels = ['Reliability', 'Safety', 'A2UI', 'FinOps', 'Grounding']
     radar_values = [0, 0, 0, 0, 0]
-    mapping = {'Reliability (Quick)': 0, 'Red Team (Fast)': 1, 'Red Team Security (Full)': 1, 'Face Auditor': 2, 'Token Optimization': 3, 'RAG Fidelity Audit': 4}
+    mapping = {
+        'Reliability (Quick)': 0, 
+        'Red Team (Fast)': 1, 
+        'Red Team Security (Full)': 1, 
+        'Face Auditor': 2, 
+        'Token Optimization': 3, 
+        'RAG Fidelity Audit': 4
+    }
     bucket_counts = [0] * 5
+    
     for path, data in fleet_data.items():
-        if path == 'global_summary':
+        if path == 'global_summary' or not isinstance(data, dict):
             continue
         agent_results = data.get('results', {})
         for audit_name, audit_res in agent_results.items():
@@ -46,10 +60,69 @@ def generate_fleet_dashboard(results: dict):
             if idx is not None:
                 radar_values[idx] += 100 if audit_res.get('success') else 30
                 bucket_counts[idx] += 1
+                
     final_values = []
     for i in range(5):
         val = radar_values[i] / max(1, bucket_counts[i]) if bucket_counts[i] > 0 else 20
         final_values.append(round(val, 1))
+
+    # Real-time Status Grid Generation
+    display_agents = {}
+    failing_by_category = {label: [] for label in radar_labels}
+    
+    for path, data in fleet_data.items():
+        if path == 'global_summary' or not isinstance(data, dict):
+            continue
+        is_failing = not data.get('summary', {}).get('passed', True)
+        display_agents[path] = 1 if is_failing else 0
+        
+        agent_results = data.get('results', {})
+        for audit_name, audit_res in agent_results.items():
+            idx = mapping.get(audit_name)
+            if idx is not None and not audit_res.get('success'):
+                failing_by_category[radar_labels[idx]].append(os.path.basename(path))
+                
+    for path, res in results.items():
+        abs_p = os.path.abspath(path)
+        display_agents[abs_p] = res
+
+    agent_cards_html = ""
+    for agent, success in display_agents.items():
+        status = 'PASSED' if success == 0 else 'FAILED'
+        status_class = 'status-pass' if success == 0 else 'status-fail'
+        abs_target = os.path.abspath(agent)
+        agent_data = fleet_data.get(abs_target, {})
+        fix_badge = ''
+        if success != 0:
+            fix_badge = '<div style="background: #fffbeb; border: 1px solid #fef3c7; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; color: #92400e; margin-top: 12px; display: inline-block; font-weight: 600;">⚡ AUTO-FIX AVAILABLE</div>'
+        
+        failing_modules = []
+        if success != 0 and agent_data:
+            agent_results = agent_data.get('results', {})
+            failing_modules = [m for m, r in agent_results.items() if not r.get('success')]
+            
+        failure_summary = ''
+        if failing_modules:
+            failure_list = ''.join([f'<li style="margin-bottom: 4px;">{m}</li>' for m in failing_modules[:3]])
+            if len(failing_modules) > 3:
+                failure_list += f'<li>+ {len(failing_modules) - 3} more</li>'
+            failure_summary = f'<div style="font-size: 0.75rem; color: #dc2626; margin-top: 12px;"><ul style="padding-left: 16px; margin: 0;">{failure_list}</ul></div>'
+            
+        agent_hash = hashlib.md5(abs_target.encode()).hexdigest()
+        report_url = f'evidence_lake/{agent_hash}/report.html'
+        report_link = f'<a href="{report_url}" style="font-size: 0.875rem; color: #3b82f6; text-decoration: none; display: block; margin-top: 16px; font-weight: 700;">View Full Audit &rarr;</a>'
+        
+        agent_cards_html += f"""
+                <div class="agent-card">
+                    <h3 style="margin: 0 0 8px 0; font-size: 1.125rem;">{os.path.basename(agent)}</h3>
+                    <div class="{status_class}">{status}</div>
+                    {failure_summary}
+                    {fix_badge}
+                    {report_link}
+                    <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 16px; font-family: monospace; word-break: break-all;">{agent}</div>
+                </div>
+        """
+
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -82,7 +155,7 @@ def generate_fleet_dashboard(results: dict):
         <div class="container">
             <div class="header">
                 <div>
-                    <span class="badge">Enterprise Governance v1.8.4</span>
+                    <span class="badge">Enterprise Governance v2.0.2</span>
                     <h1 style="margin: 0; font-size: 2.5rem;">🛸 AgentOps Cockpit</h1>
                 </div>
                 <div style="text-align: right;">
@@ -105,16 +178,16 @@ def generate_fleet_dashboard(results: dict):
                     <div class="stat-value" style="color: #059669;">{passed_count}</div>
                 </div>
                 <div class="stat-card">
-                    <div style="color: #64748b; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Agility Velocity</div>
+                    <div style="color: #64748b; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Sovereign Growth</div>
                     <div class="stat-value" style="color: {velocity_color};">{velocity_icon} {global_velocity:+.1f}%</div>
                 </div>
             </div>
 
             <div class="dashboard-grid">
                 <div class="roi-panel">
-                    <h2 style="margin-top: 0; color: #1e40af; font-size: 1.5rem;">💰 Enterprise ROI Waterfall</h2>
-                    <p style="font-size: 1rem; color: #1e3a8a; margin-bottom: 20px;">Strategic opportunities for cost reduction. Implementing <strong>Context Caching</strong> and <strong>Model PIVOT</strong> could save an estimated monthly amount based on fleet telemetry.</p>
-                    <div style="font-size: 2rem; font-weight: 800; color: #1e40af;">Total Opportunity: ${total_savings:,.2f}</div>
+                    <h2 style="margin-top: 0; color: #1e40af; font-size: 1.5rem;">💰 FinOps Opex Simulation</h2>
+                    <p style="font-size: 1rem; color: #1e3a8a; margin-bottom: 20px;">Projected economic delta for proposed fixes. Implementing <strong>Context Caching</strong> and <strong>Model Tiering</strong> offers strategic savings.</p>
+                    <div style="font-size: 2rem; font-weight: 800; color: #1e40af;">Projected Savings Opportunity: ${total_savings:,.2f}</div>
                     <div id="weakestLinkPanel" style="margin-top: 25px; padding: 20px; background: white; border-radius: 16px; display: none; border: 1px solid #bfdbfe;">
                         <h4 style="margin: 0 0 10px 0; color: #ef4444;">🚨 Weakest link: <span id="weakestCategory"></span></h4>
                         <div id="weakestAgents" style="font-size: 0.875rem; color: #475569;"></div>
@@ -133,67 +206,19 @@ def generate_fleet_dashboard(results: dict):
             <div class="stat-card" style="margin-bottom: 40px; border-left: 5px solid #a855f7; background: linear-gradient(to right, #faf5ff, #ffffff);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2 style="margin: 0; color: #7e22ce;">✨ Gemini Enterprise: Fleet Graduation</h2>
-                        <p style="margin: 10px 0 0 0; color: #6b21a8;">Auto-onboard your hardened agents as native Vertex AI Tools.</p>
+                        <h2 style="margin: 0; color: #7e22ce;">✨ Sovereign SDK: Fleet Deployment</h2>
+                        <p style="margin: 10px 0 0 0; color: #6b21a8;">Deploy hardened SafetyGate shims and Taint-Tracking to your fleet.</p>
                     </div>
-                    <button onclick="alert('Run the following in your terminal: agent-ops register --fleet')" style="background: #a855f7; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s;">🚀 REGISTER FLEET</button>
+                    <button onclick="alert('Run: cockpit deploy sovereign')" style="background: #a855f7; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s;">🚀 DEPLOY SOVEREIGN</button>
                 </div>
             </div>
 
-            <h2 style="margin-bottom: 24px;">📡 Real-time Fleet Status</h2>
+            <h2 style="margin-bottom: 24px;">📡 Real-time Fleet Status (v2.0.2)</h2>
             <div class="agent-grid">
-    """
-    # [v1.8.4] Sovereignty Alignment: Iterating over ALL lake entries ensures the dashboard is always a "Fleet" view
-    display_agents = {}
-    failing_by_category = {label: [] for label in radar_labels}
-    
-    # 1. Populate from historical lake data
-    for path, data in fleet_data.items():
-        if path == 'global_summary' or not isinstance(data, dict):
-            continue
-        # Use success bit from summary: True -> 0, False -> 1
-        is_failing = not data.get('summary', {}).get('passed', True)
-        display_agents[path] = 1 if is_failing else 0
-        
-        # Track failing agents by category for drill-down
-        agent_results = data.get('results', {})
-        for audit_name, audit_res in agent_results.items():
-            idx = mapping.get(audit_name)
-            if idx is not None and not audit_res.get('success'):
-                failing_by_category[radar_labels[idx]].append(os.path.basename(path))
-        
-    # 2. Layer on latest results (un-persisted context)
-    for path, res in results.items():
-        abs_p = os.path.abspath(path)
-        display_agents[abs_p] = res
-
-    for agent, success in display_agents.items():
-        status = 'PASSED' if success == 0 else 'FAILED'
-        status_class = 'status-pass' if success == 0 else 'status-fail'
-        abs_target = os.path.abspath(agent)
-        agent_data = fleet_data.get(abs_target, {})
-        fix_badge = ''
-        if success != 0:
-            fix_badge = '<div style="background: #fffbeb; border: 1px solid #fef3c7; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; color: #92400e; margin-top: 12px; display: inline-block; font-weight: 600;">⚡ AUTO-FIX AVAILABLE</div>'
-        failing_modules = []
-        if success != 0 and agent_data:
-            agent_results = agent_data.get('results', {})
-            failing_modules = [m for m, r in agent_results.items() if not r.get('success')]
-        failure_summary = ''
-        if failing_modules:
-            failure_list = ''.join([f'<li style="margin-bottom: 4px;">{m}</li>' for m in failing_modules[:3]])
-            if len(failing_modules) > 3:
-                failure_list += f'<li>+ {len(failing_modules) - 3} more</li>'
-            failure_summary = f'<div style="font-size: 0.75rem; color: #dc2626; margin-top: 12px;"><ul style="padding-left: 16px; margin: 0;">{failure_list}</ul></div>'
-        agent_hash = hashlib.md5(abs_target.encode()).hexdigest()
-        report_url = f'evidence_lake/{agent_hash}/report.html'
-        report_link = f'<a href="{report_url}" style="font-size: 0.875rem; color: #3b82f6; text-decoration: none; display: block; margin-top: 16px; font-weight: 700;">View Full Audit &rarr;</a>'
-        html += f'\n                <div class="agent-card">\n                    <h3 style="margin: 0 0 8px 0; font-size: 1.125rem;">{os.path.basename(agent)}</h3>\n                    <div class="{status_class}">{status}</div>\n                    {failure_summary}\n                    {fix_badge}\n                    {report_link}\n                    <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 16px; font-family: monospace; word-break: break-all;">{agent}</div>\n                </div>\n        '
-
-    html += f"""
+                {agent_cards_html}
             </div>
             <div style="margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 0.875rem;">
-                Generated by AgentOps Cockpit v1.8.4. Master Architect Division.
+                Generated by AgentOps Cockpit v2.0.2. Sovereign Master Build.
             </div>
         </div>
         <script>

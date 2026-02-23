@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 
 class DogFoodOrchestrator:
     """
@@ -31,11 +32,16 @@ class DogFoodOrchestrator:
                 
             # Detect Provider Intent
             low_repo = repo.lower()
-            if "google" in low_repo or "adk" in low_repo: stats["by_provider"]["google"] += 1
-            elif "openai" in low_repo: stats["by_provider"]["openai"] += 1
-            elif "claude" in low_repo or "anthropic" in low_repo or "skills" in low_repo: stats["by_provider"]["anthropic"] += 1
-            elif "microsoft" in low_repo or "agent365" in low_repo or "dotnet" in low_repo: stats["by_provider"]["microsoft"] += 1
-            elif "aws" in low_repo or "bedrock" in low_repo or "amazon" in low_repo: stats["by_provider"]["aws"] += 1
+            if "google" in low_repo or "adk" in low_repo:
+                stats["by_provider"]["google"] += 1
+            elif "openai" in low_repo:
+                stats["by_provider"]["openai"] += 1
+            elif "claude" in low_repo or "anthropic" in low_repo or "skills" in low_repo:
+                stats["by_provider"]["anthropic"] += 1
+            elif "microsoft" in low_repo or "agent365" in low_repo or "dotnet" in low_repo:
+                stats["by_provider"]["microsoft"] += 1
+            elif "aws" in low_repo or "bedrock" in low_repo or "amazon" in low_repo:
+                stats["by_provider"]["aws"] += 1
             
         return stats
 

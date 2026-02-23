@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Request, HTTPException
+import os
+
 import uvicorn
 import yaml
-import os
+from fastapi import FastAPI, HTTPException, Request
+
 from agent_ops_cockpit.ops.guardrails import CockpitGuardrails
 from agent_ops_cockpit.telemetry import telemetry
 

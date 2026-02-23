@@ -8,12 +8,14 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     pass
 
-from tenacity import retry, wait_exponential, stop_after_attempt
-import os
-import fnmatch
 import ast
+import fnmatch
+import os
 import re
-from typing import List, Optional, Generator
+from typing import Generator, List, Optional
+
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 
 class DiscoveryEngine:
     """
@@ -182,6 +184,25 @@ class DiscoveryEngine:
         parts = rel_path.split(os.sep)
         library_indicators = {'venv', '.venv', 'site-packages', 'node_modules', 'dist', 'build'}
         return any((part in library_indicators for part in parts))
+
+    def detect_language(self) -> str:
+        """
+        Identifies the primary language of the agent silo.
+        v2.1: Supports Python and TypeScript detection.
+        """
+        if os.path.exists(os.path.join(self.root_path, 'pyproject.toml')) or os.path.exists(os.path.join(self.root_path, 'requirements.txt')):
+            return 'python'
+        if os.path.exists(os.path.join(self.root_path, 'package.json')) or os.path.exists(os.path.join(self.root_path, 'tsconfig.json')):
+            return 'typescript'
+        
+        # Heuristic check for .py vs .ts files in root
+        files = os.listdir(self.root_path)
+        if any(f.endswith('.py') for f in files):
+            return 'python'
+        if any(f.endswith(('.ts', '.tsx', '.js', '.jsx')) for f in files):
+            return 'typescript'
+        
+        return 'python' # Default to Python for Sovereign Agents
 
     def detect_context(self) -> dict:
         """

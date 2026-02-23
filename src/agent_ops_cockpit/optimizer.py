@@ -1,20 +1,23 @@
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 from __future__ import annotations
-from tenacity import retry, wait_exponential, stop_after_attempt
+
 import os
 import re
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 import typer
+from packaging import version as pkg_version
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
 from rich.syntax import Syntax
-from packaging import version as pkg_version
+from rich.table import Table
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 try:
-    from agent_ops_cockpit.ops.evidence_bridge import get_package_evidence, get_compatibility_report
+    from agent_ops_cockpit.ops.evidence_bridge import get_compatibility_report, get_package_evidence
 except ImportError:
     try:
-        from backend.ops.evidence_bridge import get_package_evidence, get_compatibility_report
+        from backend.ops.evidence_bridge import get_compatibility_report, get_package_evidence
     except ImportError:
 
         def get_package_evidence(pkg):

@@ -1,5 +1,6 @@
 import os
 
+
 def fix_dockerfile(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
@@ -28,7 +29,7 @@ USER appuser
 def main():
     target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
     count = 0
-    for root, dirs, files in os.walk(target_root):
+    for root, _dirs, files in os.walk(target_root):
         for file in files:
             if file == "Dockerfile":
                 if fix_dockerfile(os.path.join(root, file)):

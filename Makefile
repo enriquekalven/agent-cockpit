@@ -12,6 +12,15 @@ install:
 # Playground Targets
 # ==============================================================================
 
+# Launch local dev stack (Face + Engine Gateway)
+dev:
+	@echo "==============================================================================="
+	@echo "| 🚀 Starting AgentOps Cockpit Development Stack...                         |"
+	@echo "| 🎭 Face: http://localhost:5173 (Vite)                                       |"
+	@echo "| 🛡️ Gateway: http://localhost:8000 (Sovereign Sidecar)                        |"
+	@echo "==============================================================================="
+	@npm run dev & PYTHONPATH=src uv run cockpit ops gateway --port 8000
+
 # Launch local dev playground
 playground:
 	@echo "==============================================================================="
@@ -119,6 +128,8 @@ create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
 audit-report: ## 🛡️ Master Audit: Deep scan across Security, Reliability, and Strategy Pillars
 	@PYTHONPATH=src uv run cockpit audit report --path $(if $(P),$(P),.)
 
+audit: audit-report ## [Alias] Launch Master Audit
+
 audit-deep: audit-report ## [Alias] Launch Master Audit (Full Benchmarks)
 
 audit-security: ## 🔐 Security Pillar: Run Red Team and Secret Scanning
@@ -127,8 +138,15 @@ audit-security: ## 🔐 Security Pillar: Run Red Team and Secret Scanning
 audit-arch: ## 🏗️ Strategy Pillar: Architecture Design Review
 	@PYTHONPATH=src uv run cockpit audit arch --path $(if $(P),$(P),.)
 
+arch-review: audit-arch ## [Alias] Architecture Design Review
+
+apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
+	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
+
 deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
 	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+
+deploy-prod: deploy-sovereign ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status

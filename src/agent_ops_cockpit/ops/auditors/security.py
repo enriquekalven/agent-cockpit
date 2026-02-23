@@ -6,8 +6,11 @@ Objective: Reasoning-based security auditing focusing on 'Architectural Sovereig
 import ast
 import re
 from typing import List
-from .base import BaseAuditor, AuditFinding
-from tenacity import retry, wait_exponential, stop_after_attempt
+
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+from .base import AuditFinding, BaseAuditor
+
 
 class SecurityAuditor(BaseAuditor):
     """
@@ -150,6 +153,40 @@ class SecurityAuditor(BaseAuditor):
                     roi="Maintains the 'Truth Integrity' of the RAG Knowledge Base.",
                     file_path=file_path
                 ))
+
+        # --- Tier 4: Cross-Cloud Governance (AWS/Azure) ---
+        
+        # 8. AWS Bedrock: Missing Guardrails Configuration (Sovereign Parity)
+        if 'boto3' in content_lower and 'invoke_model' in content_lower:
+            if 'guardrailIdentifier' not in content:
+                title = "AWS Bedrock: Missing Guardrail ID"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Sovereign Security",
+                        title=title,
+                        description="""Detected AWS Bedrock `invoke_model` call without an explicit Guardrail Identifier.
+[bold orange]Governance Gap:[/bold orange] Unlike Vertex AI, Bedrock requires explicit Guardrail binding for PII/Safety enforcement in the API call.
+[bold green]RECOMMENDATION:[/bold green] Provision a **Bedrock Guardrail** and bind it to the request payload via `guardrailIdentifier`.""",
+                        impact="HIGH",
+                        roi="Enforces centralized safety policies on AWS infrastructure.",
+                        file_path=file_path
+                    ))
+
+        # 9. Azure OpenAI: Ungated API Endpoint
+        if 'openai.azure.com' in content:
+            if 'api-key' in content_lower and '.dotenv' not in content_lower and 'secret_manager' not in content_lower:
+                title = "Azure OpenAI: Exposed Endpoint Logic"
+                if not self._is_ignored(0, content, title):
+                    findings.append(AuditFinding(
+                        category="🛡️ Sovereign Security",
+                        title=title,
+                        description="""Detected Azure OpenAI service endpoint hardcoded with potentially weak credential management.
+[bold red]Structural Risk:[/bold red] Azure OpenAI endpoints are often targets for lateral movement if the API key is compromised.
+[bold green]RECOMMENDATION:[/bold green] Pivot to **Microsoft Entra ID (Managed Identity)** for authentication instead of API keys.""",
+                        impact="CRITICAL",
+                        roi="Eliminates the risk of leaked Azure API keys.",
+                        file_path=file_path
+                    ))
 
         # --- Tier 4: Polyglot Security (TS/Node) ---
         if is_ts_js:

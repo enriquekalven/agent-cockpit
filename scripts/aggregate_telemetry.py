@@ -3,6 +3,7 @@ import json
 import os
 import random
 
+
 def aggregate():
     # Priority 1: .cockpit/evidence_lake.json (Standard location)
     # Priority 2: evidence_lake.json (Root override)
@@ -43,7 +44,7 @@ def aggregate():
     # Calculate an average compliance based on results
     total_maturity = 0
     count = 0
-    for path, info in data.items():
+    for _path, info in data.items():
         results = info.get('results', {})
         success_count = sum(1 for r in results.values() if r.get('success', False))
         if results:
@@ -95,7 +96,8 @@ def aggregate():
     reserved_keys = set(aggregated.keys())
     for path, info in data.items():
         # Only take a few to keep the file small (for the map visualization)
-        if len(aggregated) > 25: break
+        if len(aggregated) > 25:
+            break
         
         # Only add keys that look like paths and aren't reserved
         if isinstance(path, str) and path.startswith('/') and path not in reserved_keys:

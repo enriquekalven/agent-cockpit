@@ -6,9 +6,11 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 import json
 import os
 import re
+from typing import Any, Dict
+
 import yaml
-from typing import Dict, Any
 from rich.console import Console
+
 console = Console()
 
 class PolicyViolation(Exception):

@@ -6,6 +6,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil
+
 from rich.console import Console
 from rich.table import Table
 
@@ -43,7 +44,7 @@ class PreflightEngine:
                             return True, "Resilient Failover: Public PyPI mirrors active."
                 except Exception:
                     pass
-            return False, f"Unreachable: {registry_url} ({e})"
+            return False, f"Unreachable: {registry_url} ({e}). [bold red]Recommendation:[/] Use the `--public` flag for immediate failover to public PyPI."
 
     def check_tooling(self):
         """Check for mandatory CLI tools."""
@@ -119,8 +120,8 @@ class PreflightEngine:
 
     def check_cloud_readiness(self, target_cloud="google"):
         """Verify project-level capabilities (Billing, APIs)."""
-        import subprocess
         import json
+        import subprocess
         
         if os.environ.get("SOVEREIGN_SIMULATION") == "true":
             return True, f"SIMULATION MOCK: {target_cloud} Project Capability Active"

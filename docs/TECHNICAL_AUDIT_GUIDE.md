@@ -1,70 +1,61 @@
+# 📄 Sovereign Audit Strategy & Persona Matrix
 ## The "Sovereign Evolution" Release (v2.0.2)
 
-The AgentOps Cockpit v2.0.1 has evolved into a **Sovereign Fleet Governance** platform. This release introduces polyglot support, autonomous scaffolding, and resilient registry failover.
+The **AgentOps Cockpit** has evolved into a **Sovereign Fleet Governance** platform. This release introduces multi-cloud abstraction (the **Sovereign Bridge**), autonomous scaffolding, and the **Governing Board** of SME Personas.
 
 👉 **[Core Capabilities & Regression Registry](CAPABILITIES_REGISTRY.md)**
 
 ---
 
-## 🏗️ The Hub Lifecycle
+## 🏛️ The Hub Lifecycle
 
-We have organized all capabilities into 9 logical "Hubs".
+We have organized all capabilities into 9 logical "Hubs", accessible via the `cockpit` binary or its aliases (`ops`, `aops`, `agent-ops`).
 
-| Hub | Objective | Core Command |
+| Hub | Objective | Primary Command |
 | :--- | :--- | :--- |
-| **`audit`** | **Structural Integrity** | `agentops-cockpit audit report` |
-| **`mcp`** | **Modernization** | `agentops-cockpit mcp blueprint` |
-| **`certify`**| **Production Readiness** | `agentops-cockpit certify` |
-| **`fleet`** | **Runtime SRE** | `agentops-cockpit fleet status` |
-| **`deploy`** | **Factory** | `agentops-cockpit deploy sovereign` |
-| **`fix`** | **Synthesis** | `agentops-cockpit fix evolve` |
-| **`test`** | **Reliability** | `agentops-cockpit test regression` |
-| **`create`**| **Scaffold** | `agentops-cockpit create trinity` |
-| **`sys`** | **Health** | `agentops-cockpit sys doctor` |
+| **`audit`** | **Structural Integrity** | `ops report` |
+| **`mcp`** | **Modernization** | `cockpit mcp blueprint` |
+| **`certify`**| **Production Readiness** | `cockpit certify` |
+| **`fleet`** | **Runtime SRE** | `cockpit fleet status` |
+| **`deploy`** | **Factory** | `cockpit deploy sovereign` |
+| **`fix`** | **Synthesis** | `cockpit fix evolve` |
+| **`test`** | **Reliability** | `make test` |
+| **`create`**| **Scaffold** | `cockpit create trinity` |
+| **`sys`** | **Health** | `cockpit sys doctor` |
 
 ---
 
-## 🛠️ v2.0.1 Sovereign Features
+## 🛠️ v2.0.2 Sovereign Features
 
-### 1. 🌈 Polyglot Red-Teaming (Python & TS/Node)
-The Security Auditor now performs deep scans for both Python and TypeScript/Node.js agents.
-- **Next.js Route Gaps**: Detects ungated `route.ts` endpoints in `@openai/agents` implementations.
-- **Client-Side Injection**: Identifies insecure `dangerouslySetInnerHTML` patterns in agentic frontends.
-- **Sovereignty Gaps**: Scans for ungated production access and PII osmosis across languages.
+### 1. 🌈 Master SME Personas (The Governing Board)
+The audit engine is no longer a script; it is a panel of experts. Every finding is now authored by a specialized **Principal SME** (SecOps, FinOps, SRE, Architect, Quality, UX).
 
-### 2. 🏗️ Autonomous "Policy Scaffolding"
-When the Cockpit detects an agent attempting complex logic (like arithmetic or date manipulation) via RAG, it can now autonomously scaffold a **Deterministic Policy Engine** (`policy_engine.ts`) to harden the architecture.
+### 2. 🏛️ Sovereign Bridge (Multi-Cloud)
+The `deploy` hub can now target GCP, AWS, and Azure seamlessly, ensuring that an agent audited on one cloud can be moved to another with one command.
 
-### 3. 📡 Golden Signal "Auto-Instrumentation"
-Automatically ejects standardized **Telemetry Libraries** (Logging/Tracing) into target projects, ensuring every agent project starts with production-grade observability.
+### 3. 🛡️ Sovereign Gateway (PII Mirroring)
+Automatically injects sidecar **PII Scrubbing** logic for all inter-agent traffic, ensuring that the "Hive Mind" remains compliant and secure.
 
-### 4. 🌐 Silent Registry Resilience
-The `audit` command now features transparent failover. If a private registry returns a `401 Unauthorized` or is unreachable, the Cockpit silently pivots to public PyPI mirrors to ensure continuous auditing.
+### 4. 🌐 Stealth Registry Resilience
+Transparent failover logic. If a restricted environment blocks a private registry (401/403), the Cockpit automatically pivots to public mirrors.
 
 ---
 
-## 🏛️ Strategic Paradigm Auditor (v2.0.1 - The Master Architect)
-- **Semantic Finding Deduplication**: Repetitive findings are clustered into high-level architectural insights, preventing "Notification Fatigue".
-- **Evidence Lake Navigability**: The evidence lake now includes a `latest_audit` symlink for rapid human discovery of findings.
-- **Smart Aliasing**: Legacy CLI commands (like `agent-ops report --heal`) are gracefully redirected to the modern `audit report --apply-fixes` workflow.
+## 🏢 The Principal SME Persona Matrix
+
+Every report finding is authored by a member of the **Governing Board**:
+1. **🔐 SecOps Principal**: Sovereign security, polyglot red-teaming, and adversarial resilience.
+2. **🏛️ Distinguished Architect**: Strategic paradigm alignment and structural integrity.
+3. **⚖️ Compliance Principal**: PII scrubbing, A2A Evidence Packets, and legal defensibility.
+4. **🧗 Quality SME**: RAG fidelity, reasoning peak optimization, and semantic grounding.
+5. **💰 FinOps Principal**: Economic margin optimization and model-tier pivots.
+6. **🌐 SRE Principal**: Infrastructure sovereignty and distributed systems logic.
+7. **🎭 UX SME**: A2UI protocol mapping and generative interface ergonomics.
 
 ---
 
-## 🏢 The Distinguished Fellow Persona Matrix
-
-Every report finding is authored by a specialized **Distinguished Fellow**:
-1. **🔐 SecOps Fellow**: Sovereign security, polyglot red-teaming, and adversarial resilience.
-2. **🏛️ Distinguished Semantic Fellow**: Strategic paradigm alignment, computational wisdom, and structural integrity.
-3. **🧗 AI Quality Fellow**: RAG fidelity, reasoning peak optimization, and semantic grounding.
-4. **🛡️ Sentinel Fellow**: Predictive runtime behavior and proactive anomaly oversight.
-5. **🌐 SRE Fellow**: Infrastructure sovereignty, container modernization, and distributed systems logic.
-6. **⚖️ Compliance Fellow**: Ethical governance, PII neutralization, and global policy alignment.
-7. **🎮 Strategic SITL Fellow**: Human-centric oversight and the "Guardian in the Loop" framework.
+## 🚀 The Certification Pipeline
+Run `make certify` before a production deployment. This validates the **Sovereign Score** across all Persona Lenses and identifies "Unfixable" strategic debt.
 
 ---
-
-## 🚀 Production Readiness Audit
-Run `make audit-deep` before a production deployment. This validates the **Command Trinity Parity** across all Persona Lenses.
-
----
-*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v2.0.2 Stable).*
+*Generated by the AgentOps Cockpit Orchestrator. Engineering Governance Division (v2.0.2).*

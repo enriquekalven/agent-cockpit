@@ -3,16 +3,17 @@ Pillar: Sovereign Governance
 SME Persona: Distinguished Platform Fellow
 Objective: Provides a high-fidelity "Omniscient View" of the agent fleet via the Master Dashboard.
 """
-import os
 import json
+import os
+
+from rich import box
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from rich import box
 
-from .fleet import FleetManager
 from .discovery import DiscoveryEngine
+from .fleet import FleetManager
 from .orchestrator import CockpitOrchestrator
 
 console = Console()

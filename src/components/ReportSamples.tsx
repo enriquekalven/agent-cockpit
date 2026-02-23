@@ -7,7 +7,7 @@ import {
 
 export const ReportSamples: React.FC = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'html' | 'md'>('html');
+  const [activeTab, setActiveTab] = useState<'html' | 'md' | 'fleet'>('html');
 
   return (
     <div className="report-samples-view">
@@ -55,6 +55,17 @@ export const ReportSamples: React.FC = () => {
                   <small>Terminal-friendly, CI/CD</small>
                 </div>
               </button>
+
+              <button
+                className={`nav-item ${activeTab === 'fleet' ? 'active' : ''}`}
+                onClick={() => setActiveTab('fleet')}
+              >
+                <div className="nav-icon fleet-bg"><Zap size={20} /></div>
+                <div className="nav-text">
+                  <span>Fleet Dashboard</span>
+                  <small>Multi-Agent Multi-Cloud View</small>
+                </div>
+              </button>
             </nav>
 
             <div className="sidebar-footer">
@@ -76,16 +87,25 @@ export const ReportSamples: React.FC = () => {
                     <Globe size={18} className="text-blue-500" />
                     <span>sample-report.html</span>
                   </>
-                ) : (
+                ) : activeTab === 'md' ? (
                   <>
                     <Code size={18} className="text-orange-500" />
                     <span>sample-report.md</span>
                   </>
+                  ) : (
+                    <>
+                      <Zap size={18} className="text-yellow-500" />
+                      <span>fleet-dashboard-sample.html</span>
+                    </>
                 )}
               </div>
               <div className="preview-actions">
                 <a 
-                  href={activeTab === 'html' ? '/sample-report.html' : '/sample-report.md'} 
+                  href={
+                    activeTab === 'html' ? '/sample-report.html' :
+                      activeTab === 'md' ? '/sample-report.md' :
+                        '/fleet-dashboard-sample.html'
+                  } 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="toolbar-btn"
@@ -98,7 +118,11 @@ export const ReportSamples: React.FC = () => {
 
             <div className="preview-window">
               <iframe 
-                src={activeTab === 'html' ? '/sample-report.html' : '/sample-report.md'} 
+                src={
+                  activeTab === 'html' ? '/sample-report.html' :
+                    activeTab === 'md' ? '/sample-report.md' :
+                      '/fleet-dashboard-sample.html'
+                } 
                 className="samples-iframe"
                 title="Report Preview"
               />
@@ -240,6 +264,7 @@ export const ReportSamples: React.FC = () => {
         }
         .html-bg { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
         .md-bg { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .fleet-bg { background: rgba(234, 179, 8, 0.1); color: #eab308; }
 
         .nav-text span {
           display: block;

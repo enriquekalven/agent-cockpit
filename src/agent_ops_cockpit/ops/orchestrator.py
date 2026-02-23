@@ -8,20 +8,22 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v2.0.2 Sovereign Alignment: Optimized for Google Cloud Run
-import os
-from tenacity import retry, wait_exponential, stop_after_attempt
-import sys
-import subprocess
-import json
 import hashlib
-import yaml
+import json
+import os
+import subprocess
+import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from typing import List
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import yaml
 from rich.console import Console
 from rich.panel import Panel
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskID, TextColumn
 from rich.table import Table
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskID
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 cockpit_root = os.path.dirname(os.path.dirname(os.path.dirname(script_dir)))
 if cockpit_root not in sys.path:
@@ -29,9 +31,11 @@ if cockpit_root not in sys.path:
 src_dir = os.path.dirname(os.path.dirname(script_dir))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
-from .dashboard import generate_fleet_dashboard  # noqa: E402
-from agent_ops_cockpit.ops.auditors.base import AuditFinding # noqa: E402
+from agent_ops_cockpit.ops.auditors.base import AuditFinding  # noqa: E402
 from agent_ops_cockpit.telemetry import telemetry  # noqa: E402
+
+from .dashboard import generate_fleet_dashboard  # noqa: E402
+
 console = Console()
 
 
@@ -116,6 +120,17 @@ class CockpitOrchestrator:
             env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
             env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
             # console.print(f"🛡️  [bold yellow]Cordon Mode Active:[/] Isolated environment for {name}.") # Too noisy if in loop, maybe once in run_audit
+            
+        # [v2.0.2] Venv Isolation Sidecar
+        # If enabled, runs the command through a managed '.cockpit_venv'
+        isolated_venv = os.path.islink(os.path.join(os.getcwd(), '.cockpit_venv')) or os.path.exists(os.path.join(os.getcwd(), '.cockpit_venv'))
+        if isolated_venv and cmd[0] in ['python', 'python3', 'pytest', 'uv']:
+            venv_bin = os.path.join(os.getcwd(), '.cockpit_venv', 'bin' if os.name != 'nt' else 'Scripts')
+            prog = cmd[0]
+            if prog == 'uv':
+                env['UV_PYTHON'] = os.path.join(venv_bin, 'python')
+            else:
+                cmd[0] = os.path.join(venv_bin, prog)
             
         target_path = getattr(self, 'target_path', '.')
         agent_paths = [target_path, os.path.join(target_path, 'src')]
@@ -331,7 +346,7 @@ class CockpitOrchestrator:
         report = [f'# 🏁 AgentOps Cockpit: {title}', f'**Timestamp**: {self.timestamp}', f"**Status**: {('✅ PASS' if all((r['success'] for r in self.results.values())) else '❌ FAIL')}", '\n---']
         developer_actions = []
         developer_sources = []
-        for name, data in self.results.items():
+        for _name, data in self.results.items():
             if data['output']:
                 for line in data['output'].split('\n'):
                     if 'ACTION:' in line:
@@ -456,6 +471,7 @@ class CockpitOrchestrator:
     def apply_targeted_fix(self, issue_id: str, target_path: str='.'):
         """Improvement #6: Targeted Fix Logic. Applies remediation for a specific SARIF issue ID."""
         import hashlib
+
         from .remediator import CodeRemediator
         lake_path = self.lake_path
         if not os.path.exists(lake_path):
@@ -715,8 +731,8 @@ class CockpitOrchestrator:
     def send_email_report(self, recipient: str, smtp_server: str='smtp.gmail.com', port: int=587):
         """Sends the markdown report via email."""
         import smtplib
-        from email.mime.text import MIMEText
         from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
         sender_email = os.environ.get('AGENT_OPS_SENDER_EMAIL')
         sender_password = os.environ.get('AGENT_OPS_SME_TOKEN')
         if not sender_email or not sender_password:
@@ -823,12 +839,10 @@ class CockpitOrchestrator:
         v2.0.2 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
         Looks in:
         1. target_path/.cockpit/auditors/
-        2. cockpit_core/ops/auditors/ (plugins)
         """
         plugins = []
         plugin_dirs = [
-            os.path.join(target_path, '.cockpit', 'auditors'),
-            os.path.join(os.path.dirname(__file__), 'auditors')
+            os.path.join(target_path, '.cockpit', 'auditors')
         ]
         
         for pdir in plugin_dirs:
@@ -977,8 +991,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     
     # NEW: Apply autonomous remediations if requested
     if apply_fixes:
-        from .remediator import CodeRemediator
         from .auditors.base import AuditFinding
+        from .remediator import CodeRemediator
         
         developer_actions = []
         for name, data in orchestrator.results.items():
@@ -1032,8 +1046,10 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                     rem.apply_tool_hardening(finding)
                 elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
                     # Autonomous Scaffolding
-                    rem.scaffold_policy_engine(os.path.dirname(full_path))
-                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] policy_engine.ts created in {os.path.dirname(full_path)}")
+                    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+                    lang = DiscoveryEngine(os.path.dirname(full_path)).detect_language()
+                    engine_path = rem.scaffold_policy_engine(os.path.dirname(full_path), language=lang)
+                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] {os.path.basename(engine_path)} created in {os.path.dirname(full_path)}")
                 elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
                     # Auto-Instrumentation
                     rem.eject_telemetry_lib(os.path.dirname(full_path))
@@ -1119,6 +1135,31 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
+    # v2.0.2 Sovereign FinOps: Projected Opex Impact
+    # Heuristic: Aggregate drivers from all results
+    all_findings_text = "\n".join([r.get('output', '') for r in orchestrator.results.values()])
+    finops_auditor = None
+    # Find FinOps auditor from steps (simplified)
+    from agent_ops_cockpit.ops.auditors.base import AuditFinding
+    from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
+    finops_auditor = FinOpsAuditor()
+    
+    # Mock some findings to pass to simulator based on text
+    mock_findings = []
+    if any(x in all_findings_text.lower() for x in ['retry', 'resiliency']):
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Resiliency Hardening", description="..", impact="HIGH", roi="High"))
+    if any(x in all_findings_text.lower() for x in ['logging', 'tracing', 'telemetry']):
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Telemetry Influx", description="..", impact="MEDIUM", roi="Medium"))
+    if 'caching' in all_findings_text.lower():
+        mock_findings.append(AuditFinding(category="💰 FinOps", title="Caching Optimization", description="..", impact="HIGH", roi="High"))
+    
+    impact = finops_auditor.simulate_opex_impact(100.0, mock_findings) # 100 as base%
+    delta_str = f"[green]-{abs(impact['delta']):.1f}%[/green]" if impact['delta'] < 0 else f"[red]+{impact['delta']:.1f}%[/red]"
+    
+    console.print("\n💰 [bold cyan]Economist Persona: Opex Simulation[/bold cyan]")
+    console.print(f"Projected Monthly Token Delta: {delta_str}")
+    console.print(f"Strategic Drivers: [dim]{', '.join(impact['drivers']) if impact['drivers'] else 'Baseline'}[/dim]")
+
     if apply_fixes:
         console.print("\n🛡️  [bold cyan]Sovereign Safety Net (Shadow Modeling):[/bold cyan]")
         console.print(f"Recommended: Run [white]cockpit audit benchmark --path {target_path}[/white] to verify fixes against Golden Set.")
@@ -1139,8 +1180,8 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     # OR better: run_audit already populates the evidence lake.
     orchestrator = CockpitOrchestrator()
     
-    from .remediator import CodeRemediator
     from .auditors.base import AuditFinding
+    from .remediator import CodeRemediator
     
     remediators = {}
     applied_count = 0
@@ -1156,7 +1197,7 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
             source_data = json.load(f)
             orchestrator.results = source_data.get('results', {})
     
-    for name, data in orchestrator.results.items():
+    for _name, data in orchestrator.results.items():
         if data['output']:
             for line in data['output'].split('\n'):
                 if 'ACTION:' in line:
@@ -1182,7 +1223,7 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
                             rem.apply_timeouts(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
                             applied_count += 1
     
-    for path, rem in remediators.items():
+    for _path, rem in remediators.items():
         if branch:
             b_name = rem.save_to_branch()
             if b_name:
@@ -1212,18 +1253,25 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
         console.print(f"[yellow]No agent projects found in {root_path}[/yellow]")
         return True
     
-    console.print(f"�️  [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
+    console.print(f"🦾 [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
     results = {}
-    with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
-        future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
-        for future in as_completed(future_map):
-            agent_path = future_map[future]
-            try:
-                results[agent_path] = future.result()
-                status = '[green]PASS[/green]' if results[agent_path] == 0 else '[red]FAIL[/red]'
-                console.print(f'📡 [bold]Audit Complete[/bold]: {agent_path} -> {status}')
-            except Exception as e:
-                console.print(f'[red]💥 Error auditing {agent_path}: {e}[/red]')
+    from rich.live import Live
+    table = Table(title="🚢 Sovereign Fleet Audit Dashboard", show_header=True, header_style="bold blue")
+    table.add_column("Agent Site", style="cyan")
+    table.add_column("Audit Mode", style="dim")
+    table.add_column("Status", justify="center")
+    
+    with Live(table, refresh_per_second=4, console=console):
+        with ThreadPoolExecutor(max_workers=min(len(agents), 10)) as executor:
+            future_map = {executor.submit(run_audit, mode, a, apply_fixes=apply_fixes, sim=sim, dry_run=dry_run, only=only, skip=skip, interactive=interactive): a for a in agents}
+            for future in as_completed(future_map):
+                agent_path = future_map[future]
+                try:
+                    results[agent_path] = future.result()
+                    status = "[bold green]✅ PASS[/bold green]" if results[agent_path] == 0 else "[bold red]❌ FAIL[/bold red]"
+                    table.add_row(os.path.relpath(agent_path, root_path), mode.upper(), status)
+                except Exception as e:
+                    table.add_row(os.path.relpath(agent_path, root_path), mode.upper(), f"[bold magenta]ERROR: {e}[/bold magenta]")
     lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
     if os.path.exists(lake_path):
         try:
@@ -1235,7 +1283,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
                 if path == 'global_summary':
                     continue
                 mod_results = data.get('results', {})
-                for check_name, check_data in mod_results.items():
+                for _check_name, check_data in mod_results.items():
                     total_checks += 1
                     if check_data.get('success'):
                         passed_checks += 1

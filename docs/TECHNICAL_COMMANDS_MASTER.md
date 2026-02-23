@@ -1,45 +1,36 @@
-# 🕹️ Master Guide: AgentOps Cockpit Commands
-## The "Structural Wisdom" Hub Registry (v1.8.4 Stable)
+# 🕹️ Master Guide: Sovereign Cockpit Commands
+## The "Sovereign Evolution" (v2.0.2 Stable)
 
-This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It follows the **Sovereign Hub Hierarchy** and incorporates the v1.8 Strategic Paradigm Auditor.
+This document is the definitive source of truth for all operational commands available in the **Sovereign Cockpit**.
 
 ---
 
-## 🏗️ The Hub Registry (CLI)
-The CLI is organized into logical "Hubs" for high-fidelity operations.
+## 🏛️ Command Aliases (Interchangeable)
+To support diverse developer habits, the following aliases are interchangeable:
+- `cockpit`
+- `ops`
+- `aops`
+- `agent-ops`
+
+> **Dev Tip**: Throughout this guide, we use `ops` for brevity (e.g., `ops report`).
+
+---
+
+## 🏗️ The Sovereign Hub Registry
 
 | Hub | Command | Objective |
 | :--- | :--- | :--- |
-| `audit` | `report` | **Master Audit**: Launch multi-persona architecture, security, and cost reviews. |
-| | `security` | **Guardian**: Red Team adversarial evaluation and secret scanning. |
-| | `quality` | **Optimizer**: Run Hill Climbing quality optimization cycles. |
-| | `arch` | **Strategic Architect**: Detect paradigm mismatches (RAG for Math, etc.). |
-| | `context` | **Architect**: Visualize Token window usage and Caching efficiency. |
-| | `policy` | **Compliance**: Legal defensibility, PII masking, and policy alignment. |
-| | `face` | **Experience**: Audit the Face (Frontend) for A2UI alignment. |
-| | `shadow` | **Differential**: Shadow Mode: Differential reasoning analysis (V1 vs V2). |
-| | `maturity` | **Expertise**: Visualize cockpit maturity matrix across personas. |
-| `fix` | `issue` | **Remediation**: Apply a targeted code fix for a specific audit finding. |
-| | `evolve` | **Synthesis**: Autonomous PR generation and code hardening. |
-| | `workbench`| **Interactive**: Review and approve autonomous fixes in real-time. |
-| `create`| `trinity` | **Scaffold**: Scaffold a unified project (Engine + Face). |
-| `fleet` | `status` | **Dashboard**: State of the union for the active agent registry. |
-| | `watch` | **Sentinel**: Ecosystem sync and SITL (Human-in-the-Loop) oversight. |
-| | `anomaly` | **Sentinel**: Detect behavioral anomalies and rogue behavior. |
-| | `telemetry`| **Metrics**: Fetch live telemetry metrics for a specific agent. |
-| | `mothball` | **FinOps**: Scale inactive agents to zero. |
-| | `tunnel` | **Inner Loop**: Local-to-cloud bridge for GE tool-use iteration. |
-| `deploy`| `sovereign`| **Factory**: [10X] Audit -> Fix -> Hydrate -> Deploy. |
-| | `migrate` | **Multi-Cloud**: Move agents between GCP, AWS, and Azure. |
-| `test` | `unit` | **Integrity**: Run standard reliability unit tests. |
-| | `smoke` | **Journeys**: Validates end-to-end "pipes" across Persona Lenses. |
-| | `regression`| **Master Suite**: Combines unit + smoke + performance. |
-| `sys` | `doctor` | **Health**: Validate environment, SDKs, and artifact paths. |
-| | `certify` | **Checklist**: Full Production Readiness (Audit + Tests + Security). |
-| `rag` | `audit` | **Grounding**: Audits Reranking and Grounding fidelity. |
-| | `blueprint` | **Strategy**: Generate optimized indexing and retrieval strategy. |
-| `mcp` | `list/install`| **Store**: Discover and integrate MCP tools. |
-| `mcp-server`| `launch`| **Bridge**: Launch the Cockpit as an MCP server. |
+| **`cockpit`**| | **Mission Control**: Launch the fleet dashboard and project browser. |
+| **`ops`** | **`report`** | **Master Audit**: Launch the **Governing Board** (SME reasoning audit). |
+| | `sys doctor` | **Health**: Validate environment, multi-cloud SDKs, and auth. |
+| **`fix`** | `evolve` | **Remediation**: Apply autonomous code fixes via the **Closer Engine**. |
+| | `workbench`| **Interactive**: Review and approve fixes in real-time. |
+| **`create`**| `trinity` | **Scaffold**: Scaffold a unified **Agentic Trinity** project. |
+| **`fleet`** | `status` | **Dashboard**: State of the union for the active agent registry. |
+| | `anomaly` | **Sentinel**: Detect behavioral anomalies in production swarms. |
+| **`deploy`**| `sovereign`| **Factory**: End-to-end Audit -> Fix -> Global Deployment. |
+| | `bridge` | **Multi-Cloud**: Configure the **Sovereign Bridge** (GCP/AWS/Azure). |
+| **`certify`**| | **Final Gate**: Launch Sovereign Certification (Full Production readiness). |
 
 ---
 
@@ -48,14 +39,12 @@ Standard operational shortcuts aligned with the Trinity Persona Lenses.
 
 | Command (Make) | CLI Equivalent | Objective |
 | :--- | :--- | :--- |
-| `make audit-report` | `agentops-cockpit audit report` | Full System Audit. |
-| `make audit-deep` | `agentops-cockpit audit report --deep`| Deep Strategic Audit. |
-| `make audit-security`| `agentops-cockpit audit security`| Adversarial Guard. |
-| `make deploy-prod` | `agentops-cockpit deploy sovereign`| Global Factory Deployment. |
-| `make fleet-status` | `agentops-cockpit fleet status` | SRE Dashboard. |
-| `make smoke-test` | `agentops-cockpit test smoke` | Pipe Validation. |
-| `make upgrade` | `uv sync --upgrade` | Package Synchronization. |
-| `make certify` | `agentops-cockpit sys certify` | Full Production Certificate. |
+| `make audit` | `ops report` | Master SME Audit. |
+| `make apply-fixes`| `ops fix evolve` | Sovereign Remediation. |
+| `make archive` | `ops report --archive` | Generate Evidence Packets. |
+| `make deploy-prod` | `ops deploy sovereign` | Global Factory Deployment. |
+| `make fleet-status` | `ops fleet status` | SRE Dashboard. |
+| `make certify` | `cockpit certify` | Production Readiness Check. |
 
 ---
 
@@ -63,12 +52,15 @@ Standard operational shortcuts aligned with the Trinity Persona Lenses.
 The CLI is strictly hierarchical. Use `--help` on any hub to see detailed options.
 
 ```bash
-# Get help for the audit hub
-agentops-cockpit audit --help
+# Get help for the ops hub
+ops --help
 
 # Run a Strategic Architectural Audit
-agentops-cockpit audit arch ./my_agent
+ops report --mode deep
 ```
 
+> 🛠️ **Universal Remote**: You can run these commands on any repository using `uvx`:  
+> `uvx agentops-cockpit ops report`
+
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Global Governance Division (v1.8.4 Stable).*
+*Generated by the AgentOps Cockpit. Sovereign Systems Division (v2.0.2).*

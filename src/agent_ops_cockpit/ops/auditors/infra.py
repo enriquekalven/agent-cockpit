@@ -1,6 +1,8 @@
 import os
 from typing import List
-from agent_ops_cockpit.ops.auditors.base import BaseAuditor, AuditFinding
+
+from agent_ops_cockpit.ops.auditors.base import AuditFinding, BaseAuditor
+
 
 class InfraAuditor(BaseAuditor):
     """

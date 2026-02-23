@@ -3,13 +3,15 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 
-import typer
-import os
 import ast
 import logging
+import os
+
+import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+
 from agent_ops_cockpit.ops.auditors.rag_fidelity import RAGFidelityAuditor
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 

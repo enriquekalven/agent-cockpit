@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.2"
+version = "2.0.3"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -90,6 +90,7 @@ include = [
 [tool.pytest.ini_options]
 pythonpath = ["src", "functions"]
 testpaths = ["tests", "src/agent_ops_cockpit/tests"]
+norecursedirs = ["dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist"]
 asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",
@@ -99,13 +100,19 @@ markers = [
 line-length = 120
 target-version = "py310"
 exclude = [
-    "test-deployments",
-    "lab-tutorial-agent-alt",
-    "app",
-    "tests",
-    "temp_mixed"
+    "**/test-deployments/**",
+    "**/lab-tutorial-agent-alt/**",
+    "**/app/**",
+    "**/tests/**",
+    "**/temp_mixed/**",
+    "**/dogfood/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.js",
+    "**/*.razor.js"
 ]
 
 [tool.ruff.lint]
 select = ["E", "F", "B", "I"]
-ignore = ["B904", "E701"]
+ignore = ["B904", "E701", "E501"]

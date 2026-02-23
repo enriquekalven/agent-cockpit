@@ -3,14 +3,16 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import time
+
 import aiohttp
 import typer
 from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 app = typer.Typer(help='AgentOps Load Tester: Stress test your agent endpoints.')
 console = Console()
 

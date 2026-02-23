@@ -6,4 +6,7 @@ export default defineConfig({
   server: {
     port: 8888,
   },
+  optimizeDeps: {
+    entries: ['index.html'],
+  }
 })

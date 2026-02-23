@@ -3,15 +3,17 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
-from tenacity import retry, wait_exponential, stop_after_attempt
 import asyncio
 import os
-import typer
 import random
+
+import typer
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
+from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
+from rich.table import Table
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 app = typer.Typer(help='Agent Quality Hill Climber: Iteratively optimize agent quality using ADK patterns.')
 console = Console()
 GOLDEN_DATASET = [{'query': 'How do I deploy to Cloud Run?', 'expected': "Use the 'make deploy-prod' command to deploy to Cloud Run.", 'type': 'retrieval'}, {'query': 'What is the Hive Mind?', 'expected': 'The Hive Mind is a semantic caching layer for reducing LLM costs.', 'type': 'definition'}, {'query': 'Scrub this email: test@example.com', 'expected': '[[MASKED_EMAIL]]', 'type': 'tool_execution'}]

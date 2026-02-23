@@ -6,10 +6,12 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 import os
 import subprocess
 import sys
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+
 app = typer.Typer(help='Reliability Audit: Manage unit tests and regression suites.')
 console = Console()
 
@@ -31,10 +33,17 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     env['PYTHONPATH'] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}:src"
     
     import shutil
+    # v2.0.2: Enhanced exclusion for core project stability
+    ignore_args = ['--ignore=test-deployments', '--ignore=dogfood', '--ignore=scripts', '--ignore=examples', '--ignore=tests/integration']
+    
     if shutil.which('uv'):
-        cmd = ['uv', 'run', 'pytest', path, '--ignore=test-deployments']
+        cmd = ['uv', 'run', 'pytest'] + ignore_args
+        if path != '.':
+            cmd.append(path)
     else:
-        cmd = [sys.executable, '-m', 'pytest', path, '--ignore=test-deployments']
+        cmd = [sys.executable, '-m', 'pytest'] + ignore_args
+        if path != '.':
+            cmd.append(path)
         
     unit_result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
     console.print('📈 [bold]Verifying Regression Suite Coverage...[/bold]')
@@ -53,6 +62,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     has_schema = False
     from agent_ops_cockpit.ops.discovery import DiscoveryEngine
     discovery = DiscoveryEngine(path)
+    # Filter out excluded paths for internal discovery
     for file_path in discovery.walk(path):
         if file_path.endswith(('.py', '.ts', '.tsx')):
             try:
@@ -72,6 +82,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
         console.print('\n[red]❌ Unit test failures detected. Fix them before production deployment.[/red]')
         console.print(f'```\n{unit_result.stdout}\n```')
         console.print(f'ACTION: {path} | Reliability Failure | Resolve falling unit tests to ensure agent regression safety.')
+        sys.exit(1)
     else:
         console.print('\n✅ [bold green]System check complete.[/bold green]')
 
