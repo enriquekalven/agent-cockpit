@@ -29,7 +29,7 @@ jobs:
         run: |
           git config --global user.name "Sovereign Bot"
           git config --global user.email "bot@agentops.io"
-          git add public/fleet_data.json
+          git add -f public/fleet_data.json
           git commit -m "data: sync global telemetry pulse" || echo "No changes to commit"
           git push
           
