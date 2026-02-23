@@ -1,7 +1,9 @@
 import ast
 import re
 from typing import List
-from .base import BaseAuditor, AuditFinding
+
+from .base import AuditFinding, BaseAuditor
+
 
 class SimulationAuditor(BaseAuditor):
     """

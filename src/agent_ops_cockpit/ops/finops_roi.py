@@ -3,11 +3,12 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-import typer
 import os
+
+import typer
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
 
 app = typer.Typer(help="FinOps ROI Waterfall: Model cost-per-task and suggest optimization pivots.")
 console = Console()

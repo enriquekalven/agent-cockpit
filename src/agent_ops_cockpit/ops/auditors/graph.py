@@ -3,10 +3,13 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
 import ast
 from typing import List
-from .base import BaseAuditor, AuditFinding
+
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+from .base import AuditFinding, BaseAuditor
+
 
 class DeepGraphAuditor(BaseAuditor):
     """

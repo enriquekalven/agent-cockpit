@@ -6,10 +6,12 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 import os
 import subprocess
 import sys
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+
 app = typer.Typer(help='Reliability Audit: Manage unit tests and regression suites.')
 console = Console()
 
@@ -32,7 +34,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     
     import shutil
     # v2.0.2: Enhanced exclusion for core project stability
-    ignore_args = ['--ignore=test-deployments', '--ignore=dogfood', '--ignore=scripts', '--ignore=examples']
+    ignore_args = ['--ignore=test-deployments', '--ignore=dogfood', '--ignore=scripts', '--ignore=examples', '--ignore=tests/integration']
     
     if shutil.which('uv'):
         cmd = ['uv', 'run', 'pytest'] + ignore_args

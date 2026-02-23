@@ -4,10 +4,12 @@ SME Persona: Distinguished Guardian Fellow
 Objective: Provides ADK-native Lifecycle Callbacks for automated agent governance.
 """
 from typing import Optional
+
 from google.adk.agents.callback_context import CallbackContext
 from google.genai import types as genai_types
-from agent_ops_cockpit.ops.policy_engine import GuardrailPolicyEngine, PolicyViolation
 from rich.console import Console
+
+from agent_ops_cockpit.ops.policy_engine import GuardrailPolicyEngine, PolicyViolation
 
 console = Console()
 

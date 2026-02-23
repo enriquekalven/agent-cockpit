@@ -1,7 +1,9 @@
 import json
-import requests
 import subprocess
-from tenacity import retry, wait_exponential, stop_after_attempt
+
+import requests
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 
 def get_gcloud_token():
     try:

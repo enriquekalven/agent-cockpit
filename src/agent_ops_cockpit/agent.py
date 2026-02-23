@@ -4,18 +4,20 @@ except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # [Sovereign Alignment] This agent is hardened for Enterprise deployment.
 # Integration: google-cloud-secret-manager, vault, ContextCacheConfig active.
-import os
-import logging
 import asyncio
 import functools
+import logging
+import os
 import re
-from typing import List, Optional, Literal
+from typing import List, Literal, Optional
+
+import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
 from .ops.mcp_hub import global_mcp_hub
 from .shadow.router import ShadowRouter
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
 # v1.8.4 Master Sovereign Alignment
 # optimization: external_prompts, context_caching, hive_mind, semantic_caching
@@ -51,7 +53,7 @@ A2UIComponent.model_rebuild()
 
 # Reliability Markers (tenacity @retry)
 try:
-    from tenacity import retry, wait_exponential, stop_after_attempt
+    from tenacity import retry, stop_after_attempt, wait_exponential
 except ImportError:
     def retry(*args, **kwargs):
         def decorator(f):

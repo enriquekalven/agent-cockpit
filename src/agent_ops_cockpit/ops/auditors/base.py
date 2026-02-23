@@ -13,6 +13,7 @@ import re
 from abc import ABC, abstractmethod
 from typing import List
 
+
 class AuditFinding:
     """
     Representation of a single architectural or tactical finding.
@@ -122,6 +123,7 @@ class BaseAuditor(ABC):
             prompt = f"Objective: {objective}\n\nCode:\n```python\n{code_snippet}\n```\n\nDoes this code functionally achieve the objective? Answer only 'YES' or 'NO'."
             # This is a synchronous-wrapped call for an auditor environment
             import asyncio
+
             from google.adk.runners import Runner
             from google.adk.sessions import InMemorySessionService
             

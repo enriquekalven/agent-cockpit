@@ -1,6 +1,7 @@
 import os
 import re
 
+
 def fix_mcp_schema(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
@@ -26,7 +27,7 @@ def fix_mcp_schema(file_path):
 def main():
     target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
     count = 0
-    for root, dirs, files in os.walk(target_root):
+    for root, _dirs, files in os.walk(target_root):
         for file in files:
             if file == "agent.py":
                 if fix_mcp_schema(os.path.join(root, file)):

@@ -5,15 +5,17 @@ Objective: Orchestrates the 'End-to-End' factory for agentic harding, hydration,
 """
 import os
 import subprocess
-from typing import List, Dict
+from typing import Dict, List
+
 from rich.console import Console
 from rich.panel import Panel
+
+from agent_ops_cockpit.ops import discovery as discovery_mod
+from agent_ops_cockpit.ops import documenter as doc_mod
+from agent_ops_cockpit.ops import fleet as fleet_mod
 from agent_ops_cockpit.ops import migration as migrate_mod
 from agent_ops_cockpit.ops import orchestrator as orch_mod
-from agent_ops_cockpit.ops import documenter as doc_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
-from agent_ops_cockpit.ops import discovery as discovery_mod
-from agent_ops_cockpit.ops import fleet as fleet_mod
 
 console = Console()
 
@@ -223,8 +225,8 @@ class SovereignOrchestrator:
         local_agents = discovery.discover_agent_roots()
         deployed_agents = self.fleet_manager.list_fleet()
         
-        from rich.tree import Tree
         from rich.text import Text
+        from rich.tree import Tree
         
         root_tree = Tree(f"🏛️  [bold blue]Sovereign Workspace:[/] [white]{os.path.basename(path)}[/]")
         

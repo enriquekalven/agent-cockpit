@@ -4,7 +4,8 @@ except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import re
-from typing import Dict, Any
+from typing import Any, Dict
+
 from rich.console import Console
 
 console = Console()

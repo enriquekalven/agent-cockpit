@@ -8,12 +8,14 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     pass
 
-from tenacity import retry, wait_exponential, stop_after_attempt
-import os
-import fnmatch
 import ast
+import fnmatch
+import os
 import re
-from typing import List, Optional, Generator
+from typing import Generator, List, Optional
+
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 
 class DiscoveryEngine:
     """

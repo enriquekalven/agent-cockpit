@@ -3,20 +3,22 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
-from tenacity import retry, wait_exponential, stop_after_attempt
+import importlib.metadata
 import json
 import os
-import urllib.request
-import xml.etree.ElementTree as ET
 import re
 import sys
+import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import datetime
-from typing import Dict, Optional, Any
-import importlib.metadata
+from typing import Any, Dict, Optional
+
 from packaging import version
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
+from rich.table import Table
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 console = Console()
 WATCHLIST_PATH = os.path.join(os.path.dirname(__file__), 'watchlist.json')
 

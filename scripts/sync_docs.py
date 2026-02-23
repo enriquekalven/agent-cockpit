@@ -1,6 +1,7 @@
 import os
 import shutil
 
+
 def sync_docs():
     """
     Synchronizes core documentation files from root and /docs to /public.

@@ -1,6 +1,6 @@
 import vertexai
-from vertexai.preview import reasoning_engines
 from google.cloud import storage
+from vertexai.preview import reasoning_engines
 
 project_id = "YOUR_PROJECT_ID"
 location = "us-central1"

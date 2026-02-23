@@ -5,6 +5,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 
+
 class Config:
     """
     Centralized Configuration for AgentOps Cockpit.

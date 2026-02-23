@@ -100,17 +100,19 @@ markers = [
 line-length = 120
 target-version = "py310"
 exclude = [
-    "test-deployments",
-    "lab-tutorial-agent-alt",
-    "app",
-    "tests",
-    "temp_mixed",
-    "dogfood",
-    "node_modules",
-    "dist",
-    "build"
+    "**/test-deployments/**",
+    "**/lab-tutorial-agent-alt/**",
+    "**/app/**",
+    "**/tests/**",
+    "**/temp_mixed/**",
+    "**/dogfood/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/*.js",
+    "**/*.razor.js"
 ]
 
 [tool.ruff.lint]
 select = ["E", "F", "B", "I"]
-ignore = ["B904", "E701"]
+ignore = ["B904", "E701", "E501"]

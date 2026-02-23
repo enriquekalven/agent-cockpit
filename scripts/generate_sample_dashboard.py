@@ -1,6 +1,6 @@
-import sys
 import os
 import shutil
+import sys
 
 # Add src to path
 sys.path.append(os.path.abspath('src'))

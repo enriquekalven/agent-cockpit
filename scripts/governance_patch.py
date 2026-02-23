@@ -1,5 +1,6 @@
 import os
 
+
 def inject_governance(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
@@ -26,7 +27,7 @@ def inject_governance(file_path):
 def main():
     target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
     count = 0
-    for root, dirs, files in os.walk(target_root):
+    for root, _dirs, files in os.walk(target_root):
         for file in files:
             if file == "agent.py":
                 if inject_governance(os.path.join(root, file)):

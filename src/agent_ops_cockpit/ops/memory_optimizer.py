@@ -4,7 +4,8 @@ except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import time
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 
 class MemoryOptimizer:
     """

@@ -11,8 +11,10 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 
 import ast
 import re
-from typing import List, Dict
-from .base import BaseAuditor, AuditFinding
+from typing import Dict, List
+
+from .base import AuditFinding, BaseAuditor
+
 
 class FinOpsAuditor(BaseAuditor):
     """

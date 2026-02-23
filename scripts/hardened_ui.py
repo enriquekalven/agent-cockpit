@@ -1,6 +1,7 @@
 import os
 import re
 
+
 def harden_tsx(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
@@ -48,7 +49,7 @@ def harden_tsx(file_path):
 def main():
     target_root = "/Users/enriq/Documents/git/adk-samples"
     modified_count = 0
-    for root, dirs, files in os.walk(target_root):
+    for root, _dirs, files in os.walk(target_root):
         if any(d in root for d in [".venv", "node_modules", ".git"]):
             continue
         for file in files:

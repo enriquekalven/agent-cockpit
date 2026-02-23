@@ -5,10 +5,11 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import asyncio
 import random
-from typing import List, Dict
+from typing import Dict, List
+
 from rich.console import Console
-from rich.table import Table
 from rich.progress import Progress
+from rich.table import Table
 
 console = Console()
 

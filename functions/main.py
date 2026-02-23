@@ -1,12 +1,13 @@
 # v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
 # Firebase Functions for Sovereign Telemetry
-from firebase_functions import https_fn
-from firebase_admin import initialize_app, firestore
+import datetime
+from typing import Any, Dict, Optional
+
 import google.cloud.firestore
 from fastapi import FastAPI
+from firebase_admin import firestore, initialize_app
+from firebase_functions import https_fn
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
-import datetime
 
 initialize_app()
 app = FastAPI()

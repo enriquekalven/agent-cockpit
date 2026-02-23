@@ -6,8 +6,10 @@ Coverage: 15 Paradigms (~99% Modern Agentic Patterns)
 """
 import ast
 import re
-from typing import List, Set, Dict, Tuple
-from .base import BaseAuditor, AuditFinding
+from typing import Dict, List, Set, Tuple
+
+from .base import AuditFinding, BaseAuditor
+
 
 class ParadigmAuditor(BaseAuditor):
     """

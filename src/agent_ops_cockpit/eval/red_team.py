@@ -3,12 +3,13 @@ try:
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+import json
 import os
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-import json
 
 __version__ = "0.1.0"
 

@@ -6,8 +6,11 @@ Objective: Reasoning-based security auditing focusing on 'Architectural Sovereig
 import ast
 import re
 from typing import List
-from .base import BaseAuditor, AuditFinding
-from tenacity import retry, wait_exponential, stop_after_attempt
+
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+from .base import AuditFinding, BaseAuditor
+
 
 class SecurityAuditor(BaseAuditor):
     """

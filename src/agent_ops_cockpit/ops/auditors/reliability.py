@@ -5,7 +5,9 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
 import ast
 from typing import List
-from .base import BaseAuditor, AuditFinding
+
+from .base import AuditFinding, BaseAuditor
+
 
 class ReliabilityAuditor(BaseAuditor):
     """

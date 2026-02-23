@@ -4,37 +4,40 @@ except (ImportError, AttributeError):
     ContextCacheConfig = None
 # v2.0.2 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
 
+import asyncio
 import os
-from tenacity import retry, wait_exponential, stop_after_attempt
-from typing import Optional, List, Annotated
 import shutil
-import jwt  # PyJWT for v2.0.2 Sovereign Attestation
 import subprocess
 from datetime import datetime, timedelta
-import asyncio
+from typing import Annotated, List, Optional
+
+import jwt  # PyJWT for v2.0.2 Sovereign Attestation
+import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-import typer
-from agent_ops_cockpit.ops import arch_review as arch_mod
-from agent_ops_cockpit.ops import orchestrator as orch_mod
-from agent_ops_cockpit.ops import reliability as rel_mod
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+from agent_ops_cockpit import optimizer as opt_mod
+from agent_ops_cockpit.config import config
 from agent_ops_cockpit.eval import quality_climber as quality_mod
 from agent_ops_cockpit.eval import red_team as red_mod
-from agent_ops_cockpit.ops import policy_engine as policy_mod
-from agent_ops_cockpit import optimizer as opt_mod
-from agent_ops_cockpit.ops import rag_audit as rag_mod
-from agent_ops_cockpit.ops import finops_roi as roi_mod
-from agent_ops_cockpit.ops import workbench as workbench_mod
-from agent_ops_cockpit.ops import mcp_store as mcp_mod
-from agent_ops_cockpit.ops import watcher as watch_mod
-from agent_ops_cockpit.ops import preflight as pre_mod
-from agent_ops_cockpit.config import config
-from agent_ops_cockpit.telemetry import telemetry
-from agent_ops_cockpit.ops import migration as migrate_mod
-from agent_ops_cockpit.ops import sovereign as sovereign_mod
+from agent_ops_cockpit.ops import arch_review as arch_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
+from agent_ops_cockpit.ops import finops_roi as roi_mod
 from agent_ops_cockpit.ops import master_dashboard as master_mod
+from agent_ops_cockpit.ops import mcp_store as mcp_mod
+from agent_ops_cockpit.ops import migration as migrate_mod
+from agent_ops_cockpit.ops import orchestrator as orch_mod
+from agent_ops_cockpit.ops import policy_engine as policy_mod
+from agent_ops_cockpit.ops import preflight as pre_mod
+from agent_ops_cockpit.ops import rag_audit as rag_mod
+from agent_ops_cockpit.ops import reliability as rel_mod
+from agent_ops_cockpit.ops import sovereign as sovereign_mod
+from agent_ops_cockpit.ops import watcher as watch_mod
+from agent_ops_cockpit.ops import workbench as workbench_mod
+from agent_ops_cockpit.telemetry import telemetry
+
 app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance Platform.', no_args_is_help=False)
 audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
 
@@ -159,8 +162,8 @@ def upgrade_cockpit():
     console.print(f"Current Local Version: [bold cyan]v{config.VERSION}[/bold cyan]")
     
     try:
-        import urllib.request
         import json
+        import urllib.request
         with urllib.request.urlopen("https://pypi.org/pypi/agentops-cockpit/json", timeout=3) as response:
             if response.status == 200:
                 data = json.load(response)
@@ -1029,8 +1032,9 @@ def mcp_server():
     Launch the Cockpit as a Model Context Protocol (MCP) server.
     """
     console.print('📡 [bold blue]Launching AgentOps Cockpit MCP Server...[/bold blue]')
-    from agent_ops_cockpit import mcp_server as mcp_mod
     import asyncio
+
+    from agent_ops_cockpit import mcp_server as mcp_mod
     asyncio.run(mcp_mod.main())
 
 # --- REGISTRATION ---
