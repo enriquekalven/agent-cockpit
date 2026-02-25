@@ -37,14 +37,17 @@ jobs:
         run: uv run python3 scripts/aggregate_telemetry.py
         
       - name: 🚀 Commit Sovereign Updates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "Sovereign Bot"
           git config --global user.email "bot@agentops.io"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add -f public/fleet_data.json
           git add src/agent_ops_cockpit/ops/maturity_patterns.json
           git add uv.lock pyproject.toml
           git commit -m "chore(ops): sync global telemetry and ecosystem wisdom store" || echo "No changes to commit"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
           
       - name: 🌎 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
