@@ -90,7 +90,7 @@ include = [
 [tool.pytest.ini_options]
 pythonpath = ["src", "functions"]
 testpaths = ["tests", "src/agent_ops_cockpit/tests"]
-norecursedirs = ["dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist"]
+norecursedirs = ["tests/legacy", "dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist"]
 asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",

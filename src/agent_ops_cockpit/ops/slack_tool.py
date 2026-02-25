@@ -3,10 +3,9 @@ Pillar: Fleet Intelligence
 SME Persona: Principal AI Architect
 Objective: Provides real-time Slack notifications for operational events.
 """
-import os
-import json
 import logging
-from typing import Dict, Any, Optional
+import os
+from typing import Any, Dict, Optional
 
 import requests
 from google.adk.tools import ToolContext
