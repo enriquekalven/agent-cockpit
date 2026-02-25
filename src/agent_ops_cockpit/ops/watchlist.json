@@ -163,7 +163,7 @@
       ]
     },
     "openai-research": {
-      "feed": "https://openai.com/blog/research/rss.xml",
+      "feed": "https://openai.com/news/rss.xml",
       "description": "OpenAI Research Blog - Breakthroughs in Frontier Models",
       "relevancy_focus": [
         "Prompting Heuristics",
@@ -172,7 +172,7 @@
       ]
     },
     "anthropic-news": {
-      "feed": "https://www.anthropic.com/news/rss.xml",
+      "feed": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "description": "Anthropic News - Constitutional AI and Tool-Use specs",
       "relevancy_focus": [
         "MCP Protocol",
@@ -192,7 +192,7 @@
   },
   "security_policy_feeds": {
     "nist-news": {
-      "feed": "https://www.nist.gov/news-events/news/rss",
+      "feed": "https://www.nist.gov/news-events/news/rss.xml",
       "description": "NIST AI RMF Updates - National standards for AI Risk Management",
       "relevancy_focus": [
         "Risk Assessment",

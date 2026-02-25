@@ -1002,6 +1002,9 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                         developer_actions.append({'module': name, 'action': line.replace('ACTION:', '').strip()})
         
         remediators = {}
+        max_fix_files = config.get('max_fix_files', 10)
+        fix_files_count = 0
+        
         for item in developer_actions:
             parts = item['action'].split(' | ')
             if len(parts) >= 2:
@@ -1009,18 +1012,22 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 file_path = file_path_info[0]
                 line_num = int(file_path_info[1]) if len(file_path_info) > 1 else 1
                 title = parts[1]
-                print(f"DEBUG: Processing action {item['action']}")
+                
                 if os.path.isabs(file_path):
                     full_path = file_path
                 else:
                     full_path = os.path.abspath(os.path.join(target_path, file_path))
                 
-                print(f"DEBUG: full_path={full_path}")
                 if not os.path.exists(full_path) or not os.path.isfile(full_path):
                     continue
                 
                 if full_path not in remediators:
+                    # BLAST RADIUS GUARD: Prevent PR Exhaustion (40K lines issue)
+                    if fix_files_count >= max_fix_files:
+                        console.print(f"⚠️ [bold yellow]Blast Radius Guard:[/] Skipping {os.path.basename(full_path)} to prevent PR Exhaustion (Limit: {max_fix_files} files).")
+                        continue
                     remediators[full_path] = CodeRemediator(full_path)
+                    fix_files_count += 1
                 
                 rem = remediators[full_path]
                 finding = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num, file_path=full_path)
@@ -1035,10 +1042,8 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                         continue
                 
                 if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
-                    print(f"DEBUG: Applying resiliency to {full_path}")
                     rem.apply_resiliency(finding)
                 elif any(x in title.lower() for x in ['timeout', 'zombie']):
-                    print(f"DEBUG: Applying timeouts to {full_path}")
                     rem.apply_timeouts(finding)
                 elif any(x in title.lower() for x in ['caching', 'context-cache']):
                     rem.apply_caching(finding)
@@ -1061,7 +1066,12 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 elif any(x in title.lower() for x in ['passive', 'retrieval', 'rag']):
                     rem.apply_passive_retrieval(finding)
                     console.print(f"🌉 [bold green]Managed RAG Refactor:[/bold green] Injected decider logic to {os.path.basename(full_path)}")
-                elif any(x in title.lower() for x in ['monolith', 'structural', 'size']):
+                if any(x in title.lower() for x in ['monolith', 'structural', 'size', 'legacy', 'monolithic', 'split']):
+                    # CORDON PATTERN: Protect against PR Exhaustion and Destructive Changes
+                    if not interactive and not os.environ.get('FORCE_EVOLUTION'):
+                         console.print(f"🛡️  [bold yellow]Cordon Gate:[/] Skipping high-impact structural split for [bold]{os.path.basename(full_path)}[/]. Run with --interactive to approve.")
+                         continue
+                    
                     rem.apply_structural_split(finding)
                     console.print(f"🏗️  [bold green]Architectural Split Scaffold:[/bold green] Injected modular router recommendation to {os.path.basename(full_path)}")
 
@@ -1071,10 +1081,6 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 if patch_path:
                     console.print(f"🏜️  [yellow]DRY RUN: Patch generated at {patch_path}[/yellow]")
             else:
-                # In v2.0.2+ we actually default to PATCHING for safety unless forced
-                # But the tests expect a patch even if dry_run is False? 
-                # Let's check test_audit_flow.py line 65. 
-                # It says: 'Applying fixes in v2.0.2 should NOT modify the file directly'
                 rem.save_patch()
                 console.print(f"📦 [bold green]Autonomous Remediation Staged:[/bold green] Patch created for {os.path.basename(path)}")
 
@@ -1192,6 +1198,11 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     agent_hash = hashlib.md5(target_abs.encode()).hexdigest()
     partition_path = os.path.join(orchestrator.output_root, 'evidence_lake', agent_hash, 'latest.json')
     
+    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+    discovery = DiscoveryEngine(target_path)
+    max_fix_files = discovery.config.get('max_fix_files', 10)
+    fix_files_count = 0
+
     if os.path.exists(partition_path):
         with open(partition_path, 'r') as f:
             source_data = json.load(f)
@@ -1212,9 +1223,20 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
                             continue
                         
                         if full_path not in remediators:
+                            # BLAST RADIUS GUARD: Prevent PR Exhaustion
+                            if fix_files_count >= max_fix_files:
+                                console.print(f"⚠️ [bold yellow]Blast Radius Guard:[/] Limiting evolution to {max_fix_files} files.")
+                                break
                             remediators[full_path] = CodeRemediator(full_path)
+                            fix_files_count += 1
                         
                         rem = remediators[full_path]
+                        # BLAST RADIUS & CORDON: Check for high-impact titles
+                        if any(x in title.lower() for x in ['monolith', 'structural', 'size', 'legacy', 'monolithic', 'split']):
+                             if not os.environ.get('FORCE_EVOLUTION'):
+                                 console.print(f"🛡️  [bold yellow]Cordon Gate:[/] Skipping high-impact evolution for [bold]{os.path.basename(full_path)}[/]. Set FORCE_EVOLUTION=1 to override.")
+                                 continue
+                        
                         # Apply specialized logic
                         if 'Resiliency' in title or 'Backoff' in title:
                             rem.apply_resiliency(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))

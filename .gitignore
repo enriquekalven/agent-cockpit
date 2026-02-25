@@ -224,9 +224,6 @@ ui_audit_result.txt
 final_ui_audit.txt
 TECHNICAL_DESIGN_DOCUMENT.html
 cockpit_report.html
-evidence_lake.json
-public/fleet_data.json
-.cockpit/
-.cockpit/
-public/fleet_data.json
-evidence_lake.json
+
+# A2UI Intelligence Pulse
+!public/fleet_data.json

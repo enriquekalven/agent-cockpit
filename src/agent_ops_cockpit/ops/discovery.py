@@ -86,6 +86,10 @@ class DiscoveryEngine:
                 threshold_match = re.search('threshold:\\s*(\\d+)', content)
                 if threshold_match:
                     config['threshold'] = int(threshold_match.group(1))
+                
+                max_fix_match = re.search('max_fix_files:\\s*(\\d+)', content)
+                if max_fix_match:
+                    config['max_fix_files'] = int(max_fix_match.group(1))
 
                 def parse_list(key, text):
                     inline = re.search(f'{key}:\\s*\\[(.*?)\\]', text, re.DOTALL)

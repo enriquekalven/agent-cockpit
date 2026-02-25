@@ -189,7 +189,7 @@ def run_watch():
             console.print(f"  [dim]{up['desc']}[/dim]")
         pkgs = ' '.join([u['package'] for u in updates_found if u['package']])
         if pkgs:
-            console.print(f'\n[bold cyan]Pro-tip:[/bold cyan] Run `pip install --upgrade {pkgs}` to sync.')
+            console.print(f'\n[bold cyan]Pro-tip:[/bold cyan] Run `uv add {pkgs}` to sync your environment with the latest ecosystem patterns.')
         sys.exit(2)
     else:
         console.print('\n[bold green]✨ All components are currently in sync with the latest stable releases.[/bold green]')

@@ -9,7 +9,9 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
 
 ## Phase 1: Preparation & Intelligence Sync
 1. **Upgrade Dependencies**: 
-   `uv sync --upgrade` and `npm install`
+   - `uv sync --upgrade` and `npm install`
+   - **Ecosystem Pulse**: Run `agentops-cockpit fleet watch`
+   - **Auto-Remediation**: If drift is detected, run `uv add pkg1 pkg2 ...` to sync.
 2. **Sovereign Parity Verification**: 
    Ensure `agentops-cockpit sys version` matches the version in `pyproject.toml` and the latest version on PyPI.
    Also verify that `uv` and `make` (or `gmake`) are at the latest stable versions.
