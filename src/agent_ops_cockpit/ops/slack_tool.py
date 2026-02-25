@@ -58,21 +58,3 @@ def send_slack_message(
             
     except Exception as e:
         return {"status": "error", "message": str(e)}
-
-def map_pipeline_to_slack(
-    pipeline_status: Dict[str, Any],
-    channel: str = "#ops-cockpit"
-) -> Dict[str, Any]:
-    """
-    Maps the current architectural pipeline status to a Slack alert.
-    
-    Args:
-        pipeline_status: Summary of the pipeline (e.g., from 'ops report').
-        channel: Slack channel to notify.
-    """
-    message = f"🚀 *AgentOps Cockpit: Pipeline Mapping Alert*\n\n"
-    message += f"*Status:* {pipeline_status.get('status', 'Unknown')}\n"
-    message += f"*Reasoning Score:* {pipeline_status.get('score', 0)}%\n"
-    message += f"*Remediation Steps:* {pipeline_status.get('remediations', 'None')}\n"
-    
-    return send_slack_message(channel, message)

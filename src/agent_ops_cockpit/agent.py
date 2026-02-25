@@ -129,7 +129,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
             context = f"<context>{str(raw_results)[:2000]}</context>"
             
     if any(k in safe_query.lower() for k in ['slack', 'notify', 'message', 'alert']):
-        # Architectural Pipeline Mapping: notify the fleet
+        # Slack Alert: notify the fleet or operator
         slack_result = await global_mcp_hub.execute_tool('slack', {
             'channel': '#ops-cockpit',
             'message': f"🔔 *Cockpit Action:* {safe_query}"
