@@ -1,4 +1,4 @@
-name: 📡 Global Telemetry Sync
+name: 📡 Sovereign Ecosystem & Telemetry Sync
 
 on:
   schedule:
@@ -18,24 +18,35 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install dependencies
-        run: pip install requests
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
         
-      - name: Aggregate Telemetry
+      - name: Install dependencies
+        run: |
+          uv sync
+          pip install requests
+          
+      - name: 🧠 Update Wisdom Store (Ecosystem Watch)
+        run: |
+          uv run agentops-cockpit fleet watch || echo "Watcher detected drift or finished"
+          
+      - name: 📡 Aggregate Telemetry
         env:
           AGENTOPS_SUPABASE_URL: ${{ secrets.AGENTOPS_SUPABASE_URL }}
           AGENTOPS_SUPABASE_KEY: ${{ secrets.AGENTOPS_SUPABASE_KEY }}
-        run: python3 scripts/aggregate_telemetry.py
+        run: uv run python3 scripts/aggregate_telemetry.py
         
-      - name: Commit changes
+      - name: 🚀 Commit Sovereign Updates
         run: |
           git config --global user.name "Sovereign Bot"
           git config --global user.email "bot@agentops.io"
           git add -f public/fleet_data.json
-          git commit -m "data: sync global telemetry pulse" || echo "No changes to commit"
+          git add src/agent_ops_cockpit/ops/maturity_patterns.json
+          git add uv.lock pyproject.toml
+          git commit -m "chore(ops): sync global telemetry and ecosystem wisdom store" || echo "No changes to commit"
           git push
           
-      - name: Deploy to Firebase Hosting
+      - name: 🌎 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
