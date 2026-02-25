@@ -182,7 +182,8 @@ def run_watch():
                 table.add_row(category.upper(), name, local_v, '[red]Fetch Failed[/red]', '❓')
     console.print(table)
     if updates_found:
-        console.print('\n[bold yellow]⚠️ Actionable Intelligence:[/bold yellow]')
+        console.print('\n🚨 [bold red]AgentOps: Ecosystem Upgrade Required[/bold red]')
+        console.print('[bold yellow]⚠️ Actionable Intelligence:[/bold yellow]')
         for up in updates_found:
             console.print(f"• [bold]{up['name']}[/bold]: {up['current']} ➔ [bold green]{up['latest']}[/bold green]")
             console.print(f"  [dim]{up['desc']}[/dim]")
