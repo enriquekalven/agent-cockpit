@@ -24,7 +24,12 @@ class MCPHub:
 
     def __init__(self):
         self.servers: Dict[str, StdioServerParameters] = {}
-        self.registry = {'search': {'type': 'mcp', 'provider': 'google-search', 'server': 'google-search-mcp'}, 'db': {'type': 'mcp', 'provider': 'alloydb', 'server': 'postgres-mcp'}, 'legacy_crm': {'type': 'rest', 'provider': 'internal', 'status': 'deprecated'}}
+        self.registry = {
+            'search': {'type': 'mcp', 'provider': 'google-search', 'server': 'google-search-mcp'},
+            'db': {'type': 'mcp', 'provider': 'alloydb', 'server': 'postgres-mcp'},
+            'slack': {'type': 'mcp', 'provider': 'slack', 'server': 'slack-mcp'},
+            'legacy_crm': {'type': 'rest', 'provider': 'internal', 'status': 'deprecated'}
+        }
 
     def register_server(self, name: str, command: str, args: List[str]=None):
         """Registers a local MCP server."""

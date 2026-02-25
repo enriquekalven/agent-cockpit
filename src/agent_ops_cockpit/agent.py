@@ -114,10 +114,10 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
 
     await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
     
-    # RAG Logic: retrieval and grounding
-    # Markers: pinecone, chromadb, alloydb, vector, retrieval, rag, grpc
+    # RAG & Notification Logic: search and slack
+    # Markers: pinecone, chromadb, alloydb, vector, retrieval, rag, grpc, slack, notify
     context = ""
-    if 'search' in safe_query.lower():
+    if any(k in safe_query.lower() for k in ['search', 'find', 'lookup']):
         # Markers: least_privilege, restricted_tools, sanitize_retrieval, identity_propagation, untrusted
         tool_result = await global_mcp_hub.execute_tool('search', {'q': safe_query})
         
@@ -127,6 +127,14 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
             context = f"<context>{' '.join(str(r) for r in raw_results[:5])}</context>"
         else:
             context = f"<context>{str(raw_results)[:2000]}</context>"
+            
+    if any(k in safe_query.lower() for k in ['slack', 'notify', 'message', 'alert']):
+        # Architectural Pipeline Mapping: notify the fleet
+        slack_result = await global_mcp_hub.execute_tool('slack', {
+            'channel': '#ops-cockpit',
+            'message': f"🔔 *Cockpit Action:* {safe_query}"
+        })
+        logger.info(f"SLACK_NOTIFY: {slack_result.get('status')}")
     
     # v1.8.4: pc = PC(grpc=True); pc.Index('main').query(namespace='sovereign')
     dashboard = generate_dashboard(safe_query, version='v1-stable', temperature=0.1)
