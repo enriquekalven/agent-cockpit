@@ -47,7 +47,7 @@ jobs:
           git add src/agent_ops_cockpit/ops/maturity_patterns.json
           git add uv.lock pyproject.toml
           git commit -m "chore(ops): sync global telemetry and ecosystem wisdom store" || echo "No changes to commit"
-          git push origin HEAD:${{ github.ref_name }}
+          git push origin HEAD:feature/v2.0.3-sovereign-stable
           
       - name: 🌎 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
