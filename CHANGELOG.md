@@ -5,6 +5,8 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 ### v2.0.4 (2026-02-26) - The "Sovereign Lifecycle" Release
 - **🏅 Production Readiness Certification**: Formalized the `cockpit certify` command with multi-cloud pre-flight checks.
 - **🚀 Zero2Hero Automation**: End-to-end release workflow from validation to multi-registry publishing.
+- **🛡️ Sovereign Hardening**: Implemented `max_fix_files` Blast Radius Guard (v2.0.4) to prevent PR Exhaustion.
+- **🎨 Style Alignment**: Synchronized `ruff` linter with Google Python Style Guide (80-character limit).
 - **🏛️ Wisdom Store v2.0.4**: Ingested latest maturity patterns and principal heuristics for agentic governance.
 
 ### v2.0.3 (2026-02-19) - The "Sovereign Evolution" Release
