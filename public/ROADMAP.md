@@ -1,5 +1,5 @@
 # 🗺️ AgentOps Cockpit Roadmap: The Path to 10K Stars
-Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.3 "Sovereign Master Build")
+Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.4 "Sovereign Master Build")
 
 ## 🎯 Phase 1: The Foundation (Quarter 1) - "The Hardened Agent"
 *Focus: Security, Governance, and Basic Optimization.*
@@ -61,4 +61,4 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 3.  **Report a Breach**: Found a way to bypass the Red Team? Help us harden the stack.
 
 ---
-*Built with ❤️ for the Agentic Developer community. (v2.0.3 Sovereign Master Build)*
+*Built with ❤️ for the Agentic Developer community. (v2.0.4 Sovereign Master Build)*

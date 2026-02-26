@@ -2,6 +2,11 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v2.0.4 (2026-02-26) - The "Sovereign Lifecycle" Release
+- **🏅 Production Readiness Certification**: Formalized the `cockpit certify` command with multi-cloud pre-flight checks.
+- **🚀 Zero2Hero Automation**: End-to-end release workflow from validation to multi-registry publishing.
+- **🏛️ Wisdom Store v2.0.4**: Ingested latest maturity patterns and principal heuristics for agentic governance.
+
 ### v2.0.3 (2026-02-19) - The "Sovereign Evolution" Release
 - **🐍 Language-Native Scaffolding**: Detection-aware polyglot generators for `policy_engine` (Python Pydantic & TypeScript support).
 - **📊 Jetstream UX (Compacted Fleet Reporting)**: Real-time, dynamic live dashboard for workspace audits, eliminating terminal verbosity in large fleets.
