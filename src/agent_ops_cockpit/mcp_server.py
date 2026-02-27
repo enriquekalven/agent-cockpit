@@ -171,7 +171,7 @@ async def main():
             write_stream, 
             InitializationOptions(
                 server_name='agent-ops-cockpit', 
-                server_version='2.0.2', 
+                server_version='2.0.4', 
                 capabilities=server.get_capabilities(
                     notification_options=NotificationOptions(), 
                     experimental_capabilities={}

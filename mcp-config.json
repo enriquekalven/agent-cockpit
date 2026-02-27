@@ -1,0 +1,61 @@
+{
+  "name": "agent-ops-cockpit",
+  "version": "2.0.4",
+  "description": "The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.",
+  "author": "enriquekalven",
+  "repository": "https://github.com/enriquekalven/agent-ops-cockpit",
+  "homepage": "https://agent-cockpit.web.app",
+  "license": "MIT",
+  "mcp_server": {
+    "entry_point": "uvx agentops-cockpit mcp",
+    "python_module": "agent_ops_cockpit.mcp_server",
+    "capabilities": {
+      "tools": [
+        {
+          "name": "optimize_code",
+          "description": "Audit agent code for optimizations (cost, performance, FinOps)."
+        },
+        {
+          "name": "policy_audit",
+          "description": "Validate input against declarative guardrail policies (ASI-01, ASI-10)."
+        },
+        {
+          "name": "architecture_review",
+          "description": "Run a Google Well-Architected design review (The Sovereign Gate)."
+        },
+        {
+          "name": "red_team_attack",
+          "description": "Perform an adversarial security audit (Red Teaming)."
+        },
+        {
+          "name": "shadow_roi",
+          "description": "🔦 Shadow ROI: Benchmark model tiers for optimal cost/accuracy."
+        },
+        {
+          "name": "certify_agent",
+          "description": "🏅 Production Readiness: Generate a Sovereign Certificate for an agent project."
+        }
+      ]
+    }
+  },
+  "deployment": {
+    "claude_desktop": {
+      "mcpServers": {
+        "agent-ops-cockpit": {
+          "command": "uvx",
+          "args": ["agentops-cockpit", "mcp"],
+          "env": {
+             "COCKPIT_MODE": "sovereign",
+             "PYTHONPATH": "."
+          }
+        }
+      }
+    },
+    "glama_ai": {
+      "id": "agent-ops-cockpit",
+      "type": "command",
+      "command": "uvx",
+      "args": ["agentops-cockpit", "mcp"]
+    }
+  }
+}

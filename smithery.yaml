@@ -1,0 +1,24 @@
+name: agent-ops-cockpit
+version: 2.0.4
+description: The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
+repository: https://github.com/enriquekalven/agent-ops-cockpit
+license: MIT
+author: enriquekalven
+tools:
+  - name: optimize_code
+    description: Audit agent code for optimizations (cost, performance, FinOps).
+  - name: policy_audit
+    description: Validate input against declarative guardrail policies.
+  - name: architecture_review
+    description: Run a Google Well-Architected design review.
+  - name: red_team_attack
+    description: Perform an adversarial security audit.
+  - name: shadow_roi
+    description: 🔦 Shadow ROI Benchmarking.
+  - name: certify_agent
+    description: 🏅 Production Readiness Certification.
+deployment:
+  command: uvx
+  args: ["agentops-cockpit", "mcp"]
+  env:
+    COCKPIT_MODE: sovereign
