@@ -1,6 +1,12 @@
-from llama_index.core.callbacks import BaseCallbackHandler, CBEventType, EventPayload
-from typing import Any, Dict, List, Optional
 import logging
+from typing import Any, Dict, List, Optional
+
+from llama_index.core.callbacks import (
+    BaseCallbackHandler,
+    CBEventType,
+    EventPayload,
+)
+
 from agent_ops_cockpit.ops.pii_scrubber import PIIScrubber
 
 logger = logging.getLogger(__name__)
@@ -30,7 +36,7 @@ class CockpitLlamaIndexCallbackHandler(BaseCallbackHandler):
             for prompt in prompts:
                 scrubbed = self.scrubber.scrub(str(prompt))
                 if scrubbed != str(prompt):
-                    logger.warning(f"[Cockpit] PII detected in LlamaIndex LLM call")
+                    logger.warning("[Cockpit] PII detected in LlamaIndex LLM call")
                     self.findings.append({
                         "category": "🛡️ Security", 
                         "title": "ASI-06: PII in Query Engine", 
@@ -84,7 +90,8 @@ class CockpitLlamaIndexCallbackHandler(BaseCallbackHandler):
              
              # Save to evidence lake
              lake_path = ".cockpit/evidence_lake.json"
-             import os, json
+             import json
+             import os
              if not os.path.exists(".cockpit"):
                  os.makedirs(".cockpit", exist_ok=True)
                  
@@ -95,7 +102,8 @@ class CockpitLlamaIndexCallbackHandler(BaseCallbackHandler):
                          try:
                              content = json.load(f)
                              data = content if isinstance(content, list) else [content]
-                         except: data = []
+                         except Exception:
+                             data = []
                  
                  data.append({
                      "timestamp": "v2.0.4-llamaindex",

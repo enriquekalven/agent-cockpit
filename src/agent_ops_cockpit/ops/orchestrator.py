@@ -35,6 +35,7 @@ from agent_ops_cockpit.ops.auditors.base import AuditFinding  # noqa: E402
 from agent_ops_cockpit.telemetry import telemetry  # noqa: E402
 
 from .dashboard import generate_fleet_dashboard  # noqa: E402
+from .documenter import TDDGenerator  # noqa: E402
 
 console = Console()
 
@@ -458,6 +459,17 @@ class CockpitOrchestrator:
         self._generate_html_report(developer_actions, developer_sources)
         self._generate_sarif_report(developer_actions)
         self.save_to_evidence_lake(target_abs)
+
+        # v2.0.2: Automatic TDD & Codebase Bundle Generation (Gittodoc Style) after each run
+        try:
+            generator = TDDGenerator(getattr(self, 'target_path', '.'))
+            generator.generate_tdd_html()
+            generator.generate_tdd_markdown()
+            generator.generate_codebase_bundle()
+            console.print("📄 [bold green]Technical Design Document & Codebase Bundle updated.[/bold green]")
+        except Exception as e:
+            console.print(f"⚠️ [yellow]Documentation generation failed:[/yellow] {e}")
+
         format = getattr(self, 'output_format', 'text')
         if format == 'json':
             console.print_json(data=self.results)

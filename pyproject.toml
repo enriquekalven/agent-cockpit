@@ -106,6 +106,7 @@ exclude = [
     "**/tests/**",
     "**/temp_mixed/**",
     "**/dogfood/**",
+    "**/docs_temp/**",
     "**/node_modules/**",
     "**/dist/**",
     "**/build/**",

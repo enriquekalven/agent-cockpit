@@ -33,7 +33,9 @@ Most AI templates stop at a single Python script. **The AgentOps Cockpit** is fo
 
 - **🏛️ The Governing Board**: Every repository is audited by a panel of [**Principal SME Personas**](docs/TECHNICAL_AUDIT_GUIDE.md) (SecOps, FinOps, SRE, Architect) using **SME Reasoning**.
 - **🌉 Sovereign Bridge**: Multi-cloud orchestration layer for GCP, AWS, and Azure.
-- **🛡️ Sovereign Gateway**: Real-time sidecar for PII scrubbing and [**A2A Evidence Packets**](docs/TECHNICAL_A2A_GUIDE.md).
+- **The Cockpit**: Python CLI, **Sovereign Gateway**, Semantic Caching, Red Team Eval.
+- **Integrations**: [LangChain](/docs/LANGCHAIN_INTEGRATION.md), CrewAI, LangGraph.
+- **Deployment**: Firebase Hosting (Face), Google Cloud Run / GKE (Engine/Cockpit).
 - **🕹️ Agentic Trinity 2.0**: Specialized layers for the **Engine** (Logic), **Face** (UX), and **Cockpit** (Ops).
 
 ---
@@ -52,6 +54,10 @@ ops report
 2. **Audit**: `ops report` (Deep SME Reasoning Review)
 3. **Remediate**: `make apply-fixes` (Autonomous code hardening via the **Closer Engine**)
 4. **Deploy**: `ops deploy sovereign` (Multi-cloud Factory Deployment)
+
+## 🗺️ Project Roadmap
+- [x] **v2.0.4**: Sovereign Lifecycle (Certification, Blast Radius Guard, LangChain Integration).
+- [ ] **v2.0.5**: Collaborative Governance (Multi-Persona Benchmarking, MCP Hub v2).
 
 ---
 

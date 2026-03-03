@@ -14,10 +14,16 @@ from rich.table import Table
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 try:
-    from agent_ops_cockpit.ops.evidence_bridge import get_compatibility_report, get_package_evidence
+    from agent_ops_cockpit.ops.evidence_bridge import (
+        get_compatibility_report,
+        get_package_evidence,
+    )
 except ImportError:
     try:
-        from backend.ops.evidence_bridge import get_compatibility_report, get_package_evidence
+        from backend.ops.evidence_bridge import (
+            get_compatibility_report,
+            get_package_evidence,
+        )
     except ImportError:
 
         def get_package_evidence(pkg):

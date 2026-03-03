@@ -21,7 +21,11 @@ from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
 from agent_ops_cockpit.ops.auditors.sre_a2a import SREAuditor
 from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-from agent_ops_cockpit.ops.frameworks import FRAMEWORKS, NIST_AI_RMF_CHECKLIST, detect_framework
+from agent_ops_cockpit.ops.frameworks import (
+    FRAMEWORKS,
+    NIST_AI_RMF_CHECKLIST,
+    detect_framework,
+)
 from agent_ops_cockpit.ops.git_portal import GitPortal
 from agent_ops_cockpit.ops.remediator import CodeRemediator
 

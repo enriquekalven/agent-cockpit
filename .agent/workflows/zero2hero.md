@@ -39,40 +39,41 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
    - Run `python3 scripts/sync_docs.py` to synchronize all guides from `/docs/` to `/public/`.
    - Manually verify that `public/TECHNICAL_UX_GUIDE.md` reflects AGUI and MCP Apps UI.
    - Update `ROADMAP.md`, `CHANGELOG.md`, `README.md` to reflect the latest release capabilities and versioning.
+7. **Documentation Archetype**: Verify that `TECHNICAL_DESIGN_DOCUMENT.md` and `CODEBASE_BUNDLE.md` have been updated by the audit engine (optimizes AI discovery).
 
 ## Phase 2: Structural Verification (The Build Gates)
-7. **Clean & Prep**:
+8. **Clean & Prep**:
    `rm -rf dist/ build/`
-8. **Linting & Formatting**:
+9. **Linting & Formatting**:
    `uv run ruff check .` and `npm run lint`
-9. **Core Mission & Integrity Audit**:
-   - **Capabilities Verification**: Run `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` to ensure all 19+ "Distinguished Fellow" capabilities are still active and tested.
-   - **No-Regression Check**: Verify that `CAPABILITIES_REGISTRY.md` has not been downgraded or core mission descriptions overwritten.
-10. **The Sovereign Gate (SITL Hard-Gate)**:
+10. **Core Mission & Integrity Audit**:
+    - **Capabilities Verification**: Run `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` to ensure all 19+ "Distinguished Fellow" capabilities are still active and tested.
+    - **No-Regression Check**: Verify that `CAPABILITIES_REGISTRY.md` has not been downgraded or core mission descriptions overwritten.
+11. **The Sovereign Gate (SITL Hard-Gate)**:
     - Run `agentops-cockpit certify` and ensure the **Sovereign Score is > 90**. 
     - *Logic Check*: If any "Blocker" capability (CAP-001, CAP-004, CAP-006, etc.) fails, the release MUST be aborted.
-11. **Full Regression Suite**: 
+12. **Full Regression Suite**: 
     `PYTHONPATH=src:. uv run pytest` (Comprehensive 215-item sweep).
 
 ## Phase 3: Global Deployment & Publishing
-12. **Frontend Production Build**: 
+13. **Frontend Production Build**: 
     - **Aggregate Fleet Telemetry**: `python3 scripts/aggregate_telemetry.py` (Ensures `/metrics` is live).
     - **Synchronize Documentation**: `python3 scripts/sync_docs.py` (Syncs guides to public repo).
     - **Build Assets**: `npm run build`
-13. **Firebase Hosting Release**:
+14. **Firebase Hosting Release**:
     - `firebase deploy --only hosting` (Review live at: https://agent-cockpit.web.app)
-14. **Python Package Distribution**: 
+15. **Python Package Distribution**: 
     - `uv build`
-15. **Git Release Management**:
+16. **Git Release Management**:
     - `git add .`
     - `git commit -m "chore: release v[VERSION]"`
     - `git tag v[VERSION]`
     - `git push origin main --tags`
-16. **PyPI Global Registry Push**:
+17. **PyPI Global Registry Push**:
     - `uv publish` (Requires `PYPI_TOKEN` set in environment)
 
 ## Phase 4: Post-Release Verification
-17. **Live Integrity Check**:
+18. **Live Integrity Check**:
     - Visit [https://agent-cockpit.web.app](https://agent-cockpit.web.app) and verify `/metrics` shows updated data.
     - Run `uvx agentops-cockpit --version` to ensure the new version is downloadable and functional.
     - Verify Git Tag is visible on GitHub.

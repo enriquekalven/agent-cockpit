@@ -379,8 +379,12 @@ def context(path: Annotated[str, typer.Option('--path', '-p', help='Path to work
 def document(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
     """[Task 2] Professional TDD Generator (PDF/HTML)."""
     generator = doc_mod.TDDGenerator(path)
-    output = generator.generate_tdd_html()
-    console.print(f"📄 [bold green]Technical Design Document generated:[/bold green] {output}")
+    h_out = generator.generate_tdd_html()
+    m_out = generator.generate_tdd_markdown()
+    b_out = generator.generate_codebase_bundle()
+    console.print(f"📄 [bold green]Technical Design Document (HTML):[/bold green] {h_out}")
+    console.print(f"📝 [bold green]Technical Design Document (MD):  [/bold green] {m_out}")
+    console.print(f"📦 [bold green]Sovereign Codebase Bundle:      [/bold green] {b_out}")
 
 @audit_app.command()
 def policy(input_text: Annotated[Optional[str], typer.Option('--text', '-t', help='Input text to validate')] = None):

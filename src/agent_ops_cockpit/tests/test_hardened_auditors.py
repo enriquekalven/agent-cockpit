@@ -96,16 +96,16 @@ def test_cockpit_ignore_logic():
     content_secret = "API_KEY = 'sk-1234567890abcdef1234567890abcdef'"
     tree_secret = ast.parse(content_secret)
     findings = auditor.audit(tree_secret, content_secret, "test.py")
-    assert any("Hardcoded Secret Detected" in f.title for f in findings)
+    assert any("Hardcoded Secret" in f.title for f in findings)
     
     # Case 2: Hardcoded secret with INLINE ignore (SHOULD be suppressed)
     content_inline = "API_KEY = 'sk-1234567890abcdef1234567890abcdef' # cockpit-ignore: hardcoded-secret"
     tree_inline = ast.parse(content_inline)
     findings = auditor.audit(tree_inline, content_inline, "test.py")
-    assert not any("Hardcoded Secret Detected" in f.title for f in findings)
+    assert not any("Hardcoded Secret" in f.title for f in findings)
     
     # Case 3: Whole-file ignore (SHOULD be suppressed)
     content_file = "# cockpit-ignore: all\nAPI_KEY = 'sk-1234567890abcdef1234567890abcdef'"
     tree_file = ast.parse(content_file)
     findings = auditor.audit(tree_file, content_file, "test.py")
-    assert not any("Hardcoded Secret Detected" in f.title for f in findings)
+    assert not any("Hardcoded Secret" in f.title for f in findings)

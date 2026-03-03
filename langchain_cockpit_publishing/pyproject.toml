@@ -1,0 +1,20 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "langchain-cockpit"
+version = "0.1.0"
+description = "LangChain integration for AgentOps Cockpit governance"
+authors = ["Enrique <enriquekalven@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/enriquekalven/langchain-cockpit"
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+langchain-core = ">=0.2.0"
+agentops-cockpit = ">=2.0.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+langchain-openai = "^0.1.0"
