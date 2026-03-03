@@ -1,7 +1,7 @@
 {
   "global_summary": {
     "compliance": 100.0,
-    "velocity": 6.207684870443799
+    "velocity": 6.53486713713575
   },
   "active_agents": 4,
   "threats_blocked": 48,
@@ -10,15 +10,15 @@
     "points": [
       {
         "name": "Jan",
-        "value": 70
+        "value": 65
       },
       {
         "name": "Feb",
-        "value": 73
+        "value": 74
       },
       {
         "name": "Mar",
-        "value": 81
+        "value": 82
       },
       {
         "name": "Apr",
