@@ -50,7 +50,6 @@ jobs:
           git push origin HEAD:feature/sovereign-stable --force
           
       - name: 🌎 Deploy to Firebase Hosting
-        if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESAI_31177 != '' || secrets.FIREBASE_SERVICE_ACCOUNT != '' || secrets.FIREBASE_SERVICE_ACCOUNT_AGENT_COCKPIT != '' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
