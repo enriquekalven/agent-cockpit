@@ -15,9 +15,8 @@ class ReliabilityAuditor(BaseAuditor):
     """
 
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
-        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-        discovery = DiscoveryEngine()
-        if discovery.is_library_file(file_path):
+        if not file_path.endswith('.py') or \
+           any(p in file_path for p in ['cli/commands', 'cli/utils', 'setup.py', 'conftest.py', 'deployment_targets', 'base_templates', 'agent_starter_pack/agents', 'src/google/adk', 'google-adk', 'tests/', 'test/', 'dogfood_repos/', 'docs_temp/']):
             return []
             
         findings = []

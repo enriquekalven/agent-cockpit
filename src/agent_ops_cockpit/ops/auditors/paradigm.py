@@ -22,7 +22,7 @@ class ParadigmAuditor(BaseAuditor):
         Executes a three-layer scan: Library DNA (Imports), Data Flow Tracer (AST), and Prompt Intent Analysis (Heuristics).
         """
         if not file_path.endswith('.py') or \
-           any(p in file_path for p in ['cli/commands', 'cli/utils', 'setup.py', 'conftest.py', 'deployment_targets', 'base_templates', 'agent_starter_pack/agents', 'src/google/adk', 'tests/']):
+           any(p in file_path for p in ['cli/commands', 'cli/utils', 'setup.py', 'conftest.py', 'deployment_targets', 'base_templates', 'agent_starter_pack/agents', 'src/google/adk', 'google-adk', 'tests/', 'test/', 'dogfood_repos/', 'docs_temp/']):
             return []
         findings = []
         content_lower = content.lower()

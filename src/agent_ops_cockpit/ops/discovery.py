@@ -287,7 +287,7 @@ class DiscoveryEngine:
             candidate = os.path.join(self.root_path, self.config['entry_point'])
             if os.path.exists(candidate):
                 return candidate
-        priorities = ['src/agent_ops_cockpit/agent.py', 'agent.py', 'agent/agent.py', 'main.py', '__main__.py', 'app.py', 'index.ts', 'index.js', 'main.ts', 'main.js', 'main.go', 'src/agent.py']
+        priorities = ['src/agent_ops_cockpit/agent.py', 'agent.py', 'agent/agent.py', 'main.py', 'demo.py', '__main__.py', 'app.py', 'index.ts', 'index.js', 'main.ts', 'main.js', 'main.go', 'src/agent.py']
         for p in priorities:
             path = os.path.join(self.root_path, p)
             if os.path.exists(path):
