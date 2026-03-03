@@ -18,7 +18,15 @@ def aggregate():
         data = {}
     else:
         with open(evidence_path, 'r') as f:
-            data = json.load(f)
+            loaded = json.load(f)
+            if isinstance(loaded, list):
+                # Convert list of single-key dicts to a single dict
+                data = {}
+                for item in loaded:
+                    if isinstance(item, dict):
+                        data.update(item)
+            else:
+                data = loaded
 
     # Sovereign Bridge: Pull from Supabase if configured (Global Ingestion)
     supabase_url = os.environ.get("AGENTOPS_SUPABASE_URL")
@@ -45,8 +53,10 @@ def aggregate():
     total_maturity = 0
     count = 0
     for _path, info in data.items():
+        if not isinstance(info, dict):
+            continue
         results = info.get('results', {})
-        success_count = sum(1 for r in results.values() if r.get('success', False))
+        success_count = sum(1 for r in results.values() if isinstance(r, dict) and r.get('success', False))
         if results:
             total_maturity += (success_count / len(results)) * 100
             count += 1

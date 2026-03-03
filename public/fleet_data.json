@@ -1,24 +1,24 @@
 {
   "global_summary": {
     "compliance": 100.0,
-    "velocity": 6.513842118899579
+    "velocity": 6.207684870443799
   },
-  "active_agents": 1,
-  "threats_blocked": 12,
+  "active_agents": 4,
+  "threats_blocked": 48,
   "savings": 12500,
   "compliance_trend": {
     "points": [
       {
         "name": "Jan",
-        "value": 66
+        "value": 70
       },
       {
         "name": "Feb",
-        "value": 74
+        "value": 73
       },
       {
         "name": "Mar",
-        "value": 78
+        "value": 81
       },
       {
         "name": "Apr",

@@ -55,15 +55,22 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                 files_scanned += 1
                 file_path = os.path.join(root, file)
                 rel_path = os.path.relpath(file_path, ".")
+                
+                # Context Awareness (v2.0.4)
+                from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+                discovery = DiscoveryEngine(path)
+                context = discovery.detect_context()
                 try:
                     with open(file_path, 'r') as f:
                         lines = f.readlines()
                         content = "".join(lines)
+                    
+                    is_a2a = context.get('protocol') == 'a2ui' or 'A2UIRegistry' in content
                         
                     findings = []
                     
                     # Heuristic with Line Numbers
-                    if not surface_id_pattern.search(content):
+                    if is_a2a and not surface_id_pattern.search(content):
                         findings.append({"line": 1, "issue": "Missing 'surfaceId' mapping", "fix": "Add 'surfaceId: string' to props. Snippet: `interface Props { surfaceId: string; ... }`"})
                     
                     if not registry_pattern.search(content) and "Registry" in file:
@@ -77,9 +84,15 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                                 line_no = i + 1
                                 break
                         findings.append({"line": line_no, "issue": "Interactive component without Tool/Agent triggers", "fix": "Add: `onClick={() => onTrigger({ action: 'click', surfaceId })}`"})
+                    
+                    if trigger_pattern.search(content) and not a11y_pattern.search(content):
+                        findings.append({"line": 1, "issue": "Headless Trigger: Agentic action without accessibility label", "fix": "Add `aria-label` so both humans and agents can identify this action's intent."})
 
                     if not ux_feedback_pattern.search(content) and ("Page" in file or "View" in file):
                          findings.append({"line": 1, "issue": "Missing 'Thinking' feedback (Skeleton/Spinner)", "fix": "Add: `{isThinking && <Skeleton className='h-4 w-[250px]' />}`"})
+                    
+                    if "isThinking" in content and not any(kw in content for kw in ["error", "failure", "Reset", "retry"]):
+                        findings.append({"line": 1, "issue": "Hanging Inference UX: No error recovery for thinking state", "fix": "Add an error boundary or a 'Force Reset' button to clear thinking states on stream timeouts."})
                     
                     if not a11y_pattern.search(content) and ("Button" in file or "Input" in file):
                         line_no = 1
@@ -112,6 +125,15 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
 
                     if not mcp_apps_pattern.search(content) and ("App" in file and "MCP" in file):
                          findings.append({"line": 1, "issue": "Non-compliant MCP Apps UI", "fix": "Use: `<McpToolRenderer toolId={selectedTool} />`"})
+
+                    # v2.0.4: Type Safety for Agentic Tools
+                    if (": any" in content or "<any>" in content) and ("Tool" in file or "Agent" in file):
+                        line_no = 1
+                        for i, line in enumerate(lines):
+                            if ": any" in line or "<any>" in line:
+                                line_no = i + 1
+                                break
+                        findings.append({"line": line_no, "issue": "Type Dilution: 'any' detected in agentic logic", "fix": "Replace `any` with a strict Interface or Zod schema to ensure prompt-to-tool stability."})
 
 
 

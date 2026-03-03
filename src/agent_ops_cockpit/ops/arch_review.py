@@ -55,10 +55,22 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
         file_count += 1
         if verbose:
             console.print(f"🔍 [dim]Scanning {file_path}...[/dim]")
+        if not file_path.endswith(('.py', '.ipynb', '.ts', '.tsx', '.js', '.jsx', '.cs', '.go')):
+            continue
+
         try:
             with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
                 content = f.read()
-            tree = ast.parse(content) if file_path.endswith('.py') else ast.parse('')
+            if file_path.endswith('.ipynb'):
+                import json
+                try:
+                    nb = json.loads(content)
+                    code_cells = [cell['source'] if isinstance(cell['source'], str) else "".join(cell['source']) for cell in nb.get('cells', []) if cell.get('cell_type') == 'code']
+                    content = "\n".join(code_cells)
+                except Exception:
+                    pass
+            
+            tree = ast.parse(content) if file_path.endswith(('.py', '.ipynb')) else ast.parse('')
             for auditor in auditors:
                 # Tailor findings based on context if available
                 res = auditor.audit(tree, content, file_path)

@@ -43,16 +43,51 @@ class DependencyAuditor(BaseAuditor):
                         file_path=file_path
                     ))
 
-        # Licensing Check
-        if "agpl" in content.lower():
-             title = "Restrictive License Warning"
-             if not self._is_ignored(0, content, title):
-                 findings.append(AuditFinding(
-                    category="⚖️ Compliance",
-                    title=title,
-                    description="AGPL-licensed dependency found. This may require full source disclosure for the entire project.",
-                    impact="MEDIUM",
-                    roi="Avoid legal risk by switching to MIT/Apache alternatives."
-                ))
+        # Unpinned Dependency Check
+        if file_path.endswith("requirements.txt"):
+            for line in content.splitlines():
+                if line and not line.startswith("#") and "==" not in line and ">=" not in line and "<=" not in line:
+                    title = "Unpinned Dependency Trap"
+                    if not self._is_ignored(0, content, title):
+                        findings.append(AuditFinding(
+                            category="📦 Dependency",
+                            title=title,
+                            description="Detected unpinned dependency in requirements.txt. [bold red]Risk:[/] Agents are highly sensitive to SDK drift.",
+                            impact="MEDIUM",
+                            roi="Ensures deterministic environment builds.",
+                            file_path=file_path
+                        ))
+                        break
+        elif file_path.endswith("pyproject.toml"):
+            # Detect unpinned version strings or missing version specifiers in the list
+            if '"*"' in content or "'*'" in content:
+                 title = "Unpinned Dependency Trap"
+                 if not self._is_ignored(0, content, title):
+                     findings.append(AuditFinding(
+                        category="📦 Dependency",
+                        title=title,
+                        description="Detected unpinned dependency (*) in pyproject.toml.",
+                        impact="MEDIUM",
+                        roi="Prevents 'Manifest Drift' and unexpected runtime failures.",
+                        file_path=file_path
+                    ))
+            
+            # Check for naked package names in dependencies list
+            dep_section = re.search(r"dependencies\s*=\s*\[(.*?)\]", content, re.DOTALL)
+            if dep_section:
+                dep_list = dep_section.group(1)
+                for dep in re.findall(r"['\"]([^'\"]+)['\"]", dep_list):
+                    if not any(op in dep for op in [">=", "<=", "==", "~=", ">", "<"]):
+                        title = "Unpinned Dependency Trap"
+                        if not self._is_ignored(0, content, title):
+                            findings.append(AuditFinding(
+                                category="📦 Dependency",
+                                title=title,
+                                description=f"Detected naked dependency '{dep}' without version constraints. [bold red]Risk:[/] Agents are brittle to SDK major/minor updates.",
+                                impact="MEDIUM",
+                                roi="Ensures deterministic environment builds.",
+                                file_path=file_path
+                            ))
+                            break
 
         return findings

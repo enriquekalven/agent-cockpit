@@ -21,10 +21,16 @@ class ParadigmAuditor(BaseAuditor):
         """
         Executes a three-layer scan: Library DNA (Imports), Data Flow Tracer (AST), and Prompt Intent Analysis (Heuristics).
         """
-        if not file_path.endswith('.py'):
+        if not file_path.endswith('.py') or \
+           any(p in file_path for p in ['cli/commands', 'cli/utils', 'setup.py', 'conftest.py', 'deployment_targets', 'base_templates', 'agent_starter_pack/agents', 'src/google/adk', 'tests/']):
             return []
         findings = []
         content_lower = content.lower()
+        
+        # v2.0.5 Agent Domain Detection: Reduces noise for non-agent files
+        is_agent_logic = any(kw in content for kw in ['Agent(', 'LlmAgent(', 'AgentEngine', 'BaseAgent', 'from google.adk', 'from vertexai'])
+        is_tool = '@tool' in content or 'ToolContext' in content
+        is_potential_agent = is_agent_logic or is_tool or file_path.endswith('agent.py')
 
         # --- Layer 1: Library DNA (Imports) ---
         imports = self._get_imports(tree)
@@ -43,7 +49,7 @@ class ParadigmAuditor(BaseAuditor):
                 ))
 
         # 2. Infrastructure Paradigm: Legacy Shadowing
-        if 'requests' in imports and ('tool' in content_lower or 'mcp' in content_lower):
+        if is_potential_agent and 'requests' in imports and ('tool' in content_lower or 'mcp' in content_lower):
             findings.append(AuditFinding(
                 category="🏗️ Strategy",
                 title="Legacy Shadowing: HTTP instead of MCP",
@@ -53,6 +59,20 @@ class ParadigmAuditor(BaseAuditor):
                 roi="Enables swarm interoperability and standardized tool-use.",
                 file_path=file_path
             ))
+
+        # 2b. Infrastructure Paradigm: Unsecured MCP Bridge (NEW)
+        if is_potential_agent and 'mcp' in content_lower and any(kw in content_lower for kw in ['client', 'connect', 'transport']):
+            if not any(kw in content_lower for kw in ['auth', 'credential', 'token', 'secure', 'header']):
+                findings.append(AuditFinding(
+                    category="🏗️ Strategy",
+                    title="Unsecured MCP Bridge: Missing Peer Auth",
+                    description="""Detected MCP connection logic without visible authentication or credential handling.
+[bold red]Sovereignty Risk:[/bold red] Unauthenticated tool bridges are vulnerable to lateral movement.
+[bold green]RECOMMENDATION:[/bold green] Implement **OIDC/OAuth Interceptors** for all MCP tool discovery.""",
+                    impact="HIGH (Security)",
+                    roi="Shields the agent fleet from unauthorized tool access.",
+                    file_path=file_path
+                ))
 
         # 3. Memory Paradigm: Token Amnesia
         if ('history' in content_lower or 'messages' in content_lower) and \
@@ -70,8 +90,8 @@ class ParadigmAuditor(BaseAuditor):
                 ))
 
         # 4. Intelligence Paradigm: Reflection Blindness (NEW)
-        if any(kw in content_lower for kw in ['code', 'legal', 'finance', 'medical', 'test']) and \
-           not any(kw in content_lower for kw in ['reflect', 'correct', 'check', 'validate', 'critic', 'reflection', 'thought', 'think']):
+        if is_potential_agent and any(re.search(fr'\b{kw}\b', content_lower) for kw in ['code', 'legal', 'finance', 'medical', 'test']) and \
+           not any(kw in content_lower for kw in ['reflect', 'correct', 'check', 'validate', 'critic', 'reflection', 'thought', 'think', 'loopagent']):
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
                 title="Reflection Blindness: Brittle Intelligence",
@@ -87,24 +107,25 @@ class ParadigmAuditor(BaseAuditor):
         tracer = DataFlowTracer()
         tracer.visit(tree)
         for mismatch in tracer.mismatches:
-            var_name, line_no = mismatch
-            findings.append(AuditFinding(
-                category="🚀 Strategic Paradigm",
-                title="Pattern Mismatch: Structured Data Stuffing",
-                description=f"""Detected variable `{var_name}` (loaded from structured source) being directly injected into an LLM prompt.
+            if is_potential_agent:
+                var_name, line_no = mismatch
+                findings.append(AuditFinding(
+                    category="🚀 Strategic Paradigm",
+                    title="Pattern Mismatch: Structured Data Stuffing",
+                    description=f"""Detected variable `{var_name}` (loaded from structured source) being directly injected into an LLM prompt.
 [bold red]Structural Blindspot:[/bold red] "Prompt Stuffing" large data leads to context drowning and high costs.
 [bold green]RECOMMENDATION:[/bold green] Pivot to **NL2SQL** or **Semantic Indexing**.""",
-                impact="HIGH (Cost & Latency)",
-                roi="Reduces token burn and hallucination risk.",
-                file_path=file_path,
-                line_number=line_no
-            ))
+                    impact="HIGH (Cost & Latency)",
+                    roi="Reduces token burn and hallucination risk.",
+                    file_path=file_path,
+                    line_number=line_no
+                ))
 
         # --- Layer 3: Intent/Implementation Mismatch ---
         
         # 5. Relational Analytics Paradigm: RAG for Math
-        if ("calculate" in content_lower or "average" in content_lower or "sum " in content_lower) and \
-           ("rag" in content_lower or "search" in content_lower or "find" in content_lower):
+        if is_potential_agent and any(re.search(fr'\b{kw}\b', content_lower) for kw in ['math', 'calculate', 'sum', 'arithmetic', 'total']) and \
+           any(re.search(fr'\b{kw}\b', content_lower) for kw in ['search', 'retrieve', 'knowledge_base']):
             if "sql" not in content_lower and "math" not in content_lower and "calculator" not in content_lower:
                 findings.append(AuditFinding(
                     category="🚀 Strategic Paradigm",
@@ -118,23 +139,23 @@ class ParadigmAuditor(BaseAuditor):
                 ))
 
         # 6. Data Transformation Paradigm: Token Burning
-        if ("regex" in content_lower or "slicing" in content_lower or "format" in content_lower) and \
-           ("prompt" in content_lower or "instructions" in content_lower):
-            if ("transform" in content_lower or "clean" in content_lower) and \
+        if is_potential_agent and any(kw in content_lower for kw in ["regex", "slicing", "format", "json.parse", "json.stringify"]) and \
+           any(kw in content_lower for kw in ["prompt", "instructions", "message"]):
+            if any(kw in content_lower for kw in ["transform", "clean", "extract", "parse", "format"]) and \
                ("sandbox" not in content_lower and "deterministic" not in content_lower):
                 findings.append(AuditFinding(
                     category="🚀 Strategic Paradigm",
                     title="Token Burning: LLM for Deterministic Ops",
-                    description="""Detected intent to clean/transform text using prompts where Python logic would suffice.
-[bold yellow]Strategic Waste:[/bold yellow] Using LLMs for basic ETL leads to 'Architectural Waste.'
-[bold green]RECOMMENDATION:[/bold green] Pivot to a **Python Sandbox** tool or deterministic preprocessing.""",
+                    description="""Detected intent to process/parse structured data (JSON/Regex) via prompts.
+[bold yellow]Strategic Waste:[/bold yellow] LLMs are unreliable and expensive for schema transformation.
+[bold green]RECOMMENDATION:[/bold green] Pivot to a **Local Parser** or **Code Interpreter**.""",
                     impact="MEDIUM (Cost)",
-                    roi="Reduces token billing for non-probabilistic tasks.",
+                    roi="Reduces token billing and eliminates parsing jitter.",
                     file_path=file_path
                 ))
 
         # 7. Enterprise Search Paradigm: Latency Trap
-        if ('os.walk' in content or 'glob.glob' in content) and ('query' in content_lower or 'search' in content_lower):
+        if is_potential_agent and ('os.walk' in content or 'glob.glob' in content) and ('query' in content_lower or 'search' in content_lower):
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
                 title="Latency Trap: Brute-Force Local Search",
@@ -147,8 +168,10 @@ class ParadigmAuditor(BaseAuditor):
             ))
 
         # 8. High-Stake Actions Paradigm: Ungated Autonomy
+        # 8. High-Stake Actions Paradigm: Ungated Autonomy
         if any(kw in content_lower for kw in ['delete_', 'write_', 'execute_payment', 'post_']) and \
-           'approve' not in content_lower and 'hitl' not in content_lower:
+           'approve' not in content_lower and 'hitl' not in content_lower and \
+           'click.' not in content_lower and 'typer.' not in content_lower:
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
                 title="Ungated High-Stake Action",
@@ -160,7 +183,19 @@ class ParadigmAuditor(BaseAuditor):
                 file_path=file_path
             ))
 
-        # 9. Multi-Step Logic Paradigm: Manual State Machine
+        # 8b. Multimodal Safety Paradigm: Ungated Vision (NEW)
+        if any(kw in content_lower for kw in ['from_image', 'from_uri', 'image_url']) and \
+           not any(kw in content_lower for kw in ['safety', 'modality_guard', 'shield', 'armor']):
+            findings.append(AuditFinding(
+                category="🚀 Strategic Paradigm",
+                title="Ungated Multimodal Input",
+                description="""Detected multimodal inputs (Images/Video) being processed without visible safety guardrails.
+[bold red]Safety Risk:[/bold red] Risks of prompt injection via visual content or inappropriate content generation.
+[bold green]RECOMMENDATION:[/bold green] Implement **SafetyPlugins** or **Model Armor** for multimodal streams.""",
+                impact="HIGH (Safety)",
+                roi="Protects against content-based attacks and compliance violations.",
+                file_path=file_path
+            ))
         is_loop_llm = False
         for node in ast.walk(tree):
             if isinstance(node, (ast.For, ast.While)):
@@ -200,17 +235,38 @@ class ParadigmAuditor(BaseAuditor):
 
         # 11. Specialization Paradigm: Expert Bloat
         tool_count = content_lower.count('@tool') or content_lower.count('def ')
-        if tool_count > 25 and'router' not in content_lower and 'orchestrator' not in content_lower:
-            findings.append(AuditFinding(
-                category="🚀 Strategic Paradigm",
-                title="Expert Bloat: Linear Tool Selection",
-                description="""Detected 25+ tools in a single flat context.
+        if tool_count > 25 and 'router' not in content_lower and 'orchestrator' not in content_lower:
+            # v2.0.4: Namespace Awareness for MCP/ADK
+            # v2.0.5: Filter out common Python colons from namespacing check
+            # Pattern: matches colons NOT part of "():" or "def "
+            has_real_namespace = re.search(r'[a-zA-Z0-9_-]+:[^:]', content_lower) or '/' in content_lower
+            if not has_real_namespace:
+                findings.append(AuditFinding(
+                    category="🚀 Strategic Paradigm",
+                    title="Expert Bloat: Linear Tool Selection",
+                    description="""Detected 25+ tools in a single flat context.
 [bold red]Structural Friction:[/bold red] Accuracy drops as choice-set grows.
-[bold green]RECOMMENDATION:[/bold green] Implement **Hierarchical Tool Routing**.""",
-                impact="MEDIUM (Precision)",
-                roi="Increases reasoning accuracy.",
-                file_path=file_path
-            ))
+[bold green]RECOMMENDATION:[/bold green] Implement **Hierarchical Tool Routing** or **MCP Namespacing**.""",
+                    impact="MEDIUM (Precision)",
+                    roi="Increases reasoning accuracy.",
+                    file_path=file_path
+                ))
+
+        # 11b. Multi-Agent Paradigm: Delegation Blindness (NEW)
+        if 'sub_agents=[' in content_lower:
+            # Simple check for 'description=' after sub_agent definitions in the same file
+            # This is heuristic but useful for single-file systems
+            if 'description=' not in content_lower and 'LlmAgent' in content:
+                findings.append(AuditFinding(
+                    category="🚀 Strategic Paradigm",
+                    title="Delegation Blindness: Missing Sub-Agent Metadata",
+                    description="""Detected sub-agents without explicit descriptions.
+[bold red]Orchestration Risk:[/bold red] Root agents cannot effectively delegate to specialists without knowing their capabilities.
+[bold green]RECOMMENDATION:[/bold green] Ensure every `Agent` in `sub_agents` has a high-fidelity `description` string.""",
+                    impact="HIGH (Precision)",
+                    roi="Improves delegation accuracy in multi-agent swarms.",
+                    file_path=file_path
+                ))
 
         # 12. Finetuning Paradigm: Instruction Fatigue
         docstrings_len = sum(len(d) for d in re.findall(r'"""([\s\S]*?)"""', content))
@@ -226,7 +282,6 @@ class ParadigmAuditor(BaseAuditor):
                 file_path=file_path
             ))
 
-        # 13. Governance Paradigm: Policy Blindness (NEW)
         if any(kw in content_lower for kw in ['policy', 'rules', 'regulations']) and \
            'policy_engine' not in content_lower and 'guardrail' not in content_lower and \
            'typer' not in content_lower and 'click' not in content_lower:
@@ -238,6 +293,21 @@ class ParadigmAuditor(BaseAuditor):
 [bold green]RECOMMENDATION:[/bold green] Pivot to our **Centralized Policy Engine** or External Guardrails.""",
                 impact="MEDIUM (Governance)",
                 roi="Centralizes alignment and simplifies regulatory updates.",
+                file_path=file_path
+            ))
+
+        # 13b. Governance Paradigm: Hardcoded Logic Gate (NEW)
+        if is_potential_agent and any(re.search(fr'\b{kw}\b', content_lower) for kw in ['delete', 'pay', 'transfer']) and \
+           content_lower.count('if ') > 5 and 'policy' not in content_lower and \
+           'click.' not in content_lower and 'typer.' not in content_lower:
+            findings.append(AuditFinding(
+                category="🚀 Strategic Paradigm",
+                title="Hardcoded Logic Gate: Brittle Governance",
+                description="""Detected high-stakes logic (Delete/Payment) gated by deep manual `if` branches.
+[bold red]Strategic Risk:[/bold red] Manual gates are prone to edge-case bypasses and lack audit trails.
+[bold green]RECOMMENDATION:[/bold green] Migrate critical decision gates to the **Sovereign Policy Engine**.""",
+                impact="HIGH (Safety)",
+                roi="Ensures consistent enforcement and full auditability of high-stake decisions.",
                 file_path=file_path
             ))
 
@@ -257,7 +327,7 @@ class ParadigmAuditor(BaseAuditor):
                 ))
 
         # 15. Retrieval Paradigm: Passive Retrieval (NEW)
-        if 'retrieve' in content_lower or 'search' in content_lower:
+        if is_potential_agent and any(re.search(fr'\b{kw}\b', content_lower) for kw in ['retrieve', 'search']):
              if not any(kw in content_lower for kw in ['conditional', 'if confidence', 'decide']) and \
                 'typer' not in content_lower and 'click' not in content_lower:
                  findings.append(AuditFinding(
@@ -297,7 +367,9 @@ class DataFlowTracer(ast.NodeVisitor):
         if isinstance(node.value, ast.Call):
             try:
                 call_str = ast.unparse(node.value).lower()
-                if any(s in call_str for s in ['read_csv', 'read_json', '.read()', 'json.load']):
+                # v2.0.4: Extended source detection for context drowning
+                # EXCLUDED: .join and list(map) - too noisy for UI code
+                if any(s in call_str for s in ['read_csv(', 'read_json(', 'json.load(', 'json.loads(']):
                     for target in node.targets:
                         if isinstance(target, ast.Name):
                             self.sources[target.id] = node.lineno

@@ -34,7 +34,7 @@ SECRET_PATTERNS = {
     "AWS Access Key": r"AKIA[0-9A-Z]{16}",
     "OpenAI API Key": r"sk-[a-zA-Z0-9]{20,}",
     "Anthropic API Key": r"sk-ant-[a-zA-Z0-9]{20,}",
-    "Azure OpenAI Key": r"[0-9a-f]{32}",
+    "Azure OpenAI Key": r"(?i)(azure|openai|api|key|secret).*[0-9a-f]{32}",
     "Generic Bearer Token": r"Bearer\s+[0-9a-zA-Z._-]{20,}",
     "GCP Service Account": r"\"type\":\s*\"service_account\"",
     "Placeholder Credential": r"(?i)['\"](REPLACE_ME|INSERT_YOUR_KEY|YOUR_API_KEY|TODO_SET_KEY)['\"]",
@@ -88,12 +88,17 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                                 continue
 
                             # 3. Entropy & Verification Layer (v1.8.4)
-                            # Only apply to random-looking strings, skip standard prose or hex indices
                             secret_value = match.group(0)
+                            
+                            # Placeholder Blacklist (v2.0.5)
+                            if all(c == secret_value[0] for c in secret_value) or \
+                               secret_value.lower() in ["abcdef0123456789abcdef0123456789", "1234567890abcdef1234567890abcdef", "your_api_key"]:
+                                continue
+                                
                             entropy = _calculate_entropy(secret_value)
                             
                             # Threshold for a secret is usually > 3.5 bits for random strings
-                            # Low-entropy strings (like '0000000000000000') are rarely real keys
+                            # Low-entropy strings (like '01010101') are rarely real keys
                             if entropy < 3.2 and secret_name not in ["GCP Service Account", "Placeholder Credential"]:
                                 continue
 

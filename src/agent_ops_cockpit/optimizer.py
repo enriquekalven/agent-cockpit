@@ -11,7 +11,6 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.syntax import Syntax
 from rich.table import Table
-from tenacity import retry, stop_after_attempt, wait_exponential
 
 try:
     from agent_ops_cockpit.ops.evidence_bridge import (
@@ -47,7 +46,7 @@ class OptimizationIssue:
         self.fix_pattern = fix_pattern
         self.evidence = None
 
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+
 def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, str]=None) -> List[OptimizationIssue]:
     issues = []
     content_lower = content.lower()
@@ -91,7 +90,7 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
         issues.append(OptimizationIssue('aws_action_groups', 'AWS Bedrock Action Groups', 'HIGH', '50% tool reliability', 'Standardize tool execution via Bedrock Action Group schemas.', '+ # Define Bedrock Action Group', package='aws-sdk'))
     if 'copilotkit' in content_lower and 'usecopilotstate' not in content_lower:
         issues.append(OptimizationIssue('copilot_state', 'CopilotKit Shared State', 'MEDIUM', '60% UI responsiveness', 'Ensure the Face remains aligned with the Engine via shared state sync.', '+ # Use shared state for UI alignment', package='@copilotkit/react-core'))
-    if 'pro' in content_lower and 'flash' not in content_lower:
+    if re.search(r'\bpro\b', content_lower) and 'flash' not in content_lower:
         issues.append(OptimizationIssue('model_routing', 'Smart Model Routing', 'HIGH', '70% cost savings', 'Route simple queries to Flash models to minimize consumption.', "+ if is_simple(q): model = 'gemini-1.5-flash'", package='google-cloud-aiplatform'))
     if 'cloud run' in content_lower and 'cpu_boost' not in content_lower:
         issues.append(OptimizationIssue('cr_startup_boost', 'Cloud Run Startup Boost', 'HIGH', '50% latency reduction', 'Enable Startup CPU Boost to reduce cold-start latency for Python agents.', '+ startup_cpu_boost: true', package='google-cloud-run'))
@@ -187,7 +186,6 @@ def estimate_savings(token_count: int, issues: List[OptimizationIssue]) -> Dict[
     return {'current_monthly': current_cost, 'projected_savings': projected_savings, 'new_monthly': current_cost - projected_savings}
 
 @app.command()
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
 def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code to audit'), interactive: bool=typer.Option(True, '--interactive/--no-interactive', '-i', help='Run in interactive mode'), apply_fix: bool=typer.Option(False, '--apply', '--fix', help='Automatically apply recommended fixes'), quick: bool=typer.Option(False, '--quick', '-q', help='Skip live evidence fetching for faster execution')):
     console.print(Panel.fit('🔍 [bold blue]GCP AGENT OPS: OPTIMIZER AUDIT[/bold blue]', border_style='blue'))
     if not os.path.exists(file_path):

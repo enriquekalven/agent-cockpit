@@ -138,8 +138,8 @@ class FinOpsAuditor(BaseAuditor):
             ))
 
         # 3. Model Over-Privilege (Tiering Pillar)
-        high_tier_models = ['gpt-4o', 'pro', 'opus', 'sonnet']
-        if any(m in content_lower for m in high_tier_models):
+        high_tier_models = [r'\bgpt-4o\b', r'\bpro\b', r'\bopus\b', r'\bsonnet\b', r'\bpro-vision\b', r'\bultra\b']
+        if any(re.search(m, content_lower) for m in high_tier_models):
             # Check if task seems deterministic (regex/parsing/formatting)
             if any(kw in content_lower for kw in ['regex', 'parse', 'clean', 'format']):
                 findings.append(AuditFinding(

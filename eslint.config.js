@@ -8,7 +8,7 @@ import globals from "globals";
 export default [
   js.configs.recommended,
   {
-    ignores: ["**/dist/**", "**/build/**", "**/.venv/**", "**/test-deployments/**", "**/tmp/**", "**/node_modules/**", "**/public/**", "**/examples/**", "**/tests/**", "**/lab-tutorial-agent-alt/**", "**/dogfood/**"],
+    ignores: ["**/dist/**", "**/build/**", "**/.venv/**", "**/test-deployments/**", "**/tmp/**", "**/node_modules/**", "**/public/**", "**/examples/**", "**/tests/**", "**/lab-tutorial-agent-alt/**", "**/dogfood/**", "**/dogfood_repos/**", "**/docs_temp/**"],
   },
   {
     files: ["**/*.{ts,tsx}"],

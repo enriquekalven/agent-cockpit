@@ -27,7 +27,8 @@ def test_preflight_env_check(tmp_path):
     assert success is True
     assert "Found environment config" in detail
 
-def test_preflight_run_all():
+def test_preflight_run_all(monkeypatch):
     engine = PreflightEngine()
-    # Should pass in a standard dev environment
+    # Mock simulation mode for environmental independence
+    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
     assert engine.run_all() is True

@@ -21,7 +21,8 @@ async def test_discover_agents(mock_agent_dir):
 @pytest.mark.asyncio
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_sovereign_pipeline_single(mock_migration, mock_audit, mock_agent_dir):
+async def test_sovereign_pipeline_single(mock_migration, mock_audit, mock_agent_dir, monkeypatch):
+    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
     mock_engine.auto_register_to_gemini.return_value = "http://mock-url"
@@ -36,7 +37,8 @@ async def test_sovereign_pipeline_single(mock_migration, mock_audit, mock_agent_
 @pytest.mark.asyncio
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_sovereign_pipeline_fleet(mock_migration, mock_audit, tmp_path):
+async def test_sovereign_pipeline_fleet(mock_migration, mock_audit, tmp_path, monkeypatch):
+    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
     mock_engine.auto_register_to_gemini.return_value = "http://mock-url"

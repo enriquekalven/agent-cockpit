@@ -9,9 +9,10 @@ def test_ui_auditor_score_calculation(tmp_path):
     ui_dir.mkdir()
     
     # Create a component missing surfaceId and Thinking feedback
+    # Inclusion of A2UIRegistry forces is_a2a=True
     # Deductions: Missing 'surfaceId' (20) + Missing 'Thinking' feedback (15) + Missing 'Mobile' (10) = 45 deduction
     # Expected score: 100 - 45 = 55
-    (ui_dir / "DashboardPage.tsx").write_text("export const Dashboard = () => <div>No surface id</div>")
+    (ui_dir / "DashboardPage.tsx").write_text("import { A2UIRegistry } from 'a2ui';\nexport const Dashboard = () => <div>No surface id</div>")
     
     result = runner.invoke(app, ["audit", str(ui_dir)])
     assert "GenUI Readiness Score" in result.stdout
@@ -30,6 +31,7 @@ def test_ui_auditor_perfect_score(tmp_path):
 /* legal: Copyright 2024 */
 /* a11y: aria-label='test' */
 /* mobile: @media (max-width: 768px) */
+import { A2UIRegistry } from 'a2ui';
 export const MyComp = () => <div surfaceId='test'>Stable UI</div>
 """)
     
@@ -46,7 +48,7 @@ def test_ui_auditor_hitl_detection(tmp_path):
     # Also missing 'Page' patterns if it's considered a Page
     # This will trigger: Missing surfaceId(20), Missing Thinking(15), Missing HITL(15), Missing Mobile(10)
     # Total deduction: 60. Score: 40
-    (ui_dir / "TransferPage.tsx").write_text("export const Transfer = () => <button>Click me</button>")
+    (ui_dir / "TransferPage.tsx").write_text("import { A2UIRegistry } from 'a2ui';\nexport const Transfer = () => <button>Click me</button>")
     
     result = runner.invoke(app, ["audit", str(ui_dir)])
     assert "Missing HITL" in result.stdout

@@ -33,8 +33,23 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
     env['PYTHONPATH'] = f"{path}{os.pathsep}{env.get('PYTHONPATH', '')}:src"
     
     import shutil
-    # v2.0.2: Enhanced exclusion for core project stability
-    ignore_args = ['--ignore=test-deployments', '--ignore=dogfood', '--ignore=scripts', '--ignore=examples', '--ignore=tests/integration']
+    # v2.0.5: Enhanced exclusion for core project stability
+    ignore_args = [
+        '--ignore=test-deployments', 
+        '--ignore=dogfood', 
+        '--ignore=dogfood_repos',
+        '--ignore=scripts', 
+        '--ignore=examples', 
+        '--ignore=tests/integration',
+        '--ignore=node_modules',
+        '--ignore=.venv',
+        '--ignore=venv',
+        '--ignore=site-packages',
+        '--ignore=dist',
+        '--ignore=build',
+        '--ignore=frontends',
+        '--ignore=base_templates'
+    ]
     
     if shutil.which('uv'):
         cmd = ['uv', 'run', 'pytest'] + ignore_args

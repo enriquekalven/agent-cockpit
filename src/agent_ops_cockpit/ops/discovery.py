@@ -154,7 +154,7 @@ class DiscoveryEngine:
         """
         discovered = []
         # cockpit.yaml is the primary manifest for Manifest-First Discovery
-        indicators = ["cockpit.yaml", "agent.py", "pyproject.toml", "package.json", "mcp-config.json"]
+        indicators = ["cockpit.yaml", "agent.py", "main.py", "demo.py", "pyproject.toml", "package.json", "mcp-config.json", "*.ipynb"]
         for root, dirs, files in os.walk(self.root_path):
             if self.should_ignore(root):
                 dirs[:] = []
@@ -177,6 +177,20 @@ class DiscoveryEngine:
             for file in files:
                 file_path = os.path.join(root, file)
                 if not self.should_ignore(file_path):
+                    # Skip template files (v2.0.5)
+                    if '{{' in file_path or '{%' in file_path:
+                        continue
+                    
+                    # Heuristic check for content-based template detection
+                    try:
+                        # Only check first 1kb for performance
+                        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                            head = f.read(1024)
+                            if '{{cookiecutter' in head or '{% if cookiecutter' in head:
+                                continue
+                    except Exception:
+                        pass
+
                     yield file_path
 
     def is_library_file(self, path: str) -> bool:
@@ -232,7 +246,7 @@ class DiscoveryEngine:
             # Protocol Detection
             if "mcp" in filename.lower() or "mcp" in file_path.lower():
                 context['protocol'] = 'mcp'
-            if "a2ui" in filename.lower() or "a2ui" in file_path.lower():
+            if "a2ui" in filename.lower() or "a2ui" in file_path.lower() or "a2a" in filename.lower():
                 context['protocol'] = 'a2ui'
 
             # Framework Detection
