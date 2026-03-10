@@ -1,7 +1,8 @@
-# 🎭 Technical Guide: Face Auditor & Sovereign UX (A2UI)
+---
+## 🎭 Technical Guide: Face Auditor & Sovereign UX (A2UI, AGUI, MCP)
 ## The "Sovereign Experience" Standard (v2.0.2 Evolution)
 
-The `ops report` and `cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions.
+The `ops report` and `cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions across **A2UI**, **AGUI**, and **MCP Apps UI** ecosystems.
 
 ---
 
@@ -13,6 +14,7 @@ The `ops report` and `cockpit certify` commands activate the **UX Principal SME*
 | **Component Scan**| `ops report` | Scans for `surfaceId` mapping. | **UX SME Reasoning**. |
 | **Certify Project** | `cockpit certify` | Final production validation. | Sovereign Goal Alignment. |
 | **UI Scaffolding** | `make apply-fixes` | Injects A2UI surface logic. | **The Closer Engine**. |
+| **MCP Blueprint** | `ops mcp blueprint` | Universal tool UI generation. | **MCP Apps UI**. |
 
 ---
 
@@ -20,8 +22,9 @@ The `ops report` and `cockpit certify` commands activate the **UX Principal SME*
 
 The UX SME evaluates your frontend architecture across four critical GenUI pillars:
 
-### 1. 🤝 A2UI Protocol (Surface Handshake)
+### 1. 🤝 A2UI & AGUI Protocol (Surface Handshake)
 *   **The "Brain-to-UI" Protocol**: The `A2UIProtocol` defines how the **Engine** requests a specific **Face** surface.
+*   **AGUI (Agentic Graphical User Interface)**: The next-generation evolution of A2UI, optimized for **Gemini Multimodal Live** and high-fidelity video/audio streaming.
 *   **Implementation**: Using `cockpit create trinity`, developers scaffold a registry where the Brain targets "Surface Addresses" via JSON:
     ```json
     {
@@ -41,20 +44,20 @@ The UX SME evaluates your frontend architecture across four critical GenUI pilla
 *   **Vector**: Detecting "Destructive" tools (e.g., `delete_database`) that execute without a UI confirmation.
 *   **Implementation**: High-impact tools are autonomously gated behind **A2UI Approval Modals**. The agent must receive a manual human `confirm` before proceeding.
 
-### 🕸️ 4. A2UI Protocol Sync (Dynamic Discovery)
-*   **New in v2.0.2**: The agent can now "Query" the UI for available surfaces, allowing it to choose the best visualization strategy based on context.
-*   **Implementation**: Handled via the **Sovereign Gateway** metadata channel.
+### 🛰️ 4. MCP Apps UI (Unified Discovery)
+*   **New in v2.0.2**: The agent can now "Query" the UI for available surfaces across the **Model Context Protocol (MCP)** tool ecosystem.
+*   **Implementation**: Handled via the **MCP Hub** and the **Sovereign Gateway** metadata channel, enabling cross-framework tool/UI interoperability.
 
 ---
 
 ## 📊 Comparison: Standard UI vs. Sovereign UX
 
-| Vector | Legacy Bot UI | v2.0.2 Sovereign A2UI |
+| Vector | Legacy Bot UI | v2.0.2 Sovereign A2UI/AGUI |
 | :--- | :--- | :--- |
 | **Operational Logic** | Pull-based (Static). | **Push-based (Agent dispatched)**. |
 | **Reasoning Visibility**| Hidden. | **Live Thought Streaming.** |
 | **Trust Layer** | None. | **HITL Gating (Autonomous Modals).** |
-| **Sovereignty** | Proprietary shims. | **Standardized A2UI Registry.** |
+| **Sovereignty** | Proprietary shims. | **Standardized A2UI/MCP Registry.** |
 
 ---
 

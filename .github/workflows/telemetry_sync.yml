@@ -53,6 +53,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT || secrets.FIREBASE_SERVICE_ACCOUNT_ESAI_31177 || secrets.FIREBASE_SERVICE_ACCOUNT_AGENT_COCKPIT }}
+          # This secret must be added to your GitHub repository secrets (JSON from your Firebase Service Account)
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ESAI_31177 }}
           projectId: esai-31177
           channelId: live

@@ -1,7 +1,6 @@
 import ast
-import sys
 import os
-import re
+import sys
 
 # Ensure we can import from src
 sys.path.insert(0, os.path.join(os.getcwd(), 'src'))

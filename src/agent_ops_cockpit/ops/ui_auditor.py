@@ -42,9 +42,10 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     mcp_apps_pattern = re.compile(r"MCPApp|ToolSurface|McpToolRenderer|mcp-tool-id")
 
 
-    for root, _dirs, files in os.walk(path):
-        if any(d in root for d in [".venv", "node_modules", ".git", "dist"]):
-            continue
+    for root, dirs, files in os.walk(path):
+        # v2.0.2: Prune directories in-place to prevent descending into excluded paths
+        dirs[:] = [d for d in dirs if d not in [".venv", "node_modules", ".git", "dist", "dogfood", "dogfood_repos", "docs_temp", "dist_py", "dist_release", "dist_v161", "dist_v162", "dist_v163"]]
+        
             
         for file in files:
             # Skip non-component files to reduce noise

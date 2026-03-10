@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-03-03T08:25:53.836377",
-  "version": "1.4.0303",
+  "last_updated": "2026-03-10T11:45:10.000000",
+  "version": "1.4.0310",
   "patterns": [
     {
       "id": "MP-001",
@@ -443,6 +443,22 @@
       "rationale": "Semantic Kernel provides a robust, typed foundation for enterprise agents, especially in multi-language environments.",
       "impact": "HIGH",
       "source": "Microsoft Enterprise Standard (Feb 2026)"
+    },
+    {
+      "id": "MP-039",
+      "category": "ARCHITECTURE",
+      "title": "Agent Skills for Contextual Efficiency",
+      "indicators": [
+        "skills/",
+        "SKILL.md",
+        "agent_skill",
+        "skill_bridge",
+        "load_skill"
+      ],
+      "recommendation": "Adopt 'Skill-Based' context injection. Group tool logic, specific instructions, and few-shot examples into atomic 'Skill Folders'. This increases reasoning efficiency and reduces prompt-drowning by contextually loading only the required skill set for the task.",
+      "rationale": "Monolithic prompts are brittle and expensive. Skills provide a modular, discoverable context layer that can be dynamically attached to agents at runtime, aligning with the industry shift toward specialized agentic sub-units.",
+      "impact": "HIGH",
+      "source": "System Context SME (March 2026)"
     }
   ],
   "compatibility_constraints": [
