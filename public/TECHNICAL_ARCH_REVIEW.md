@@ -29,8 +29,8 @@ The v1.0.0 surge introduces **Strategic Evolution** and **Synthetic Stress Testi
 *   **Reasoning Degradation**: Monitors the **Contextual Thread Integrity**. If the agent loses the ability to reference message `n-5` under pressure, the Architect flags a "Reasoning Failure."
 *   **Synthetic Traffic**: Parallelized `swarm.py` execution simulates 100 adversarial users, identifying edge cases where tool-calling loops become non-deterministic.
 
-### 🌍 3. Multi-Cloud Exit & TCO (The Sovereign Score)
-The v1.3 Architect calculates a **Sovereignty Score (0.0 - 1.0)** based on:
+### 🌍 3. Multi-Cloud Exit & TCO (The Cockpit Score)
+The v1.3 Architect calculates a **Cockpitty Score (0.0 - 1.0)** based on:
 1.  **Vendor Lock-in TCO**: Quantifies the cost and effort of moving from Vertex AI to open-source (Gemma/vLLM).
 2.  **Data Resident Proximity**: Measures the latency overhead between the Model and the Vector DB.
 3.  **Exit Plan**: Automatically generates the "Exit Strategy" report for the CFO.

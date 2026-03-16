@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from agent_ops_cockpit.ops.guardrails import CockpitGuardrails
 from agent_ops_cockpit.telemetry import telemetry
 
-app = FastAPI(title="Sovereign Gateway Sidecar", version="2.0.2")
+app = FastAPI(title="Cockpit Gateway Sidecar", version="2.0.2")
 guardrails = CockpitGuardrails()
 
 # Global Governance Policy
@@ -21,13 +21,13 @@ def load_policy():
 
 @app.on_event("startup")
 async def startup_event():
-    print("🛡️  Sovereign Gateway Sidecar is initializing...")
+    print("🛡️  Cockpit Gateway Sidecar is initializing...")
     print(f"📄 Governance Policy: {POLICY_PATH}")
 
 @app.post("/v1/chat/completions")
 async def chat_proxy(request: Request):
     """
-    Sovereign Proxy: OpenAI-Compatible Gateway.
+    Cockpit Proxy: OpenAI-Compatible Gateway.
     Handles PII Scrubbing, Cost Routing, and Real-time Policy Enforcement.
     """
     body = await request.json()
@@ -46,21 +46,21 @@ async def chat_proxy(request: Request):
         for topic in forbidden:
             if topic.lower() in content:
                 telemetry.track_event_sync("policy_violation", {"topic": topic, "action": "blocked"})
-                raise HTTPException(status_code=403, detail=f"🛡️ [Sovereignty Breach] Content violates policy: {topic}")
+                raise HTTPException(status_code=403, detail=f"🛡️ [Cockpitty Breach] Content violates policy: {topic}")
 
     # 3. Cost Routing (FinOps)
     # Default to Gemini Flash if not specified or for efficiency
     target_model = body.get('model', 'gemini-2.0-flash')
     
     # In a real scenario, we'd forward to Vertex/OpenAI here
-    # For v2.0.2, we simulate the 'Sovereign Pass-through'
+    # For v2.0.2, we simulate the 'Cockpit Pass-through'
     print(f"🚀 Forwarding cleaned request to target: {target_model}")
     
     # Track metrics
     telemetry.track_event_sync("gateway_call", {"model": target_model})
     
     return {
-        "id": "sovereign-chat-123",
+        "id": "cockpit-chat-123",
         "object": "chat.completion",
         "created": 123456789,
         "model": target_model,
@@ -68,7 +68,7 @@ async def chat_proxy(request: Request):
             "index": 0,
             "message": {
                 "role": "assistant",
-                "content": "This response was routed and cleaned by the Sovereign Gateway Sidecar."
+                "content": "This response was routed and cleaned by the Cockpit Gateway Sidecar."
             },
             "finish_reason": "stop"
         }],

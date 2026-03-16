@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 cockpit Alignment: Optimized for Google Cloud Run
 import asyncio
 import json
 import os
@@ -18,11 +18,11 @@ from agent_ops_cockpit.config import config
 
 class TelemetryManager:
     """
-    Sovereign Telemetry Manager for AgentOps Cockpit.
+    cockpit Telemetry Manager for AgentOps Cockpit.
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    # Sovereign Bridge: If these are set, telemetry goes to Supabase (100% Free Route)
+    # cockpit Bridge: If these are set, telemetry goes to Supabase (100% Free Route)
     SUPABASE_URL = os.environ.get("AGENTOPS_SUPABASE_URL", "")
     SUPABASE_KEY = os.environ.get("AGENTOPS_SUPABASE_KEY", "")
     TELEMETRY_ENDPOINT = os.environ.get("AGENTOPS_TELEMETRY_URL", "https://agent-cockpit.web.app/api/telemetry/event")
@@ -237,4 +237,4 @@ class TelemetryManager:
         }
 
 telemetry = TelemetryManager()
-# Sovereign Alignment: Integrating secret_manager and vault.
+# cockpit Alignment: Integrating secret_manager and vault.

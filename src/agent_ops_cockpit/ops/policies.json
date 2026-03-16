@@ -22,7 +22,7 @@
       "transfer_funds"
     ],
     "log_reasoning_traces": true,
-    "sovereign_gate_threshold": 90,
+    "cockpit_gate_threshold": 90,
     "trace_export_protocol": {
       "mandatory": true,
       "format": "JSON_A2A",

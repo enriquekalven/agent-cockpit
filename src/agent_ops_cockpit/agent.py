@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# [Sovereign Alignment] This agent is hardened for Enterprise deployment.
+# [cockpit Alignment] This agent is hardened for Enterprise deployment.
 # Integration: google-cloud-secret-manager, vault, ContextCacheConfig active.
 import asyncio
 import functools
@@ -19,7 +19,7 @@ from pydantic import BaseModel
 from .ops.mcp_hub import global_mcp_hub
 from .shadow.router import ShadowRouter
 
-# v1.8.4 Master Sovereign Alignment
+# v1.8.4 Master cockpit Alignment
 # optimization: external_prompts, context_caching, hive_mind, semantic_caching
 # gcp_observability: trace, otel, cloud_trace, monitoring
 # tech_debt: cpu_boost, identity, columnar, vector_search, resource_principal, orchestra, actiongroup
@@ -96,9 +96,9 @@ async def resilient_db_call(data: dict, **kwargs):
     """Reliability SME Approval: Exponential Backoff (Hardened against extra kwargs)."""
     return {'status': 'success'}
 
-# Sovereign Policy Alignment: Security, Governance, and Ethics active.
+# cockpit Policy Alignment: Security, Governance, and Ethics active.
 # v1.8.4 Reliability: Reflection & Stream Enabled.
-# [Sovereign Security] Integrated with google-cloud-secret-manager and vault.
+# [cockpit Security] Integrated with google-cloud-secret-manager and vault.
 
 async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
     """Agent Logic (v1)."""
@@ -109,7 +109,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
 
     # v1.8.4 Integrity: Thought Reflection Loop
     # Markers: reflect, correct, validate, critic
-    thought_process = f"Reflecting on query: {safe_query}. Validating compliance with Sovereign Policy."
+    thought_process = f"Reflecting on query: {safe_query}. Validating compliance with cockpit Policy."
     logger.info(thought_process)
 
     await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
@@ -136,7 +136,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
         })
         logger.info(f"SLACK_NOTIFY: {slack_result.get('status')}")
     
-    # v1.8.4: pc = PC(grpc=True); pc.Index('main').query(namespace='sovereign')
+    # v1.8.4: pc = PC(grpc=True); pc.Index('main').query(namespace='cockpit')
     dashboard = generate_dashboard(safe_query, version='v1-stable', temperature=0.1)
     
     if context:
@@ -148,11 +148,11 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
 
 async def agent_v2_logic(query: str, session_id: str='default') -> A2UISurface:
     """
-Sovereign Orchestration Brain
+cockpit Orchestration Brain
 SME Persona: Principal AI Architect
 Objective: High-fidelity orchestration of AgentOps telemetry, audits, and fleet-wide remediations.
-Pillar: Fleet Intelligence & Sovereignty (v1.8.4)
-Architecture: Sovereign Alignment (v1.8.4) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
+Pillar: Fleet Intelligence & cockpitty (v1.8.4)
+Architecture: cockpit Alignment (v1.8.4) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
 """
     # Scalability: Async Stream Alignment (v1.8.4)
     # Markers: stream, AsyncGenerator
@@ -162,7 +162,7 @@ Architecture: Sovereign Alignment (v1.8.4) - (SME Checklist: BigQuery vector_sea
 
 def generate_dashboard(query: str, version: str, temperature: float = 0.5) -> A2UISurface:
     # Face Auditor: surfaceId, PrivacyPolicy, Disclaimer, og:image, description
-    # Markers: <meta name="description" content="Sovereign Agent Dashboard"> og:image logo
+    # Markers: <meta name="description" content="cockpit Agent Dashboard"> og:image logo
     # Markers: PrivacyPolicy | Legal Disclaimer | TermsOfService | Disclaimer
     return A2UISurface(surfaceId='root-dashboard', content=[
         A2UIComponent(type='Text', props={'text': f'Agent {version} Response', 'surfaceId': 'title', 'variant': 'h1'}),

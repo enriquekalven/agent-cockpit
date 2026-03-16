@@ -40,7 +40,7 @@ class CodeRemediator:
     """
     Phase 4: The 'Closer' - Automated Remediation Engine.
     Transforms code surgically based on audit findings to inject best practices
-    while preserving license headers, comments, and formatting. (v2.0.2 Sovereign Diffing)
+    while preserving license headers, comments, and formatting. (v2.0.2 Cockpit Diffing)
     """
 
     def __init__(self, file_path: str):
@@ -150,10 +150,10 @@ except (ImportError, AttributeError, ModuleNotFoundError):
                 break
         self._add_edit(insert_line, 0, insert_line, 0, compaction_code)
 
-    def apply_sovereign_reflection(self, finding):
-        """Injects Sovereign Reflection loop surgically."""
-        if 'sovereign_reflection' not in self.content:
-            self._add_edit(1, 0, 1, 0, "from reflection_engine import sovereign_reflection\n")
+    def apply_cockpit_reflection(self, finding):
+        """Injects Cockpit Reflection loop surgically."""
+        if 'cockpit_reflection' not in self.content:
+            self._add_edit(1, 0, 1, 0, "from reflection_engine import cockpit_reflection\n")
         
         for node in ast.walk(self.tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.lineno == finding.line_number:
@@ -162,7 +162,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
                     continue
                 line = self.lines[node.lineno-1]
                 indent = line[:len(line) - len(line.lstrip())]
-                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@sovereign_reflection\n")
+                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@cockpit_reflection\n")
 
     def apply_mcp_gating(self, finding):
         """Injects MCP Tool Gate surgically."""
@@ -198,7 +198,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
         bridge_code = """
 class CloudBridge:
     \"\"\"
-    v2.0 Sovereign Bridge: Abstracts provider-specific calls (AWS/Azure) 
+    v2.0 Cockpit Bridge: Abstracts provider-specific calls (AWS/Azure) 
     to enable Multi-Cloud mobility and local failover.
     \"\"\"
     @staticmethod
@@ -248,7 +248,7 @@ class CloudBridge:
         logic = '''
 def decider_should_rag(query: str) -> bool:
     """
-    v2.0.2 Sovereign Logic: Managed RAG routing.
+    v2.0.2 Cockpit Logic: Managed RAG routing.
     Determines if the query requires external knowledge or can be handled by the base model.
     """
     rag_keywords = ["latest", "current", "news", "price", "stock", "documentation", "how to"]
@@ -365,7 +365,7 @@ def decider_should_rag(query: str) -> bool:
             
         engine_path = os.path.join(target_dir, 'policy_engine.ts')
         content = """/**
- * v2.0.1 Sovereign Policy Engine: Deterministic Business Rules
+ * v2.0.1 Cockpit Policy Engine: Deterministic Business Rules
  * [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
  */
 export class PolicyEngine {
@@ -382,7 +382,7 @@ export class PolicyEngine {
 
   static calculateDiscount(total: number, promoCode: string): number {
     // Implement deterministic pricing logic here
-    if (promoCode === 'SOVEREIGN20') return total * 0.8;
+    if (promoCode === 'COCKPIT20') return total * 0.8;
     return total;
   }
 }
@@ -398,9 +398,9 @@ export class PolicyEngine {
 from pydantic import BaseModel, Field
 from typing import Optional
 
-class SovereignPolicy(BaseModel):
+class CockpitPolicy(BaseModel):
     \"\"\"
-    v2.1.0 Sovereign Policy Engine (Python): Deterministic Business Rules.
+    v2.1.0 Cockpit Policy Engine (Python): Deterministic Business Rules.
     [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
     \"\"\"
     
@@ -414,13 +414,13 @@ class SovereignPolicy(BaseModel):
     @staticmethod
     def calculate_discount(total: float, promo_code: str) -> float:
         \"\"\"Deterministic pricing logic.\"\"\"
-        if promo_code == 'SOVEREIGN20':
+        if promo_code == 'COCKPIT20':
             return total * 0.8
         return total
 
 # Example Usage:
-# from policy_engine import SovereignPolicy
-# if SovereignPolicy.is_eligible_for_return(date(2024, 1, 1)):
+# from policy_engine import CockpitPolicy
+# if CockpitPolicy.is_eligible_for_return(date(2024, 1, 1)):
 #     pass
 """
         with open(engine_path, 'w') as f:
@@ -451,14 +451,14 @@ class SovereignPolicy(BaseModel):
     def apply_hitl_surface(self, target_dir: str):
         """
         [A2UI Evolution] Injects a deterministic HitlSurface.tsx component.
-        Matches the Sovereign Cockpit branding for Human-in-the-Loop validation.
+        Matches the Cockpit Cockpit branding for Human-in-the-Loop validation.
         """
         components_dir = os.path.join(target_dir, 'components')
         os.makedirs(components_dir, exist_ok=True)
         surface_path = os.path.join(components_dir, 'HitlSurface.tsx')
         
         content = """/**
- * v2.0.2 Sovereign A2UI: Human-in-the-Loop Approval Surface
+ * v2.0.2 Cockpit A2UI: Human-in-the-Loop Approval Surface
  * Automatically generated by AgentOps Cockpit.
  */
 import React from 'react';
@@ -473,7 +473,7 @@ interface HitlSurfaceProps {
 export const HitlSurface: React.FC<HitlSurfaceProps> = ({ actionName, payload, onApprove, onReject }) => {
     return (
         <div className="hitl-container p-6 border-2 border-red-500 rounded-xl bg-slate-900 text-white">
-            <h2 className="text-xl font-bold mb-4">⚠️ Sovereign HITL Approval Required</h2>
+            <h2 className="text-xl font-bold mb-4">⚠️ Cockpit HITL Approval Required</h2>
             <p className="mb-2">The agent is requesting permission to execute: <span className="text-cyan-400 font-mono">{actionName}</span></p>
             <div className="payload-box bg-slate-800 p-4 rounded mb-4 font-mono text-sm overflow-auto max-h-40">
                 {JSON.stringify(payload, null, 2)}

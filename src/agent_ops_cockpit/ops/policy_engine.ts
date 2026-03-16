@@ -1,5 +1,5 @@
 /**
- * v2.0.1 Sovereign Policy Engine: Deterministic Business Rules
+ * v2.0.1 cockpit Policy Engine: Deterministic Business Rules
  * [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
  */
 export class PolicyEngine {
@@ -16,7 +16,7 @@ export class PolicyEngine {
 
   static calculateDiscount(total: number, promoCode: string): number {
     // Implement deterministic pricing logic here
-    if (promoCode === 'SOVEREIGN20') return total * 0.8;
+    if (promoCode === 'cockpit20') return total * 0.8;
     return total;
   }
 }

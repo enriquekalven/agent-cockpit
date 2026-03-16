@@ -30,7 +30,7 @@ class InfraAuditor(BaseAuditor):
                     file_path=file_path
                 ))
             elif 'USER appuser' in content:
-                # Recognition of Sovereign-Hardened pattern
+                # Recognition of cockpit-Hardened pattern
                 print(f"🔒 [SecOps] Verified Hardened Non-Root for {file_path}")
             
             if 'memory' not in content.lower() and 'cpu' not in content.lower():
@@ -90,4 +90,4 @@ class InfraAuditor(BaseAuditor):
              print(f"ACTION: {file_path}:{f.line_number or 1} | {f.title} | {f.roi}")
 
         return findings
-# Sovereign Policy Alignment: policy, governance, compliance active.
+# cockpit Policy Alignment: policy, governance, compliance active.

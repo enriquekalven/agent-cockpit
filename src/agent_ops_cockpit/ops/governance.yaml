@@ -1,4 +1,4 @@
-# v2.0.2 Sovereign Governance Policy (GaC)
+# v2.0.2 cockpit Governance Policy (GaC)
 # This file defines the 'Golden Rules' for the Agent Fleet.
 # It is ingested by the PolicyEngine and the Semantic Auditor for enforcement.
 
@@ -8,7 +8,7 @@ policies:
     severity: CRITICAL
     target_pattern: "email|phone|ssn|credit_card|passport"
     description: "All customer-identifiable information must be masked before inference."
-    enforcement: "REQUIRE_WRAPPER(SovereignGuard.scrub_pii)"
+    enforcement: "REQUIRE_WRAPPER(cockpitGuard.scrub_pii)"
     indicators: ["crm", "users", "customer_data"]
 
   - id: POL-002

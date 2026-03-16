@@ -92,7 +92,7 @@ Initialize new projects and push to Google Cloud.
 | Command | Objective | Flags |
 | :--- | :--- | :--- |
 | `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Fast-path initialization of Engine + Face + Cockpit. |
-| `uvx agentops-cockpit deploy sovereign` | **End-to-End Factory** | Audit -> Fix -> Hydrate -> Deploy in one command. |
+| `uvx agentops-cockpit deploy cockpit` | **End-to-End Factory** | Audit -> Fix -> Hydrate -> Deploy in one command. |
 
 ---
 

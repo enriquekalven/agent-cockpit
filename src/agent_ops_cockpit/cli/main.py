@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v2.0.2 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
+# v2.0.2 Cockpit Evolution: Optimized for Multi-Cloud Fleet Governance
 
 import asyncio
 import os
@@ -11,7 +11,7 @@ import subprocess
 from datetime import datetime, timedelta
 from typing import Annotated, List, Optional
 
-import jwt  # PyJWT for v2.0.2 Sovereign Attestation
+import jwt  # PyJWT for v2.0.2 Cockpit Attestation
 import typer
 from rich.console import Console
 from rich.panel import Panel
@@ -23,6 +23,7 @@ from agent_ops_cockpit.config import config
 from agent_ops_cockpit.eval import quality_climber as quality_mod
 from agent_ops_cockpit.eval import red_team as red_mod
 from agent_ops_cockpit.ops import arch_review as arch_mod
+from agent_ops_cockpit.ops import cockpit as cockpit_mod
 from agent_ops_cockpit.ops import documenter as doc_mod
 from agent_ops_cockpit.ops import finops_roi as roi_mod
 from agent_ops_cockpit.ops import master_dashboard as master_mod
@@ -33,12 +34,13 @@ from agent_ops_cockpit.ops import policy_engine as policy_mod
 from agent_ops_cockpit.ops import preflight as pre_mod
 from agent_ops_cockpit.ops import rag_audit as rag_mod
 from agent_ops_cockpit.ops import reliability as rel_mod
-from agent_ops_cockpit.ops import sovereign as sovereign_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import workbench as workbench_mod
+from agent_ops_cockpit.ops.context import bm25 as context_bm25
+from agent_ops_cockpit.ops.context import registry as context_reg
 from agent_ops_cockpit.telemetry import telemetry
 
-app = typer.Typer(help='🕹️ AgentOps Cockpit: The Sovereign Fleet Governance Platform.', no_args_is_help=False)
+app = typer.Typer(help='🕹️ AgentOps Cockpit: The Cockpit Fleet Governance Platform.', no_args_is_help=False)
 audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
 
 # --- MASTER HUB ---
@@ -53,7 +55,7 @@ def cockpit_main(ctx: typer.Context, path: Annotated[str, typer.Option("--path",
 
 @cockpit_app.command()
 def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to project")] = "."):
-    """🏗️ Bootstrap: Explicitly initialize Cockpit manifests and adopt sovereign libraries."""
+    """🏗️ Bootstrap: Explicitly initialize Cockpit manifests and adopt cockpit libraries."""
     console.print(Panel.fit('🏗️ [bold blue]COCKPIT BOOTSTRAP: PROJECT INITIALIZATION[/bold blue]', border_style='blue'))
     
     # 1. Create cockpit.yaml if missing
@@ -71,11 +73,11 @@ def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to pr
         os.makedirs(dot_cockpit)
         console.print("✅ Created [bold].cockpit/[/bold] artifact store.")
 
-    # 3. Adopt libraries (Sovereign Scaffolding)
+    # 3. Adopt libraries (Cockpit Scaffolding)
     from agent_ops_cockpit.ops.migration import MigrationEngine
     engine = MigrationEngine(path)
     engine.generate_scaffolding(path)
-    console.print("✅ Generated [bold]Sovereign Scaffolding[/bold] (policy_engine.ts, etc.)")
+    console.print("✅ Generated [bold]Cockpit Scaffolding[/bold] (policy_engine.ts, etc.)")
     
     console.print("\n✨ [bold green]Project bootstrapped successfully.[/bold green] Run [blue]cockpit audit[/blue] to begin.")
 fleet_app = typer.Typer(help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling.")
@@ -85,6 +87,7 @@ test_app = typer.Typer(help="🧪 Reliability Hub: Unit tests and Persona smoke 
 sys_app = typer.Typer(help="🩺 System Hub: Health diagnosis and version tracking.")
 ops_app = typer.Typer(help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers.")
 create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization and UI creation.")
+context_app = typer.Typer(help="🧠 Context Hub: Manage agent knowledge, skills, and annotations.")
 
 # --- LEGACY REDIRECTS (v2.0.1 Smart Aliasing) ---
 @app.command(name="report", hidden=True)
@@ -138,7 +141,7 @@ def diagnose():
     except Exception:
         table.add_row('GCP Auth (ADC)', '[red]REAUTHENTICATION NEEDED[/red]', "Run 'gcloud auth application-default login'")
     if has_cockpit:
-        table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Sovereign data path OK')
+        table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Cockpit data path OK')
     else:
         table.add_row('Artifact Store', '[yellow]NOT INITIALIZED[/yellow]', "Run 'agent-ops audit report' to bootstrap")
     try:
@@ -158,7 +161,7 @@ def diagnose():
 @sys_app.command(name="upgrade")
 def upgrade_cockpit():
     """Check for and install the latest version of the AgentOps Cockpit."""
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: SOVEREIGN UPGRADE ENGINE[/bold blue]', border_style='blue'))
+    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: COCKPIT UPGRADE ENGINE[/bold blue]', border_style='blue'))
     console.print(f"Current Local Version: [bold cyan]v{config.VERSION}[/bold cyan]")
     
     try:
@@ -246,7 +249,7 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
                   no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = False,
                   interactive: Annotated[bool, typer.Option("--interactive", "-i", help="Ask for confirmation before applying fixes")] = False):
     """
-    Launch the 'Sovereign Certification' checklist.
+    Launch the 'Cockpit Certification' checklist.
     Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
     """
     console.print(Panel.fit('🏅 [bold blue]AGENTOPS COCKPIT: PRODUCTION READINESS CERTIFICATION[/bold blue]', border_style='blue'))
@@ -274,29 +277,29 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
     if audit_exit_code == 0 and regression_passed:
         console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
         
-        # v2.0.2: Generate Sovereign Certificate (Cryptographic Proof)
+        # v2.0.2: Generate Cockpit Certificate (Cryptographic Proof)
         import hashlib
         cert_data = f"CERTIFICATE:v2.0.2|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
         proof = hashlib.sha256(cert_data.encode()).hexdigest()
         
-        cert_path = os.path.join(path, '.cockpit', 'sovereign_certificate.txt')
+        cert_path = os.path.join(path, '.cockpit', 'cockpit_certificate.txt')
         with open(cert_path, 'w') as f:
-            f.write("--- 🏛️ SOVEREIGN CERTIFICATE v2.0.2 ---\n")
+            f.write("--- 🏛️ COCKPIT CERTIFICATE v2.0.2 ---\n")
             f.write(f"ISSUED TO: {os.path.basename(os.path.abspath(path))}\n")
             f.write(f"TIMESTAMP: {datetime.now().isoformat()}\n")
             f.write("STATUS: CERTIFIED_PRODUCTION_READY\n")
             f.write("PILARS: Security, Reliability, Architecture, FinOps\n")
             f.write(f"PROOF: {proof}\n")
             f.write("--------------------------------------\n")
-            f.write("\nThis agent has passed all Sovereign Audit gates and is cleared for high-stakes autonomous operations.")
+            f.write("\nThis agent has passed all Cockpit Audit gates and is cleared for high-stakes autonomous operations.")
         
-        console.print(f"📜 [bold cyan]Sovereign Certificate Generated:[/bold cyan] {cert_path}")
+        console.print(f"📜 [bold cyan]Cockpit Certificate Generated:[/bold cyan] {cert_path}")
         console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
         
-        # v2.0.2: Sovereign Attestation (JWT for inter-agent handshake)
+        # v2.0.2: Cockpit Attestation (JWT for inter-agent handshake)
         # In actual production, this would use a HSM or Cloud Key Management Service.
-        # Here we use a standard Sovereign Secret for the build env.
-        secret = os.environ.get("COCKPIT_SOVEREIGN_SECRET", "super-secret-sovereign-key-v202")
+        # Here we use a standard Cockpit Secret for the build env.
+        secret = os.environ.get("COCKPIT_COCKPIT_SECRET", "super-secret-cockpit-key-v202")
         payload = {
             "iss": "AgentOps Cockpit",
             "sub": os.path.basename(os.path.abspath(path)),
@@ -307,11 +310,11 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
             "pillars": ["Security", "Reliability", "Architecture", "FinOps"]
         }
         token = jwt.encode(payload, secret, algorithm="HS256")
-        token_path = os.path.join(path, '.cockpit', 'sovereign_identity.jwt')
+        token_path = os.path.join(path, '.cockpit', 'cockpit_identity.jwt')
         with open(token_path, 'w') as f:
             f.write(token)
         
-        console.print(f"🛡️  [bold green]Sovereign Identity Issued (MuTI):[/bold green] {token_path}")
+        console.print(f"🛡️  [bold green]Cockpit Identity Issued (MuTI):[/bold green] {token_path}")
         console.print("🧩 [dim]This JWT enables Mutual-TLS-for-Intelligence handshakes.[/dim]")
     else:
         console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
@@ -384,7 +387,7 @@ def document(path: Annotated[str, typer.Option('--path', '-p', help='Path to wor
     b_out = generator.generate_codebase_bundle()
     console.print(f"📄 [bold green]Technical Design Document (HTML):[/bold green] {h_out}")
     console.print(f"📝 [bold green]Technical Design Document (MD):  [/bold green] {m_out}")
-    console.print(f"📦 [bold green]Sovereign Codebase Bundle:      [/bold green] {b_out}")
+    console.print(f"📦 [bold green]Cockpit Codebase Bundle:      [/bold green] {b_out}")
 
 @audit_app.command()
 def policy(input_text: Annotated[Optional[str], typer.Option('--text', '-t', help='Input text to validate')] = None):
@@ -449,9 +452,9 @@ def watch_ops():
 
 @ops_app.command()
 def gateway(port: int = 8000):
-    """🛡️ Sovereign Gateway: Launch the local sidecar for PII Scrubbing and Cost Routing."""
+    """🛡️ Cockpit Gateway: Launch the local sidecar for PII Scrubbing and Cost Routing."""
     from agent_ops_cockpit.ops import gateway as gateway_mod
-    console.print(Panel.fit('🛡️ [bold blue]SOVEREIGN GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...', border_style='blue'))
+    console.print(Panel.fit('🛡️ [bold blue]COCKPIT GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...', border_style='blue'))
     gateway_mod.start_gateway(port=port)
 
 @ops_app.command()
@@ -459,7 +462,7 @@ def simulate_ops(mode: str = "nominal"):
     """[CHAOS ENGINE] Battle-test agent tools with Chaos/Latency proxy injections."""
     from agent_ops_cockpit.ops import simulator as sim_mod
     proxy = sim_mod.ToolProxy(mode=mode)
-    proxy.execute_mock_tool("search_api", {"query": "Sovereign Audit"})
+    proxy.execute_mock_tool("search_api", {"query": "Cockpit Audit"})
 
 @audit_app.command()
 def shadow_analysis(base: Annotated[str, typer.Argument(help="Path to base agent/report")], candidate: Annotated[str, typer.Argument(help="Path to candidate agent/report")]):
@@ -472,32 +475,32 @@ def shadow_analysis(base: Annotated[str, typer.Argument(help="Path to base agent
 @fleet_app.command(name="status")
 def fleet_status():
     """[Day 2 Ops] Display the stateful registry of all deployed agents."""
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.list_fleet()
 
 @fleet_app.command(name="map")
 def fleet_map(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
     """🛰️ Fleet Map: High-fidelity visual topology of the agent estate."""
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.render_fleet_map(path)
 
 @fleet_app.command()
 def mothball(cloud: Annotated[Optional[str], typer.Option('--cloud', help='Specific cloud to mothball')] = None):
     """Scale fleet to zero to stop incurring costs."""
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.mothball_fleet(cloud)
 
 @fleet_app.command()
 def resume(cloud: Annotated[Optional[str], typer.Option('--cloud', help='Specific cloud to resume')] = None):
     """Resume a mothballed fleet."""
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.resume_fleet(cloud)
 
 @fleet_app.command()
 def tunnel(path: Annotated[str, typer.Option('--path', '-p', help='Path to local agent')] = '.', port: Annotated[int, typer.Option('--port', help='Local port')] = 8080):
     """Mocks a production registration for a local agent (GE Bridge)."""
     console.print(f"🌉 [bold magenta]Establishing Local-to-Cloud Bridge for port {port}...[/bold magenta]")
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     agent_name = os.path.basename(os.path.abspath(path))
     engine = migrate_mod.MigrationEngine(path)
     tunnel_url = f"http://localhost:{port}"
@@ -513,7 +516,7 @@ def anomaly_check(name: Annotated[str, typer.Option(help='Agent name to audit')]
     ]
     if sim_rogue:
         telemetry_data.append({"timestamp": datetime.now().isoformat(), "tool_calls": 1, "payload": "Extracting PII: user@example.com"})
-    orchestrator = sovereign_mod.SovereignOrchestrator()
+    orchestrator = cockpit_mod.CockpitOrchestrator()
     report = orchestrator.fleet_manager.monitor_agent_anomaly(name, telemetry_data)
     from agent_ops_cockpit.ops.auditors.anomaly_auditor import AnomalySME
     auditor = AnomalySME()
@@ -555,9 +558,9 @@ def fleet_shadow_roi(path: Annotated[str, typer.Option('--path', '-p', help='Pat
 
 # --- DEPLOY HUB ---
 @deploy_app.command()
-def sovereign(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent/workspace")] = ".", fleet: Annotated[bool, typer.Option("--fleet", help="Process all agents in the workspace")] = True, target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud Platform: google, aws, azure")] = "google"):
+def cockpit(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent/workspace")] = ".", fleet: Annotated[bool, typer.Option("--fleet", help="Process all agents in the workspace")] = True, target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud Platform: google, aws, azure")] = "google"):
     """End-to-End Agent Factory: Audit -> Fix -> Hydrate -> Deploy."""
-    orchestrator = sovereign_mod.SovereignOrchestrator(target_cloud=target)
+    orchestrator = cockpit_mod.CockpitOrchestrator(target_cloud=target)
     asyncio.run(orchestrator.run_pipeline(path, fleet=fleet))
 
 @deploy_app.command()
@@ -611,7 +614,7 @@ def deploy_prep(path: Annotated[str, typer.Option('--path', help='Path to agent/
     console.print(Panel.fit('🚀 [bold green]PRODUCTION READINESS FACTORY[/bold green]', border_style='green'))
     
     # Step 1: Deep Audit & Auto-Remediation
-    console.print('\n[bold]Step 1: Deep Sovereignty Audit & Auto-Fix[/bold]')
+    console.print('\n[bold]Step 1: Deep Cockpitty Audit & Auto-Fix[/bold]')
     orch_mod.run_audit(mode='deep', target_path=path, apply_fixes=True)
     
     # Step 2: Multi-Cloud Asset Generation (Hydration)
@@ -657,9 +660,9 @@ def deploy_prep(path: Annotated[str, typer.Option('--path', help='Path to agent/
 
 @deploy_app.command()
 def simulate_deploy():
-    """Battle-test the Sovereign Pipeline across GCP, AWS, and Azure."""
+    """Battle-test the Cockpit Pipeline across GCP, AWS, and Azure."""
     from agent_ops_cockpit.ops import simulator
-    sim = simulator.SovereignSimulator()
+    sim = simulator.CockpitSimulator()
     asyncio.run(sim.run_battle_test())
 
 # --- EVOLUTION HUB ---
@@ -759,7 +762,7 @@ def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of
         console.print('🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)')
         console.print(f'   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]')
         console.print('🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)')
-        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and Sovereign Policies...[/dim]')
+        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and Cockpit Policies...[/dim]')
         console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v{config.VERSION} compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
 
     except Exception as e:
@@ -838,15 +841,15 @@ def legacy_red_team(agent_path: Annotated[str, typer.Argument(help='Path to the 
     red_mod.audit(agent_path)
 
 
-@app.command(name="sovereign", hidden=True)
-def legacy_sovereign(
+@app.command(name="cockpit", hidden=True)
+def legacy_cockpit(
     path: Annotated[str, typer.Option("--path", "-p", help="Path to agent or workspace")] = ".", 
     target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud: google, aws, azure")] = "google",
     fleet: Annotated[bool, typer.Option("--fleet", help="Run for all agents in the path")] = False
 ):
-    """[DEPRECATED] Use 'deploy sovereign' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy sovereign' on your behalf...[/bold blue]")
-    sovereign(path, fleet, target)
+    """[DEPRECATED] Use 'deploy cockpit' instead."""
+    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy cockpit' on your behalf...[/bold blue]")
+    cockpit(path, fleet, target)
 
 
 @app.command(name="document", hidden=True)
@@ -914,8 +917,8 @@ def deploy_prep_alias(path: str=typer.Option('.', '--path', help='Path to agent/
 
     deploy_prep(path, target)
 
-@app.command(name="simulate-sovereign", hidden=True)
-def legacy_simulate_sovereign():
+@app.command(name="simulate-cockpit", hidden=True)
+def legacy_simulate_cockpit():
     """[DEPRECATED] Use 'deploy simulate' instead."""
     console.print("🔄 [bold blue]Legacy command detected. Running 'deploy simulate' on your behalf...[/bold blue]")
 
@@ -995,7 +998,7 @@ def audit_maturity():
     persona_table.add_column("Mandate", style="dim")
     persona_table.add_column("Expertise Level", style="bold green")
     
-    persona_table.add_row("🛡️ Security Pillar", "Zero-Trust & Sovereignty", "MASTER")
+    persona_table.add_row("🛡️ Security Pillar", "Zero-Trust & Cockpitty", "MASTER")
     persona_table.add_row("🛡️ Reliability Pillar", "Resiliency & Performance", "PRINCIPAL")
     persona_table.add_row("🏗️ Strategy Pillar", "Paradigm & FinOps", "DISTINGUISHED")
     
@@ -1041,7 +1044,42 @@ def mcp_server():
     from agent_ops_cockpit import mcp_server as mcp_mod
     asyncio.run(mcp_mod.main())
 
+# --- CONTEXT HUB ---
+@context_app.command()
+def build(path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+    """🧠 Index knowledge: Build the BM25 registry from public/*.md and docs/*.md."""
+    console.print(Panel.fit('🧠 [bold blue]COCKPIT CONTEXT: REGISTRY BUILD[/bold blue]', border_style='blue'))
+    registry = context_reg.ContextRegistry(path)
+    docs = registry.build_registry()
+    console.print(f"✅ Indexed [bold green]{len(docs)}[/bold green] knowledge nodes.")
+    console.print("📦 Registry saved to: [cyan].cockpit/context_registry.json[/cyan]")
+
+@context_app.command()
+def search(query: Annotated[str, typer.Argument(help="Search query")], path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = ".", limit: int = 5):
+    """🔍 Knowledge Search: Find relevant governance guidelines using BM25."""
+    registry = context_reg.ContextRegistry(path)
+    docs = registry.load_registry()
+    if not docs:
+        console.print("[yellow]⚠️ Registry is empty. Run 'agent-ops context build' first.[/yellow]")
+        return
+        
+    engine = context_bm25.BM25Engine()
+    engine.build_index(docs)
+    results = engine.search(query, limit=limit)
+    
+    table = Table(title=f"🔍 Results for: '{query}'", show_header=True, header_style="bold magenta")
+    table.add_column("Score", style="dim")
+    table.add_column("Name", style="cyan")
+    table.add_column("Category", style="green")
+    table.add_column("Description")
+    
+    for doc in results:
+        table.add_row("---", doc['name'], doc['category'], doc['description'])
+        
+    console.print(table)
+
 # --- REGISTRATION ---
+app.add_typer(context_app, name="context")
 app.add_typer(cockpit_app, name="cockpit")
 app.add_typer(audit_app, name="audit")
 app.add_typer(audit_app, name="report", hidden=True) # Legacy aliasing

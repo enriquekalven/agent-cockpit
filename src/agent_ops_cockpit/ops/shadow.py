@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import json
 import os
 from datetime import datetime
@@ -15,7 +15,7 @@ console = Console()
 
 class ShadowRunner:
     """
-    Sovereign 'Shadow Mode' (v1.4): Differential reasoning analysis.
+    Cockpit 'Shadow Mode' (v1.4): Differential reasoning analysis.
     Compares two versions of an agent (or two result sets) to detect reasoning drift, 
     latency variance, and cost delta.
     """

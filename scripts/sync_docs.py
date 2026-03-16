@@ -31,5 +31,15 @@ def sync_docs():
         else:
             print(f"⚠️ Source not found: {src}")
 
+    print("\n🧠 Updating Context Hub Knowledge Index...")
+    import subprocess
+    try:
+        # Use uv run to ensure the right environment is used for indexing
+        result = subprocess.run(['uv', 'run', 'python3', 'src/agent_ops_cockpit/cli/main.py', 'context', 'build'], check=True, capture_output=True, text=True)
+        print(result.stdout)
+        print("✅ Context Registry Refreshed.")
+    except Exception as e:
+        print(f"❌ Failed to build context registry: {e}")
+
 if __name__ == "__main__":
     sync_docs()

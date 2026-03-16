@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 from typing import List
 
 import git
@@ -74,11 +74,11 @@ class GitPortal:
     def get_pr_body(self, findings_count: int, score_improvement: int):
         """Generates the body text for a GitHub PR."""
         return f"""
-# 🕹️ AgentOps Cockpit: Sovereign Evolution Suite
+# 🕹️ AgentOps Cockpit: Cockpit Evolution Suite
 **Version:** 2.0.2 | **Status:** AUTO_REMEDIATION_STAGE
 
 ## 🧠 Executive Digest for Reviewers
-This PR contains **autonomous architectural hardening** aimed at improving the agent's Sovereignty and Production Readiness. 
+This PR contains **autonomous architectural hardening** aimed at improving the agent's Cockpitty and Production Readiness. 
 
 - **Strategic ROI:** +{score_improvement}% Maturity Score improvement.
 - **Architectural Intent:** Aligning with the **Agentic Trinity** (Engine/Face/Cockpit) standard.

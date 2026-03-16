@@ -1,6 +1,6 @@
-# AgentOps Cockpit v2.0.2: Audit Scenarios & Capabilities
+# AgentOps Cockpit v2.0.7 Premium Insights: Audit Scenarios & Capabilities
 
-This document showcases the difference between "Heuristic Matching" (Legacy) and **"Reasoning-Based Auditing" (v2.0.2)** using the new AST and Sovereign SME Probing engines.
+This document showcases the difference between "Heuristic Matching" (Legacy) and **"Reasoning-Based Auditing" (v2.0.7 Premium Insights)** using the new AST and Cockpit SME Probing engines.
 
 ---
 
@@ -19,12 +19,12 @@ response = llm.invoke(user_input)
 *   **Rationale:** Found keyword "mask" in comments.
 *   **Verdict:** Dangerous false positive.
 
-### ✅ v2.0.2 Governing Board (Security Persona)
+### ✅ v2.0.7 Premium Insights Governing Board (Security Persona)
 *   **Status:** `FAIL (CRITICAL)`
 *   **Finding:** `Incomplete PII Protection (Guardian Gap)`
 *   **Reasoning:** 
     1.  **AST Analysis**: Identifies `user_input` as a raw variable passing directly to an LLM node.
-    2.  **Logic Trace**: No call to a "scrubber" or **Sovereign Gateway** sidecar detected.
+    2.  **Logic Trace**: No call to a "scrubber" or **Cockpit Gateway** sidecar detected.
     3.  **Semantic Context**: Identifies "TODO" comment as an active risk rather than a feature.
 *   **Remediation**: Inject `agent-ops-gateway` PII Scrubber before `llm.invoke`.
 
@@ -46,7 +46,7 @@ async def get_data():
 *   **Rationale:** Valid Python/Async syntax.
 *   **Verdict:** Ignores performance anti-patterns.
 
-### ✅ v2.0.2 Governing Board (SRE Persona)
+### ✅ v2.0.7 Premium Insights Governing Board (SRE Persona)
 *   **Status:** `FAIL (MEDIUM IMPACT)`
 *   **Finding:** `Sequential Bottleneck Detected`
 *   **Reasoning:** 
@@ -71,7 +71,7 @@ from crewai import Agent, Task, Crew
 *   **Rationale:** Both frameworks are supported.
 *   **Verdict:** Ignores structural fragility.
 
-### ✅ v2.0.2 Governing Board (Architect Persona)
+### ✅ v2.0.7 Premium Insights Governing Board (Architect Persona)
 *   **Status:** `WARNING (ARCHITECTURAL CONFLICT)`
 *   **Finding:** `Orchestration Overlap (Split Brain)`
 *   **Reasoning:** 
@@ -91,7 +91,7 @@ for item in large_dataset:
     res = gemini_pro.generate_content(f"Is this category A or B: {item}")
 ```
 
-### ✅ v2.0.2 Governing Board (FinOps Persona)
+### ✅ v2.0.7 Premium Insights Governing Board (FinOps Persona)
 *   **Finding:** `High-Tier Model Inefficiency (Strategic Debt)`
 *   **Reasoning:** 
     1.  **Iterative Pattern**: Detects high-cost `gemini-1.5-pro` usage inside a large loop.

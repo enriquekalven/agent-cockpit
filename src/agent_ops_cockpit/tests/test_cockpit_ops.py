@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from unittest.mock import MagicMock, patch
 from agent_ops_cockpit.ops.preflight import PreflightEngine
-from agent_ops_cockpit.ops.simulator import SovereignSimulator
+from agent_ops_cockpit.ops.simulator import CockpitSimulator
 
 def test_preflight_registry_access():
     engine = PreflightEngine()
@@ -29,15 +29,15 @@ def test_preflight_tooling():
 
 def test_preflight_cloud_auth_simulation():
     engine = PreflightEngine()
-    os.environ["SOVEREIGN_SIMULATION"] = "true"
+    os.environ["COCKPIT_SIMULATION"] = "true"
     success, detail = engine.check_cloud_auth("aws")
     assert success is True
     assert "SIMULATION MOCK" in detail
-    os.environ.pop("SOVEREIGN_SIMULATION")
+    os.environ.pop("COCKPIT_SIMULATION")
 
 @pytest.mark.asyncio
 async def test_simulator_hydration_verification():
-    sim = SovereignSimulator()
+    sim = CockpitSimulator()
     temp_agent = sim._prepare_mock_agent("test-agent")
     
     # Create fake hydration assets

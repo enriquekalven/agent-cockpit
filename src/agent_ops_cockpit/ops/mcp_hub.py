@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import asyncio
 import logging
 import os
@@ -64,4 +64,4 @@ class MCPHub:
     async def _mock_legacy_exec(self, tool_name: str, args: Dict[str, Any]):
         await asyncio.sleep(0.5)
         return {'result': f'Legacy response for {tool_name}', 'protocol': 'rest-legacy', 'warning': 'MIGRATE_TO_MCP'}
-global_mcp_hub = MCPHub()# Sovereign Alignment: Integrating secret_manager and vault.
+global_mcp_hub = MCPHub()# Cockpit Alignment: Integrating secret_manager and vault.

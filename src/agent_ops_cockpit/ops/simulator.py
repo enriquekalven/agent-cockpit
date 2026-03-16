@@ -5,19 +5,19 @@ import tempfile
 
 from rich.console import Console
 
-from .sovereign import SovereignOrchestrator
+from .cockpit import CockpitOrchestrator
 
 console = Console()
 
-class SovereignSimulator:
+class CockpitSimulator:
     """
-    Sovereign Battle-Testing Suite (v1.8.4).
+    Cockpit Battle-Testing Suite (v1.8.4).
     Simulates the end-to-end factory across Multi-Cloud (GCP, AWS, Azure).
     """
 
     def __init__(self):
-        self.tmp_dir = tempfile.mkdtemp(prefix="sovereign_sim_")
-        console.print("🧪 [bold cyan]Initializing Sovereign Simulation Hub...[/]")
+        self.tmp_dir = tempfile.mkdtemp(prefix="cockpit_sim_")
+        console.print("🧪 [bold cyan]Initializing Cockpit Simulation Hub...[/]")
         console.print(f"📂 Simulation Workspace: [yellow]{self.tmp_dir}[/yellow]")
 
     def _prepare_mock_agent(self, name="sim-agent"):
@@ -38,12 +38,12 @@ class SovereignSimulator:
         clouds = ["google", "aws", "azure"]
         results = {}
 
-        os.environ["SOVEREIGN_SIMULATION"] = "true"
+        os.environ["COCKPIT_SIMULATION"] = "true"
         for cloud in clouds:
             console.print(f"\n--- 🌊 [bold magenta]BATTLE TESTING CLOUD: {cloud.upper()}[/] ---")
             agent_path = self._prepare_mock_agent(f"agent-{cloud}")
             
-            orchestrator = SovereignOrchestrator(target_cloud=cloud)
+            orchestrator = CockpitOrchestrator(target_cloud=cloud)
             # Run the pipeline (mocking the deployment step for AWS/Azure to avoid external calls)
             # Note: The pipeline already handles local asset generation
             res = await orchestrator.run_pipeline(agent_path, fleet=False)
@@ -55,7 +55,7 @@ class SovereignSimulator:
                 "hydration_verified": verification
             }
 
-        os.environ.pop("SOVEREIGN_SIMULATION")
+        os.environ.pop("COCKPIT_SIMULATION")
 
         self._print_results(results)
         shutil.rmtree(self.tmp_dir)
@@ -79,7 +79,7 @@ class SovereignSimulator:
 
     def _print_results(self, results):
         console.print("\n" + "="*50)
-        console.print("🏆 [bold cyan]Sovereign Battle-Test Summary[/]")
+        console.print("🏆 [bold cyan]Cockpit Battle-Test Summary[/]")
         console.print("="*50)
         for cloud, data in results.items():
             status = "[green]PASS[/]" if data["pipeline_status"] == "SUCCESS" and data["hydration_verified"] else "[red]FAIL[/]"
@@ -87,7 +87,7 @@ class SovereignSimulator:
         console.print("="*50)
 
 if __name__ == "__main__":
-    sim = SovereignSimulator()
+    sim = CockpitSimulator()
     asyncio.run(sim.run_battle_test())
 
 class ToolProxy:
@@ -118,4 +118,4 @@ class ToolProxy:
         
         console.print(f"🔌 [dim]Proxied Tool Call: {tool_name}({args})[/dim]")
         return {"status": "success", "data": f"Simulated output for {tool_name}"}
-# Sovereign Alignment: Integrating secret_manager and vault.
+# Cockpit Alignment: Integrating secret_manager and vault.

@@ -4,17 +4,17 @@
 **Incident:** Overly Aggressive Autonomous Remediation (Removal of `travel-concierge`)
 
 ## 📋 Executive Summary
-In PR #1027, the AgentOps Cockpit (v2.0.2) autonomously removed the `travel-concierge` agent directory from the `adk-samples` repository. While technically correct from an architectural "Sovereign Trinity" perspective, the action lacked community context and caused significant reviewer friction (40k lines removed in a single 'chore' commit).
+In PR #1027, the AgentOps Cockpit (v2.0.7 Premium Insights) autonomously removed the `travel-concierge` agent directory from the `adk-samples` repository. While technically correct from an architectural "Cockpit Trinity" perspective, the action lacked community context and caused significant reviewer friction (40k lines removed in a single 'chore' commit).
 
 ## 🔍 Technical Analysis
-### Role of AgentOps Cockpit (v2.0.2)
+### Role of AgentOps Cockpit (v2.0.7 Premium Insights)
 The Cockpit's **Architect Principal SME** persona identified the `travel-concierge` agent as **Legacy Strategic Debt**. The reasoning was based on:
 1. **Trinity Mismatch:** Lack of clear Engine/Face/Cockpit separation.
 2. **Protocol Drift:** Presence of ad-hoc HTTP calls instead of standardized MCP patterns.
-3. **Maturity Threshold:** The agent fell below the "Sovereign Score" threshold (90/100) required for the collective repository health.
+3. **Maturity Threshold:** The agent fell below the "Cockpit Score" threshold (90/100) required for the collective repository health.
 
 ### Root Cause
-The tool was configured with a **"Maximize Sovereign Score"** objective, which led it to prioritize architectural purity over evolutionary history. The **Closer Engine** applied a `rm -rf` logic for items definitively categorized as "Unredeemable Spaghetti" without a community-weighted verification step.
+The tool was configured with a **"Maximize Cockpit Score"** objective, which led it to prioritize architectural purity over evolutionary history. The **Closer Engine** applied a `rm -rf` logic for items definitively categorized as "Unredeemable Spaghetti" without a community-weighted verification step.
 
 ## 📈 Impact
 - **PR Exhaustion:** Reviewers were presented with a massive diff (-40k lines) without prior high-level design alignment.

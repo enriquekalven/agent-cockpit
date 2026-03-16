@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from agent_ops_cockpit.ops.sovereign import SovereignOrchestrator
+from agent_ops_cockpit.ops.cockpit import CockpitOrchestrator
 
 @pytest.fixture
 def mock_agent_dir(tmp_path):
@@ -13,7 +13,7 @@ def mock_agent_dir(tmp_path):
 @pytest.mark.asyncio
 async def test_discover_agents(mock_agent_dir):
     parent_dir = mock_agent_dir.parent
-    orchestrator = SovereignOrchestrator()
+    orchestrator = CockpitOrchestrator()
     agents = orchestrator._discover_agents(str(parent_dir))
     
     assert any(str(mock_agent_dir) in a for a in agents)
@@ -21,13 +21,13 @@ async def test_discover_agents(mock_agent_dir):
 @pytest.mark.asyncio
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_sovereign_pipeline_single(mock_migration, mock_audit, mock_agent_dir, monkeypatch):
-    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
+async def test_cockpit_pipeline_single(mock_migration, mock_audit, mock_agent_dir, monkeypatch):
+    monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
     mock_engine.auto_register_to_gemini.return_value = "http://mock-url"
     
-    orchestrator = SovereignOrchestrator(target_cloud="google")
+    orchestrator = CockpitOrchestrator(target_cloud="google")
     results = await orchestrator.run_pipeline(str(mock_agent_dir), fleet=False)
     
     assert len(results) == 1
@@ -37,8 +37,8 @@ async def test_sovereign_pipeline_single(mock_migration, mock_audit, mock_agent_
 @pytest.mark.asyncio
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_sovereign_pipeline_fleet(mock_migration, mock_audit, tmp_path, monkeypatch):
-    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
+async def test_cockpit_pipeline_fleet(mock_migration, mock_audit, tmp_path, monkeypatch):
+    monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
     mock_engine.auto_register_to_gemini.return_value = "http://mock-url"
@@ -50,7 +50,7 @@ async def test_sovereign_pipeline_fleet(mock_migration, mock_audit, tmp_path, mo
         (agent_dir / "agent.py").write_text(f"# Agent {i} code")
         (agent_dir / "pyproject.toml").write_text(f"[project]\nname = 'agent-{i}'")
     
-    orchestrator = SovereignOrchestrator(target_cloud="google")
+    orchestrator = CockpitOrchestrator(target_cloud="google")
     results = await orchestrator.run_pipeline(str(tmp_path), fleet=True)
     
     assert len(results) >= 3
@@ -60,10 +60,10 @@ async def test_sovereign_pipeline_fleet(mock_migration, mock_audit, tmp_path, mo
 
 @pytest.mark.asyncio
 async def test_deploy_to_cloud_logic():
-    orchestrator = SovereignOrchestrator(target_cloud="aws")
+    orchestrator = CockpitOrchestrator(target_cloud="aws")
     url = await orchestrator._deploy_to_cloud("/mock/path/my_agent")
     assert "aws-apprunner.com" in url
     
-    orchestrator = SovereignOrchestrator(target_cloud="azure")
+    orchestrator = CockpitOrchestrator(target_cloud="azure")
     url = await orchestrator._deploy_to_cloud("/mock/path/my_agent")
     assert "azurecontainerapps.io" in url

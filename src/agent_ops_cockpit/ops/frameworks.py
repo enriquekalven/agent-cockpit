@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.0 Sovereign Evolution: Optimized for Multi-Cloud Fleet Governance
+# v2.0.0 Cockpit Evolution: Optimized for Multi-Cloud Fleet Governance
 import os
 import re
 

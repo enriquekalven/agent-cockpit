@@ -156,7 +156,7 @@
     },
     {
       "id": "MP-021",
-      "category": "UX_SOVEREIGNTY",
+      "category": "UX_cockpitTY",
       "title": "Explainable Reasoning (HAX Guideline 11)",
       "indicators": [
         "thought",
@@ -199,7 +199,7 @@
     },
     {
       "id": "MP-024",
-      "category": "UX_SOVEREIGNTY",
+      "category": "UX_cockpitTY",
       "title": "Mental Model Discovery (HAX Guideline 01)",
       "indicators": [
         "help",
@@ -276,7 +276,7 @@
         "long_context",
         "chunk_strategy"
       ],
-      "recommendation": "Sovereign Standard Feb 2026: Use Gemini 3 Pro's 10M+ context for full-document 'SME ingestion' (RAE). Reasoning: Multi-agent debate on SWE-bench proves chunking-based RAG fails on 'Global Systematic Design'.",
+      "recommendation": "cockpit Standard Feb 2026: Use Gemini 3 Pro's 10M+ context for full-document 'SME ingestion' (RAE). Reasoning: Multi-agent debate on SWE-bench proves chunking-based RAG fails on 'Global Systematic Design'.",
       "rationale": "Legacy chunking destroys reasoning cohesion. Gemini 3's context moat enables zero-latency retrieval by holding the entire codebase in active memory.",
       "impact": "HIGH",
       "source": "Google DeepMind / SWE-bench 2026"
@@ -326,12 +326,12 @@
     {
       "id": "MP-031",
       "category": "ARCHITECTURE",
-      "title": "Sovereign Certification (Production Readiness)",
+      "title": "cockpit Certification (Production Readiness)",
       "indicators": [
         "certify",
         "production_ready"
       ],
-      "recommendation": "Adopt the 'agentops-cockpit certify' operational standard. This ensures that every agent project passes the \ud83c\udfc5 Sovereign Badge pre-flight, security, and regression gates before deployment.",
+      "recommendation": "Adopt the 'agentops-cockpit certify' operational standard. This ensures that every agent project passes the \ud83c\udfc5 cockpit Badge pre-flight, security, and regression gates before deployment.",
       "rationale": "Ad-hoc certification processes lead to 'Production Drift'. Standardized badges provide a uniform quality gate across the entire fleet.",
       "impact": "CRITICAL",
       "source": "AgentOps Cockpit v2.0.0"
@@ -370,7 +370,7 @@
     {
       "id": "MP-034",
       "category": "SCALABILITY",
-      "title": "Context Drowning Mitigation (Sovereign Cache)",
+      "title": "Context Drowning Mitigation (cockpit Cache)",
       "indicators": [
         "massive_context",
         "long_context",
@@ -380,7 +380,7 @@
       "recommendation": "Detected high context volume without explicit caching. Implementation: 1) Google Cloud: Use 'Content Caching' for Gemini to reduce TTFT and costs for repeated long prompts. 2) Local: Implement a sliding window or 'Semantic Summarizer' for long-running sessions.",
       "rationale": "Long-lived agent sessions eventually drown in their own context, leading to increased latency and decreased reasoning quality.",
       "impact": "HIGH",
-      "source": "Sovereign Engineering Standard v1.8.5"
+      "source": "cockpit Engineering Standard v1.8.5"
     },
     {
       "id": "MP-035",
@@ -396,7 +396,7 @@
       "recommendation": "Critical actions detected in tool definitions without Human-In-The-Loop (HITL) gates. v1.8.5 standard requires 'require_confirmation=True' for all destructive or financial tools.",
       "rationale": "Autonomous agents must not have permission to modify state without external validation for high-impact operations.",
       "impact": "CRITICAL",
-      "source": "OWASP LLM06 / Sovereign Security SME"
+      "source": "OWASP LLM06 / cockpit Security SME"
     },
     {
       "id": "MP-036",

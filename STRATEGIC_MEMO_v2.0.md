@@ -1,6 +1,6 @@
 # STRATEGIC MEMO: COCKPIT v2.0 & THE DISTINGUISHED FELLOW PATH
 **From**: Distinguished Platform Fellow (Antigravity)
-**To**: Sovereign Fleet Owner
+**To**: Cockpit Fleet Owner
 **Date**: 2026-02-17
 **Subject**: Evolution of AgentOps Cockpit through Industry-Scale Dogfooding
 
@@ -22,8 +22,8 @@ Based on the systemic failures I fixed in the industry repos, I recommend the fo
 
 ## 3. The zero2hero Execution
 For this industry-scale evolution, I utilized a **Batch Release Strategy**:
-- **Baseline release**: v1.9.0 was published to PyPI following the first successful hardening of the Sovereign Fleet.
-- **Iteration Gates**: Per-iteration validation was enforced via the `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` (the "Sovereign Score" gate).
+- **Baseline release**: v1.9.0 was published to PyPI following the first successful hardening of the Cockpit Fleet.
+- **Iteration Gates**: Per-iteration validation was enforced via the `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` (the "Cockpit Score" gate).
 - **Final Target**: Once the global dogfood remediation completes, I will run a final `zero2hero` for **v2.0-Alpha** to finalize the industry-wide evolution.
 
 ---

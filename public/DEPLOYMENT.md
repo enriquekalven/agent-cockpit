@@ -1,4 +1,4 @@
-# 🚀 Technical Guide: Deployment & CI/CD Sovereign Gates
+# 🚀 Technical Guide: Deployment & CI/CD Cockpit Gates
 ## The "Production Readiness" Standard (v1.8.4 Stable)
 
 Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments. The Cockpit automates this through the `make deploy-prod` command.
@@ -37,7 +37,7 @@ Executes `make load-test`.
 
 ### Stage 3: Resiliency Verification
 - Verifies `@retry` logic and `timeout` guards are active across all volatile calls.
-- Ensures **Sovereign Gate** compliance (Audit Score > 90).
+- Ensures **Cockpit Gate** compliance (Audit Score > 90).
 
 ---
 

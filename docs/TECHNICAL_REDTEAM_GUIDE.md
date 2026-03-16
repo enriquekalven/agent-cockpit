@@ -1,7 +1,7 @@
 # 🛡️ Technical Guide: Adversarial SRE (Red Teaming)
-## The "Sovereign Security" Standard (v2.0.2 Evolution)
+## The "Cockpit Security" Standard (v2.0.7 Premium Insights Evolution)
 
-The `ops report --mode deep` and `cockpit audit security` commands activate the **SecOps Principal SME**. In v2.0.2, this persona has evolved into a comprehensive **Adversarial SRE**, focusing on **Reasoning Integrity**, **Sovereign PII Scrubbing**, and systemic safety.
+The `ops report --mode deep` and `cockpit audit security` commands activate the **SecOps Principal SME**. In v2.0.7 Premium Insights, this persona has evolved into a comprehensive **Adversarial SRE**, focusing on **Reasoning Integrity**, **Cockpit PII Scrubbing**, and systemic safety.
 
 ---
 
@@ -11,14 +11,14 @@ The `ops report --mode deep` and `cockpit audit security` commands activate the 
 | :--- | :--- | :--- | :--- |
 | **Mission Control** | `cockpit` | Fleet-wide security posture. | Master Mission Control. |
 | **Adversarial Prob** | `ops report` | Scans for vulnerabilities. | **SecOps SME Reasoning**. |
-| **Sovereign Gateway**| (Sidecar) | Real-time PII Scrubbing. | **The Guardian Gateway**. |
-| **Certify Project** | `cockpit certify` | Production Eligibility. | Sovereign Goal Alignment. |
+| **Cockpit Gateway**| (Sidecar) | Real-time PII Scrubbing. | **The Guardian Gateway**. |
+| **Certify Project** | `cockpit certify` | Production Eligibility. | Cockpit Goal Alignment. |
 
 ---
 
-## 📡 Adversarial Attack Vectors v2.0.2
+## 📡 Adversarial Attack Vectors v2.0.7 Premium Insights
 
-### 🔐 0. Sovereign Hygiene
+### 🔐 0. Cockpit Hygiene
 *   **Vector**: Detecting hardcoded API keys, unprotected `.env` files, or exposed service account JSONs.
 *   **Audit Logic**: The Security SME performs a multi-layered AST sweep to prevent **Credential Elevation**. It identifies logic flows where secrets might be leaked into logs or UI telemetry.
 
@@ -26,9 +26,9 @@ The `ops report --mode deep` and `cockpit audit security` commands activate the 
 *   **Vector**: Testing if the agent can be "gaslit" into ignoring its **Governing Board** policies via multi-step logic bypass.
 *   **Safety Thresholds**: Verifies presence of **Declarative Safety** thresholds across multiple LLM providers (Google, AWS, Azure).
 
-### 🧬 2. PII Osmosis (The Sovereign Gap)
+### 🧬 2. PII Osmosis (The Cockpit Gap)
 *   **The Risk**: Detecting if an agent retrieves sensitive PII from a database and reflects it into a non-secure UI surface without scrubbing.
-*   **Mitigation**: The Red Team verifies the presence of the **Sovereign Gateway** (The Guardian) sidecar for all outbound traffic.
+*   **Mitigation**: The Red Team verifies the presence of the **Cockpit Gateway** (The Guardian) sidecar for all outbound traffic.
 
 ### 🎭 3. Tool-Aware Hijacking
 *   **Vector**: If the agent has high-value tools (e.g. `withdraw_funds`), the Red Team specifically crafts injection payloads to trigger these tools with unauthorized parameters.
@@ -40,14 +40,14 @@ The `ops report --mode deep` and `cockpit audit security` commands activate the 
 
 ---
 
-## 🏗️ The Sovereignty Horizontal
+## 🏗️ The Cockpitty Horizontal
 Security is no longer a "plugin"; it is a mandatory horizontal layer that secures the Engine, Face, and Cockpit.
 
 ```mermaid
 graph TD
     User[User Input] -->|Unsanitized| Brain[Agent Brain]
     Brain -->|Tool Call| Tools[MCP Tools]
-    Tools -->|Context| Gate{Sovereign Gateway}
+    Tools -->|Context| Gate{Cockpit Gateway}
     Gate -->|Scrubbed| Exec[Safe Execution]
     Gate -->|Blocked| Alert[SME Alert]
     style Gate fill:#0ea5e9,color:#fff
@@ -56,9 +56,9 @@ graph TD
 
 ---
 
-## 📊 Comparison: Standard Security vs. Sovereign SRE
+## 📊 Comparison: Standard Security vs. Cockpit SRE
 
-| Vector | Legacy Bot Audit | v2.0.2 Sovereign Red Team |
+| Vector | Legacy Bot Audit | v2.0.7 Premium Insights Cockpit Red Team |
 | :--- | :--- | :--- |
 | **PII Data** | Post-facto hashing. | **Real-time Gateway Scrubbing.** |
 | **Injection** | Simple keyword lists. | **Reasoning Integrity SMEs.** |
@@ -66,12 +66,12 @@ graph TD
 
 ---
 
-## 🚀 Principal Defense: v2.0.2 Best Practices
+## 🚀 Principal Defense: v2.0.7 Premium Insights Best Practices
 
 If your agent fails the Red Team audit, the SecOps SME recommends:
-*   **Sovereign Bridge Hardening**: Move all provider-specific safety logic into the **Sovereign Bridge** for unified enforcement.
-*   **Gateway Injection**: Link the agent to the **Sovereign Gateway** to ensure all tool-outputs are PII-scrubbed before transit.
+*   **Cockpit Bridge Hardening**: Move all provider-specific safety logic into the **Cockpit Bridge** for unified enforcement.
+*   **Gateway Injection**: Link the agent to the **Cockpit Gateway** to ensure all tool-outputs are PII-scrubbed before transit.
 *   **Mandatory Confirmation**: For high-value tool signatures, implement the **HITL (Human-in-the-Loop)** pattern using A2UI confirmation surfaces.
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator. Sovereign Security Division (v2.0.2).*
+*Generated by the AgentOps Cockpit Orchestrator. Cockpit Security Division (v2.0.7 Premium Insights).*

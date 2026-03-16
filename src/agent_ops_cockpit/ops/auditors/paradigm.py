@@ -67,7 +67,7 @@ class ParadigmAuditor(BaseAuditor):
                     category="🏗️ Strategy",
                     title="Unsecured MCP Bridge: Missing Peer Auth",
                     description="""Detected MCP connection logic without visible authentication or credential handling.
-[bold red]Sovereignty Risk:[/bold red] Unauthenticated tool bridges are vulnerable to lateral movement.
+[bold red]cockpitty Risk:[/bold red] Unauthenticated tool bridges are vulnerable to lateral movement.
 [bold green]RECOMMENDATION:[/bold green] Implement **OIDC/OAuth Interceptors** for all MCP tool discovery.""",
                     impact="HIGH (Security)",
                     roi="Shields the agent fleet from unauthorized tool access.",
@@ -179,7 +179,7 @@ class ParadigmAuditor(BaseAuditor):
 [bold red]Governance GAP:[/bold red] Agents must not have autonomous write access to critical assets.
 [bold green]RECOMMENDATION:[/bold green] Implement **HITL Approval Nodes** (e.g., A2UI).""",
                 impact="CRITICAL (Safety)",
-                roi="Protects enterprise sovereignty and prevents accidents.",
+                roi="Protects enterprise cockpitty and prevents accidents.",
                 file_path=file_path
             ))
 
@@ -305,7 +305,7 @@ class ParadigmAuditor(BaseAuditor):
                 title="Hardcoded Logic Gate: Brittle Governance",
                 description="""Detected high-stakes logic (Delete/Payment) gated by deep manual `if` branches.
 [bold red]Strategic Risk:[/bold red] Manual gates are prone to edge-case bypasses and lack audit trails.
-[bold green]RECOMMENDATION:[/bold green] Migrate critical decision gates to the **Sovereign Policy Engine**.""",
+[bold green]RECOMMENDATION:[/bold green] Migrate critical decision gates to the **cockpit Policy Engine**.""",
                 impact="HIGH (Safety)",
                 roi="Ensures consistent enforcement and full auditability of high-stake decisions.",
                 file_path=file_path

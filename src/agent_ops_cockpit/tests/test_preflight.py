@@ -30,5 +30,5 @@ def test_preflight_env_check(tmp_path):
 def test_preflight_run_all(monkeypatch):
     engine = PreflightEngine()
     # Mock simulation mode for environmental independence
-    monkeypatch.setenv("SOVEREIGN_SIMULATION", "true")
+    monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     assert engine.run_all() is True

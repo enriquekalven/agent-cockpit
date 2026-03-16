@@ -1,6 +1,6 @@
 {
   "tool_id": "gcp-load_test",
-  "description": "Sovereign agent migrated from legacy stack.",
+  "description": "cockpit agent migrated from legacy stack.",
   "endpoint": "https://{{SERVICE_URL}}/query",
   "auth": "GCP_IAM",
   "provider": "Gemini Enterprise"

@@ -1,7 +1,7 @@
 """
-Pillar: Sovereign Security
+Pillar: cockpit Security
 SME Persona: Distinguished SecOps Fellow
-Objective: Reasoning-based security auditing focusing on 'Architectural Sovereignty' and 'Risk Blinds'.
+Objective: Reasoning-based security auditing focusing on 'Architectural cockpitty' and 'Risk Blinds'.
 """
 import ast
 import re
@@ -14,7 +14,7 @@ from .base import AuditFinding, BaseAuditor
 
 class SecurityAuditor(BaseAuditor):
     """
-    Sovereign Security Auditor: Evaluates the system for architectural security failures.
+    cockpit Security Auditor: Evaluates the system for architectural security failures.
     Aligned with OWASP Agentic Top 10 (ASI) Taxonomy.
     """
     
@@ -29,9 +29,9 @@ class SecurityAuditor(BaseAuditor):
             
         content_lower = content.lower()
 
-        # --- Tier 1: Sovereignty & Control (ASI-02: Broken Tool Auth) ---
+        # --- Tier 1: cockpitty & Control (ASI-02: Broken Tool Auth) ---
         
-        # 1. Ungated Production Access (The Sovereignty Gap)
+        # 1. Ungated Production Access (The cockpitty Gap)
         sensitive_ops = ['delete', 'drop', 'execute_payment', 'transfer', 'terminate', 'provision', 'wipe_disk']
         if any(op in content_lower for op in sensitive_ops):
             is_gated = self.semantic_verify(
@@ -40,7 +40,7 @@ class SecurityAuditor(BaseAuditor):
             )
             
             if not is_gated:
-                title = "ASI-02: Sovereign Gap (Ungated Tool Access)"
+                title = "ASI-02: Cockpit Gap (Ungated Tool Access)"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
                         category="🛡️ SecOps",
@@ -81,7 +81,7 @@ class SecurityAuditor(BaseAuditor):
                     title=title,
                     description="""CRM/DB interaction detected without PII scrubbing logic.
 [bold red]ASI-05 Risk:[/bold red] Unauthorized disclosure of sensitive customer data to LLM providers.
-[bold green]RECOMMENDATION:[/bold green] Integrate the **Sovereign PII Scrubber** into the request pipeline.""",
+[bold green]RECOMMENDATION:[/bold green] Integrate the **Cockpit PII Scrubber** into the request pipeline.""",
                     impact="HIGH",
                     roi="Closes GDPR/SOC2 compliance gaps.",
                     file_path=file_path
@@ -149,7 +149,7 @@ class SecurityAuditor(BaseAuditor):
 [bold yellow]ASI-10 Risk:[/bold yellow] Insecure retrieval-augmented generation (RAG) through poisoned data.
 [bold green]RECOMMENDATION:[/bold green] Implement a **Vector Guardian** to validate document fidelity.""",
                     impact="MEDIUM",
-                    roi="Maintains the 'Sovereign Truth' of the agent's knowledge.",
+                    roi="Maintains the 'cockpit Truth' of the agent's knowledge.",
                     file_path=file_path
                 ))
 
@@ -216,7 +216,7 @@ class SecurityAuditor(BaseAuditor):
                                 context_start = max(0, node.lineno - 10)
                                 recent_lines = content.splitlines()[context_start:node.lineno]
                                 if not any('sanitize' in line.lower() or 'validate' in line.lower() for line in recent_lines):
-                                    title = "Sovereign Taint Flow: Unsanitized Data to Sink"
+                                    title = "cockpit Taint Flow: Unsanitized Data to Sink"
                                     if not self._is_ignored(node.lineno, content, title):
                                         findings.append(AuditFinding(
                                             category="🛡️ SecOps",

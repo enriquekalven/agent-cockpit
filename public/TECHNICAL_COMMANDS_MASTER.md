@@ -28,7 +28,7 @@ These commands trigger cross-functional audits and generate high-fidelity execut
 ---
 
 ## 🏛️ Architecture & Evolution (The Architect)
-Commands focusing on systemic integrity, autonomous remediation, and long-term sovereignty.
+Commands focusing on systemic integrity, autonomous remediation, and long-term cockpitty.
 
 | Command | Objective | Impact |
 | :--- | :--- | :--- |
@@ -39,7 +39,7 @@ Commands focusing on systemic integrity, autonomous remediation, and long-term s
 | `agent-ops shadow` | **Reasoning Differential** | (10X) Compare V1 vs V2 for reasoning drift and cost delta. |
 | `make propose-fixes`| **PR Factory** | Creates a feature branch and commits autonomous remediations. |
 | `make arch-benchmark`| **Reliability Test** | Runs 50+ iterations to find the mean failure rate of agentic logic. |
-| `make migrate` | **Sovereign Migration**| (10X) Move agents to Google Cloud, AWS, or Azure with auto-hydration. |
+| `make migrate` | **Cockpit Migration**| (10X) Move agents to Google Cloud, AWS, or Azure with auto-hydration. |
 | `make register`| **Gemini Onboarding** | Auto-register the fleet to Gemini Enterprise (Vertex AI Extensions). |
 
 ---

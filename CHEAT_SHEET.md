@@ -1,4 +1,4 @@
-# 🕹️ AgentOps Cockpit: Sovereign Cheat Sheet (v2.0.2)
+# 🕹️ AgentOps Cockpit: Cockpit Cheat Sheet (v2.0.7 Premium Insights)
 *The Industry Standard Logic Layer for Production AI Agents*
 
 ---
@@ -16,7 +16,7 @@ Whether you want a long-term install or a quick one-off run.
 
 ---
 
-## 🏛️ 2. The Sovereign Workflow
+## 🏛️ 2. The Cockpit Workflow
 Follow this path to take an agent from prototype to enterprise-grade.
 
 | Sequence | uvx / CLI Command | make Shortcut | Purpose |
@@ -26,7 +26,7 @@ Follow this path to take an agent from prototype to enterprise-grade.
 | **3. Certify** | `cockpit certify` | `make certify` | Production Readiness Certification. |
 | **4. Audit** | `ops report` | `make audit` | Deep Persona SME scan: Sec, ROI, & Arch. |
 | **5. Fix** | `cockpit fix evolve` | `make apply-fixes` | Autonomous remediation & code hardening. |
-| **6. Deploy** | `cockpit deploy sovereign`| `make deploy-prod`| End-to-End: Audit -> Fix -> Deploy. |
+| **6. Deploy** | `cockpit deploy cockpit`| `make deploy-prod`| End-to-End: Audit -> Fix -> Deploy. |
 | **7. Monitor**| `cockpit fleet status` | `make fleet-status` | View global production state. |
 
 ---
@@ -38,7 +38,7 @@ Shortcuts for local development and testing.
 - **`make playground`**: 🎡 Starts the interactive agent sandbox.
 - **`make test`**: 🧪 Runs unit and integration tests.
 - **`make eval`**: 🧗 Launches ADK-based quality evaluations.
-- **`make upgrade`**: 🚀 Syncs all packages to latest stable sovereign versions.
+- **`make upgrade`**: 🚀 Syncs all packages to latest stable cockpit versions.
 
 ---
 
@@ -76,7 +76,7 @@ Manage your agents once they are live in the wild.
 
 ---
 
-## 🌑 Pro-Tip: Sovereignty (Privacy)
+## 🌑 Pro-Tip: Cockpitty (Privacy)
 Disable anonymous telemetry for air-gapped or high-security environments:
 `export AGENTOPS_TELEMETRY_ENABLED=false`
 

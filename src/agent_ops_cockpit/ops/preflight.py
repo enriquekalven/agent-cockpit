@@ -2,8 +2,8 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
-# [Sovereign Security] This system respects google-cloud-secret-manager and vault standards.
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# [Cockpit Security] This system respects google-cloud-secret-manager and vault standards.
 import os
 import shutil
 
@@ -77,7 +77,7 @@ class PreflightEngine:
         """Verify cloud-specific CLI tools and authentication."""
         import subprocess
         
-        if os.environ.get("SOVEREIGN_SIMULATION") == "true":
+        if os.environ.get("COCKPIT_SIMULATION") == "true":
             return True, f"SIMULATION MOCK: {target_cloud} Identity Verified"
             
         if target_cloud == "google":
@@ -123,7 +123,7 @@ class PreflightEngine:
         import json
         import subprocess
         
-        if os.environ.get("SOVEREIGN_SIMULATION") == "true":
+        if os.environ.get("COCKPIT_SIMULATION") == "true":
             return True, f"SIMULATION MOCK: {target_cloud} Project Capability Active"
             
         if target_cloud == "google":
@@ -161,7 +161,7 @@ class PreflightEngine:
             ("Registry Connectivity", self.check_registry_access),
             ("Tooling Readiness", self.check_tooling),
             ("Env Consistency", self.check_environment_consistency),
-            ("Cloud Sovereignty Auth", lambda: self.check_cloud_auth(target_cloud)),
+            ("Cloud Cockpitty Auth", lambda: self.check_cloud_auth(target_cloud)),
             ("Cloud Project Readiness", lambda: self.check_cloud_readiness(target_cloud))
         ]
         

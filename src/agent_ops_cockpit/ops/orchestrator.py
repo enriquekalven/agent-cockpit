@@ -7,7 +7,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.2 Sovereign Alignment: Optimized for Google Cloud Run
+# v2.0.2 Cockpit Alignment: Optimized for Google Cloud Run
 import hashlib
 import json
 import os
@@ -178,12 +178,12 @@ class CockpitOrchestrator:
     PILLAR_MAP = {
         'Architecture Review': '️ Architectural Strategy',
         'Policy Enforcement': '🏗️ Architectural Strategy',
-        'Secret Scanner': '🔐 Security & Sovereignty',
+        'Secret Scanner': '🔐 Security & Cockpitty',
         'Token Optimization': '🏗️ Architectural Strategy',
         'Reliability (Quick)': '🛡️ Reliability & Performance',
         'Quality Hill Climbing': '🛡️ Reliability & Performance',
-        'Red Team Security (Full)': ' Security & Sovereignty',
-        'Red Team (Fast)': ' Security & Sovereignty',
+        'Red Team Security (Full)': ' Security & Cockpitty',
+        'Red Team (Fast)': ' Security & Cockpitty',
         'Load Test (Baseline)': '️ Reliability & Performance',
         'Evidence Packing Audit': '🏗️ Architectural Strategy',
         'Face Auditor': '️ Architectural Strategy',
@@ -206,83 +206,33 @@ class CockpitOrchestrator:
         'Reliability (Quick)': '🔧 Code Polish', 
         'Architecture Review': '🏗️ Structural Logic', 
         'Face Auditor': '🔧 Protocol Sync', 
-        'Red Team (Fast)': '🏗️ Security Hardening', 
+        'Red Team (Fast)': '🏗️ Security Hardening',
         'RAG Fidelity Audit': '🔧 Logic Refactoring'
     }
 
-    def generate_executive_summary(self, developer_actions, as_html=False):
-        """v2.0.2 Master Architect Synthesis: Generates a prioritized stack-rank of finding categories."""
-        if not developer_actions:
-            msg = '✅ **SME Verdict**: All governance gates APPROVED. No critical architectural mismatches detected.'
-            return f"<p style='color:#16a34a; font-weight:600;'>{msg.replace('**', '')}</p>" if as_html else [msg]
+    def generate_executive_summary(self, actions: List[str], as_html: bool=False) -> List[str]:
+        """v2.0.2 Executive Personality: Professional, High-Stakes Audit Persona."""
+        if not actions:
+            summary = ["The system audit indicates that all core pillars are currently aligned with the Agentic Trinity Framework. No immediate architectural drift or security regressions were detected."]
+            return summary if not as_html else "<p>" + " ".join(summary) + "</p>"
         
-        # Triage Grouping: Blockers, Warnings, Optimizations
-        groups = {"BLOCKER": {}, "WARNING": {}, "OPTIMIZATION": {}}
-
-        def triage_key(action):
-            p = action.lower()
-            if any(x in p for x in ['leak', 'secret', 'credential', 'security', 'critical', 'breach']):
-                return "BLOCKER"
-            if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency', 'warning', 'conflict', 'mismatch', 'zombie', 'timeout']):
-                return "WARNING"
-            return "OPTIMIZATION"
-
-        for action in developer_actions:
-            key = triage_key(action)
-            parts = action.split(' | ')
-            if len(parts) >= 2:
-                title = parts[1]
-                if title not in groups[key]:
-                    groups[key][title] = []
-                groups[key][title].append(parts[0])
-
-        if as_html:
-            summary = ["<div class='executive-summary-content'>"]
-            health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-            
-            # Master Architect Verdict
-            verdict = "MASTER ARCHITECT" if health_score >= 95 else "SENIOR AUDITOR" if health_score >= 75 else "JUNIOR REVIEWER"
-            summary.append("<div style='margin-bottom: 25px; padding: 20px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce3ff;'>")
-            summary.append(f"<h3 style='margin-top:0; color:#1e40af;'>🧠 Master Architect Verdict: {verdict}</h3>")
-            summary.append(f"<p style='margin:0; color:#1e3a8a;'>Fleet Compliance: <strong>{health_score:.1f}%</strong> | Mode: <strong>Semantic Intent Analysis</strong></p>")
-            summary.append('</div>')
-
-            headers = {
-                "BLOCKER": ('#ef4444', '🚨 Blockers (Immediate Risk)'),
-                "WARNING": ('#f59e0b', '⚠️ Warnings (Operational Debt)'),
-                "OPTIMIZATION": ('#3b82f6', '💡 Optimizations (Best Practices)')
-            }
-            
-            for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
-                if groups[key]:
-                    color, label = headers[key]
-                    summary.append(f"<div style='margin-bottom:20px; padding:15px; border-radius:12px; background:white; border-left:5px solid {color}; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);'>")
-                    summary.append(f"<h4 style='margin:0 0 10px 0; color:{color}; font-size:0.8rem; text-transform:uppercase;'>{label}</h4>")
-                    
-                    for title, files in groups[key].items():
-                        count_suffix = f" ({len(files)} files)" if len(files) > 1 else ""
-                        summary.append(f"<div style='font-size:0.95rem; margin-bottom:4px;'><strong>{title}</strong>{count_suffix}</div>")
-                    summary.append('</div>')
-            summary.append('</div>')
-            return '\n'.join(summary)
+        # Professional summary based on action density
+        p1_issues = sum(1 for a in actions if any(x in a.lower() for x in ['secret', 'security', 'leak']))
+        p2_issues = sum(1 for a in actions if any(x in a.lower() for x in ['reliability', 'unit test']))
+        
+        summary = []
+        if p1_issues > 0:
+            summary.append(f"CRITICAL: The audit has identified {p1_issues} high-impact security or compliance vulnerabilities that require immediate attention prior to production deployment.")
+        elif p2_issues > 0:
+            summary.append(f"WARNING: The system exhibits significant reliability drift ({p2_issues} P2 findings). While functioning, the agent is at risk of runtime instability in edge-case scenarios.")
         else:
-            health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-            summary = [f'## 🏛️ Master Architect Executive Summary (Health: {health_score:.1f}%)']
-            summary.append('Findings are semantically grouped to prevent notification fatigue.')
+            summary.append("MODERATE: The audit has identified minor strategic deviations. Remediation is recommended to align with high-fidelity performance benchmarks.")
             
-            headers = {
-            "BLOCKER": ('#ef4444', '🚨 Blockers (SOC2 CC6.1 - Access Control)'),
-            "WARNING": ('#f59e0b', '⚠️ Warnings (SOC2 CC7.1 - System Monitoring)'),
-            "OPTIMIZATION": ('#3b82f6', '💡 Optimizations (FinOps & Sustainability)')
-        }
-            
-            for key in ["BLOCKER", "WARNING", "OPTIMIZATION"]:
-                if groups[key]:
-                    summary.append(f'\n{headers[key]}')
-                    for title, files in groups[key].items():
-                        count_suffix = f" ({len(files)} occurrences)" if len(files) > 1 else ""
-                        summary.append(f"- **{title}**{count_suffix}")
-            return summary
+        summary.append(f"Total findings: {len(actions)}. Recommended path: Execute Phase 1 hardening and re-verify.")
+        
+        if as_html:
+            return f"<p style='margin:0;'>{' '.join(summary)}</p>"
+        return summary
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def print_terminal_v13_summary(self, developer_actions):
@@ -344,7 +294,37 @@ class CockpitOrchestrator:
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def generate_report(self):
         title = getattr(self, 'title', 'Audit Report')
-        report = [f'# 🏁 AgentOps Cockpit: {title}', f'**Timestamp**: {self.timestamp}', f"**Status**: {('✅ PASS' if all((r['success'] for r in self.results.values())) else '❌ FAIL')}", '\n---']
+        status_text = "PASSED" if all(r['success'] for r in self.results.values()) else "FAILED"
+        status_icon = "✅" if all(r['success'] for r in self.results.values()) else "❌"
+        
+        report = [
+            f"# AgentOps Cockpit | {title}",
+            f"> **System Audit Report** | Generated: {self.timestamp} | Status: {status_icon} {status_text}",
+            "\n---",
+            "\n## 📊 Executive Dashboard",
+            "| Metric | Current Status | Trend |",
+            "| :--- | :--- | :--- |"
+        ]
+        
+        # Calculate health and delta
+        target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
+        prev_health = 0
+        if os.path.exists(self.lake_path):
+            try:
+                with open(self.lake_path, 'r') as f:
+                    lake_data = json.load(f)
+                    historical = lake_data.get(target_abs, {}).get('summary', {})
+                    prev_health = historical.get('health', 0) * 100
+            except Exception: pass
+            
+        health_score = sum(1 for r in self.results.values() if r['success']) / len(self.results) * 100 if self.results else 0
+        delta = health_score - prev_health
+        trend_icon = "📈" if delta > 0 else "📉" if delta < 0 else "➡️"
+        
+        report.append(f"| **Overall Health Score** | {health_score:.1f}% | {trend_icon} {delta:+.1f}% |")
+        report.append(f"| **Governance Gates** | {sum(1 for r in self.results.values() if r['success'])} / {len(self.results)} | - |")
+        report.append(f"| **Critical Anomalies** | {sum(1 for r in self.results.values() if not r['success'] and 'Security' in r.get('output', ''))} | - |")
+        
         developer_actions = []
         developer_sources = []
         for _name, data in self.results.items():
@@ -354,105 +334,83 @@ class CockpitOrchestrator:
                         developer_actions.append(line.replace('ACTION:', '').strip())
                     if 'SOURCE:' in line:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
+        
+        report.append("\n### 🧠 Master Architect Verdict")
         report.extend(self.generate_executive_summary(developer_actions))
-        report.append('\n---')
-        report.append('\n## ️ Audit Pillar Approvals')
-        report.append('Each pillar of your agent has been reviewed by specialized auditors.')
-        persona_table = Table(title='🏛️ Pillar Approval Matrix', show_header=True, header_style='bold blue')
-        persona_table.add_column('Audit Pillar', style='cyan')
-        persona_table.add_column('Audit Module', style='magenta')
-        persona_table.add_column('Verdict', style='bold')
-        persona_table.add_column('Remediation', style='dim')
+        
+        # Check threshold
+        threshold = getattr(self, 'threshold', 80)
+        # Improvement: Load threshold from cockpit.yaml if present in target_path
+        configs_path = os.path.join(getattr(self, 'target_path', '.'), 'cockpit.yaml')
+        if os.path.exists(configs_path):
+            try:
+                with open(configs_path, 'r') as f:
+                    cfg = yaml.safe_load(f)
+                    if cfg and 'threshold' in cfg:
+                        threshold = cfg['threshold']
+            except Exception: pass
+
+        if health_score < threshold:
+            report.append("\n> [!CAUTION]")
+            report.append("> **CRITICAL: Cockpit Compliance Failure**")
+            report.append(f"> The current audit health score ({health_score:.1f}%) is below your configured threshold ({threshold}%).")
+            report.append("> This codebase contains architectural or security vulnerabilities that require immediate attention.")
+        
+        report.append("\n---")
+        report.append("\n## 🏛️ Pillar Approval Matrix")
+        report.append("| Pillar | Module | Status | Priority |")
+        report.append("| :--- | :--- | :--- | :--- |")
+        
         for name, data in self.results.items():
             status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
             pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
-            effort = self.EFFORT_MAP.get(name, 'Manual')
-            persona_table.add_row(pillar, name, status, effort)
-            effort_str = f' [Remediation: {effort}]' if not data['success'] else ''
-            report.append(f'- **{pillar}** ([{name}]): {status}{effort_str}')
+            prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
+            report.append(f"| {pillar} | {name} | {status} | {prio} |")
+            
         if developer_actions:
-            report.append('\n## 🚀 Step-by-Step Implementation Guide')
-            report.append('To transition this agent to production-hardened status, follow these prioritized phases:')
-
+            report.append("\n## 🏗️ Tactical Implementation Plan")
+            report.append("Follow this prioritized roadmap to reach production-readiness.")
+            
             def priority_key(action):
                 p = action.lower()
-                if any(x in p for x in ['leak', 'secret', 'credential', 'security']):
-                    return 0
-                if any(x in p for x in ['reliability', 'unit test', 'failure', 'resiliency']):
-                    return 1
+                if any(x in p for x in ['leak', 'secret', 'security']): return 0
+                if any(x in p for x in ['reliability', 'unit test']): return 1
                 return 2
             
             sorted_actions = sorted(developer_actions, key=priority_key)
-            developer_actions[:] = sorted_actions
             current_phase = -1
-            phases = ['🛡️ Phase 1: Security Hardening', '🛡️ Phase 2: Reliability Recovery', '🏗️ Phase 3: Strategic Alignment']
+            phases = ['🛡️ Phase 1: Security & Compliance', '🏗️ Phase 2: Reliability & Resilience', '🎯 Phase 3: Performance & Strategic Growth']
+            
             for action in sorted_actions:
                 phase = priority_key(action)
                 if phase != current_phase:
                     current_phase = phase
-                    if phase < len(phases):
-                        report.append(f'\n### {phases[phase]}')
+                    report.append(f"\n### {phases[phase]}")
+                
                 parts = action.split(' | ')
                 if len(parts) == 3:
-                    report.append(f'1. **{parts[1]}**')
-                    report.append(f'   - 📍 Location: `{parts[0].strip()}`')
-                    report.append(f'   - ✨ Recommended Fix: {parts[2].strip()}')
+                    report.append(f"1. **{parts[1]}**")
+                    report.append(f"   - 📍 Location: `{parts[0].strip()}`")
+                    report.append(f"   - ✨ Strategy: {parts[2].strip()}")
                     
-                    # Master Architect: Visual Code Diffs
-                    report.append('   - 📝 **Architectural Diff**:')
-                    report.append('   ```diff')
-                    report.append('- # Legacy or Inefficient Logic')
-                    report.append(f'+ # {parts[1]}')
-                    report.append(f'+ {parts[2].strip()}')
-                    report.append('   ```')
-            report.append('\n> 💡 **Automation Tip**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory for high-confidence remediations.')
         if developer_sources:
-            report.append('\n## 📜 Evidence Bridge: Research & Citations')
-            report.append('| Knowledge Pillar | Source | Evidence Summary |')
-            report.append('| :--- | :--- | :--- |')
+            report.append("\n## 📜 Evidence & Citations")
+            report.append("| Pillar | Reference | Insight |")
+            report.append("| :--- | :--- | :--- |")
             for source in developer_sources:
                 parts = source.split(' | ')
                 if len(parts) == 3:
-                    report.append(f'| {parts[0]} | [Official Doc]({parts[1]}) | {parts[2]} |')
-        target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
-        lake_path = self.lake_path
-        prev_health = 0
-        if os.path.exists(lake_path):
-            try:
-                with open(lake_path, 'r') as f:
-                    lake_data = json.load(f)
-                    historical = lake_data.get(target_abs, {}).get('summary', {})
-                    prev_health = historical.get('health', 0) * 100
-            except Exception:
-                pass
-        health_score = sum((1 for r in self.results.values() if r['success'])) / len(self.results) * 100 if self.results else 0
-        improvement_delta = health_score - prev_health
-        report.append('\n## 👔 Executive Risk Scorecard')
-        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-        discovery = DiscoveryEngine(getattr(self, 'target_path', '.'))
-        threshold = discovery.config.get('threshold', 0)
-        passed_ok = all((r['success'] for r in self.results.values()))
-        executive_summary = '✅ Audit baseline established. No critical blockers detected.'
-        if health_score < threshold:
-            executive_summary = f'🚨 **Risk Alert**: Health score ({health_score:.1f}%) is below configured threshold ({threshold}%). Strategic remediation required.'
-        elif not passed_ok:
-            fail_list = [n for n, r in self.results.items() if not r['success']]
-            executive_summary = f"🚨 **Risk Alert**: {len(fail_list)} governance gates REJECTED (including {', '.join(fail_list[:2])}). Production deployment currently **BLOCKED**."
-        report.append(executive_summary)
-        if improvement_delta != 0:
-            velocity_icon = '📈' if improvement_delta > 0 else '📉'
-            report.append(f'\n## {velocity_icon} The Delta View: Maturity Progress')
-            report.append(f"**Current Score**: {health_score:.1f}% | **Previous Score**: {prev_health:.1f}% | **Change**: {improvement_delta:+.1f}% {'↑' if improvement_delta > 0 else '↓'}")
-        report.append('\n---')
-        report.append('\n## 🔍 Raw System Artifacts')
+                    report.append(f"| {parts[0]} | [Doc]({parts[1]}) | {parts[2]} |")
+
+        report.append("\n---")
+        report.append("\n## 🔍 Appendices: Raw Evidence Lake")
         for name, data in self.results.items():
-            report.append(f'\n### {name}')
-            report.append('```text')
+            report.append(f"\n### {name} Artifacts")
+            report.append("```text")
             raw_out = data['output'][-2000:] if data['output'] else 'No output.'
             report.append(raw_out)
             report.append('```')
-        report.append('\n*Generated by the AgentOps Cockpit Orchestrator (v2.0.2 Stable). Master Architect Strategic Council.*')
-        console.print('\n', persona_table)
+        report.append('\n*Generated by the AgentOps Cockpit Orchestrator (v2.0.7 Premium Insights). Master Architect Strategic Council.*')
         self.print_terminal_v13_summary(developer_actions)
         with open(self.report_path, 'w') as f:
             f.write('\n'.join(report))
@@ -625,119 +583,321 @@ class CockpitOrchestrator:
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def _generate_html_report(self, developer_actions, developer_sources):
-        """Generates a v2.0.2 Master Architect Grade HTML report with interactive evidence."""
-        html_content = f"""
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Master Architect Review: {getattr(self, 'title', 'Build Report')}</title>
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap');
-                body {{ font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; max-width: 1100px; margin: 0 auto; padding: 40px; background: #f8fafc; }}
-                .report-card {{ background: white; padding: 50px; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; position: relative; }}
-                
-                header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #f1f5f9; padding-bottom: 30px; }}
-                
-                h1 {{ color: #0f172a; margin: 0; font-size: 2.75rem; letter-spacing: -0.05em; font-weight: 900; }}
-                h2 {{ color: #0f172a; margin-top: 50px; font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 800; border-left: 5px solid #3b82f6; padding-left: 20px; text-transform: uppercase; letter-spacing: 0.05em; }}
-                
-                .status-badge {{ display: inline-block; padding: 6px 16px; border-radius: 999px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; margin-top: 10px; }}
-                .pass {{ background: #dcfce7; color: #166534; }}
-                .fail {{ background: #fee2e2; color: #991b1b; }}
+        """Generates a v2.0.7 Master Architect Grade HTML report branded for Cockpit."""
+        # Calculate Metrics
+        target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
+        prev_health = 0
+        if os.path.exists(self.lake_path):
+            try:
+                with open(self.lake_path, 'r') as f:
+                    lake_data = json.load(f)
+                    historical = lake_data.get(target_abs, {}).get('summary', {})
+                    prev_health = historical.get('health', 0) * 100
+            except Exception: pass
+            
+        total_modules = len(self.results)
+        passed_modules = sum(1 for r in self.results.values() if r['success'])
+        health_score = (passed_modules / total_modules * 100) if total_modules > 0 else 0
+        delta = health_score - prev_health
+        critical_count = sum(1 for r in self.results.values() if not r['success'] and any(x in r.get('output', '').lower() for x in ['secret', 'security', 'leak']))
+        
+        verdict_lines = self.generate_executive_summary(developer_actions)
+        verdict_text = " ".join(verdict_lines).replace('**', '')
 
-                table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }}
-                th, td {{ text-align: left; padding: 18px; border-bottom: 1px solid #e2e8f0; }}
-                th {{ background: #f8fafc; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }}
-                
-                .persona-table th {{ background: #f0f9ff; color: #0369a1; }}
-                .risk-text {{ font-size: 0.8rem; color: #64748b; font-style: italic; }}
+        html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentOps Cockpit | Audit Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        :root {{
+            --cockpit-emerald: #10b981; --cockpit-emerald-light: #ecfdf5; --cockpit-slate: #0f172a; --cockpit-slate-light: #334155;
+            --cockpit-red: #ef4444; --cockpit-red-light: #fef2f2; --cockpit-amber: #f59e0b; --cockpit-amber-light: #fffbeb;
+            --cockpit-grey-50: #f8fafc; --cockpit-grey-100: #f1f5f9; --cockpit-grey-200: #e2e8f0; --cockpit-grey-400: #94a3b8;
+            --cockpit-grey-500: #64748b; --cockpit-grey-900: #0f172a;
+        }}
+        * {{ box-sizing: border-box; }}
+        body {{ font-family: 'Outfit', sans-serif; background-color: #fcfcfd; color: var(--cockpit-slate); margin: 0; line-height: 1.5; }}
+        .app-container {{ display: flex; min-height: 100vh; }}
+        
+        /* Sidebar */
+        .sidebar {{ width: 280px; background: #ffffff; border-right: 1px solid var(--cockpit-grey-200); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }}
+        .sidebar-brand {{ padding: 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--cockpit-grey-100); }}
+        .sidebar-logo {{ background: var(--cockpit-emerald); color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }}
+        .sidebar-title {{ font-weight: 700; font-size: 20px; color: var(--cockpit-slate); letter-spacing: -0.02em; }}
+        .nav-item {{ padding: 12px 24px; display: flex; align-items: center; gap: 12px; color: var(--cockpit-grey-500); text-decoration: none; font-weight: 500; font-size: 15px; transition: all 0.2s; }}
+        .nav-item.active {{ color: var(--cockpit-emerald); background: var(--cockpit-emerald-light); border-right: 4px solid var(--cockpit-emerald); }}
+        
+        /* Main Content */
+        .main-content {{ flex: 1; min-width: 0; }}
+        .header {{ background: #ffffff; padding: 16px 40px; border-bottom: 1px solid var(--cockpit-grey-200); display: flex; justify-content: space-between; align-items: center; }}
+        .header-project {{ display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--cockpit-grey-500); background: var(--cockpit-grey-50); padding: 6px 16px; border-radius: 20px; border: 1px solid var(--cockpit-grey-200); }}
+        
+        .page-header {{ padding: 40px; background: #ffffff; border-bottom: 1px solid var(--cockpit-grey-100); }}
+        .page-subtitle {{ color: var(--cockpit-emerald); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }}
+        .page-title {{ font-size: 32px; font-weight: 700; margin: 0; color: var(--cockpit-slate); letter-spacing: -0.01em; }}
+        
+        .content-body {{ padding: 40px; max-width: 1400px; margin: 0 auto; }}
+        
+        /* Metrics Grid */
+        .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }}
+        .metric-card {{ background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid var(--cockpit-grey-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.2s; }}
+        .metric-card:hover {{ transform: translateY(-2px); }}
+        .metric-label {{ font-size: 14px; color: var(--cockpit-grey-500); font-weight: 500; margin-bottom: 4px; }}
+        .metric-value {{ font-size: 36px; font-weight: 700; color: var(--cockpit-slate); display: flex; align-items: baseline; gap: 8px; }}
+        .metric-delta {{ font-size: 14px; font-weight: 600; }}
+        .delta-pos {{ color: #10b981; }} .delta-neg {{ color: #ef4444; }} .delta-zero {{ color: #94a3b8; }}
+        
+        /* Sections */
+        .section {{ margin-bottom: 48px; }}
+        .section-header {{ display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }}
+        .section-title {{ font-size: 22px; font-weight: 700; margin: 0; color: var(--cockpit-slate); }}
+        
+        /* Table */
+        .card-table {{ background: #ffffff; border-radius: 16px; border: 1px solid var(--cockpit-grey-200); overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }}
+        table {{ width: 100%; border-collapse: collapse; text-align: left; }}
+        th {{ background: var(--cockpit-grey-50); padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--cockpit-grey-500); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--cockpit-grey-200); }}
+        td {{ padding: 16px 24px; border-bottom: 1px solid var(--cockpit-grey-100); font-size: 15px; }}
+        tr:last-child td {{ border-bottom: none; }}
+        
+        .status-badge {{ display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }}
+        .status-pass {{ background: var(--cockpit-emerald-light); color: var(--cockpit-emerald); }}
+        .status-fail {{ background: var(--cockpit-red-light); color: var(--cockpit-red); }}
+        
+        .prio-badge {{ padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }}
+        .prio-p1 {{ background: #fee2e2; color: #991b1b; }} .prio-p2 {{ background: #fef3c7; color: #92400e; }}
+        
+        /* Verdict */
+        .verdict-card {{ background: #eff6ff; border: 1px solid #dbeafe; padding: 24px; border-radius: 16px; display: flex; gap: 20px; align-items: flex-start; }}
+        .verdict-icon {{ font-size: 32px; }}
+        .verdict-content {{ flex: 1; }}
+        .verdict-title {{ font-size: 18px; font-weight: 700; color: #1e40af; margin-bottom: 8px; }}
+        .verdict-description {{ font-size: 15px; color: #374151; margin: 0; }}
+        
+        /* Findings */
+        .finding-item {{ background: #ffffff; border: 1px solid var(--cockpit-grey-200); border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: border-color 0.2s; }}
+        .finding-item:hover {{ border-color: var(--cockpit-emerald); }}
+        .finding-header {{ display: flex; justify-content: space-between; margin-bottom: 12px; }}
+        .finding-id {{ font-weight: 700; color: var(--cockpit-slate); margin: 0; font-size: 16px; }}
+        .finding-location {{ font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cockpit-grey-500); background: var(--cockpit-grey-50); padding: 2px 8px; border-radius: 4px; }}
+        .finding-strategy {{ font-size: 14px; color: var(--cockpit-grey-900); background: #f0fdf4; border-left: 4px solid var(--cockpit-emerald); padding: 8px 12px; margin-top: 12px; border-radius: 0 4px 4px 0; }}
+        
+        /* Appendices */
+        details {{ background: #ffffff; border: 1px solid var(--cockpit-grey-200); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }}
+        summary {{ padding: 16px 24px; font-weight: 600; cursor: pointer; user-select: none; background: #ffffff; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }}
+        summary:hover {{ background: var(--cockpit-grey-50); }}
+        summary::-webkit-details-marker {{ display: none; }}
+        .raw-output {{ padding: 16px 24px; background: var(--cockpit-slate); color: #d1d5db; font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: pre-wrap; margin: 0; border-top: 1px solid var(--cockpit-grey-200); }}
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {{ width: 8px; }}
+        ::-webkit-scrollbar-track {{ background: transparent; }}
+        ::-webkit-scrollbar-thumb {{ background: #cbd5e1; border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb:hover {{ background: #94a3b8; }}
 
-                code {{ font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-size: 0.85em; color: #ef4444; }}
-                pre {{ background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 16px; border: 1px solid #1e293b; }}
-                
-                details {{ background: #f1f5f9; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid #e2e8f0; }}
-                summary {{ font-weight: 700; cursor: pointer; color: #334155; outline: none; }}
-                
-                .footer {{ margin-top: 60px; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 30px; }}
-            </style>
-        </head>
-        <body>
-            <div class="report-card">
-                <header>
-                    <div>
-                        <h1>📊 Cockpit Audit Report</h1>
-                        <p style="color: #64748b; margin: 10px 0 0 0; font-weight: 600; font-size: 1.1rem;">Project Integrity Analysis: {getattr(self, 'title', 'Build Report')}</p>
-                        <span class="status-badge {('pass' if all((r['success'] for r in self.results.values())) else 'fail')}">
-                            Audit Status: {('PASSED' if all((r['success'] for r in self.results.values())) else 'FAILED')}
-                        </span>
+        @media print {{
+            .sidebar {{ display: none; }}
+            body {{ background: white; }}
+            .app-container {{ display: block; }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">🕹️</div>
+                <div class="sidebar-title">Cockpit</div>
+            </div>
+            <nav style="padding: 16px 0; flex: 1;">
+                <a href="#summary" class="nav-item active">Audit Report</a>
+                <a href="#pillar-matrix" class="nav-item">Cockpit Gates</a>
+                <a href="#appendices" class="nav-item">Evidence Lake</a>
+                <a href="../../fleet_dashboard.html" class="nav-item">Telemetry</a>
+            </nav>
+            <div style="padding: 24px; border-top: 1px solid var(--cockpit-grey-100); font-size: 12px; color: var(--cockpit-grey-400);">
+                v2.0.7-premium<br>
+                © 2026 AgentOps Cockpit
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header>
+                <div class="header-project">🚀 COCKPIT_FLEET_01</div>
+                <div style="display: flex; gap: 12px;">
+                    <button style="background:var(--cockpit-emerald); color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:13px;" onclick="window.print()">Export PDF</button>
+                </div>
+            </header>
+            
+            <div id="summary" class="page-header">
+                <div class="page-subtitle">Master Architect Review</div>
+                <h1 class="page-title">Cockpit Audit Report</h1>
+            </div>
+            
+            <div class="content-body">
+                <!-- Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Overall Health Score</div>
+                        <div class="metric-value">
+                            {health_score:.1f}%
+                            <span class="metric-delta {'delta-pos' if delta > 0 else 'delta-neg' if delta < 0 else 'delta-zero'}">
+                                {'↑' if delta > 0 else '↓' if delta < 0 else '→'} {abs(delta):.1f}%
+                            </span>
+                        </div>
                     </div>
-                </header>
-
-
-                <div style="background: #f0f7ff; padding: 30px; border-radius: 24px; margin-bottom: 40px; border: 1px solid #cce3ff;">
-                    <h3 style="margin-top:0; font-weight:800; text-transform:uppercase; font-size:0.85rem; color:#1e40af;">🧠 Master Architect Verdict</h3>
-                    <div style="font-size:1.05rem;">
-                        {self.generate_executive_summary(developer_actions, as_html=True)}
+                    <div class="metric-card">
+                        <div class="metric-label">Governance Gates</div>
+                        <div class="metric-value">{passed_modules} / {total_modules}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Critical Findings</div>
+                        <div class="metric-value" style="color:{'var(--cockpit-red)' if critical_count > 0 else 'var(--cockpit-slate)'}">{critical_count}</div>
                     </div>
                 </div>
 
+                <!-- Verdict -->
+                <div class="section">
+                    <div class="verdict-card">
+                        <div class="verdict-icon">🧠</div>
+                        <div class="verdict-content">
+                            <div class="verdict-title">Master Architect Verdict</div>
+                            <p class="verdict-description">{verdict_text}</p>
+                        </div>
+                    </div>
+                </div>
 
-                <h2>🛡️ Core Performance Pillars</h2>
-                <table class="persona-table">
-                    <thead>
-                        <tr>
-                            <th>Audit Pillar</th>
-                            <th>Priority</th>
-                            <th>Target Risk</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        """
+                <!-- Pillar Matrix -->
+                <div id="pillar-matrix" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🏛️ Pillar Approval Matrix</h2>
+                    </div>
+                    <div class="card-table">
+                        <table>
+                            <thead>
+                                <tr><th>Pillar</th><th>Module</th><th>Status</th><th>Priority</th></tr>
+                            </thead>
+                            <tbody>"""
+        
         for name, data in self.results.items():
-            pillar = self.PILLAR_MAP.get(name, 'General Auditor')
-            risk = self.PRIMARY_RISK_MAP.get(name, 'Structural Integrity')
-            status = 'PASSED' if data['success'] else 'FAILED'
-            prio = 'P1' if any((x in name.lower() for x in ['secret', 'security', 'policy', 'red'])) else 'P2' if 'reliability' in name.lower() else 'P3'
+            status_class = "status-pass" if data['success'] else "status-fail"
+            status_text = "APPROVED" if data['success'] else "REJECTED"
+            pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
+            prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
+            prio_class = f"prio-{prio.lower()}"
+            
             html_content += f"""
-                <tr>
-                    <td style="font-weight:700; color:#0f172a;">{pillar}</td>
-                    <td><span style="font-weight:bold; color:{('#ef4444' if prio == 'P1' else '#f59e0b')};">{prio}</span></td>
-                    <td class="risk-text">{risk}</td>
-                    <td><span class="status-badge {('pass' if data['success'] else 'fail')}">{status}</span></td>
-                </tr>
-            """
-        html_content += '</tbody></table>'
+                                <tr>
+                                    <td style="font-weight:600; color:var(--cockpit-slate-light);">{pillar}</td>
+                                    <td style="font-family:'JetBrains Mono', monospace; font-size:13px;">{name}</td>
+                                    <td><span class="status-badge {status_class}">{"●" if data['success'] else "■"} {status_text}</span></td>
+                                    <td><span class="prio-badge {prio_class}">{prio}</span></td>
+                                </tr>"""
+
+        html_content += """
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tactical Implementation -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🏗️ Tactical Implementation Plan</h2>
+                    </div>"""
         
         if developer_actions:
-            html_content += '\n                <h2>🏗️ Tactical Implementation Plan</h2>\n                <table class="action-table">\n                    <thead>\n                        <tr>\n                            <th>Location</th>\n                            <th>Strategic Finding</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n            '
-            for action in developer_actions:
+            def priority_key(action):
+                p = action.lower()
+                if any(x in p for x in ['leak', 'secret', 'security']): return 0
+                if any(x in p for x in ['reliability', 'unit test']): return 1
+                return 2
+            
+            sorted_actions = sorted(developer_actions, key=priority_key)
+            phases = ['🛡️ Phase 1: Security & Compliance', '🏗️ Phase 2: Reliability & Resilience', '🎯 Phase 3: Performance & Strategic Growth']
+            current_phase = -1
+            
+            for action in sorted_actions:
+                phase = priority_key(action)
+                if phase != current_phase:
+                    current_phase = phase
+                    html_content += f'<h3 style="margin: 32px 0 16px 0; font-size: 16px; color: var(--cockpit-grey-500); text-transform: uppercase; letter-spacing: 0.05em;">{phases[phase]}</h3>'
+                
                 parts = action.split(' | ')
                 if len(parts) == 3:
-                    html_content += f'\n                        <tr>\n                            <td><code>{parts[0]}</code></td>\n                            <td>\n                                <div style="font-weight:700; color:#0f172a;">{parts[1]}</div>\n                                <div style="color: #059669; font-size: 0.85rem; margin-top:4px;">✨ {parts[2]}</div>\n                            </td>\n                        </tr>\n                    '
-            html_content += '</tbody></table>'
-            
-        html_content += '\n                <h2>🔍 Interactive Evidence Lake</h2>\n                <div style="margin-top:20px;">\n        '
-        for name, data in self.results.items():
-            html_content += f"""
-                <details>
-                    <summary>{name} Evidence: {('✅' if data['success'] else '❌')}</summary>
-                    <pre>{data['output']}</pre>
-                </details>
-            """
+                    html_content += f"""
+                    <div class="finding-item">
+                        <div class="finding-header">
+                            <p class="finding-id">{parts[1].strip()}</p>
+                            <span class="finding-location">{parts[0].strip()}</span>
+                        </div>
+                        <div class="finding-strategy">
+                            <strong>Strategic Path:</strong> {parts[2].strip()}
+                        </div>
+                    </div>"""
+        else:
+            html_content += '<p style="color:var(--cockpit-grey-500);">No actionable items found. Fleet is operating within nominal parameters.</p>'
+
         html_content += """
                 </div>
-                <div class="footer">
-                    Generated by AgentOps Cockpit v2.0.2. 
-                    <br>Ensuring high-fidelity reliability for agentic ecosystems.
+
+                <!-- Citations -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">📜 Evidence & Citations</h2>
+                    </div>
+                    <div class="card-table">
+                        <table>
+                            <thead><tr><th>Pillar</th><th>Reference</th><th>Insight</th></tr></thead>
+                            <tbody>"""
+        
+        for source in developer_sources:
+            parts = source.split(' | ')
+            if len(parts) == 3:
+                html_content += f"""
+                                <tr>
+                                    <td style="font-weight:600;">{parts[0].strip()}</td>
+                                    <td><a href="{parts[1].strip()}" style="color:var(--cockpit-emerald); text-decoration:none; font-weight:600;">Documentation ↗</a></td>
+                                    <td style="color:var(--cockpit-grey-500);">{parts[2].strip()}</td>
+                                </tr>"""
+        
+        html_content += """
+                            </tbody>
+        </table>
+                    </div>
+                </div>
+
+                <!-- Appendices -->
+                <div id="appendices" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">🔍 Appendices: Raw Evidence</h2>
+                    </div>"""
+        
+        for name, data in self.results.items():
+            raw_out = data['output'][-4000:] if data['output'] else 'No output.'
+            safe_out = raw_out.replace('<', '&lt;').replace('>', '&gt;')
+            html_content += f"""
+                    <details>
+                        <summary>{name} Artifacts <span style="font-size:12px; color:var(--cockpit-grey-400); font-weight:400;">{len(raw_out)} bytes</span></summary>
+                        <pre class="raw-output">{safe_out}</pre>
+                    </details>"""
+
+        html_content += f"""
+                </div>
+                
+                <div style="margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--cockpit-grey-100); text-align: center; color: var(--cockpit-grey-400); font-size: 14px;">
+                    Generated by the AgentOps Cockpit Orchestrator (v2.0.7 Premium Insights).<br>
+                    Master Architect Strategic Council | {self.timestamp}
                 </div>
             </div>
-        </body>
-        </html>
-        """
-        with open(self.html_report_path, 'w') as f:
-            f.write(html_content)
+        </main>
+    </div>
+</body>
+</html>"""
+        with open(self.html_report_path, 'w') as f: f.write(html_content)
+
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def send_email_report(self, recipient: str, smtp_server: str='smtp.gmail.com', port: int=587):
@@ -817,12 +977,12 @@ class CockpitOrchestrator:
         """v2.0.2 Compliance Mapping: Maps Cockpit pillars to regulatory controls."""
         cmap = {
             '🛡️ Security': 'SOC2 CC6.1 (Logical Access)',
-            '🔐 Security & Sovereignty': 'ISO 27001 A.12.6.1 (Management of Technical Vulnerabilities)',
+            '🔐 Security & Cockpitty': 'ISO 27001 A.12.6.1 (Management of Technical Vulnerabilities)',
             '🏗️ Architecture': 'SOC2 CC8.1 (Change Management)',
             '🛡️ Reliability': 'SOC2 CC7.2 (System Availability)',
             '💰 FinOps': 'Inference Economics v1.0',
             '⭐️ Maturity Wisdom': 'ISO 27001 A.14.2.1 (Secure Development)',
-            '🤝 Protocol': 'Sovereignty A2UI.1'
+            '🤝 Protocol': 'Cockpitty A2UI.1'
         }
         return cmap.get(category, 'General Control')
 
@@ -903,7 +1063,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     discovery = DiscoveryEngine(target_path)
     config = discovery.config
     if config:
-        console.print(f'⚙️ [dim]Loaded local Sovereign Config from {target_path}/cockpit.yaml[/dim]')
+        console.print(f'⚙️ [dim]Loaded local Cockpit Config from {target_path}/cockpit.yaml[/dim]')
         if config.get('exclude_checks'):
             console.print(f"🚫 [yellow]Excluded checks per local config: {config['exclude_checks']}[/yellow]")
     agent_hash = hashlib.md5(target_path.encode()).hexdigest()
@@ -1047,7 +1207,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
                 if interactive:
                     from rich.prompt import Confirm
                     console.print(f"\n🧠 [bold green]Architect's Dialogue:[/] Remediation needed for [bold cyan]'{title}'[/bold cyan] in {os.path.basename(full_path)}")
-                    rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Sovereignty and SOC2 compliance."
+                    rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Cockpitty and SOC2 compliance."
                     console.print(f"[dim]{rationale}[/dim]")
                     if not Confirm.ask("Apply this remediation?"):
                         console.print("⏭️  [yellow]Skipping remediation per architect request.[/yellow]")
@@ -1144,7 +1304,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     except Exception:
         pass
 
-    # Sovereignty Bridge: Auto-update the Fleet Dashboard even for single agent reports
+    # Cockpitty Bridge: Auto-update the Fleet Dashboard even for single agent reports
     from .dashboard import generate_fleet_dashboard
     generate_fleet_dashboard({target_path: exit_code})
     telemetry.track_event_sync("audit_completed", {
@@ -1153,7 +1313,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
-    # v2.0.2 Sovereign FinOps: Projected Opex Impact
+    # v2.0.2 Cockpit FinOps: Projected Opex Impact
     # Heuristic: Aggregate drivers from all results
     all_findings_text = "\n".join([r.get('output', '') for r in orchestrator.results.values()])
     finops_auditor = None
@@ -1179,7 +1339,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     console.print(f"Strategic Drivers: [dim]{', '.join(impact['drivers']) if impact['drivers'] else 'Baseline'}[/dim]")
 
     if apply_fixes:
-        console.print("\n🛡️  [bold cyan]Sovereign Safety Net (Shadow Modeling):[/bold cyan]")
+        console.print("\n🛡️  [bold cyan]Cockpit Safety Net (Shadow Modeling):[/bold cyan]")
         console.print(f"Recommended: Run [white]cockpit audit benchmark --path {target_path}[/white] to verify fixes against Golden Set.")
     
     return exit_code
@@ -1290,7 +1450,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
     console.print(f"🦾 [bold blue]Fleet Orchestrator:[/] Detected {len(agents)} Agent Silos. Launching concurrent audit...")
     results = {}
     from rich.live import Live
-    table = Table(title="🚢 Sovereign Fleet Audit Dashboard", show_header=True, header_style="bold blue")
+    table = Table(title="🚢 Cockpit Fleet Audit Dashboard", show_header=True, header_style="bold blue")
     table.add_column("Agent Site", style="cyan")
     table.add_column("Audit Mode", style="dim")
     table.add_column("Status", justify="center")
@@ -1343,7 +1503,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
             has_interaction_void = any("A2UI" in str(d) and not d.get('results', {}).get('Face Auditor', {}).get('success', True) for d in lake_data.values())
             
             if has_security_gap and has_interaction_void:
-                correlation_risks.append("🚨 [CORRELATION RISK]: Combined **Sovereignty Gap** and **Interaction Void** detected across fleet. Risk: Lethal commands could be triggered without user-facing confirmation screens.")
+                correlation_risks.append("🚨 [CORRELATION RISK]: Combined **Cockpitty Gap** and **Interaction Void** detected across fleet. Risk: Lethal commands could be triggered without user-facing confirmation screens.")
             
             # Detect: FinOps Leakage in multiple silos
             finops_fails = [p for p, d in lake_data.items() if not d.get('results', {}).get('Token Optimization', {}).get('success', True)]
@@ -1372,4 +1532,4 @@ if __name__ == '__main__':
         workspace_audit(root_path=args.path, mode=args.mode, sim=args.sim, apply_fixes=args.apply_fixes, dry_run=args.dry_run)
     else:
         exit_code = run_audit(mode=args.mode, target_path=args.path, apply_fixes=args.apply_fixes, sim=args.sim, dry_run=args.dry_run)
-        sys.exit(exit_code)# Sovereign Alignment: Integrating secret_manager and vault.
+        sys.exit(exit_code)# Cockpit Alignment: Integrating secret_manager and vault.

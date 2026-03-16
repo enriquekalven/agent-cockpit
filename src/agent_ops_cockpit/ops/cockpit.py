@@ -1,7 +1,7 @@
 """
-Pillar: Sovereign Deployment
+Pillar: Cockpit Deployment
 SME Persona: Distinguished Platform Fellow
-Objective: Orchestrates the 'End-to-End' factory for agentic harding, hydration, and cloud-sovereign deployment.
+Objective: Orchestrates the 'End-to-End' factory for agentic harding, hydration, and cloud-cockpit deployment.
 """
 import os
 import subprocess
@@ -19,9 +19,9 @@ from agent_ops_cockpit.ops import preflight as pre_mod
 
 console = Console()
 
-class SovereignOrchestrator:
+class CockpitOrchestrator:
     """
-    Sovereign Fleet Pipeline: The 'End-to-End' factory.
+    Cockpit Fleet Pipeline: The 'End-to-End' factory.
     Audit -> Fix (Harden) -> Hydrate (ADK) -> Deploy -> Register.
     """
     
@@ -40,11 +40,11 @@ class SovereignOrchestrator:
         else:
             agents = [path]
 
-        console.print(Panel.fit(f"🚀 [bold blue]Sovereign Fleet Pipeline[/]\n[bold]Target:[/] {self.target_cloud}\n[bold]Mode:[/] {'Fleet Sync' if fleet else 'Single Agent'}", border_style="blue"))
+        console.print(Panel.fit(f"🚀 [bold blue]Cockpit Fleet Pipeline[/]\n[bold]Target:[/] {self.target_cloud}\n[bold]Mode:[/] {'Fleet Sync' if fleet else 'Single Agent'}", border_style="blue"))
         
         # Phase 0: Pre-flight Verification
         if not pre_mod.run_preflight(path, target_cloud=self.target_cloud):
-            console.print("❌ [bold red]Sovereign Pipeline Aborted: Pre-flight verification failed.[/]")
+            console.print("❌ [bold red]Cockpit Pipeline Aborted: Pre-flight verification failed.[/]")
             return []
 
         console.print(f"📦 Processing {len(agents)} agent(s)...\n")
@@ -94,7 +94,7 @@ class SovereignOrchestrator:
 
         try:
             # Step 1: Deep Audit & Auto-Fix (Hardening)
-            console.print("  🔍 Step 1: Deep Sovereignty Audit & Auto-Fix...")
+            console.print("  🔍 Step 1: Deep Cockpitty Audit & Auto-Fix...")
             orch_mod.run_audit(mode='deep', target_path=agent_path, apply_fixes=True, plain=True)
 
             # Step 2: Hydration (ADK Transition & Cloud Assets)
@@ -179,7 +179,7 @@ class SovereignOrchestrator:
     def _print_final_summary(self, results: List[Dict]):
         console.print(Panel(
             "\n".join([f"• [bold]{r['agent']}:[/] {r['status'].upper()}" for r in results]),
-            title="Sovereign Pipeline Summary",
+            title="Cockpit Pipeline Summary",
             border_style="green" if all(r['status'] == 'success' for r in results) else "red"
         ))
 
@@ -191,7 +191,7 @@ class SovereignOrchestrator:
             return
         
         from rich.table import Table
-        table = Table(title="Sovereign Fleet Registry")
+        table = Table(title="Cockpit Fleet Registry")
         table.add_column("Agent", style="cyan")
         table.add_column("Cloud", style="magenta")
         table.add_column("Status", style="green")
@@ -216,7 +216,7 @@ class SovereignOrchestrator:
 
     def render_fleet_map(self, path: str = "."):
         """
-        🛸 Sovereign Fleet Map: High-fidelity visual topology of the agent estate.
+        🛸 Cockpit Fleet Map: High-fidelity visual topology of the agent estate.
         Visualizes Local Silos vs. Cloud Hydrations.
         """
         path = os.path.abspath(path)
@@ -228,7 +228,7 @@ class SovereignOrchestrator:
         from rich.text import Text
         from rich.tree import Tree
         
-        root_tree = Tree(f"🏛️  [bold blue]Sovereign Workspace:[/] [white]{os.path.basename(path)}[/]")
+        root_tree = Tree(f"🏛️  [bold blue]Cockpit Workspace:[/] [white]{os.path.basename(path)}[/]")
         
         for agent_root in local_agents:
             rel_path = os.path.relpath(agent_root, path)
@@ -263,6 +263,6 @@ class SovereignOrchestrator:
                 status_color = "green" if ga['status'] == "HEALTHY" else "yellow" if ga['status'] == "MOTHBALLED" else "red"
                 ga_node.add(Text.from_markup(f"🛰️  {ga['cloud'].upper()} -> {ga['endpoint']} [[bold {status_color}]{ga['status']}[/]]"))
 
-        console.print(Panel(root_tree, title="⚡ Sovereign Fleet Topology Map", border_style="blue", expand=False))
+        console.print(Panel(root_tree, title="⚡ Cockpit Fleet Topology Map", border_style="blue", expand=False))
         console.print(f"\n✨ [dim]{len(local_agents)} Local Brains | {len(deployed_agents)} Cloud Instances Mapping Complete.[/dim]")
-# Sovereign Alignment: Integrating secret_manager and vault.
+# Cockpit Alignment: Integrating secret_manager and vault.

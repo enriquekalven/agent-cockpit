@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class CockpitLlamaIndexCallbackHandler(BaseCallbackHandler):
     """
-    Sovereign Integration for LlamaIndex.
+    Cockpit Integration for LlamaIndex.
     Monitors data retrieval and PII leakage in query engines.
     """
     def __init__(self, app_name: str = "llamaindex-agent"):

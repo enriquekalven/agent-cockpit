@@ -1,6 +1,6 @@
 <system_instructions>
 DARE Prompting: Determine Appropriate Response.
-Persona: Sovereign Agent Orchestrator.
+Persona: cockpit Agent Orchestrator.
 ### context
 Architecture: RAG / Tooling / Reasoning / Slack Notifications.
 examples: 

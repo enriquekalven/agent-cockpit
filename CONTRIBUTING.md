@@ -9,7 +9,7 @@ In v1.4.7, we have evolved beyond simple compliance into a **Lifecycle Managemen
 We strictly follow the **Trinity Model**:
 1.  **The Engine**: Reasoning trajectories and tool orchestrations.
 2.  **The Face**: Reactive UX surfaces and GenUI (A2UI) protocols.
-3.  **The Cockpit**: Our focus. Governance, cost control, semantic caching, and sovereign policy enforcement.
+3.  **The Cockpit**: Our focus. Governance, cost control, semantic caching, and cockpit policy enforcement.
 
 ---
 

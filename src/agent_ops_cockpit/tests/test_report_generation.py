@@ -31,21 +31,21 @@ def test_report_prioritization(tmp_path):
         content = f.read()
         
     # Check for prioritized phase headers
-    assert "## 🚀 Step-by-Step Implementation Guide" in content
-    assert "### 🛡️ Phase 1: Security Hardening" in content
-    assert "### 🛡️ Phase 2: Reliability Recovery" in content
-    assert "### 🏗️ Phase 3: Strategic Alignment" in content
+    assert "## 🏗️ Tactical Implementation Plan" in content
+    assert "### 🛡️ Phase 1: Security & Compliance" in content
+    assert "### 🏗️ Phase 2: Reliability & Resilience" in content
+    assert "### 🎯 Phase 3: Performance & Strategic Growth" in content
     
     # Check that security comes before reliability (phase index sorting)
-    sec_idx = content.find("Phase 1: Security Hardening")
-    rel_idx = content.find("Phase 2: Reliability Recovery")
-    strat_idx = content.find("Phase 3: Strategic Alignment")
+    sec_idx = content.find("Phase 1: Security & Compliance")
+    rel_idx = content.find("Phase 2: Reliability & Resilience")
+    strat_idx = content.find("Phase 3: Performance & Strategic Growth")
     
     assert sec_idx < rel_idx < strat_idx
     
     # Check for cleaned formatting for file locations
     assert "Location: `config.py`" in content
-    assert "Recommended Fix: Use Secret Manager." in content
+    assert "✨ Strategy: Use Secret Manager." in content
 
 def test_risk_scorecard_threshold(tmp_path):
     """Verify the executive risk scorecard respects thresholds."""
@@ -69,8 +69,8 @@ def test_risk_scorecard_threshold(tmp_path):
     with open("risk_report.md", "r") as f:
         content = f.read()
         
-    assert "Risk Alert" in content
-    assert "Health score (83.3%) is below configured threshold (90%)" in content
+    assert "CRITICAL:" in content
+    assert "require immediate attention" in content
 
 def test_centralized_artifact_storage(tmp_path):
     """Verify that all report artifacts are saved in the .cockpit/ directory by default."""

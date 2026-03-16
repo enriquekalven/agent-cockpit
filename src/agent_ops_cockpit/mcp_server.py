@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.2 Sovereign Alignment: Maturing ADK Tooling
+# v2.0.2 cockpit Alignment: Maturing ADK Tooling
 import asyncio
 import contextlib
 import io
@@ -87,7 +87,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name='certify_agent',
-            description='🏅 Production Readiness: Run Pre-flight, Deep Audit, and Regression to generate a Sovereign Certificate.',
+            description='🏅 Production Readiness: Run Pre-flight, Deep Audit, and Regression to generate a cockpit Certificate.',
             inputSchema={
                 'type': 'object',
                 'properties': {
@@ -143,7 +143,7 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
                 path = arguments.get('path', '.')
                 abs_path = os.path.abspath(path)
                 
-                capture_console.print(f"🏅 [bold blue]Sovereign Certification Process Initialized for: {abs_path}[/bold blue]")
+                capture_console.print(f"🏅 [bold blue]cockpit Certification Process Initialized for: {abs_path}[/bold blue]")
                 
                 # Note: Calling typer-wrapped certification might be tricky,
                 # so we replicate the core logic here.

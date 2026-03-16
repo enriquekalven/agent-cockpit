@@ -5,7 +5,7 @@ from datetime import datetime
 
 class TDDGenerator:
     """
-    Sovereign Documenter v1.8.4 (Enterprise Grade).
+    Cockpit Documenter v1.8.4 (Enterprise Grade).
     Generates a professional, high-fidelity Technical Design Document (TDD).
     """
 
@@ -54,391 +54,194 @@ class TDDGenerator:
         registry = self._load_registry()
         timestamp = datetime.now().strftime("%B %d, %Y %H:%M")
         
+        # Gathering dynamic metadata
+        github_url = "https://github.com/enriquekalven/agent-ops-cockpit"
+        pypi_url = "https://pypi.org/project/agentops-cockpit/"
+        firebase_url = "https://agent-cockpit.web.app"
+        
         # 1. Agent Status & Detailed Specs
         agent_sections = ""
         for path, data in evidence.items():
             name = os.path.basename(path)
-            status = "✅ HARDENED" if data.get('results', {}).get('Secret Scanner', {}).get('success') else "⚠️ GAPS DETECTED"
-            status_class = "hardened" if "HARDENED" in status else "gaps-detected"
+            health = data.get('summary', {}).get('health', 1.0) * 100
+            status_text = "PASSED" if health >= 90 else "GAPS DETECTED"
+            status_class = "status-pass" if health >= 90 else "status-fail"
             
             findings = ""
             for module, result in data.get('results', {}).items():
-                "✅" if result.get('success') else "❌"
-                color = "#34d399" if result.get('success') else "#f87171"
+                status_icon = "●" if result.get('success') else "■"
+                status_color = "#10b981" if result.get('success') else "#ef4444"
+                
                 findings += f"""
-                <div class="finding-item" style="border-left: 3px solid {color};">
-                    <strong>{module}:</strong> <span>{str(result.get('output', 'N/A'))[:300]}</span>
+                <div class="finding-row">
+                    <div class="finding-status" style="color: {status_color};">{status_icon}</div>
+                    <div class="finding-module">{module}</div>
+                    <div class="finding-detail">{str(result.get('output', 'N/A'))[:200]}...</div>
                 </div>"""
 
-            # Compute specific details
-            runtime = "GKE Autopilot (High-Scale)" if target_cloud == "google" else "AWS App Runner"
+            runtime = "Cockpit Cockpit Runtime (Enterprise Mesh)"
             iam_roles = [
-                {"role": "roles/aiplatform.user", "desc": "Access to Gemini 1.5 Pro & Reasoning Engine API."},
-                {"role": "roles/logging.logWriter", "desc": "Write application logs to Cloud Logging."},
-                {"role": "roles/artifactregistry.reader", "desc": "Pull container images from Registry."}
+                {"role": "cockpit.agent.executor", "desc": "Access to local reasoning engine and cockpit tools."},
+                {"role": "cockpit.telemetry.writer", "desc": "Write application logs to Cockpit Evidence Lake."},
+                {"role": "cockpit.registry.reader", "desc": "Pull container images from local cockpit registry."}
             ]
             networking = [
-                {"type": "External IP", "val": "34.135.249.104"},
-                {"type": "Protocol", "val": "gRPC / REST (A2A Bridge)"},
-                {"type": "Exposure", "val": "LoadBalancer (Layer 7)"}
+                {"type": "Internal IP", "val": "10.0.0.1"},
+                {"type": "Protocol", "val": "gRPC / REST (Cockpit Bridge)"},
+                {"type": "Exposure", "val": "Cockpit Mesh (Layer 7 mTLS)"}
             ]
 
-            iam_html = "".join([f"<li><code>{r['role']}</code><br/><small>{r['desc']}</small></li>" for r in iam_roles])
-            net_html = "".join([f"<div class='spec-sub-item'><strong>{n['type']}:</strong> {n['val']}</div>" for n in networking])
+            iam_list_html = "".join([f"<li><strong>{r['role']}</strong><br/><small>{r['desc']}</small></li>" for r in iam_roles])
+            net_html = "".join([f"<div class='spec-item'><span>{n['type']}</span><strong>{n['val']}</strong></div>" for n in networking])
 
             agent_sections += f"""
-            <div id="agent-{name}" class="section agent-card">
+            <div id="agent-{name}" class="agent-card">
                 <div class="card-header">
-                    <h3>Agent: {name}</h3>
-                    <div class="badge {status_class}">{status}</div>
+                    <div class="card-title-group">
+                        <h3>Agent: {name}</h3>
+                        <div class="health-meta">Cockpit Score: {health:.1f}%</div>
+                    </div>
+                    <div class="badge {status_class}">{status_text}</div>
                 </div>
                 
                 <div class="spec-grid">
-                    <div class="spec-block">
-                        <h4>🚀 Runtime & Compute</h4>
+                    <div class="spec-column">
+                        <div class="spec-header">🚀 RUNTIME & COMPUTE</div>
                         <div class="spec-content">
-                            <strong>Target:</strong> {runtime}<br/>
-                            <strong>Region:</strong> us-central1<br/>
-                            <strong>Scaling:</strong> 2-10 Replicas
+                            <div class="spec-item"><span>Target</span><strong>{runtime}</strong></div>
+                            <div class="spec-item"><span>Environment</span><strong>Production (Cockpit)</strong></div>
+                            <div class="spec-item"><span>Scaling</span><strong>Elastic Auto-Scale</strong></div>
                         </div>
                     </div>
-                    <div class="spec-block">
-                        <h4>🔑 IAM & Security</h4>
-                        <ul class="iam-list">{iam_html}</ul>
+                    <div class="spec-column">
+                        <div class="spec-header">🔑 IDENTITY & ACCESS</div>
+                        <ul class="iam-list">{iam_list_html}</ul>
                     </div>
-                    <div class="spec-block">
-                        <h4>🌐 Networking</h4>
-                        <div class="spec-content">
-                            {net_html}
-                        </div>
+                    <div class="spec-column">
+                        <div class="spec-header">🌐 NETWORK TOPOLOGY</div>
+                        <div class="spec-content">{net_html}</div>
                     </div>
                 </div>
 
-                <div class="brain-specs">
-                    <h4>🧠 Agent Brain (Reasoning Logic)</h4>
-                    <div class="spec-grid" style="grid-template-columns: 1fr 1fr;">
-                        <div class="spec-block" style="background: rgba(0,0,0,0.2);">
-                            <strong>Model Configuration:</strong><br/>
-                            <code>gemini-1.5-pro-002</code><br/>
-                            Temperature: 0.1 | Top-P: 0.95
-                        </div>
-                        <div class="spec-block" style="background: rgba(0,0,0,0.2);">
-                            <strong>Capabilities:</strong><br/>
-                            ✅ Tool Use (Function Calling)<br/>
-                            ✅ Multi-turn State Persistence<br/>
-                            ✅ A2UI Adaptive Face Support
-                        </div>
-                    </div>
+                <div class="audit-section">
+                    <div class="spec-header">🛡️ COCKPIT AUDIT FINDINGS</div>
+                    <div class="findings-list">{findings}</div>
                 </div>
-
-                <h4>🛠️ Sovereignty Audit Evidence:</h4>
-                <div class="findings-grid">{findings}</div>
             </div>
             """
 
-        # 2. Gemini Enterprise Registry Section
+        # 2. Tools Registry
         registry_rows = ""
         if not registry:
-            registry_rows = "<tr><td colspan='4' style='text-align:center;'>No tools registered in Gemini Enterprise yet.</td></tr>"
+            registry_rows = "<tr><td colspan='4' style='text-align:center; padding: 40px;'>No tools registered in Gemini Enterprise registry yet.</td></tr>"
         for reg in registry:
-            id_val = reg.get('id', 'N/A')
-            display_name = reg.get('display_name', 'N/A')
-            api_spec = reg.get('api_spec', '#')
-            provider = reg.get('provider', 'N/A')
-            
             registry_rows += f"""
             <tr>
-                <td><code>{id_val}</code></td>
-                <td>{display_name}</td>
-                <td><a href="{api_spec}" class="link-btn" target="_blank">OpenAPI Spec</a></td>
-                <td><span class="provider-tag">{provider}</span></td>
-            </tr>
-            """
+                <td><code>{reg.get('id', 'N/A')}</code></td>
+                <td>{reg.get('display_name', 'N/A')}</td>
+                <td><a href="{reg.get('api_spec', '#')}" class="text-link">OpenAPI Spec ↗</a></td>
+                <td><span class="pill">{reg.get('provider', 'N/A')}</span></td>
+            </tr>"""
 
-        html = f"""
-<!DOCTYPE html>
+        html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign TDD | AgentOps Cockpit</title>
+    <title>Cockpit TDD | AgentOps Cockpit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --primary: #3b82f6;
-            --primary-light: #60a5fa;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --success: #34d399;
-            --error: #f87171;
-            --sidebar-width: 280px;
+            --emerald: #10b981; --emerald-dark: #059669; --emerald-light: #ecfdf5;
+            --slate: #0f172a; --slate-light: #1e293b; --slate-lighter: #334155;
+            --text-main: #f8fafc; --text-muted: #94a3b8; --text-dark: #cbd5e1;
+            --border: #334155; --error: #ef4444; --warning: #f59e0b;
         }}
+        * {{ box-sizing: border-box; }}
+        body {{ font-family: 'Outfit', sans-serif; background: var(--slate); color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }}
+        
+        /* Sidebar */
+        aside {{ width: 300px; background: #0b1120; border-right: 1px solid var(--border); display: flex; flex-direction: column; }}
+        .sidebar-brand {{ padding: 32px 24px; border-bottom: 1px solid var(--border); }}
+        .brand-title {{ font-size: 22px; font-weight: 700; color: var(--emerald); display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em; }}
+        .nav-list {{ padding: 24px 16px; flex: 1; overflow-y: auto; }}
+        .nav-item {{ display: block; padding: 12px 16px; color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 15px; border-radius: 8px; margin-bottom: 4px; transition: all 0.2s; }}
+        .nav-item:hover, .nav-item.active {{ background: rgba(16, 185, 129, 0.1); color: var(--emerald); }}
+        
+        /* Main */
+        main {{ flex: 1; overflow-y: auto; scroll-behavior: smooth; background: #0f172a; }}
+        .content-container {{ max-width: 1100px; margin: 0 auto; padding: 60px 80px; }}
+        
+        header {{ margin-bottom: 80px; }}
+        .doc-meta {{ display: flex; gap: 24px; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }}
+        h1 {{ font-size: 48px; font-weight: 700; margin: 0; background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.01em; }}
+        .subtitle {{ font-size: 18px; color: var(--text-dark); margin-top: 12px; font-weight: 400; }}
 
-        body {{
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }}
+        .external-links {{ display: flex; gap: 16px; margin-top: 32px; }}
+        .btn-link {{ background: var(--slate-light); color: var(--text-main); text-decoration: none; padding: 10px 20px; border-radius: 12px; border: 1px solid var(--border); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }}
+        .btn-link:hover {{ border-color: var(--emerald); background: rgba(16, 185, 129, 0.05); }}
 
-        /* Sidebar Navigation */
-        aside {{
-            width: var(--sidebar-width);
-            background: #0b1120;
-            border-right: 1px solid var(--border);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }}
+        section {{ margin-bottom: 100px; scroll-margin-top: 40px; }}
+        h2 {{ font-size: 24px; font-weight: 700; color: var(--emerald); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }}
+        
+        /* Rationale Grid */
+        .rationale-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }}
+        .rationale-card {{ background: var(--slate-light); border: 1px solid var(--border); padding: 24px; border-radius: 20px; }}
+        .rationale-card h4 {{ margin: 0 0 12px 0; font-size: 16px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }}
+        .rationale-card p {{ margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6; }}
 
-        .logo {{
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }}
+        /* Agent Card */
+        .agent-card {{ background: var(--slate-light); border: 1px solid var(--border); border-radius: 24px; padding: 32px; margin-bottom: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }}
+        .card-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }}
+        .card-title-group h3 {{ margin: 0; font-size: 22px; font-weight: 700; }}
+        .health-meta {{ font-size: 13px; color: var(--emerald); font-weight: 600; margin-top: 4px; }}
+        .badge {{ padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }}
+        .status-pass {{ background: rgba(16, 185, 129, 0.1); color: var(--emerald); border: 1px solid var(--emerald); }}
+        .status-fail {{ background: rgba(239, 68, 68, 0.1); color: var(--error); border: 1px solid var(--error); }}
 
-        nav ul {{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }}
+        .spec-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }}
+        .spec-header {{ font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 16px; }}
+        .spec-content {{ background: #0b1120; padding: 20px; border-radius: 16px; border: 1px solid var(--border); }}
+        .spec-item {{ display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-size: 13px; }}
+        .spec-item:last-child {{ margin-bottom: 0; }}
+        .spec-item span {{ color: var(--text-muted); }}
+        .spec-item strong {{ color: var(--text-main); }}
 
-        nav li {{
-            margin-bottom: 8px;
-        }}
+        .iam-list {{ background: #0b1120; list-style: none; padding: 20px; margin: 0; border-radius: 16px; border: 1px solid var(--border); }}
+        .iam-list li {{ margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-lighter); }}
+        .iam-list li:last-child {{ border: none; padding-bottom: 0; margin-bottom: 0; }}
+        .iam-list li strong {{ font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--emerald); }}
+        .iam-list li small {{ color: var(--text-muted); font-size: 11px; display: block; margin-top: 4px; }}
 
-        nav a {{
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            padding: 10px 15px;
-            border-radius: 8px;
-            display: block;
-            transition: all 0.2s;
-        }}
-
-        nav a:hover, nav a.active {{
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--primary-light);
-        }}
-
-        /* Main Content */
-        main {{
-            flex: 1;
-            overflow-y: auto;
-            padding: 60px 80px;
-            scroll-behavior: smooth;
-        }}
-
-        .container {{
-            max-width: 1000px;
-            margin: 0 auto;
-        }}
-
-        header {{
-            margin-bottom: 60px;
-        }}
-
-        h1 {{
-            font-size: 3rem;
-            margin: 0 0 10px 0;
-            background: linear-gradient(90deg, #60a5fa, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }}
-
-        .meta {{
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 20px;
-        }}
-
-        section {{
-            margin-bottom: 80px;
-            scroll-margin-top: 60px;
-        }}
-
-        h2 {{
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            color: var(--primary-light);
-        }}
-
-        p {{
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #cbd5e1;
-        }}
-
-        /* Components */
-        .agent-card {{
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid var(--border);
-            margin-bottom: 40px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-        }}
-
-        .card-header {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }}
-
-        .card-header h3 {{
-            margin: 0;
-            font-size: 1.5rem;
-        }}
-
-        .badge {{
-            padding: 6px 16px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }}
-
-        .hardened {{ background: #064e3b; color: #34d399; border: 1px solid #059669; }}
-        .gaps-detected {{ background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }}
-
-        .spec-grid {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }}
-
-        .spec-block h4 {{
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            letter-spacing: 0.1em;
-        }}
-
-        .spec-content, .iam-list {{
-            background: #0f172a;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-        }}
-
-        .iam-list {{
-            list-style: none;
-            padding: 15px;
-            margin: 0;
-        }}
-
-        .iam-list li {{
-            margin-bottom: 15px;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 10px;
-        }}
-
-        .iam-list li:last-child {{ border: none; }}
-
-        code, pre {{
-            font-family: 'JetBrains Mono', monospace;
-            background: #0b1120;
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: #fbbf24;
-            font-size: 0.85rem;
-        }}
-
-        .findings-grid {{
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }}
-
-        .finding-item {{
-            background: #0f172a;
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }}
+        .audit-section {{ border-top: 1px solid var(--border); padding-top: 32px; }}
+        .findings-list {{ display: flex; flex-direction: column; gap: 8px; }}
+        .finding-row {{ background: #0b1120; padding: 12px 20px; border-radius: 12px; display: flex; gap: 16px; align-items: center; border: 1px solid transparent; transition: all 0.2s; }}
+        .finding-row:hover {{ border-color: var(--border); background: var(--slate-light); }}
+        .finding-status {{ font-size: 10px; }}
+        .finding-module {{ font-weight: 700; font-size: 13px; font-family: 'JetBrains Mono', monospace; width: 180px; color: var(--text-dark); }}
+        .finding-detail {{ font-size: 13px; color: var(--text-muted); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
 
         /* Table */
-        table {{
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--card-bg);
-        }}
+        .table-container {{ background: var(--slate-light); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; }}
+        table {{ width: 100%; border-collapse: collapse; text-align: left; }}
+        th {{ background: #0b1120; padding: 16px 24px; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }}
+        td {{ padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-dark); }}
+        tr:last-child td {{ border-bottom: none; }}
+        code {{ font-family: 'JetBrains Mono', monospace; color: var(--emerald); background: rgba(16, 185, 129, 0.05); padding: 4px 8px; border-radius: 4px; font-size: 13px; }}
+        .pill {{ background: rgba(16, 185, 129, 0.1); color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }}
+        .text-link {{ color: var(--emerald); text-decoration: none; font-weight: 600; font-size: 13px; }}
 
-        th, td {{
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }}
+        .mermaid-card {{ background: var(--slate-light); padding: 40px; border-radius: 24px; border: 1px solid var(--border); display: flex; justify-content: center; }}
 
-        th {{
-            background: #334155;
-            color: var(--primary-light);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }}
+        footer {{ margin-top: 120px; padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 13px; line-height: 2; }}
 
-        .provider-tag {{
-            background: rgba(52, 211, 153, 0.1);
-            color: var(--success);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }}
+        ::-webkit-scrollbar {{ width: 8px; }}
+        ::-webkit-scrollbar-track {{ background: transparent; }}
+        ::-webkit-scrollbar-thumb {{ background: var(--slate-lighter); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb:hover {{ background: var(--text-muted); }}
 
-        .link-btn {{
-            color: var(--primary-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }}
-
-        .link-btn:hover {{ text-decoration: underline; }}
-
-        .mermaid {{
-            background: #1e293b;
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-            border: 1px solid var(--border);
-        }}
-
-        footer {{
-            margin-top: 100px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 40px;
-        }}
-
-        #toc-list {{
-            position: sticky;
-            top: 20px;
-        }}
+        @media print {{ aside {{ display: none; }} main {{ background: white; color: black; }} .content-container {{ padding: 40px; }} .btn-link {{ display: none; }} }}
     </style>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -447,169 +250,158 @@ class TDDGenerator:
 </head>
 <body>
     <aside>
-        <div class="logo">
-            <span style="font-size: 2rem;">🕹️</span> Cockpit Sovereign
+        <div class="sidebar-brand"><div class="brand-title">🕹️ Cockpit Cockpit</div></div>
+        <div class="nav-list">
+            <a href="#summary" class="nav-item active">Executive Summary</a>
+            <a href="#rationale" class="nav-item">Technology Rationale</a>
+            <a href="#architecture" class="nav-item">System Architecture</a>
+            <a href="#connections" class="nav-item">Platform Connections</a>
+            <a href="#registry" class="nav-item">Tool Registry</a>
+            <a href="#fleet" class="nav-item">Fleet Audit Status</a>
         </div>
-        <nav id="toc-list">
-            <ul>
-                <li><a href="#summary">Executive Summary</a></li>
-                <li><a href="#preflight">Pre-flight Readiness</a></li>
-                <li><a href="#objectives">Deployment Objectives</a></li>
-                <li><a href="#architecture">System Architecture</a></li>
-                <li><a href="#iam-security">Security & IAM</a></li>
-                <li><a href="#networking">Networking Specs</a></li>
-                <li><a href="#brain">Agent Brain Logic</a></li>
-                <li><a href="#gemini-registry">Gemini Registry</a></li>
-                <li><a href="#fleet-status">Fleet Audit Status</a></li>
-            </ul>
-        </nav>
+        <div style="padding: 24px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border);">
+            Build: v2.0.7-premium<br>
+            Standard: A2A Cockpit Factory
+        </div>
     </aside>
 
     <main>
-        <div class="container">
+        <div class="content-container">
             <header>
-                <h1>Sovereign Design Document</h1>
-                <div class="meta">
-                    <span><strong>Version:</strong> 1.4.7 Build 290</span>
-                    <span><strong>Generated:</strong> {timestamp}</span>
-                    <span><strong>Standard:</strong> Google Well-Architected</span>
+                <div class="doc-meta">
+                    <span>Artifact ID: TDD-AO-2026-001</span>
+                    <span>Status: Highly Hardened</span>
+                </div>
+                <h1>Technical Design Document</h1>
+                <div class="subtitle">Architectural Blueprint for Cockpit Agent Operations.</div>
+                
+                <div class="external-links">
+                    <a href="{github_url}" class="btn-link" target="_blank">View on GitHub</a>
+                    <a href="{pypi_url}" class="btn-link" target="_blank">PyPI Registry</a>
+                    <a href="{firebase_url}" class="btn-link" target="_blank">Live Face Dashboard</a>
                 </div>
             </header>
 
             <section id="summary">
-                <h2>Executive Summary</h2>
-                <p>This Technical Design Document (TDD) details the production-grade implementation of the distributed agent fleet managed by the <strong>AgentOps Cockpit</strong>. It confirms that all agents have been successfully hardened against the Sovereign Standard, ensuring <strong>Reasoning Integrity, Infrastructure Autonomy, and Multi-Cloud Readiness.</strong></p>
+                <h2><span style="color:var(--text-muted); font-weight:400;">01.</span> Executive Summary</h2>
+                <p>This design document details the multi-cloud, cockpit implementation of <strong>AgentOps Cockpit</strong>. Our architecture is designed to bridge the gap between "scripts" and "systems" by providing framework-agnostic governance for distributed AI fleets. The core objective is <strong>Autonomous Cockpitty</strong>—ensuring that your agents operate with hardened reasoning logic, secure tool schemas, and high-fidelity operational transparency.</p>
             </section>
 
-            <section id="preflight">
-                <h2>Pre-flight Readiness (Sovereign Gate)</h2>
-                <p>Before any deployment, the Cockpit executes a <strong>Sovereign Handshake</strong> to verify the environment's readiness for the target cloud.</p>
-                <div class="spec-block" style="background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 10px;">✅ <strong>Registry Access:</strong> Verified connectivity to the Global PyPI Registry.</li>
-                        <li style="margin-bottom: 10px;">✅ <strong>CLI Toolchain:</strong> Detected <code>gcloud</code>, <code>kubectl</code>, and <code>uv</code>.</li>
-                        <li style="margin-bottom: 10px;">✅ <strong>Identity Handshake:</strong> Active IAM Principal verified for target: <code>{target_cloud}</code>.</li>
-                    </ul>
+            <section id="rationale">
+                <h2><span style="color:var(--text-muted); font-weight:400;">02.</span> Technology Rationale</h2>
+                <div class="rationale-grid">
+                    <div class="rationale-card">
+                        <h4>⚙️ The Agentic Trinity</h4>
+                        <p>Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit). This ensures that architectural debt in one pillar does not compromise the security or performance of the others.</p>
+                    </div>
+                    <div class="rationale-card">
+                        <h4>🧠 Cockpit Reasoning (ADK)</h4>
+                        <p>Leveraging the Google ADK for robust function calling and multi-turn state persistence. We chose ADK for its "Shared State" and "Delegation" patterns which provide superior orchestration over vanilla RAG.</p>
+                    </div>
+                    <div class="rationale-card">
+                        <h4>🛡️ Poka-Yoke Hardening</h4>
+                        <p>Automated tool-schema reconciliation using AST-aware auditing. This "error-proofing" ensures that LLMs never attempt to call non-existent or dangerous tool variants.</p>
+                    </div>
+                    <div class="rationale-card">
+                        <h4>🌉 The Cockpit Bridge</h4>
+                        <p>A multi-cloud deployment engine (GCP / AWS / Azure). We chose this to prevent infrastructure lock-in, allowing reasoning workloads to shift based on latency and token-economics.</p>
+                    </div>
                 </div>
-            </section>
-
-            <section id="objectives">
-                <h2>Deployment Objectives</h2>
-                <ul>
-                    <li><strong>Autonomous Liquidity:</strong> Ability to shift reasoning workloads between GKE and Cloud Run based on cost/concurrency.</li>
-                    <li><strong>Zero-Trust Identity:</strong> Elimination of static API keys in favor of short-lived OIDC tokens.</li>
-                    <li><strong>Tool-Discovery:</strong> Automated tool exposure to Gemini Enterprise via the A2A Bridge.</li>
-                    <li><strong>100% Audit Compliance:</strong> Blocking deployment for any code failing SME-Persona criteria Score < 90.</li>
-                </ul>
             </section>
 
             <section id="architecture">
-                <h2>System Architecture</h2>
-                <div class="mermaid">
-                    graph TD
-                    subgraph "Control Plane (The Cockpit)"
-                        ORCH[Sovereign Orchestrator]
-                        TDD[TDD Documenter]
-                        AUDIT[Principal SMEs]
-                    end
-                    
-                    subgraph "Data Plane (Google Cloud)"
-                        GKE[GKE Autopilot Pods]
-                        CR[Cloud Run Services]
-                        AE[Reasoning Engine]
-                    end
+                <h2><span style="color:var(--text-muted); font-weight:400;">03.</span> System Architecture</h2>
+                <div class="mermaid-card">
+                    <div class="mermaid">
+                        graph TD
+                        subgraph "Governance Plane (The Cockpit)"
+                            ORCH[Cockpit Orchestrator]
+                            AUDIT[SME Auditor Board]
+                            HIVE[Semantic Hive Mind]
+                        end
+                        
+                        subgraph "Execution Plane (Cockpit Infrastructure)"
+                            MESH[Elastic Service Mesh]
+                            RUNTIME[Cockpit Runtime Nodes]
+                            EDGE[Cockpit Edge Gateway]
+                        end
 
-                    subgraph "Interop Layer"
-                        BRIDGE[A2A Bridge / Proxy]
-                        FACE[A2UI Protocol]
-                    end
+                        subgraph "Platform Integration"
+                            GE[Gemini Enterprise]
+                            FB[Firebase Face Layer]
+                            AE[Reasoning Engine]
+                        end
 
-                    ORCH --> AUDIT
-                    ORCH --> TDD
-                    ORCH --> GKE
-                    ORCH --> CR
-                    ORCH --> AE
-                    
-                    GKE --> BRIDGE
-                    CR --> BRIDGE
-                    AE --> BRIDGE
-                    BRIDGE --> GE[Gemini Enterprise]
-                    FACE --> UI[React Dashboard]
-                    GE --> FACE
+                        ORCH --> AUDIT
+                        ORCH --> HIVE
+                        AUDIT --> EDGE
+                        EDGE --> RUNTIME
+                        RUNTIME --> MESH
+                        MESH --> GE
+                        GE --> AE
+                        FB --> ORCH
+                        AE --> FB
+                    </div>
                 </div>
             </section>
 
-            <section id="iam-security">
-                <h2>Security & IAM Framework</h2>
-                <p>The Sovereign Pipeline enforces <strong>Workload Identity Identity</strong>. Agents running on GKE assume service account roles dynamically, minimizing the attack surface. Every agent listed below has been verified to have <strong>Least Privilege</strong> access to Vertex AI services.</p>
+            <section id="connections">
+                <h2><span style="color:var(--text-muted); font-weight:400;">04.</span> Platform Connections</h2>
+                <p>AgentOps Cockpit is a distributed system with deep integrations into enterprise cloud providers. Below are the verified production end-points for the current fleet.</p>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Platform</th><th>Target Service</th><th>Connection Strategy</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Google Cloud</strong></td><td>Vertex AI / GKE</td><td>Workload Identity / OIDC</td></tr>
+                            <tr><td><strong>Firebase</strong></td><td>Hosting / Functions</td><td>Cockpit Face Deployment</td></tr>
+                            <tr><td><strong>GitHub</strong></td><td>Source Registry</td><td>SSH Agent / CI-CD Bridge</td></tr>
+                            <tr><td><strong>PyPI</strong></td><td>Package Registry</td><td>Trusted Publisher (OpenID)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
-            <section id="networking">
-                <h2>Networking & Protocol Topology</h2>
-                <p>High-scale agents are deployed behind a <strong>Global HTTP(S) Load Balancer</strong>. Internal communication between the Cockpit and the Agents uses <strong>gRPC Streams</strong> to minimize Time-to-Reasoning (TTR) overhead.</p>
+            <section id="registry">
+                <h2><span style="color:var(--text-muted); font-weight:400;">05.</span> Gemini Enterprise Tool Registry</h2>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Tool ID</th><th>Display Name</th><th>Manifest</th><th>Status</th></tr></thead>
+                        <tbody>{registry_rows}</tbody>
+                    </table>
+                </div>
             </section>
 
-            <section id="brain">
-                <h2>Agent Brain & Logic</h2>
-                <p>The reasoning core is built on the <strong>Agent Development Kit (ADK)</strong>. It utilizes semantic routing to decide between local tool execution and external swarm delegation. All prompts are version-controlled and immutable in production.</p>
-            </section>
-
-            <section id="gemini-registry">
-                <h2>Gemini Enterprise: Tool Registry</h2>
-                <p>The following tools are registered as native extensions in the Gemini Enterprise Engine, enabling seamless tool-call orchestration.</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tool ID</th>
-                            <th>Display Name</th>
-                            <th>Manifest</th>
-                            <th>Bridge Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {registry_rows}
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="fleet-status">
-                <h2>Fleet Audit & Sovereignty Status</h2>
+            <section id="fleet">
+                <h2><span style="color:var(--text-muted); font-weight:400;">06.</span> Fleet Audit Status</h2>
                 {agent_sections}
             </section>
 
             <footer>
-                <strong>AgentOps Cockpit v1.8.4</strong><br/>
-                Sovereign Factory Operations | Confidential & Proprietary | Build 17647929
+                <strong>AgentOps Cockpit v2.0.7 Premium Insights</strong><br/>
+                Confidential Architectural Artifact. Cockpit Systems Division.<br>
+                Generated: {timestamp} | Standard: AIA Cockpit Design v1.4
             </footer>
         </div>
     </main>
 
     <script>
-        // TOC Scroll Spy
         const main = document.querySelector('main');
         const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a');
+        const navLinks = document.querySelectorAll('.nav-item');
 
         main.addEventListener('scroll', () => {{
             let current = "";
             sections.forEach((section) => {{
-                const sectionTop = section.offsetTop;
-                if (main.scrollTop >= sectionTop - 100) {{
-                    current = section.getAttribute("id");
-                }}
+                if (main.scrollTop >= section.offsetTop - 100) {{ current = section.getAttribute("id"); }}
             }});
-
             navLinks.forEach((link) => {{
                 link.classList.remove("active");
-                if (link.getAttribute("href").substring(1) === current) {{
-                    link.classList.add("active");
-                }}
+                if (link.getAttribute("href").substring(1) === current) {{ link.classList.add("active"); }}
             }});
         }});
     </script>
 </body>
-</html>
-        """
+</html>"""
         output_file = os.path.join(self.root_path, 'TECHNICAL_DESIGN_DOCUMENT.html')
         with open(output_file, 'w') as f:
             f.write(html)
@@ -624,15 +416,25 @@ class TDDGenerator:
         timestamp = datetime.now().strftime("%B %d, %Y %H:%M")
         
         md = [
-            "# 🏛️ Sovereign Technical Design Document (TDD)",
+            "# 🏛️ Cockpit Technical Design Document (TDD)",
             f"**Generated**: {timestamp}",
             "**Standard**: Google Well-Architected for Agents (v2.0.2)",
+            "**GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)",
+            "**PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)",
+            "**Face**: [agent-cockpit.web.app](https://agent-cockpit.web.app)",
             "\n---",
             "\n## 1. Executive Summary",
-            "This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Sovereign Standard.",
-            "\n## 2. System Architecture",
+            "This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Cockpit Standard.",
+            "\n## 2. Technology Rationale",
+            "### ⚙️ The Agentic Trinity",
+            "Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit).",
+            "### 🧠 Cockpit Reasoning (ADK)",
+            "Leveraging Google ADK for robust function calling and multi-turn state persistence.",
+            "### 🛡️ Poka-Yoke Hardening",
+            "Automated tool-schema reconciliation using AST-aware auditing.",
+            "\n## 3. System Architecture",
             "The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).",
-            "\n## 3. Fleet Audit Evidence",
+            "\n## 4. Fleet Audit Evidence",
         ]
 
         for path, data in evidence.items():
@@ -641,7 +443,7 @@ class TDDGenerator:
             status = "✅ HARDENED" if health >= 90 else "⚠️ GAPS DETECTED"
             
             md.append(f"\n### Agent: {name}")
-            md.append(f"- **Sovereign Score**: {health:.1f}%")
+            md.append(f"- **Cockpit Score**: {health:.1f}%")
             md.append(f"- **Status**: {status}")
             md.append("\n#### 🛠️ SME Findings:")
             
@@ -666,9 +468,9 @@ class TDDGenerator:
         discovery = DiscoveryEngine(self.root_path)
         
         bundle = [
-            "# 🛰️ SOVEREIGN CODEBASE BUNDLE",
+            "# 🛰️ COCKPIT CODEBASE BUNDLE",
             f"**Generated**: {datetime.now().isoformat()}",
-            "**Purpose**: High-fidelity AI context for Sovereign Fleet Operations.",
+            "**Purpose**: High-fidelity AI context for Cockpit Fleet Operations.",
             "\n---\n"
         ]
         

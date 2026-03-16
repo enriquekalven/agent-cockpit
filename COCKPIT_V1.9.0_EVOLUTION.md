@@ -1,27 +1,27 @@
 # AGENTOPS COCKPIT: v1.9.0 EVOLUTIONARY DESIGN DOCUMENT
-**Revision**: v1.9.0 (Sovereign Transformation)
+**Revision**: v1.9.0 (Cockpit Transformation)
 **Status**: Live & Published
-**Objective**: Codify the learnings from the "Hardened Sovereign Fleet" into the core product architecture.
+**Objective**: Codify the learnings from the "Hardened Cockpit Fleet" into the core product architecture.
 
 ## 1. Executive Summary
-Version 1.9.0 represents a major evolutionary leap for the AgentOps Cockpit. By iterating over 22+ vulnerable agent personas in the `sovereign-fleet-samples` repository, we identified critical gaps in existing audit paradigms. v1.9.0 transforms the Cockpit from a "Tactical Linter" into a "Strategic Architect" capable of detecting and remediating advanced agentic vulnerabilities autonomously.
+Version 1.9.0 represents a major evolutionary leap for the AgentOps Cockpit. By iterating over 22+ vulnerable agent personas in the `cockpit-fleet-samples` repository, we identified critical gaps in existing audit paradigms. v1.9.0 transforms the Cockpit from a "Tactical Linter" into a "Strategic Architect" capable of detecting and remediating advanced agentic vulnerabilities autonomously.
 
 ## 2. Key Architectural Upgrades
 
 ### A. The Reasoning Auditor (Reflection Detection)
 - **New Capability**: Detection of "Reflection Blindness" in agent runners.
-- **Logic**: Uses AST analysis to identify methods starting with `run_` or `call_agent` that lack `@sovereign_reflection` or equivalent dual-pass verification.
+- **Logic**: Uses AST analysis to identify methods starting with `run_` or `call_agent` that lack `@cockpit_reflection` or equivalent dual-pass verification.
 - **Impact**: Reduces "First-Pass Hallucination" risks by enforcing self-correction loops across the fleet.
 
-### B. The Sovereignty Auditor (HITL MCP Gate)
+### B. The Cockpitty Auditor (HITL MCP Gate)
 - **New Capability**: Detection of "Tool Over-Privilege".
 - **Logic**: Automatically flags destructive or high-impact tool methods (delete, terminate, charge, exec) that are not protected by a Human-in-the-Loop (`mcp_tool_gate`).
 - **Impact**: Implements Zero-Trust execution for autonomous agents, preventing "Autonomous Rampage" scenarios.
 
-### C. The Autonomous Remediator (Sovereign Patching)
-- **Enhanced Capability**: Added surgical patching methods for Sovereign patterns.
+### C. The Autonomous Remediator (Cockpit Patching)
+- **Enhanced Capability**: Added surgical patching methods for Cockpit patterns.
 - **Methods**:
-  - `apply_sovereign_reflection`: Injects the reflection loop and necessary imports.
+  - `apply_cockpit_reflection`: Injects the reflection loop and necessary imports.
   - `apply_mcp_gating`: Injects the HITL gate into destructive tool definitions.
 - **Paradigm Shift**: The `make apply-fixes` command now performs structural architectural hardening, not just syntax cleanup.
 
@@ -31,7 +31,7 @@ Version 1.9.0 represents a major evolutionary leap for the AgentOps Cockpit. By 
 - **Global Distribution**: Successfully published to PyPI as `agentops-cockpit v1.9.0`.
 
 ## 4. Closing the Loop
-This release closes the "Hill Climbing" loop between the **Engine** (the agents we hardened) and the **Cockpit** (the tool that audits them). The Cockpit is now "Sovereign-Aware."
+This release closes the "Hill Climbing" loop between the **Engine** (the agents we hardened) and the **Cockpit** (the tool that audits them). The Cockpit is now "Cockpit-Aware."
 
 ---
 *Certified by the Distinguished Platform Fellow (Antigravity).*

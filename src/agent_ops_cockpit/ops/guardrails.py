@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import json
 import os
 import re
@@ -12,7 +12,7 @@ from typing import List, Optional
 
 class SafetyGate:
     """
-    [Sovereign Tooling] Official Safety SDK for AgentOps.
+    [Cockpit Tooling] Official Safety SDK for AgentOps.
     Synchronized with Cockpit Audit findings to provide active defense.
     """
     
@@ -76,7 +76,7 @@ class SafetyGate:
                 allowed_scope = os.environ.get("AGENT_EXECUTION_SCOPE", "restricted")
                 if required_scope == "admin" and allowed_scope != "admin":
                     SafetyGate.audit_log(f"tool_execution:{func.__name__}", "DENIED", {"required": required_scope, "actual": allowed_scope})
-                    raise PermissionError(f"🛑 [Sovereignty Breach] Tool '{func.__name__}' requires 'admin' scope.")
+                    raise PermissionError(f"🛑 [Cockpitty Breach] Tool '{func.__name__}' requires 'admin' scope.")
                 SafetyGate.audit_log(f"tool_execution:{func.__name__}", "ALLOWED")
                 return func(*args, **kwargs)
             return wrapper

@@ -1,14 +1,19 @@
 ---
+| name | description | category | revision | tags |
+| :--- | :--- | :--- | :--- | :--- |
+| cockpit-architecture | Core architectural pillars and PII scrubbing standards for AgentOps Cockpit. | architecture | 2 | cockpit,infrastructure,security |
+
+---
 
 <div align="center">
-  <img src="diagrams/ecosystem.png" alt="Google Ecosystem Integrations" width="100%" />
+  <img src="diagrams/ecosystem.png" alt="Cockpit Ecosystem Integrations" width="100%" />
 </div>
 
 ## 🏗️ The Three Pillars
 
 ### 1. The Engine (Logic)
 *   **Role**: Reasoning, Tool Selection, MCP Connectivity.
-*   **Standard**: [Google ADK](https://github.com/a2aproject/adk) & Vertex AI.
+*   **Standard**: [Cockpit ADK](https://github.com/a2aproject/adk) & Cockpit AI.
 *   **Operations**: Governed by `agent-ops report`.
 
 ### 2. The Face (User Interface)
@@ -18,7 +23,7 @@
 
 ### 3. The Cockpit (Agent Operations)
 *   **Role**: Caching, Privacy Scrubbing, FinOps, Observability.
-*   **Standard**: Google Well-Architected Framework.
+*   **Standard**: Cockpit Well-Architected Framework.
 *   **Operations**: The centralized control plane for Day 2 production.
 
 ---
@@ -34,7 +39,7 @@ When Agent A calls Agent B, it doesn't just send text; it sends:
 
 ---
 
-## 🏛️ Google Well-Architected Alignment
+## 🏛️ Cockpit Well-Architected Alignment
 
 By using the Cockpit, you are automatically building toward four critical pillars:
 
@@ -54,5 +59,5 @@ By using the Cockpit, you are automatically building toward four critical pillar
 
 Run the Architecture Review now to see how your current repo stacks up:
 ```bash
-agent-ops arch-review --path .
+ops report --path .
 ```

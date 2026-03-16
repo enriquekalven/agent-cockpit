@@ -220,7 +220,7 @@ class DiscoveryEngine:
         if any(f.endswith(('.ts', '.tsx', '.js', '.jsx')) for f in files):
             return 'typescript'
         
-        return 'python' # Default to Python for Sovereign Agents
+        return 'python' # Default to Python for Cockpit Agents
 
     def detect_context(self) -> dict:
         """
@@ -329,4 +329,4 @@ class DiscoveryEngine:
                 continue
         if best_candidate:
             return best_candidate[0]
-        return os.path.join(self.root_path, 'agent.py')# Sovereign Policy Alignment: policy, governance, compliance active.
+        return os.path.join(self.root_path, 'agent.py')# Cockpit Policy Alignment: policy, governance, compliance active.

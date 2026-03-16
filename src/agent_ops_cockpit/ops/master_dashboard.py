@@ -1,5 +1,5 @@
 """
-Pillar: Sovereign Governance
+Pillar: Cockpit Governance
 SME Persona: Distinguished Platform Fellow
 Objective: Provides a high-fidelity "Omniscient View" of the agent fleet via the Master Dashboard.
 """
@@ -40,7 +40,7 @@ class MasterCockpit:
         
         # 2. Hero Panel
         hero_text = Text.from_markup(f"""
-[bold white]🕹️ Sovereign Agent Operations Command Center[/]
+[bold white]🕹️ Cockpit Agent Operations Command Center[/]
 [dim]v1.8.4 Stable | Distinguished Fellow Governance[/]
 
 Detected [bold cyan]{len(agents)}[/] Local Agent Silos in Workspace.
@@ -53,13 +53,13 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
         master_move = Panel(
             Text.from_markup("🚀 [bold green]THE HERO ACTIONS:[/] [white]Run [bold]agentops-cockpit certify[/] to validate production-readiness or [bold]agentops-cockpit mcp blueprint[/] to modernize your tools.[/]"),
             border_style="green",
-            title="Strategic Sovereignty",
+            title="Strategic Cockpitty",
             box=box.HEAVY
         )
         console.print(master_move)
 
-        # 4. The 4-Step Sovereign Workflow (Preview)
-        workflow_table = Table(title="🏛️ The 4-Step Sovereign Workflow", expand=True, box=box.ROUNDED)
+        # 4. The 4-Step Cockpit Workflow (Preview)
+        workflow_table = Table(title="🏛️ The 4-Step Cockpit Workflow", expand=True, box=box.ROUNDED)
         workflow_table.add_column("Phase", style="cyan", width=15)
         workflow_table.add_column("Command Preview", style="bold yellow")
         workflow_table.add_column("Principal SME Mandate", style="dim")
@@ -81,7 +81,7 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
         )
         workflow_table.add_row(
             "4. Deploy", 
-            "deploy sovereign", 
+            "deploy cockpit", 
             "🚀 GKE / Cloud Run Production Push"
         )
 
@@ -89,7 +89,7 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
 
         # 5. Fleet Summary with Audit Integrity
         if deployed_agents:
-            # [v1.8.4] Sovereignty Bridge: Cross-reference with Evidence Lake for Audit Integrity
+            # [v1.8.4] Cockpitty Bridge: Cross-reference with Evidence Lake for Audit Integrity
             lake_path = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake.json')
             lake_data = {}
             if os.path.exists(lake_path):
@@ -99,7 +99,7 @@ Currently Tracking [bold green]{len(deployed_agents)}[/] Deployed Cloud Instance
                 except Exception:
                     pass
 
-            fleet_table = Table(title="🛰️ Active Sovereign Fleet Registry", expand=True)
+            fleet_table = Table(title="🛰️ Active Cockpit Fleet Registry", expand=True)
             fleet_table.add_column("Agent ID", style="cyan")
             fleet_table.add_column("Cloud", style="magenta")
             fleet_table.add_column("Audit Integrity", justify="center")

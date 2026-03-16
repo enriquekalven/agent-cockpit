@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class CockpitCallbackHandler(BaseCallbackHandler):
     """
-    v2.0.4 Sovereign Integration: LangChain Callback Handler.
+    v2.0.4 Cockpit Integration: LangChain Callback Handler.
     Provides real-time structural auditing, PII detection, and cost-control 
     within LangChain and LangGraph workflows.
     """

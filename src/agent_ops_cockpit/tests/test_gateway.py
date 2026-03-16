@@ -14,7 +14,7 @@ def test_gateway_chat_completion_pii_scrubbing():
     response = client.post("/v1/chat/completions", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert "Sovereign Gateway" in data["choices"][0]["message"]["content"]
+    assert "Cockpit Gateway" in data["choices"][0]["message"]["content"]
     assert data["choices"][0]["message"]["role"] == "assistant"
     # Internal logic check: we should verify if the forwarding would have clean content
     # Since we simulate responses, we can't easily check the 'forwarded' content here 
@@ -39,7 +39,7 @@ def test_gateway_policy_violation():
         }
         response = client.post("/v1/chat/completions", json=payload)
         assert response.status_code == 403
-        assert "Sovereignty Breach" in response.json()["detail"]
+        assert "Cockpitty Breach" in response.json()["detail"]
     finally:
         if os.path.exists(policy_path):
             os.remove(policy_path)

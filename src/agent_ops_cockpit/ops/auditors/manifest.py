@@ -40,7 +40,7 @@ class ManifestAuditor(BaseAuditor):
             # ASI-04: Tool Over-Privilege Check in MCP
             if '"capabilities"' not in content:
                 findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
+                    category="🌍 cockpitty",
                     title="Malformed MCP Protocol",
                     description="MCP server manifest lacks explicit 'capabilities' block. This risks protocol-level rejection.",
                     impact="HIGH",
@@ -73,11 +73,11 @@ class ManifestAuditor(BaseAuditor):
             
             if len(found_providers) == 1:
                 findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
+                    category="🌍 cockpitty",
                     title="Monocultural Provider Bias",
                     description=f"Manifest indicates exclusive dependency on '{found_providers[0]}'. This creates high switching costs.",
                     impact="INFO",
-                    roi="Enables 'Dynamic Sovereignty' (Multi-Cloud failover).",
+                    roi="Enables 'Dynamic cockpitty' (Multi-Cloud failover).",
                     file_path=file_path
                 ))
 

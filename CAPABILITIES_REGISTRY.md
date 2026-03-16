@@ -1,4 +1,4 @@
-# 🕹️ AgentOps Cockpit: Core Capabilities Registry (v2.0.2)
+# 🕹️ AgentOps Cockpit: Core Capabilities Registry (v2.0.7 Premium Insights)
 
 This registry defines the mandatory features and "build-gates" that must be maintained across all releases. Every capability listed here must have a corresponding regression test.
 
@@ -10,19 +10,19 @@ This registry defines the mandatory features and "build-gates" that must be main
 | **CAP-004** | **Evidence Lake** | Partitioning artifacts by agent hash in `evidence_lake/<hash>/`. | `test_v1_regression.py` | blocker |
 | **CAP-005** | **Pre-Remediation Diff**| Preview changes in terminal before applying (`--dry-run`). | `test_audit_flow.py` | major |
 | **CAP-006** | **Secret Scanner** | High-fidelity detection of API keys and credential leaks. | `test_persona_security.py` | blocker |
-| **CAP-007** | **Sovereign Config** | Support for local exclusions and entry points via `cockpit.yaml`.| `test_discovery.py` | major |
+| **CAP-007** | **Cockpit Config** | Support for local exclusions and entry points via `cockpit.yaml`.| `test_discovery.py` | major |
 | **CAP-008** | **Version Sync** | Guaranteed version parity between Python CLI and Web Face. | `test_version_sync.py` | minor |
 | **CAP-009** | **Trinity Structure** | Presence of `/src/agent_ops_cockpit` (Engine) and `/src/a2ui` (Face). | `test_ops_core.py` | blocker |
 | **CAP-010** | **CLI Parity** | `agent-ops report` is the master command for all audits. | `test_arch_review.py` | major |
 | **CAP-011** | **Maturity Wisdom Store** | Dynamic architectural patterns and compatibility rules for Judge of Judges. | `test_maturity_auditor.py` | major |
-| **CAP-012** | **Sovereign Fleet Pipeline** | End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register). | `test_sovereign.py` | blocker |
-| **CAP-013** | **Multi-Cloud Simulation** | Battle-test factory for GCP, AWS, and Azure deployment assets. | `test_sovereign_ops.py` | blocker |
-| **CAP-014** | **Pre-flight Handshake** | Environment/Identity verification before fleet-wide operations. | `test_sovereign_ops.py` | major |
-| **CAP-015** | **Stateful Fleet Registry** | Day 2 Ops: Tracking deployed agents, endpoints, and health in a persistent store. | `test_sovereign_ops.py` | major |
-| **CAP-016** | **FinOps Mothballing** | Scale-to-zero capability for cost optimization of inactive agent fleets. | `test_sovereign_ops.py` | major |
-| **CAP-017** | **Inner-Loop Tunneling** | Local-to-cloud bridge for zero-deployment iteration with Gemini Enterprise. | `test_sovereign_ops.py` | blocker |
-| **CAP-018** | **Anomaly Verification** | Reasoning-based runtime audit of agent behavior and tool misuse. | `test_sovereign_ops.py` | major |
-| **CAP-019** | **Proactive Enforcement** | Auto-mothballing of agents based on high risk/suspicious intent scores. | `test_sovereign_ops.py` | blocker |
+| **CAP-012** | **Cockpit Fleet Pipeline** | End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register). | `test_cockpit_pipeline.py` | blocker |
+| **CAP-013** | **Multi-Cloud Simulation** | Battle-test factory for GCP, AWS, and Azure deployment assets. | `test_cockpit_ops.py` | blocker |
+| **CAP-014** | **Pre-flight Handshake** | Environment/Identity verification before fleet-wide operations. | `test_cockpit_ops.py` | major |
+| **CAP-015** | **Stateful Fleet Registry** | Day 2 Ops: Tracking deployed agents, endpoints, and health in a persistent store. | `test_cockpit_ops.py` | major |
+| **CAP-016** | **FinOps Mothballing** | Scale-to-zero capability for cost optimization of inactive agent fleets. | `test_cockpit_ops.py` | major |
+| **CAP-017** | **Inner-Loop Tunneling** | Local-to-cloud bridge for zero-deployment iteration with Gemini Enterprise. | `test_cockpit_ops.py` | blocker |
+| **CAP-018** | **Anomaly Verification** | Reasoning-based runtime audit of agent behavior and tool misuse. | `test_cockpit_ops.py` | major |
+| **CAP-019** | **Proactive Enforcement** | Auto-mothballing of agents based on high risk/suspicious intent scores. | `test_cockpit_ops.py` | blocker |
 | **CAP-020** | **Observability Bridge** | Export traces to Arize/LangSmith hubs | `test_ops_v18.py` | major |
 | **CAP-021** | **Shadow Routing** | Production diversion & differential analysis | `test_ops_v18.py` | major |
 | **CAP-022** | **Runtime Auditor** | Proactive LLM interpretation of live metrics | `test_ops_v18.py` | blocker |
@@ -33,9 +33,9 @@ This registry defines the mandatory features and "build-gates" that must be main
 | **CAP-027** | **Multi-Protocol UX Governance**| Unified auditing for A2UI, AGUI, and MCP Apps UI ecosystem standards. | `test_ui_auditor.py` | blocker |
 | **CAP-028** | **Hill Climbing Evolution** | Iterative self-improvement loop (Audit -> Refine -> Validate) across target fleets. | `test_hill_climb.py` | blocker |
 | **CAP-029** | **Code-First Governance** | Scope-based tool privilege gating to prevent lateral movement. | `test_guardrails.py` | blocker |
-| **CAP-030** | **Sovereign Attestation** | Cryptographically signed identity tokens (JWT) for inter-agent MuTI handshakes. | `test_v202_evolution.py` | blocker |
+| **CAP-030** | **Cockpit Attestation** | Cryptographically signed identity tokens (JWT) for inter-agent MuTI handshakes. | `test_v202_evolution.py` | blocker |
 | **CAP-031** | **Architect's Dialogue** | Interactive remediation loop with rationale-based confirmation. | `test_v202_evolution.py` | blocker |
-| **CAP-032** | **Sovereign Gateway** | Local sidecar proxy for real-time PII scrubbing, policy enforcement, and cost routing. | `test_gateway.py` | blocker |
+| **CAP-032** | **Cockpit Gateway** | Local sidecar proxy for real-time PII scrubbing, policy enforcement, and cost routing. | `test_gateway.py` | blocker |
 
 ---
 *Generated by the Engineering Governance Division.*

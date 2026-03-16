@@ -43,9 +43,9 @@ def test_generate_fleet_dashboard(tmp_path):
     dashboard = tmp_path / '.cockpit' / 'fleet_dashboard.html'
     assert dashboard.exists()
     content = dashboard.read_text()
-    assert 'AgentOps Cockpit' in content
-    assert 'PASSED' in content
-    assert 'FAILED' in content
+    assert 'AgentOps' in content
+    assert 'Healthy' in content
+    assert 'Anomalous' in content
 
 def test_detect_entry_point(tmp_path):
     """Verify entry point detection heuristics."""

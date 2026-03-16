@@ -6,11 +6,11 @@ from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
 def auditor():
     return SecurityAuditor()
 
-def test_s1_sovereignty_gap(auditor):
+def test_s1_cockpit_gap(auditor):
     content = "def execute_payment(amt): \n    bank_api.transfer(amt)"
     tree = ast.parse(content)
     findings = auditor.audit(tree, content, "bank.py")
-    assert any("Sovereign Gap" in f.title for f in findings)
+    assert any("Cockpit Gap" in f.title for f in findings)
 
 def test_s2_execution_trap(auditor):
     content = "def run_agent_code(c): eval(c)"

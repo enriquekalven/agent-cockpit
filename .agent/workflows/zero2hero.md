@@ -30,6 +30,7 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
    - **PyPI**: Ensure `PYPI_TOKEN` is exported in the shell.
 5. **Synchronize Wisdom Store**: 
    - **Automated Pulse**: Run `agentops-cockpit fleet watch` to ingest the latest research signals and ecosystem patterns into the intelligence core.
+   - **Context Hub Core**: Run `agent-ops context build` (automated via `sync_docs.py`) to synchronize governance skills and architectural guidelines into the dynamic BM25 search index.
    - **Manual Verification**: 
      - Update `src/agent_ops_cockpit/ops/maturity_patterns.json` (Architectural heuristics).
      - Update `src/agent_ops_cockpit/ops/policies.json` (Governance rules).

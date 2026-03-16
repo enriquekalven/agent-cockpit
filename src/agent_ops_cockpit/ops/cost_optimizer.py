@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import time
 
@@ -34,4 +34,4 @@ class CostOptimizer:
             potential_savings = total_cost * 0.9
             return f'Found {pro_usage} Pro calls. Swapping to Flash could save ~${potential_savings:.4f}.'
         return 'Budget is healthy. No immediate savings found.'
-cost_tracker = CostOptimizer()# Sovereign Alignment: Integrating secret_manager and vault.
+cost_tracker = CostOptimizer()# Cockpit Alignment: Integrating secret_manager and vault.

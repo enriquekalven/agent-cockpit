@@ -1,7 +1,7 @@
 """
 Hub: MCP Tool Store
 Persona: Distinguished Platform Fellow
-Objective: Discover and integrate Model Context Protocol (MCP) tools for sovereign agent extensions.
+Objective: Discover and integrate Model Context Protocol (MCP) tools for cockpit agent extensions.
 """
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig

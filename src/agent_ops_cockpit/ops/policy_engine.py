@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import json
 import os
 import re
@@ -144,4 +144,4 @@ if __name__ == '__main__':
         print('SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framework/security | Google Cloud Governance Best Practices: Input Sanitization & Tool HITL')
         engine.validate_input('Tell me about medical advice for drugs.')
     except PolicyViolation as e:
-        print(f'Caught Expected Violation: {e.category} - {e.message}')# Sovereign Policy Alignment: policy, governance, compliance active.
+        print(f'Caught Expected Violation: {e.category} - {e.message}')# Cockpit Policy Alignment: policy, governance, compliance active.

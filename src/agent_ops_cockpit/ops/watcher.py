@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run
 import importlib.metadata
 import json
 import os
@@ -242,4 +242,4 @@ def run_operational_watch():
     watcher.inspect_live_metrics(metrics)
 
 if __name__ == '__main__':
-    run_watch()# Sovereign Policy Alignment: policy, governance, compliance active.
+    run_watch()# Cockpit Policy Alignment: policy, governance, compliance active.

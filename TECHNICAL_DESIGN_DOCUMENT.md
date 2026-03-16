@@ -1,19 +1,30 @@
-# 🏛️ Sovereign Technical Design Document (TDD)
-**Generated**: March 10, 2026 10:54
-**Standard**: Google Well-Architected for Agents (v2.0.2)
+# 🏛️ Cockpit Technical Design Document (TDD)
+**Generated**: March 13, 2026 16:24
+**Standard**: Google Well-Architected for Agents (v2.0.7 Premium Insights)
+**GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
+**PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
+**Face**: [agent-cockpit.web.app](https://agent-cockpit.web.app)
 
 ---
 
 ## 1. Executive Summary
-This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Sovereign Standard.
+This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Cockpit Standard.
 
-## 2. System Architecture
+## 2. Technology Rationale
+### ⚙️ The Agentic Trinity
+Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit).
+### 🧠 Cockpit Reasoning (ADK)
+Leveraging Google ADK for robust function calling and multi-turn state persistence.
+### 🛡️ Poka-Yoke Hardening
+Automated tool-schema reconciliation using AST-aware auditing.
+
+## 3. System Architecture
 The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).
 
-## 3. Fleet Audit Evidence
+## 4. Fleet Audit Evidence
 
 ### Agent: agent-cockpit
-- **Sovereign Score**: 100.0%
+- **Cockpit Score**: 100.0%
 - **Status**: ✅ HARDENED
 
 #### 🛠️ SME Findings:
@@ -59,15 +70,21 @@ Detected...
 ╰──────────────────────────────╯
 🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
 📈 Verifying Regression S...
+- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...
 - ✅ **Face Auditor**: ╭──────────────────────────────────────╮
 │ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
 ╰──────────────────────────────────────╯
 Scanning directory: /Users/enriq/Documents/git/agent-cockpit
 📝 Scanned 19 fron...
-- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
-│ Optimizing Reasoning Density & Tool Trajectory Stability... │
-╰────────...
+
+### Agent: global_summary
+- **Cockpit Score**: 0.0%
+- **Status**: ⚠️ GAPS DETECTED
+
+#### 🛠️ SME Findings:
 
 ---
 

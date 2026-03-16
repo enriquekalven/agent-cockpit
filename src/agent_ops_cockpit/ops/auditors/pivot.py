@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 cockpit Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from typing import List
@@ -15,7 +15,7 @@ from .base import AuditFinding, BaseAuditor
 class PivotAuditor(BaseAuditor):
     """
     v1.2 Principal SME: Strategic Pivot Auditor.
-    Reasons across multiple dimensions (Cost, Sovereignty, Protocol) to suggest 
+    Reasons across multiple dimensions (Cost, cockpitty, Protocol) to suggest 
     high-level architectural shifts (e.g., OpenAI -> Gemma2, REST -> MCP).
     """
     
@@ -23,14 +23,14 @@ class PivotAuditor(BaseAuditor):
     def audit(self, tree: ast.AST, content: str, file_path: str) -> List[AuditFinding]:
         findings = []
         
-        # 1. Model Pivot: OpenAI/GPT -> Sovereign/Open Source (Gemma2)
+        # 1. Model Pivot: OpenAI/GPT -> cockpit/Open Source (Gemma2)
         if re.search(r"gpt-4|gpt-3\.5|openai", content.lower()):
-            title = "Sovereign Model Migration Opportunity"
+            title = "cockpit Model Migration Opportunity"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
                     category="🚀 Strategic Pivot",
                     title=title,
-                    description="Detected OpenAI dependency. For maximum Data Sovereignty and 40% TCO reduction, consider pivoting to Gemma2 or Llama3-70B on Vertex AI Prediction endpoints.",
+                    description="Detected OpenAI dependency. For maximum Data cockpitty and 40% TCO reduction, consider pivoting to Gemma2 or Llama3-70B on Vertex AI Prediction endpoints.",
                     impact="HIGH",
                     roi="Eliminates cross-border data risk and reduces projected inference TCO.",
                     file_path=file_path
@@ -59,7 +59,7 @@ Standardizing on MCP enables discovery and governance across the fleet.""",
              findings.append(AuditFinding(
                 category="🚀 Strategic Pivot",
                 title="Compute Scaling Optimization",
-                description="Detected complex scaling logic. If traffic exceeds 10k RPS, consider pivoting from Cloud Run to GKE with Anthos for hybrid-cloud sovereignty.",
+                description="Detected complex scaling logic. If traffic exceeds 10k RPS, consider pivoting from Cloud Run to GKE with Anthos for hybrid-cloud cockpitty.",
                 impact="INFO",
                 roi="Optimizes unit cost at extreme scale while maintaining multi-cloud flexibility.",
                 file_path=file_path

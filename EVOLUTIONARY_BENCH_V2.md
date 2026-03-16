@@ -4,7 +4,7 @@
 ## 🏁 Target Repositories
 
 ### Group A: The Core Ecosystem (GCP/Google)
-- [x] sovereign-fleet-samples (Done)
+- [x] cockpit-fleet-samples (Done)
 - [ ] adk-samples
 - [ ] A2UI Samples
 

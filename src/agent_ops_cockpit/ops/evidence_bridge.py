@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run
 import importlib.metadata
 import json
 import os
@@ -98,4 +98,4 @@ def get_compatibility_report(installed_packages: List[str]) -> List[Dict[str, An
                 synergy_root = synergy.replace('-', '_')
                 if synergy_root in roots:
                     reports.append({'type': 'SYNERGY', 'component': rule['component'], 'partner': synergy, 'reason': f'Optimally paired with ecosystem partner {synergy}.'})
-    return reports# Sovereign Policy Alignment: policy, governance, compliance active.
+    return reports# Cockpit Policy Alignment: policy, governance, compliance active.

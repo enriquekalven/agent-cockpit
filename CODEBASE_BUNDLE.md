@@ -1,6 +1,6 @@
-# 🛰️ SOVEREIGN CODEBASE BUNDLE
-**Generated**: 2026-03-10T10:54:04.460948
-**Purpose**: High-fidelity AI context for Sovereign Fleet Operations.
+# 🛰️ COCKPIT CODEBASE BUNDLE
+**Generated**: 2026-03-13T16:24:37.967091
+**Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
 
@@ -10,6 +10,7 @@ agent-cockpit/
     cockpit_export_20260217_1137.json
     cockpit_export_20260216_1255.json
     Dockerfile.temp
+    cockpit_export_20260313_1547.json
     cockpit_export_20260219_0801.json
     cockpit_export_20260219_1945.json
     cockpit_export_20260218_2334.json
@@ -20,6 +21,7 @@ agent-cockpit/
     check_gcp_status.py
     azure-deploy.bicep
     cockpit_export_20260214_0817.json
+    firebase-debug.log
     cockpit_export_20260218_2210.json
     cockpit_export_20260217_2347.json
     cockpit_export_20260223_1019.json
@@ -44,6 +46,7 @@ agent-cockpit/
     requirements.txt
     uv.lock
     cockpit_export_20260218_2335.json
+    cockpit_export_20260313_1546.json
     CHANGELOG.md
     cockpit_export_20260223_1014.json
     cockpit_export_20260213_2201.json
@@ -83,8 +86,10 @@ agent-cockpit/
     audit_raw.txt
     cockpit_export_20260214_0754.json
     cockpit_export_20260218_1913.json
+    cockpit_export_20260313_1537.json
     cockpit_export_20260303_1621.json
     cockpit_export_20260303_1230.json
+    cockpit_export_20260313_1624.json
     cockpit_export_20260226_1154.json
     cockpit_export_20260303_1549.json
     README.md
@@ -97,11 +102,13 @@ agent-cockpit/
     CODEBASE_BUNDLE.md
     cockpit_export_20260225_1010.json
     cockpit_export_20260214_0813.json
+    cockpit_export_20260313_1559.json
     cockpit_export_20260303_1301.json
     TECHNICAL_DESIGN_DOCUMENT.md
     cockpit_export_20260303_0013.json
     cockpit_export_20260219_1941.json
     cockpit_export_20260219_2140.json
+    cockpit_export_20260310_1054.json
     ROADMAP.md
     cockpit_export_20260303_1546.json
     package-lock.json
@@ -138,9 +145,12 @@ agent-cockpit/
     cockpit_export_20260217_1334.json
     cockpit_export_20260217_2236.json
     Procfile
+    cockpit_export_20260313_1617.json
+    cockpit_export_20260313_1545.json
     cockpit_export_20260223_1017.json
     eslint.config.js
     aws-apprunner.json
+    cockpit_export_20260313_1553.json
     cockpit_export_20260213_2157.json
     cockpit_export_20260223_1021.json
     vite.config.ts
@@ -151,11 +161,14 @@ agent-cockpit/
     cockpit_audit.sarif
     cockpit_export_20260218_2212.json
     MEDIUM_POST.md
+    cockpit_export_20260313_1620.json
     DOGFOOD_POST.md
     Dockerfile.original
     cockpit_export_20260218_2340.json
+    cockpit_export_20260313_1548.json
     mcp-config.json
     cockpit_export_20260217_1456.json
+    cockpit_export_20260313_1552.json
     cockpit_export_20260217_2348.json
     cockpit_export_20260303_0829.json
     cockpit_export_20260224_2144.json
@@ -188,7 +201,7 @@ agent-cockpit/
         agentops_cockpit-1.6.0-py3-none-any.whl
         agentops_cockpit-1.6.0.tar.gz
     test-deployments/
-        prod-sovereign-agent/
+        prod-cockpit-agent/
             app/
                 app_utils/
             tests/
@@ -804,12 +817,12 @@ agent-cockpit/
         TECHNICAL_A2A_GUIDE.md
         GETTING_STARTED.md
         TECHNICAL_FINOPS_GUIDE.md
-        SOVEREIGN_SECURITY.md
+        COCKPIT_SECURITY.md
         TECHNICAL_REDTEAM_GUIDE.md
         ROADMAP.md
         DEPLOYMENT.md
         TECHNICAL_QUALITY_GUIDE.md
-        SOVEREIGN_ARCHITECTURE.md
+        COCKPIT_ARCHITECTURE.md
         LANGCHAIN_INTEGRATION.md
         GEMINI.md
         RFC_GOVERNANCE_AS_CODE.md
@@ -23285,7 +23298,7 @@ agent-cockpit/
             tests/
                 test_maturity_auditor.py
                 test_version_sync.py
-                test_sovereign.py
+                test_cockpit.py
                 test_ui_mobile.py
                 golden_set.json
                 test_remediator.py
@@ -23296,7 +23309,7 @@ agent-cockpit/
                 test_capabilities_gate.py
                 test_guardrails.py
                 test_preflight.py
-                test_sovereign_ops.py
+                test_cockpit_ops.py
                 test_persona_sre.py
                 test_frameworks.py
                 __init__.py
@@ -23360,7 +23373,7 @@ agent-cockpit/
                 finops_roi.py
                 frameworks.py
                 simulator.py
-                sovereign.py
+                cockpit.py
                 mcp_store.py
                 gemini_registration.json
                 watcher.py
@@ -23390,7 +23403,7 @@ agent-cockpit/
                     finops.py
                     sme_v12.py
                     context_auditor.py
-                    sovereignty.py
+                    cockpitty.py
                     paradigm.py
                     behavioral.py
                     dependency.py
@@ -23622,7 +23635,7 @@ dev:
 	@echo "==============================================================================="
 	@echo "| 🚀 Starting AgentOps Cockpit Development Stack...                         |"
 	@echo "| 🎭 Face: http://localhost:5173 (Vite)                                       |"
-	@echo "| 🛡️ Gateway: http://localhost:8000 (Sovereign Sidecar)                        |"
+	@echo "| 🛡️ Gateway: http://localhost:8000 (Cockpit Sidecar)                        |"
 	@echo "==============================================================================="
 	@npm run dev & PYTHONPATH=src uv run cockpit ops gateway --port 8000
 
@@ -23712,13 +23725,13 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Sovereign Hub Hierarchy (v1.6 CLI)
+# Cockpit Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
 	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
 
-bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt sovereign libraries
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt cockpit libraries
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
@@ -23748,10 +23761,10 @@ arch-review: audit-arch ## [Alias] Architecture Design Review
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
 	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
 
-deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+deploy-cockpit: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run cockpit deploy cockpit --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
-deploy-prod: deploy-sovereign ## [Alias] Production Deployment
+deploy-prod: deploy-cockpit ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status
@@ -23827,8 +23840,8 @@ def register():
         "id": "my-super-agent-gke",
         "version": "1.4.7",
         "url": f"http://{gke_ip}/",
-        "name": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "name": "Super Agent (GKE Cockpitty)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full cockpitty.",
         "capabilities": {"streaming": False, "conversational": True},
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -23856,8 +23869,8 @@ def register():
     
     # Discovery Engine payload
     payload = {
-        "displayName": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "displayName": "Super Agent (GKE Cockpitty)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full cockpitty.",
         "icon": {
             "uri": "https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/hub/default/24px.svg"
         },
@@ -23897,7 +23910,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.5"
+version = "2.0.7"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -24020,7 +24033,7 @@ ignore = ["B904", "E701", "E501"]
 ```yaml
 name: agent-ops-cockpit
 version: 2.0.4
-description: The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
+description: The Cockpit Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
 repository: https://github.com/enriquekalven/agent-ops-cockpit
 license: MIT
 author: enriquekalven
@@ -24041,7 +24054,7 @@ deployment:
   command: uvx
   args: ["agentops-cockpit", "mcp"]
   env:
-    COCKPIT_MODE: sovereign
+    COCKPIT_MODE: cockpit
 
 ```
 
@@ -24370,10 +24383,10 @@ if os.path.exists(reg_path):
         try:
             data = json.loads(line)
             # If it's a generic 'agent' ID, and we know it's my-super-agent, rename it
-            if data.get('id') == 'sovereign-agent' or data.get('id') == 'sovereign-main':
+            if data.get('id') == 'cockpit-agent' or data.get('id') == 'cockpit-main':
                  # Use the display name or just rename to my-super-agent if it matches the current lab
                  if 'Super Agent' in data.get('display_name', ''):
-                      data['id'] = 'sovereign-my-super-agent'
+                      data['id'] = 'cockpit-my-super-agent'
                       data['display_name'] = '🚀 Gemini Enterprise: My Super Agent (ADK)'
             
             if data['id'] not in seen_ids:
@@ -24392,7 +24405,7 @@ if os.path.exists(reg_path):
 ### FILE: `policy_engine.ts`
 ---
 ```typescript
-// Cockpit v2.0.2: Autonomous Policy Engine
+// Cockpit v2.0.7 Premium Insights: Autonomous Policy Engine
 // SME Persona: Distinguished Governance Fellow
 export interface InteractionGate {
     confirm: boolean;
@@ -24401,7 +24414,7 @@ export interface InteractionGate {
 }
 
 export const enforcePolicy = async (action: string): Promise<InteractionGate> => {
-    // PII & Financial Sovereignty Logic
+    // PII & Financial Cockpitty Logic
     const isSensitive = /delete|transfer|payment|credential|secret/i.test(action);
     return {
         confirm: isSensitive,
@@ -24456,7 +24469,7 @@ finops:
 ### FILE: `a2ui_bridge.py`
 ---
 ```python
-# Cockpit v2.0.2: Unified A2UI Interaction Bridge
+# Cockpit v2.0.7 Premium Insights: Unified A2UI Interaction Bridge
 # Maps backend agent logic to frontend GenUI surfaces.
 
 def push_surface(content: str, surface_id: str = "main"):
@@ -24481,7 +24494,7 @@ import vertexai
 from agent import SuperAgent
 from vertexai.preview import reasoning_engines
 
-# v1.4.7 Sovereign Alignment: Agent Engine (Reasoning Engine) Deployment Script
+# v1.4.7 Cockpit Alignment: Agent Engine (Reasoning Engine) Deployment Script
 # Hardened with Gcloud Auth Fallback & Path Correction
 
 def get_gcloud_credentials():
@@ -24596,8 +24609,8 @@ if __name__ == "__main__":
 ### FILE: `functions/main.py`
 ---
 ```python
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
-# Firebase Functions for Sovereign Telemetry
+# v1.4.5 Cockpit Alignment: Optimized for Google Cloud Run
+# Firebase Functions for Cockpit Telemetry
 import datetime
 from typing import Any, Dict, Optional
 

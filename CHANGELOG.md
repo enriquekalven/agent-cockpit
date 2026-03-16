@@ -2,29 +2,34 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-### v2.0.4 (2026-02-26) - The "Sovereign Lifecycle" Release
+### v2.0.7 (2026-03-13) - The "Premium Insights" Release
+- **🎨 Modernized Audit Reports**: Complete overhaul of the reporting engine to deliver Google Cloud-grade aesthetics (Inter font, structured metrics, and high-fidelity severity indicators).
+- **📊 Fleet Dashboard v2.0**: Redesigned the Central Fleet Dashboard to match the Vertex AI Agent Builder UI, featuring real-time compliance cards and agent health grids.
+- **🔍 Granular Anomaly Detection**: Enhanced the `AnomalySME` auditor with professional metadata fields including Session ID, Detector type, Region, and Confidence scores.
+- **🧠 Executive Summary v2.0**: Refined the Cockpit Auditor persona to provide more actionable, high-stakes implementation roadmaps for production-ready agents.
+
 - **🏅 Production Readiness Certification**: Formalized the `cockpit certify` command with multi-cloud pre-flight checks.
 - **🚀 Zero2Hero Automation**: End-to-end release workflow from validation to multi-registry publishing.
-- **🛡️ Sovereign Hardening**: Implemented `max_fix_files` Blast Radius Guard (v2.0.4) to prevent PR Exhaustion.
+- **🛡️ Cockpit Hardening**: Implemented `max_fix_files` Blast Radius Guard (v2.0.4) to prevent PR Exhaustion.
 - **🎨 Style Alignment**: Synchronized `ruff` linter with Google Python Style Guide (80-character limit).
 - **🏛️ Wisdom Store v2.0.4**: Ingested latest maturity patterns and principal heuristics for agentic governance.
 
-### v2.0.3 (2026-02-19) - The "Sovereign Evolution" Release
+### v2.0.3 (2026-02-19) - The "Cockpit Evolution" Release
 - **🐍 Language-Native Scaffolding**: Detection-aware polyglot generators for `policy_engine` (Python Pydantic & TypeScript support).
 - **📊 Jetstream UX (Compacted Fleet Reporting)**: Real-time, dynamic live dashboard for workspace audits, eliminating terminal verbosity in large fleets.
 - **🌐 Registry Failover Pre-flights**: Environment-aware registry checks with automatic failover to public PyPI and proactive `--public` bypass guidance.
 - **🏗️ AST-Aware Surgical Remediation**: Enhanced `CodeRemediator` with targeted code injection (Poka-Yoke, Telemetry wrapping).
 
-### v2.0.2 (2026-02-17) - The "Pillar Evolution" Release
+### v2.0.7 Premium Insights (2026-02-17) - The "Pillar Evolution" Release
 - **🛡️ Semantic Compliance Pivot**: Moved security and architecture audits from regex matching to LLM-driven intent verification (Gemini 2.0 Flash).
 - **🔦 Shadow ROI Benchmarking**: Launched dynamic performance analysis in the Reliability Hub to optimize model tiering and accuracy/cost curves.
 - **📜 Governance as Code (GaC)**: Externalized all fleet policies into declarative YAML for standardized security enforcement.
 - **💬 The Architect's Dialogue**: Enabled interactive reasoning during fixes, allowing developers to justify and override specific findings via the `fix reason` command.
-- **🏛️ Sovereign Certification**: Added cryptographic proof of passing audit gates via a persistent Sovereign Certificate artifact.
+- **🏛️ Cockpit Certification**: Added cryptographic proof of passing audit gates via a persistent Cockpit Certificate artifact.
 - **🕹️ Command Ergonomics**: Launched the unified `cockpit` binary as the primary entry point for all operations.
 
 ### v2.0.0 (2026-02-17) - The "Industry Scale" Release
-- **🌍 Sovereign Cloud Bridge**: Multi-cloud abstraction layer that decouples agents from direct provider SDKs (AWS Bedrock, GCP Vertex, Azure Foundry).
+- **🌍 Cockpit Cloud Bridge**: Multi-cloud abstraction layer that decouples agents from direct provider SDKs (AWS Bedrock, GCP Vertex, Azure Foundry).
 - **🕹️ Universal Remediator**: Autonomous v2.0 engine that auto-heals "Monocultural Bias" and "Manifest Drift".
 - **📜 Manifest Auditor v2.0**: Specialized scanner for `package.json`, `pyproject.toml`, and `mcp-config.json` to detect SDK latency and "Legacy Intelligence".
 - **⚔️ Simulation Auditor**: Adversarial hypothesis testing on prompts to detect "Semantic Permissiveness" and logic overrides.
@@ -40,13 +45,13 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **💰 Frontier Pricing v1.9**: Updated FinOps index for 2026 model economics (GPT-5, Gemini 3).
 - **🛡️ High-Stake Guardrails**: Mandatory Human-In-The-Loop (HITL) detection for destructive agent tools.
 
-### v1.8.5 (2026-02-16) - The "Sovereign Supabase" Release
+### v1.8.5 (2026-02-16) - The "Cockpit Supabase" Release
 - **📡 100% Free Telemetry Bridge**: Integrated Supabase and GitHub Actions to enable global telemetry ingestion without Google Cloud billing requirements.
 - **🛰️ GitHub-as-a-Backend**: Automated ecosystem-wide sync via GitHub Actions, Commit, and Deploy loops.
 - **📊 Real-time Dashboard Aggregation**: Orchestrator now automatically triggers local telemetry updates after every audit report.
 - **🛡️ Secure Anonymous Ingestion**: Implemented Supabase RLS policies for anonymous write-only telemetry collection.
 
-### 🏗️ Infrastructure Sovereignty & Cloud Context
+### 🏗️ Infrastructure Cockpitty & Cloud Context
 - **Infrastructure Auditing**: Launched the `InfraAuditor` to scan `Dockerfile` and `requirements.txt`. It now flags Root containers, missing resource limits, and synchronous framework bottlenecks (Flask/Sync).
 - **Cloud Context Autodetection**: The `DiscoveryEngine` now automatically identifies if you are running on **AWS**, **GCP**, or **Azure**.
 - **Context-Aware Remediation**: Audit findings now automatically tailor their advice based on the detected cloud (e.g., suggesting *AWS Secrets Manager* instead of *Google Secret Manager* when AWS patterns are detected).
@@ -80,7 +85,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **🛡️ CLI Argument Hardening**: Implemented `Annotated` for all Typer command signatures.
 
 ### v1.6.0 (2026-02-12) - The "Watchtower Standard" Release
-- **Sovereign Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs.
+- **Cockpit Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs.
 - **Sentinel Oversight**: Reasoning-based runtime anomaly detection.
 - **Context Architect**: Deep audit for token windows and context caching.
 
@@ -89,8 +94,8 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **FinOps: Mothballing**: Scale-to-zero capability for inactive fleets.
 - **Inner Loop Tunneling**: Local-to-cloud bridge for fast iteration.
 
-### v1.4.7 (2026-02-11) - The "Fleet Sovereign" Release
-- **Sovereign Fleet Factory**: Unified orchestrator for auditing and deploying fleets.
+### v1.4.7 (2026-02-11) - The "Fleet Cockpit" Release
+- **Cockpit Fleet Factory**: Unified orchestrator for auditing and deploying fleets.
 - **GKE Autopilot Native**: Integrated support for cluster-wide deployments.
 
 ### v1.4.6 (2026-02-11)
@@ -99,7 +104,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ### v1.4.5 (2026-02-10)
 - **🌊 AWS Optimization**: Specialized Dockerfiles and SAM templates for AWS.
-- **Sovereign Handshake**: Improved OIDC and HMAC authentication protocols.
+- **Cockpit Handshake**: Improved OIDC and HMAC authentication protocols.
 
 ### v1.4.4 (2026-02-10)
 - **🚀 Enhanced Observability**: Exposed `--verbose` flag in the main report command.
@@ -159,14 +164,14 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Remediation: Targeted Fixes (1-Click)**: New `agentops-cockpit fix <issue-id>` command to apply specific remediations from audit results.
 - **A2UI: Automated Surface Discovery**: Introduced `withSurfaceDiscovery` HOC and `AutoSurface` component for zero-instrumentation UI auditing.
 - **CLI: Scalable Terminal Output**: New `--plain` flag for the `report` command, removing Unicode box-drawing characters for better CI/CD log readability.
-- **Artifacts: Trace Centralization**: Moved Shadow Mode traces (`.cockpit/traces/`) and Architecture reports to the centralized `.cockpit/` sovereign directory.
+- **Artifacts: Trace Centralization**: Moved Shadow Mode traces (`.cockpit/traces/`) and Architecture reports to the centralized `.cockpit/` cockpit directory.
 
 ## [1.3.1] - 2026-02-06
 
-### 🚀 The Executive Sovereignty (Antigravity v2.0.0.1 Release)
+### 🚀 The Executive Cockpitty (Antigravity v2.0.0.1 Release)
 - **Discovery: Recursive Intelligence**: Support for `targets: []` in `cockpit.yaml` for multi-entry point fleets and template placeholder isolation (`{{...}}`).
 - **Operations: Auth Doctor (diagnose)**: New pre-flight command to diagnose GCP ADC credentials and environment health before audits.
-- **Artifacts: Sovereign Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
+- **Artifacts: Cockpit Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
 - **Orchestration: Modular SME Filtering**: Introduced `--only` and `--skip` flags for high-precision category selection (e.g., `ops report --only security`).
 - **Governance: GaC Orcas RFC Integration**: Formalized the "Governance as Code" standard for ADK, moving from passive plugins to mandatory AST-aware architectural gates.
 - **Reporting: SME Executive Summary**: Enhanced terminal output with a stack-ranked "Principal SME Executive Summary" panel and "Key Findings" table.
@@ -211,12 +216,12 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Registry Resilience**: Implemented `urllib`-based connectivity checks and a `--public` flag to bypass 401 Unauthorized errors in restricted environments.
 - **SSOT Parity**: Aligned CLI flags (Typer) with core Orchestrator logic, exposing `--workspace` and `--heal` (alias for auto-remediation) consistently.
 - **Fixability Scoring**: Introduced `EFFORT_MAP` to categorize audit findings by remediation complexity (1-Click vs. Structural) in reports and dashboards.
-- **Declarative Sovereignty**: The `report` command now automatically respects local `cockpit.yaml` context for check exclusions.
+- **Declarative Cockpitty**: The `report` command now automatically respects local `cockpit.yaml` context for check exclusions.
 
 ## [0.9.8] - 2026-02-03
 
-### 🕹️ The Sovereignty Update
-- **Sovereign Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
+### 🕹️ The Cockpitty Update
+- **Cockpit Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
 - **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `agent-ops` CLI, and `uvx` simulations for all 10 persona lenses.
 - **Operational Introduction**: Launched a high-level documentation landing page (`INTRODUCTION.md`) separate from technical guides for strategic stakeholder onboarding.
 - **Discovery Engine v2.0.0**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.

@@ -25,7 +25,7 @@ class SimulationAuditor(BaseAuditor):
             if obey_count > 10 and guard_count < 2:
                 title = "Semantic Permissiveness: Unprotected Prompt"
                 findings.append(AuditFinding(
-                    category="🛡️ Sovereign Security",
+                    category="🛡️ cockpit Security",
                     title=title,
                     description=f"Prompt '{p_name}' has high instructional density ({obey_count} verbs) but zero safety guardrails ({guard_count} constraints). This is highly susceptible to Direct Prompt Injection.",
                     impact="HIGH",

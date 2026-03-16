@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import ast
 import re
 from typing import List
@@ -10,15 +10,15 @@ from typing import List
 from .base import AuditFinding, BaseAuditor
 
 
-class SovereigntyAuditor(BaseAuditor):
+class CockpitAuditor(BaseAuditor):
     """
-    v1.1 Phase 6: The Sovereign. 
-    Audits for Multi-Cloud Portability and Data Residency (GDPR/EU Sovereign).
+    v1.1 Phase 6: The cockpit. 
+    Audits for Multi-Cloud Portability and Data Residency (GDPR/EU cockpit).
     Detects Vendor Lock-in (Hardcoded Provider Specifics).
     """
     VULNERABLE_PATTERNS = [
         (r"project[-_]id\s*=\s*['\"][\w-]+['\"]", "Hardcoded GCP Project ID. Use environment variables for portability."),
-        (r"region\s*=\s*['\"]us-[\w-]+['\"]", "Hardcoded US Region. Risk to EU Data Sovereignty if not configured per environment."),
+        (r"region\s*=\s*['\"]us-[\w-]+['\"]", "Hardcoded US Region. Risk to EU Data Cockpit if not configured per environment."),
         (r"aws_[\w-]+\s*=\s*['\"]", "AWS-specific credential detected. Ensure abstraction layer for Multi-Cloud."),
         (r"azure_[\w-]+\s*=\s*['\"]", "Azure-specific endpoint detected. Risk of vendor lock-in.")
     ]
@@ -35,22 +35,22 @@ class SovereigntyAuditor(BaseAuditor):
                 title = "Vendor Lock-in Risk"
                 if not self._is_ignored(line_no, content, title):
                     findings.append(AuditFinding(
-                        category="🌍 Sovereignty",
+                        category="🌍 Cockpit",
                         title=title,
                         description=reason,
                         impact="MEDIUM",
-                        roi="Enables Multi-Cloud failover and EU sovereignty compliance.",
+                        roi="Enables Multi-Cloud failover and EU cockpit compliance.",
                         line_number=line_no,
                         file_path=file_path
                     ))
 
-        # 2. Data Residency Audit (Sovereign Cloud patterns)
+        # 2. Data Residency Audit (cockpit Cloud patterns)
         if "google.cloud" in content and "europe-" not in content.lower():
             if "gdpr" in content.lower() or "compliance" in content.lower():
-                title = "EU Data Sovereignty Gap"
+                title = "EU Data Cockpit Gap"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
-                        category="🌍 Sovereignty",
+                        category="🌍 Cockpit",
                         title=title,
                         description="Compliance code detected but no European region routing found. Risk of non-compliance with EU data residency laws.",
                         impact="HIGH",
@@ -65,7 +65,7 @@ class SovereigntyAuditor(BaseAuditor):
                 title = "Direct Vendor SDK Exposure"
                 if not self._is_ignored(0, content, title):
                     findings.append(AuditFinding(
-                        category="🌍 Sovereignty",
+                        category="🌍 Cockpit",
                         title=title,
                         description=f"Directly importing '{sdk}'. Consider wrapping in a provider-agnostic bridge to allow Multi-Cloud mobility.",
                         impact="LOW",
@@ -78,7 +78,7 @@ class SovereigntyAuditor(BaseAuditor):
             title = "Strategic Exit Plan (Cloud)"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
-                    category="🌍 Sovereignty",
+                    category="🌍 Cockpit",
                     title=title,
                     description="Detected hardcoded cloud dependencies. For a 'Category Killer' grade, implement an abstraction layer that allows switching to Gemma 2 on GKE.",
                     impact="INFO",
@@ -86,7 +86,7 @@ class SovereigntyAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # 5. Tool Over-Privilege Audit (v1.8.5 Sovereign)
+        # 5. Tool Over-Privilege Audit (v1.8.5 cockpit)
         # Check for destructive tools that lack Human-in-the-Loop gating.
         destructive_patterns = [r'def (tool_|_(trigger|delete|terminate|update|exec|scrape|charge))']
         for pat in destructive_patterns:
@@ -106,7 +106,7 @@ class SovereigntyAuditor(BaseAuditor):
                             title=title,
                             description="Detected a potentially destructive or high-impact tool without a Human-in-the-Loop (HITL) gate. This risks 'Autonomous Rampage' where an agent could delete data or incur costs without approval.",
                             impact="HIGH",
-                            roi="[SOVEREIGN HARDENING]: Apply @mcp_tool_gate(require_confirmation=True) to ensure zero-trust execution.",
+                            roi="[cockpit HARDENING]: Apply @mcp_tool_gate(require_confirmation=True) to ensure zero-trust execution.",
                             line_number=line_no,
                             file_path=file_path
                         ))

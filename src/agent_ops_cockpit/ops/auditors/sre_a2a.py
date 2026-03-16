@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 cockpit Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from typing import List
@@ -50,16 +50,16 @@ class SREAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # 3. CI/CD Governance: The Sovereign Gate
+        # 3. CI/CD Governance: The cockpit Gate
         if "github/workflows" in file_path and "make audit" not in content:
-            title = "Sovereign Gate: Bypass Detected"
+            title = "Cockpit Gate: Bypass Detected"
             if not self._is_ignored(0, content, title):
                 findings.append(AuditFinding(
                     category="🚀 CI/CD",
                     title=title,
                     description="CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score gate. This allows un-audited reasoning logic to touch production data.",
                     impact="CRITICAL",
-                    roi="Enforces the 'Sovereign standard' (score > 90) as a blocking gate.",
+                    roi="Enforces the 'cockpit standard' (score > 90) as a blocking gate.",
                     file_path=file_path
                 ))
 

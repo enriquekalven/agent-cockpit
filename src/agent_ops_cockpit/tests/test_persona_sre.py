@@ -24,7 +24,7 @@ def test_sre_cicd_governance_gate():
     tree = ast.parse("") 
     auditor = SREAuditor()
     findings = auditor.audit(tree, code, ".github/workflows/main.yml")
-    assert any("Sovereign Gate: Bypass Detected" in f.title for f in findings)
+    assert any("Cockpit Gate: Bypass Detected" in f.title for f in findings)
 
 def test_sre_regional_proximity_mismatch():
     """Principal SRE: Detecting cross-region latency risks."""

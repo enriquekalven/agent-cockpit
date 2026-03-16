@@ -25,7 +25,7 @@ class TestMigrationHops(unittest.TestCase):
         self.engine.hydrate_agent(self.agent_path, 'anthropic')
         with open(self.agent_path, 'r') as f:
             content = f.read()
-        self.assertIn("Sovereign Alignment: Optimized for Anthropic Claude", content)
+        self.assertIn("Cockpit Alignment: Optimized for Anthropic Claude", content)
         self.assertIn("import anthropic", content)
         self.assertNotIn("import openai", content)
 
@@ -33,7 +33,7 @@ class TestMigrationHops(unittest.TestCase):
         self.engine.hydrate_agent(self.agent_path, 'google')
         with open(self.agent_path, 'r') as f:
             content = f.read()
-        self.assertIn("Sovereign Alignment: Optimized for Google Cloud Run", content)
+        self.assertIn("Cockpit Alignment: Optimized for Google Cloud Run", content)
         self.assertIn("import vertexai", content)
         self.assertNotIn("import anthropic", content)
 
@@ -41,7 +41,7 @@ class TestMigrationHops(unittest.TestCase):
         self.engine.hydrate_agent(self.agent_path, 'microsoft')
         with open(self.agent_path, 'r') as f:
             content = f.read()
-        self.assertIn("Sovereign Alignment: Optimized for Microsoft Azure OpenAI", content)
+        self.assertIn("Cockpit Alignment: Optimized for Microsoft Azure OpenAI", content)
         self.assertIn("from openai import AzureOpenAI", content)
         self.assertNotIn("import vertexai", content)
 
@@ -49,7 +49,7 @@ class TestMigrationHops(unittest.TestCase):
         self.engine.hydrate_agent(self.agent_path, 'aws')
         with open(self.agent_path, 'r') as f:
             content = f.read()
-        self.assertIn("Sovereign Alignment: Optimized for AWS App Runner", content)
+        self.assertIn("Cockpit Alignment: Optimized for AWS App Runner", content)
         self.assertIn("import boto3", content)
         self.assertNotIn("AzureOpenAI", content)
 
@@ -57,7 +57,7 @@ class TestMigrationHops(unittest.TestCase):
         self.engine.hydrate_agent(self.agent_path, 'google')
         with open(self.agent_path, 'r') as f:
             content = f.read()
-        self.assertIn("Sovereign Alignment: Optimized for Google Cloud Run", content)
+        self.assertIn("Cockpit Alignment: Optimized for Google Cloud Run", content)
         self.assertIn("import vertexai", content)
         self.assertNotIn("import boto3", content)
         self.assertNotIn("AWS App Runner", content)

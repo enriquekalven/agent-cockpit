@@ -45,7 +45,7 @@ We will move away from bespoke "prompt engineering" for safety and adopt structu
 *   **CEL/Cedar Integration**: ADK will ingest policies encoded in Common Expression Language (CEL), ensuring dev-loop guardrails are mathematically identical to production governance.
 *   **Policy Pull Sync**: ADK will implement a sync mechanism to pull global enterprise policies (e.g., "All BQ deletes require HITL") into the local validator automatically.
 
-### [P1] Environment-Aware Optimization (The "Sovereign Scan")
+### [P1] Environment-Aware Optimization (The "Cockpit Scan")
 Standard linters are environment-blind; Governance as Code requires awareness of the underlying silicon and stack.
 
 *   **Logic-Based Optimization**:
@@ -99,7 +99,7 @@ The differentiation lies in the **Scope of Enforcement** and the **Lifecycle Pha
 | **Logic Layer** | **Data-Aware (JSON/Rego)**: Evaluates request/response schemas and identity tokens at the network boundary. | **Runtime-Aware (Shims)**: Wraps function calls to inject logging or security checks during execution. | **AST-Aware (Code Structure)**: Parses source code to enforce architectural boundaries and mandatory library patterns. |
 | **Lifecycle Phase** | **Runtime (Post-Deployment)**: Operates as an external sidecar blocking malicious production traffic. | **Runtime (Middleware)**: Executed during the application processing loop in live/staging environments. | **Shift-Left (Build & CI Gate)**: Validates system integrity during the dev-loop and as a mandatory CI/CD blocking gate. |
 | **Action** | **Passive Blocking**: Issues Deny/Allow verdicts without providing context or code-level remediation. | **Behavioral Hooking**: Intercepts active calls to modify variables or alter runtime application state. | **Proactive Remediation**: Synthesizes and injects code patches (e.g., `@retry`, `ContextCache`) to resolve gaps. |
-| **Enforcement** | **External (Sidecar)**: Disconnected from the repository logic; requires external policy management. | **Optional (Opt-in)**: Relies on developers to manually install and configure the necessary extensions. | **Sovereign (Mandatory Gate)**: Embedded in the ADK distribution; failures block repository deployment. |
+| **Enforcement** | **External (Sidecar)**: Disconnected from the repository logic; requires external policy management. | **Optional (Opt-in)**: Relies on developers to manually install and configure the necessary extensions. | **Cockpit (Mandatory Gate)**: Embedded in the ADK distribution; failures block repository deployment. |
 | **Optimization** | **Environment-blind**: Lacks visibility into the underlying cloud topology or actual token expenditure. | **Ad-hoc / Static**: Provides generic caching or rate-limiting regardless of reasoning load or infra version. | **Infra-Aware (KV-Cache/TTR)**: Links code patterns to specific Hardware/SDK performance and FinOps ROI. |
 
 ### 1. Structure over Syntax (The AST Advantage)
@@ -114,7 +114,7 @@ Policy engines are deterministic. Agentic quality is non-deterministic. GaC intr
 ### 4. Continuous Evolution vs. Static Extensions (Plugins)
 While a **Plugin** is typically an optional library that adds a specific feature at runtime (e.g., adding a logger), **Governance as Code** is an operational layer that owns the **Architectural Health** of the project.
 
-*   **Plugins are "Opt-In"**: A developer can choose to ignore a security plugin. In GaC, the **Sovereign Gate** is mandatory. If your code doesn't meet the trinity separation standard, it simply does not deploy.
+*   **Plugins are "Opt-In"**: A developer can choose to ignore a security plugin. In GaC, the **Cockpit Gate** is mandatory. If your code doesn't meet the trinity separation standard, it simply does not deploy.
 *   **Plugins modify Behavior; GaC modifies Code**: Plugins wrap your logic to change what it does at runtime. GaC uses the **Closer Engine** to refactor what your logic *is* at the source level. It ensures that resiliency and cost-optimization are permanent fixtures of the codebase, not just "shimmed" on top. 
 *   **Holistic Context**: A plugin is usually scope-blind (e.g., a caching plugin doesn't know if you've mixed HTML into your reasoning logic). GaC has **Full-Project Awareness**, validating the boundaries between the Engine, Face, and Cockpit across the entire repository.
 
@@ -172,7 +172,7 @@ The GaC engine doesn't just read strings; it parses the **Abstract Syntax Tree (
 | Code Pattern | GaC Action | Reasoning |
 | :--- | :--- | :--- |
 | `return f"<html>..."` | **BUILD FAIL** | Mixed Face/Engine logic detected in `backend/`. |
-| `openai.Chat(...)` | **WARN / FIX** | Missing Sovereign Pivot: Gemini/Vertex recommended. |
+| `openai.Chat(...)` | **WARN / FIX** | Missing Cockpit Pivot: Gemini/Vertex recommended. |
 | `def tool(): ...` | **FIX** | Injected Typed Hinting and `@retry` decorator. |
 | `prompt = "..."` | **OPTIMIZE** | Large constant detected: Injected Context Caching. |
 

@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import os
 import subprocess
 import sys
@@ -154,10 +154,10 @@ def run_smoke_test():
     auto_make = '[green]PASS[/green]' if 'audit-deep:' in open('Makefile').read() else '[red]FAIL[/red]'
     table.add_row('The Automator', 'CI/CD Portable Ops', auto_make, auto_cli, auto_cli)
 
-    console.print('🌊 [bold]Verifying Sovereign Journey...[/bold]')
-    sov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'deploy', 'sovereign', '--help'])
-    sov_make = '[green]PASS[/green]' if 'deploy-sovereign:' in open('Makefile').read() else '[red]FAIL[/red]'
-    table.add_row('The Sovereign', 'Multi-Cloud Factory', sov_make, sov_cli, sov_cli)
+    console.print('🌊 [bold]Verifying Cockpit Journey...[/bold]')
+    sov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'deploy', 'cockpit', '--help'])
+    sov_make = '[green]PASS[/green]' if 'deploy-cockpit:' in open('Makefile').read() else '[red]FAIL[/red]'
+    table.add_row('The Cockpit', 'Multi-Cloud Factory', sov_make, sov_cli, sov_cli)
 
     console.print('🛰️ [bold]Verifying SRE Journey...[/bold]')
     sre_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'fleet', 'status', '--help'])
@@ -186,7 +186,7 @@ def run_smoke_test():
             return '[red]FAIL[/red]'
 
     telemetry_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'telemetry', '--admin'], 'Active Agents (24h)')
-    functional_table.add_row('Sovereign Telemetry Hub', 'sys telemetry --admin', telemetry_status)
+    functional_table.add_row('Cockpit Telemetry Hub', 'sys telemetry --admin', telemetry_status)
     
     version_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'version'], 'agent-ops CLI')
     functional_table.add_row('System Hub Baseline', 'sys version', version_status)
@@ -229,4 +229,4 @@ def version():
     """Show the version of the audit module."""
     console.print('[bold cyan]v1.8.4[/bold cyan]')
 if __name__ == '__main__':
-    app()# Sovereign Alignment: Integrating secret_manager and vault.
+    app()# Cockpit Alignment: Integrating secret_manager and vault.

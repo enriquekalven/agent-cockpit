@@ -1,7 +1,7 @@
-# 📖 The Sovereign Vision
-### Beyond the Black Box: The v2.0.2 Sovereign Evolution
+# 📖 The Cockpit Vision
+### Beyond the Black Box: The v2.0.7 Premium Insights Cockpit Evolution
 
-The AI industry is currently in its **"Wild West"** phase—experimental prompts, brittle toolsets, and "black box" logic are being shipped directly to production. At **Agentic Systems**, we believe that for autonomous agents to achieve industry-scale maturity, they must transition from scripts to **Sovereign Systems**.
+The AI industry is currently in its **"Wild West"** phase—experimental prompts, brittle toolsets, and "black box" logic are being shipped directly to production. At **Agentic Systems**, we believe that for autonomous agents to achieve industry-scale maturity, they must transition from scripts to **Cockpit Systems**.
 
 This shift requires the **Agentic Trinity**: Engine, Face, and Cockpit.
 
@@ -16,17 +16,17 @@ Most agents today operate with **Implicit Governance**—if it works in a sandbo
 ---
 
 ## 🛡️ The Solution: The Governing Board
-With the **v2.0.2 Sovereign Evolution**, we’ve introduced the **Governing Board**—a panel of automated Principal SME Personas that perform deep, AST-aware structural enforcement.
+With the **v2.0.7 Premium Insights Cockpit Evolution**, we’ve introduced the **Governing Board**—a panel of automated Principal SME Personas that perform deep, AST-aware structural enforcement.
 
 > "Governance is no longer a bottleneck; it is the structural integrity that makes speed possible."
 
-### 🏛️ The Agentic Trinity v2.0.2:
+### 🏛️ The Agentic Trinity v2.0.7 Premium Insights:
 
-| Pillar | Focus | The v2.0.2 Breakthrough |
+| Pillar | Focus | The v2.0.7 Premium Insights Breakthrough |
 | :--- | :--- | :--- |
-| **The Engine** | Reasoning & Tools | Multi-cloud abstraction via the **Sovereign Bridge**. |
+| **The Engine** | Reasoning & Tools | Multi-cloud abstraction via the **Cockpit Bridge**. |
 | **The Face** | Perception & UI | **A2UI Protocol**: Transforming logic into adaptive surfaces. |
-| **The Cockpit** | Governance & Ops | **Sovereign Gateway**: Sidecar PII scrubbing and cost control. |
+| **The Cockpit** | Governance & Ops | **Cockpit Gateway**: Sidecar PII scrubbing and cost control. |
 
 ---
 
@@ -39,6 +39,6 @@ Infrastructure is now borderless. The Cockpit bridges the gap between Google Clo
 ---
 
 ## 🎯 The Mission
-Our mission is to provide every architect with a **Well-Architected** foundation for the autonomous era. By using the AgentOps Cockpit, you aren't just deploying an agent; you are launching a professional, **Sovereign AI Node** capable of governing itself at scale.
+Our mission is to provide every architect with a **Well-Architected** foundation for the autonomous era. By using the AgentOps Cockpit, you aren't just deploying an agent; you are launching a professional, **Cockpit AI Node** capable of governing itself at scale.
 
 **Welcome to the Cockpit. The era of the "Black Box" is over.**

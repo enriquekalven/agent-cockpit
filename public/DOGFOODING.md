@@ -57,7 +57,7 @@ If you are a specialist, you can "Dogfood" specific lanes of the Cockpit:
 
 #### **🏛️ For the Autonomous Architect (SRE & Infrastructure)**
 *   **Command**: `uvx agentops-cockpit report --only reliability` or `make arch-review`
-*   **Dogfood Focus**: Scan for **Networking Debt** (e.g., REST vs gRPC) and **Sovereign Gates**.
+*   **Dogfood Focus**: Scan for **Networking Debt** (e.g., REST vs gRPC) and **Cockpit Gates**.
 *   **Feedback**: Did it identify race conditions in your NoSQL writes (Firestore/Spanner)? Is the CI/CD gate advice actually implementable?
 
 #### **🎭 For the UX Designer (Face & A2UI)**
@@ -77,4 +77,4 @@ Please share your findings in the **GitHub Issues** or via a **SME Feedback Repo
     *   How was the "Persona" advice?
 
 ---
-*Help us build the Sovereign Standard for AI Operations. 🚀🛡️✨*
+*Help us build the Cockpit Standard for AI Operations. 🚀🛡️✨*

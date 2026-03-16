@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 class FleetManager:
     """
     Fleet Lifecycle Manager v1.8.4.
-    Manages the state, health, and Day 2 operations for Sovereign fleets.
+    Manages the state, health, and Day 2 operations for Cockpit fleets.
     """
     def __init__(self, db_path: str = '.cockpit/fleet_registry.json'):
         # Ensure path is absolute relative to workspace if needed, but .cockpit is usually repo root

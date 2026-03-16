@@ -19,7 +19,7 @@ except (ImportError, AttributeError):
 
 class MigrationEngine:
     """
-    Sovereign Multi-Cloud Migration Engine v1.8.4.
+    Cockpit Multi-Cloud Migration Engine v1.8.4.
     Automates Discovery, Planning, Hydrating, and Generating Multi-Cloud Assets.
     Supports: Google Cloud, AWS, Azure, Anthropic (Claude), and Microsoft.
     """
@@ -49,18 +49,18 @@ class MigrationEngine:
         """Surgically transform the agent code for the specified cloud."""
         remediator = CodeRemediator(agent_path)
         
-        # 1. Inject Sovereign Headers based on Cloud
+        # 1. Inject Cockpit Headers based on Cloud
         header_map = {
-            'google': "# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
-            'aws': "# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)\n",
-            'azure': "# v1.8.4 Sovereign Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
-            'anthropic': "# v1.8.4 Sovereign Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
-            'microsoft': "# v1.8.4 Sovereign Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
+            'google': "# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
+            'aws': "# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)\n",
+            'azure': "# v1.8.4 Cockpit Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
+            'anthropic': "# v1.8.4 Cockpit Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
+            'microsoft': "# v1.8.4 Cockpit Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
         }
         cloud_header = header_map.get(target_cloud, "# v1.8.4 Multi-Cloud Optimized Agent\n")
         
-        # Remove any existing Sovereign Alignment header (any version)
-        remediator.content = re.sub(r"^# v\d+\.\d+\.\d+(?:\.\d+)? Sovereign Alignment: .+\n", "", remediator.content, flags=re.MULTILINE)
+        # Remove any existing Cockpit Alignment header (any version)
+        remediator.content = re.sub(r"^# v\d+\.\d+\.\d+(?:\.\d+)? Cockpit Alignment: .+\n", "", remediator.content, flags=re.MULTILINE)
         
         remediator._add_edit(1, 0, 1, 0, cloud_header)
 
@@ -102,10 +102,10 @@ class MigrationEngine:
 
         # 4. A2A Enablement (If target is not Google Cloud or explicitly requested)
         # Remove existing A2A blocks to prevent accumulation
-        remediator.content = re.sub(r"\n# A2A Handbook Interface \(Sovereign Multi-Cloud enabled\)\nasync def a2a_handshake\(\):\n    return \{'status': 'ALIVE', 'protocol': 'A2UI', 'cloud': '.*'\}\n", "", remediator.content)
+        remediator.content = re.sub(r"\n# A2A Handbook Interface \(Cockpit Multi-Cloud enabled\)\nasync def a2a_handshake\(\):\n    return \{'status': 'ALIVE', 'protocol': 'A2UI', 'cloud': '.*'\}\n", "", remediator.content)
 
         if target_cloud != 'google':
-            remediator.content += "\n# A2A Handbook Interface (Sovereign Multi-Cloud enabled)\n"
+            remediator.content += "\n# A2A Handbook Interface (Cockpit Multi-Cloud enabled)\n"
             remediator.content += "async def a2a_handshake():\n    return {'status': 'ALIVE', 'protocol': 'A2UI', 'cloud': '" + target_cloud + "'}\n"
 
         remediator.save()
@@ -118,12 +118,12 @@ class MigrationEngine:
         # Base Dockerfile with v1.8.4 Security Hardening
         docker_base = """FROM python:3.11-slim
 # v1.8.4 Zero-Trust Hydration: Non-root user setup
-RUN groupadd -r sovereign && useradd -r -g sovereign sovereign
+RUN groupadd -r cockpit && useradd -r -g cockpit cockpit
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY --chown=sovereign:sovereign . .
-USER sovereign
+COPY --chown=cockpit:cockpit . .
+USER cockpit
 """
         
         if target_cloud == 'google':
@@ -138,7 +138,7 @@ USER sovereign
             # Minimal SAM template
             sam = {
                 "AWSTemplateFormatVersion": "2010-09-09",
-                "Description": "AWS App Runner Service for Sovereign Agent",
+                "Description": "AWS App Runner Service for Cockpit Agent",
                 "Resources": {
                     "AgentService": {
                         "Type": "AWS::AppRunner::Service",
@@ -181,7 +181,7 @@ USER sovereign
                     possible_names.insert(0, curr_dir.lower().replace('_', '-'))
 
             service_url = None
-            # 1a. Try GKE (LoadBalancer IP) first for high-scale sovereign deployments
+            # 1a. Try GKE (LoadBalancer IP) first for high-scale cockpit deployments
             env = os.environ.copy()
             gke_path = "/opt/homebrew/share/google-cloud-sdk/bin"
             if os.path.exists(gke_path):
@@ -232,8 +232,8 @@ USER sovereign
             # 2. Prepare Gemini Tool / A2A Card Definition
             # Leverages Agent Starter Pack (ADK) schema paradigms
             registration = {
-                "id": f"sovereign-{service_name}",
-                "display_name": f"Sovereign Agent Agent Engine: {service_name}",
+                "id": f"cockpit-{service_name}",
+                "display_name": f"Cockpit Agent Agent Engine: {service_name}",
                 "description": "Enterprise-grade agent registered via AgentOps Cockpit.",
                 "api_spec": f"{service_url}/openapi.json" if service_url else "A2A_PROXY_PENDING",
                 "auth": { "type": "OIDC_ID_TOKEN" if not a2a_proxy else "A2A_HMAC" },
@@ -276,7 +276,7 @@ export interface InteractionGate {
 }
 
 export const enforcePolicy = async (action: string): Promise<InteractionGate> => {
-    // PII & Financial Sovereignty Logic
+    // PII & Financial Cockpitty Logic
     const isSensitive = /delete|transfer|payment|credential|secret/i.test(action);
     return {
         confirm: isSensitive,
@@ -332,4 +332,4 @@ def push_surface(content: str, surface_id: str = "main"):
             }
             results.append(status)
         return results
-# Sovereign Alignment: Integrating secret_manager and vault.
+# Cockpit Alignment: Integrating secret_manager and vault.

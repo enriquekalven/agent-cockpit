@@ -93,7 +93,7 @@ Pick your lane and see if you can survive the audit:
 *   **Command**: `uvx agentops-cockpit report --only quality`
 *   **Viral Moment**: Achieving **Zero-Shot Grounding** perfection. ✨
 
-#### **🏛️ The Sovereign Architect (SRE & Infra)**
+#### **🏛️ The Cockpit Architect (SRE & Infra)**
 *   **Mission**: Modernize your stack from REST to MCP.
 *   **Command**: `uvx agentops-cockpit report --only reliability`
 *   **Viral Moment**: Pivoting to gRPC and watching your tail latency flatline. 🚀
@@ -107,4 +107,4 @@ Did we miss a blatant secret? Did our Architect suggest something illegal? Let u
 *   **The Bounty**: Best feedback gets their agent featured in our "Well-Architected" Hall of Fame.
 
 ---
-*Build for the Sovereign standard. Audit like a Principal. Ship like a God. 🚀🛡️✨*
+*Build for the Cockpit standard. Audit like a Principal. Ship like a God. 🚀🛡️✨*

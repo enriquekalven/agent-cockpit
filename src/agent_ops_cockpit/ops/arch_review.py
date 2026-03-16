@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run
 import ast
 import os
 
@@ -149,7 +149,7 @@ def apply_fixes(path: str='.', dry_run: bool=typer.Option(False, '--dry-run', he
                 applied_count += 1
                 console.print(f'   🛠️ Planned: [green]Context Compaction Strategy[/green] ({f.title})')
             elif 'Reflection' in f.title:
-                remediator.apply_sovereign_reflection(f)
+                remediator.apply_cockpit_reflection(f)
                 applied_count += 1
                 console.print(f'   🛠️ Planned: [green]Reasoning Reflection Loop[/green] ({f.title})')
             elif 'Over-Privilege' in f.title or 'HITL Gate' in f.title:

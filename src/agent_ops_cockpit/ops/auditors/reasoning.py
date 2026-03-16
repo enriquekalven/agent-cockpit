@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.8.4 cockpit Alignment: Optimized for Google Cloud Run
 import ast
 import re
 from typing import List
@@ -98,7 +98,7 @@ class ReasoningAuditor(BaseAuditor):
                     file_path=file_path
                 ))
 
-        # 6. Reflection Blindness Audit (v1.8.5 Sovereign)
+        # 6. Reflection Blindness Audit (v1.8.5 cockpit)
         # Check if agent runners lack a reflection loop for self-correction.
         runner_funcs = [n for n in ast.walk(tree) if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and (n.name.startswith('run_') or n.name == 'call_agent')]
         for func in runner_funcs:
@@ -111,7 +111,7 @@ class ReasoningAuditor(BaseAuditor):
                         title=title,
                         description=f"Agent runner '{func.name}' lacks a reflection loop. This increases the risk of 'First-Pass Hallucinations' where the model identifies the wrong tool or emits unsafe content.",
                         impact="MEDIUM",
-                        roi="Implementing a Sovereign Reflection loop reduces hallucinations by ~40% via Dual-Pass verification.",
+                        roi="Implementing a cockpit Reflection loop reduces hallucinations by ~40% via Dual-Pass verification.",
                         line_number=func.lineno,
                         file_path=file_path
                     ))

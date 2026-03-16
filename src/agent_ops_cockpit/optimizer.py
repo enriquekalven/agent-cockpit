@@ -1,4 +1,4 @@
-# v1.8.4 Sovereign Alignment: Optimized for AWS App Runner (Bedrock)
+# v1.8.4 cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 from __future__ import annotations
 
 import os
