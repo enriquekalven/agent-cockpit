@@ -8,6 +8,8 @@ import os
 
 from rich.console import Console
 from tenacity import retry, stop_after_attempt, wait_exponential
+from datetime import datetime
+from agent_ops_cockpit.config import config
 
 console = Console()
 
@@ -19,6 +21,8 @@ def generate_fleet_dashboard(results: dict):
     compliance_score = (passed_count / total * 100)
     
     suspicious_agents = total - passed_count
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    version = config.VERSION
     
     html = f"""
     <!DOCTYPE html>
@@ -61,6 +65,10 @@ def generate_fleet_dashboard(results: dict):
                 <div style="padding:8px 24px; font-size:14px; background:#f0fdf4; color:var(--cockpit-emerald); font-weight:600; border-right:3px solid var(--cockpit-emerald);">Fleet Dashboard</div>
                 <div style="padding:8px 24px; font-size:14px; color:var(--text-secondary); cursor:pointer;">Audit Sessions</div>
                 <div style="padding:8px 24px; font-size:14px; color:var(--text-secondary); cursor:pointer;">Remediation Lake</div>
+            </div>
+            <div style="margin-top:auto; padding:24px; border-top:1px solid var(--border-color); font-size:12px; color:var(--text-secondary);">
+                Cockpit v{version}<br>
+                Last Sync: {timestamp}
             </div>
         </div>
         <div id="main-content">
