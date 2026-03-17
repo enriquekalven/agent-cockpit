@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-13T16:24:37.967091
+**Generated**: 2026-03-16T22:25:56.100837
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -21,10 +21,10 @@ agent-cockpit/
     check_gcp_status.py
     azure-deploy.bicep
     cockpit_export_20260214_0817.json
-    firebase-debug.log
     cockpit_export_20260218_2210.json
     cockpit_export_20260217_2347.json
     cockpit_export_20260223_1019.json
+    cockpit_export_20260316_1102.json
     evidence_lake.json
     cockpit_export_20260218_2338.json
     tsconfig.node.json
@@ -35,6 +35,7 @@ agent-cockpit/
     INDUSTRY_HARDENING_v2.0_FINAL.md
     index.html
     cockpit_export_20260218_2339.json
+    cockpit_export_20260316_1103.json
     STRATEGIC_MEMO_v2.0.md
     cockpit_export_20260216_1258.json
     cockpit_export_20260218_2211.json
@@ -114,6 +115,7 @@ agent-cockpit/
     package-lock.json
     package.json
     cockpit_export_20260217_1133.json
+    cockpit_export_20260316_2225.json
     cockpit_export_20260217_1021.json
     register_to_ge.py
     cockpit_export_20260303_1547.json
@@ -165,10 +167,12 @@ agent-cockpit/
     DOGFOOD_POST.md
     Dockerfile.original
     cockpit_export_20260218_2340.json
+    cockpit_export_20260316_1101.json
     cockpit_export_20260313_1548.json
     mcp-config.json
     cockpit_export_20260217_1456.json
     cockpit_export_20260313_1552.json
+    cockpit_export_20260316_2222.json
     cockpit_export_20260217_2348.json
     cockpit_export_20260303_0829.json
     cockpit_export_20260224_2144.json
@@ -201,7 +205,7 @@ agent-cockpit/
         agentops_cockpit-1.6.0-py3-none-any.whl
         agentops_cockpit-1.6.0.tar.gz
     test-deployments/
-        prod-cockpit-agent/
+        prod-sovereign-agent/
             app/
                 app_utils/
             tests/
@@ -807,8 +811,10 @@ agent-cockpit/
         v2.1_TECHNICAL_SPEC.md
         PRD.md
         TECHNICAL_UVX_MASTER.md
+        COCKPIT_ARCHITECTURE.md
         AGENT_OPS_STORY.md
         LIMITATIONS.md
+        COCKPIT_SECURITY.md
         AUDIT_SCENARIOS.md
         PRODUCTION_CHECKLIST.md
         COCKPIT_GUIDE.md
@@ -817,12 +823,10 @@ agent-cockpit/
         TECHNICAL_A2A_GUIDE.md
         GETTING_STARTED.md
         TECHNICAL_FINOPS_GUIDE.md
-        COCKPIT_SECURITY.md
         TECHNICAL_REDTEAM_GUIDE.md
         ROADMAP.md
         DEPLOYMENT.md
         TECHNICAL_QUALITY_GUIDE.md
-        COCKPIT_ARCHITECTURE.md
         LANGCHAIN_INTEGRATION.md
         GEMINI.md
         RFC_GOVERNANCE_AS_CODE.md
@@ -851,7 +855,9 @@ agent-cockpit/
         compliance-audit-report.html
         hero.png
         TECHNICAL_UVX_MASTER.md
+        COCKPIT_ARCHITECTURE.md
         AGENT_OPS_STORY.md
+        SECURITY_GOVERNANCE.md
         CHANGELOG.md
         LIMITATIONS.md
         avatar_3.png
@@ -885,7 +891,6 @@ agent-cockpit/
         DOGFOODING.md
         GUIDE_AUDIT.md
         TECHNICAL_QUALITY_GUIDE.md
-        GOOGLE_ARCHITECTURE.md
         GEMINI.md
         RFC_GOVERNANCE_AS_CODE.md
         SECURITY_GUIDE.md
@@ -23298,7 +23303,6 @@ agent-cockpit/
             tests/
                 test_maturity_auditor.py
                 test_version_sync.py
-                test_cockpit.py
                 test_ui_mobile.py
                 golden_set.json
                 test_remediator.py
@@ -23309,7 +23313,6 @@ agent-cockpit/
                 test_capabilities_gate.py
                 test_guardrails.py
                 test_preflight.py
-                test_cockpit_ops.py
                 test_persona_sre.py
                 test_frameworks.py
                 __init__.py
@@ -23329,8 +23332,10 @@ agent-cockpit/
                 test_migration_hops.py
                 test_orchestrator_fleet.py
                 test_audit_flow.py
+                test_cockpit_pipeline.py
                 test_v202_evolution.py
                 test_ops_core.py
+                test_cockpit_ops.py
                 test_hill_climb.py
                 test_performance_guards.py
             cli/
@@ -23346,6 +23351,7 @@ agent-cockpit/
                 pr_scorecard.yml
             ops/
                 swarm.py
+                cockpit.py
                 benchmarker.py
                 gateway.py
                 rag_audit.py
@@ -23373,7 +23379,6 @@ agent-cockpit/
                 finops_roi.py
                 frameworks.py
                 simulator.py
-                cockpit.py
                 mcp_store.py
                 gemini_registration.json
                 watcher.py
@@ -23403,7 +23408,6 @@ agent-cockpit/
                     finops.py
                     sme_v12.py
                     context_auditor.py
-                    cockpitty.py
                     paradigm.py
                     behavioral.py
                     dependency.py
@@ -23415,10 +23419,18 @@ agent-cockpit/
                     policy_engine.ts
                     maturity.py
                     pivot.py
+                    cockpit_audit.py
                     sre_a2a.py
                     base.py
                     Dockerfile.aws
+                context/
+                    bm25.py
+                    registry.py
+                    __init__.py
                 evidence_lake/
+                skills/
+                    __init__.py
+                    base.py
             eval/
                 red_team.py
                 quality_climber.py
@@ -23635,7 +23647,7 @@ dev:
 	@echo "==============================================================================="
 	@echo "| 🚀 Starting AgentOps Cockpit Development Stack...                         |"
 	@echo "| 🎭 Face: http://localhost:5173 (Vite)                                       |"
-	@echo "| 🛡️ Gateway: http://localhost:8000 (Cockpit Sidecar)                        |"
+	@echo "| 🛡️ Gateway: http://localhost:8000 (Sovereign Sidecar)                        |"
 	@echo "==============================================================================="
 	@npm run dev & PYTHONPATH=src uv run cockpit ops gateway --port 8000
 
@@ -23725,13 +23737,13 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Cockpit Hub Hierarchy (v1.6 CLI)
+# Sovereign Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
 	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
 
-bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt cockpit libraries
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt sovereign libraries
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
@@ -23761,10 +23773,10 @@ arch-review: audit-arch ## [Alias] Architecture Design Review
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
 	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
 
-deploy-cockpit: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy cockpit --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
-deploy-prod: deploy-cockpit ## [Alias] Production Deployment
+deploy-prod: deploy-sovereign ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status
@@ -23840,8 +23852,8 @@ def register():
         "id": "my-super-agent-gke",
         "version": "1.4.7",
         "url": f"http://{gke_ip}/",
-        "name": "Super Agent (GKE Cockpitty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full cockpitty.",
+        "name": "Super Agent (GKE Sovereignty)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
         "capabilities": {"streaming": False, "conversational": True},
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -23869,8 +23881,8 @@ def register():
     
     # Discovery Engine payload
     payload = {
-        "displayName": "Super Agent (GKE Cockpitty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full cockpitty.",
+        "displayName": "Super Agent (GKE Sovereignty)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
         "icon": {
             "uri": "https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/hub/default/24px.svg"
         },
@@ -24025,6 +24037,13 @@ exclude = [
 select = ["E", "F", "B", "I"]
 ignore = ["B904", "E701", "E501"]
 
+[dependency-groups]
+dev = [
+    "codespell>=2.4.2",
+    "ruff>=0.15.6",
+    "ty>=0.0.23",
+]
+
 ```
 
 
@@ -24033,7 +24052,7 @@ ignore = ["B904", "E701", "E501"]
 ```yaml
 name: agent-ops-cockpit
 version: 2.0.4
-description: The Cockpit Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
+description: The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
 repository: https://github.com/enriquekalven/agent-ops-cockpit
 license: MIT
 author: enriquekalven
@@ -24054,7 +24073,7 @@ deployment:
   command: uvx
   args: ["agentops-cockpit", "mcp"]
   env:
-    COCKPIT_MODE: cockpit
+    COCKPIT_MODE: sovereign
 
 ```
 
@@ -24194,9 +24213,9 @@ with open('files_to_fix.txt', 'r') as f:
     files_to_fix = [line.strip() for line in f if line.strip()]
 
 versions_to_replace = {
-    '1.6.7': '1.8.4',
-    '1.6.6': '1.8.4',
-    '1.3.5': '1.8.4'
+    '1.6.7': '2.0.7',
+    '1.6.6': '2.0.7',
+    '1.3.5': '2.0.7'
 }
 
 for file_path in files_to_fix:
@@ -24383,10 +24402,10 @@ if os.path.exists(reg_path):
         try:
             data = json.loads(line)
             # If it's a generic 'agent' ID, and we know it's my-super-agent, rename it
-            if data.get('id') == 'cockpit-agent' or data.get('id') == 'cockpit-main':
+            if data.get('id') == 'sovereign-agent' or data.get('id') == 'sovereign-main':
                  # Use the display name or just rename to my-super-agent if it matches the current lab
                  if 'Super Agent' in data.get('display_name', ''):
-                      data['id'] = 'cockpit-my-super-agent'
+                      data['id'] = 'sovereign-my-super-agent'
                       data['display_name'] = '🚀 Gemini Enterprise: My Super Agent (ADK)'
             
             if data['id'] not in seen_ids:
@@ -24405,7 +24424,7 @@ if os.path.exists(reg_path):
 ### FILE: `policy_engine.ts`
 ---
 ```typescript
-// Cockpit v2.0.7 Premium Insights: Autonomous Policy Engine
+// Cockpit v2.0.7: Autonomous Policy Engine
 // SME Persona: Distinguished Governance Fellow
 export interface InteractionGate {
     confirm: boolean;
@@ -24414,7 +24433,7 @@ export interface InteractionGate {
 }
 
 export const enforcePolicy = async (action: string): Promise<InteractionGate> => {
-    // PII & Financial Cockpitty Logic
+    // PII & Financial Sovereignty Logic
     const isSensitive = /delete|transfer|payment|credential|secret/i.test(action);
     return {
         confirm: isSensitive,
@@ -24469,7 +24488,7 @@ finops:
 ### FILE: `a2ui_bridge.py`
 ---
 ```python
-# Cockpit v2.0.7 Premium Insights: Unified A2UI Interaction Bridge
+# Cockpit v2.0.7: Unified A2UI Interaction Bridge
 # Maps backend agent logic to frontend GenUI surfaces.
 
 def push_surface(content: str, surface_id: str = "main"):
@@ -24494,7 +24513,7 @@ import vertexai
 from agent import SuperAgent
 from vertexai.preview import reasoning_engines
 
-# v1.4.7 Cockpit Alignment: Agent Engine (Reasoning Engine) Deployment Script
+# v1.4.7 Sovereign Alignment: Agent Engine (Reasoning Engine) Deployment Script
 # Hardened with Gcloud Auth Fallback & Path Correction
 
 def get_gcloud_credentials():
@@ -24609,8 +24628,8 @@ if __name__ == "__main__":
 ### FILE: `functions/main.py`
 ---
 ```python
-# v1.4.5 Cockpit Alignment: Optimized for Google Cloud Run
-# Firebase Functions for Cockpit Telemetry
+# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# Firebase Functions for Sovereign Telemetry
 import datetime
 from typing import Any, Dict, Optional
 

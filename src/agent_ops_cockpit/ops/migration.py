@@ -19,7 +19,7 @@ except (ImportError, AttributeError):
 
 class MigrationEngine:
     """
-    Cockpit Multi-Cloud Migration Engine v1.8.4.
+    Cockpit Multi-Cloud Migration Engine v2.0.7.
     Automates Discovery, Planning, Hydrating, and Generating Multi-Cloud Assets.
     Supports: Google Cloud, AWS, Azure, Anthropic (Claude), and Microsoft.
     """
@@ -51,13 +51,13 @@ class MigrationEngine:
         
         # 1. Inject Cockpit Headers based on Cloud
         header_map = {
-            'google': "# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
-            'aws': "# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)\n",
-            'azure': "# v1.8.4 Cockpit Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
-            'anthropic': "# v1.8.4 Cockpit Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
-            'microsoft': "# v1.8.4 Cockpit Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
+            'google': "# v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run (Vertex AI)\n",
+            'aws': "# v2.0.7 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)\n",
+            'azure': "# v2.0.7 Cockpit Alignment: Optimized for Azure Container Apps (Azure OpenAI)\n",
+            'anthropic': "# v2.0.7 Cockpit Alignment: Optimized for Anthropic Claude (MCP-ready)\n",
+            'microsoft': "# v2.0.7 Cockpit Alignment: Optimized for Microsoft Azure OpenAI / AutoGen\n"
         }
-        cloud_header = header_map.get(target_cloud, "# v1.8.4 Multi-Cloud Optimized Agent\n")
+        cloud_header = header_map.get(target_cloud, "# v2.0.7 Multi-Cloud Optimized Agent\n")
         
         # Remove any existing Cockpit Alignment header (any version)
         remediator.content = re.sub(r"^# v\d+\.\d+\.\d+(?:\.\d+)? Cockpit Alignment: .+\n", "", remediator.content, flags=re.MULTILINE)
@@ -115,9 +115,9 @@ class MigrationEngine:
         """Prepare Cloud-specific Dockerfiles and IaC templates."""
         agent_dir = os.path.dirname(agent_path)
         
-        # Base Dockerfile with v1.8.4 Security Hardening
+        # Base Dockerfile with v2.0.7 Security Hardening
         docker_base = """FROM python:3.11-slim
-# v1.8.4 Zero-Trust Hydration: Non-root user setup
+# v2.0.7 Zero-Trust Hydration: Non-root user setup
 RUN groupadd -r cockpit && useradd -r -g cockpit cockpit
 WORKDIR /app
 COPY requirements.txt .
@@ -263,11 +263,11 @@ USER cockpit
 
     def generate_scaffolding(self, path: str):
         """
-        v2.0.2 Explicit Scaffolding: Generates modern agentic libraries.
+        v2.0.7 Explicit Scaffolding: Generates modern agentic libraries.
         This allows the user to 'adopt' Cockpit standards on demand.
         """
         # 1. A2UI Policy Engine (TypeScript/Node)
-        policy_engine_ts = """// Cockpit v2.0.2: Autonomous Policy Engine
+        policy_engine_ts = """// Cockpit v2.0.7: Autonomous Policy Engine
 // SME Persona: Distinguished Governance Fellow
 export interface InteractionGate {
     confirm: boolean;
@@ -289,7 +289,7 @@ export const enforcePolicy = async (action: string): Promise<InteractionGate> =>
             f.write(policy_engine_ts)
 
         # 2. A2UI Bridge (Python)
-        a2ui_bridge_py = """# Cockpit v2.0.2: Unified A2UI Interaction Bridge
+        a2ui_bridge_py = """# Cockpit v2.0.7: Unified A2UI Interaction Bridge
 # Maps backend agent logic to frontend GenUI surfaces.
 
 def push_surface(content: str, surface_id: str = "main"):

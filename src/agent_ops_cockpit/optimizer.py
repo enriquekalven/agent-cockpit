@@ -1,4 +1,4 @@
-# v1.8.4 cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# v2.0.7 cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 from __future__ import annotations
 
 import os

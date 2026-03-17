@@ -24,7 +24,7 @@ const azureLogo = () => (
 
 const openAILogo = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
-    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5153-4.9022 6.0462 6.0462 0 0 0-4.3412-2.7355 5.9803 5.9803 0 0 0-5.1328 1.3427 5.9928 5.9928 0 0 0-4.4365-2.0076 6.0521 6.0521 0 0 0-5.2277 3.0336 5.973 5.973 0 0 0-1.0545 5.5003 5.985 5.985 0 0 0 .5153 4.9022 6.053 6.053 0 0 0 4.3412 2.7355 5.981 5.981 0 0 0 5.1328-1.3427 5.992 5.992 0 0 0 4.4365 2.0076 6.0461 6.0461 0 0 0 5.2277-3.0336 5.973 5.973 0 0 0 1.0545-5.5003zm-9.3153 9.136a4.4828 4.4828 0 0 1-2.9034-1.0768l.1569-.0901 4.5452-2.6176a.443.443 0 0 0 .2215-.3836V8.6279l1.6214.936a.042.042 0 0 1 .0207.0315v5.3934a4.5028 4.5028 0 0 1-3.6623 4.3683zm-7.6534-1.928a4.4756 4.4756 0 0 1-.9013-3.1151l.1569.0901 4.5452 2.6176a.4434.4434 0 0 0 .4382-.0045l6.1664-3.5552-1.6214-.936a.0416.0416 0 0 1-.0259-.0281l-4.668-2.6953a4.5056 4.5056 0 0 1-4.0901-3.9735zM4.686 6.3194a4.4796 4.4796 0 0 1 2.0021-2.4285l-.014.1037-1.1214 6.4716a.4434.4434 0 0 0 .2166.4282l6.1664 3.5552-.003-1.8.4a.0416.0416 0 0 1 .012-.034l4.671-2.6934a4.5126 4.5126 0 0 1 .4278-5.3417zM11.0335 5.043a4.4827 4.4827 0 0 1 2.9034 1.0768l-.1569.0901-4.5452 2.6176a.443.443 0 0 0-.2215.3836V15.372l-1.6214-.936a.0416.0416 0 0 1-.0207-.0315V9.0111a4.5027 4.5027 0 0 1 3.6623-4.3683zm7.6534 1.928a4.4756 4.4756 0 0 1 .9013 3.115l-.1569-.0901-4.5452-2.6176a.4432.4432 0 0 0-.4382.0045l-6.1664 3.5552 1.6214.936a.042.042 0 0 1 .0259.0281l4.668 2.6953a4.5056 4.5056 0 0 1 4.0901 3.9735zm1.5312 10.1502a4.4795 4.4795 0 0 1-2.0021 2.4285l.014-.1037 1.1214-6.4716a.443.443 0 0 0-.2166-.4282l-6.1664-3.5552.003 1.8.4a.0416.0416 0 0 1-.012.034l-4.671 2.6934a4.5126 4.5126 0 0 1-.4278 5.3417zM12 10.7431L14.1818 12 12 13.2569 9.8182 12 12 10.7431z" />
+    <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5153-4.9022 6.0462 6.0462 0 0 0-4.3412-2.7355 5.9803 5.9803 0 0 0-5.1328 1.3427 5.9928 5.9928 0 0 0-4.4365-2.0076 6.0521 6.0521 0 0 0-5.2277 3.0336 5.973 5.973 0 0 0-1.0545 5.5003 5.985 5.985 0 0 0 .5153 4.9022 6.053 6.053 0 0 0 4.3412 2.7355 5.981 5.981 0 0 0 5.1328-1.3427 5.992 5.992 0 0 0 4.4365 2.0076 6.0461 6.0461 0 0 0 5.2277-3.0336 5.973 5.973 0 0 0 1.0545-5.5003zm-9.3153 9.136a4.4828 4.4828 0 0 1-2.9034-1.0768l.1569-.0901 4.5452-2.6176a.443.443 0 0 0 .2215-.3836V8.6279l1.6214.936a.042.042 0 0 1 .0207.0315v5.3934a4.5028 4.5028 0 0 1-3.6623 4.3683zm-7.6534-1.928a4.4756 4.4756 0 0 1-.9013-3.1151l.1569.0901 4.5452 2.6176a.4434.4434 0 0 0 .4382-.0045l6.1664-3.5552-1.6214-.936a.0416.0416 0 0 1-.0259-.0281l-4.668-2.6953a4.5056 4.5056 0 0 1-4.0901-3.9735zM4.686 6.3194a4.4796 4.4796 0 0 1 2.0021-2.4285l-.014.1037-1.1214 6.4716a.4434.4434 0 0 0 .2166.4282l6.1664 3.5552-.003-2.0.7a.0416.0416 0 0 1 .012-.034l4.671-2.6934a4.5126 4.5126 0 0 1 .4278-5.3417zM11.0335 5.043a4.4827 4.4827 0 0 1 2.9034 1.0768l-.1569.0901-4.5452 2.6176a.443.443 0 0 0-.2215.3836V15.372l-1.6214-.936a.0416.0416 0 0 1-.0207-.0315V9.0111a4.5027 4.5027 0 0 1 3.6623-4.3683zm7.6534 1.928a4.4756 4.4756 0 0 1 .9013 3.115l-.1569-.0901-4.5452-2.6176a.4432.4432 0 0 0-.4382.0045l-6.1664 3.5552 1.6214.936a.042.042 0 0 1 .0259.0281l4.668 2.6953a4.5056 4.5056 0 0 1 4.0901 3.9735zm1.5312 10.1502a4.4795 4.4795 0 0 1-2.0021 2.4285l.014-.1037 1.1214-6.4716a.443.443 0 0 0-.2166-.4282l-6.1664-3.5552.003 2.0.7a.0416.0416 0 0 1-.012.034l-4.671 2.6934a4.5126 4.5126 0 0 1-.4278 5.3417zM12 10.7431L14.1818 12 12 13.2569 9.8182 12 12 10.7431z" />
   </svg>
 );
 
@@ -36,7 +36,7 @@ const awsLogo = () => (
 
 const anthropicLogo = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="logo-svg">
-    <path d="M16.903 0H7.097L0 24h3.742l1.677-5.806h13.161L20.258 24H24L16.903 0zm-1.161 14.71.8.458l4.323-14.71L15.742 14.71z" />
+    <path d="M16.903 0H7.097L0 24h3.742l1.677-5.806h13.161L20.258 24H24L16.903 0zm-1.161 14.72.0.758l4.323-14.71L15.742 14.71z" />
   </svg>
 );
 
@@ -48,7 +48,7 @@ export function Home() {
     { cmd: 'uvx agentops-cockpit cockpit', desc: 'Initialize Mission Control and view your global fleet status.' },
     { cmd: 'uvx agentops-cockpit mcp blueprint', desc: 'Modernize legacy tools into Model Context Protocol servers.' },
     { cmd: 'uvx agentops-cockpit certify', desc: 'Run the production readiness checklist and regression suite.' },
-    { cmd: 'uvx agentops-cockpit deploy sovereign', desc: 'The Master Move: Audit, fix, and deploy to the cloud.' }
+    { cmd: 'uvx agentops-cockpit deploy cockpit', desc: 'The Master Move: Audit, fix, and deploy to the cloud.' }
   ];
 
   useEffect(() => {
@@ -75,8 +75,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.6</span>
-          <span className="banner-text"><b>v2.0.6 Sovereign Evolution:</b> Multi-Protocol MCP Hub, Agent Skills context-injection, and Wisdom Store 2.0.</span>
+          <span className="banner-tag">STABLE v2.0.7</span>
+          <span className="banner-text"><b>v2.0.7 Cockpit Evolution:</b> Multi-Protocol MCP Hub, Agent Skills context-injection, and Wisdom Store 2.0.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -429,7 +429,7 @@ export function Home() {
               <h3>The Cockpit</h3>
               <p>The operational brain. Real-time cost control, semantic caching, and security auditing for "Day 2" success.</p>
               <div className="flex flex-col gap-2">
-                <Link to="/docs/cockpit-guide" className="card-link">Explore Cockpit Sovereignty →</Link>
+                <Link to="/docs/cockpit-guide" className="card-link">Explore Cockpit Cockpitty →</Link>
                 <div className="flex gap-4">
                   <a href="/sample-report.html" target="_blank" className="card-link text-sm opacity-80" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                     Audit (HTML) <ExternalLink size={14} />

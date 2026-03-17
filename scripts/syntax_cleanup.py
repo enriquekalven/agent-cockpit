@@ -16,7 +16,7 @@ def cleanup_syntax(file_path):
     return False
 
 def main():
-    target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
+    target_root = "/Users/enriq/Documents/git/cockpit-fleet-samples"
     count = 0
     for root, _dirs, files in os.walk(target_root):
         for file in files:

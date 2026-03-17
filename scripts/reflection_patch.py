@@ -5,24 +5,24 @@ def inject_reflection(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
 
-    if 'sovereign_reflection' in content:
+    if 'cockpit_reflection' in content:
         return False
 
     # Inject import
-    content = "from reflection_engine import sovereign_reflection\n" + content
+    content = "from reflection_engine import cockpit_reflection\n" + content
     
     # Decorate main runner function or Agent instance
     if 'def run(' in content:
-         content = content.replace('def run(', '@sovereign_reflection\ndef run(')
+         content = content.replace('def run(', '@cockpit_reflection\ndef run(')
     elif 'def main():' in content:
-         content = content.replace('def main():', '@sovereign_reflection\ndef main():')
+         content = content.replace('def main():', '@cockpit_reflection\ndef main():')
     
     with open(file_path, 'w') as f:
         f.write(content)
     return True
 
 def main():
-    target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
+    target_root = "/Users/enriq/Documents/git/cockpit-fleet-samples"
     count = 0
     for root, _dirs, files in os.walk(target_root):
         for file in files:

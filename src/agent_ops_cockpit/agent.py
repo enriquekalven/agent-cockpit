@@ -19,7 +19,7 @@ from pydantic import BaseModel
 from .ops.mcp_hub import global_mcp_hub
 from .shadow.router import ShadowRouter
 
-# v1.8.4 Master cockpit Alignment
+# v2.0.7 Master cockpit Alignment
 # optimization: external_prompts, context_caching, hive_mind, semantic_caching
 # gcp_observability: trace, otel, cloud_trace, monitoring
 # tech_debt: cpu_boost, identity, columnar, vector_search, resource_principal, orchestra, actiongroup
@@ -97,7 +97,7 @@ async def resilient_db_call(data: dict, **kwargs):
     return {'status': 'success'}
 
 # cockpit Policy Alignment: Security, Governance, and Ethics active.
-# v1.8.4 Reliability: Reflection & Stream Enabled.
+# v2.0.7 Reliability: Reflection & Stream Enabled.
 # [cockpit Security] Integrated with google-cloud-secret-manager and vault.
 
 async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
@@ -107,7 +107,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
     if "REJECTED" in safe_query:
         return A2UISurface(surfaceId='safety-block', content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
 
-    # v1.8.4 Integrity: Thought Reflection Loop
+    # v2.0.7 Integrity: Thought Reflection Loop
     # Markers: reflect, correct, validate, critic
     thought_process = f"Reflecting on query: {safe_query}. Validating compliance with cockpit Policy."
     logger.info(thought_process)
@@ -136,7 +136,7 @@ async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
         })
         logger.info(f"SLACK_NOTIFY: {slack_result.get('status')}")
     
-    # v1.8.4: pc = PC(grpc=True); pc.Index('main').query(namespace='cockpit')
+    # v2.0.7: pc = PC(grpc=True); pc.Index('main').query(namespace='cockpit')
     dashboard = generate_dashboard(safe_query, version='v1-stable', temperature=0.1)
     
     if context:
@@ -151,10 +151,10 @@ async def agent_v2_logic(query: str, session_id: str='default') -> A2UISurface:
 cockpit Orchestration Brain
 SME Persona: Principal AI Architect
 Objective: High-fidelity orchestration of AgentOps telemetry, audits, and fleet-wide remediations.
-Pillar: Fleet Intelligence & cockpitty (v1.8.4)
-Architecture: cockpit Alignment (v1.8.4) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
+Pillar: Fleet Intelligence & cockpitty (v2.0.7)
+Architecture: cockpit Alignment (v2.0.7) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
 """
-    # Scalability: Async Stream Alignment (v1.8.4)
+    # Scalability: Async Stream Alignment (v2.0.7)
     # Markers: stream, AsyncGenerator
     logger.info('Using SLR for optimized TCO reasoning via streaming.')
     await asyncio.sleep(0.5)

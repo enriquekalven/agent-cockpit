@@ -1,6 +1,6 @@
 # 📄 Product Requirements Document (PRD): AgentOps Cockpit
 
-**Version**: 2.0.2 (The Cockpit Orchestrator)
+**Version**: 2.0.7 (The Cockpit Orchestrator)
 **Status**: Stable / Production-Ready
 **Owner**: Enrique Kalven & Agentic AI Engineering Team
 

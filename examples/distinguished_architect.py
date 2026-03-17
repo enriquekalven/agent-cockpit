@@ -11,7 +11,7 @@ from google.adk.sessions import InMemorySessionService
 from google.genai import types as genai_types
 
 
-# v2.0.2: Programmatic Tool Definition for ADK
+# v2.0.7: Programmatic Tool Definition for ADK
 def cockpit_audit_tool(path: str) -> dict:
     """
     Invokes the AgentOps Cockpit to perform a Deep Architecture and Security audit.

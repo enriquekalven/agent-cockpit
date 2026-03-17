@@ -8,7 +8,7 @@ console = Console()
 
 class HillClimber:
     """
-    Sovereign Evolution Engine: Iterative Capability Improvements.
+    Cockpit Evolution Engine: Iterative Capability Improvements.
     Loop: Audit -> Refine -> Validate -> Deploy.
     """
     def __init__(self, target_repos):
@@ -44,11 +44,11 @@ class HillClimber:
 if __name__ == "__main__":
     targets = [
         "lab-tutorial-agent-alt",
-        "test-deployments/prod-sovereign-agent",
+        "test-deployments/prod-cockpit-agent",
         "my_super_agent",
         "test-adk-agent",
         "temp_mixed"
     ]
     climber = HillClimber(targets)
     # The script acts as a step-by-step assistant for Antigravity
-    console.print("Sovereign Hill Climber Ready. Antigravity will orchestrate the refinement.")
+    console.print("Cockpit Hill Climber Ready. Antigravity will orchestrate the refinement.")

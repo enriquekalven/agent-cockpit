@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError):
     ContextCacheConfig = None
-# v2.0.2 Cockpit Evolution: Optimized for Multi-Cloud Fleet Governance
+# v2.0.7 Cockpit Evolution: Optimized for Multi-Cloud Fleet Governance
 
 import asyncio
 import os
@@ -11,7 +11,7 @@ import subprocess
 from datetime import datetime, timedelta
 from typing import Annotated, List, Optional
 
-import jwt  # PyJWT for v2.0.2 Cockpit Attestation
+import jwt  # PyJWT for v2.0.7 Cockpit Attestation
 import typer
 from rich.console import Console
 from rich.panel import Panel
@@ -62,7 +62,7 @@ def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to pr
     config_path = os.path.join(path, 'cockpit.yaml')
     if not os.path.exists(config_path):
         with open(config_path, 'w') as f:
-            f.write("# AgentOps Cockpit Manifest\nversion: 2.0.2\nentry_point: agent.py\ncloud: google\nframework: fastapi\n")
+            f.write("# AgentOps Cockpit Manifest\nversion: 2.0.7\nentry_point: agent.py\ncloud: google\nframework: fastapi\n")
         console.print("✅ Created [bold]cockpit.yaml[/bold]")
     else:
         console.print("⌛ [dim]cockpit.yaml already exists. Skipping.[/dim]")
@@ -277,14 +277,14 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
     if audit_exit_code == 0 and regression_passed:
         console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
         
-        # v2.0.2: Generate Cockpit Certificate (Cryptographic Proof)
+        # v2.0.7: Generate Cockpit Certificate (Cryptographic Proof)
         import hashlib
-        cert_data = f"CERTIFICATE:v2.0.2|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
+        cert_data = f"CERTIFICATE:v2.0.7|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
         proof = hashlib.sha256(cert_data.encode()).hexdigest()
         
         cert_path = os.path.join(path, '.cockpit', 'cockpit_certificate.txt')
         with open(cert_path, 'w') as f:
-            f.write("--- 🏛️ COCKPIT CERTIFICATE v2.0.2 ---\n")
+            f.write("--- 🏛️ COCKPIT CERTIFICATE v2.0.7 ---\n")
             f.write(f"ISSUED TO: {os.path.basename(os.path.abspath(path))}\n")
             f.write(f"TIMESTAMP: {datetime.now().isoformat()}\n")
             f.write("STATUS: CERTIFIED_PRODUCTION_READY\n")
@@ -296,7 +296,7 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
         console.print(f"📜 [bold cyan]Cockpit Certificate Generated:[/bold cyan] {cert_path}")
         console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
         
-        # v2.0.2: Cockpit Attestation (JWT for inter-agent handshake)
+        # v2.0.7: Cockpit Attestation (JWT for inter-agent handshake)
         # In actual production, this would use a HSM or Cloud Key Management Service.
         # Here we use a standard Cockpit Secret for the build env.
         secret = os.environ.get("COCKPIT_COCKPIT_SECRET", "super-secret-cockpit-key-v202")
@@ -691,7 +691,7 @@ def fix_reason(
     console.print(f'💬 [bold blue]Architect\'s Dialogue Initialized for: {issue_id}...[/bold blue]')
     orchestrator = orch_mod.CockpitOrchestrator()
     
-    # v2.0.2: Verify the reasoning using the Semantic Auditor
+    # v2.0.7: Verify the reasoning using the Semantic Auditor
     console.print(f"🧐 [magenta]Verifying justification:[/magenta] \"{reason}\"")
     
     # We use the BaseAuditor's semantic_verify

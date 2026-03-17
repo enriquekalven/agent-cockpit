@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# v2.0.7 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 from typing import List
 
 import git
@@ -75,7 +75,7 @@ class GitPortal:
         """Generates the body text for a GitHub PR."""
         return f"""
 # 🕹️ AgentOps Cockpit: Cockpit Evolution Suite
-**Version:** 2.0.2 | **Status:** AUTO_REMEDIATION_STAGE
+**Version:** 2.0.7 | **Status:** AUTO_REMEDIATION_STAGE
 
 ## 🧠 Executive Digest for Reviewers
 This PR contains **autonomous architectural hardening** aimed at improving the agent's Cockpitty and Production Readiness. 

@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.2 cockpit Alignment: Maturing ADK Tooling
+# v2.0.7 cockpit Alignment: Maturing ADK Tooling
 import asyncio
 import contextlib
 import io

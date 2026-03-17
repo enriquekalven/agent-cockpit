@@ -106,7 +106,7 @@ class BaseAuditor(ABC):
 
     def semantic_verify(self, code_snippet: str, objective: str) -> bool:
         """
-        v2.0.2 Semantic Compliance (Beyond Regex): 
+        v2.0.7 Semantic Compliance (Beyond Regex): 
         Uses a Policy SME model to verify if the code functionally meets a security objective.
         """
         try:

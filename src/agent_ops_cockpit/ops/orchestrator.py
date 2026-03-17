@@ -7,7 +7,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.2 Cockpit Alignment: Optimized for Google Cloud Run
+# v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run
 import hashlib
 import json
 import os
@@ -115,14 +115,14 @@ class CockpitOrchestrator:
         from agent_ops_cockpit.config import config
         env = os.environ.copy()
         
-        # v2.0.2 Cordon Mode: Isolate registry to prevent 401 friction
+        # v2.0.7 Cordon Mode: Isolate registry to prevent 401 friction
         if cordon:
             env['UV_INDEX_URL'] = config.PUBLIC_PYPI_URL
             env['PIP_INDEX_URL'] = config.PUBLIC_PYPI_URL
             env['UV_INDEX_STRATEGY'] = 'unsafe-best-effort'
             # console.print(f"🛡️  [bold yellow]Cordon Mode Active:[/] Isolated environment for {name}.") # Too noisy if in loop, maybe once in run_audit
             
-        # [v2.0.2] Venv Isolation Sidecar
+        # [v2.0.7] Venv Isolation Sidecar
         # If enabled, runs the command through a managed '.cockpit_venv'
         isolated_venv = os.path.islink(os.path.join(os.getcwd(), '.cockpit_venv')) or os.path.exists(os.path.join(os.getcwd(), '.cockpit_venv'))
         if isolated_venv and cmd[0] in ['python', 'python3', 'pytest', 'uv']:
@@ -211,7 +211,7 @@ class CockpitOrchestrator:
     }
 
     def generate_executive_summary(self, actions: List[str], as_html: bool=False) -> List[str]:
-        """v2.0.2 Executive Personality: Professional, High-Stakes Audit Persona."""
+        """v2.0.7 Executive Personality: Professional, High-Stakes Audit Persona."""
         if not actions:
             summary = ["The system audit indicates that all core pillars are currently aligned with the Agentic Trinity Framework. No immediate architectural drift or security regressions were detected."]
             return summary if not as_html else "<p>" + " ".join(summary) + "</p>"
@@ -418,7 +418,7 @@ class CockpitOrchestrator:
         self._generate_sarif_report(developer_actions)
         self.save_to_evidence_lake(target_abs)
 
-        # v2.0.2: Automatic TDD & Codebase Bundle Generation (Gittodoc Style) after each run
+        # v2.0.7: Automatic TDD & Codebase Bundle Generation (Gittodoc Style) after each run
         try:
             generator = TDDGenerator(getattr(self, 'target_path', '.'))
             generator.generate_tdd_html()
@@ -489,7 +489,7 @@ class CockpitOrchestrator:
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def get_exit_code(self):
         """
-        [v2.0.2 Evolution] Fine-Grained Severity-Based Exit Codes
+        [v2.0.7 Evolution] Fine-Grained Severity-Based Exit Codes
         EXIT 0: All Governance Gates APPROVED
         EXIT 1: CRITICAL - Security Leak (Hardcoded Secrets)
         EXIT 2: BLOCKED - Architecture or Policy Violation (GaC)
@@ -974,7 +974,7 @@ class CockpitOrchestrator:
             return findings
 
     def get_compliance_map(self, category: str) -> str:
-        """v2.0.2 Compliance Mapping: Maps Cockpit pillars to regulatory controls."""
+        """v2.0.7 Compliance Mapping: Maps Cockpit pillars to regulatory controls."""
         cmap = {
             '🛡️ Security': 'SOC2 CC6.1 (Logical Access)',
             '🔐 Security & Cockpitty': 'ISO 27001 A.12.6.1 (Management of Technical Vulnerabilities)',
@@ -1008,7 +1008,7 @@ class CockpitOrchestrator:
 
     def _discover_plugins(self, target_path: str) -> list:
         """
-        v2.0.2 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
+        v2.0.7 Plug-and-Play SDK: Scans for domain-specific auditors in .py files.
         Looks in:
         1. target_path/.cockpit/auditors/
         """
@@ -1112,7 +1112,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             arch_cmd.append('--verbose')
         steps = [('Architecture Review', arch_cmd), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Face Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
         
-        # v2.0.2: Plug-and-Play Auditor SDK
+        # v2.0.7: Plug-and-Play Auditor SDK
         plugin_steps = orchestrator._discover_plugins(target_path)
         if plugin_steps:
             console.print(f"🧩 [bold cyan]Plug-and-Play SDK:[/] Detected {len(plugin_steps)} domain-specific auditors.")
@@ -1122,7 +1122,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             steps.extend([('Quality Hill Climbing', [sys.executable, '-m', f'{base_mod}.eval.quality_climber', 'climb', '--steps', '10']), ('Red Team Security (Full)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]), ('Load Test (Baseline)', [sys.executable, '-m', f'{base_mod}.eval.load_test', 'run', '--requests', '50', '--concurrency', '5']), ('Evidence Packing Audit', [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path])])
         else:
             steps.append(('Red Team (Fast)', [sys.executable, '-m', f'{base_mod}.eval.red_team', 'audit', target_path]))
-        # v2.0.2 Incremental Audit Mode: Skip unrequested steps to speed up loop
+        # v2.0.7 Incremental Audit Mode: Skip unrequested steps to speed up loop
         if only:
             only_lower = [o.lower() for o in only]
             steps = [s for s in steps if any(o in s[0].lower() for o in only_lower)]
@@ -1294,7 +1294,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     exit_code = orchestrator.get_exit_code()
     orchestrator.generate_report()
     
-    # [v2.0.2] Master Architect: Aggregate telemetry for the Face (/metrics)
+    # [v2.0.7] Master Architect: Aggregate telemetry for the Face (/metrics)
     try:
         import subprocess
         agg_script = os.path.join(os.getcwd(), 'scripts', 'aggregate_telemetry.py')
@@ -1313,7 +1313,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         "exit_code": exit_code,
         "success_rate": sum(1 for r in orchestrator.results.values() if r['success']) / len(orchestrator.results) if orchestrator.results else 0
     })
-    # v2.0.2 Cockpit FinOps: Projected Opex Impact
+    # v2.0.7 Cockpit FinOps: Projected Opex Impact
     # Heuristic: Aggregate drivers from all results
     all_findings_text = "\n".join([r.get('output', '') for r in orchestrator.results.values()])
     finops_auditor = None
@@ -1491,7 +1491,7 @@ def workspace_audit(root_path: str='.', mode: str='quick', sim: bool=False, appl
                 json.dump(lake_data, f, indent=2)
         except Exception:
             pass
-    # v2.0.2 Master Architect: Cross-Silo Correlation
+    # v2.0.7 Master Architect: Cross-Silo Correlation
     correlation_risks = []
     if os.path.exists(lake_path):
         try:

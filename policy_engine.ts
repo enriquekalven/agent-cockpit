@@ -1,4 +1,4 @@
-// Cockpit v2.0.2: Autonomous Policy Engine
+// Cockpit v2.0.7: Autonomous Policy Engine
 // SME Persona: Distinguished Governance Fellow
 export interface InteractionGate {
     confirm: boolean;

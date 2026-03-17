@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 cockpit Alignment: Optimized for Google Cloud Run
+# v2.0.7 cockpit Alignment: Optimized for Google Cloud Run
 import ast
 from typing import List
 

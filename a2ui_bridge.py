@@ -1,4 +1,4 @@
-# Cockpit v2.0.2: Unified A2UI Interaction Bridge
+# Cockpit v2.0.7: Unified A2UI Interaction Bridge
 # Maps backend agent logic to frontend GenUI surfaces.
 
 def push_surface(content: str, surface_id: str = "main"):

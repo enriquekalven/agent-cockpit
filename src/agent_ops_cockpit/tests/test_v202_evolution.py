@@ -1,6 +1,6 @@
 """
 test_v202_evolution.py
-Objective: Regression suite for the v2.0.2 Semantic Compliance and ADK Tooling release.
+Objective: Regression suite for the v2.0.7 Semantic Compliance and ADK Tooling release.
 """
 import os
 import pytest
@@ -116,7 +116,7 @@ def test_semantic_verify_failure_fallback():
         result = auditor.semantic_verify("print('test')", "Should be safe")
         assert result is False # Fails safe
 
-# 5. Test Fine-Grained Exit Codes (v2.0.2)
+# 5. Test Fine-Grained Exit Codes (v2.0.7)
 def test_fine_grained_exit_codes():
     from agent_ops_cockpit.ops.orchestrator import CockpitOrchestrator
     orch = CockpitOrchestrator()

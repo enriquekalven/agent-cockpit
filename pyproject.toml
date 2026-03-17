@@ -118,3 +118,10 @@ exclude = [
 [tool.ruff.lint]
 select = ["E", "F", "B", "I"]
 ignore = ["B904", "E701", "E501"]
+
+[dependency-groups]
+dev = [
+    "codespell>=2.4.2",
+    "ruff>=0.15.6",
+    "ty>=0.0.23",
+]

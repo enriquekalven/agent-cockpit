@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 class FleetManager:
     """
-    Fleet Lifecycle Manager v1.8.4.
+    Fleet Lifecycle Manager v2.0.7.
     Manages the state, health, and Day 2 operations for Cockpit fleets.
     """
     def __init__(self, db_path: str = '.cockpit/fleet_registry.json'):

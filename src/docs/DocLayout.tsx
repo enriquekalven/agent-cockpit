@@ -47,7 +47,7 @@ const PILLAR_NAV = [
     title: '🗺️ Project Governance',
     items: [
       { id: 'prd', label: 'The PRD', path: '/docs/prd', icon: <BookOpen size={18} /> },
-      { id: 'roadmap', label: 'v1.3 Roadmap', path: '/docs/roadmap', icon: <Activity size={18} /> },
+      { id: 'roadmap', label: 'Roadmap', path: '/docs/roadmap', icon: <Activity size={18} /> },
     ]
   }
 ];
@@ -193,7 +193,7 @@ export const DocLayout: React.FC = () => {
                 <span>Follow Updates</span>
               </a>
               <div style={{ marginTop: '1rem', opacity: 0.4, fontSize: '0.7rem' }}>
-                v0.9.9 • Production Stack
+                v2.0.7 • Production Stack
               </div>
             </div>
           </div>

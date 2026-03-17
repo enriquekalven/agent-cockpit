@@ -1,4 +1,4 @@
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
+# v1.4.5 Cockpit Alignment: Optimized for Google Cloud Run
 import json
 import os
 import random
@@ -28,7 +28,7 @@ def aggregate():
             else:
                 data = loaded
 
-    # Sovereign Bridge: Pull from Supabase if configured (Global Ingestion)
+    # Cockpit Bridge: Pull from Supabase if configured (Global Ingestion)
     supabase_url = os.environ.get("AGENTOPS_SUPABASE_URL")
     supabase_key = os.environ.get("AGENTOPS_SUPABASE_KEY")
     global_installs = 0
@@ -125,4 +125,4 @@ def aggregate():
 
 if __name__ == "__main__":
     aggregate()
-# Sovereign Policy Alignment: policy, governance, compliance active.
+# Cockpit Policy Alignment: policy, governance, compliance active.

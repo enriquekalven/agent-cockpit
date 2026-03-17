@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run
+# v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run
 import asyncio
 import random
 from typing import Dict, List
@@ -103,7 +103,7 @@ class ReliabilityBenchmarker:
 
     async def shadow_benchmark_roi(self, sample_prompts: List[str] = None):
         """
-        v2.0.2 Shadow Benchmark: Real-world ROI Analysis.
+        v2.0.7 Shadow Benchmark: Real-world ROI Analysis.
         Runs a subset of prompts through multiple models to present an accuracy/cost curve.
         """
         if not sample_prompts:

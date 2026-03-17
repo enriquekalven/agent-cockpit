@@ -1,4 +1,4 @@
--- v1.8.5 Sovereign Launch: Supabase Schema for 100% Free Telemetry
+-- v1.8.5 Cockpit Launch: Supabase Schema for 100% Free Telemetry
 -- Location: Paste this into the Supabase SQL Editor
 
 -- 1. Create the events table

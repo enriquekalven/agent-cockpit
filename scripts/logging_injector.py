@@ -18,18 +18,18 @@ logger = logging.getLogger(__name__)
     
     # Inject an info log in main/functions
     if 'def main():' in content:
-         content = content.replace('def main():', "def main():\n    logger.info('🚀 Sovereign Agent Initialized')")
+         content = content.replace('def main():', "def main():\n    logger.info('🚀 Cockpit Agent Initialized')")
     elif 'class ' in content:
          # Find first method and inject
          import re
-         content = re.sub(r'(def .*?\(.*?\):)', r'\1\n        logger.info("Executing sovereign logic")', content, count=1)
+         content = re.sub(r'(def .*?\(.*?\):)', r'\1\n        logger.info("Executing cockpit logic")', content, count=1)
 
     with open(file_path, 'w') as f:
         f.write(content)
     return True
 
 def main():
-    target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
+    target_root = "/Users/enriq/Documents/git/cockpit-fleet-samples"
     count = 0
     for root, _dirs, files in os.walk(target_root):
         for file in files:

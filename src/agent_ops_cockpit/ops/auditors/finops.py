@@ -2,7 +2,7 @@
 Pillar: Economic Sustainability
 SME Persona: Distinguished FinOps Fellow
 Objective: Project TCO and identify caching/efficiency opportunities in agentic flows.
-Taxonomy: cockpit FinOps (v1.8.4)
+Taxonomy: cockpit FinOps (v2.0.7)
 """
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
@@ -35,7 +35,7 @@ class FinOpsAuditor(BaseAuditor):
         'claude-3-5-haiku': 0.25
     }
 
-    # v2.0.2 Opex Simulation Heuristics (Estimate % increase in tokens/cost)
+    # v2.0.7 Opex Simulation Heuristics (Estimate % increase in tokens/cost)
     OPEX_IMPACT_MAP = {
         'resiliency': 0.15,      # Exponential backoff + retries
         'telemetry': 0.25,       # Tracing and verbose logging

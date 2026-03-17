@@ -10,7 +10,7 @@ def fix_dockerfile(file_path):
 
     # Standard hardening: Add appuser
     hardening = """
-# [Sovereign-Hardened] Non-Root User
+# [Cockpit-Hardened] Non-Root User
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 USER appuser
 """
@@ -27,7 +27,7 @@ USER appuser
     return True
 
 def main():
-    target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
+    target_root = "/Users/enriq/Documents/git/cockpit-fleet-samples"
     count = 0
     for root, _dirs, files in os.walk(target_root):
         for file in files:

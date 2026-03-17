@@ -232,7 +232,7 @@ export const FleetMap: React.FC<{ agents?: any[] }> = ({ agents = [] }) => {
       >
         <img
           src="/fleet-map.png"
-          alt="Sovereign Fleet Map"
+          alt="Cockpit Fleet Map"
           className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen"
         />
 
@@ -322,7 +322,7 @@ export const FleetMap: React.FC<{ agents?: any[] }> = ({ agents = [] }) => {
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl">🤖</div>
             <div>
-              <div className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Sovereign Node</div>
+              <div className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Cockpit Node</div>
               <div className="text-sm font-bold text-white">{selectedAgent.name}</div>
             </div>
           </div>

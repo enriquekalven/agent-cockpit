@@ -11,7 +11,7 @@ console = Console()
 
 class CockpitSimulator:
     """
-    Cockpit Battle-Testing Suite (v1.8.4).
+    Cockpit Battle-Testing Suite (v2.0.7).
     Simulates the end-to-end factory across Multi-Cloud (GCP, AWS, Azure).
     """
 

@@ -19,7 +19,7 @@ def test_gateway_chat_completion_pii_scrubbing():
     # Internal logic check: we should verify if the forwarding would have clean content
     # Since we simulate responses, we can't easily check the 'forwarded' content here 
     # unless we mock the httpx client. 
-    # But for v2.0.2 certification, passing the endpoint test is the baseline.
+    # But for v2.0.7 certification, passing the endpoint test is the baseline.
 
 def test_gateway_policy_violation():
     """Verify that the gateway blocks forbidden topics."""

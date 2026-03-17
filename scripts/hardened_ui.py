@@ -40,7 +40,7 @@ def harden_tsx(file_path):
     # 5. Inject HITL Gating if "Action" or "Tool"
     if "Action" in file_path or "Tool" in file_path:
         if 'onClick' in content and 'confirm' not in content:
-            content = content.replace('onClick={', 'onClick={(e) => { if(!confirm("Sovereign Gate: Approve high-stakes action?")) return; ')
+            content = content.replace('onClick={', 'onClick={(e) => { if(!confirm("Cockpit Gate: Approve high-stakes action?")) return; ')
 
     with open(file_path, 'w') as f:
         f.write(content)

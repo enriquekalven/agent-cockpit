@@ -63,7 +63,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **🍱 Landing Page & Persona Expansion**: Refreshed the homepage with v2.0.0+ Watchtower branding.
 - **Mission Control Expansion**: Added specialized personas: **Compliance Officer** and **SITL Pilot**.
 
-### v1.8.4 (2026-02-12)
+### v2.0.7 (2026-02-12)
 - **🛰️ Deep Functional Auditing**: Implemented mandatory CLI execution gates.
 - **🧠 Maturity Wisdom Store v2.0.0**: Synchronized the knowledge base with latest research signals.
 - **🧪 Test Suite Hardening**: Updated unit tests and defined optional dependencies.
@@ -134,7 +134,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Rebranding**: Reverted all system strings from "Agent Optimizer" back to "AgentOps Cockpit" to maintain ecosystem consistency.
 - **SSOT**: Fixed version drift across `pyproject.toml`, `package.json`, and `config.py`.
 
-## [1.8.4] - 2026-02-06
+## [2.0.7] - 2026-02-06
 
 ### 🕹️ The Strategic Refinement (Antigravity v2.0.0 Release)
 - **Pre-flight: Environment Readiness**: Added a `PreflightEngine` that verifies registry connectivity, tool readiness, and environment consistency before auditing (Recommendation #2).

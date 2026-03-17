@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from agent_ops_cockpit.ops.guardrails import CockpitGuardrails
 from agent_ops_cockpit.telemetry import telemetry
 
-app = FastAPI(title="Cockpit Gateway Sidecar", version="2.0.2")
+app = FastAPI(title="Cockpit Gateway Sidecar", version="2.0.7")
 guardrails = CockpitGuardrails()
 
 # Global Governance Policy
@@ -53,7 +53,7 @@ async def chat_proxy(request: Request):
     target_model = body.get('model', 'gemini-2.0-flash')
     
     # In a real scenario, we'd forward to Vertex/OpenAI here
-    # For v2.0.2, we simulate the 'Cockpit Pass-through'
+    # For v2.0.7, we simulate the 'Cockpit Pass-through'
     print(f"🚀 Forwarding cleaned request to target: {target_model}")
     
     # Track metrics

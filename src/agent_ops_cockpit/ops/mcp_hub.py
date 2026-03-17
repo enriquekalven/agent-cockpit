@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# v2.0.7 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import asyncio
 import logging
 import os

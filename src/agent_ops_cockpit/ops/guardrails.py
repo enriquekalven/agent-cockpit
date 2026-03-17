@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# v2.0.7 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import json
 import os
 import re
@@ -39,7 +39,7 @@ class SafetyGate:
         """Unified Audit Logging for Governance Compliance (SOC2/PII)."""
         timestamp = datetime.now().isoformat()
         log_entry = {
-            "version": "v2.0.2",
+            "version": "v2.0.7",
             "timestamp": timestamp,
             "action": action,
             "status": status,
@@ -90,7 +90,7 @@ class SafetyGate:
             @wraps(func)
             def wrapper(*args, **kwargs):
                 print(f"🧠 [HITL] Approval required for: {action_name}")
-                # simulate approval in v2.0.2
+                # simulate approval in v2.0.7
                 if os.environ.get("COCKPIT_AUTO_APPROVE", "false") == "true":
                     return func(*args, **kwargs)
                 raise InterruptedError(f"⏳ [HITL] Pending approval for action: {action_name}")

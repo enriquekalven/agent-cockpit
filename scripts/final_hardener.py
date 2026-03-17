@@ -29,12 +29,12 @@ def final_harden(file_path):
         patched = True
 
     # 2. Ensure run_ methods are reflected
-    if 'from reflection_engine import sovereign_reflection' not in content:
-        content = "from reflection_engine import sovereign_reflection\n" + content
+    if 'from reflection_engine import cockpit_reflection' not in content:
+        content = "from reflection_engine import cockpit_reflection\n" + content
         patched = True
     
     if 'def run_' in content:
-        content = re.sub(r'(def run_.*?\(.*?\):)', r'@sovereign_reflection\n    \1', content)
+        content = re.sub(r'(def run_.*?\(.*?\):)', r'@cockpit_reflection\n    \1', content)
         patched = True
 
     if patched:
@@ -44,7 +44,7 @@ def final_harden(file_path):
     return False
 
 def main():
-    target_root = "/Users/enriq/Documents/git/sovereign-fleet-samples"
+    target_root = "/Users/enriq/Documents/git/cockpit-fleet-samples"
     count = 0
     for root, _dirs, files in os.walk(target_root):
         for file in files:

@@ -1,5 +1,5 @@
 /**
- * v2.0.1 Sovereign Policy Engine: Deterministic Business Rules
+ * v2.0.1 Cockpit Policy Engine: Deterministic Business Rules
  * [REMEDIATION SCAFFOLD] Use this to replace LLM-based arithmetic or date logic.
  */
 export class PolicyEngine {

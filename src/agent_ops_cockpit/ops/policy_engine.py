@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
+# v2.0.7 Cockpit Alignment: Optimized for AWS App Runner (Bedrock)
 import json
 import os
 import re
@@ -23,7 +23,7 @@ class PolicyViolation(Exception):
 class GuardrailPolicyEngine:
     """
     Enforces declarative guardrails and cost policies as defined in governance.yaml or policies.json.
-    Aligned with the v2.0.2 'Governance as Code' (GaC) standard.
+    Aligned with the v2.0.7 'Governance as Code' (GaC) standard.
     """
 
     def __init__(self, policy_path: str=None):

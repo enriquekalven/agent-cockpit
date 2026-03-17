@@ -2,7 +2,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v1.8.4 Cockpit Alignment: Optimized for Google Cloud Run
+# v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run
 import os
 import re
 
@@ -43,7 +43,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
 
 
     for root, dirs, files in os.walk(path):
-        # v2.0.2: Prune directories in-place to prevent descending into excluded paths
+        # v2.0.7: Prune directories in-place to prevent descending into excluded paths
         dirs[:] = [d for d in dirs if d not in [".venv", "node_modules", ".git", "dist", "dogfood", "dogfood_repos", "docs_temp", "dist_py", "dist_release", "dist_v161", "dist_v162", "dist_v163"]]
         
             

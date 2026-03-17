@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * v1.8.4 A2UI Surface Alignment
+ * v2.0.7 A2UI Surface Alignment
  * surfaceId: agent-pulse-monitor
  */
 export function AgentPulse() {

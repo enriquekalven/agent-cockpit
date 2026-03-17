@@ -21,7 +21,7 @@ const DOC_FILES: Record<string, string> = {
   'audit-guide': '/TECHNICAL_AUDIT_GUIDE.md',
   'commands-master': '/TECHNICAL_COMMANDS_MASTER.md',
   'uvx-master': '/TECHNICAL_UVX_MASTER.md',
-  'roadmap': '/ROADMAP_V13.md',
+  'roadmap': '/ROADMAP.md',
   'google-architecture': '/GOOGLE_ARCHITECTURE.md',
   'audit-scenarios': '/AUDIT_SCENARIOS.md',
   'prd': '/PRD.md',
