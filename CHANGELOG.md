@@ -2,7 +2,15 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
+### v2.0.8 (2026-03-17) - The "AST Precision" Release
+- **🧠 AST-Aware Precision Scanning**: Overhauled the `Optimizer` and `RedTeam` auditors to use Python's `ast` library. It now performs structural analysis of code to accurately identify missing Exponential Backoff (retries) and targeted prompt variables, drastically reducing regex-based false positives.
+- **🛡️ Output Sanitization (Poka-Yoke)**: Implemented `rich.markup.escape()` across all auditors to prevent `MarkupError` crashes when reporting bracket-heavy paths like `[.../file.py:10]`.
+- **🚨 Pilot Error Mitigation**: Introduced the **PILOT ERROR** state for audit pillars. If the reporting framework itself hits an internal exception, the pillar reflects a warning rather than a generic `REJECTED` block, preserving codebase health integrity.
+- **📉 Cluster Deduplication**: Generic architectural findings targeting line 1 of multiple files (e.g., "Add Caching") are now automatically clustered into a single summary block to prevent report clutter and notification fatigue.
+- **🚦 SLA-Hardened Gating**: Tightened load testing verification in `load_test.py`. Certification now strictly fails if the success rate is below **99%** or any endpoint handshake failures occur.
+
 ### v2.0.7 (2026-03-13) - The "Premium Insights" Release
+
 - **🎨 Modernized Audit Reports**: Complete overhaul of the reporting engine to deliver Google Cloud-grade aesthetics (Inter font, structured metrics, and high-fidelity severity indicators).
 - **📊 Fleet Dashboard v2.0**: Redesigned the Central Fleet Dashboard to match the Vertex AI Agent Builder UI, featuring real-time compliance cards and agent health grids.
 - **🔍 Granular Anomaly Detection**: Enhanced the `AnomalySME` auditor with professional metadata fields including Session ID, Detector type, Region, and Confidence scores.

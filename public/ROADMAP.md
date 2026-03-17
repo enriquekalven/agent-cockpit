@@ -1,5 +1,5 @@
 # 🗺️ AgentOps Cockpit Roadmap: The Path to 10K Stars
-Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.7 "Premium Insights")
+Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.8 "AST Precision")
 
 ## 🎯 Phase 1: The Foundation (Quarter 1) - "The Hardened Agent"
 *Focus: Security, Governance, and Basic Optimization.*
@@ -27,6 +27,8 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 - [x] **Premium Visual Dashboards**: Google Cloud-grade reporting and Vertex AI-style fleet dashboards (v2.0.7).
 - [x] **Dependency Shielding (Cordon Mode)**: Automated failover/mock-registry logic for "Registry-Blind" scenarios (v2.0.7 Premium Insights).
 - [x] **Cockpit Safety SDK**: Official `SafetyGate` library for PII, HITL, and Taint-Tracking (v2.0.7 Premium Insights).
+- [x] **AST Precision & Sanitized Signal**: Launched structural AST scanning and Markup sanitization (v2.0.8).
+
 
 ## 🧠 Phase 4: Autonomous Resilience (Quarter 4) - "The Sentient Service"
 *Focus: AIOps, Self-healing, and Global Scaling.*
@@ -61,4 +63,5 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 3.  **Report a Breach**: Found a way to bypass the Red Team? Help us harden the stack.
 
 ---
-*Built with ❤️ for the Agentic Developer community. (v2.0.7 Premium Insights)*
+*Built with ❤️ for the Agentic Developer community. (v2.0.8 AST Precision)*
+

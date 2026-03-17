@@ -1,7 +1,7 @@
 {
   "global_summary": {
     "compliance": 90.9090909090909,
-    "velocity": 6.081628046751144
+    "velocity": 6.684317005257717
   },
   "active_agents": 2,
   "threats_blocked": 24,
@@ -18,7 +18,7 @@
       },
       {
         "name": "Mar",
-        "value": 79
+        "value": 83
       },
       {
         "name": "Apr",
