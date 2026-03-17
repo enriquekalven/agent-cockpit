@@ -1,6 +1,7 @@
 {
-  "last_updated": "2026-03-16T22:24:50.059812",
-  "version": "1.4.0316",
+  "last_updated": "2026-03-17T06:10:00.000000",
+  "version": "2.0.8",
+
   "patterns": [
     {
       "id": "MP-001",
@@ -459,8 +460,24 @@
       "rationale": "Monolithic prompts are brittle and expensive. Skills provide a modular, discoverable context layer that can be dynamically attached to agents at runtime, aligning with the industry shift toward specialized agentic sub-units.",
       "impact": "HIGH",
       "source": "System Context SME (March 2026)"
+    },
+    {
+      "id": "MP-040",
+      "category": "RELIABILITY",
+      "title": "Output Sanitization (Rich Markup Escape)",
+      "indicators": [
+        "rich.console",
+        "print(",
+        "console.log",
+        "logger.info"
+      ],
+      "recommendation": "Before printing dynamic content (paths, LLM responses, or metadata) to a Rich-enabled console, pass it through `rich.markup.escape()`. This prevents `MarkupError` crashes when strings contain accidental markup characters like square brackets.",
+      "rationale": "Production monitors shouldn't fail due to reporting logic errors. Explicit escaping ensures that raw agent telemetry doesn't conflict with console formatting syntax.",
+      "impact": "MEDIUM",
+      "source": "cockpit Stability Hardening (v2.0.8)"
     }
   ],
+
   "compatibility_constraints": [
     {
       "component_a": "langgraph",
