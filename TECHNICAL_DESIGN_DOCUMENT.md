@@ -1,5 +1,5 @@
 # 🏛️ Cockpit Technical Design Document (TDD)
-**Generated**: March 16, 2026 22:25
+**Generated**: March 16, 2026 22:44
 **Standard**: Google Well-Architected for Agents (v2.0.7)
 **GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
 **PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
@@ -24,30 +24,28 @@ The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (
 ## 4. Fleet Audit Evidence
 
 ### Agent: agent-cockpit
-- **Cockpit Score**: 100.0%
+- **Cockpit Score**: 90.9%
 - **Status**: ✅ HARDENED
 
 #### 🛠️ SME Findings:
 - ✅ **Policy Enforcement**: Policy Source: governance.yaml
 Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
 SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
-- ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
-│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
-╰───────────────────────────────────────────────╯
-Targeting: 
-/Users/enriq/Documents/git/agent-cockpi...
 - ✅ **Token Optimization**: ╭───────────────────────────────────╮
 │ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
 ╰───────────────────────────────────╯
 Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 📊 Token...
-- ✅ **Load Test (Baseline)**: 🚀 Starting load test on https://agent-cockpit.web.app/api/telemetry/dashboard
-Total Requests: 50 | Concurrency: 5
-
-  Executing requests... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-
-
-       📊 Agen...
+- ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/Users/enriq/Documents/git/agent-cockpi...
+- ❌ **Load Test (Baseline)**: 🕵️  Endpoint Handshake: Verifying 
+https://agent-cockpit.web.app/api/telemetry/dashboard...
+⚠️  HANDSHAKE WARNING: Target returned HTML instead of API data. This looks like
+a dashboard, not an agent.
+...
 - ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
 │ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
 ╰────────────────────────────────────╯
@@ -70,15 +68,15 @@ Detected...
 ╰──────────────────────────────╯
 🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
 📈 Verifying Regression S...
+- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...
 - ✅ **Face Auditor**: ╭──────────────────────────────────────╮
 │ 🎭 FACE AUDITOR: A2UI COMPONENT SCAN │
 ╰──────────────────────────────────────╯
 Scanning directory: /Users/enriq/Documents/git/agent-cockpit
 📝 Scanned 19 fron...
-- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
-│ Optimizing Reasoning Density & Tool Trajectory Stability... │
-╰────────...
 
 ### Agent: global_summary
 - **Cockpit Score**: 0.0%

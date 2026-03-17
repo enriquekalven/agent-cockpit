@@ -104,8 +104,9 @@ class ReasoningAuditor(BaseAuditor):
         for func in runner_funcs:
             has_reflection = any(isinstance(d, (ast.Name, ast.Call)) and ('reflection' in str(ast.dump(d)).lower()) for d in func.decorator_list)
             if not has_reflection and 'reflection_engine' not in content:
-                title = "Reflection Blindness: Brittle Intelligence"
+                title = "Missing Self-Reflection Loop: Multi-Agent Review Recommended"
                 if not self._is_ignored(func.lineno, content, title):
+
                     findings.append(AuditFinding(
                         category="🧗 Reliability",
                         title=title,

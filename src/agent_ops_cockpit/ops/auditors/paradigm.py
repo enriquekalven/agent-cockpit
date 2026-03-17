@@ -94,7 +94,7 @@ class ParadigmAuditor(BaseAuditor):
            not any(kw in content_lower for kw in ['reflect', 'correct', 'check', 'validate', 'critic', 'reflection', 'thought', 'think', 'loopagent']):
             findings.append(AuditFinding(
                 category="🚀 Strategic Paradigm",
-                title="Reflection Blindness: Brittle Intelligence",
+                title="Missing Self-Reflection Loop: Multi-Agent Review Recommended",
                 description="""Detected high-stakes reasoning (Code/Legal/Finance) without a visible Reflection or Self-Correction loop.
 [bold red]Structural Fragility:[/bold red] Single-pass reasoning on complex tasks has high failure rates.
 [bold green]RECOMMENDATION:[/bold green] Implement a **Reflection Loop** or a Multi-Turn **Critic-Actor** pattern.""",
@@ -224,7 +224,7 @@ class ParadigmAuditor(BaseAuditor):
             if any(kw in content_lower for kw in ['report', 'summarize', 'article', 'write_']):
                 findings.append(AuditFinding(
                     category="🚀 Strategic Paradigm",
-                    title="Looming Latency: Blocking Inference",
+                    title="Blocking Inference: Streaming Output Recommended",
                     description="""Detected non-streaming generation for long-form content.
 [bold blue]Strategic UX Risk:[/bold blue] Long-wait times without feedback lead to churn.
 [bold green]RECOMMENDATION:[/bold green] Pivot to **A2UI Streaming Protocol**.""",

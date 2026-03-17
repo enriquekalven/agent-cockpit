@@ -1,3 +1,5 @@
+from rich.markup import escape
+
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -131,7 +133,7 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                 "Move to Secret Manager"
             )
             # Orchestrator parsing
-            console.print(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to {secret_manager} or .env file.")
+            console.print(escape(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to {secret_manager} or .env file."))
             
         console.print("\n", table)
         console.print(f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks.")

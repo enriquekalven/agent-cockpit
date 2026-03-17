@@ -8,8 +8,8 @@ from agent_ops_cockpit.config import config
 
 def test_version_ssot():
     """Ensure the version is consistent across the platform."""
-    # This ensures that we don't accidentally downgrade or mismatch
-    assert config.VERSION == "2.0.7"
+    assert config.VERSION == "2.0.8"
+
 
 def test_pii_scrubber():
     """Ensure PII is masked correctly."""

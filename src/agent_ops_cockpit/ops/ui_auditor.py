@@ -1,3 +1,5 @@
+from rich.markup import escape
+
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -204,7 +206,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
             for finding in issue["findings"]:
                 table.add_row(f"{issue['file']}:{finding['line']}", finding["issue"], finding["fix"])
                 # This line is for the orchestrator to parse easily
-                console.print(f"ACTION: {issue['file']}:{finding['line']} | {finding['issue']} | {finding['fix']}")
+                console.print(escape(f"ACTION: {issue['file']}:{finding['line']} | {finding['issue']} | {finding['fix']}"))
 
     console.print("\n", table)
 

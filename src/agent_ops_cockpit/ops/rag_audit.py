@@ -1,3 +1,5 @@
+from rich.markup import escape
+
 try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
@@ -56,7 +58,7 @@ def perform_audit(path: str):
     for f in all_findings:
         table.add_row(f.title, f"{os.path.basename(f.file_path)}:{f.line_number or ''}", f.roi)
         # Orchestrator capture line
-        console.print(f"ACTION: {f.file_path}:{f.line_number or 1} | {f.title} | {f.description}")
+        console.print(escape(f"ACTION: {f.file_path}:{f.line_number or 1} | {f.title} | {f.description}"))
     
     console.print(table)
 

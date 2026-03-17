@@ -100,12 +100,41 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
         issues.append(OptimizationIssue('go_concurrency', 'Go Native Concurrency', 'HIGH', '80% throughput boost', 'Leveraging Goroutines for parallel tool execution is a Go best practice.', '+ go func() { tool.execute() }()', package='golang'))
     if (file_path.endswith('.ts') or file_path.endswith('.js') or 'axios' in content_lower) and 'fetch' not in content_lower:
         issues.append(OptimizationIssue('node_native_fetch', 'Native Fetch API', 'MEDIUM', '20% bundle reduction', 'Node 20+ supports native fetch, reducing dependency on heavy libraries like axios.', '+ const res = await fetch(url);', package='nodejs'))
+    # AST-Aware Scanning (Issue 5)
+    import ast
+    has_retry_decorator = False
+    has_llm_sdk = False
+    has_http_lib = False
+    imports = []
+    
+    try:
+        tree = ast.parse(content)
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                if isinstance(node, ast.Import):
+                    for n in node.names:
+                        imports.append(n.name.lower())
+                else:
+                    if node.module:
+                        imports.append(node.module.lower())
+            elif isinstance(node, ast.FunctionDef):
+                for dec in node.decorator_list:
+                    if isinstance(dec, ast.Call) and isinstance(dec.func, ast.Name) and dec.func.id == 'retry':
+                        has_retry_decorator = True
+                    elif isinstance(dec, ast.Name) and dec.id == 'retry':
+                        has_retry_decorator = True
+                        
+        has_llm_sdk = any(x in imports for x in ['google.genai', 'google.cloud.aiplatform', 'vertexai', 'openai', 'anthropic'])
+        has_http_lib = any(x in imports for x in ['requests', 'aiohttp', 'httpx', 'urllib'])
+    except Exception:
+        pass # Fallback to simplicity if parsing fails
+
     lg_v = versions.get('langgraph', 'Not Installed')
     if 'langgraph' in content_lower:
         if lg_v != 'Not Installed' and lg_v != 'Unknown':
             try:
                 if pkg_version.parse(lg_v) < pkg_version.parse('0.1.0'):
-                    issues.append(OptimizationIssue('langgraph_legacy', 'Situational Stability (Legacy LangGraph)', 'HIGH', 'Stability Boost', f'You are on {lg_v}. Older versions lack the hardened StateGraph compilation. Upgrade is recommended.', '+ # Consider upgrading for better persistence', package='langgraph'))
+                    issues.append(OptimizationIssue('langgraph_legacy', 'Situational Stability (Legacy LangGraph)', 'HIGH', 'Stability Boost', f'Your are on {lg_v}. Older versions lack the hardened StateGraph compilation. Upgrade is recommended.', '+ # Consider upgrading for better persistence', package='langgraph'))
             except Exception:
                 pass
         if 'persistence' not in content_lower and 'checkpointer' not in content_lower:
@@ -120,8 +149,11 @@ def analyze_code(content: str, file_path: str='agent.py', versions: Dict[str, st
         issues.append(OptimizationIssue('semantic_caching', 'Implement Semantic Caching', 'HIGH', '40-60% savings', 'No caching layer detected. Adding a semantic cache reduces LLM costs.', '+ @hive_mind(cache=global_cache)', package='google-adk'))
     if has_large_prompt:
         issues.append(OptimizationIssue('external_prompts', 'Externalize System Prompts', 'MEDIUM', 'Architectural Debt Reduction', "Keeping large system prompts in code makes them hard to version and test. Move them to 'system_prompt.md' and load dynamically.", "+ with open('system_prompt.md', 'r') as f:\n+     SYSTEM_PROMPT = f.read()"))
-    if 'retry' not in content_lower and 'tenacity' not in content_lower:
+    
+    # Updated AST-aware Check for Exponential Backoff (Issue 5)
+    if (has_llm_sdk or has_http_lib) and not has_retry_decorator and 'tenacity' not in imports:
         issues.append(OptimizationIssue('resiliency_retries', 'Implement Exponential Backoff', 'HIGH', '99.9% Reliability', "Your agent calls external APIs/DBs but has no retry logic. Use 'tenacity' to handle transient failures.", '+ @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))', package='tenacity'))
+
     if 'session' not in content_lower and 'conversation_id' not in content_lower:
         issues.append(OptimizationIssue('session_management', 'Add Session Tracking', 'MEDIUM', 'User Continuity', "No session tracking detected. Agents in production need a 'conversation_id' to maintain multi-turn context.", '+ def chat(q: str, conversation_id: str = None):'))
     if 'pinecone' in content_lower:
@@ -247,10 +279,12 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
             console.print(ev_panel)
             bp_context = ev['best_practice_context'].replace('\n', ' ')
             console.print(f"SOURCE: {opt.title} | {ev['source_url']} | {bp_context}")
+        from rich.markup import escape
         syntax = Syntax(opt.diff, 'python', theme='monokai', line_numbers=False)
         console.print(syntax)
-        console.print(f'ACTION: {file_path}:1 | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})')
+        console.print(escape(f'ACTION: {file_path}:1 | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})'))
         do_apply = False
+
         if apply_fix:
             do_apply = True
         elif interactive:

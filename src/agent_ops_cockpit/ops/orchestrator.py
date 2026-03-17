@@ -362,8 +362,10 @@ class CockpitOrchestrator:
         report.append("| :--- | :--- | :--- | :--- |")
         
         for name, data in self.results.items():
-            status = '✅ APPROVED' if data['success'] else '❌ REJECTED'
+            is_pilot_error = 'Traceback' in str(data.get('output', '')) and 'agent_ops_cockpit' in str(data.get('output', ''))
+            status = '✅ APPROVED' if data['success'] else ('🚨 PILOT ERROR' if is_pilot_error else '❌ REJECTED')
             pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
+
             prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
             report.append(f"| {pillar} | {name} | {status} | {prio} |")
             
@@ -665,6 +667,7 @@ class CockpitOrchestrator:
         .status-badge {{ display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; }}
         .status-pass {{ background: var(--cockpit-emerald-light); color: var(--cockpit-emerald); }}
         .status-fail {{ background: var(--cockpit-red-light); color: var(--cockpit-red); }}
+        .status-warning {{ background: #fef3c7; color: #d97706; }}
         
         .prio-badge {{ padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }}
         .prio-p1 {{ background: #fee2e2; color: #991b1b; }} .prio-p2 {{ background: #fef3c7; color: #92400e; }}
@@ -782,9 +785,11 @@ class CockpitOrchestrator:
                             <tbody>"""
         
         for name, data in self.results.items():
-            status_class = "status-pass" if data['success'] else "status-fail"
-            status_text = "APPROVED" if data['success'] else "REJECTED"
+            is_pilot_error = 'Traceback' in str(data.get('output', '')) and 'agent_ops_cockpit' in str(data.get('output', ''))
+            status_class = "status-pass" if data['success'] else ("status-warning" if is_pilot_error else "status-fail")
+            status_text = "APPROVED" if data['success'] else ("PILOT ERROR" if is_pilot_error else "REJECTED")
             pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
+
             prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
             prio_class = f"prio-{prio.lower()}"
             
@@ -1286,9 +1291,36 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             for target in surface_targets:
                 clustered_actions.append(f"ACTION: {target}:1 | Missing GenUI Surface | Map this surface to the A2UI Protocol.")
         
-        clustered_actions.extend(rest_actions)
+        # Cluster generic static upgrades to prevent report fatigue (Issue 4)
+        generic_upgrades = {}  # Title -> List of files
+        rest_actions_filtered = []
+        
+        for action in rest_actions:
+            if ' | ' in action:
+                parts = action.replace('ACTION: ', '').split(' | ')
+                if len(parts) >= 2:
+                    location = parts[0] # e.g., file.py:1
+                    title = parts[1]
+                    # If it targets line 1 specifically, it is usually a generic file-level recommendation
+                    if ':1' in location or location.endswith(':1'):
+                         if title not in generic_upgrades:
+                              generic_upgrades[title] = []
+                         generic_upgrades[title].append(location.split(':')[0])
+                         continue
+            rest_actions_filtered.append(action)
+            
+        for title, files in generic_upgrades.items():
+            if len(files) > 2:
+                 clustered_actions.append(f"ACTION: Core Enhancements | {title} | Generic best practice upgrade recommended for {len(files)} files ({', '.join(files[:2])}...)")
+            else:
+                 for f in files:
+                      # Restore actions filtered
+                      clustered_actions.append(f"ACTION: {f}:1 | {title} | Structural Enhancement.")
+                      
+        clustered_actions.extend(rest_actions_filtered)
         data['output'] = '\n'.join(other_lines + clustered_actions)
         deduplicated_results[name] = data
+
         
     orchestrator.results = deduplicated_results
     exit_code = orchestrator.get_exit_code()

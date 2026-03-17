@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-16T22:25:56.100837
+**Generated**: 2026-03-16T22:44:24.437153
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -25,6 +25,7 @@ agent-cockpit/
     cockpit_export_20260217_2347.json
     cockpit_export_20260223_1019.json
     cockpit_export_20260316_1102.json
+    cockpit_export_20260316_2240.json
     evidence_lake.json
     cockpit_export_20260218_2338.json
     tsconfig.node.json
@@ -35,6 +36,7 @@ agent-cockpit/
     INDUSTRY_HARDENING_v2.0_FINAL.md
     index.html
     cockpit_export_20260218_2339.json
+    cockpit_export_20260316_2241.json
     cockpit_export_20260316_1103.json
     STRATEGIC_MEMO_v2.0.md
     cockpit_export_20260216_1258.json
@@ -84,6 +86,7 @@ agent-cockpit/
     cockpit_export_20260226_0925.json
     cockpit_export_20260217_1825.json
     MANIFEST.in
+    cockpit_export_20260316_2226.json
     audit_raw.txt
     cockpit_export_20260214_0754.json
     cockpit_export_20260218_1913.json
@@ -95,6 +98,7 @@ agent-cockpit/
     cockpit_export_20260303_1549.json
     README.md
     CAPABILITIES_REGISTRY.md
+    cockpit_export_20260316_2244.json
     smithery.yaml
     cockpit_export_20260218_2347.json
     debug_paradigm.py
@@ -170,6 +174,7 @@ agent-cockpit/
     cockpit_export_20260316_1101.json
     cockpit_export_20260313_1548.json
     mcp-config.json
+    cockpit_export_20260316_2243.json
     cockpit_export_20260217_1456.json
     cockpit_export_20260313_1552.json
     cockpit_export_20260316_2222.json
@@ -962,6 +967,7 @@ agent-cockpit/
         mcp_patch.py
         gemini_registration.json
         aws-apprunner.json
+        escape_outputs.py
         policy_engine.ts
         Dockerfile.aws
     functions/
@@ -23922,7 +23928,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.7"
+version = "2.0.8"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
