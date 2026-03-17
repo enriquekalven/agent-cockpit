@@ -54,6 +54,7 @@ class CockpitOrchestrator:
         self.results = {}
         self.total_steps = 8
         self.completed_steps = 0
+        self.mode = 'quick'
         self.workspace_results = {}
         self.common_debt = {}
         self.output_root = os.path.join(os.getcwd(), '.cockpit')
@@ -180,7 +181,7 @@ class CockpitOrchestrator:
         'Architecture Review': '️ Architectural Strategy',
         'Policy Enforcement': '🏗️ Architectural Strategy',
         'Secret Scanner': '🔐 Security & Cockpitty',
-        'Token Optimization': '🏗️ Architectural Strategy',
+        'Token Optimization': '💰 FinOps ROI & Logic Cost',
         'Reliability (Quick)': '🛡️ Reliability & Performance',
         'Quality Hill Climbing': '🛡️ Reliability & Performance',
         'Red Team Security (Full)': ' Security & Cockpitty',
@@ -210,6 +211,25 @@ class CockpitOrchestrator:
         'Red Team (Fast)': '🏗️ Security Hardening',
         'RAG Fidelity Audit': '🔧 Logic Refactoring'
     }
+    PILLAR_DOCS_MAP = {
+        'Architecture Review': 'docs/TECHNICAL_AUDIT_GUIDE.md',
+        'Policy Enforcement': 'docs/TECHNICAL_AUDIT_GUIDE.md',
+        'Secret Scanner': 'docs/TECHNICAL_REDTEAM_GUIDE.md',
+        'Token Optimization': 'docs/TECHNICAL_FINOPS_GUIDE.md',
+        'Reliability (Quick)': 'docs/TECHNICAL_QUALITY_GUIDE.md',
+        'Red Team (Fast)': 'docs/TECHNICAL_REDTEAM_GUIDE.md',
+        'Red Team Security (Full)': 'docs/TECHNICAL_REDTEAM_GUIDE.md',
+        'Load Test (Baseline)': 'docs/TECHNICAL_QUALITY_GUIDE.md',
+        'Face Auditor': 'docs/TECHNICAL_UX_GUIDE.md',
+        'RAG Fidelity Audit': 'docs/TECHNICAL_QUALITY_GUIDE.md'
+    }
+    INTENT_MAP = {
+        'quick': '⚡ Certification Pre-Flight',
+        'deep': '🏗️ Full Governance Certification',
+        'finops': '💰 FinOps ROI & Logic Cost Audit',
+        'security': '🔐 Penetration & Red Team Audit'
+    }
+
 
     def generate_executive_summary(self, actions: List[str], as_html: bool=False) -> List[str]:
         """v2.0.7 Executive Personality: Professional, High-Stakes Audit Persona."""
@@ -298,8 +318,10 @@ class CockpitOrchestrator:
         status_text = "PASSED" if all(r['success'] for r in self.results.values()) else "FAILED"
         status_icon = "✅" if all(r['success'] for r in self.results.values()) else "❌"
         
+        intent = self.INTENT_MAP.get(self.mode, self.mode.upper())
         report = [
             f"# AgentOps Cockpit | {title}",
+            f"> **Execution Intent**: {intent}",
             f"> **System Audit Report** | Cockpit v{self.version} | Generated: {self.timestamp} | Status: {status_icon} {status_text}",
             "\n---",
             "\n## 📊 Executive Dashboard",
@@ -359,16 +381,17 @@ class CockpitOrchestrator:
         
         report.append("\n---")
         report.append("\n## 🏛️ Pillar Approval Matrix")
-        report.append("| Pillar | Module | Status | Priority |")
-        report.append("| :--- | :--- | :--- | :--- |")
+        report.append("| Pillar | Module | Status | Priority | Documentation |")
+        report.append("| :--- | :--- | :--- | :--- | :--- |")
         
         for name, data in self.results.items():
             is_pilot_error = 'Traceback' in str(data.get('output', '')) and 'agent_ops_cockpit' in str(data.get('output', ''))
             status = '✅ APPROVED' if data['success'] else ('🚨 PILOT ERROR' if is_pilot_error else '❌ REJECTED')
             pillar = self.PILLAR_MAP.get(name, '👤 Automated Auditor')
+            doc_link = self.PILLAR_DOCS_MAP.get(name, 'README.md')
 
             prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
-            report.append(f"| {pillar} | {name} | {status} | {prio} |")
+            report.append(f"| {pillar} | {name} | {status} | {prio} | [View Specs]({doc_link}) |")
             
         if developer_actions:
             report.append("\n## 🏗️ Tactical Implementation Plan")
@@ -736,7 +759,7 @@ class CockpitOrchestrator:
             </header>
             
             <div id="summary" class="page-header">
-                <div class="page-subtitle">Master Architect Review</div>
+                <div class="page-subtitle">Master Architect Review | {self.INTENT_MAP.get(self.mode, self.mode.upper())}</div>
                 <h1 class="page-title">Cockpit Audit Report</h1>
             </div>
             
@@ -774,16 +797,16 @@ class CockpitOrchestrator:
                 </div>
 
                 <!-- Pillar Matrix -->
-                <div id="pillar-matrix" class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">🏛️ Pillar Approval Matrix</h2>
-                    </div>
-                    <div class="card-table">
-                        <table>
-                            <thead>
-                                <tr><th>Pillar</th><th>Module</th><th>Status</th><th>Priority</th></tr>
-                            </thead>
-                            <tbody>"""
+                    <div id="pillar-matrix" class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🏛️ Pillar Approval Matrix</h2>
+                        </div>
+                        <div class="card-table">
+                            <table>
+                                <thead>
+                                    <tr><th>Pillar</th><th>Module</th><th>Status</th><th>Priority</th><th>Specs</th></tr>
+                                </thead>
+                                <tbody>"""
         
         for name, data in self.results.items():
             is_pilot_error = 'Traceback' in str(data.get('output', '')) and 'agent_ops_cockpit' in str(data.get('output', ''))
@@ -794,12 +817,15 @@ class CockpitOrchestrator:
             prio = 'P1' if any(x in name.lower() for x in ['secret', 'security', 'policy', 'red']) else 'P2'
             prio_class = f"prio-{prio.lower()}"
             
+            doc_link = self.PILLAR_DOCS_MAP.get(name, 'README.md')
+            
             html_content += f"""
                                 <tr>
                                     <td style="font-weight:600; color:var(--cockpit-slate-light);">{pillar}</td>
                                     <td style="font-family:'JetBrains Mono', monospace; font-size:13px;">{name}</td>
                                     <td><span class="status-badge {status_class}">{"●" if data['success'] else "■"} {status_text}</span></td>
                                     <td><span class="prio-badge {prio_class}">{prio}</span></td>
+                                    <td><a href="{doc_link}" style="color:var(--cockpit-emerald); text-decoration:none; font-weight:600;">DOCS ↗</a></td>
                                 </tr>"""
 
         html_content += """
@@ -1042,6 +1068,7 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         skip = None
     
     orchestrator = CockpitOrchestrator()
+    orchestrator.mode = mode
     orchestrator.plain = plain
     abs_path = os.path.abspath(target_path)
     orchestrator.target_path = abs_path
