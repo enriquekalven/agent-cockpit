@@ -31,7 +31,7 @@ def test_p4_reflection_blindness(auditor):
     content = "from google.adk import Agent\ndef test():\n    return llm.generate('test this code')"
     tree = ast.parse(content)
     findings = auditor.audit(tree, content, "coder.py")
-    assert any("Reflection Blindness: Brittle Intelligence" in f.title for f in findings)
+    assert any("Missing Self-Reflection Loop: Multi-Agent Review Recommended" in f.title for f in findings)
 
 def test_p5_data_stuffing(auditor):
     content = "from google.adk import Agent\nimport pandas as pd\ndata = pd.read_csv('a.csv')\nprompt = f'Analyze this: {data}'"
@@ -75,7 +75,7 @@ def test_p11_looming_latency(auditor):
     content = "from google.adk import Agent\ndef generate_report():\n    # Response generation for a long report\n    return llm.generate('long report content')"
     tree = ast.parse(content)
     findings = auditor.audit(tree, content, "report.py")
-    assert any("Looming Latency: Blocking Inference" in f.title for f in findings)
+    assert any("Blocking Inference: Streaming Output Recommended" in f.title for f in findings)
 
 def test_p12_expert_bloat(auditor):
     #satisfy is_potential_agent

@@ -5,10 +5,11 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 
 import hashlib
 import os
+from datetime import datetime
 
 from rich.console import Console
 from tenacity import retry, stop_after_attempt, wait_exponential
-from datetime import datetime
+
 from agent_ops_cockpit.config import config
 
 console = Console()

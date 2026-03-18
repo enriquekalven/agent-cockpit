@@ -35,7 +35,7 @@ class ManifestAuditor(BaseAuditor):
                         file_path=file_path
                     ))
 
-        # 2. Protocol Health & Hardening (MCP / A2UI)
+        # 2. Protocol Health & Hardening (MCP / GenUI)
         if 'mcp' in filename.lower() and filename.endswith('.json'):
             # ASI-04: Tool Over-Privilege Check in MCP
             if '"capabilities"' not in content:

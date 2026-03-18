@@ -4,7 +4,7 @@ try:
     from google.adk.agents.context_cache_config import ContextCacheConfig
 except (ImportError, AttributeError, ModuleNotFoundError):
     ContextCacheConfig = None
-# v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run
+# v2.0.8 Cockpit Alignment: Generalized GenUI Auditor (AG UI, CopilotKit, React)
 import os
 import re
 
@@ -13,16 +13,16 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-app = typer.Typer(help="Face Auditor: Scan frontend code for A2UI alignment.")
+app = typer.Typer(help="Face Auditor: Scan frontend code for AG UI, CopilotKit, or React alignment.")
 console = Console()
 
 @app.command()
 def audit(path: str = typer.Argument("src", help="Directory to scan")):
     """
-    Step 4: Frontend / A2UI Auditing.
-    Ensures frontend components are properly mapping surfaceId and detecting triggers.
+    Step 4: Frontend (Face Layer) Auditing.
+    Ensures frontend components (React, AG UI, CopilotKit) are properly mapping surfaceId and detecting triggers.
     """
-    console.print(Panel.fit("🎭 [bold blue]FACE AUDITOR: A2UI COMPONENT SCAN[/bold blue]", border_style="blue"))
+    console.print(Panel.fit("🎭 [bold blue]FACE AUDITOR: GENUI COMPONENT SCAN[/bold blue]", border_style="blue"))
     console.print(f"Scanning directory: [yellow]{path}[/yellow]")
 
     files_scanned = 0
@@ -183,7 +183,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     summary.add_column("Value", style="bold white")
     summary.add_row("GenUI Readiness Score", f"{score}/100")
     summary.add_row("Consensus Verdict", f"[{'green' if score >= 85 else 'yellow' if score >= 60 else 'red'}]{verdict}[/]")
-    summary.add_row("A2UI Registry Depth", "Fragmented" if "Missing 'surfaceId'" in unique_issues else "Aligned")
+    summary.add_row("Registry Depth", "Fragmented" if "Missing 'surfaceId'" in unique_issues else "Aligned")
     summary.add_row("Latency Tolerance", "Low" if "Missing 'Thinking' feedback" in unique_issues else "Premium")
     summary.add_row("Autonomous Risk (HITL)", "HIGH" if "Missing HITL" in unique_issues else "Secured")
     summary.add_row("Streaming Fluidity", "Flicker-Prone" if "Missing Streaming Resilience" in unique_issues else "Smooth")
@@ -192,13 +192,13 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     
     console.print(Panel(summary, border_style="green" if score >= 85 else "yellow"))
 
-    table = Table(title="🔍 A2UI DETAILED FINDINGS")
+    table = Table(title="🔍 GENUI DETAILED FINDINGS")
     table.add_column("File:Line", style="cyan")
     table.add_column("Issue", style="red")
     table.add_column("Recommended Fix", style="green")
 
     if not issues:
-        table.add_row("All Files", "[green]A2UI Ready[/green]", "No action needed.")
+        table.add_row("All Files", "[green]Frontend Ready[/green]", "No action needed.")
     else:
         # Structured output for Orchestrator parsing
         console.print("\n[bold]🛠️  DEVELOPER ACTIONS REQUIRED:[/bold]")
@@ -226,7 +226,7 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
 @app.command()
 def version():
     """Show the version of the Face Auditor."""
-    console.print('[bold cyan]v1.3.0[/bold cyan]')
+    console.print('[bold cyan]v2.0.8[/bold cyan]')
 
 if __name__ == "__main__":
     app()

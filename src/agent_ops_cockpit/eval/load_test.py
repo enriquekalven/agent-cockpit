@@ -110,7 +110,7 @@ def display_results(results) -> bool:
     return True
 
 @app.command()
-def run(url: str=typer.Option('https://agent-cockpit.web.app/api/telemetry/dashboard', help='URL to stress test'), requests: int=typer.Option(50, help='Total number of requests'), concurrency: int=typer.Option(5, help='Simultaneous requests (Concurrent Users)')):
+def run(url: str = typer.Option('https://agent-cockpit.web.app/', help='URL to stress test'), requests: int = typer.Option(50, help='Total number of requests'), concurrency: int = typer.Option(5, help='Simultaneous requests (Concurrent Users)')):
     """
     Execute a configurable load test against the agent endpoint.
     """

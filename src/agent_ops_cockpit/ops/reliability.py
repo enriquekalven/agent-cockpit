@@ -90,7 +90,7 @@ def run_reliability_audit(quick: bool=False, path: str='.', smoke: bool=False):
             except Exception:
                 pass
     contract_status = '[green]VERIFIED[/green]' if has_renderer and has_schema else '[yellow]GAP DETECTED[/yellow]'
-    table.add_row('Contract Compliance (A2UI)', contract_status, 'Verified Engine-to-Face protocol' if has_renderer else 'Missing A2UIRenderer registration')
+    table.add_row('Contract Compliance (GenUI)', contract_status, 'Verified Engine-to-Face protocol' if has_renderer else 'Missing AGUI/CopilotKit Renderer registration')
     table.add_row('Regression Golden Set', '[green]FOUND[/green]', '50 baseline scenarios active')
     console.print(table)
     if unit_result.returncode != 0 and unit_status != '[yellow]SKIPPED[/yellow]':

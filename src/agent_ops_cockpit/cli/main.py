@@ -422,8 +422,8 @@ def email(recipient: Annotated[str, typer.Argument(help='Recipient email address
     orchestrator.send_email_report(recipient)
 
 @audit_app.command()
-def face(path: Annotated[str, typer.Option('--path', help='Path to Face folder')] = 'src'):
-    """Audit the Face (Frontend) for A2UI alignment."""
+def face(path: Annotated[str, typer.Option('--path', help='Path to Frontend folder')] = 'src'):
+    """Audit the Global Frontend (Face Layer) for AG UI, React, or CopilotKit alignment."""
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
     ui_mod.audit(path)
 

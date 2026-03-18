@@ -426,7 +426,7 @@
         "bee-agent-framework",
         "agentsquad"
       ],
-      "recommendation": "Integrate Vercel AI SDK for frontend-streaming logic or Praison AI for role-based multi-agent swarms. Ensure A2UI compliance for visual consistency.",
+      "recommendation": "Integrate Vercel AI SDK for frontend-streaming logic or Praison AI for role-based multi-agent swarms. Ensure Frontend (GenUI) compliance for visual consistency.",
       "rationale": "High-velocity development requires framework-native hooks (React/Vite). Combining these with the Cockpit's governance provides a 'Safe-Speed' release cycle.",
       "impact": "MEDIUM",
       "source": "Ecosystem Sync (v2.0.0)"

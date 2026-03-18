@@ -47,7 +47,7 @@ class SecurityAuditor(BaseAuditor):
                         title=title,
                         description="""Detected sensitive operations without a functional HITL gate.
 [bold red]ASI-02 Risk:[/bold red] Broken Tool Authorization allows agents to execute high-impact actions without oversight.
-[bold green]RECOMMENDATION:[/bold green] Implement an **A2UI Approval Modal** or a restricted tool schema.""",
+[bold green]RECOMMENDATION:[/bold green] Implement a **Frontend (GenUI) Approval Modal** (AG UI / CopilotKit) or a restricted tool schema.""",
                         impact="CRITICAL",
                         roi="Prevents multi-agent chain reactions and unauthorized financial/data loss.",
                         file_path=file_path
@@ -190,11 +190,14 @@ class SecurityAuditor(BaseAuditor):
             
             if isinstance(node, ast.Assign):
                 # Trace: x = input() or x = request.get_json()
-                call_str = ast.unparse(node.value).lower() if hasattr(ast, 'unparse') else ""
-                if any(s in call_str for s in ['input(', 'get_json', 'params.get', 'read()']):
-                    for target in node.targets:
-                        if isinstance(target, ast.Name):
-                            user_input_vars.add(target.id)
+                try:
+                    call_str = ast.unparse(node.value).lower() if hasattr(ast, 'unparse') else ""
+                    if any(s in call_str for s in ['input(', 'get_json', 'params.get', 'read()']):
+                        for target in node.targets:
+                            if isinstance(target, ast.Name):
+                                user_input_vars.add(target.id)
+                except Exception:
+                    pass
 
         # 2. Sink Detection: Monitor sensitive calls consuming 'user_input_vars'
         for node in ast.walk(tree):
@@ -221,11 +224,12 @@ class SecurityAuditor(BaseAuditor):
                                         findings.append(AuditFinding(
                                             category="🛡️ SecOps",
                                             title=title,
-                                            description=f"Direct flow from `{name}` (source) to `{call_name}` (sink) without sanitization.\n[bold red]Attack Vector:[/bold red] Prompt Injection or RCE via Tool manipulation.",
+                                            description=f"Direct flow from `{name}` (source) to `{call_name}` (sink) without sanitization.\\n[bold red]Attack Vector:[/bold red] Prompt Injection or RCE via Tool manipulation.",
                                             impact="CRITICAL",
                                             roi="Eliminates the most common ASI injection vectors.",
                                             line_number=node.lineno,
                                             file_path=file_path
                                         ))
+                                        break
                                         break
         return findings

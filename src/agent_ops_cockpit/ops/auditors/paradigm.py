@@ -177,7 +177,7 @@ class ParadigmAuditor(BaseAuditor):
                 title="Ungated High-Stake Action",
                 description="""Detected destructive tool-calls without an explicit HITL gate.
 [bold red]Governance GAP:[/bold red] Agents must not have autonomous write access to critical assets.
-[bold green]RECOMMENDATION:[/bold green] Implement **HITL Approval Nodes** (e.g., A2UI).""",
+[bold green]RECOMMENDATION:[/bold green] Implement **HITL Approval Nodes** (e.g., AG UI / CopilotKit).""",
                 impact="CRITICAL (Safety)",
                 roi="Protects enterprise cockpitty and prevents accidents.",
                 file_path=file_path
@@ -227,7 +227,7 @@ class ParadigmAuditor(BaseAuditor):
                     title="Blocking Inference: Streaming Output Recommended",
                     description="""Detected non-streaming generation for long-form content.
 [bold blue]Strategic UX Risk:[/bold blue] Long-wait times without feedback lead to churn.
-[bold green]RECOMMENDATION:[/bold green] Pivot to **A2UI Streaming Protocol**.""",
+[bold green]RECOMMENDATION:[/bold green] Pivot to **GenUI Streaming Protocol**.""",
                     impact="MEDIUM (Experience)",
                     roi="Improves perceived latency and retention.",
                     file_path=file_path

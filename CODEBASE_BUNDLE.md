@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-16T22:44:24.437153
+**Generated**: 2026-03-18T08:49:02.780429
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -72,6 +72,7 @@ agent-cockpit/
     register_gke_to_ge.py
     cockpit_export_20260226_0924.json
     pyproject.toml
+    cockpit_export_20260317_1246.json
     cockpit_export_20260303_1303.json
     cockpit_export_20260224_2340.json
     starter_pack_README.md
@@ -79,6 +80,7 @@ agent-cockpit/
     PRIVACY.md
     cockpit_export_20260217_1408.json
     cockpit_export_20260224_2341.json
+    cockpit_export_20260317_1247.json
     eslint_report.txt
     Dockerfile.backend
     cockpit_export_20260225_1009.json
@@ -89,6 +91,7 @@ agent-cockpit/
     cockpit_export_20260316_2226.json
     audit_raw.txt
     cockpit_export_20260214_0754.json
+    cockpit_export_20260318_0848.json
     cockpit_export_20260218_1913.json
     cockpit_export_20260313_1537.json
     cockpit_export_20260303_1621.json
@@ -98,6 +101,7 @@ agent-cockpit/
     cockpit_export_20260303_1549.json
     README.md
     CAPABILITIES_REGISTRY.md
+    cockpit_export_20260317_1248.json
     cockpit_export_20260316_2244.json
     smithery.yaml
     cockpit_export_20260218_2347.json
@@ -109,6 +113,7 @@ agent-cockpit/
     cockpit_export_20260214_0813.json
     cockpit_export_20260313_1559.json
     cockpit_export_20260303_1301.json
+    cockpit_export_20260317_1244.json
     TECHNICAL_DESIGN_DOCUMENT.md
     cockpit_export_20260303_0013.json
     cockpit_export_20260219_1941.json
@@ -129,6 +134,7 @@ agent-cockpit/
     cockpit_export_20260217_1431.json
     DOGFOODING.md
     test_out.log
+    cockpit_export_20260317_1245.json
     llm.txt
     cockpit_export_20260213_2202.json
     cockpit_export_20260225_1011.json
@@ -23928,7 +23934,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.8"
+version = "2.0.9"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
