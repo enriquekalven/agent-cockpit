@@ -1,7 +1,6 @@
 {
-  "last_updated": "2026-03-17T06:10:00.000000",
-  "version": "2.0.8",
-
+  "last_updated": "2026-03-21T12:45:56.645940",
+  "version": "1.4.0321",
   "patterns": [
     {
       "id": "MP-001",
@@ -477,7 +476,6 @@
       "source": "cockpit Stability Hardening (v2.0.8)"
     }
   ],
-
   "compatibility_constraints": [
     {
       "component_a": "langgraph",
