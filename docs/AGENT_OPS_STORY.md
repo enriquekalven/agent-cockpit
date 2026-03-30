@@ -1,5 +1,5 @@
 # 📖 The Cockpit Vision
-### Beyond the Black Box: The v2.0.10 Sovereign Release Cockpit Evolution
+### Beyond the Black Box: The v2.0.10 Autonomous Core Cockpit Evolution
 
 The AI industry is currently in its **"Wild West"** phase—experimental prompts, brittle toolsets, and "black box" logic are being shipped directly to production. At **Agentic Systems**, we believe that for autonomous agents to achieve industry-scale maturity, they must transition from scripts to **Cockpit Systems**.
 
@@ -16,13 +16,13 @@ Most agents today operate with **Implicit Governance**—if it works in a sandbo
 ---
 
 ## 🛡️ The Solution: The Governing Board
-With the **v2.0.10 Sovereign Release Cockpit Evolution**, we’ve introduced the **Governing Board**—a panel of automated Principal SME Personas that perform deep, AST-aware structural enforcement.
+With the **v2.0.10 Autonomous Core Cockpit Evolution**, we’ve introduced the **Governing Board**—a panel of automated Principal SME Personas that perform deep, AST-aware structural enforcement.
 
 > "Governance is no longer a bottleneck; it is the structural integrity that makes speed possible."
 
-### 🏛️ The Agentic Trinity v2.0.10 Sovereign Release:
+### 🏛️ The Agentic Trinity v2.0.10 Autonomous Core:
 
-| Pillar | Focus | The v2.0.10 Sovereign Release Breakthrough |
+| Pillar | Focus | The v2.0.10 Autonomous Core Breakthrough |
 | :--- | :--- | :--- |
 | **The Engine** | Reasoning & Tools | Multi-cloud abstraction via the **Cockpit Bridge**. |
 | **The Face** | Perception & UI | **A2UI Protocol**: Transforming logic into adaptive surfaces. |

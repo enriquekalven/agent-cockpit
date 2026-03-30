@@ -1,4 +1,4 @@
-name: 📡 Sovereign Ecosystem Sync
+name: 📡 Ecosystem Sync
 
 on:
   schedule:
@@ -32,18 +32,18 @@ jobs:
           
 
         
-      - name: 🚀 Commit Sovereign Updates
+      - name: 🚀 Commit autonomous Updates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name "Sovereign Bot"
+          git config --global user.name "autonomous Bot"
           git config --global user.email "bot@agentops.io"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add -f public/fleet_data.json
           git add src/agent_ops_cockpit/ops/maturity_patterns.json
           git add uv.lock pyproject.toml
           git commit -m "chore(ops): sync ecosystem wisdom store" || echo "No changes to commit"
-          git push origin HEAD:feature/sovereign-stable --force
+          git push origin HEAD:feature/autonomous-stable --force
           
       - name: 🌎 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
