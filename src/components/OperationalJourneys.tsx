@@ -39,7 +39,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Solution Architect',
     icon: <Layout size={24} />,
     color: '#10b981',
-    description: 'Design resilient, multi-cloud agentic systems aligned with v2.0.7 Wisdom Store patterns.',
+    description: 'Design resilient, multi-cloud agentic systems aligned with v2.0.10 Wisdom Store patterns.',
     docs: [
       { name: 'Google Architecture', path: '/docs/google-architecture' },
       { name: 'Deployment Strategy', path: '/docs/deployment' },
@@ -51,7 +51,7 @@ Ready to roll. Run 'make dev' to start.`
     ],
     command: 'agentops-cockpit audit arch',
     diagram: '/assets/persona_strategist_new.png',
-    output: `🏗️ Starting Architecture Review v2.0.7...
+    output: `🏗️ Starting Architecture Review v2.0.10...
 🔍 Scanning /src for Maturity Wisdom drift
 ✅ AWS Patterns: Bedrock Action Groups detected (Well-Architected)
 ✅ GCP Patterns: Vertex AI Context Caching enabled (+90% savings)
@@ -64,7 +64,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Quality Lead',
     icon: <Activity size={24} />,
     color: '#06b6d4',
-    description: 'v2.0.7: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
+    description: 'v2.0.10: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
     docs: [
       { name: 'Quality & Eval Guide', path: '/docs/quality-guide' },
       { name: 'RAG Truth-Sayer SME', path: '/docs/quality-guide' }
@@ -88,7 +88,7 @@ Ready to roll. Run 'make dev' to start.`
     persona: 'Security Specialist',
     icon: <Shield size={24} />,
     color: '#ef4444',
-    description: 'v2.0.7: Brand Safety Playbook hardening against advanced adversarial attacks.',
+    description: 'v2.0.10: Brand Safety Playbook hardening against advanced adversarial attacks.',
     docs: [
       { name: 'Brand Safety Playbook', path: '/docs/redteam-guide' },
       { name: 'Red Team Audits', path: '/docs/redteam-guide' }
@@ -99,7 +99,7 @@ Ready to roll. Run 'make dev' to start.`
     ],
     command: 'agentops-cockpit audit security',
     diagram: '/assets/persona_guardian.png',
-    output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0.7
+    output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0.10
 🕵️ Testing Payload Splitting: [Attempt 1/10] -> BLOCKED
 🕵️ Checking Tone of Voice: [Adversarial probe: Neutral] -> PASS
 🕵️ Domain Sensitivity: [Legal/Finance probes] -> SAFE
@@ -204,7 +204,7 @@ Estate Health: 98% Compliant.`
 📡 Discovering Tools: [Search, SQL, Artifacts]
 ✅ Registered 12 tools to MCP Fleet.
 🤝 Establishing Trust Bridge (Evidence-backed)
-Protocol Standard: A2A v2.0.7 compliant.`
+Protocol Standard: A2A v2.0.10 compliant.`
   },
   {
     id: 'product',

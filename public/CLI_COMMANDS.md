@@ -65,8 +65,8 @@ Starts the local development stack:
 - **Frontend (Face)**: Vite dev server running at `localhost:5173`.
 
 ### `make deploy-prod`
-**The Production Readiness Auditor (v2.0.7).**
-1. Runs the **v2.0.7 Deep System Audit**.
+**The Production Readiness Auditor (v2.0.10).**
+1. Runs the **v2.0.10 Deep System Audit**.
 2. Executes **Stress Testing** (Load Baseline).
 3. Conducts **Red Team Verification**.
 4. Verifies **Resiliency Pattern** compliance.

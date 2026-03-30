@@ -76,8 +76,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.7</span>
-          <span className="banner-text"><b>v2.0.7 Cockpit Evolution:</b> Multi-Protocol MCP Hub, Agent Skills context-injection, and Wisdom Store 2.0.</span>
+          <span className="banner-tag">STABLE v2.0.10</span>
+          <span className="banner-text"><b>v2.0.10 Sovereign Release:</b> Autonomous Evolution Hub, Sovereign Release Engine, and MCP Hub 2.0.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">

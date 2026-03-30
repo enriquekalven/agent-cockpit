@@ -2,16 +2,16 @@
 
 All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
-### v2.0.9 (2026-03-18) - The "Strategic Generalization" Release
+### v2.0.10 (2026-03-18) - The "Strategic Generalization" Release
 - **🧠 AST-Aware Precision Scanning**: Overhauled the `Optimizer` and `RedTeam` auditors to use Python's `ast` library. It now performs structural analysis of code to accurately identify missing Exponential Backoff (retries) and targeted prompt variables, drastically reducing regex-based false positives.
 - **🛡️ Output Sanitization (Poka-Yoke)**: Implemented `rich.markup.escape()` across all auditors to prevent `MarkupError` crashes when reporting bracket-heavy paths like `[.../file.py:10]`.
 - **🚨 Pilot Error Mitigation**: Introduced the **PILOT ERROR** state for audit pillars. If the reporting framework itself hits an internal exception, the pillar reflects a warning rather than a generic `REJECTED` block, preserving codebase health integrity.
 - **📉 Cluster Deduplication**: Generic architectural findings targeting line 1 of multiple files (e.g., "Add Caching") are now automatically clustered into a single summary block to prevent report clutter and notification fatigue.
-- Fixed: SLA-hardened gating (v2.0.8) now correctly handles Load Test handshake warnings.
+- Fixed: SLA-hardened gating (v2.0.10) now correctly handles Load Test handshake warnings.
 - Generalized: Face Auditor rebranded to Frontend (GenUI) Auditor, supporting AG UI, CopilotKit, and React.
 - **🚦 SLA-Hardened Gating**: Tightened load testing verification in `load_test.py`. Certification now strictly fails if the success rate is below **99%** or any endpoint handshake failures occur.
 
-### v2.0.7 (2026-03-13) - The "Premium Insights" Release
+### v2.0.10 (2026-03-13) - The "Sovereign Release" Release
 
 - **🎨 Modernized Audit Reports**: Complete overhaul of the reporting engine to deliver Google Cloud-grade aesthetics (Inter font, structured metrics, and high-fidelity severity indicators).
 - **📊 Fleet Dashboard v2.0**: Redesigned the Central Fleet Dashboard to match the Vertex AI Agent Builder UI, featuring real-time compliance cards and agent health grids.
@@ -30,7 +30,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **🌐 Registry Failover Pre-flights**: Environment-aware registry checks with automatic failover to public PyPI and proactive `--public` bypass guidance.
 - **🏗️ AST-Aware Surgical Remediation**: Enhanced `CodeRemediator` with targeted code injection (Poka-Yoke, Telemetry wrapping).
 
-### v2.0.7 Premium Insights (2026-02-17) - The "Pillar Evolution" Release
+### v2.0.10 Sovereign Release (2026-02-17) - The "Pillar Evolution" Release
 - **🛡️ Semantic Compliance Pivot**: Moved security and architecture audits from regex matching to LLM-driven intent verification (Gemini 2.0 Flash).
 - **🔦 Shadow ROI Benchmarking**: Launched dynamic performance analysis in the Reliability Hub to optimize model tiering and accuracy/cost curves.
 - **📜 Governance as Code (GaC)**: Externalized all fleet policies into declarative YAML for standardized security enforcement.
@@ -73,7 +73,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **🍱 Landing Page & Persona Expansion**: Refreshed the homepage with v2.0.0+ Watchtower branding.
 - **Mission Control Expansion**: Added specialized personas: **Compliance Officer** and **SITL Pilot**.
 
-### v2.0.7 (2026-02-12)
+### v2.0.10 (2026-02-12)
 - **🛰️ Deep Functional Auditing**: Implemented mandatory CLI execution gates.
 - **🧠 Maturity Wisdom Store v2.0.0**: Synchronized the knowledge base with latest research signals.
 - **🧪 Test Suite Hardening**: Updated unit tests and defined optional dependencies.
@@ -200,7 +200,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [1.0.0] - 2026-02-04
 
-### 🕹️ The Governance & Regression Framework (Stable Release)
+### 🕹️ The Governance & Regression Framework (Sovereign Release Release)
 - **Governance: Core Capabilities Registry**: Introduced `CAPABILITIES_REGISTRY.md` to define mandatory features (Fleet Dashboard, Auto-Heal, partitioned evidence).
 - **Quality: Capabilities Gate Meta-Test**: Implemented a build-time guardrail that fails CI/CD if core capabilities lack valid regression tests.
 - **Remediation: Context-Aware AST Matching**: Hardened `CodeRemediator` to intelligently detect parent function definitions for decorator injection.

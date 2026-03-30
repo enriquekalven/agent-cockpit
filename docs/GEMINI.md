@@ -3,7 +3,7 @@
 This repository is optimized for **Gemini** and agentic development. AI agents should use this file as the primary source of truth for understanding the architecture, tools, and constraints of this project.
 
 ## 🚀 Project Overview
-The **AgentOps Cockpit (v2.0.7 Premium Insights)** is a production-grade distribution for building and governing **Cockpit AI Agents**. It follows the **Agentic Trinity** framework and provides a cross-cloud mission control for agents deployed on Google Cloud, AWS, and Azure.
+The **AgentOps Cockpit (v2.0.10 Sovereign Release)** is a production-grade distribution for building and governing **Cockpit AI Agents**. It follows the **Agentic Trinity** framework and provides a cross-cloud mission control for agents deployed on Google Cloud, AWS, and Azure.
 
 ## 🛠️ Tech Stack
 - **The Engine**: Python, FastAPI, Vertex AI SDK, ADK (Multi-Cloud Cockpit Bridge).
@@ -15,7 +15,7 @@ The **AgentOps Cockpit (v2.0.7 Premium Insights)** is a production-grade distrib
 - `/src/agent_ops_cockpit`: The **Engine**. Logic for reasoning, tools, and cost control.
 - `/src/a2ui`: The **Face**. Core A2UI rendering logic and components.
 - `/src/agent_ops_cockpit/ops`: The **Cockpit** internals (Cockpit Bridge, Shadow Router).
-- `/src/docs`: Documentation system (**v2.0.7 Premium Insights Cockpit Technical Guides**).
+- `/src/docs`: Documentation system (**v2.0.10 Sovereign Release Cockpit Technical Guides**).
 - `CHEAT_SHEET.md`: The rapid-reference CLI guide for all users.
 
 ## 🤖 AI Agent Instructions
@@ -24,7 +24,7 @@ When assisting the user:
 2. **The Trinity Framework**: Architecture must always account for the Engine, Face, and Cockpit.
 3. **Poka-Yoke Tooling**: Enforce strict tool schemas and "Governance as Code" patterns.
 4. **Autonomous Fixes**: Encourage the use of `make apply-fixes` for AST-aware code hardening.
-5. **v2.0.7 Premium Insights Standard**: Reference specialized [**Technical Guides**](/docs/TECHNICAL_AUDIT_GUIDE.md) for Arch, FinOps, SRE, and Quality.
+5. **v2.0.10 Sovereign Release Standard**: Reference specialized [**Technical Guides**](/docs/TECHNICAL_AUDIT_GUIDE.md) for Arch, FinOps, SRE, and Quality.
 
 ## ⌨️ CLI Commands (The Cockpit)
 - `make dev`: Starts the local Engine Gateway + Face stack.
@@ -37,7 +37,7 @@ When assisting the user:
 ## 🤝 Ecosystem
 This stack leverages and bridges specialized tools for high-fidelity agent operations:
 - **[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack/)**: Core reference for ADK engine patterns and LangGraph integration.
-- **AgentOps Cockpit**: Governance, optimization, and security (**v2.0.7 Premium Insights Cockpit Evolution**).
+- **AgentOps Cockpit**: Governance, optimization, and security (**v2.0.10 Sovereign Release Cockpit Evolution**).
 
 ---
 *For more detailed guides, see the `/docs` section or visit [agent-cockpit.web.app](https://agent-cockpit.web.app).*

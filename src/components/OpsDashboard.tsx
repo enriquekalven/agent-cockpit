@@ -17,7 +17,7 @@ export const OpsDashboard: React.FC = () => {
         </div>
         <div className="health-badge">
           <span className="pulse"></span>
-          <span>System Stable</span>
+          <span>System Sovereign Release</span>
         </div>
       </header>
 

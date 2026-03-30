@@ -1,4 +1,4 @@
-# 🦴 Dogfooding: The AgentOps Cockpit Fleet Audit (v2.0.7)
+# 🦴 Dogfooding: The AgentOps Cockpit Fleet Audit (v2.0.10)
 
 We are recruiting active agent developers to "Dogfood" the **AgentOps Cockpit**. Our goal is to test the **Master Audit Suite** against real-world agent codebases and swarms to refine our SME reasoning and auto-remediation patches.
 

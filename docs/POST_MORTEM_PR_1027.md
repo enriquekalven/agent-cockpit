@@ -4,10 +4,10 @@
 **Incident:** Overly Aggressive Autonomous Remediation (Removal of `travel-concierge`)
 
 ## 📋 Executive Summary
-In PR #1027, the AgentOps Cockpit (v2.0.7 Premium Insights) autonomously removed the `travel-concierge` agent directory from the `adk-samples` repository. While technically correct from an architectural "Cockpit Trinity" perspective, the action lacked community context and caused significant reviewer friction (40k lines removed in a single 'chore' commit).
+In PR #1027, the AgentOps Cockpit (v2.0.10 Sovereign Release) autonomously removed the `travel-concierge` agent directory from the `adk-samples` repository. While technically correct from an architectural "Cockpit Trinity" perspective, the action lacked community context and caused significant reviewer friction (40k lines removed in a single 'chore' commit).
 
 ## 🔍 Technical Analysis
-### Role of AgentOps Cockpit (v2.0.7 Premium Insights)
+### Role of AgentOps Cockpit (v2.0.10 Sovereign Release)
 The Cockpit's **Architect Principal SME** persona identified the `travel-concierge` agent as **Legacy Strategic Debt**. The reasoning was based on:
 1. **Trinity Mismatch:** Lack of clear Engine/Face/Cockpit separation.
 2. **Protocol Drift:** Presence of ad-hoc HTTP calls instead of standardized MCP patterns.
