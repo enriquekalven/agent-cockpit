@@ -388,7 +388,7 @@ export function Home() {
           <div className="glass-content">
             <div className="text-side">
               <span className="accent-label">Core Architecture</span>
-              <h3>The Agentic <span className="gradient-text">Trinity</span></h3>
+              <h3>The Governance <span className="gradient-text">Framework</span></h3>
               <p>We divide production complexity into three specialized layers. This isolation allows you to optimize reasoning, interface, and governance independently.</p>
               <ul className="accent-list">
                 <li><strong>The Engine</strong>: Reasoning trajectories and tool orchestrations.</li>
