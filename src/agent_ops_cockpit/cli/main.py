@@ -681,6 +681,17 @@ def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the a
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""
     orch_mod.run_autonomous_evolution(path, branch=branch)
 
+@fix_app.command(name="upgrade")
+def autonomous_upgrade(
+    path: Annotated[str, typer.Option('--path', '-p', help='Path to the repository/workspace')] = '.',
+    docs_url: Annotated[str, typer.Option('--docs-url', '-d', help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
+):
+    """Autonomous Refactoring: Pull new docs and rewrite the codebase in a Git Sandbox."""
+    import asyncio
+
+    from agent_ops_cockpit.ops.upgrader import run_autonomous_upgrade
+    asyncio.run(run_autonomous_upgrade(path, docs_url))
+
 @fix_app.command(name="reason")
 def fix_reason(
     issue_id: Annotated[str, typer.Argument(help="The issue ID to provide reasoning for")],

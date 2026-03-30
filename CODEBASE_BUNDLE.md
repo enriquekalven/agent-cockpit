@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-30T08:40:52.662530
+**Generated**: 2026-03-30T09:35:33.909328
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -12,6 +12,7 @@ agent-cockpit/
     Dockerfile.temp
     cockpit_export_20260313_1547.json
     cockpit_export_20260219_0801.json
+    cockpit_export_20260330_0935.json
     cockpit_export_20260219_1945.json
     cockpit_export_20260218_2334.json
     cockpit_export_20260303_1305.json
@@ -100,6 +101,7 @@ agent-cockpit/
     cockpit_export_20260303_1230.json
     cockpit_export_20260313_1624.json
     cockpit_export_20260226_1154.json
+    cockpit_export_20260330_0841.json
     cockpit_export_20260303_1549.json
     cockpit_export_20260330_0839.json
     README.md
@@ -177,6 +179,7 @@ agent-cockpit/
     cockpit_audit.sarif
     cockpit_export_20260218_2212.json
     MEDIUM_POST.md
+    cockpit_export_20260330_0900.json
     cockpit_export_20260313_1620.json
     DOGFOOD_POST.md
     Dockerfile.original
@@ -23408,6 +23411,7 @@ agent-cockpit/
                 migration.py
                 documenter.py
                 evidence.py
+                upgrader.py
                 governance.yaml
                 Dockerfile.aws
                 preflight.py
@@ -23938,7 +23942,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.9"
+version = "2.0.10"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [

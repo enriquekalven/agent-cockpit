@@ -1,5 +1,5 @@
 # 🏛️ Cockpit Technical Design Document (TDD)
-**Generated**: March 30, 2026 08:40
+**Generated**: March 30, 2026 09:35
 **Standard**: Google Well-Architected for Agents (v2.0.7)
 **GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
 **PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
@@ -31,16 +31,16 @@ The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (
 - ✅ **Policy Enforcement**: Policy Source: governance.yaml
 Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
 SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
-- ✅ **Token Optimization**: ╭───────────────────────────────────╮
-│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
-╰───────────────────────────────────╯
-Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
-📊 Token...
 - ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
 │ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
 ╰───────────────────────────────────────────────╯
 Targeting: 
 /Users/enriq/Documents/git/agent-cockpi...
+- ✅ **Token Optimization**: ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
+📊 Token...
 - ✅ **Load Test (Baseline)**: 🕵️  Endpoint Handshake: Verifying https://agent-cockpit.web.app/...
 ⚠️  HANDSHAKE WARNING: Target returned HTML instead of API data. This looks like
 a dashboard, not an agent.
@@ -62,15 +62,15 @@ Detected...
 │ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.8 │
 ╰─────────────────────────────────────────────────────────────╯
 Detected...
-- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
-│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
-│ Optimizing Reasoning Density & Tool Trajectory Stability... │
-╰────────...
 - ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
 │ 🛡️ RELIABILITY AUDIT (QUICK) │
 ╰──────────────────────────────╯
 🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
 📈 Verifying Regression S...
+- ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
+│ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
+│ Optimizing Reasoning Density & Tool Trajectory Stability... │
+╰────────...
 - ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
 │ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
 ╰───────────────────────────────────────╯
