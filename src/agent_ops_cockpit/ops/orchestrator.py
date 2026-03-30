@@ -314,14 +314,16 @@ class CockpitOrchestrator:
 
     @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
     def generate_report(self):
-        title = getattr(self, 'title', 'Audit Report')
+        target_abs = os.path.abspath(getattr(self, 'target_path', '.'))
+        agent_identity = os.path.basename(target_abs)
         status_text = "PASSED" if all(r['success'] for r in self.results.values()) else "FAILED"
         status_icon = "✅" if all(r['success'] for r in self.results.values()) else "❌"
         
         intent = self.INTENT_MAP.get(self.mode, self.mode.upper())
         report = [
-            f"# AgentOps Cockpit | {title}",
+            f"# AgentOps Cockpit | {agent_identity}",
             f"> **Execution Intent**: {intent}",
+            f"> **Target Agent**: {agent_identity}",
             f"> **System Audit Report** | Cockpit v{self.version} | Generated: {self.timestamp} | Status: {status_icon} {status_text}",
             "\n---",
             "\n## 📊 Executive Dashboard",
@@ -626,6 +628,7 @@ class CockpitOrchestrator:
         health_score = (passed_modules / total_modules * 100) if total_modules > 0 else 0
         delta = health_score - prev_health
         critical_count = sum(1 for r in self.results.values() if not r['success'] and any(x in r.get('output', '').lower() for x in ['secret', 'security', 'leak']))
+        agent_identity = os.path.basename(target_abs)
         
         verdict_lines = self.generate_executive_summary(developer_actions)
         verdict_text = " ".join(verdict_lines).replace('**', '')
@@ -752,7 +755,7 @@ class CockpitOrchestrator:
         
         <main class="main-content">
             <header>
-                <div class="header-project">🚀 COCKPIT_FLEET_01</div>
+                <div class="header-project">👤 AGENT: {agent_identity}</div>
                 <div style="display: flex; gap: 12px;">
                     <button style="background:var(--cockpit-emerald); color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:13px;" onclick="window.print()">Export PDF</button>
                 </div>

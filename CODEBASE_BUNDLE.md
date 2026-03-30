@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-18T08:49:02.780429
+**Generated**: 2026-03-30T08:40:52.662530
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -56,6 +56,7 @@ agent-cockpit/
     cockpit_export_20260214_0811.json
     cockpit_export_20260225_1012.json
     ui_audit_result.txt
+    cockpit_export_20260330_0840.json
     EVOLUTIONARY_BENCH_V2.md
     cockpit_export_20260226_1155.json
     uv.toml
@@ -65,6 +66,7 @@ agent-cockpit/
     Makefile
     cockpit_export_20260303_1620.json
     setup_gcp.sh
+    cockpit_export_20260318_0849.json
     Dockerfile.gcp
     cockpit_export_20260213_2153.json
     cockpit_export_20260214_0755.json
@@ -99,6 +101,7 @@ agent-cockpit/
     cockpit_export_20260313_1624.json
     cockpit_export_20260226_1154.json
     cockpit_export_20260303_1549.json
+    cockpit_export_20260330_0839.json
     README.md
     CAPABILITIES_REGISTRY.md
     cockpit_export_20260317_1248.json
@@ -132,6 +135,7 @@ agent-cockpit/
     cockpit_export_20260217_1827.json
     CONTRIBUTING.md
     cockpit_export_20260217_1431.json
+    cockpit_export_20260318_0939.json
     DOGFOODING.md
     test_out.log
     cockpit_export_20260317_1245.json

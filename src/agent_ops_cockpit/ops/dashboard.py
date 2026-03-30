@@ -24,6 +24,7 @@ def generate_fleet_dashboard(results: dict):
     suspicious_agents = total - passed_count
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     version = config.VERSION
+    repo_name = os.path.basename(os.getcwd())
     
     html = f"""
     <!DOCTYPE html>
@@ -74,7 +75,7 @@ def generate_fleet_dashboard(results: dict):
         </div>
         <div id="main-content">
             <header>
-                <div style="font-size:13px; background:var(--bg-color); color:var(--text-secondary); padding:4px 12px; border-radius:6px; font-weight:500; border:1px solid var(--border-color);">🚀 COCKPIT_FLEET_01</div>
+                <div style="font-size:13px; background:var(--bg-color); color:var(--text-secondary); padding:4px 12px; border-radius:6px; font-weight:500; border:1px solid var(--border-color);">🚀 REPO: {repo_name}</div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div style="width:28px; height:28px; background:var(--cockpit-emerald); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:700;">A</div>
                 </div>
