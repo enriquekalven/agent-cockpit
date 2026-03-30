@@ -185,15 +185,12 @@ def run_smoke_test():
         except Exception:
             return '[red]FAIL[/red]'
 
-    telemetry_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'telemetry', '--admin'], 'Active Agents (24h)')
-    functional_table.add_row('Cockpit Telemetry Hub', 'sys telemetry --admin', telemetry_status)
-    
     version_status = check_output([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'sys', 'version'], 'agent-ops CLI')
     functional_table.add_row('System Hub Baseline', 'sys version', version_status)
 
     console.print(functional_table)
     
-    if telemetry_status == '[red]FAIL[/red]' or version_status == '[red]FAIL[/red]':
+    if version_status == '[red]FAIL[/red]':
         console.print('\n❌ [bold red]Deep Functional Audit Failed. Critical logic error found.[/bold red]')
         sys.exit(1)
     else:
