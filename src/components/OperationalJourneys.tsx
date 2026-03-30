@@ -292,7 +292,7 @@ Conclusion: Positive ROI confirmed for Q1.
     docs: [
       { name: 'HITL Workflows', path: '/docs/cockpit-guide' },
       { name: 'Tool Approvals', path: '/docs/cockpit-guide' },
-      { name: 'Sentinel Oversight', path: '/docs/cockpit-guide' }
+      { name: 'System Oversight', path: '/docs/cockpit-guide' }
     ],
     reports: [
       { name: 'HITL Audit Trail', path: '/compliance-audit-report.html' },

@@ -10,7 +10,7 @@ Every audit result and remediation is authored by a panel of **Principal SME Per
 - **SecOps Principal**: Hardening logic against adversarial gaslighting.
 - **FinOps Principal**: Scaling reasoning density and model-tier arbitrage.
 - **SRE Principal**: Managing infrastructure cockpitty and fleet anomalies.
-- **Architect Principal**: Aligning code with the **Agentic Trinity** standards.
+- **Architect Principal**: Aligning code with the **Governance Framework** standards.
 
 ## 🌉 Cockpit Bridge (Multi-Cloud Orchestration)
 The Cockpit abstracts the underlying cloud provider, allowing you to govern agents across GCP, AWS, and Azure from a single interface.
@@ -23,8 +23,8 @@ A real-time sidecar logic layer that governs inter-agent and agent-to-user traff
 - **A2A Evidence Packets**: Cryptographically signs reasoning traces to ensure trust in multi-agent swarms.
 - **Guardrail Injection**: Run `make apply-fixes` to autonomously inject these gates into your codebase.
 
-## 🧠 Semantic Hive Mind (Distributed Caching)
-The Hive Mind is a specialized middleware that prevents redundant LLM calls across your entire fleet.
+## 🧠 Semantic distributed cache (Distributed Caching)
+The distributed cache is a specialized middleware that prevents redundant LLM calls across your entire fleet.
 1. **Shared Memory**: If Agent A answers a complex query, Agent B can recall that answer in <10ms.
 2. **Cost Sashing**: Reduces OpEx by serving semantically identical requests from cache.
 

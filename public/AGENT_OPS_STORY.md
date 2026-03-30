@@ -3,7 +3,7 @@
 
 The AI industry is currently in its **"Wild West"** phase. Developers are shipping experimental prompts, unversioned logic, and ungoverned toolsets directly to production. At **Agentic Systems**, we believe that for agents to become the primary interface of computing, they must be built on a foundation of **Governance, Experience, and Orchestration**.
 
-We call this the **Agentic Trinity**.
+We call this the **Governance Framework**.
 
 ---
 
@@ -37,7 +37,7 @@ The **AgentOps Cockpit** was built to solve the "Day 2" problem of agent develop
 We are entering an era where agents will talk to other agents. The Cockpit implements the **A2A Evidence Packet** standard, ensuring that every handoff is:
 -   **Verified**: 100% trace transparency.
 -   **Scrubbed**: PII-free data transit.
--   **Optimized**: Using shared semantic caches (The Hive Mind).
+-   **Optimized**: Using shared semantic caches (The distributed cache).
 
 ---
 

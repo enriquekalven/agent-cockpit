@@ -81,7 +81,7 @@ class GitPortal:
 This PR contains **autonomous architectural hardening** aimed at improving the agent's Cockpitty and Production Readiness. 
 
 - **Strategic ROI:** +{score_improvement}% Maturity Score improvement.
-- **Architectural Intent:** Aligning with the **Agentic Trinity** (Engine/Face/Cockpit) standard.
+- **Architectural Intent:** Aligning with the **Governance Framework** (Engine/Face/Cockpit) standard.
 - **Blast Radius Guard:** This PR is limited to a maximum of 10 file changes to prevent PR Exhaustion.
 - **Cordon Pattern:** High-impact structural changes (like deletions or splits) are Cordoned and require explicit human-in-the-loop approval.
 

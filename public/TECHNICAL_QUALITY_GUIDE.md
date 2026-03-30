@@ -16,7 +16,7 @@ The `ops report --mode deep` and `cockpit certify` commands activate the **Quali
 
 ---
 
-## 🏛️ SME Judgment: The Science of Reasoning (v2.0.10 Autonomous Core)
+## 🏛️ Domain Evaluation: The Science of Reasoning (v2.0.10 Autonomous Core)
 "In a world of stochastic reasoning, stability is the only currency. By linking **A2A Evidence Packets** to grounding metrics, we've transformed 'Vibe Checks' into a cryptographic certainty."
 
 ---

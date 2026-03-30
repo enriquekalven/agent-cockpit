@@ -3,7 +3,7 @@ Status: IMPLEMENTED (v2.0.10 Autonomous Core)
 Owner: Cockpit Systems Division
 
 ## Summary
-Building on the foundational **Agentic Trinity** framework, this RFC specifies the implementation of **Governance as Code (GaC)** within the AgentOps Cockpit. This system transforms governance from a "post-facto audit" into an **Active Structural Integrity** layer that refactors code to meet production standards for security, cost, and architectural purity.
+Building on the foundational **Governance Framework** framework, this RFC specifies the implementation of **Governance as Code (GaC)** within the AgentOps Cockpit. This system transforms governance from a "post-facto audit" into an **Active Structural Integrity** layer that refactors code to meet production standards for security, cost, and architectural purity.
 
 The **v2.0.10 Autonomous Core "Cockpit Evolution"** expands this concept to include multi-cloud abstraction (the **Cockpit Bridge**) and real-time PII scrubbing (the **Cockpit Gateway**).
 

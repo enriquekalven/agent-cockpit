@@ -291,7 +291,7 @@ class TDDGenerator:
                 <h2><span style="color:var(--text-muted); font-weight:400;">02.</span> Technology Rationale</h2>
                 <div class="rationale-grid">
                     <div class="rationale-card">
-                        <h4>⚙️ The Agentic Trinity</h4>
+                        <h4>⚙️ The Governance Framework</h4>
                         <p>Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit). This ensures that architectural debt in one pillar does not compromise the security or performance of the others.</p>
                     </div>
                     <div class="rationale-card">
@@ -317,7 +317,7 @@ class TDDGenerator:
                         subgraph "Governance Plane (The Cockpit)"
                             ORCH[Cockpit Orchestrator]
                             AUDIT[SME Auditor Board]
-                            HIVE[Semantic Hive Mind]
+                            HIVE[Semantic distributed cache]
                         end
                         
                         subgraph "Execution Plane (Cockpit Infrastructure)"
@@ -426,14 +426,14 @@ class TDDGenerator:
             "\n## 1. Executive Summary",
             "This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Cockpit Standard.",
             "\n## 2. Technology Rationale",
-            "### ⚙️ The Agentic Trinity",
+            "### ⚙️ The Governance Framework",
             "Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit).",
             "### 🧠 Cockpit Reasoning (ADK)",
             "Leveraging Google ADK for robust function calling and multi-turn state persistence.",
             "### 🛡️ Poka-Yoke Hardening",
             "Automated tool-schema reconciliation using AST-aware auditing.",
             "\n## 3. System Architecture",
-            "The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).",
+            "The system follows the **Governance Framework** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).",
             "\n## 4. Fleet Audit Evidence",
         ]
 

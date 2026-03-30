@@ -414,7 +414,7 @@ Detected Stack: Google Vertex AI / ADK | v2.0.10 Deep Reasoning Enabled
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Design Check                                       ┃ Status ┃ Verification        ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━┩
-│ Caching: Is Semantic Caching (Hive Mind) enabled?  │ PASSED │ Verified by Pattern │
+│ Caching: Is Semantic Caching (distributed cache) enabled?  │ PASSED │ Verified by Pattern │
 │                                                    │        │ Match               │
 │ Context: Are you using Context Caching?            │ PASSED │ Verified by Pattern │
 │                                                    │        │ Match               │
@@ -1931,7 +1931,7 @@ other recursively.
 🚩 Sub-Optimal Vector Networking (REST) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/frameworks.py:)
    Detected REST-based vector retrieval. High-concurrency agents should use gRPC to 
-reduce 'Cognitive Tax' by 40% and prevent tail-latency spikes.
+reduce 'Reasoning Tax' by 40% and prevent tail-latency spikes.
    ⚖️ Strategic ROI: Faster response times for RAG-heavy agents. Prevents P99 latency
 cascading.
 🚩 Time-to-Reasoning (TTR) Risk 
@@ -2079,7 +2079,7 @@ LangChain + CrewAI).
 🚩 Sub-Optimal Vector Networking (REST) 
 (/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/mcp_hub.py:)
    Detected REST-based vector retrieval. High-concurrency agents should use gRPC to 
-reduce 'Cognitive Tax' by 40% and prevent tail-latency spikes.
+reduce 'Reasoning Tax' by 40% and prevent tail-latency spikes.
    ⚖️ Strategic ROI: Faster response times for RAG-heavy agents. Prevents P99 latency
 cascading.
 🚩 Short-Term Memory (STM) at Risk 
@@ -3165,7 +3165,7 @@ the slowness.
 │    pattern. Risk of infinite reasoning loops and runaway costs. (Impact:          │
 │    CRITICAL)                                                                      │
 │  • Sub-Optimal Vector Networking (REST): Detected REST-based vector retrieval.    │
-│    High-concurrency agents should use gRPC to reduce 'Cognitive Tax' by 40% and   │
+│    High-concurrency agents should use gRPC to reduce 'Reasoning Tax' by 40% and   │
 │    prevent tail-latency spikes. (Impact: MEDIUM)                                  │
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING startup_cpu_boost.   │
 │    High risk of 10s+ cold starts. A slow TTR makes the agent's first response     │
@@ -3237,7 +3237,7 @@ the slowness.
 │    passing. Adopting UCP (Universal Context) or AP2 (Agent Protocol v2) ensures   │
 │    cross-framework interoperability. (Impact: LOW)                                │
 │  • Sub-Optimal Vector Networking (REST): Detected REST-based vector retrieval.    │
-│    High-concurrency agents should use gRPC to reduce 'Cognitive Tax' by 40% and   │
+│    High-concurrency agents should use gRPC to reduce 'Reasoning Tax' by 40% and   │
 │    prevent tail-latency spikes. (Impact: MEDIUM)                                  │
 │  • Short-Term Memory (STM) at Risk: Agent is storing session state in local pod   │
 │    memory (dictionaries). A GKE restart or Cloud Run scale-down wipes the agent's │
@@ -3509,7 +3509,7 @@ You need to install a suitable plugin for your async framework, for example:
   - pytest-tornasync
   - pytest-trio
   - pytest-twisted
-____ test_regression_golden_set[How do I check Hive Mind status?-hive mind] ____
+____ test_regression_golden_set[How do I check distributed cache status?-distributed cache] ____
 async def functions are not natively supported.
 You need to install a suitable plugin for your async framework, for example:
   - anyio
@@ -3645,7 +3645,7 @@ You need to install a suitable plugin for your async framework, for example:
   - pytest-tornasync
   - pytest-trio
   - pytest-twisted
-_______ test_regression_golden_set[What is the Agentic Trinity?-trinity] _______
+_______ test_regression_golden_set[What is the Governance Framework?-trinity] _______
 async def functions are not natively supported.
 You need to install a suitable plugin for your async framework, for example:
   - anyio
@@ -3918,7 +3918,7 @@ deploy to Google Cloud Run?-deploy]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[What is 
 the A2UI protocol?-a2ui]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[How do I
-check Hive Mind status?-hive mind]
+check distributed cache status?-distributed cache]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[Run a 
 security audit on my agent-audit]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[What is 
@@ -3952,7 +3952,7 @@ system health-health]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[How to 
 redact credit card numbers?-redact]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[What is 
-the Agentic Trinity?-trinity]
+the Governance Framework?-trinity]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[Setting 
 up Firebase Hosting-firebase]
 FAILED src/agent_ops_cockpit/tests/test_agent.py::test_regression_golden_set[How to 

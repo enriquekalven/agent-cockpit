@@ -7,7 +7,7 @@ The Engine comes pre-installed with the **Cockpit Middleware Stack**:
 
 1. **`CostOptimizer`**: Real-time token tracking and savings recommendations.
 2. **`PIIScrubber`**: Automatic masking of sensitive user data.
-3. **`SemanticCache`**: Integrated with the "Hive Mind" for 40%+ cost reduction.
+3. **`SemanticCache`**: Integrated with the "distributed cache" for 40%+ cost reduction.
 4. **`MemoryOptimizer`**: Automates context truncation and summarization.
 
 ## 🛠️ Tool Orchestration (ADK)
@@ -26,7 +26,7 @@ def search_docs(query: str):
 ## 🏗️ The Agentic Flow
 A "Well-Architected" flow always follows this sequence:
 1. **Sanitize**: Input passes through the `PIIScrubber`.
-2. **Cache Check**: `Hive Mind` checks for a semantic hit.
+2. **Cache Check**: `distributed cache` checks for a semantic hit.
 3. **Reason**: Gemini 2.0 reasoning loop via Vertex AI.
 4. **Action**: Tool execution via ADK.
 5. **Pack**: Final output is wrapped in an `EvidencePacket` for transparency.

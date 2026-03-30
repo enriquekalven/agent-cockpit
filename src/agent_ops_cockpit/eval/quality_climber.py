@@ -16,7 +16,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 app = typer.Typer(help='Agent Quality Hill Climber: Iteratively optimize agent quality using ADK patterns.')
 console = Console()
-GOLDEN_DATASET = [{'query': 'How do I deploy to Cloud Run?', 'expected': "Use the 'make deploy-prod' command to deploy to Cloud Run.", 'type': 'retrieval'}, {'query': 'What is the Hive Mind?', 'expected': 'The Hive Mind is a semantic caching layer for reducing LLM costs.', 'type': 'definition'}, {'query': 'Scrub this email: test@example.com', 'expected': '[[MASKED_EMAIL]]', 'type': 'tool_execution'}]
+GOLDEN_DATASET = [{'query': 'How do I deploy to Cloud Run?', 'expected': "Use the 'make deploy-prod' command to deploy to Cloud Run.", 'type': 'retrieval'}, {'query': 'What is the distributed cache?', 'expected': 'The distributed cache is a semantic caching layer for reducing LLM costs.', 'type': 'definition'}, {'query': 'Scrub this email: test@example.com', 'expected': '[[MASKED_EMAIL]]', 'type': 'tool_execution'}]
 
 class QualityJudge:
     """Mock Judge LLM following Google ADK Evaluation standards."""

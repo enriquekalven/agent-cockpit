@@ -25,7 +25,7 @@ To support diverse developer habits, the following aliases are interchangeable:
 | | `sys doctor` | **Health**: Validate environment, multi-cloud SDKs, and auth. |
 | **`fix`** | `evolve` | **Remediation**: Apply autonomous code fixes via the **Closer Engine**. |
 | | `workbench`| **Interactive**: Review and approve fixes in real-time. |
-| **`create`**| `trinity` | **Scaffold**: Scaffold a unified **Agentic Trinity** project. |
+| **`create`**| `trinity` | **Scaffold**: Scaffold a unified **Governance Framework** project. |
 | **`fleet`** | `status` | **Dashboard**: State of the union for the active agent registry. |
 | | `anomaly` | **Sentinel**: Detect behavioral anomalies in production swarms. |
 | **`deploy`**| `cockpit`| **Factory**: End-to-end Audit -> Fix -> Global Deployment. |
@@ -39,7 +39,7 @@ Standard operational shortcuts aligned with the Trinity Persona Lenses.
 
 | Command (Make) | CLI Equivalent | Objective |
 | :--- | :--- | :--- |
-| `make audit` | `ops report` | Master SME Audit. |
+| `make audit` | `ops report` | Specialized Auditor Audit. |
 | `make apply-fixes`| `ops fix evolve` | Cockpit Remediation. |
 | `make archive` | `ops report --archive` | Generate Evidence Packets. |
 | `make deploy-prod` | `ops deploy cockpit` | Global Factory Deployment. |

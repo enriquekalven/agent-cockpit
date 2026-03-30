@@ -42,12 +42,12 @@ def hive_mind(cache: HiveMindCache):
         async def wrapper(query: str, *args, **kwargs):
             match = cache.get_match(query)
             if match:
-                print('🧠 [HIVE MIND] Semantic Hit! Latency Reduced to 0.1s.')
+                print('🧠 [distributed cache] Semantic Hit! Latency Reduced to 0.1s.')
                 resp = match['response']
                 if isinstance(resp, dict):
                     resp['_metadata'] = {'source': 'hive-mind-cache', 'savings': '100% tokens'}
                 return resp
-            print('🧪 [HIVE MIND] Cache Miss. Calling LLM...')
+            print('🧪 [distributed cache] Cache Miss. Calling LLM...')
             response = await func(query, *args, **kwargs)
             cache.put(query, response)
             return response

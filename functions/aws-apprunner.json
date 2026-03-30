@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "AWS App Runner Service for Sovereign Agent",
+  "Description": "AWS App Runner Service for Autonomous Agent",
   "Resources": {
     "AgentService": {
       "Type": "AWS::AppRunner::Service",

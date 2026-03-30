@@ -1,5 +1,5 @@
 # 🗺️ AgentOps Cockpit Roadmap: The Path to 10K Stars
-Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.10 "Autonomous Core")
+Our mission is to become the **Industry Standard Logic Layer** for production AI agents. This roadmap outlines the strategic features and community milestones required to reach 10,000 GitHub stars by pivoting from "Passive Evaluation" to **"Proactive Steering"**. (Updated: v2.0.8 "AST Precision")
 
 ## 🎯 Phase 1: The Foundation (Quarter 1) - "The Hardened Agent"
 *Focus: Security, Governance, and Basic Optimization.*
@@ -10,24 +10,24 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 
 ## 🚀 Phase 2: Intelligence & Scale (Quarter 2) - "Optimal Operations"
 *Focus: Cost-reduction and high-fidelity reasoning.*
-- [x] **Predictive Token Costing (PTC)**: Simulate "Context Window Waste" and provide "What-If" ROI simulations (v2.0.10 Autonomous Core Opex Simulation).
+- [x] **Predictive Token Costing (PTC)**: Simulate "Context Window Waste" and provide "What-If" ROI simulations (v2.0.7 Premium Insights Opex Simulation).
 - [x] **Triple-State Situational Analysis**: Version-aware optimization for Legacy vs Modern SDKs.
 - [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) with the official `agentops-cockpit certify` operational checklist.
-- [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math) and **Structural Monoliths** (v2.0.10 Autonomous Core).
+- [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math) and **Structural Monoliths** (v2.0.7 Premium Insights).
 - [x] **"One Command" Cockpitty**: Unified the entry point into the Master Cockpit Dashboard.
-- [x] **Engineering Resilience (Venv Isolation)**: Automatic isolated audit execution environment (v2.0.10 Autonomous Core).
+- [x] **Engineering Resilience (Venv Isolation)**: Automatic isolated audit execution environment (v2.0.7 Premium Insights).
 
 ## 🎭 Phase 3: The Ecosystem (Quarter 3) - "Master Architect"
 *Focus: Proactive Steering and Autonomous Evolution.*
-- [x] **Shadow Critic (Autonomous Adversary)**: A "Shadow Agent" in the loop that targets tool-aware logic injections (v2.0.10 Autonomous Core).
-- [x] **AIPR (Architectural Pivot Pull-Requests)**: Automatically generate branches that refactor paradigm mismatches (v2.0.10 Autonomous Core).
+- [x] **Shadow Critic (Autonomous Adversary)**: A "Shadow Agent" in the loop that targets tool-aware logic injections (v2.0.7 Premium Insights).
+- [x] **AIPR (Architectural Pivot Pull-Requests)**: Automatically generate branches that refactor paradigm mismatches (v2.0.7 Premium Insights).
 - [x] **Compliance Heatmap**: Fleet-wide visual mapping against NIST AI RMF and OWASP LLM Top 10 (v2.0.0).
 - [x] **Cockpit Fleet Pipeline**: End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register).
-- [x] **Visual "Mission Control" UI**: Real-time log streaming and agent **Maturity Radar Charts** (v2.0.10 Autonomous Core).
-- [x] **Premium Visual Dashboards**: Google Cloud-grade reporting and Vertex AI-style fleet dashboards (v2.0.10).
-- [x] **Dependency Shielding (Cordon Mode)**: Automated failover/mock-registry logic for "Registry-Blind" scenarios (v2.0.10 Autonomous Core).
-- [x] **Cockpit Safety SDK**: Official `SafetyGate` library for PII, HITL, and Taint-Tracking (v2.0.10 Autonomous Core).
-- [x] **Autonomous Core & Sanitized Signal**: Launched structural AST scanning and Markup sanitization (v2.0.10).
+- [x] **Visual "Mission Control" UI**: Real-time log streaming and agent **Maturity Radar Charts** (v2.0.7 Premium Insights).
+- [x] **Premium Visual Dashboards**: Google Cloud-grade reporting and Vertex AI-style fleet dashboards (v2.0.7).
+- [x] **Dependency Shielding (Cordon Mode)**: Automated failover/mock-registry logic for "Registry-Blind" scenarios (v2.0.7 Premium Insights).
+- [x] **Cockpit Safety SDK**: Official `SafetyGate` library for PII, HITL, and Taint-Tracking (v2.0.7 Premium Insights).
+- [x] **AST Precision & Sanitized Signal**: Launched structural AST scanning and Markup sanitization (v2.0.8).
 
 
 ## 🧠 Phase 4: Autonomous Resilience (Quarter 4) - "The Sentient Service"
@@ -40,7 +40,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 *Focus: A2A Commerce, Identity, and Industry Dominance.*
 - [ ] **A2A Metering & Settlement**: Standardized protocol for agents to trade services and tokens via secure ledger.
 - [ ] **Agentic Surface Verification (Headless)**: Headless-rendering validation to ensure agents are not "hallucinating" UI components (v2.0.0-alpha).
-- [x] **Multi-Cloud Cockpit Autonomy**: Unified governance across GCP, AWS (Bedrock), and Azure (OpenAI) (v2.0.10 Autonomous Core).
+- [x] **Multi-Cloud Cockpit Autonomy**: Unified governance across GCP, AWS (Bedrock), and Azure (OpenAI) (v2.0.7 Premium Insights).
 
 ## 🔭 Phase 6: The Visual Architect (Year 2) - "Human-Centric Design"
 *Focus: GenUI Validation, Multi-turn Stress Testing, and Visual Governance.*
@@ -63,5 +63,5 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 3.  **Report a Breach**: Found a way to bypass the Red Team? Help us harden the stack.
 
 ---
-*Built with ❤️ for the Agentic Developer community. (v2.0.10 Autonomous Core)*
+*Built with ❤️ for the Agentic Developer community. (v2.0.8 AST Precision)*
 

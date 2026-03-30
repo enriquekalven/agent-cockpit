@@ -30,7 +30,7 @@ class SREAuditor(BaseAuditor):
                 findings.append(AuditFinding(
                     category="🌐 Networking",
                     title=title,
-                    description="Detected REST-based vector retrieval. High-concurrency agents should use gRPC to reduce 'Cognitive Tax' by 40% and prevent tail-latency spikes.",
+                    description="Detected REST-based vector retrieval. High-concurrency agents should use gRPC to reduce 'Reasoning Tax' by 40% and prevent tail-latency spikes.",
                     impact="MEDIUM",
                     roi="Faster response times for RAG-heavy agents. Prevents P99 latency cascading.",
                     file_path=file_path

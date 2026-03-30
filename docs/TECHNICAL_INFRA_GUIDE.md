@@ -16,8 +16,8 @@ The `ops report` and `cockpit certify` commands activate the **SRE Principal SME
 
 ---
 
-## 🏛️ SME Judgment: The AI-Infra Standard (v2.0.10 Autonomous Core)
-"By treating networking as a cognitive tax, you provide a narrative that CTOs can get behind. This isn't just about uptime; it's about the **IQ Ceiling** of the agentic swarm."
+## 🏛️ Domain Evaluation: The AI-Infra Standard (v2.0.10 Autonomous Core)
+"By treating networking as a Reasoning tax, you provide a narrative that CTOs can get behind. This isn't just about uptime; it's about the **IQ Ceiling** of the agentic swarm."
 
 ---
 

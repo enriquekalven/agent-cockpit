@@ -6,7 +6,7 @@ import vertexai
 from agent import SuperAgent
 from vertexai.preview import reasoning_engines
 
-# v1.4.7 Sovereign Alignment: Agent Engine (Reasoning Engine) Deployment Script
+# v1.4.7 Autonomous Alignment: Agent Engine (Reasoning Engine) Deployment Script
 # Hardened with Gcloud Auth Fallback & Path Correction
 
 def get_gcloud_credentials():

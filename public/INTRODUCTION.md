@@ -5,7 +5,7 @@ The **AgentOps Cockpit** is a professional-grade distribution designed for build
 
 ---
 
-## 🏛️ The Agentic Trinity
+## 🏛️ The Governance Framework
 Every agent in this stack is built on the **Trinity Architecture**, ensuring a holistic approach to intelligence:
 
 1.  **The Engine (Reasoning)**: The core logic, tools, and decision-making flow.

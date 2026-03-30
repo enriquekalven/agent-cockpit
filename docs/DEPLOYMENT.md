@@ -53,7 +53,7 @@ Executes `make load-test`.
 
 ---
 
-## 🛡️ v2.0.10 Autonomous Core: Master SME Audit
+## 🛡️ v2.0.10 Autonomous Core: Specialized Auditor Audit
 For production-gate promotion, move from "Quick Scan" to "Deep Audit":
 ```bash
 make audit

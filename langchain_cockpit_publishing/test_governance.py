@@ -6,7 +6,7 @@ from agent_ops_cockpit.integrations.langchain import CockpitCallbackHandler
 logging.basicConfig(level=logging.INFO)
 
 def test_governance_simulation():
-    print("🚀 Starting Sovereign Governance Simulation (v2.0.4)\n")
+    print("🚀 Starting Autonomous Governance Simulation (v2.0.4)\n")
     
     # 1. Initialize the Cockpit Handler
     cockpit = CockpitCallbackHandler(app_name="langchain-test-agent")

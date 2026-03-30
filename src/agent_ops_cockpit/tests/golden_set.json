@@ -1,7 +1,7 @@
 [
   {"query": "How do I deploy to Google Cloud Run?", "expected": "deploy"},
   {"query": "What is the A2UI protocol?", "expected": "a2ui"},
-  {"query": "How do I check Hive Mind status?", "expected": "hive mind"},
+  {"query": "How do I check distributed cache status?", "expected": "distributed cache"},
   {"query": "Run a security audit on my agent", "expected": "audit"},
   {"query": "What is the cost of 1M tokens?", "expected": "cost"},
   {"query": "How to enable context caching?", "expected": "caching"},
@@ -18,7 +18,7 @@
   {"query": "Explain Quality Hill Climbing", "expected": "quality"},
   {"query": "Check system health", "expected": "health"},
   {"query": "How to redact credit card numbers?", "expected": "redact"},
-  {"query": "What is the Agentic Trinity?", "expected": "trinity"},
+  {"query": "What is the Governance Framework?", "expected": "trinity"},
   {"query": "Setting up Firebase Hosting", "expected": "firebase"},
   {"query": "How to use the ADK?", "expected": "adk"},
   {"query": "Detecting hardcoded API keys", "expected": "key"},

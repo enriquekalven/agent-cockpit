@@ -4,7 +4,7 @@
 
 ## Why use Cockpit with LangChain?
 
-While LangChain provides the orchestration, **AgentOps Cockpit** provides the **Sovereign Standard** for governance:
+While LangChain provides the orchestration, **AgentOps Cockpit** provides the **Autonomous Standard** for governance:
 - **PII Scrubbing**: Automatic detection of sensitive data in prompts.
 - **Architectural Auditing**: Detecting "Spaghetti Agents" (mixed UI/Logic) and un-managed loops.
 - **FinOps Control**: Real-time suggestion of Context Caching for large state graphs.

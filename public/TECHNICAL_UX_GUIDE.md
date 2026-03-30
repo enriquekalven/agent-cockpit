@@ -2,7 +2,7 @@
 ## 🎭 Technical Guide: Face Auditor & Cockpit UX (A2UI, AGUI, MCP)
 ## The "Cockpit Experience" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report` and `cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Agentic Trinity, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions across **A2UI**, **AGUI**, and **MCP Apps UI** ecosystems.
+The `ops report` and `cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Governance Framework, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions across **A2UI**, **AGUI**, and **MCP Apps UI** ecosystems.
 
 ---
 
@@ -35,7 +35,7 @@ The UX SME evaluates your frontend architecture across four critical GenUI pilla
     ```
 *   **Strategic ROI**: Decouples logic from UI. The same agent can drive a web app, a mobile view, or a CLI report using different registries.
 
-### ⏳ 2. Cognitive Latency Cues (Visualized Thinking)
+### ⏳ 2. Reasoning Latency Cues (Visualized Thinking)
 *   **Vector**: Identifying "Dark Intervals" where the agent is reasoning but the user has no feedback.
 *   **Implementation**: The Auditor enforces **Skeleton Waterfalls** and "Live Thought" streaming.
 *   **Metric**: **Time to Visual Confirmation (TTVC)**—The goal is <500ms for a "Thinking" state reveal.

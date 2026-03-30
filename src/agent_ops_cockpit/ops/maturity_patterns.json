@@ -134,7 +134,7 @@
         "latency",
         "cost"
       ],
-      "recommendation": "Monitor the Agentic Trinity: 1) Reasoning Trace (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent. Microsoft Agent Kit recommends 'Trace-based Debugging' for multi-agent loops.",
+      "recommendation": "Monitor the Governance Framework: 1) Reasoning Trace (LangSmith/AgentOps). 2) Time to First Token (TTFT). 3) Cost per Intent. Microsoft Agent Kit recommends 'Trace-based Debugging' for multi-agent loops.",
       "rationale": "Traditional service metrics (CPU/RAM) aren't enough for agents. Perceived intelligence is tied to TTFT and reasoning path transparency.",
       "impact": "MEDIUM",
       "source": "Microsoft Agent Kit / Industry Standards"

@@ -382,7 +382,7 @@ export function Home() {
       {/* Mission Control: Choose Your Journey */}
       <OperationalJourneys />
 
-      {/* Visual: Agentic Trinity */}
+      {/* Visual: Governance Framework */}
       <section className="ecosystem-section bg-trinity">
         <div className="ecosystem-card full-width glass-trinity">
           <div className="glass-content">
@@ -397,7 +397,7 @@ export function Home() {
               </ul>
             </div>
             <div className="visual-side">
-              <img src="/assets/trinity_v2.png" alt="Agentic Trinity" className="ecosystem-img shadow-vibrant" />
+              <img src="/assets/trinity_v2.png" alt="Governance Framework" className="ecosystem-img shadow-vibrant" />
             </div>
           </div>
         </div>
@@ -494,7 +494,7 @@ export function Home() {
             <div className="capability-item">
               <div className="item-icon"><Zap size={24} /></div>
               <div>
-                <h4>Hive Mind Cache</h4>
+                <h4>distributed cache Cache</h4>
                 <p>Semantic caching layer that reduces LLM billable tokens by serving similar queries in milliseconds.</p>
               </div>
             </div>

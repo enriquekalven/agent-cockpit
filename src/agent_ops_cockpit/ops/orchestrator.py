@@ -234,7 +234,7 @@ class CockpitOrchestrator:
     def generate_executive_summary(self, actions: List[str], as_html: bool=False) -> List[str]:
         """v2.0.7 Executive Personality: Professional, High-Stakes Audit Persona."""
         if not actions:
-            summary = ["The system audit indicates that all core pillars are currently aligned with the Agentic Trinity Framework. No immediate architectural drift or security regressions were detected."]
+            summary = ["The system audit indicates that all core pillars are currently aligned with the Governance Framework Framework. No immediate architectural drift or security regressions were detected."]
             return summary if not as_html else "<p>" + " ".join(summary) + "</p>"
         
         # Professional summary based on action density

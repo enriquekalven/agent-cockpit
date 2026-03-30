@@ -15,7 +15,7 @@ pip install agentops-cockpit --upgrade
 ```bash
 cockpit create trinity --name my-cockpit-agent
 ```
-*This instantly scaffolds the **Agentic Trinity**: Engine, Face, and Cockpit.*
+*This instantly scaffolds the **Governance Framework**: Engine, Face, and Cockpit.*
 
 ---
 
@@ -44,7 +44,7 @@ ops report
 
 ## 🛡️ v2.0.10 Autonomous Core Governance & Cockpitty
 The Cockpit now includes a mandatory **Governing Board** of SMEs:
-- **Master SME Personas**: Specialist feedback from SecOps, FinOps, SRE, and Architect Principals.
+- **Specialized Auditors**: Specialist feedback from SecOps, FinOps, SRE, and Architect Principals.
 - **Autonomous Scaffolding**: Automatically logic gates risky tools behind **HITL (Human-in-the-Loop)** modals via A2UI.
 - **Silent Registry Resilience**: Automatically fails over to public PyPI mirrors if corporate registries are unreachable.
 

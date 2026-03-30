@@ -8,10 +8,10 @@ The **Fleet Dashboard** (Mission Control) allows you to manage multiple agents f
 *   **Estate Health**: Gain visibility into "The Builder", "The Strategist", and "The Guardian" personas.
 *   **Access**: Securely managed via the **`agent-ops` CLI** or the integrated **Operational Guide**.
 
-## 🧠 Hive Mind (Semantic Caching)
-The Hive Mind is a specialized middleware that prevents redundant LLM calls.
+## 🧠 distributed cache (Semantic Caching)
+The distributed cache is a specialized middleware that prevents redundant LLM calls.
 1. **Request**: User asks a common question.
-2. **Lookup**: Hive Mind checks a Vector Store (AlloyDB/Memorystore) for semantically similar historical answers.
+2. **Lookup**: distributed cache checks a Vector Store (AlloyDB/Memorystore) for semantically similar historical answers.
 3. **Hit**: If a match is >90% similar, the answer is served in 10ms for $0 cost.
 [**Read FinOps Guide**](TECHNICAL_FINOPS_GUIDE.md)
 

@@ -15,7 +15,7 @@ pip install agentops-cockpit --upgrade
 ```bash
 uvx agentops-cockpit init my-agent
 ```
-*This instantly scaffolds the **Agentic Trinity**: Engine, Face, and Cockpit.*
+*This instantly scaffolds the **Governance Framework**: Engine, Face, and Cockpit.*
 
 ---
 

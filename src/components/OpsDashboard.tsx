@@ -51,7 +51,7 @@ export const OpsDashboard: React.FC = () => {
             <div className="icon-box yellow-glow">
               <Zap className="text-yellow-400" size={20} />
             </div>
-            <h3>Hive Mind Cache</h3>
+            <h3>distributed cache Cache</h3>
           </div>
           <div className="card-body">
             <div className="big-stat">

@@ -3,7 +3,7 @@ description: Fully automate the entire release cycle from code validation to glo
 ---
 
 // turbo-all
-# 🚀 zero2hero: The Sovereign Release Engine
+# 🚀 zero2hero: The Autonomous Release Engine
 
 This workflow automates the end-to-end productionization of the AgentOps Cockpit. It ensures structural integrity, updates the intelligence core (Wisdom Store), and executes a multi-cloud/registry deployment.
 
@@ -12,7 +12,7 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
    - `uv sync --upgrade` and `npm install`
    - **Ecosystem Pulse**: Run `agentops-cockpit fleet watch`
    - **Auto-Remediation**: If drift is detected, run `uv add pkg1 pkg2 ...` to sync.
-2. **Sovereign Parity Verification**: 
+2. **Autonomous Parity Verification**: 
    Ensure `agentops-cockpit sys version` matches the version in `pyproject.toml` and the latest version on PyPI.
    Also verify that `uv` and `make` (or `gmake`) are at the latest stable versions.
    `agentops-cockpit sys version`
@@ -50,8 +50,8 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
 10. **Core Mission & Integrity Audit**:
     - **Capabilities Verification**: Run `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` to ensure all 19+ "Distinguished Fellow" capabilities are still active and tested.
     - **No-Regression Check**: Verify that `CAPABILITIES_REGISTRY.md` has not been downgraded or core mission descriptions overwritten.
-11. **The Sovereign Gate (SITL Hard-Gate)**:
-    - Run `agentops-cockpit certify` and ensure the **Sovereign Score is > 90**. 
+11. **The Autonomous Gate (SITL Hard-Gate)**:
+    - Run `agentops-cockpit certify` and ensure the **Autonomous Score is > 90**. 
     - *Logic Check*: If any "Blocker" capability (CAP-001, CAP-004, CAP-006, etc.) fails, the release MUST be aborted.
 12. **Full Regression Suite**: 
     `PYTHONPATH=src:. uv run pytest` (Comprehensive 215-item sweep).

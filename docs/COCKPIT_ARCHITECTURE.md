@@ -46,7 +46,7 @@ By using the Cockpit, you are automatically building toward four critical pillar
 | :--- | :--- |
 | **Operational Excellence** | [Automated Flight Recording](./COCKPIT_GUIDE.md) |
 | **Cockpit Security** | [Adversarial Red Teaming](./TECHNICAL_REDTEAM_GUIDE.md) |
-| **Economic Sustainability** | [FinOps & Hive Mind Caching](./TECHNICAL_FINOPS_GUIDE.md) |
+| **Economic Sustainability** | [FinOps & distributed cache Caching](./TECHNICAL_FINOPS_GUIDE.md) |
 | **Reasoning Efficiency** | [A2A Evidence Packets](./TECHNICAL_A2A_GUIDE.md) |
 
 ---

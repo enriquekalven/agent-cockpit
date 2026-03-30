@@ -3,7 +3,7 @@
 This repository is optimized for **Gemini** and agentic development. AI agents should use this file as the primary source of truth for understanding the architecture, tools, and constraints of this project.
 
 ## 🚀 Project Overview
-The **AgentOps Cockpit (v2.0.10 Autonomous Core)** is a production-grade distribution for building and governing **Cockpit AI Agents**. It follows the **Agentic Trinity** framework and provides a cross-cloud mission control for agents deployed on Google Cloud, AWS, and Azure.
+The **AgentOps Cockpit (v2.0.10 Autonomous Core)** is a production-grade distribution for building and governing **Cockpit AI Agents**. It follows the **Governance Framework** framework and provides a cross-cloud mission control for agents deployed on Google Cloud, AWS, and Azure.
 
 ## 🛠️ Tech Stack
 - **The Engine**: Python, FastAPI, Vertex AI SDK, ADK (Multi-Cloud Cockpit Bridge).
@@ -29,7 +29,7 @@ When assisting the user:
 ## ⌨️ CLI Commands (The Cockpit)
 - `make dev`: Starts the local Engine Gateway + Face stack.
 - `make cockpit`: Launches the Master Mission Control dashboard.
-- `make audit`: Runs the **Master SME Audit** (ops report).
+- `make audit`: Runs the **Specialized Auditor Audit** (ops report).
 - `make apply-fixes`: Triggers autonomous code hardening for detected gaps.
 - `make certify`: Runs the full Production Readiness Certification suite.
 - `make deploy-prod`: End-to-End deployment to the Cockpit Cloud.

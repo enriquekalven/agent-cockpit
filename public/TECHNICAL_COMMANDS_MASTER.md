@@ -1,7 +1,7 @@
 # 🕹️ Master Guide: AgentOps Cockpit Commands
 ## The "Watchtower Standard" Command Registry (v2.0.10 Autonomous Core)
 
-This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It consolidates the commands found across all specialized technical guides, organized by the **Agentic Trinity** pillars and the specific **SME Persona** they activate.
+This document is the definitive source of truth for all operational commands available in the **AgentOps Cockpit**. It consolidates the commands found across all specialized technical guides, organized by the **Governance Framework** pillars and the specific **SME Persona** they activate.
 
 ---
 

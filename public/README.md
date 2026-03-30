@@ -55,7 +55,8 @@ ops report
 1. **Explore**: `cockpit` (Launch the Mission Control Dashboard)
 2. **Audit**: `ops report` (Deep SME Reasoning Review)
 3. **Remediate**: `make apply-fixes` (Autonomous code hardening via the **Closer Engine**)
-4. **Deploy**: `ops deploy cockpit` (Multi-cloud Factory Deployment)
+4. **Evolve (Viral)**: `ops evolve` (Autonomously refactor and upgrade your framework logic)
+5. **Deploy**: `ops deploy cockpit` (Multi-cloud Factory Deployment)
 
 ## 🗺️ Project Roadmap
 - [x] **v2.0.10**: Autonomous Core (GC-Style Reporting, Fleet Dashboard v2, Anomaly Metadata).
@@ -65,12 +66,12 @@ ops report
 
 ---
 
-## 🏗️ The Agentic Trinity
+## 🏗️ The Governance Framework
 We divide the complexity of production agents into three focused pillars:
 
 ```mermaid
 graph TD
-   subgraph Trinity [The Agentic Trinity 2.0]
+   subgraph Trinity [The Governance Framework 2.0]
        E(The Engine: Reasoning)
        F(The Face: Interface)
        C(The Cockpit: Operations)
@@ -100,7 +101,7 @@ Evolving into the industry standard for production governance. See the [**CHANGE
 
 - **📊 Autonomous Core Dashboard**: Google Cloud-grade visual reporting for executive stakeholders.
 - **🌉 Cockpit Bridge**: Multi-cloud deployment to GCP, AWS, and Azure.
-- **🧠 Semantic Hive Mind**: Distributed caching that reduces LLM costs by up to 40%.
+- **🧠 Semantic distributed cache**: Distributed caching that reduces LLM costs by up to 40%.
 - **🔧 Closer Engine 2.0**: Autonomous remediation of code gaps and architectural debt.
 
 ---

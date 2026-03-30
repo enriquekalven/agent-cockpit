@@ -39,7 +39,7 @@ def run_scan(path: str, verbose: bool = False, context: dict = None):
     import time
     start_time = time.time()
     
-    # Consolidated Pillars for reduced cognitive load
+    # Consolidated Pillars for reduced Execution Overhead
     auditors = [
         SecurityAuditor(), 
         ReliabilityAuditor(), 

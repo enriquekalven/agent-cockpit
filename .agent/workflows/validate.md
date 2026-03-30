@@ -2,7 +2,7 @@
 description: Validate changes with full battery of tests
 ---
 
-To ensure no capabilities or features are broken and the project maintains the Sovereign Standard, follow these steps after every significant change:
+To ensure no capabilities or features are broken and the project maintains the Autonomous Standard, follow these steps after every significant change:
 
 // turbo
 1. Run the Smoke Test to verify command parity across personas:

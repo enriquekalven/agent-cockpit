@@ -16,7 +16,7 @@ The `ops report` and `cockpit certify` commands activate the **Compliance Princi
 
 ---
 
-## 🏛️ SME Judgment: The Compliance Standard (v2.0.10 Autonomous Core)
+## 🏛️ Domain Evaluation: The Compliance Standard (v2.0.10 Autonomous Core)
 "In the Cockpit Evolution, compliance is not a checkbox; it is an architectural constraint. By cryptographically signing reasoning traces via **Evidence Packets**, we move from 'Trust me' to 'Show me the proof'."
 
 ---
@@ -31,7 +31,7 @@ The `ops report` and `cockpit certify` commands activate the **Compliance Princi
 ### 2. 🛡️ Cockpit Gateway (Data Privacy)
 *   **Vector**: Preventing PII (Personal Identifiable Information) from leaking into shared caches or multi-cloud endpoints.
 *   **Implementation**: A real-time sidecar logic layer that scrubs PII (emails, tokens, keys) before it leaves the secure environment.
-*   **Standard**: Enforces "Mirroring" where sensitive data is replaced with tokens in the global Hive Mind.
+*   **Standard**: Enforces "Mirroring" where sensitive data is replaced with tokens in the global distributed cache.
 
 ### 3. 📜 Governance-as-Code (GaC)
 *   **Vector**: Shifting from reactive policy engines to proactive, AST-aware structural enforcement.

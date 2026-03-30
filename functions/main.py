@@ -1,5 +1,5 @@
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
-# Firebase Functions for Sovereign Telemetry
+# v1.4.5 Autonomous Alignment: Optimized for Google Cloud Run
+# Firebase Functions for Autonomous Telemetry
 import datetime
 from typing import Any, Dict, Optional
 

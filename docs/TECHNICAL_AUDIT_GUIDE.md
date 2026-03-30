@@ -27,14 +27,14 @@ We have organized all capabilities into 9 logical "Hubs", accessible via the `co
 
 ## 🛠️ v2.0.10 Autonomous Core Cockpit Features
 
-### 1. 🌈 Master SME Personas (The Governing Board)
+### 1. 🌈 Specialized Auditors (The Governing Board)
 The audit engine is no longer a script; it is a panel of experts. Every finding is now authored by a specialized **Principal SME** (SecOps, FinOps, SRE, Architect, Quality, UX).
 
 ### 2. 🏛️ Cockpit Bridge (Multi-Cloud)
 The `deploy` hub can now target GCP, AWS, and Azure seamlessly, ensuring that an agent audited on one cloud can be moved to another with one command.
 
 ### 3. 🛡️ Cockpit Gateway (PII Mirroring)
-Automatically injects sidecar **PII Scrubbing** logic for all inter-agent traffic, ensuring that the "Hive Mind" remains compliant and secure.
+Automatically injects sidecar **PII Scrubbing** logic for all inter-agent traffic, ensuring that the "distributed cache" remains compliant and secure.
 
 ### 4. 🌐 Stealth Registry Resilience
 Transparent failover logic. If a restricted environment blocks a private registry (401/403), the Cockpit automatically pivots to public mirrors.

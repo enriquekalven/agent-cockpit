@@ -68,7 +68,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py:1`
    - ✨ Recommended Fix: No active
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_security.py:1`
    - ✨ Recommended Fix: Detected
 1. **HIPAA Risk: Potential Unencrypted ePHI**
@@ -86,7 +86,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:1`
    - ✨ Recommended Fix: No active monitoring for
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/secret_scanner.py:1`
    - ✨ Recommended Fix: Detected OpenAI
 1. **HIPAA Risk: Potential Unencrypted ePHI**
@@ -695,7 +695,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: No active monitoring for
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/finops.py:1`
    - ✨ Recommended Fix: Detected OpenAI
 1. **Compute Scaling Optimization**
@@ -856,7 +856,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Sub-Optimal Resource Profile**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py:1`
    - ✨ Recommended Fix: LLM workloads are Memory-Bound
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py:1`
    - ✨ Recommended Fix: Detected OpenAI dependency. For
 1. **Inference Cost Projection (gemini-1.5-pro)**
@@ -991,7 +991,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_frameworks.py:1`
    - ✨ Recommended Fix: No active monitoring for
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_frameworks.py:1`
    - ✨ Recommended Fix: Detected OpenAI
 1. **SOC2 Control Gap: Missing Transit Logging**
@@ -1042,7 +1042,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_architect.py:1`
    - ✨ Recommended Fix: No active
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/tests/test_persona_architect.py:1`
    - ✨ Recommended Fix: Detected
 1. **SOC2 Control Gap: Missing Transit Logging**
@@ -1105,7 +1105,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Sub-Optimal Resource Profile**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1`
    - ✨ Recommended Fix: LLM workloads are Memory-Bound (KV-Cache).
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cli/main.py:1`
    - ✨ Recommended Fix: Detected OpenAI dependency. For
 1. **SOC2 Control Gap: Missing Transit Logging**
@@ -1231,7 +1231,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/frameworks.py:1`
    - ✨ Recommended Fix: No active monitoring for Time to
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/frameworks.py:1`
    - ✨ Recommended Fix: Detected OpenAI dependency.
 1. **SOC2 Control Gap: Missing Transit Logging**
@@ -1322,13 +1322,13 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sme_v12.py:1`
    - ✨ Recommended Fix: No active monitoring for
 1. **SOC2 Control Gap: Missing Transit Logging**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sovereignty.py:1`
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/Autonomy.py:1`
    - ✨ Recommended Fix: No logging
 1. **Strategic Exit Plan (Cloud)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sovereignty.py:1`
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/Autonomy.py:1`
    - ✨ Recommended Fix: Detected hardcoded cloud
 1. **Missing 5th Golden Signal (TTFT)**
-   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/sovereignty.py:1`
+   - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/Autonomy.py:1`
    - ✨ Recommended Fix: No active monitoring
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/behavioral.py:1`
@@ -1354,7 +1354,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Missing 5th Golden Signal (TTFT)**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: No active monitoring for
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/reasoning.py:1`
    - ✨ Recommended Fix: Detected OpenAI
 1. **Inference Cost Projection (gpt-4)**
@@ -1372,7 +1372,7 @@ To transition this agent to production-hardened status, follow these prioritized
 1. **Sub-Optimal Resource Profile**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/pivot.py:1`
    - ✨ Recommended Fix: LLM workloads are Memory-Bound
-1. **Sovereign Model Migration Opportunity**
+1. **Autonomous Model Migration Opportunity**
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/ops/auditors/pivot.py:1`
    - ✨ Recommended Fix: Detected OpenAI
 1. **Potential Recursive Agent Loop**

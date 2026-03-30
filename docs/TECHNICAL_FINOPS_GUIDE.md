@@ -33,9 +33,9 @@ The FinOps SME evaluates your codebase across four primary economic pillars:
 *   **Audit Logic**: Recommends routing to **Gemini Flash** or **Gemma 2** for non-reasoning sub-tasks.
 *   **Business Impact**: Significant **TCO (Total Cost of Ownership)** reduction.
 
-### 🧠 Semantic Hive Mind (Distributed Cache)
+### 🧠 Semantic distributed cache (Distributed Cache)
 *   **Vector**: Detecting redundant identical queries being re-processed across the fleet.
-*   **Audit Logic**: Recommends the **Hive Mind** sidecar for shared sub-millisecond reasoning recall.
+*   **Audit Logic**: Recommends the **distributed cache** sidecar for shared sub-millisecond reasoning recall.
 *   **Business Impact**: **Latency & Cost Synergy**.
 
 ### 🏗️ Cockpit Bridge (Multi-Cloud Arbitrage)

@@ -7,7 +7,7 @@
 ---
 
 ## 1. Executive Summary
-The **AgentOps Cockpit** is a production-grade operations and governance platform for AI agents. It addresses the "Day 2" challenges of agentic development: cost management, security hardening, architectural alignment, and operational visibility. By implementing the **Agentic Trinity** (Engine, Face, Cockpit), it provides developers with a framework-agnostic "Mission Control" to transition agents from prototypes to reliable production services.
+The **AgentOps Cockpit** is a production-grade operations and governance platform for AI agents. It addresses the "Day 2" challenges of agentic development: cost management, security hardening, architectural alignment, and operational visibility. By implementing the **Governance Framework** (Engine, Face, Cockpit), it provides developers with a framework-agnostic "Mission Control" to transition agents from prototypes to reliable production services.
 
 The **v2.0.0 "Cockpit Orchestrator" Milestone** focuses on industry-scale hardening across multi-provider repos, the **Cockpit Cloud Bridge** for provider abstraction, and autonomous remediation of "Monocultural Bias" and "Manifest Drift".
 
