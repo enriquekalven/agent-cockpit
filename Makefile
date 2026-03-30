@@ -17,7 +17,7 @@ dev:
 	@echo "==============================================================================="
 	@echo "| 🚀 Starting AgentOps Cockpit Development Stack...                         |"
 	@echo "| 🎭 Face: http://localhost:5173 (Vite)                                       |"
-	@echo "| 🛡️ Gateway: http://localhost:8000 (Sovereign Sidecar)                        |"
+	@echo "| 🛡️ Gateway: http://localhost:8000 (Autonomous Sidecar)                        |"
 	@echo "==============================================================================="
 	@npm run dev & PYTHONPATH=src uv run cockpit ops gateway --port 8000
 
@@ -107,13 +107,13 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Sovereign Hub Hierarchy (v1.6 CLI)
+# Autonomous Hub Hierarchy (v2.0.10 CLI)
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
 	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
 
-bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt sovereign libraries
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt autonomous libraries
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
@@ -141,12 +141,12 @@ audit-arch: ## 🏗️ Strategy Pillar: Architecture Design Review
 arch-review: audit-arch ## [Alias] Architecture Design Review
 
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
-	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run cockpit evolve --path $(if $(P),$(P),.)
 
-deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+deploy-autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run cockpit deploy cockpit --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
-deploy-prod: deploy-sovereign ## [Alias] Production Deployment
+deploy-prod: deploy-autonomous ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status
