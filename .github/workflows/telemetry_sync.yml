@@ -1,4 +1,4 @@
-name: 📡 Sovereign Ecosystem & Telemetry Sync
+name: 📡 Sovereign Ecosystem Sync
 
 on:
   schedule:
@@ -30,11 +30,7 @@ jobs:
         run: |
           uv run agentops-cockpit fleet watch || echo "Watcher detected drift or finished"
           
-      - name: 📡 Aggregate Telemetry
-        env:
-          AGENTOPS_SUPABASE_URL: ${{ secrets.AGENTOPS_SUPABASE_URL }}
-          AGENTOPS_SUPABASE_KEY: ${{ secrets.AGENTOPS_SUPABASE_KEY }}
-        run: uv run python3 scripts/aggregate_telemetry.py
+
         
       - name: 🚀 Commit Sovereign Updates
         env:
@@ -46,7 +42,7 @@ jobs:
           git add -f public/fleet_data.json
           git add src/agent_ops_cockpit/ops/maturity_patterns.json
           git add uv.lock pyproject.toml
-          git commit -m "chore(ops): sync global telemetry and ecosystem wisdom store" || echo "No changes to commit"
+          git commit -m "chore(ops): sync ecosystem wisdom store" || echo "No changes to commit"
           git push origin HEAD:feature/sovereign-stable --force
           
       - name: 🌎 Deploy to Firebase Hosting

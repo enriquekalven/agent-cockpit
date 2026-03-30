@@ -22,9 +22,6 @@ class TelemetryManager:
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
     
-    # cockpit Bridge: If these are set, telemetry goes to Supabase (100% Free Route)
-    SUPABASE_URL = os.environ.get("AGENTOPS_SUPABASE_URL", "")
-    SUPABASE_KEY = os.environ.get("AGENTOPS_SUPABASE_KEY", "")
     TELEMETRY_ENDPOINT = os.environ.get("AGENTOPS_TELEMETRY_URL", "https://agent-cockpit.web.app/api/telemetry/event")
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
     
@@ -73,30 +70,7 @@ class TelemetryManager:
         if not self.enabled:
             return
 
-        if self.SUPABASE_URL and self.SUPABASE_KEY:
-            # 100% Free Route: Posting to Supabase
-            url = f"{self.SUPABASE_URL}/rest/v1/telemetry_events"
-            headers = {
-                "apikey": self.SUPABASE_KEY,
-                "Authorization": f"Bearer {self.SUPABASE_KEY}",
-                "Content-Type": "application/json",
-                "Prefer": "return=minimal"
-            }
-            # Flatten payload for Supabase columns
-            supabase_payload = {
-                "event_name": event_name,
-                "user_id": self._user_id,
-                "session_id": self._session_id,
-                "properties": properties or {},
-                "context": self._get_system_info()
-            }
-            try:
-                async with aiohttp.ClientSession() as session:
-                    async with session.post(url, json=supabase_payload, headers=headers, timeout=2):
-                        pass
-            except Exception:
-                pass
-            return
+
 
         # Default Route: Firebase/Cloud Run
         payload = {
@@ -140,32 +114,6 @@ class TelemetryManager:
         [ADMIN ONLY] Fetch and format telemetry insights from the central hub.
         """
         import requests
-        if self.SUPABASE_URL and self.SUPABASE_KEY:
-            # Fetch summary from Supabase
-            try:
-                # Get unique user count
-                r = requests.get(
-                    f"{self.SUPABASE_URL}/rest/v1/telemetry_events?select=user_id",
-                    headers={"apikey": self.SUPABASE_KEY, "Authorization": f"Bearer {self.SUPABASE_KEY}"},
-                    timeout=5
-                )
-                if r.status_code == 200:
-                    users = set(d['user_id'] for d in r.json())
-                    total_installs = len(users)
-                    return {
-                        "total_installs": total_installs,
-                        "active_24h": total_installs, # Simplified for now
-                        "avg_success_rate": 0.0,
-                        "global_summary": {"compliance": 0.0, "velocity": 0.0},
-                        "top_commands": [
-                            {"cmd": "evolve", "count": 2854900},
-                            {"cmd": "upgrade", "count": 1423800},
-                            {"cmd": "certify", "count": 894000}
-                        ],
-                        "agents": []
-                    }
-            except Exception:
-                pass
 
         try:
             r = requests.get("https://agent-cockpit.web.app/api/telemetry/dashboard", timeout=5)

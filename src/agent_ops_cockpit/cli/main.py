@@ -186,38 +186,7 @@ def upgrade_cockpit():
 
 
 # --- AUDIT HUB ---
-@sys_app.command(name="telemetry")
-def sys_telemetry(admin: Annotated[bool, typer.Option("--admin", help="Show administrative global metrics")] = True):
-    """View usage metrics and global fleet health."""
-    if not admin:
-        console.print("[bold yellow]Status:[/bold yellow] Telemetry is [green]ACTIVE[/green].")
-        console.print(f"Anonymous ID: [dim]{telemetry._user_id}[/dim]")
-        console.print(f"Session ID:   [dim]{telemetry._session_id}[/dim]")
-        return
 
-    # Admin View
-    data = telemetry.get_admin_dashboard()
-    console.print(Panel.fit("📡 [bold blue]AGENTOPS COCKPIT: GLOBAL ADMIN METRICS[/bold blue]", border_style="blue"))
-    
-    table = Table(show_header=True, header_style="bold magenta")
-    table.add_column("Metric", style="cyan")
-    table.add_column("Value", style="bold")
-    
-    table.add_row("Total Installs (Global)", f"{data['total_installs']:,}")
-    table.add_row("Active Agents (24h)", str(data["active_24h"]))
-    table.add_row("Avg SME Success Rate", f"[green]{data['avg_success_rate']}%[/green]")
-    
-    console.print(table)
-    
-    cmd_table = Table(title="Top Orchestrator Commands", show_header=True, header_style="bold yellow")
-    cmd_table.add_column("Command", style="blue")
-    cmd_table.add_column("Global Calls", justify="right")
-    
-    for cmd_stat in data["top_commands"]:
-        cmd_table.add_row(f"agent-ops {cmd_stat['cmd']}", f"{cmd_stat['count']:,}")
-    
-    console.print(cmd_table)
-    console.print("\n🌐 [dim]View live global map at: https://agent-cockpit.web.app/metrics[/dim]")
 @sys_app.command(name="models")
 def list_models():
     """List accessible Gemini models and their capabilities in the current landscape."""
@@ -522,27 +491,7 @@ def anomaly_check(name: Annotated[str, typer.Option(help='Agent name to audit')]
     auditor = AnomalySME()
     auditor.display_report(report)
 
-@fleet_app.command(name="telemetry")
-def fleet_telemetry(name: Annotated[str, typer.Option(..., help='Agent name to fetch data for')]):
-    """Fetch live telemetry metrics for a specific agent."""
-    console.print(f"📡 [bold blue]Fetching telemetry for {name}...[/bold blue]")
-    data = telemetry.get_agent_telemetry(name)
-    
-    panel_content = f"[bold]Status:[/] {data['status']}\n"
-    panel_content += f"[bold]Avg Latency:[/] {data['avg_latency']}\n"
-    panel_content += f"[bold]Token Usage:[/] {data['token_usage']}\n"
-    panel_content += f"[bold]Projected Cost:[/] {data['cost_projected']}"
-    
-    console.print(Panel(panel_content, title=f"📊 {name} Metrics", border_style="cyan"))
-    
-    table = Table(title="Recent Events", show_header=True, header_style="bold magenta")
-    table.add_column("Timestamp", style="dim")
-    table.add_column("Event")
-    
-    for event in data["recent_events"]:
-        table.add_row(event["timestamp"], event["event"])
-    
-    console.print(table)
+
 
 @fleet_app.command(name="watch")
 def watch_fleet():
