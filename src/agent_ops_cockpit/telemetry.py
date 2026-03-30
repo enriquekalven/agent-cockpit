@@ -158,8 +158,8 @@ class TelemetryManager:
                         "avg_success_rate": 0.0,
                         "global_summary": {"compliance": 0.0, "velocity": 0.0},
                         "top_commands": [
-                            {"cmd": "fix evolve", "count": 2854900},
-                            {"cmd": "fix upgrade", "count": 1423800},
+                            {"cmd": "evolve", "count": 2854900},
+                            {"cmd": "upgrade", "count": 1423800},
                             {"cmd": "certify", "count": 894000}
                         ],
                         "agents": []
@@ -181,8 +181,8 @@ class TelemetryManager:
             "avg_success_rate": 0.0,
             "global_summary": {"compliance": 0.0, "velocity": 0.0},
             "top_commands": [
-                {"cmd": "fix evolve", "count": 2854900},
-                {"cmd": "fix upgrade", "count": 1423800},
+                {"cmd": "evolve", "count": 2854900},
+                {"cmd": "upgrade", "count": 1423800},
                 {"cmd": "certify", "count": 894000}
             ],
             "agents": []

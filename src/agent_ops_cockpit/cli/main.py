@@ -676,12 +676,12 @@ def fix_issue(issue_id: Annotated[str, typer.Argument(help="The issue ID or part
     if not success:
         raise typer.Exit(code=1)
 
-@fix_app.command(name="evolve")
+@app.command(name="evolve")
 def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.', branch: Annotated[bool, typer.Option('--branch/--no-branch', help='Create a new git branch for the fixes')] = True):
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""
     orch_mod.run_autonomous_evolution(path, branch=branch)
 
-@fix_app.command(name="upgrade")
+@app.command(name="upgrade")
 def autonomous_upgrade(
     path: Annotated[str, typer.Option('--path', '-p', help='Path to the repository/workspace')] = '.',
     docs_url: Annotated[str, typer.Option('--docs-url', '-d', help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"

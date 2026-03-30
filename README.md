@@ -55,7 +55,7 @@ ops report
 1. **Explore**: `cockpit` (Launch the Mission Control Dashboard)
 2. **Audit**: `ops report` (Deep SME Reasoning Review)
 3. **Remediate**: `make apply-fixes` (Autonomous code hardening via the **Closer Engine**)
-4. **Evolve (Viral)**: `ops fix evolve` (Autonomously refactor and upgrade your framework logic)
+4. **Evolve (Viral)**: `ops evolve` (Autonomously refactor and upgrade your framework logic)
 5. **Deploy**: `ops deploy cockpit` (Multi-cloud Factory Deployment)
 
 ## 🗺️ Project Roadmap
