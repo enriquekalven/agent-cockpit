@@ -44,6 +44,7 @@ export function Home() {
   const [stars, setStars] = useState<number | null>(null);
   const [currentCommand, setCurrentCommand] = useState(0);
   const commands = [
+    { cmd: 'uvx agentops-cockpit fix evolve', desc: 'Evolution Hub: Autonomously refactor and upgrade your legacy AI agents in seconds.' },
     { cmd: 'pip install agentops-cockpit', desc: 'Install the core engine and CLI tools for local development.' },
     { cmd: 'uvx agentops-cockpit cockpit', desc: 'Initialize Mission Control and view your global fleet status.' },
     { cmd: 'uvx agentops-cockpit mcp blueprint', desc: 'Modernize legacy tools into Model Context Protocol servers.' },
