@@ -11,7 +11,7 @@
 This document details the production-grade implementation of the distributed agent fleet. It confirms hardening against the Cockpit Standard.
 
 ## 2. Technology Rationale
-### ⚙️ The Agentic Trinity
+### ⚙️ The Governance Framework
 Decouples Reasoning (Engine), Interface (Face), and Operations (Cockpit).
 ### 🧠 Cockpit Reasoning (ADK)
 Leveraging Google ADK for robust function calling and multi-turn state persistence.
@@ -19,7 +19,7 @@ Leveraging Google ADK for robust function calling and multi-turn state persisten
 Automated tool-schema reconciliation using AST-aware auditing.
 
 ## 3. System Architecture
-The system follows the **Agentic Trinity** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).
+The system follows the **Governance Framework** framework: Engine (Reasoning), Face (UX), and Cockpit (Operations).
 
 ## 4. Fleet Audit Evidence
 

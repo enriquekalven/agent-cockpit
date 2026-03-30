@@ -1,7 +1,7 @@
 {
   "name": "agent-ops-cockpit",
   "version": "2.0.4",
-  "description": "The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.",
+  "description": "The Autonomous Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.",
   "author": "enriquekalven",
   "repository": "https://github.com/enriquekalven/agent-ops-cockpit",
   "homepage": "https://agent-cockpit.web.app",
@@ -21,7 +21,7 @@
         },
         {
           "name": "architecture_review",
-          "description": "Run a Google Well-Architected design review (The Sovereign Gate)."
+          "description": "Run a Google Well-Architected design review (The Autonomous Gate)."
         },
         {
           "name": "red_team_attack",
@@ -33,7 +33,7 @@
         },
         {
           "name": "certify_agent",
-          "description": "🏅 Production Readiness: Generate a Sovereign Certificate for an agent project."
+          "description": "🏅 Production Readiness: Generate a Autonomous Certificate for an agent project."
         }
       ]
     }
@@ -45,7 +45,7 @@
           "command": "uvx",
           "args": ["agentops-cockpit", "mcp"],
           "env": {
-             "COCKPIT_MODE": "sovereign",
+             "COCKPIT_MODE": "Autonomous",
              "PYTHONPATH": "."
           }
         }

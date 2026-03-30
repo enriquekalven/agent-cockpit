@@ -1,4 +1,4 @@
-# 📖 The Agentic Trinity Vision
+# 📖 The Governance Framework Vision
 
 ## "Infrastructure is a solved problem. Intelligence is the new frontier."
 

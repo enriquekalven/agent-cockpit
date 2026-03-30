@@ -990,7 +990,7 @@ build/cd/test_gemini_enterprise.yaml...
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━┓
 ┃ Design Check                                       ┃ Status ┃ Verification   ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━┩
-│ Caching: Is Semantic Caching (Hive Mind) enabled?  │ PASSED │ Verified by    │
+│ Caching: Is Semantic Caching (distributed cache) enabled?  │ PASSED │ Verified by    │
 │                                                    │        │ Pattern Match  │
 │ Context: Are you using Context Caching?            │ PASSED │ Verified by    │
 │                                                    │        │ Pattern Match  │
@@ -1828,7 +1828,7 @@ Strategic Move: This task can be handled by a 'Flash' or 'Mini' tier model at
 1/10th the cost.
 RECOMMENDATION: Pivot to **Gemini 2.0 Flash** or **GPT-4o-mini** for metadata 
 tasks.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/frontends/adk_live_react/frontend/src/utils/multimodal-live-client
 .ts:)
@@ -1842,7 +1842,7 @@ financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/frontends/adk_live_react/frontend/src/utils/multimodal-live-client.
-ts:1 | ASI-02: Sovereign Gap (Ungated Tool Access) | Detected sensitive 
+ts:1 | ASI-02: Autonomous Gap (Ungated Tool Access) | Detected sensitive 
 operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -3920,7 +3920,7 @@ starter_pack/agents/agentic_rag/deployment/terraform/scripts/start_connector_run
 .py:1 | SRE Warning: Missing Resource Consternation | Deployment manifest 
 detected without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy 
 Neighbor' effects and OOM kills in production clusters.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/agents/agentic_rag/deployment/terraform/scripts/delete_data_connec
 tor.py:)
@@ -3934,7 +3934,7 @@ financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/agents/agentic_rag/deployment/terraform/scripts/delete_data_connect
-or.py:1 | ASI-02: Sovereign Gap (Ungated Tool Access) | Detected sensitive 
+or.py:1 | ASI-02: Autonomous Gap (Ungated Tool Access) | Detected sensitive 
 operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -3968,7 +3968,7 @@ starter_pack/agents/agentic_rag/deployment/terraform/scripts/delete_data_connect
 or.py:1 | SRE Warning: Missing Resource Consternation | Deployment manifest 
 detected without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy 
 Neighbor' effects and OOM kills in production clusters.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/agents/agentic_rag/deployment/terraform/scripts/delete_vector_sear
 ch_collection.py:)
@@ -3982,7 +3982,7 @@ financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/agents/agentic_rag/deployment/terraform/scripts/delete_vector_searc
-h_collection.py:1 | ASI-02: Sovereign Gap (Ungated Tool Access) | Detected 
+h_collection.py:1 | ASI-02: Autonomous Gap (Ungated Tool Access) | Detected 
 sensitive operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -4177,7 +4177,7 @@ ACTION:
 starter_pack/agents/agentic_rag/data_ingestion/README.md:1 | Missing 5th Golden 
 Signal (TTFT/Tracing) | Structural tracing instrumentation (OTEL/Cloud Trace) 
 not detected. TTFT is the primary metric for perceived intelligence.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/agents/agentic_rag/data_ingestion/data_ingestion_pipeline/submit_p
 ipeline.py:)
@@ -4191,7 +4191,7 @@ financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/agents/agentic_rag/data_ingestion/data_ingestion_pipeline/submit_pi
-peline.py:1 | ASI-02: Sovereign Gap (Ungated Tool Access) | Detected sensitive 
+peline.py:1 | ASI-02: Autonomous Gap (Ungated Tool Access) | Detected sensitive 
 operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -4355,7 +4355,7 @@ starter_pack/agents/agentic_rag/data_ingestion/data_ingestion_pipeline/component
 s/ingest_data.py:1 | Missing 5th Golden Signal (TTFT/Tracing) | Structural 
 tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary 
 metric for perceived intelligence.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/agents/agentic_rag/data_ingestion/data_ingestion_pipeline/componen
 ts/process_data.py:)
@@ -4369,7 +4369,7 @@ financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/agents/agentic_rag/data_ingestion/data_ingestion_pipeline/component
-s/process_data.py:1 | ASI-02: Sovereign Gap (Ungated Tool Access) | Detected 
+s/process_data.py:1 | ASI-02: Autonomous Gap (Ungated Tool Access) | Detected 
 sensitive operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -5313,7 +5313,7 @@ ACTION:
 starter_pack/cli/utils/language.py:1 | 🏛️ Structural Monolith Detected | Agent 
 file is too large (>200 lines). Recommend splitting into specialized 
 sub-agents/peers.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/cli/utils/template.py:)
    Detected sensitive operations without a functional HITL gate.
@@ -5325,7 +5325,7 @@ schema.
 financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/cli/utils/template.py:1 | ASI-02: Sovereign Gap (Ungated Tool 
+starter_pack/cli/utils/template.py:1 | ASI-02: Autonomous Gap (Ungated Tool 
 Access) | Detected sensitive operations without a functional HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
 actions without oversight.
@@ -5694,7 +5694,7 @@ ACTION:
 starter_pack/cli/commands/create.py:1 | 🏛️ Structural Monolith Detected | Agent 
 file is too large (>200 lines). Recommend splitting into specialized 
 sub-agents/peers.
-🚩 ASI-02: Sovereign Gap (Ungated Tool Access) 
+🚩 ASI-02: Autonomous Gap (Ungated Tool Access) 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/cli/commands/register_gemini_enterprise.py:)
    Detected sensitive operations without a functional HITL gate.
@@ -5706,7 +5706,7 @@ schema.
 financial/data loss.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/cli/commands/register_gemini_enterprise.py:1 | ASI-02: Sovereign 
+starter_pack/cli/commands/register_gemini_enterprise.py:1 | ASI-02: Autonomous 
 Gap (Ungated Tool Access) | Detected sensitive operations without a functional 
 HITL gate.
 ASI-02 Risk: Broken Tool Authorization allows agents to execute high-impact 
@@ -7453,17 +7453,17 @@ starter_pack/base_templates/go/.github/workflows/deploy-to-prod.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/go/.github/workflows/deploy-to-prod.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/base_templates/go/.github/workflows/deploy-to-prod.yaml:1 | 
-Sovereign Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
+Autonomous Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
 a mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -7518,16 +7518,16 @@ starter_pack/base_templates/go/.github/workflows/staging.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/go/.github/workflows/staging.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/base_templates/go/.github/workflows/staging.yaml:1 | Sovereign 
+starter_pack/base_templates/go/.github/workflows/staging.yaml:1 | Autonomous 
 Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without a 
 mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
@@ -7587,16 +7587,16 @@ Strategic Move: This task can be handled by a 'Flash' or 'Mini' tier model at
 1/10th the cost.
 RECOMMENDATION: Pivot to **Gemini 2.0 Flash** or **GPT-4o-mini** for metadata 
 tasks.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/go/.github/workflows/pr_checks.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/base_templates/go/.github/workflows/pr_checks.yaml:1 | Sovereign 
+starter_pack/base_templates/go/.github/workflows/pr_checks.yaml:1 | Autonomous 
 Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without a 
 mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
@@ -8068,17 +8068,17 @@ starter_pack/base_templates/python/.github/workflows/deploy-to-prod.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/python/.github/workflows/deploy-to-prod.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/base_templates/python/.github/workflows/deploy-to-prod.yaml:1 | 
-Sovereign Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
+Autonomous Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
 a mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -8399,17 +8399,17 @@ starter_pack/base_templates/typescript/.github/workflows/deploy-to-prod.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/typescript/.github/workflows/deploy-to-prod.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/base_templates/typescript/.github/workflows/deploy-to-prod.yaml:1 |
-Sovereign Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
+Autonomous Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
 a mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -8624,17 +8624,17 @@ starter_pack/base_templates/java/.github/workflows/deploy-to-prod.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/java/.github/workflows/deploy-to-prod.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
 starter_pack/base_templates/java/.github/workflows/deploy-to-prod.yaml:1 | 
-Sovereign Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
+Autonomous Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without
 a mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -8689,16 +8689,16 @@ starter_pack/base_templates/java/.github/workflows/staging.yaml:1 |
 Time-to-Reasoning (TTR) Risk | Cloud Run detected. MISSING startup_cpu_boost. 
 High risk of 10s+ cold starts. A slow TTR makes the agent's first response 'Dead
 on Arrival' for users.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/java/.github/workflows/staging.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/base_templates/java/.github/workflows/staging.yaml:1 | Sovereign 
+starter_pack/base_templates/java/.github/workflows/staging.yaml:1 | Autonomous 
 Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without a 
 mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
@@ -8758,16 +8758,16 @@ Strategic Move: This task can be handled by a 'Flash' or 'Mini' tier model at
 1/10th the cost.
 RECOMMENDATION: Pivot to **Gemini 2.0 Flash** or **GPT-4o-mini** for metadata 
 tasks.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent
 _starter_pack/base_templates/java/.github/workflows/pr_checks.yaml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/agent_
-starter_pack/base_templates/java/.github/workflows/pr_checks.yaml:1 | Sovereign 
+starter_pack/base_templates/java/.github/workflows/pr_checks.yaml:1 | Autonomous 
 Gate: Bypass Detected | CI/CD pipeline allowing direct-to-prod without a 
 mandatory 'make audit' score gate. This allows un-audited reasoning logic to 
 touch production data.
@@ -10137,9 +10137,9 @@ primary metric for perceived intelligence.
 images/adk_gemini_fullstack.gif:)
    Detected large instructions or few-shot examples (>2k tokens) without Context
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
    ⚖️ Strategic ROI: Reduces repeated prefix costs by up to 90% and decreases 
 TTFT by 40%.
@@ -10148,9 +10148,9 @@ ACTION:
 mages/adk_gemini_fullstack.gif:1 | Economic Opportunity: Missing Context Caching
 | Detected large instructions or few-shot examples (>2k tokens) without Context 
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
 🚩 🏛️ Structural Monolith Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/docs/
@@ -10246,9 +10246,9 @@ primary metric for perceived intelligence.
 images/why_sp_edited.png:)
    Detected large instructions or few-shot examples (>2k tokens) without Context
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
    ⚖️ Strategic ROI: Reduces repeated prefix costs by up to 90% and decreases 
 TTFT by 40%.
@@ -10257,9 +10257,9 @@ ACTION:
 mages/why_sp_edited.png:1 | Economic Opportunity: Missing Context Caching | 
 Detected large instructions or few-shot examples (>2k tokens) without Context 
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
 🚩 🏛️ Structural Monolith Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/docs/
@@ -10355,9 +10355,9 @@ primary metric for perceived intelligence.
 images/why_starter_pack.png:)
    Detected large instructions or few-shot examples (>2k tokens) without Context
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
    ⚖️ Strategic ROI: Reduces repeated prefix costs by up to 90% and decreases 
 TTFT by 40%.
@@ -10366,9 +10366,9 @@ ACTION:
 mages/why_starter_pack.png:1 | Economic Opportunity: Missing Context Caching | 
 Detected large instructions or few-shot examples (>2k tokens) without Context 
 Caching.
-Sovereign Cache (v1.8.5): Re-sending the same prefix on every turn for 
+Autonomous Cache (v1.8.5): Re-sending the same prefix on every turn for 
 long-lived agent sessions is 'Architectural Waste'.
-RECOMMENDATION: Implement **Vertex AI Context Caching** or **Sovereign Sliding 
+RECOMMENDATION: Implement **Vertex AI Context Caching** or **Autonomous Sliding 
 Memory**.
 🚩 🏛️ Structural Monolith Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/docs/
@@ -10806,16 +10806,16 @@ ACTION:
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/docs/c
 li/enhance.md:1 | 🏛️ Structural Monolith Detected | Agent file is too large 
 (>200 lines). Recommend splitting into specialized sub-agents/peers.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.gith
 ub/workflows/release.yml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.githu
-b/workflows/release.yml:1 | Sovereign Gate: Bypass Detected | CI/CD pipeline 
+b/workflows/release.yml:1 | Autonomous Gate: Bypass Detected | CI/CD pipeline 
 allowing direct-to-prod without a mandatory 'make audit' score gate. This allows
 un-audited reasoning logic to touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -10848,16 +10848,16 @@ Strategic Move: This task can be handled by a 'Flash' or 'Mini' tier model at
 1/10th the cost.
 RECOMMENDATION: Pivot to **Gemini 2.0 Flash** or **GPT-4o-mini** for metadata 
 tasks.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.gith
 ub/workflows/docs.yml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.githu
-b/workflows/docs.yml:1 | Sovereign Gate: Bypass Detected | CI/CD pipeline 
+b/workflows/docs.yml:1 | Autonomous Gate: Bypass Detected | CI/CD pipeline 
 allowing direct-to-prod without a mandatory 'make audit' score gate. This allows
 un-audited reasoning logic to touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -10872,16 +10872,16 @@ ACTION:
 b/workflows/docs.yml:1 | Missing 5th Golden Signal (TTFT/Tracing) | Structural 
 tracing instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary 
 metric for perceived intelligence.
-🚩 Sovereign Gate: Bypass Detected 
+🚩 Autonomous Gate: Bypass Detected 
 (/Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.gith
 ub/workflows/test-windows.yml:)
    CI/CD pipeline allowing direct-to-prod without a mandatory 'make audit' score
 gate. This allows un-audited reasoning logic to touch production data.
-   ⚖️ Strategic ROI: Enforces the 'Sovereign standard' (score > 90) as a 
+   ⚖️ Strategic ROI: Enforces the 'Autonomous standard' (score > 90) as a 
 blocking gate.
 ACTION: 
 /Users/enriq/Documents/git/agent-cockpit/dogfood_repos/agent-starter-pack/.githu
-b/workflows/test-windows.yml:1 | Sovereign Gate: Bypass Detected | CI/CD 
+b/workflows/test-windows.yml:1 | Autonomous Gate: Bypass Detected | CI/CD 
 pipeline allowing direct-to-prod without a mandatory 'make audit' score gate. 
 This allows un-audited reasoning logic to touch production data.
 🚩 Missing 5th Golden Signal (TTFT/Tracing) 
@@ -11685,7 +11685,7 @@ clusters.
 │    'Flash' or 'Mini' tier model at 1/10th the cost. [bold                    │
 │    green]RECOMMENDATION:[/bold green] Pivot to Gemini 2.0 Flash or           │
 │    GPT-4o-mini for metadata tasks. (Impact: MEDIUM)                          │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12243,7 +12243,7 @@ clusters.
 │  • SRE Warning: Missing Resource Consternation: Deployment manifest detected │
 │    without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy        │
 │    Neighbor' effects and OOM kills in production clusters. (Impact: MEDIUM)  │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12255,7 +12255,7 @@ clusters.
 │  • SRE Warning: Missing Resource Consternation: Deployment manifest detected │
 │    without explicit Resource Quotas (CPU/Memory). High risk of 'Noisy        │
 │    Neighbor' effects and OOM kills in production clusters. (Impact: MEDIUM)  │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12309,7 +12309,7 @@ clusters.
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
 │    instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary      │
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12357,7 +12357,7 @@ clusters.
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
 │    instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary      │
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12627,7 +12627,7 @@ clusters.
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -12740,7 +12740,7 @@ clusters.
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
-│  • ASI-02: Sovereign Gap (Ungated Tool Access): Detected sensitive           │
+│  • ASI-02: Autonomous Gap (Ungated Tool Access): Detected sensitive           │
 │    operations without a functional HITL gate. [bold red]ASI-02 Risk:[/bold   │
 │    red] Broken Tool Authorization allows agents to execute high-impact       │
 │    actions without oversight. [bold green]RECOMMENDATION:[/bold green]       │
@@ -13196,7 +13196,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13211,7 +13211,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13229,7 +13229,7 @@ clusters.
 │    'Flash' or 'Mini' tier model at 1/10th the cost. [bold                    │
 │    green]RECOMMENDATION:[/bold green] Pivot to Gemini 2.0 Flash or           │
 │    GPT-4o-mini for metadata tasks. (Impact: MEDIUM)                          │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13356,7 +13356,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13442,7 +13442,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13500,7 +13500,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13515,7 +13515,7 @@ clusters.
 │  • Time-to-Reasoning (TTR) Risk: Cloud Run detected. MISSING                 │
 │    startup_cpu_boost. High risk of 10s+ cold starts. A slow TTR makes the    │
 │    agent's first response 'Dead on Arrival' for users. (Impact: HIGH)        │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13533,7 +13533,7 @@ clusters.
 │    'Flash' or 'Mini' tier model at 1/10th the cost. [bold                    │
 │    green]RECOMMENDATION:[/bold green] Pivot to Gemini 2.0 Flash or           │
 │    GPT-4o-mini for metadata tasks. (Impact: MEDIUM)                          │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -13890,10 +13890,10 @@ clusters.
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
 │  • Economic Opportunity: Missing Context Caching: Detected large             │
 │    instructions or few-shot examples (>2k tokens) without Context Caching.   │
-│    [bold blue]Sovereign Cache (v1.8.5):[/bold blue] Re-sending the same      │
+│    [bold blue]Autonomous Cache (v1.8.5):[/bold blue] Re-sending the same      │
 │    prefix on every turn for long-lived agent sessions is 'Architectural      │
 │    Waste'. [bold green]RECOMMENDATION:[/bold green] Implement Vertex AI      │
-│    Context Caching or Sovereign Sliding Memory. (Impact: HIGH)               │
+│    Context Caching or Autonomous Sliding Memory. (Impact: HIGH)               │
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
@@ -13920,10 +13920,10 @@ clusters.
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
 │  • Economic Opportunity: Missing Context Caching: Detected large             │
 │    instructions or few-shot examples (>2k tokens) without Context Caching.   │
-│    [bold blue]Sovereign Cache (v1.8.5):[/bold blue] Re-sending the same      │
+│    [bold blue]Autonomous Cache (v1.8.5):[/bold blue] Re-sending the same      │
 │    prefix on every turn for long-lived agent sessions is 'Architectural      │
 │    Waste'. [bold green]RECOMMENDATION:[/bold green] Implement Vertex AI      │
-│    Context Caching or Sovereign Sliding Memory. (Impact: HIGH)               │
+│    Context Caching or Autonomous Sliding Memory. (Impact: HIGH)               │
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
@@ -13950,10 +13950,10 @@ clusters.
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
 │  • Economic Opportunity: Missing Context Caching: Detected large             │
 │    instructions or few-shot examples (>2k tokens) without Context Caching.   │
-│    [bold blue]Sovereign Cache (v1.8.5):[/bold blue] Re-sending the same      │
+│    [bold blue]Autonomous Cache (v1.8.5):[/bold blue] Re-sending the same      │
 │    prefix on every turn for long-lived agent sessions is 'Architectural      │
 │    Waste'. [bold green]RECOMMENDATION:[/bold green] Implement Vertex AI      │
-│    Context Caching or Sovereign Sliding Memory. (Impact: HIGH)               │
+│    Context Caching or Autonomous Sliding Memory. (Impact: HIGH)               │
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
@@ -14071,7 +14071,7 @@ clusters.
 │  • 🏛️ Structural Monolith Detected: Agent file is too large (>200 lines).    │
 │    Recommend splitting into specialized sub-agents/peers. (Impact: High      │
 │    Latency / Reduced Token Density)                                          │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
@@ -14083,13 +14083,13 @@ clusters.
 │    'Flash' or 'Mini' tier model at 1/10th the cost. [bold                    │
 │    green]RECOMMENDATION:[/bold green] Pivot to Gemini 2.0 Flash or           │
 │    GPT-4o-mini for metadata tasks. (Impact: MEDIUM)                          │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │
 │    instrumentation (OTEL/Cloud Trace) not detected. TTFT is the primary      │
 │    metric for perceived intelligence. (Impact: MEDIUM)                       │
-│  • Sovereign Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
+│  • Autonomous Gate: Bypass Detected: CI/CD pipeline allowing direct-to-prod   │
 │    without a mandatory 'make audit' score gate. This allows un-audited       │
 │    reasoning logic to touch production data. (Impact: CRITICAL)              │
 │  • Missing 5th Golden Signal (TTFT/Tracing): Structural tracing              │

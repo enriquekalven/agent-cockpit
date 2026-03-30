@@ -10,7 +10,7 @@
 │ Registry Connectivity   │ READY  │ Reachable: https://pypi.org/simple        │
 │ Tooling Readiness       │ READY  │ All base tools detected.                  │
 │ Env Consistency         │ READY  │ Found environment config: .env            │
-│ Cloud Sovereignty Auth  │ READY  │ Google Authenticated: enriq@google.com    │
+│ Cloud Autonomy Auth  │ READY  │ Google Authenticated: enriq@google.com    │
 │ Cloud Project Readiness │ READY  │ Project project-maui (Billing OK, Vertex  │
 │                         │        │ OK)                                       │
 └─────────────────────────┴────────┴───────────────────────────────────────────┘
@@ -18,7 +18,7 @@
 
 
 🛰️ Step 2: Deep Functional, Security & Load Audit...
-⚙️ Loaded local Sovereign Config from 
+⚙️ Loaded local Autonomous Config from 
 /Users/enriq/Documents/git/agent-cockpit/cockpit.yaml
 ╭─────────────────────────────────────────────────────╮
 │ 🕹️ AGENTOPS COCKPIT: PRODUCTION CERTIFICATION AUDIT │
@@ -42,7 +42,7 @@
   ❌ Plugin: Finops Failed       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ❌ Plugin: Sme V12 Failed      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ✅ Plugin: Context Auditor     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-  ❌ Plugin: Sovereignty Failed  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
+  ❌ Plugin: Autonomy Failed  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ❌ Plugin: Paradigm Failed     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ❌ Plugin: Behavioral Failed   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
   ❌ Plugin: Dependency Failed   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
@@ -234,7 +234,7 @@ DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/
 🌉 Managed RAG Refactor: Injected decider logic to agent.py
 DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py:1 | Token Amnesia: Manual Memory Management | Ensures conversational continuity and long-term user context.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py
-DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py:1 | Ungated High-Stake Action | Protects enterprise sovereignty and prevents accidents.
+DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py:1 | Ungated High-Stake Action | Protects enterprise Autonomy and prevents accidents.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py
 DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py:1 | Reflection Blindness: Brittle Intelligence | Significantly reduces reasoning hallucinations and logic errors.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py
@@ -615,7 +615,7 @@ DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/
 🌉 Managed RAG Refactor: Injected decider logic to agent.py
 DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py:1 | Token Amnesia: Manual Memory Management | Ensures conversational continuity and long-term user context.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/optimizer.py
-DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py:1 | Ungated High-Stake Action | Protects enterprise sovereignty and prevents accidents.
+DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py:1 | Ungated High-Stake Action | Protects enterprise Autonomy and prevents accidents.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/mcp_server.py
 DEBUG: Processing action /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py:1 | Reflection Blindness: Brittle Intelligence | Significantly reduces reasoning hallucinations and logic errors.
 DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/cache/semantic_cache.py
@@ -1168,7 +1168,7 @@ DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit
 │ 👤 Automated        │ Plugin: Compliance │ ❌ REJECTED │ Manual              │
 │ Auditor             │                    │             │                     │
 │ 👤 Automated        │ Plugin:            │ ❌ REJECTED │ Manual              │
-│ Auditor             │ Sovereignty        │             │                     │
+│ Auditor             │ Autonomy        │             │                     │
 │ 👤 Automated        │ Plugin: Infra      │ ✅ APPROVED │ Manual              │
 │ Auditor             │                    │             │                     │
 │ 👤 Automated        │ Plugin: Sme V12    │ ❌ REJECTED │ Manual              │
@@ -1188,13 +1188,13 @@ DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit
 │ 🏗️ Architectural    │ Token Optimization │ ✅ APPROVED │ ⚡ Automated Fix    │
 │ Strategy            │                    │             │                     │
 │  Security &         │ Red Team Security  │ ✅ APPROVED │ Manual              │
-│ Sovereignty         │ (Full)             │             │                     │
+│ Autonomy         │ (Full)             │             │                     │
 │ ️ Reliability &      │ Load Test          │ ✅ APPROVED │ Manual              │
 │ Performance         │ (Baseline)         │             │                     │
 │ 🛡️ Reliability &    │ RAG Fidelity Audit │ ✅ APPROVED │ 🔧 Logic            │
 │ Performance         │                    │             │ Refactoring         │
 │ 🔐 Security &       │ Secret Scanner     │ ✅ APPROVED │ ⚡ Automated Fix    │
-│ Sovereignty         │                    │             │                     │
+│ Autonomy         │                    │             │                     │
 │ ️ Architectural      │ Face Auditor       │ ✅ APPROVED │ 🔧 Protocol Sync    │
 │ Strategy            │                    │             │                     │
 │ ️ Architectural      │ Architecture       │ ✅ APPROVED │ 🏗️ Structural Logic │
@@ -1274,7 +1274,7 @@ DEBUG: full_path=/Users/enriq/Documents/git/agent-cockpit
 Projected Monthly Token Delta: -56.9%
 Strategic Drivers: Telemetry, Caching, Resiliency
 
-🛡️  Sovereign Safety Net (Shadow Modeling):
+🛡️  Autonomous Safety Net (Shadow Modeling):
 Recommended: Run cockpit audit benchmark --path 
 /Users/enriq/Documents/git/agent-cockpit to verify fixes against Golden Set.
 
@@ -3793,7 +3793,7 @@ regression safety.
 🚩 Verifying Guardian Journey...
 ⚖️ Verifying Controller Journey...
 🤖 Verifying Automator Journey...
-🌊 Verifying Sovereign Journey...
+🌊 Verifying Autonomous Journey...
 🛰️ Verifying SRE Journey...
 🛡️ Verifying Sentinel Journey...
 
@@ -3802,7 +3802,7 @@ regression safety.
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓
 ┃ Functional Area         ┃ Execution Command     ┃ Status ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩
-│ Sovereign Telemetry Hub │ sys telemetry --admin │  PASS  │
+│ Autonomous Telemetry Hub │ sys telemetry --admin │  PASS  │
 │ System Hub Baseline     │ sys version           │  PASS  │
 └─────────────────────────┴───────────────────────┴────────┘
 

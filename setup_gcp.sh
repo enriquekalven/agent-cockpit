@@ -76,6 +76,6 @@ mv Dockerfile.frontend Dockerfile
 
 echo ""
 echo "🎉 AGENT OPS SETUP COMPLETE!"
-echo "Features enabled: Shadow Mode, Hive Mind Cache, Red Team CI, Flight Recorder, RAG Dropzone."
+echo "Features enabled: Shadow Mode, distributed cache Cache, Red Team CI, Flight Recorder, RAG Dropzone."
 echo "Deploy your frontend with: npm run build && firebase deploy --only hosting:agent-ui"
 echo "Live URL: https://agent-cockpit.web.app"

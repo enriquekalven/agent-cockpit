@@ -66,12 +66,12 @@ ops report
 
 ---
 
-## 🏗️ The Agentic Trinity
+## 🏗️ The Governance Framework
 We divide the complexity of production agents into three focused pillars:
 
 ```mermaid
 graph TD
-   subgraph Trinity [The Agentic Trinity 2.0]
+   subgraph Trinity [The Governance Framework 2.0]
        E(The Engine: Reasoning)
        F(The Face: Interface)
        C(The Cockpit: Operations)
@@ -101,7 +101,7 @@ Evolving into the industry standard for production governance. See the [**CHANGE
 
 - **📊 Autonomous Core Dashboard**: Google Cloud-grade visual reporting for executive stakeholders.
 - **🌉 Cockpit Bridge**: Multi-cloud deployment to GCP, AWS, and Azure.
-- **🧠 Semantic Hive Mind**: Distributed caching that reduces LLM costs by up to 40%.
+- **🧠 Semantic distributed cache**: Distributed caching that reduces LLM costs by up to 40%.
 - **🔧 Closer Engine 2.0**: Autonomous remediation of code gaps and architectural debt.
 
 ---

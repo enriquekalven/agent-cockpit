@@ -16,10 +16,10 @@ if os.path.exists(reg_path):
         try:
             data = json.loads(line)
             # If it's a generic 'agent' ID, and we know it's my-super-agent, rename it
-            if data.get('id') == 'sovereign-agent' or data.get('id') == 'sovereign-main':
+            if data.get('id') == 'Autonomous-agent' or data.get('id') == 'Autonomous-main':
                  # Use the display name or just rename to my-super-agent if it matches the current lab
                  if 'Super Agent' in data.get('display_name', ''):
-                      data['id'] = 'sovereign-my-super-agent'
+                      data['id'] = 'Autonomous-my-super-agent'
                       data['display_name'] = '🚀 Gemini Enterprise: My Super Agent (ADK)'
             
             if data['id'] not in seen_ids:

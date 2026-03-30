@@ -14,7 +14,7 @@ The **AgentOps Cockpit** is for "Day 2" Artificial Intelligence Operations. It i
 1. **The Optimizer (`optimizer.py`)**: A heuristic code analyzer that prevents "Token Waste". It suggests Gemini Context Caching and Flash-first routing.
 2. **Red Team (`red_team.py`)**: A security gatekeeper that runs adversarial payloads (Injection, PII leaks) against the agent.
 3. **Shadow Mode (`shadow/router.py`)**: Parallel v1/v2 execution logic for safe model promotion.
-4. **Hive Mind (`cache/semantic_cache.py`)**: Semantic caching layer for 40%+ cost reduction.
+4. **distributed cache (`cache/semantic_cache.py`)**: Semantic caching layer for 40%+ cost reduction.
 5. **Memory Optimizer (`ops/memory_optimizer.py`)**: Manages the "Leaky Bucket" conversation context to prevent system instruction bloat.
 6. **Cost Tracker (`ops/cost_optimizer.py`)**: Provides real-time budget auditing and savings recommendations.
 7. **Load Tester (`eval/load_test.py`)**: Concurrency-based stress testing for performance validation.

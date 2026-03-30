@@ -96,7 +96,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ### v1.6.0 (2026-02-12) - The "Watchtower Standard" Release
 - **Cockpit Hub Hierarchy**: Complete CLI refactor into 7 specialized Hubs.
-- **Sentinel Oversight**: Reasoning-based runtime anomaly detection.
+- **System Oversight**: Reasoning-based runtime anomaly detection.
 - **Context Architect**: Deep audit for token windows and context caching.
 
 ### v1.5.0 (2026-02-11) - The "Autonomous SRE" Release
@@ -294,5 +294,5 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ## [0.5.0] - 2026-01-15
 - Initial public release of the AgentOps Platform.
-- Red Team Auditor, PII Scrubber, and Hive Mind Caching.
+- Red Team Auditor, PII Scrubber, and distributed cache Caching.
 - Google Well-Architected Framework checks.

@@ -223,7 +223,7 @@ agent-cockpit/
         agentops_cockpit-1.6.0-py3-none-any.whl
         agentops_cockpit-1.6.0.tar.gz
     test-deployments/
-        prod-sovereign-agent/
+        prod-Autonomous-agent/
             app/
                 app_utils/
             tests/
@@ -23667,7 +23667,7 @@ dev:
 	@echo "==============================================================================="
 	@echo "| 🚀 Starting AgentOps Cockpit Development Stack...                         |"
 	@echo "| 🎭 Face: http://localhost:5173 (Vite)                                       |"
-	@echo "| 🛡️ Gateway: http://localhost:8000 (Sovereign Sidecar)                        |"
+	@echo "| 🛡️ Gateway: http://localhost:8000 (Autonomous Sidecar)                        |"
 	@echo "==============================================================================="
 	@npm run dev & PYTHONPATH=src uv run cockpit ops gateway --port 8000
 
@@ -23757,13 +23757,13 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Sovereign Hub Hierarchy (v1.6 CLI)
+# Autonomous Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
 	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
 
-bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt sovereign libraries
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt Autonomous libraries
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
@@ -23793,10 +23793,10 @@ arch-review: audit-arch ## [Alias] Architecture Design Review
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
 	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
 
-deploy-sovereign: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy sovereign --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+deploy-Autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run cockpit deploy Autonomous --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
-deploy-prod: deploy-sovereign ## [Alias] Production Deployment
+deploy-prod: deploy-Autonomous ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status
@@ -23872,8 +23872,8 @@ def register():
         "id": "my-super-agent-gke",
         "version": "1.4.7",
         "url": f"http://{gke_ip}/",
-        "name": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "name": "Super Agent (GKE Autonomy)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full Autonomy.",
         "capabilities": {"streaming": False, "conversational": True},
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -23901,8 +23901,8 @@ def register():
     
     # Discovery Engine payload
     payload = {
-        "displayName": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "displayName": "Super Agent (GKE Autonomy)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full Autonomy.",
         "icon": {
             "uri": "https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/hub/default/24px.svg"
         },
@@ -24072,7 +24072,7 @@ dev = [
 ```yaml
 name: agent-ops-cockpit
 version: 2.0.4
-description: The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
+description: The Autonomous Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
 repository: https://github.com/enriquekalven/agent-ops-cockpit
 license: MIT
 author: enriquekalven
@@ -24093,7 +24093,7 @@ deployment:
   command: uvx
   args: ["agentops-cockpit", "mcp"]
   env:
-    COCKPIT_MODE: sovereign
+    COCKPIT_MODE: Autonomous
 
 ```
 
@@ -24422,10 +24422,10 @@ if os.path.exists(reg_path):
         try:
             data = json.loads(line)
             # If it's a generic 'agent' ID, and we know it's my-super-agent, rename it
-            if data.get('id') == 'sovereign-agent' or data.get('id') == 'sovereign-main':
+            if data.get('id') == 'Autonomous-agent' or data.get('id') == 'Autonomous-main':
                  # Use the display name or just rename to my-super-agent if it matches the current lab
                  if 'Super Agent' in data.get('display_name', ''):
-                      data['id'] = 'sovereign-my-super-agent'
+                      data['id'] = 'Autonomous-my-super-agent'
                       data['display_name'] = '🚀 Gemini Enterprise: My Super Agent (ADK)'
             
             if data['id'] not in seen_ids:
@@ -24453,7 +24453,7 @@ export interface InteractionGate {
 }
 
 export const enforcePolicy = async (action: string): Promise<InteractionGate> => {
-    // PII & Financial Sovereignty Logic
+    // PII & Financial Autonomy Logic
     const isSensitive = /delete|transfer|payment|credential|secret/i.test(action);
     return {
         confirm: isSensitive,
@@ -24533,7 +24533,7 @@ import vertexai
 from agent import SuperAgent
 from vertexai.preview import reasoning_engines
 
-# v1.4.7 Sovereign Alignment: Agent Engine (Reasoning Engine) Deployment Script
+# v1.4.7 Autonomous Alignment: Agent Engine (Reasoning Engine) Deployment Script
 # Hardened with Gcloud Auth Fallback & Path Correction
 
 def get_gcloud_credentials():
@@ -24648,8 +24648,8 @@ if __name__ == "__main__":
 ### FILE: `functions/main.py`
 ---
 ```python
-# v1.4.5 Sovereign Alignment: Optimized for Google Cloud Run
-# Firebase Functions for Sovereign Telemetry
+# v1.4.5 Autonomous Alignment: Optimized for Google Cloud Run
+# Firebase Functions for Autonomous Telemetry
 import datetime
 from typing import Any, Dict, Optional
 

@@ -7,7 +7,7 @@ export interface InteractionGate {
 }
 
 export const enforcePolicy = async (action: string): Promise<InteractionGate> => {
-    // PII & Financial Sovereignty Logic
+    // PII & Financial Autonomy Logic
     const isSensitive = /delete|transfer|payment|credential|secret/i.test(action);
     return {
         confirm: isSensitive,

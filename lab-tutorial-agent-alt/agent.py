@@ -2,7 +2,7 @@ import os
 import re
 from typing import Any, List
 
-# Sovereign Alignment: ADK & Reasoning Engine Compatibility
+# Autonomous Alignment: ADK & Reasoning Engine Compatibility
 try:
     from google import adk
     from google.adk.agents import base_agent
@@ -68,7 +68,7 @@ class SuperAgent(AgentBase):
     def solve_task(self, prompt: str) -> str:
         """Main reasoning logic."""
         sanitized_prompt = self._sanitize_input(prompt)
-        return f"Sovereign Solution: Processed '{sanitized_prompt}' on {self.project_id}. (ADK: {HAS_ADK})"
+        return f"Autonomous Solution: Processed '{sanitized_prompt}' on {self.project_id}. (ADK: {HAS_ADK})"
 
     def query(self, input: str) -> str:
         """Vertex AI Agent Engine Requirement: Primary entry point."""

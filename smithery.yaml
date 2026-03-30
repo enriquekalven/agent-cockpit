@@ -1,6 +1,6 @@
 name: agent-ops-cockpit
 version: 2.0.4
-description: The Sovereign Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
+description: The Autonomous Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
 repository: https://github.com/enriquekalven/agent-ops-cockpit
 license: MIT
 author: enriquekalven
@@ -21,4 +21,4 @@ deployment:
   command: uvx
   args: ["agentops-cockpit", "mcp"]
   env:
-    COCKPIT_MODE: sovereign
+    COCKPIT_MODE: Autonomous

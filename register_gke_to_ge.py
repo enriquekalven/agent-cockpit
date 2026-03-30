@@ -29,8 +29,8 @@ def register():
         "id": "my-super-agent-gke",
         "version": "1.4.7",
         "url": f"http://{gke_ip}/",
-        "name": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "name": "Super Agent (GKE Autonomy)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full Autonomy.",
         "capabilities": {"streaming": False, "conversational": True},
         "defaultInputModes": ["text"],
         "defaultOutputModes": ["text"],
@@ -58,8 +58,8 @@ def register():
     
     # Discovery Engine payload
     payload = {
-        "displayName": "Super Agent (GKE Sovereignty)",
-        "description": "High-fidelity AI agent running on GKE Autopilot with full sovereignty.",
+        "displayName": "Super Agent (GKE Autonomy)",
+        "description": "High-fidelity AI agent running on GKE Autopilot with full Autonomy.",
         "icon": {
             "uri": "https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/hub/default/24px.svg"
         },
