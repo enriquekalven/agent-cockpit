@@ -863,13 +863,6 @@ def anomaly_check_deprecated(name: str=typer.Option(..., help='Agent name to aud
     anomaly_check(name, sim_rogue)
 
 
-@app.command(name="evolve", hidden=True)
-def legacy_evolve(path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace'), branch: bool=typer.Option(True, '--branch/--no-branch', help='Create a new git branch for the fixes')):
-    """[DEPRECATED] Use 'fix evolve' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fix evolve' on your behalf...[/bold blue]")
-
-    evolve(path, branch)
-
 @app.command(hidden=True)
 def deploy_prep_alias(path: str=typer.Option('.', '--path', help='Path to agent/workspace'), target: str=typer.Option('google', '--target', help='Primary target cloud')):
     """[DEPRECATED] Use 'deploy prep' instead."""
