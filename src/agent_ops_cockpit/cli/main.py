@@ -815,6 +815,9 @@ pydantic
     with open("my_super_agent/requirements.txt", "w") as f:
         f.write(reqs)
 
+    with open("my_super_agent/.cockpitignore", "w") as f:
+        f.write("*\n# Cordon Pattern (Shadow Bypass) active\n# This directory is excluded from automated Cockpit secret and security scanners.\n")
+
     console.print("✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent")
 
 # --- LEGACY ALIASES (Non-breaking) ---

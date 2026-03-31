@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-31T13:48:33.533041
+**Generated**: 2026-03-31T14:25:32.713187
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -13,6 +13,7 @@ agent-cockpit/
     starter_pack_pyproject.toml
     INDUSTRY_HARDENING_v2.0_FINAL.md
     index.html
+    cockpit_export_20260331_1421.json
     STRATEGIC_MEMO_v2.0.md
     AGENT_OPS_STORY.md
     TECHNICAL_DESIGN_DOCUMENT.html
@@ -21,6 +22,7 @@ agent-cockpit/
     uv.lock
     CHANGELOG.md
     EVOLUTIONARY_BENCH_V2.md
+    cockpit_export_20260331_1349.json
     uv.toml
     Dockerfile
     Makefile
@@ -32,9 +34,12 @@ agent-cockpit/
     PRIVACY.md
     Dockerfile.backend
     MANIFEST.in
+    cockpit_export_20260331_1348.json
     README.md
     CAPABILITIES_REGISTRY.md
     smithery.yaml
+    cockpit_export_20260331_1424.json
+    CODEBASE_BUNDLE.md
     TECHNICAL_DESIGN_DOCUMENT.md
     ROADMAP.md
     package-lock.json
@@ -55,13 +60,15 @@ agent-cockpit/
     register_adk_to_ge.py
     cleanup_registry.py
     policy_engine.ts
+    cockpit_export_20260331_1422.json
     MEDIUM_POST.md
     DOGFOOD_POST.md
+    cockpit_export_20260331_1423.json
     mcp-config.json
+    zero2hero_script_v2_13.sh
     Dockerfile.aws
     cockpit.yaml
     COCKPIT_V1.9.0_EVOLUTION.md
-    zero2hero_script.sh
     terraform/
     app/
         app_utils/
@@ -20420,7 +20427,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.12"
+version = "2.0.13"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
