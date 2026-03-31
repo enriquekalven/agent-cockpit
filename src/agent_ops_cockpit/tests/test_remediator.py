@@ -76,7 +76,7 @@ def test_apply_tool_hardening(tmp_path):
     code_path = tmp_path / "agent.py"
     code_path.write_text("def my_tool(mode: str):\n    pass")
     
-    finding = AuditFinding("Reliability", "Hardening", "Use Literal", "High", "High", line_number=1, file_path=str(code_path))
+    finding = AuditFinding(category="Reliability", title="Hardening", description="Use Literal", impact="High", roi="High", line_number=1, file_path=str(code_path))
     remediator = CodeRemediator(str(code_path))
     remediator.apply_tool_hardening(finding)
     remediator.save()
@@ -90,7 +90,7 @@ def test_apply_context_compaction(tmp_path):
     code_path = tmp_path / "agent.py"
     code_path.write_text("import os\n\nclass Agent:\n    pass")
     
-    finding = AuditFinding("FinOps", "Compaction", "Add strategy", "Medium", "Medium", line_number=3, file_path=str(code_path))
+    finding = AuditFinding(category="FinOps", title="Compaction", description="Add strategy", impact="Medium", roi="Medium", line_number=3, file_path=str(code_path))
     remediator = CodeRemediator(str(code_path))
     remediator.apply_context_compaction(finding)
     remediator.save()

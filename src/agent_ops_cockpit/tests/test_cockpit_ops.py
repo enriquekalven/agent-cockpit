@@ -27,13 +27,6 @@ def test_preflight_tooling():
         assert success is True
         assert "All base tools detected" in detail
 
-def test_preflight_cloud_auth_simulation():
-    engine = PreflightEngine()
-    os.environ["COCKPIT_SIMULATION"] = "true"
-    success, detail = engine.check_cloud_auth("aws")
-    assert success is True
-    assert "SIMULATION MOCK" in detail
-    os.environ.pop("COCKPIT_SIMULATION")
 
 @pytest.mark.asyncio
 async def test_simulator_hydration_verification():

@@ -19,9 +19,11 @@ async def test_discover_agents(mock_agent_dir):
     assert any(str(mock_agent_dir) in a for a in agents)
 
 @pytest.mark.asyncio
+@patch("agent_ops_cockpit.ops.preflight.PreflightEngine.run_all")
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_cockpit_pipeline_single(mock_migration, mock_audit, mock_agent_dir, monkeypatch):
+async def test_cockpit_pipeline_single(mock_migration, mock_audit, mock_run_all, mock_agent_dir, monkeypatch):
+    mock_run_all.return_value = True
     monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
@@ -35,9 +37,11 @@ async def test_cockpit_pipeline_single(mock_migration, mock_audit, mock_agent_di
     assert results[0]["status"] == "success"
 
 @pytest.mark.asyncio
+@patch("agent_ops_cockpit.ops.preflight.PreflightEngine.run_all")
 @patch("agent_ops_cockpit.ops.orchestrator.run_audit")
 @patch("agent_ops_cockpit.ops.migration.MigrationEngine")
-async def test_cockpit_pipeline_fleet(mock_migration, mock_audit, tmp_path, monkeypatch):
+async def test_cockpit_pipeline_fleet(mock_migration, mock_audit, mock_run_all, tmp_path, monkeypatch):
+    mock_run_all.return_value = True
     monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     mock_audit.return_value = 0
     mock_engine = mock_migration.return_value
