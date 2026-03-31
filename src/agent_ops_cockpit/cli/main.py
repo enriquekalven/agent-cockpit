@@ -337,7 +337,7 @@ def quality(path: str='.'):
 
 @audit_app.command()
 def arch(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
-    """Architecture Design Review (v1.4 compliant)."""
+    """Architecture Design Review (v2.0+ compliant)."""
     arch_mod.audit(path)
 
 @audit_app.command()
@@ -640,6 +640,14 @@ def autonomous_upgrade(
 
     from agent_ops_cockpit.ops.upgrader import run_autonomous_upgrade
     asyncio.run(run_autonomous_upgrade(path, docs_url))
+
+@app.command(name="finops")
+def root_finops(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to benchmark')] = '.'):
+    """💰 FinOps: Interactive benchmarking to find optimal model tiers for maximum ROI."""
+    from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+    bench = ReliabilityBenchmarker(path)
+    import asyncio
+    asyncio.run(bench.shadow_benchmark_roi())
 
 @fix_app.command(name="reason")
 def fix_reason(
