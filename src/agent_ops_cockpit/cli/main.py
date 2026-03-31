@@ -769,6 +769,54 @@ def create_face(project_name: Annotated[str, typer.Argument(help='The name of th
         console.print(f'[bold red]Error during git operation:[/bold red] {(e.stderr.decode() if e.stderr else str(e))}')
         raise typer.Exit(code=1)
 
+@create_app.command(name="rogue-agent")
+def create_rogue_agent():
+    """Setup the 'Broken Agent' for the Cockpit Lab."""
+    console.print("🧪 Bootstrapping Rogue Agent for viral lab...")
+    os.makedirs("my_super_agent", exist_ok=True)
+    
+    agent_code = '''import os
+import vertexai
+from fastapi import FastAPI
+
+# 🚩 SecOps Violation: Hardcoded development keys in plaintext
+os.environ["GEMINI_API_KEY"] = "AIzaSy_ROGUE_KEY_8172648"
+
+app = FastAPI(title="Rogue AI Agent")
+
+# 🚩 Data Privacy Violation: Unmasked PII extraction
+def extract_customer_data(user_ssn: str, email: str):
+    print(f"DEBUG: Processing user {email} with SSN {user_ssn}") 
+    return {"status": "extracted"}
+
+@app.post("/agent/execute")
+async def execute_task(user_prompt: str):
+    # 🚩 FinOps Nightmare: Massive system prompt injected on EVERY call (No Context Caching)
+    system_rules = "You are a helpful assistant. " * 5000 
+    
+    # 🚩 Security Risk: Raw prompt concatenation (SQL/Prompt Injection vulnerability)
+    unsafe_prompt = f"{system_rules}\\nUser asked: {user_prompt}"
+    
+    # 🚩 SRE Nightmare: No @retry, no timeouts, no backoff. If Google APIs hiccup, the agent dies.
+    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")
+    response = model.generate_content(unsafe_prompt)
+    
+    return {"agent_response": response.text}
+'''
+    with open("my_super_agent/agent.py", "w") as f:
+        f.write(agent_code)
+
+    reqs = """google-cloud-aiplatform
+fastapi
+uvicorn
+tenacity
+pydantic
+"""
+    with open("my_super_agent/requirements.txt", "w") as f:
+        f.write(reqs)
+
+    console.print("✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent")
+
 # --- LEGACY ALIASES (Non-breaking) ---
 
 

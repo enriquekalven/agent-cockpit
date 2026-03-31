@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-03-31T13:48:33.533041
+**Generated**: 2026-03-30T09:35:33.909328
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -7,64 +7,208 @@
 ## 📂 Repository Structure
 ```text
 agent-cockpit/
+    cockpit_export_20260217_1137.json
+    cockpit_export_20260216_1255.json
+    Dockerfile.temp
+    cockpit_export_20260313_1547.json
+    cockpit_export_20260219_0801.json
+    cockpit_export_20260330_0935.json
+    cockpit_export_20260219_1945.json
+    cockpit_export_20260218_2334.json
+    cockpit_export_20260303_1305.json
+    cockpit_export_20260223_0813.json
+    cockpit_export_20260218_2119.json
     Dockerfile.azure
+    check_gcp_status.py
     azure-deploy.bicep
+    cockpit_export_20260214_0817.json
+    cockpit_export_20260218_2210.json
+    cockpit_export_20260217_2347.json
+    cockpit_export_20260223_1019.json
+    cockpit_export_20260316_1102.json
+    cockpit_export_20260316_2240.json
+    evidence_lake.json
+    cockpit_export_20260218_2338.json
     tsconfig.node.json
+    cockpit_export_20260218_1914.json
+    cockpit_export_20260217_1455.json
+    cockpit_export_20260213_2155.json
     starter_pack_pyproject.toml
     INDUSTRY_HARDENING_v2.0_FINAL.md
     index.html
+    cockpit_export_20260218_2339.json
+    cockpit_export_20260316_2241.json
+    cockpit_export_20260316_1103.json
     STRATEGIC_MEMO_v2.0.md
+    cockpit_export_20260216_1258.json
+    cockpit_export_20260218_2211.json
     AGENT_OPS_STORY.md
+    cockpit_final_report.md
     TECHNICAL_DESIGN_DOCUMENT.html
     LICENSE
+    cockpit_export_20260218_2118.json
     requirements.txt
     uv.lock
+    cockpit_export_20260218_2335.json
+    cockpit_export_20260313_1546.json
     CHANGELOG.md
+    cockpit_export_20260223_1014.json
+    cockpit_export_20260213_2201.json
+    cockpit_export_20260214_0811.json
+    cockpit_export_20260225_1012.json
+    ui_audit_result.txt
+    cockpit_export_20260330_0840.json
     EVOLUTIONARY_BENCH_V2.md
+    cockpit_export_20260226_1155.json
     uv.toml
+    cockpit_export_20260219_1934.json
+    cockpit_export_20260217_1828.json
     Dockerfile
     Makefile
+    cockpit_export_20260303_1620.json
     setup_gcp.sh
+    cockpit_export_20260318_0849.json
     Dockerfile.gcp
+    cockpit_export_20260213_2153.json
+    cockpit_export_20260214_0755.json
+    cockpit_export_20260219_0811.json
     register_gke_to_ge.py
+    cockpit_export_20260226_0924.json
     pyproject.toml
+    cockpit_export_20260317_1246.json
+    cockpit_export_20260303_1303.json
+    cockpit_export_20260224_2340.json
     starter_pack_README.md
+    final_ui_audit.txt
     PRIVACY.md
+    cockpit_export_20260217_1408.json
+    cockpit_export_20260224_2341.json
+    cockpit_export_20260317_1247.json
+    eslint_report.txt
     Dockerfile.backend
+    cockpit_export_20260225_1009.json
+    cockpit_export_20260213_2133.json
+    cockpit_export_20260226_0925.json
+    cockpit_export_20260217_1825.json
     MANIFEST.in
+    cockpit_export_20260316_2226.json
+    audit_raw.txt
+    cockpit_export_20260214_0754.json
+    cockpit_export_20260318_0848.json
+    cockpit_export_20260218_1913.json
+    cockpit_export_20260313_1537.json
+    cockpit_export_20260303_1621.json
+    cockpit_export_20260303_1230.json
+    cockpit_export_20260313_1624.json
+    cockpit_export_20260226_1154.json
+    cockpit_export_20260330_0841.json
+    cockpit_export_20260303_1549.json
+    cockpit_export_20260330_0839.json
     README.md
     CAPABILITIES_REGISTRY.md
+    cockpit_export_20260317_1248.json
+    cockpit_export_20260316_2244.json
     smithery.yaml
+    cockpit_export_20260218_2347.json
+    debug_paradigm.py
+    cockpit_export_20260303_0834.json
+    cockpit_export_20260218_2351.json
+    CODEBASE_BUNDLE.md
+    cockpit_export_20260225_1010.json
+    cockpit_export_20260214_0813.json
+    cockpit_export_20260313_1559.json
+    cockpit_export_20260303_1301.json
+    cockpit_export_20260317_1244.json
     TECHNICAL_DESIGN_DOCUMENT.md
+    cockpit_export_20260303_0013.json
+    cockpit_export_20260219_1941.json
+    cockpit_export_20260219_2140.json
+    cockpit_export_20260310_1054.json
     ROADMAP.md
+    cockpit_export_20260303_1546.json
     package-lock.json
     package.json
-    cockpit_export_20260331_1347.json
+    cockpit_export_20260217_1133.json
+    cockpit_export_20260316_2225.json
+    cockpit_export_20260217_1021.json
     register_to_ge.py
+    cockpit_export_20260303_1547.json
+    cockpit_export_20260224_2338.json
+    cockpit_export_20260217_1827.json
     CONTRIBUTING.md
+    cockpit_export_20260217_1431.json
+    cockpit_export_20260318_0939.json
     DOGFOODING.md
+    test_out.log
+    cockpit_export_20260317_1245.json
+    llm.txt
+    cockpit_export_20260213_2202.json
+    cockpit_export_20260225_1011.json
+    cockpit_export_20260218_2350.json
+    cockpit_export_20260218_2346.json
+    cockpit_export_20260219_1937.json
+    cockpit_export_20260219_0808.json
     deployment_metadata.json
     CHEAT_SHEET.md
     tsconfig.json
     firebase.json
+    cockpit_export_20260214_0756.json
+    fix_versions.py
+    certify_output.txt
     GEMINI.md
+    cockpit_export_20260224_2201.json
+    cockpit_export_20260303_1242.json
+    cockpit_export_20260218_2009.json
+    cockpit_export_20260218_2336.json
+    cockpit_export_20260217_1334.json
+    cockpit_export_20260217_2236.json
     Procfile
+    cockpit_export_20260313_1617.json
+    cockpit_export_20260313_1545.json
+    cockpit_export_20260223_1017.json
     eslint.config.js
     aws-apprunner.json
+    cockpit_export_20260313_1553.json
+    cockpit_export_20260213_2157.json
+    cockpit_export_20260223_1021.json
     vite.config.ts
     register_adk_to_ge.py
+    cockpit_export_20260223_1220.json
     cleanup_registry.py
     policy_engine.ts
+    cockpit_audit.sarif
+    cockpit_export_20260218_2212.json
     MEDIUM_POST.md
+    cockpit_export_20260330_0900.json
+    cockpit_export_20260313_1620.json
     DOGFOOD_POST.md
+    Dockerfile.original
+    cockpit_export_20260218_2340.json
+    cockpit_export_20260316_1101.json
+    cockpit_export_20260313_1548.json
     mcp-config.json
+    cockpit_export_20260316_2243.json
+    cockpit_export_20260217_1456.json
+    cockpit_export_20260313_1552.json
+    cockpit_export_20260316_2222.json
+    cockpit_export_20260217_2348.json
+    cockpit_export_20260303_0829.json
+    cockpit_export_20260224_2144.json
+    cockpit_export_20260310_1053.json
     Dockerfile.aws
     cockpit.yaml
+    cockpit_export_20260303_0014.json
+    cockpit_export_20260219_1946.json
     COCKPIT_V1.9.0_EVOLUTION.md
-    zero2hero_script.sh
+    cockpit_export_20260218_1018.json
+    cockpit_export_20260224_2200.json
+    a2ui_bridge.py
     terraform/
     app/
         app_utils/
+    dist_v161/
+        agentops_cockpit-1.6.1-py3-none-any.whl
+        agentops_cockpit-1.6.1.tar.gz
     lab-tutorial-agent-alt/
         agent_engine_deploy.py
         __init__.py
@@ -74,10 +218,12 @@ agent-cockpit/
             deploy.py
             telemetry.py
             typing.py
-    out/
     test-adk-agent/
+    dist_py/
+        agentops_cockpit-1.6.0-py3-none-any.whl
+        agentops_cockpit-1.6.0.tar.gz
     test-deployments/
-        prod-sovereign-agent/
+        prod-Autonomous-agent/
             app/
                 app_utils/
             tests/
@@ -767,7 +913,6 @@ agent-cockpit/
         RFC_GOVERNANCE_AS_CODE.md
         SECURITY_GUIDE.md
         quality-audit-report.html
-        bgm-corporate.mp3
         TECHNICAL_INFRA_GUIDE.md
         BE_INTEGRATION_GUIDE.md
         GUIDE_POLICY.md
@@ -810,7 +955,11 @@ agent-cockpit/
         requirements.txt
         agent.py
         Procfile
+    dist_v163/
+        agentops_cockpit-1.6.3.tar.gz
+        agentops_cockpit-1.6.3-py3-none-any.whl
     scripts/
+        aggregate_telemetry.py
         logging_injector.py
         final_hardener.py
         hardened_ui.py
@@ -820,6 +969,7 @@ agent-cockpit/
         __init__.py
         docker_hardener.py
         generate_sample_dashboard.py
+        setup_supabase.sql
         sync_docs.py
         reflection_patch.py
         fleet_dna_analyzer.py
@@ -840,6 +990,3387 @@ agent-cockpit/
         aws-apprunner.json
         main.py
         Dockerfile.aws
+    dist_v162/
+        agentops_cockpit-1.6.2.tar.gz
+        agentops_cockpit-1.6.2-py3-none-any.whl
+    docs_temp/
+        LICENSE
+        uv.lock
+        Makefile
+        pyproject.toml
+        IDE_SETUP.md
+        README.md
+        package-lock.json
+        sitemap.xml
+        AGENTS.md
+        CLAUDE.md
+        pipeline/
+            __init__.py
+            cli.py
+            __main__.py
+            preprocessors/
+                link_map.py
+                __init__.py
+                handle_auto_links.py
+                markdown_preprocessor.py
+            tools/
+                highlights.py
+                __init__.py
+                links.py
+                parser.py
+                partner_pkg_table.py
+                lexer.py
+                docusaurus_parser.py
+                notebook/
+                    convert.py
+                    __init__.py
+                    notebook_convert_templates/
+                        mdoutput/
+                            conf.json
+                            index.md.j2
+            core/
+                __init__.py
+                builder.py
+                watcher.py
+            commands/
+                build.py
+                __init__.py
+                dev.py
+        tests/
+            __init__.py
+            unit_tests/
+                test_parser.py
+                test_check_pr_imports.py
+                test_lexer.py
+                __init__.py
+                utils.py
+                test_builder.py
+                test_watcher.py
+                tools/
+                    __init__.py
+                    test_move_files.py
+        scripts/
+            convert_pip_to_codegroup.py
+            check_removed_pages_redirects.py
+            import_mappings.json
+            __init__.py
+            update_mdx.py
+            check_pr_imports.py
+            packages_yml_get_downloads.py
+            check_import_mappings.py
+        reference/
+            pnpm-lock.yaml
+            vercel.json
+            packages.yml
+            README.md
+            package.json
+            python/
+                mkdocs.yml
+                uv.lock
+                Makefile
+                pyproject.toml
+                README.md
+                pyproject.prod.toml
+                switch-config.sh
+                serve_subset.py
+                AGENTS.md
+                install-mkdocs.sh
+                CLAUDE.md
+                pyproject.dev.toml
+                overrides/
+                    main.html
+                    partials/
+                        logo.html
+                docs/
+                    index.md
+                    langgraph/
+                        func.md
+                        errors.md
+                        channels.md
+                        graphs.md
+                        config.md
+                        index.md
+                        swarm.md
+                        store.md
+                        cache.md
+                        agents.md
+                        checkpoints.md
+                        runtime.md
+                        types.md
+                        pregel.md
+                        supervisor.md
+                        constants.md
+                    langsmith/
+                        index.md
+                        observability/
+                            sdk/
+                                async_client.md
+                                wrappers.md
+                                utils.md
+                                schemas.md
+                                run_helpers.md
+                                pytest_plugin.md
+                                middleware.md
+                                testing.md
+                                anonymizer.md
+                                index.md
+                                expect.md
+                                run_trees.md
+                                evaluation.md
+                                client.md
+                        deployment/
+                            remote_graph.md
+                            sdk.md
+                    langchain/
+                        messages.md
+                        embeddings.md
+                        middleware.md
+                        index.md
+                        models.md
+                        agents.md
+                        tools.md
+                        langchain/
+                            index.md
+                    langchain_tests/
+                        index.md
+                        unit_tests/
+                            embeddings.md
+                            index.md
+                            chat_models.md
+                            tools.md
+                        integration_tests/
+                            embeddings.md
+                            kv_stores.md
+                            base.md
+                            index.md
+                            vectorstores.md
+                            chat_models.md
+                            caches.md
+                            tools.md
+                            retrievers.md
+                    _snippets/
+                        wip.md
+                        langchain-classic-warning.md
+                    langchain_core/
+                        callbacks.md
+                        exceptions.md
+                        runnables.md
+                        output_parsers.md
+                        utils.md
+                        embeddings.md
+                        load.md
+                        index.md
+                        vectorstores.md
+                        language_models.md
+                        caches.md
+                        rate_limiters.md
+                        document_loaders.md
+                        prompts.md
+                        retrievers.md
+                        documents.md
+                    langchain_mcp_adapters/
+                        index.md
+                    integrations/
+                        langchain_milvus.md
+                        langchain_perplexity.md
+                        langchain_elasticsearch.md
+                        langchain_neo4j.md
+                        langchain_qdrant.md
+                        langchain_postgres.md
+                        langchain_openrouter.md
+                        langchain_sqlserver.md
+                        langchain_deepseek.md
+                        langchain_tavily.md
+                        langchain_weaviate.md
+                        langchain_unstructured.md
+                        langchain_together.md
+                        langchain_aws.md
+                        langchain_exa.md
+                        langchain_nomic.md
+                        langchain_cerebras.md
+                        langchain_xai.md
+                        langchain_sema4.md
+                        langchain_huggingface.md
+                        index.md
+                        langchain_mongodb.md
+                        langchain_pinecone.md
+                        langchain_db2.md
+                        langchain_upstage.md
+                        langchain_fireworks.md
+                        langchain_snowflake.md
+                        langchain_groq.md
+                        langchain_chroma.md
+                        langchain_astradb.md
+                        langchain_prompty.md
+                        langchain_cohere.md
+                        langchain_mistralai.md
+                        langchain_redis.md
+                        langchain_nvidia_ai_endpoints.md
+                        langchain_ollama.md
+                        langchain_azure_storage/
+                            index.md
+                        langchain_google_vertexai/
+                            VertexAIEmbeddings.md
+                            index.md
+                            VertexAI.md
+                            ChatVertexAI.md
+                            other.md
+                        langchain_azure/
+                            index.md
+                        langchain_google_genai/
+                            ChatGoogleGenerativeAI.md
+                            GoogleGenerativeAI.md
+                            index.md
+                            GoogleGenerativeAIEmbeddings.md
+                        langchain_community/
+                            index.md
+                        langchain_openai/
+                            ChatOpenAI.md
+                            OpenAI.md
+                            OpenAIEmbeddings.md
+                            middleware.md
+                            AzureOpenAIEmbeddings.md
+                            AzureOpenAI.md
+                            index.md
+                            BaseChatOpenAI.md
+                            AzureChatOpenAI.md
+                        langchain_ibm/
+                            WatsonxSQLDatabaseToolkit.md
+                            WatsonxRerank.md
+                            WatsonxLLM.md
+                            WatsonxToolkit.md
+                            index.md
+                            ChatWatsonx.md
+                            WatsonxEmbeddings.md
+                        langchain_anthropic/
+                            middleware.md
+                            index.md
+                            AnthropicLLM.md
+                            ChatAnthropic.md
+                        langchain_amazon_nova/
+                            ChatAmazonNova.md
+                            index.md
+                        langchain_azure_ai/
+                            index.md
+                        langchain_azure_dynamic_sessions/
+                            index.md
+                        langchain_google_community/
+                            index.md
+                        langchain_google/
+                            index.md
+                        langchain_parallel/
+                            ChatParallelWeb.md
+                            ParallelExtractTool.md
+                            index.md
+                            ParallelWebSearchTool.md
+                        langchain_azure_postgresql/
+                            index.md
+                    static/
+                        brand/
+                            reference-dark.svg
+                            reference-light.svg
+                            docs-favicon.png
+                    langchain_text_splitters/
+                        index.md
+                    javascripts/
+                        shortcuts.js
+                    langchain_classic/
+                        callbacks.md
+                        storage.md
+                        runnables.md
+                        output_parsers.md
+                        embeddings.md
+                        smith.md
+                        memory.md
+                        index.md
+                        chat_models.md
+                        chains.md
+                        agents.md
+                        hub.md
+                        evaluation.md
+                        retrievers.md
+                        globals.md
+                    deepagents/
+                        index.md
+                        graph.md
+                        middleware/
+                            summarization.md
+                            subagents.md
+                            memory.md
+                            skills.md
+                            index.md
+                            filesystem.md
+                        backends/
+                            composite.md
+                            sandbox.md
+                            state.md
+                            index.md
+                            store.md
+                            filesystem.md
+                            protocol.md
+                    stylesheets/
+                        version_admonitions.css
+                        page_width.css
+                        sticky_navigation.css
+                        logos.css
+                        toc.css
+                templates/
+                    python/
+                        material/
+                            function.html.jinja
+            external/
+                html-docs/
+            javascript/
+                pnpm-lock.yaml
+                README.md
+                package.json
+                tsconfig.json
+                eslint.config.mjs
+                build.ts
+                plugins/
+                    gtm.ts
+        src/
+            docs.json
+            language-toggle.js
+            index.mdx
+            style.css
+            langchain-academy.mdx
+            use-these-docs.mdx
+            snippets/
+                embeddings-tabs-py.mdx
+                chat-model-tabs-da-js.mdx
+                skills-usage-tabs-py.mdx
+                skills-usage-tabs-js.mdx
+                backend-state.mdx
+                embeddings-tabs-js.mdx
+                backend-local-shell.mdx
+                hitl-basic-config.mdx
+                chat-model-tabs-da.mdx
+                js-snippet-missing.mdx
+                backend-store.mdx
+                vectorstore-tabs-js.mdx
+                vectorstore-tabs-py.mdx
+                subagent-basic.mdx
+                chat-model-tabs-js.mdx
+                backend-composite.mdx
+                release-version-policy.mdx
+                backend-filesystem.mdx
+                trace-with-openai.mdx
+                deepagents-sandbox-basic-py.mdx
+                chat-model-tabs.mdx
+                trace-with-anthropic.mdx
+                deepagents-sandbox-basic-js.mdx
+                langsmith/
+                    platform-setup-note.mdx
+                    trace-ingestion-project.mdx
+                    agent-builder-pricing.mdx
+                    framework-agnostic.mdx
+                    pre-release-behavior.mdx
+                    permissions-reference.mdx
+                    set-workspace-secrets.mdx
+                    multi-workspace-org-roles.mdx
+                    feedback-data-fields.mdx
+                oss/
+                    studio.mdx
+                    deploy.mdx
+                    observability.mdx
+                    agent-chat-ui.mdx
+            langsmith/
+                data-export.mdx
+                alerts.mdx
+                resource-auth.mdx
+                log-retriever-trace.mdx
+                agent-builder-tools.mdx
+                online-evaluations-llm-as-judge.mdx
+                smith-python-sdk.mdx
+                authentication-methods.mdx
+                code-evaluator-ui.mdx
+                custom-auth.mdx
+                run-data-format.mdx
+                studio.mdx
+                aws-self-hosted.mdx
+                agent-builder-triggers.mdx
+                evaluate-existing-experiment.mdx
+                workload-isolation.mdx
+                agent-builder-slack-app.mdx
+                compare-traces.mdx
+                trace-with-livekit.mdx
+                log-traces-to-project.mdx
+                granular-usage.mdx
+                enqueue-concurrent.mdx
+                self-host-external-clickhouse.mdx
+                deploy-to-cloud.mdx
+                online-evaluations-composite.mdx
+                langsmith-mcp-server.mdx
+                agent-server.mdx
+                code-evaluator-sdk.mdx
+                setup-javascript.mdx
+                rate-limiting.mdx
+                cli.mdx
+                application-structure.mdx
+                home.mdx
+                setup-app-requirements-txt.mdx
+                trace-without-env-vars.mdx
+                reference.mdx
+                trace-with-temporal.mdx
+                feedback-data-format.mdx
+                audit-evaluator-scores.mdx
+                custom-routes.mdx
+                swe-benchmark.mdx
+                export-backend.mdx
+                agent-builder-pricing-faq.mdx
+                access-current-span.mdx
+                use-webhooks.mdx
+                api-ref-control-plane.mdx
+                log-multimodal-traces.mdx
+                filter-experiments-ui.mdx
+                evaluation-async.mdx
+                prompt-engineering-quickstart.mdx
+                run-evaluation-from-prompt-playground.mdx
+                multi-turn-simulation.mdx
+                script-delete-traces.mdx
+                llm-as-judge-sdk.mdx
+                improve-judge-evaluator-feedback.mdx
+                stateless-runs.mdx
+                create-account-api-key.mdx
+                reject-concurrent.mdx
+                trace-with-vercel-ai-sdk.mdx
+                polly-observability.mdx
+                langsmith-collector.mdx
+                custom-middleware.mdx
+                run-evals-api-only.mdx
+                metric-type.mdx
+                repetition.mdx
+                azure-self-hosted.mdx
+                langsmith-fetch.mdx
+                example-data-format.mdx
+                streaming.mdx
+                evaluate-rag-tutorial.mdx
+                trace-with-mistral.mdx
+                env-var.mdx
+                remote-graph.mdx
+                server-mcp.mdx
+                pricing-faq.mdx
+                prebuilt-evaluators.mdx
+                agent-server-scale.mdx
+                trace-deep-agents.mdx
+                observability-quickstart.mdx
+                evaluate-graph.mdx
+                rollback-concurrent.mdx
+                observability.mdx
+                deployment-quickstart.mdx
+                define-target-function.mdx
+                custom-lifespan.mdx
+                experiment-configuration.mdx
+                share-trace.mdx
+                agent-server-distributed-tracing.mdx
+                multiple-scores.mdx
+                agent-builder-templates.mdx
+                api-v1-v2-overview.mdx
+                filter-traces-in-application.mdx
+                threads.mdx
+                trace-with-mastra.mdx
+                composite-evaluators-sdk.mdx
+                observability-llm-tutorial.mdx
+                use-threads.mdx
+                script-running-ch-support-queries.mdx
+                online-evaluations-code.mdx
+                polly-prompt-engineering.mdx
+                trace-with-pipecat.mdx
+                webhooks.mdx
+                manage-datasets.mdx
+                pricing-plans.mdx
+                log-llm-trace.mdx
+                custom-output-rendering.mdx
+                manage-organization-by-api.mdx
+                self-host-organization-charts.mdx
+                evaluation.mdx
+                self-host-using-an-existing-secret.mdx
+                optimize-classifier.mdx
+                conditional-tracing.mdx
+                polly.mdx
+                custom-openai-compliant-model.mdx
+                self-host-playground-environment-settings.mdx
+                docker.mdx
+                evaluate-with-attachments.mdx
+                script-delete-a-workspace.mdx
+                evaluation-approaches.mdx
+                app-development.mdx
+                evaluate-with-retry.mdx
+                auth.mdx
+                kubernetes.mdx
+                deployments.mdx
+                online-evaluations-multi-turn.mdx
+                control-plane.mdx
+                trace-with-langchain.mdx
+                mask-inputs-outputs.mdx
+                trace-with-semantic-kernel.mdx
+                self-host-ingress.mdx
+                deploy-with-control-plane.mdx
+                agent-builder-code.mdx
+                encryption.mdx
+                trace-with-google-adk.mdx
+                rules.mdx
+                generative-ui-react.mdx
+                configurable-logs.mdx
+                release-versions.mdx
+                agent-builder-webhooks.mdx
+                agent-auth.mdx
+                manage-datasets-in-application.mdx
+                evaluate-chatbot-tutorial.mdx
+                server-api-ref.mdx
+                compare-experiment-results.mdx
+                self-host-usage.mdx
+                bind-evaluator-to-dataset.mdx
+                configure-input-output-preview.mdx
+                use-remote-graph.mdx
+                abac.mdx
+                trace-with-microsoft-agent-framework.mdx
+                configurable-headers.mdx
+                prompt-template-format.mdx
+                local-server.mdx
+                assistants.mdx
+                agent-builder-mcp-framework.mdx
+                custom-endpoint.mdx
+                vitest-jest.mdx
+                self-host-upgrades.mdx
+                self-host-egress.mdx
+                self-host-user-management.mdx
+                platform-setup.mdx
+                manage-datasets-programmatically.mdx
+                sample-traces.mdx
+                trace-anthropic.mdx
+                smith-api-ref.mdx
+                polly-evaluation.mdx
+                llm-as-judge.mdx
+                same-thread.mdx
+                distributed-tracing.mdx
+                agent-builder-essentials.mdx
+                trace-bedrock.mdx
+                quick-start-studio.mdx
+                managing-model-configurations.mdx
+                use-studio.mdx
+                manage-prompts-programmatically.mdx
+                composite-evaluators-ui.mdx
+                write-prompt-with-ai.mdx
+                troubleshooting-studio.mdx
+                agent-builder.mdx
+                monorepo-support.mdx
+                trace-with-openai-agents-sdk.mdx
+                evaluate-on-intermediate-steps.mdx
+                dataset-transformations.mdx
+                test-react-agent-pytest.mdx
+                custom-store.mdx
+                self-host-external-redis.mdx
+                data-plane.mdx
+                script-generate-query-stats.mdx
+                langgraph-python-sdk.mdx
+                self-host-basic-auth.mdx
+                agent-builder-auth-format.mdx
+                alerts-webhook.mdx
+                billing.mdx
+                smith-deployments-sdk.mdx
+                get-started-integrations.mdx
+                prompt-commit.mdx
+                self-host-external-postgres.mdx
+                server-a2a.mdx
+                cron-jobs.mdx
+                organization-workspace-operations.mdx
+                graph-rebuild.mdx
+                platform-logs.mdx
+                trace-query-syntax.mdx
+                architectural-overview.mdx
+                trace-claude-agent-sdk.mdx
+                troubleshooting-variable-caching.mdx
+                add-auth-server.mdx
+                attach-user-feedback.mdx
+                index-datasets-for-dynamic-few-shot-example-selection.mdx
+                scalability-and-resilience.mdx
+                smith-js-ts-sdk.mdx
+                evaluation-quickstart.mdx
+                legacy-trace-with-vercel-ai-sdk.mdx
+                langsmith-managed-clickhouse.mdx
+                summary.mdx
+                trace-with-langgraph.mdx
+                custom-checkpointer.mdx
+                output-detailed-logs.mdx
+                evaluate-complex-agent.mdx
+                add-metadata-tags.mdx
+                integrations.mdx
+                script-running-pg-support-queries.mdx
+                deploy-self-hosted-full-platform.mdx
+                evaluation-types.mdx
+                alerts-pagerduty.mdx
+                agent-server-openapi.json
+                manage-prompts.mdx
+                faq.mdx
+                trace-deepseek.mdx
+                custom-docker.mdx
+                set-up-feedback-criteria.mdx
+                administration-overview.mdx
+                self-host-blob-storage.mdx
+                self-host-custom-tls-certificates.mdx
+                trace-with-autogen.mdx
+                rbac.mdx
+                prompt-engineering-concepts.mdx
+                annotate-code.mdx
+                pytest.mdx
+                evaluate-pairwise.mdx
+                script-delete-an-organization.mdx
+                add-metadata-tags
+                agent-server-feedback.mdx
+                dataset-json-types.mdx
+                update-a-prompt.mdx
+                trace-claude-code.mdx
+                multimodal-content.mdx
+                trace-with-instructor.mdx
+                observability-concepts.mdx
+                trace-with-crewai.mdx
+                use-tools.mdx
+                script-generate-clickhouse-stats.mdx
+                interrupt-concurrent.mdx
+                agent-builder-self-hosted.mdx
+                trace-openai.mdx
+                background-run.mdx
+                setup-pyproject.mdx
+                agent-builder-manage-agent-settings.mdx
+                agent-builder-setup.mdx
+                configuration-cloud.mdx
+                cicd-pipeline-example.mdx
+                agent-builder-remote-mcp-servers.mdx
+                local.mdx
+                data-storage-and-privacy.mdx
+                cost-tracking.mdx
+                langchain-runnable.mdx
+                self-host-ttl.mdx
+                nest-traces.mdx
+                evaluation-concepts.mdx
+                human-in-the-loop-time-travel.mdx
+                observability-stack.mdx
+                data-purging-compliance.mdx
+                multiple-messages.mdx
+                evaluate-with-opentelemetry.mdx
+                set-up-resource-tags.mdx
+                annotate-traces-inline.mdx
+                deploy-hybrid.mdx
+                self-hosted.mdx
+                agent-builder-quickstart.mdx
+                self-host-scale.mdx
+                cloud.mdx
+                agent-server-changelog.mdx
+                gcp-self-hosted.mdx
+                local-dev-testing.mdx
+                self-host-sso.mdx
+                evaluate-llm-application.mdx
+                add-human-in-the-loop.mdx
+                hybrid.mdx
+                create-a-prompt.mdx
+                deploy-other-frameworks.mdx
+                double-texting.mdx
+                troubleshooting.mdx
+                status.mdx
+                dashboards.mdx
+                insights-self-hosted.mdx
+                fetch-perf-metrics-experiment.mdx
+                components.mdx
+                trace-with-opentelemetry.mdx
+                read-local-experiment-results.mdx
+                run-backtests-new-agent.mdx
+                self-host-mirroring-images.mdx
+                upload-files-with-traces.mdx
+                user-management.mdx
+                trace-with-api.mdx
+                deploy-standalone-server.mdx
+                upload-existing-experiments.mdx
+                set-up-hierarchy.mdx
+                annotation-queues.mdx
+                analyze-an-experiment.mdx
+                playground-model-providers.mdx
+                diagnostics-self-hosted.mdx
+                self-hosted-changelog.mdx
+                export-traces.mdx
+                langgraph-js-ts-sdk.mdx
+                trace-with-pydantic-ai.mdx
+                configure-ttl.mdx
+                semantic-search.mdx
+                openapi-security.mdx
+                prompt-engineering.mdx
+                insights.mdx
+                trace-generator-functions.mdx
+                serverless-environments.mdx
+                observability-studio.mdx
+                trace-with-google-gemini.mdx
+                ls-metadata-parameters.mdx
+                trajectory-evals.mdx
+                set-up-custom-auth.mdx
+                regions-faq.mdx
+                create-few-shot-evaluators.mdx
+                images/
+                    filter-feedback.png
+                    cost-tooltip-light.png
+                    annotate-code-trace.gif
+                    add-to-dataset.png
+                    roles-tab-rbac.png
+                    view-trace.png
+                    setup-billing-legacy.png
+                    filter-runs-in-trace-view.png
+                    tracing-tutorial-feedback.png
+                    create-annotation-queue-new.png
+                    p2alllimitonly-v2.png
+                    expanded-view-light.png
+                    set-input-start-dark.png
+                    tool-use.png
+                    assistants.png
+                    hybrid-architecture.png
+                    testing-tutorial-over-time.png
+                    column-heat-map.png
+                    set-default-config.png
+                    update-prompt-form.png
+                    comparison-table-display-options-light.png
+                    cicd-test-with-results.png
+                    agent-eval.png
+                    trace-quickstart-app.png
+                    dataset-schema-definition.png
+                    lg-platform.png
+                    metadata-in-charts-dark.png
+                    dataset-concept.png
+                    testing-tutorial-dataset.png
+                    jest-vitest-reporter-output.png
+                    select-generated-examples-light.png
+                    add-manual-example.png
+                    add-commit-tag-light.png
+                    stats-pane-cost-tracking-dark.png
+                    filter-time.png
+                    edit-prompt.png
+                    lg-studio.png
+                    tutorial-comparison-view.png
+                    workspaces.png
+                    download-experiment-results-as-csv.png
+                    online-eval-custom-code.png
+                    cloud-arch-light.png
+                    p2usagelimitsempty-v2.png
+                    agent-builder-edit-page.png
+                    uploaded-dataset.png
+                    generate-synthetic-examples-pane.png
+                    input-variables-playground.png
+                    create-new-prompt-tag.png
+                    pairwise-from-dataset.png
+                    rename-in-experiments-view.png
+                    organization-members-and-roles.png
+                    thread-overview-dark.png
+                    select-trace.png
+                    save-prompt-commit-ui.gif
+                    export-dataset-button.gif
+                    langchain-trace.png
+                    prompt-canvas-custom-quick-action.gif
+                    class-optimization-neg.png
+                    p2totalspendlimits-v2.png
+                    scim_okta_user_attributes.png
+                    extra-params-error.png
+                    share-dataset.gif
+                    langgraph-agent.png
+                    save-filter-dark.png
+                    trace-view-filter-dark.png
+                    evaluator-secrets.png
+                    p1projectretention.png
+                    self-hosted-full-platform-architecture.png
+                    version-dataset.png
+                    playground-dataset.png
+                    search-kv-output.png
+                    tracing-project-custom-output-rendering-settings.png
+                    multiple-data-series.png
+                    search-kv-input.png
+                    base-spend-limit-only.png
+                    few-shot-synced-empty-state.png
+                    primitives-dark.png
+                    swebench-evaluation.png
+                    claude-code-trace-dark.png
+                    polly.png
+                    full-platform-with-deployment-dark.png
+                    evaluator-prompt.png
+                    uploaded-experiment.png
+                    trace_tree_manual_tracing.png
+                    filter-by-tags.png
+                    multiturn-manual.gif
+                    invoice-investigation-v2.gif
+                    enable-reasoning.gif
+                    class-optimization-pos.png
+                    langsmith-ui.png
+                    adding-multimodal-variable.gif
+                    authentication.png
+                    tool-call.png
+                    compare-trace.png
+                    unshare-trace.png
+                    threads-tab-dark.png
+                    create-tag.png
+                    prompt-excalidraw.png
+                    add-to..dataset.png
+                    add-filtered-traces-to-dataset.png
+                    column-filter-light.png
+                    pairwise-annotation-queue-popup.png
+                    raw-query.png
+                    generate-synthetic-light.png
+                    open-trace-light.png
+                    langgraph-cloud-architecture.png
+                    select-feedback.png
+                    prebuilt.gif
+                    tracing-tutorial-monitor.png
+                    metadata-in-charts-light.png
+                    simple-pytest.png
+                    multiple-scores.png
+                    dashboard-table.png
+                    tool-choice-dark.png
+                    langsmith-fetch-output-single.png
+                    alert-preview-pane.png
+                    define-conditions.png
+                    commit-diff.png
+                    new-price-map-entry.png
+                    trace-filter.png
+                    multiturn-manual-list.gif
+                    vercel-icon-light.svg
+                    qa-graph.png
+                    decision-at-node.png
+                    thread-overview-light.png
+                    overview-dark.svg
+                    prompt-playground-edit-commit.png
+                    cloud-arch-dark.png
+                    rules-filter.png
+                    langchain_trace.png
+                    invite-user.png
+                    prompt-settings.png
+                    model-config-light.png
+                    create-evaluator.png
+                    prompt-playground.png
+                    alert-preview.png
+                    corrections-comparison-view.png
+                    pager-duty.png
+                    prompt-commits-tab.png
+                    create-few-shot-evaluator.png
+                    cicd-new-lgp-revision.png
+                    trace-with-attachments.png
+                    give-rule-name.png
+                    create-annotation-rubric.png
+                    share-trace.png
+                    filter-shortcuts-light.png
+                    create-workspace.png
+                    delete-workspace.png
+                    few-shot-example.png
+                    generate-synthetic-examples-create.png
+                    filter-shortcut-pane-light.png
+                    trace-quickstart-app-dark.png
+                    managed-clickhouse-dark.png
+                    custom-output-rendering-experiment-comparison.png
+                    baseline-experiment.png
+                    convert-to-variable-light.png
+                    create-api-key.png
+                    creating-split.mp4
+                    add-trace-with-attachments-to-dataset.png
+                    is-not-key-value-light.png
+                    public-handle.png
+                    self-hosted-architecture-diagram.png
+                    schema-validation.png
+                    annotation-queue-form.png
+                    P2SampleTraces.png
+                    select-metadata-key.png
+                    prompt-canvas-save.gif
+                    multi-turn-trace.png
+                    more-actions-bar.png
+                    pydantic-icon.png
+                    summary-eval.png
+                    insights-summary.png
+                    comparison-feedback-score-light.png
+                    add-to-dataset-from-aq.png
+                    annotate-code-trace copy.gif
+                    compare-metrics.png
+                    filtered-traces-from-experiment.png
+                    web-search-tool.gif
+                    insights-job-results.png
+                    add-automation-rule.png
+                    copy-filter.png
+                    deep-agents-icon.png
+                    compare-select-dark.png
+                    pairwise-comparison-view.png
+                    playground-system-prompt-dark.png
+                    webhook-setup.png
+                    comparison-diff-view-light.png
+                    custom-json-schema.png
+                    retriever-trace.png
+                    langgraph-cloud-architecture.excalidraw
+                    annotate-trace-inline.png
+                    set-input-start-light.png
+                    brave-shields.png
+                    langsmith-managed-clickhouse-architecture.png
+                    negative-filtering-4.png
+                    create-example-with-attachments.png
+                    workspace-settings.png
+                    unshare-dataset.png
+                    compare-select-light.png
+                    corrections-runs-table.png
+                    metadata-edit-button.png
+                    metadata.png
+                    version-dataset-tests.png
+                    full-experiment-view-light.png
+                    ls-diagram.png
+                    tracing-tutorial-filtering.png
+                    multimodal.png
+                    column-filter-dark.png
+                    select-columns.png
+                    generate-synthetic-dark.png
+                    template-format.png
+                    resource-hierarchy.png
+                    uploaded-dataset-examples.png
+                    claude-code-trace.png
+                    tracing-tutorial-retriever.png
+                    experiments-tab-code-results.png
+                    confirmation.png
+                    regex-not-anonymized.png
+                    sso-member-settings-update.png
+                    filter-openai.png
+                    hide-inputs-outputs.png
+                    create-dataset-csv.png
+                    filter-bar-search-light.png
+                    assign-role.png
+                    tracing-tutorial-chain.png
+                    add-tool-dark.png
+                    prompt-commit-main.png
+                    tracing-tutorial-monitor-grouped.png
+                    negative-filtering-1.png
+                    offline.png
+                    regression-view-light.png
+                    experiment-results-link-light.png
+                    testing-tutorial-one-run.png
+                    ai-query.png
+                    rules-past-runs-logs.png
+                    run-depth-explained.png
+                    configure-preview-dark.png
+                    testing-tutorial-side-panel.png
+                    negative-filtering-3.png
+                    review-runs.png
+                    custom-output-rendering-menu.png
+                    baseline-experiment-view-light.png
+                    update-display.png
+                    tracing-tutorial-metadata-filtering.png
+                    add-a-notification.png
+                    multi-select-annotation-queue.png
+                    compare.gif
+                    prompt-canvas-open.gif
+                    polly-prompt-tool-dark.png
+                    agent-builder-response.png
+                    trace_tree_python_interop.png
+                    create_composite_evaluator-light.png
+                    filters-applied.png
+                    trace-arize.png
+                    primitives.png
+                    prompt-with-variable-dark.png
+                    testing-tutorial-compare-runs.png
+                    switch-to-dataset.png
+                    agent-builder-edit-page-dark.png
+                    rules-logs.png
+                    prompt-commit-github.png
+                    playground-experiment-results.png
+                    model-costs.png
+                    langgraph-with-langchain-trace.png
+                    new-dataset.png
+                    edit-in-playground.png
+                    commits-tab.png
+                    negative-filtering-2.png
+                    lgp-server-logs-filters.png
+                    prebuilt-eval-result.png
+                    sort-filter.png
+                    tracing-tutorial-metadata.png
+                    prompt-table.png
+                    cicd-studio-cli.png
+                    mapping-variables.png
+                    trace-tree-manual-tracing.png
+                    azure-architecture-self-hosted.png
+                    evals-quick-start.gif
+                    filter-bar-dark.png
+                    rules-past-runs.png
+                    run.png
+                    unshare-trace-list-share.png
+                    full-experiment-view-dark.png
+                    trace.png
+                    edit-evaluator.png
+                    export-filtered-trace-to-dataset.png
+                    code-autoeval-popup.png
+                    attachment-editing.gif
+                    testing-tutorial-compare-metrics.png
+                    project.png
+                    input-key-value-light.png
+                    chat-model-dark.png
+                    playground-experiment.gif
+                    save-a-filter.png
+                    chat-model-light.png
+                    testing-tutorial-run.png
+                    modify-example.png
+                    compare-button.png
+                    prompt-vs-prompt-template.png
+                    add-metadata.gif
+                    chart-filters-for-node-decision.png
+                    rubric-for-annotators.png
+                    prompt-canvas-diff.gif
+                    commit-prompt-playground.png
+                    few-shot-code-snippet.png
+                    sample-application-selector.png
+                    assign-tag.png
+                    empty-playground-dark.png
+                    comparison-diff-view-dark.png
+                    playground-evaluator.gif
+                    cont-feedback.png
+                    evaluation-intermediate-trace.png
+                    heat-map.gif
+                    sample-workspace.png
+                    agent-builder-response-dark.png
+                    create-role.png
+                    webhook.png
+                    cat-feedback.png
+                    add-prompt-to-playground.gif
+                    alerts-filter.png
+                    model-price-map-light.png
+                    regression-test.gif
+                    use-corrections-as-few-shot.png
+                    expanded-view-dark.png
+                    save-prompt.png
+                    threads-tab-light.png
+                    generative-ui-sample.jpg
+                    standalone-server-dark.png
+                    pairwise-annotation-queue-review-feedback-pane.png
+                    open-trace-dark.png
+                    langsmith-grafana-dashboards.png
+                    double-texting.png
+                    simple-pytest-dataset.png
+                    share-dataset.png
+                    diff-mode.png
+                    cost-tracking-chart-light.png
+                    hybrid-with-deployment-light.png
+                    multiturn-diagram.png
+                    p1usagegraph-v2.png
+                    aws-comprehend-not-anonymized.png
+                    langsmith-ui-basic-auth.png
+                    org-settings-workspaces-tab.png
+                    managed-clickhouse-light.png
+                    model-config-dark.png
+                    chinook-diagram.png
+                    multiturn-from-run.gif
+                    playground-custom-model.png
+                    attachments-with-examples.png
+                    p2bothlimits-v2.png
+                    set-source-experiment-dark.png
+                    empty-playground-light.png
+                    trace-tree-costs-light.png
+                    create_composite_evaluator-dark.png
+                    trace-quickstart-llm-call-dark.png
+                    regex-anonymized.png
+                    search-kv-tool.png
+                    p1endresultinvoice-v2.png
+                    experiment-results-link-dark.png
+                    tool-registry-manage-light.png
+                    pagerduty-setup.png
+                    trace-tree-costs-dark.png
+                    add-to-split2.png
+                    dataset-page.png
+                    chart-filters.png
+                    filter.png
+                    filter-dot-notation-light.png
+                    experiment-view.png
+                    evaluator-run.png
+                    baseline-experiement-view-dark.png
+                    annotate-experiment.png
+                    tag-this-version.png
+                    automations.png
+                    upload-inline-multimodal-content.png
+                    filter-shortcut-pane-dark.png
+                    tags.png
+                    p1orgretention-v2.png
+                    delete-tag.png
+                    search-kv-filter-shortcut.png
+                    model-price-map-dark.png
+                    simple-vitest.png
+                    example-concept.png
+                    playground-evaluator-results.png
+                    stats-pane-cost-tracking-light.png
+                    drill-monitor.png
+                    filter-dot-notation-dark.png
+                    rag-eval-overview.png
+                    org-members-settings.png
+                    add-chart.png
+                    hello-llm.png
+                    swebench-langsmith-feedback.png
+                    prompt-preview.png
+                    set-source-experiment-light.png
+                    standalone-server-light.png
+                    annotation-sidebar.png
+                    filter-singleminded.png
+                    tracing-tutorial-monitor-drilldown.png
+                    save-prompt-ui.gif
+                    langgraph-without-langchain-trace.png
+                    multiturn-from-dataset.gif
+                    prompt-canvas-rewrite.gif
+                    structured-output.png
+                    test-prompt-ui.gif
+                    modal-langsmith-secret.png
+                    child-runs.png
+                    select-experiment.png
+                    filter-full-text.png
+                    selecting-a-filter.png
+                    tool-registry-manage-dark.png
+                    filter-pairwise.png
+                    langgraph_without_langchain_trace.png
+                    insights-autogenerate-config.png
+                    filter-shortcuts.png
+                    hybrid-with-deployment-dark.png
+                    agent_trace.png
+                    view-experiment.gif
+                    add-dashboard.png
+                    pencil.png
+                    test-over-dataset-in-playground.gif
+                    subsets-monitor.png
+                    view-automation-rules.png
+                    input-key-value-dark.png
+                    custom-output-rendering-run-details.png
+                    polly-prompt-tool.png
+                    unshare-trace-list.png
+                    few-shot-tab-unsynced.png
+                    create-prompt-ui.gif
+                    playground-system-prompt-light.png
+                    tracing-project-to-dashboard.png
+                    tracing-table.png
+                    view-server-logs-button.png
+                    filter-bar-light.png
+                    online.png
+                    langgraph_with_langchain_trace.png
+                    add-auto-evaluator-python.png
+                    regression-view-dark.png
+                    tracing-tutorial-monitor-metadata.png
+                    gcp-architecture-self-hosted.png
+                    authorization.png
+                    rag-types.png
+                    prompt-commit-webhook.png
+                    prompt-with-variable-light.png
+                    testing-tutorial-three-runs.png
+                    add-tool-light.png
+                    aq-spot-check-rule.gif
+                    create-a-prompt-run.png
+                    agent-tutorial-graph.png
+                    filter-all-experiments.png
+                    cloud-arch.png
+                    prompt-sequence-diagram.png
+                    custom-tool.gif
+                    multi-turn-vitest.png
+                    presidio-anonymized.png
+                    is-not-key-value-dark.png
+                    manual-prompt-multimodal.png
+                    create-account.png
+                    rich-pytest-outputs.png
+                    openai-compatible-endpoint-dark.png
+                    configure-preview.png
+                    create-a-prompt-dark.png
+                    prompts-tab.png
+                    view-evaluators.png
+                    toggle-views.png
+                    convert-to-variable-dark.png
+                    tag-prompt-ui.gif
+                    add-to-annotation-queue.png
+                    trace-tree-python-interop.png
+                    insights-manual-config.png
+                    comparison-table-display-options-dark.png
+                    experiment-tracing-project.png
+                    agent-trace.png
+                    tool-choice-light.png
+                    tracing-tutorial-openai.png
+                    aws-architecture-self-hosted.png
+                    few-shot-search-results.png
+                    evaluator-pg.gif
+                    add-commit-tag-dark.png
+                    rename-in-playground.png
+                    adk.png
+                    prompt-inputs.png
+                    feedback.png
+                    multiselect-add-to-dataset.png
+                    runnable-eval.png
+                    tracing-table-dark.png
+                    custom-output-rendering-annotation-queue.png
+                    heatmap.png
+                    autogen-output.png
+                    alert-metric.png
+                    playground-eval.png
+                    select-workspace.png
+                    openai-compatible-endpoint.png
+                    overview-light.svg
+                    save-filter-light.png
+                    comparison-feedback-score-dark.png
+                    rule-logs.gif
+                    insights-nav.gif
+                    cost-tracking-chart-dark.png
+                    create-a-prompt-light.png
+                    view-few-shot-ds.png
+                    resource-tags.png
+                    trace-view-filter-light.png
+                    enter-dataset-details.png
+                    no-auth.png
+                    search-kv-tool-tree.png
+                    refund-graph.png
+                    filter-shortcuts-dark.png
+                    prompt-canvas-quick-actions.gif
+                    insights-filter-by-attribute.png
+                    presidio-not-anonymized.png
+                    repetitions.png
+                    move-prompt-tag.png
+                    comparison-view.png
+                    select-generated-examples-dark.png
+                    expanded-chart.png
+                    add-to-evaluator-queue.gif
+                    full-platform-with-deployment-light.png
+                    aws-comprehend-anonymized.png
+                    cost-tooltip-dark.png
+                    langsmith-ui-sso.png
+                    trace-quickstart-llm-call.png
+                    annotation-queue-custom-output-rendering-settings.png
+                    webhook-headers.png
+                    filter-bar-search-dark.png
+                    rules-logs.gif
+                    usage-graph.png
+                    custom-output-rendering-modal.png
+                    new-price-map-entry-light.png
+                    show-feedback-from-autoeval-code.png
+                    evaluation-intermediate-experiment.png
+                    template-variable-multimodal-content.png
+            images/
+                quick_action_generate_agents_md.png
+                copy-page-light.png
+                dont_create_issue_eye_screenshot.png
+                data_analysis_slack_response.png
+                copy-page-dark.png
+                vercel_ignored_build_script_screenshot.png
+                rag_retrieval_generation.png
+                cat.png
+                langgraph-hybrid-rag-tutorial.png
+                restart_run_screenshot.png
+                checks-passed.png
+                gh_app_token_screenshot_2.png
+                gh_app_token_screenshot_3.png
+                gh_app_token_screenshot_1.png
+                langgraph-auth-interrupt.png
+                dont_create_issue_global_toggle_screenshot.png
+                ui-screenshot.png
+                rag_indexing.png
+                github-auth-success.png
+                agentic-rag-output.png
+                providers/
+                    deno-icon.svg
+                    daytona-icon.svg
+                    cockroachdb-icon.svg
+                    mistral-icon.svg
+                    nodejs-icon.svg
+                    anthropic-icon.svg
+                    groq-icon.svg
+                    modal-icon.svg
+                    fireworks-icon.svg
+                    light/
+                        langchain.svg
+                        temporal.svg
+                        gemini.svg
+                        claude.svg
+                        microsoft.svg
+                        pipecat.svg
+                        xai.svg
+                        livekit.svg
+                        groq.svg
+                        openai.svg
+                        googleadk.svg
+                        instructor.svg
+                        crewai.svg
+                        bedrock.svg
+                        fireworks.svg
+                        pydanticai.svg
+                        mistral.svg
+                        deepseek.svg
+                        deepagents.svg
+                        vercel.svg
+                        anthropic.svg
+                        langgraph.svg
+                        mastra.svg
+                        opentelemetry.svg
+                        autogen.svg
+                    dark/
+                        langchain.svg
+                        temporal.svg
+                        gemini.svg
+                        claude.svg
+                        microsoft.svg
+                        pipecat.svg
+                        xai.svg
+                        livekit.svg
+                        groq.svg
+                        openai.svg
+                        googleadk.svg
+                        instructor.svg
+                        crewai.svg
+                        bedrock.svg
+                        fireworks.svg
+                        pydanticai.svg
+                        mistral.svg
+                        deepseek.svg
+                        deepagents.svg
+                        vercel.svg
+                        anthropic.svg
+                        langgraph.svg
+                        mastra.svg
+                        opentelemetry.svg
+                        autogen.svg
+                brand/
+                    langchain.svg
+                    langchain-docs-lilac.svg
+                    langchain-docs-teal.svg
+                    langsmith.svg
+                    labs.svg
+                    docs-favicon.png
+                    langgraph.svg
+                    langgraph-platform.svg
+                observability/
+                    how_to_guides/
+                        assets/
+                            images/
+                                pager_duty-163770d0815ea292a8430ca7b5745c7a.png
+                                pagerduty_setup-47c9fc34dbcddc62f962f827a6cdc567.png
+                                webhook_setup-aca1270d8eaa9e27ccf19abfc3bd1bf2.png
+                                alert_preview_pane-48211ba3d4ed9274b9ad6a8a10dc7525.png
+                evaluation/
+                    tutorials/
+                        assets/
+                            images/
+                                swebench_langsmith_feedback-cbe3f623026f12895b331f886033fce4.png
+                                swebench_evaluation-4086f0af70875bc21fa5e2b9ce7044e0.png
+            oss/
+                common-errors.mdx
+                release-policy.mdx
+                versioning.mdx
+                security-policy.mdx
+                learn.mdx
+                langgraph/
+                    thinking-in-langgraph.mdx
+                    studio.mdx
+                    use-time-travel.mdx
+                    application-structure.mdx
+                    sql-agent.mdx
+                    overview.mdx
+                    graph-api.mdx
+                    pregel.mdx
+                    deploy.mdx
+                    streaming.mdx
+                    observability.mdx
+                    changelog-js.mdx
+                    install.mdx
+                    add-memory.mdx
+                    choosing-apis.mdx
+                    changelog-py.mdx
+                    local-server.mdx
+                    agentic-rag.mdx
+                    ui.mdx
+                    case-studies.mdx
+                    use-functional-api.mdx
+                    memory.mdx
+                    durable-execution.mdx
+                    quickstart.mdx
+                    interrupts.mdx
+                    use-subgraphs.mdx
+                    use-graph-api.mdx
+                    persistence.mdx
+                    workflows-agents.mdx
+                    functional-api.mdx
+                    test.mdx
+                    errors/
+                        INVALID_GRAPH_NODE_RETURN_VALUE.mdx
+                        MISSING_CHECKPOINTER.mdx
+                        INVALID_CONCURRENT_GRAPH_UPDATE.mdx
+                        GRAPH_RECURSION_LIMIT.mdx
+                        INVALID_CHAT_HISTORY.mdx
+                        MULTIPLE_SUBGRAPHS.mdx
+                python/
+                    releases/
+                        langgraph-v1.mdx
+                        langchain-v1.mdx
+                        changelog.mdx
+                    integrations/
+                        chat_loaders/
+                            langsmith_llm_runs.mdx
+                            facebook.mdx
+                            twitter.mdx
+                            slack.mdx
+                            imessage.mdx
+                            google_gmail.mdx
+                            langsmith_dataset.mdx
+                        middleware/
+                            index.mdx
+                            openai.mdx
+                            anthropic.mdx
+                        text_embedding/
+                            cloudflare_workersai.mdx
+                            azure_openai.mdx
+                            lindorm.mdx
+                            instruct_embeddings.mdx
+                            oracleai.mdx
+                            fastembed.mdx
+                            ascend.mdx
+                            nlp_cloud.mdx
+                            baseten.mdx
+                            isaacus.mdx
+                            huggingfacehub.mdx
+                            ovhcloud.mdx
+                            sagemaker-endpoint.mdx
+                            clova.mdx
+                            google_generative_ai.mdx
+                            mistralai.mdx
+                            tensorflowhub.mdx
+                            naver.mdx
+                            nomic.mdx
+                            oci_generative_ai.mdx
+                            spacy_embedding.mdx
+                            nebius.mdx
+                            laser.mdx
+                            textembed.mdx
+                            ipex_llm.mdx
+                            aimlapi.mdx
+                            llm_rails.mdx
+                            premai.mdx
+                            sparkllm.mdx
+                            baidu_qianfan_endpoint.mdx
+                            awadb.mdx
+                            index.mdx
+                            openai.mdx
+                            model2vec.mdx
+                            baichuan.mdx
+                            databricks.mdx
+                            optimum_intel.mdx
+                            zhipuai.mdx
+                            bedrock.mdx
+                            upstage.mdx
+                            localai.mdx
+                            mosaicml.mdx
+                            ibm_watsonx.mdx
+                            sambanova.mdx
+                            gpt4all.mdx
+                            fireworks.mdx
+                            predictionguard.mdx
+                            elasticsearch.mdx
+                            gradient.mdx
+                            edenai.mdx
+                            voyageai.mdx
+                            pinecone.mdx
+                            minimax.mdx
+                            bookend.mdx
+                            openvino.mdx
+                            dashscope.mdx
+                            google_vertex_ai.mdx
+                            xinference.mdx
+                            aleph_alpha.mdx
+                            bge_huggingface.mdx
+                            llamacpp.mdx
+                            fake.mdx
+                            anyscale.mdx
+                            ipex_llm_gpu.mdx
+                            infinity.mdx
+                            yandex.mdx
+                            TEMPLATE.mdx
+                            modelscope_embedding.mdx
+                            text_embeddings_inference.mdx
+                            johnsnowlabs_embedding.mdx
+                            volcengine.mdx
+                            itrex.mdx
+                            deepinfra.mdx
+                            jina.mdx
+                            ernie.mdx
+                            together.mdx
+                            greennode.mdx
+                            self-hosted.mdx
+                            cohere.mdx
+                            ollama.mdx
+                            embaas.mdx
+                            netmind.mdx
+                            titan_takeoff.mdx
+                            open_clip.mdx
+                            sentence_transformers.mdx
+                            clarifai.mdx
+                            solar.mdx
+                            nvidia_ai_endpoints.mdx
+                        retrievers/
+                            dappier.mdx
+                            zep_memorystore.mdx
+                            google_drive.mdx
+                            elastic_search_bm25.mdx
+                            perigon.mdx
+                            pinecone_rerank.mdx
+                            you-retriever.mdx
+                            nebius.mdx
+                            knn.mdx
+                            zotero.mdx
+                            valyu.mdx
+                            wikipedia.mdx
+                            cognee.mdx
+                            activeloop.mdx
+                            svm.mdx
+                            index.mdx
+                            pinecone_hybrid_search.mdx
+                            qdrant-sparse.mdx
+                            needle.mdx
+                            metal.mdx
+                            zep_cloud_memorystore.mdx
+                            vectorize.mdx
+                            bedrock.mdx
+                            dria_index.mdx
+                            linkup_search.mdx
+                            nanopq.mdx
+                            flashrank-reranker.mdx
+                            thirdai_neuraldb.mdx
+                            pubmed.mdx
+                            chatgpt-plugin.mdx
+                            jaguar.mdx
+                            box.mdx
+                            imap.mdx
+                            azure_ai_search.mdx
+                            tf_idf.mdx
+                            arxiv.mdx
+                            fleet_context.mdx
+                            rememberizer.mdx
+                            TEMPLATE.mdx
+                            ragatouille.mdx
+                            docarray_retriever.mdx
+                            llmlingua.mdx
+                            galaxia-retriever.mdx
+                            re_phrase.mdx
+                            arcee.mdx
+                            nimble_search.mdx
+                            ibm_watsonx_ranker.mdx
+                            chaindesk.mdx
+                            outline.mdx
+                            breebs.mdx
+                            tavily.mdx
+                            google_vertex_ai_search.mdx
+                            merger_retriever.mdx
+                            vespa.mdx
+                            amazon_kendra_retriever.mdx
+                            contextual.mdx
+                            kay.mdx
+                            elasticsearch_retriever.mdx
+                            sec_filings.mdx
+                            kinetica.mdx
+                            cohere.mdx
+                            permit.mdx
+                            asknews.mdx
+                            bm25.mdx
+                            egnyte.mdx
+                            cohere-reranker.mdx
+                            nimble_extract.mdx
+                            graph_rag.mdx
+                            embedchain.mdx
+                            greennode_reranker.mdx
+                            self_query/
+                                hanavector_self_query.mdx
+                        tools/
+                            steam.mdx
+                            dappier.mdx
+                            agentql.mdx
+                            edenai_tools.mdx
+                            ddg.mdx
+                            amadeus.mdx
+                            oracleai.mdx
+                            serpapi.mdx
+                            azure_ai_services.mdx
+                            human_tools.mdx
+                            google_drive.mdx
+                            yahoo_finance_news.mdx
+                            camb.mdx
+                            polygon.mdx
+                            cogniswitch.mdx
+                            parallel_extract.mdx
+                            powerbi.mdx
+                            daytona_data_analysis.mdx
+                            searchapi.mdx
+                            privy.mdx
+                            gitlab.mdx
+                            bodo.mdx
+                            anchor_browser.mdx
+                            bash.mdx
+                            google_scholar.mdx
+                            brightdata_serp.mdx
+                            github.mdx
+                            composio.mdx
+                            filesystem.mdx
+                            google_places.mdx
+                            hyperbrowser_web_scraping_tools.mdx
+                            semanticscholar.mdx
+                            nvidia_riva.mdx
+                            bearly.mdx
+                            zapier.mdx
+                            alpha_vantage.mdx
+                            wikipedia.mdx
+                            ads4gpts.mdx
+                            pandas.mdx
+                            ampersend.mdx
+                            vectara.mdx
+                            zenguard.mdx
+                            exa_search.mdx
+                            azure_dynamic_sessions.mdx
+                            awslambda.mdx
+                            json.mdx
+                            searx_search.mdx
+                            index.mdx
+                            taiga.mdx
+                            python.mdx
+                            mcp_toolbox.mdx
+                            writer.mdx
+                            brightdata_unlocker.mdx
+                            tableau.mdx
+                            databricks.mdx
+                            e2b_data_analysis.mdx
+                            wolfram_alpha.mdx
+                            drasi.mdx
+                            apify_actors.mdx
+                            financial_datasets.mdx
+                            office365.mdx
+                            scrapeless_universal_scraping.mdx
+                            google_lens.mdx
+                            bedrock_agentcore_browser.mdx
+                            ibm_watsonx.mdx
+                            google_trends.mdx
+                            connery.mdx
+                            cloro.mdx
+                            openapi_nla.mdx
+                            you.mdx
+                            requests.mdx
+                            salesforce.mdx
+                            scraperapi.mdx
+                            brave_search.mdx
+                            linkup_search.mdx
+                            jira.mdx
+                            scrapeless_scraping_api.mdx
+                            google_finance.mdx
+                            golden_query.mdx
+                            multion.mdx
+                            pubmed.mdx
+                            goat.mdx
+                            dataforseo.mdx
+                            google_cloud_texttospeech.mdx
+                            robocorp.mdx
+                            bing_search.mdx
+                            memgraph.mdx
+                            playwright.mdx
+                            google_serper.mdx
+                            dalle_image_generator.mdx
+                            clickup.mdx
+                            twilio.mdx
+                            tilores.mdx
+                            valyu_search.mdx
+                            arxiv.mdx
+                            ainetwork.mdx
+                            stripe.mdx
+                            openweathermap.mdx
+                            stardog.mdx
+                            scrapegraph.mdx
+                            reddit_search.mdx
+                            ibm_watsonx_sql.mdx
+                            tavily_extract.mdx
+                            stackexchange.mdx
+                            upstage_groundedness_check.mdx
+                            jenkins.mdx
+                            TEMPLATE.mdx
+                            nuclia.mdx
+                            openapi.mdx
+                            oxylabs.mdx
+                            valthera.mdx
+                            youtube.mdx
+                            bedrock_agentcore_code_interpreter.mdx
+                            huggingface_tools.mdx
+                            google_imagen.mdx
+                            brightdata-webscraperapi.mdx
+                            nimble_search.mdx
+                            spark_sql.mdx
+                            compass.mdx
+                            naver_search.mdx
+                            opengradient_toolkit.mdx
+                            sql_database.mdx
+                            cassandra_database.mdx
+                            prolog_tool.mdx
+                            ionic_shopping.mdx
+                            infobip.mdx
+                            eleven_labs_tts.mdx
+                            scrapeless_crawl.mdx
+                            chatgpt_plugins.mdx
+                            wikidata.mdx
+                            memorize.mdx
+                            discord.mdx
+                            passio_nutrition_ai.mdx
+                            sceneXplain.mdx
+                            lemonai.mdx
+                            ifttt.mdx
+                            permit.mdx
+                            slack.mdx
+                            cdp_agentkit.mdx
+                            tavily_search.mdx
+                            google_gmail.mdx
+                            asknews.mdx
+                            graphql.mdx
+                            nimble_extract.mdx
+                            hyperbrowser_browser_agent_tools.mdx
+                            google_search.mdx
+                            nasa.mdx
+                            fmp-data.mdx
+                            mojeek_search.mdx
+                            gradio_tools.mdx
+                            google_books.mdx
+                            parallel_search.mdx
+                            jina_search.mdx
+                            google_jobs.mdx
+                            azure_cognitive_services.mdx
+                            riza.mdx
+                            google_calendar.mdx
+                            dataherald.mdx
+                        chat/
+                            cloudflare_workersai.mdx
+                            dappier.mdx
+                            gpt_router.mdx
+                            baseten.mdx
+                            llama_api.mdx
+                            volcengine_maas.mdx
+                            tencent_hunyuan.mdx
+                            litellm.mdx
+                            google_generative_ai.mdx
+                            mistralai.mdx
+                            coze.mdx
+                            naver.mdx
+                            oci_generative_ai.mdx
+                            nebius.mdx
+                            llama_edge.mdx
+                            huggingface.mdx
+                            featherless_ai.mdx
+                            azure_chat_openai.mdx
+                            xai.mdx
+                            aimlapi.mdx
+                            seekrflow.mdx
+                            premai.mdx
+                            sparkllm.mdx
+                            baidu_qianfan_endpoint.mdx
+                            groq.mdx
+                            ai21.mdx
+                            anthropic_functions.mdx
+                            index.mdx
+                            modelscope_chat_endpoint.mdx
+                            openai.mdx
+                            octoai.mdx
+                            google_anthropic_vertex.mdx
+                            symblai_nebula.mdx
+                            writer.mdx
+                            baichuan.mdx
+                            databricks.mdx
+                            azure_ai.mdx
+                            zhipuai.mdx
+                            bedrock.mdx
+                            upstage.mdx
+                            ibm_watsonx.mdx
+                            sambanova.mdx
+                            snowflake.mdx
+                            gradientai.mdx
+                            fireworks.mdx
+                            azureml_chat_endpoint.mdx
+                            maritalk.mdx
+                            predictionguard.mdx
+                            deepseek.mdx
+                            amazon_nova.mdx
+                            edenai.mdx
+                            minimax.mdx
+                            tongyi.mdx
+                            google_vertex_ai.mdx
+                            parallel.mdx
+                            reka.mdx
+                            qwen.mdx
+                            xinference.mdx
+                            jinachat.mdx
+                            llamacpp.mdx
+                            yandex.mdx
+                            TEMPLATE.mdx
+                            konko.mdx
+                            runpod.mdx
+                            everlyai.mdx
+                            qwq.mdx
+                            yi.mdx
+                            openrouter.mdx
+                            promptlayer_chatopenai.mdx
+                            anthropic.mdx
+                            oci_data_science.mdx
+                            yuan2.mdx
+                            deepinfra.mdx
+                            ernie.mdx
+                            friendli.mdx
+                            together.mdx
+                            alibaba_cloud_pai_eas.mdx
+                            moonshot.mdx
+                            contextual.mdx
+                            greennode.mdx
+                            llama2_chat.mdx
+                            mlx.mdx
+                            kinetica.mdx
+                            cohere.mdx
+                            ollama.mdx
+                            abso.mdx
+                            cerebras.mdx
+                            outlines.mdx
+                            netmind.mdx
+                            pipeshift.mdx
+                            vllm.mdx
+                            nvidia_ai_endpoints.mdx
+                            perplexity.mdx
+                        callbacks/
+                            streamlit.mdx
+                            sagemaker_tracking.mdx
+                            confident.mdx
+                            llmonitor.mdx
+                            infino.mdx
+                            upstash_ratelimit.mdx
+                            fiddler.mdx
+                            agentsystems_notary.mdx
+                            uptrain.mdx
+                            comet_tracing.mdx
+                            promptlayer.mdx
+                            trubrics.mdx
+                            argilla.mdx
+                            context.mdx
+                            labelstudio.mdx
+                            agentops_cockpit.mdx
+                            google_bigquery.mdx
+                        providers/
+                            figma.mdx
+                            myscale.mdx
+                            dappier.mdx
+                            agentql.mdx
+                            duckduckgo_search.mdx
+                            weather.mdx
+                            tair.mdx
+                            college_confidential.mdx
+                            rwkv.mdx
+                            streamlit.mdx
+                            lakefs.mdx
+                            lindorm.mdx
+                            pymupdf4llm.mdx
+                            fauna.mdx
+                            oci.mdx
+                            oracleai.mdx
+                            teradata.mdx
+                            serpapi.mdx
+                            lantern.mdx
+                            ascend.mdx
+                            kuzu.mdx
+                            undatasio.mdx
+                            llamaedge.mdx
+                            graphsignal.mdx
+                            plainid.mdx
+                            toolbox.mdx
+                            firecrawl.mdx
+                            scrapeless.mdx
+                            activeloop_deeplake.mdx
+                            bookendai.mdx
+                            perigon.mdx
+                            ydb.mdx
+                            ray_serve.mdx
+                            baseten.mdx
+                            isaacus.mdx
+                            dropbox.mdx
+                            apache.mdx
+                            cogniswitch.mdx
+                            elevenlabs.mdx
+                            microsoft.mdx
+                            forefrontai.mdx
+                            clova.mdx
+                            litellm.mdx
+                            daytona.mdx
+                            cloudflare.mdx
+                            searchapi.mdx
+                            yellowbrick.mdx
+                            mistralai.mdx
+                            ctransformers.mdx
+                            bilibili.mdx
+                            coze.mdx
+                            mongodb_atlas.mdx
+                            opendataloader_pdf.mdx
+                            arize.mdx
+                            tencent.mdx
+                            privy.mdx
+                            supabase.mdx
+                            huawei.mdx
+                            moorcheh.mdx
+                            naver.mdx
+                            gitlab.mdx
+                            bodo.mdx
+                            diffbot.mdx
+                            aws.mdx
+                            nomic.mdx
+                            anchor_browser.mdx
+                            spark.mdx
+                            supadata.mdx
+                            shaleprotocol.mdx
+                            deepsparse.mdx
+                            ibm.mdx
+                            mindsdb.mdx
+                            nebius.mdx
+                            overview.mdx
+                            modern_treasury.mdx
+                            github.mdx
+                            golden.mdx
+                            zotero.mdx
+                            bananadev.mdx
+                            cockroachdb.mdx
+                            infinispanvs.mdx
+                            cerebriumai.mdx
+                            huggingface.mdx
+                            mlflow_tracking.mdx
+                            tensorlake.mdx
+                            docugami.mdx
+                            gutenberg.mdx
+                            airtable.mdx
+                            valyu.mdx
+                            dell.mdx
+                            xai.mdx
+                            hyperbrowser.mdx
+                            aimlapi.mdx
+                            wikipedia.mdx
+                            confluence.mdx
+                            cognee.mdx
+                            ads4gpts.mdx
+                            pandas.mdx
+                            premai.mdx
+                            zeusdb.mdx
+                            beam.mdx
+                            doctran.mdx
+                            ampersend.mdx
+                            baai.mdx
+                            grobid.mdx
+                            vectara.mdx
+                            sparkllm.mdx
+                            typesense.mdx
+                            exa_search.mdx
+                            groq.mdx
+                            hologres.mdx
+                            awadb.mdx
+                            ai21.mdx
+                            arangodb.mdx
+                            arcgis.mdx
+                            e2b.mdx
+                            confident.mdx
+                            obsidian.mdx
+                            taiga.mdx
+                            cnosdb.mdx
+                            browserbase.mdx
+                            openai.mdx
+                            octoai.mdx
+                            symblai_nebula.mdx
+                            writer.mdx
+                            baichuan.mdx
+                            apache_doris.mdx
+                            llmonitor.mdx
+                            zep.mdx
+                            browserless.mdx
+                            azlyrics.mdx
+                            johnsnowlabs.mdx
+                            log10.mdx
+                            sap.mdx
+                            tomarkdown.mdx
+                            dingo.mdx
+                            iflytek.mdx
+                            mlflow.mdx
+                            tableau.mdx
+                            databricks.mdx
+                            aim_tracking.mdx
+                            git.mdx
+                            langchain_decorators.mdx
+                            metal.mdx
+                            azure_ai.mdx
+                            infino.mdx
+                            wolfram_alpha.mdx
+                            zhipuai.mdx
+                            tigris.mdx
+                            vectorize.mdx
+                            yeagerai.mdx
+                            meilisearch.mdx
+                            upstage.mdx
+                            localai.mdx
+                            nvidia.mdx
+                            sambanova.mdx
+                            snowflake.mdx
+                            cube.mdx
+                            gradientai.mdx
+                            gpt4all.mdx
+                            weaviate.mdx
+                            clickhouse.mdx
+                            connery.mdx
+                            cloro.mdx
+                            docarray.mdx
+                            fireworks.mdx
+                            airbyte.mdx
+                            opengradient.mdx
+                            maritalk.mdx
+                            telegram.mdx
+                            docling.mdx
+                            koboldai.mdx
+                            you.mdx
+                            predictionguard.mdx
+                            salesforce.mdx
+                            notion.mdx
+                            llama_index.mdx
+                            mediawikidump.mdx
+                            cratedb.mdx
+                            singlestore.mdx
+                            scraperapi.mdx
+                            brave_search.mdx
+                            deepseek.mdx
+                            starrocks.mdx
+                            rank_bm25.mdx
+                            elasticsearch.mdx
+                            gradient.mdx
+                            gooseai.mdx
+                            edenai.mdx
+                            datadog_logs.mdx
+                            apify.mdx
+                            nlpcloud.mdx
+                            llamafile.mdx
+                            prolog.mdx
+                            milvus.mdx
+                            linkup.mdx
+                            qdrant.mdx
+                            semadb.mdx
+                            gitbook.mdx
+                            opensearch.mdx
+                            fiddler.mdx
+                            voyageai.mdx
+                            pinecone.mdx
+                            rockset.mdx
+                            pubmed.mdx
+                            minimax.mdx
+                            goat.mdx
+                            unstructured.mdx
+                            remembrall.mdx
+                            runhouse.mdx
+                            arthur_tracking.mdx
+                            astradb.mdx
+                            spreedly.mdx
+                            openllm.mdx
+                            motherduck.mdx
+                            dataforseo.mdx
+                            featherless-ai.mdx
+                            runloop.mdx
+                            searx.mdx
+                            anyllm.mdx
+                            langfuse.mdx
+                            robocorp.mdx
+                            spacy.mdx
+                            jaguar.mdx
+                            memgraph.mdx
+                            modal.mdx
+                            mongodb.mdx
+                            clearml_tracking.mdx
+                            google_serper.mdx
+                            geopandas.mdx
+                            box.mdx
+                            pg_embedding.mdx
+                            sqlite.mdx
+                            parallel.mdx
+                            mariadb.mdx
+                            clickup.mdx
+                            wandb.mdx
+                            xinference.mdx
+                            rebuff.mdx
+                            ifixit.mdx
+                            aleph_alpha.mdx
+                            pipelineai.mdx
+                            facebook.mdx
+                            dria.mdx
+                            epsilla.mdx
+                            llamacpp.mdx
+                            tilores.mdx
+                            arxiv.mdx
+                            alchemy.mdx
+                            html2text.mdx
+                            timbr.mdx
+                            wandb_tracking.mdx
+                            anyscale.mdx
+                            ainetwork.mdx
+                            stripe.mdx
+                            infinity.mdx
+                            uptrain.mdx
+                            openweathermap.mdx
+                            helicone.mdx
+                            stardog.mdx
+                            stochasticai.mdx
+                            scrapegraph.mdx
+                            bageldb.mdx
+                            tigergraph.mdx
+                            stackexchange.mdx
+                            blackboard.mdx
+                            google.mdx
+                            whatsapp.mdx
+                            konlpy.mdx
+                            yandex.mdx
+                            lancedb.mdx
+                            jenkins.mdx
+                            upstash.mdx
+                            ragatouille.mdx
+                            marqo.mdx
+                            nuclia.mdx
+                            konko.mdx
+                            runpod.mdx
+                            gel.mdx
+                            everlyai.mdx
+                            lambdadb.mdx
+                            analyticdb.mdx
+                            oxylabs.mdx
+                            valthera.mdx
+                            youtube.mdx
+                            promptlayer.mdx
+                            usearch.mdx
+                            trubrics.mdx
+                            etherscan.mdx
+                            deeplake.mdx
+                            arcee.mdx
+                            trulens.mdx
+                            psychic.mdx
+                            yi.mdx
+                            iugu.mdx
+                            openrouter.mdx
+                            couchbase.mdx
+                            flyte.mdx
+                            yahoo.mdx
+                            argilla.mdx
+                            anthropic.mdx
+                            hazy_research.mdx
+                            ontotext_graphdb.mdx
+                            chaindesk.mdx
+                            xata.mdx
+                            datadog.mdx
+                            outline.mdx
+                            imsdb.mdx
+                            tidb.mdx
+                            pgvector.mdx
+                            deepinfra.mdx
+                            jina.mdx
+                            memcached.mdx
+                            reddit.mdx
+                            breebs.mdx
+                            trello.mdx
+                            agentsystems.mdx
+                            vlite.mdx
+                            predibase.mdx
+                            friendli.mdx
+                            atlas.mdx
+                            together.mdx
+                            tavily.mdx
+                            vespa.mdx
+                            sklearn.mdx
+                            zilliz.mdx
+                            evernote.mdx
+                            vdms.mdx
+                            intel.mdx
+                            langfair.mdx
+                            surrealdb.mdx
+                            discord-shikenso.mdx
+                            twitter.mdx
+                            contextual.mdx
+                            modelscope.mdx
+                            bagel.mdx
+                            brightdata.mdx
+                            falkordb.mdx
+                            discord.mdx
+                            assemblyai.mdx
+                            greennode.mdx
+                            galaxia.mdx
+                            vearch.mdx
+                            redis.mdx
+                            chroma.mdx
+                            mlx.mdx
+                            kinetica.mdx
+                            beautiful_soup.mdx
+                            comet_tracking.mdx
+                            cohere.mdx
+                            permit.mdx
+                            slack.mdx
+                            ollama.mdx
+                            motorhead.mdx
+                            oceanbase.mdx
+                            replicate.mdx
+                            hacker_news.mdx
+                            ctranslate2.mdx
+                            baidu.mdx
+                            pygmalionai.mdx
+                            alibaba_cloud.mdx
+                            docusaurus.mdx
+                            annoy.mdx
+                            asknews.mdx
+                            abso.mdx
+                            whylabs_profiling.mdx
+                            bibtex.mdx
+                            ieit_systems.mdx
+                            all_providers.mdx
+                            egnyte.mdx
+                            wandb_tracing.mdx
+                            dashvector.mdx
+                            cassandra.mdx
+                            cerebras.mdx
+                            graph_rag.mdx
+                            outlines.mdx
+                            open_agent_spec.mdx
+                            embedchain.mdx
+                            fmp-data.mdx
+                            joplin.mdx
+                            netmind.mdx
+                            context.mdx
+                            acreom.mdx
+                            pipeshift.mdx
+                            kdbai.mdx
+                            truefoundry.mdx
+                            duckdb.mdx
+                            petals.mdx
+                            momento.mdx
+                            labelstudio.mdx
+                            nimble.mdx
+                            bittensor.mdx
+                            apple.mdx
+                            neo4j.mdx
+                            polaris_ai_datainsight.mdx
+                            agentops_cockpit.mdx
+                            dedoc.mdx
+                            byte_dance.mdx
+                            javelin_ai_gateway.mdx
+                            zvec.mdx
+                            tensorflow_datasets.mdx
+                            clarifai.mdx
+                            transwarp.mdx
+                            dataherald.mdx
+                            roam.mdx
+                            perplexity.mdx
+                            portkey/
+                                index.mdx
+                                logging_tracing_portkey.mdx
+                            pebblo/
+                                index.mdx
+                                pebblo_retrieval_qa.mdx
+                        stores/
+                            file_system.mdx
+                            index.mdx
+                            in_memory.mdx
+                            elasticsearch.mdx
+                            astradb.mdx
+                            upstash_redis.mdx
+                            redis.mdx
+                            cassandra.mdx
+                            bigtable.mdx
+                        splitters/
+                            recursive_json_splitter.mdx
+                            split_html.mdx
+                            markdown_header_metadata_splitter.mdx
+                        vectorstores/
+                            myscale.mdx
+                            opengauss.mdx
+                            memorydb.mdx
+                            tair.mdx
+                            lindorm.mdx
+                            sap_hanavector.mdx
+                            teradata.mdx
+                            lantern.mdx
+                            google_memorystore_redis.mdx
+                            activeloop_deeplake.mdx
+                            ydb.mdx
+                            pgembedding.mdx
+                            hippo.mdx
+                            yellowbrick.mdx
+                            mongodb_atlas.mdx
+                            supabase.mdx
+                            azure_db_for_postgresql.mdx
+                            google_bigquery_vector_search.mdx
+                            moorcheh.mdx
+                            documentdb.mdx
+                            neo4jvector.mdx
+                            oracle.mdx
+                            google_alloydb.mdx
+                            cockroachdb.mdx
+                            vedb_for_mysql.mdx
+                            pgvecto_rs.mdx
+                            falkordbvector.mdx
+                            google_cloud_sql_pg.mdx
+                            llm_rails.mdx
+                            zeusdb.mdx
+                            db2.mdx
+                            vectara.mdx
+                            zep_cloud.mdx
+                            typesense.mdx
+                            hologres.mdx
+                            awadb.mdx
+                            index.mdx
+                            baiducloud_vector_search.mdx
+                            tiledb.mdx
+                            apache_doris.mdx
+                            zep.mdx
+                            dingo.mdx
+                            sqlitevec.mdx
+                            google_vertex_ai_vector_search.mdx
+                            tigris.mdx
+                            meilisearch.mdx
+                            aperturedb.mdx
+                            weaviate.mdx
+                            clickhouse.mdx
+                            google_spanner.mdx
+                            databricks_vector_search.mdx
+                            singlestore.mdx
+                            pinecone_sparse.mdx
+                            starrocks.mdx
+                            volcengine_mysql.mdx
+                            elasticsearch.mdx
+                            nucliadb.mdx
+                            milvus.mdx
+                            qdrant.mdx
+                            semadb.mdx
+                            opensearch.mdx
+                            azure_cosmos_db_mongo_vcore.mdx
+                            thirdai_neuraldb.mdx
+                            pinecone.mdx
+                            rockset.mdx
+                            astradb.mdx
+                            jaguar.mdx
+                            baiduvectordb.mdx
+                            sqlitevss.mdx
+                            relyt.mdx
+                            mariadb.mdx
+                            epsilla.mdx
+                            vald.mdx
+                            alibabacloud_opensearch.mdx
+                            docarray_hnsw.mdx
+                            pathway.mdx
+                            momento_vector_index.mdx
+                            bageldb.mdx
+                            lancedb.mdx
+                            upstash.mdx
+                            TEMPLATE.mdx
+                            tablestore.mdx
+                            google_scann.mdx
+                            marqo.mdx
+                            vikingdb.mdx
+                            timescalevector.mdx
+                            gel.mdx
+                            azure_cosmos_db_no_sql.mdx
+                            lambdadb.mdx
+                            analyticdb.mdx
+                            usearch.mdx
+                            google_vertex_ai_feature_store.mdx
+                            couchbase.mdx
+                            ecloud_vector_search.mdx
+                            docarray_in_memory.mdx
+                            xata.mdx
+                            pgvector.mdx
+                            pgvectorstore.mdx
+                            faiss.mdx
+                            vlite.mdx
+                            atlas.mdx
+                            vespa.mdx
+                            sklearn.mdx
+                            zilliz.mdx
+                            vdms.mdx
+                            surrealdb.mdx
+                            bagel.mdx
+                            tidb_vector.mdx
+                            google_bigtable.mdx
+                            vearch.mdx
+                            chroma.mdx
+                            kinetica.mdx
+                            faiss_async.mdx
+                            oceanbase.mdx
+                            annoy.mdx
+                            dashvector.mdx
+                            cassandra.mdx
+                            alibabacloud_mysql.mdx
+                            tencentvectordb.mdx
+                            manticore_search.mdx
+                            duckdb.mdx
+                            google_cloud_sql_mysql.mdx
+                            azuresearch.mdx
+                            google_firestore.mdx
+                            zvec.mdx
+                            clarifai.mdx
+                            sqlserver.mdx
+                        adapters/
+                            openai.mdx
+                            openai-old.mdx
+                        document_transformers/
+                            google_docai.mdx
+                            cross_encoder_reranker.mdx
+                            openvino_rerank.mdx
+                            doctran_extract_properties.mdx
+                            openai_metadata_tagger.mdx
+                            volcengine_rerank.mdx
+                            markdownify.mdx
+                            google_cloud_vertexai_rerank.mdx
+                            html2text.mdx
+                            nuclia_transformer.mdx
+                            voyageai-reranker.mdx
+                            rankllm-reranker.mdx
+                            localai_rerank.mdx
+                            dashscope_rerank.mdx
+                            jina_rerank.mdx
+                            infinity_rerank.mdx
+                            doctran_interrogate_document.mdx
+                            beautiful_soup.mdx
+                            google_translate.mdx
+                            ai21_semantic_text_splitter.mdx
+                            doctran_translate_document.mdx
+                        document_loaders/
+                            figma.mdx
+                            subtitle.mdx
+                            airbyte_gong.mdx
+                            agentql.mdx
+                            cube_semantic.mdx
+                            weather.mdx
+                            async_chromium.mdx
+                            microsoft_word.mdx
+                            college_confidential.mdx
+                            lakefs.mdx
+                            pymupdf4llm.mdx
+                            fauna.mdx
+                            oracleai.mdx
+                            apify_dataset.mdx
+                            google_drive.mdx
+                            google_memorystore_redis.mdx
+                            undatasio.mdx
+                            firecrawl.mdx
+                            google_el_carro.mdx
+                            airbyte_json.mdx
+                            pandas_dataframe.mdx
+                            dropbox.mdx
+                            microsoft_powerpoint.mdx
+                            microsoft_sharepoint.mdx
+                            readthedocs_documentation.mdx
+                            xml.mdx
+                            oracleadb_loader.mdx
+                            bilibili.mdx
+                            opendataloader_pdf.mdx
+                            llmsherpa.mdx
+                            diffbot.mdx
+                            merge_doc.mdx
+                            modern_treasury.mdx
+                            google_alloydb.mdx
+                            github.mdx
+                            facebook_chat.mdx
+                            docugami.mdx
+                            azure_ai_data.mdx
+                            gutenberg.mdx
+                            airtable.mdx
+                            unstructured_markdown.mdx
+                            concurrent.mdx
+                            azure_blob_storage.mdx
+                            hyperbrowser.mdx
+                            huawei_obs_file.mdx
+                            polars_dataframe.mdx
+                            wikipedia.mdx
+                            copypaste.mdx
+                            confluence.mdx
+                            google_cloud_sql_pg.mdx
+                            tencent_cos_directory.mdx
+                            mastodon.mdx
+                            grobid.mdx
+                            huawei_obs_directory.mdx
+                            glue_catalog.mdx
+                            json.mdx
+                            index.mdx
+                            obsidian.mdx
+                            image_captions.mdx
+                            larksuite.mdx
+                            pypdfdirectory.mdx
+                            browserbase.mdx
+                            rst.mdx
+                            needle.mdx
+                            zeroxpdfloader.mdx
+                            browserless.mdx
+                            azlyrics.mdx
+                            quip.mdx
+                            tomarkdown.mdx
+                            pebblo.mdx
+                            git.mdx
+                            youtube_transcript.mdx
+                            yt_dlp.mdx
+                            vsdx.mdx
+                            powerscale.mdx
+                            upstage.mdx
+                            athena.mdx
+                            snowflake.mdx
+                            whatsapp_chat.mdx
+                            microsoft_onenote.mdx
+                            google_spanner.mdx
+                            airbyte.mdx
+                            tsv.mdx
+                            telegram.mdx
+                            docling.mdx
+                            langsmith.mdx
+                            notion.mdx
+                            mediawikidump.mdx
+                            spider.mdx
+                            singlestore.mdx
+                            brave_search.mdx
+                            datadog_logs.mdx
+                            alibaba_cloud_maxcompute.mdx
+                            news.mdx
+                            gitbook.mdx
+                            async_html.mdx
+                            email.mdx
+                            rss.mdx
+                            rockset.mdx
+                            pubmed.mdx
+                            pypdfloader.mdx
+                            astradb.mdx
+                            spreedly.mdx
+                            google_speech_to_text.mdx
+                            image.mdx
+                            pdfplumber.mdx
+                            mongodb.mdx
+                            org_mode.mdx
+                            aws_s3_directory.mdx
+                            geopandas.mdx
+                            box.mdx
+                            yuque.mdx
+                            rspace.mdx
+                            ifixit.mdx
+                            csv.mdx
+                            arxiv.mdx
+                            pdfminer.mdx
+                            web_base.mdx
+                            bshtml.mdx
+                            airbyte_hubspot.mdx
+                            open_city_data.mdx
+                            stripe.mdx
+                            conll-u.mdx
+                            blackboard.mdx
+                            google_cloud_storage_directory.mdx
+                            mathpix.mdx
+                            mintbase.mdx
+                            nuclia.mdx
+                            blockchain.mdx
+                            microsoft_onedrive.mdx
+                            google_cloud_sql_mssql.mdx
+                            epub.mdx
+                            etherscan.mdx
+                            pyspark_dataframe.mdx
+                            odt.mdx
+                            jupyter_notebook.mdx
+                            psychic.mdx
+                            iugu.mdx
+                            couchbase.mdx
+                            toml.mdx
+                            pypdfium2.mdx
+                            tencent_cos_file.mdx
+                            airbyte_zendesk_support.mdx
+                            outline.mdx
+                            imsdb.mdx
+                            tidb.mdx
+                            unstructured_pdfloader.mdx
+                            reddit.mdx
+                            sitemap.mdx
+                            airbyte_salesforce.mdx
+                            trello.mdx
+                            source_code.mdx
+                            evernote.mdx
+                            surrealdb.mdx
+                            twitter.mdx
+                            mhtml.mdx
+                            azure_document_intelligence.mdx
+                            soniox.mdx
+                            discord.mdx
+                            assemblyai.mdx
+                            airbyte_typeform.mdx
+                            google_bigtable.mdx
+                            airbyte_stripe.mdx
+                            kinetica.mdx
+                            xorbits.mdx
+                            unstructured_file.mdx
+                            slack.mdx
+                            chatgpt_loader.mdx
+                            hacker_news.mdx
+                            amazon_textract.mdx
+                            airbyte_cdk.mdx
+                            docusaurus.mdx
+                            bibtex.mdx
+                            airbyte_shopify.mdx
+                            youtube_audio.mdx
+                            google_datastore.mdx
+                            scrapfly.mdx
+                            cassandra.mdx
+                            hugging_face_dataset.mdx
+                            joplin.mdx
+                            google_cloud_storage_file.mdx
+                            acreom.mdx
+                            pymupdf.mdx
+                            google_cloud_sql_mysql.mdx
+                            aws_s3_file.mdx
+                            polaris_ai_datainsight.mdx
+                            dedoc.mdx
+                            recursive_url.mdx
+                            google_firestore.mdx
+                            microsoft_excel.mdx
+                            tensorflow_datasets.mdx
+                            google_bigquery.mdx
+                            url.mdx
+                            roam.mdx
+                            scrapingant.mdx
+                            parsers/
+                                azure_openai_whisper_parser.mdx
+                                writer_pdf_parser.mdx
+                            example_data/
+                                example.mdx
+                        graphs/
+                            azure_cosmosdb_gremlin.mdx
+                            networkx.mdx
+                            diffbot.mdx
+                            hugegraph.mdx
+                            apache_age.mdx
+                            arangodb.mdx
+                            amazon_neptune_open_cypher.mdx
+                            memgraph.mdx
+                            timbr.mdx
+                            tigergraph.mdx
+                            kuzu_db.mdx
+                            rdflib_sparql.mdx
+                            ontotext.mdx
+                            neo4j_cypher.mdx
+                            falkordb.mdx
+                            sap_hana_rdf_graph.mdx
+                        llms/
+                            cloudflare_workersai.mdx
+                            azure_openai.mdx
+                            promptlayer_openai.mdx
+                            manifest.mdx
+                            baseten.mdx
+                            amazon_api_gateway.mdx
+                            forefrontai.mdx
+                            volcengine_maas.mdx
+                            google_generative_ai.mdx
+                            ctransformers.mdx
+                            oci_generative_ai.mdx
+                            deepsparse.mdx
+                            ipex_llm.mdx
+                            cerebriumai.mdx
+                            sambanovacloud.mdx
+                            oci_model_deployment_endpoint.mdx
+                            aimlapi.mdx
+                            javelin.mdx
+                            beam.mdx
+                            openlm.mdx
+                            sparkllm.mdx
+                            baidu_qianfan_endpoint.mdx
+                            textgen.mdx
+                            ai21.mdx
+                            openai.mdx
+                            octoai.mdx
+                            symblai_nebula.mdx
+                            writer.mdx
+                            baichuan.mdx
+                            databricks.mdx
+                            bedrock.mdx
+                            sagemaker.mdx
+                            mosaicml.mdx
+                            ibm_watsonx.mdx
+                            alibabacloud_pai_eas_endpoint.mdx
+                            gpt4all.mdx
+                            fireworks.mdx
+                            koboldai.mdx
+                            predictionguard.mdx
+                            gradient.mdx
+                            gooseai.mdx
+                            edenai.mdx
+                            nlpcloud.mdx
+                            llamafile.mdx
+                            azure_ml.mdx
+                            minimax.mdx
+                            runhouse.mdx
+                            openllm.mdx
+                            openvino.mdx
+                            tongyi.mdx
+                            google_vertex_ai.mdx
+                            modal.mdx
+                            mlx_pipelines.mdx
+                            xinference.mdx
+                            aleph_alpha.mdx
+                            pipelineai.mdx
+                            modelscope_endpoint.mdx
+                            anyscale.mdx
+                            stochasticai.mdx
+                            sambastudio.mdx
+                            yandex.mdx
+                            konko.mdx
+                            jsonformer_experimental.mdx
+                            runpod.mdx
+                            banana.mdx
+                            arcee.mdx
+                            weight_only_quantization.mdx
+                            yi.mdx
+                            aphrodite.mdx
+                            anthropic.mdx
+                            yuan2.mdx
+                            deepinfra.mdx
+                            opaqueprompts.mdx
+                            predibase.mdx
+                            friendli.mdx
+                            together.mdx
+                            moonshot.mdx
+                            lmformatenforcer_experimental.mdx
+                            huggingface_endpoint.mdx
+                            cohere.mdx
+                            ollama.mdx
+                            replicate.mdx
+                            ctranslate2.mdx
+                            outlines.mdx
+                            exllamav2.mdx
+                            layerup_security.mdx
+                            pipeshift.mdx
+                            titan_takeoff.mdx
+                            huggingface_pipelines.mdx
+                            petals.mdx
+                            bittensor.mdx
+                            chatglm.mdx
+                            vllm.mdx
+                            rellm_experimental.mdx
+                            clarifai.mdx
+                            solar.mdx
+                            nvidia_ai_endpoints.mdx
+                        chains/
+                            sap_hana_sparql_qa_chain.mdx
+                        caches/
+                            redis_llm_caching.mdx
+                        chat_message_histories/
+                            cockroachdb.mdx
+                    migrate/
+                        langgraph-v1.mdx
+                        langchain-v1.mdx
+                langchain/
+                    agents.mdx
+                    studio.mdx
+                    philosophy.mdx
+                    tools.mdx
+                    rag.mdx
+                    guardrails.mdx
+                    sql-agent.mdx
+                    academy3.mdx
+                    retrieval.mdx
+                    overview.mdx
+                    academy2.mdx
+                    deploy.mdx
+                    academy.mdx
+                    observability.mdx
+                    short-term-memory.mdx
+                    changelog-js.mdx
+                    get-help.mdx
+                    knowledge-base.mdx
+                    install.mdx
+                    models.mdx
+                    changelog-py.mdx
+                    component-architecture.mdx
+                    runtime.mdx
+                    long-term-memory.mdx
+                    messages.mdx
+                    ui.mdx
+                    human-in-the-loop.mdx
+                    evals.mdx
+                    quickstart.mdx
+                    structured-output.mdx
+                    context-engineering.mdx
+                    test.mdx
+                    mcp.mdx
+                    voice-agent.mdx
+                    middleware/
+                        overview.mdx
+                        built-in.mdx
+                        custom.mdx
+                    multi-agent/
+                        router-knowledge-base.mdx
+                        custom-workflow.mdx
+                        handoffs-customer-support.mdx
+                        index.mdx
+                        subagents-personal-assistant.mdx
+                        handoffs.mdx
+                        skills.mdx
+                        router.mdx
+                        subagents.mdx
+                        skills-sql-assistant.mdx
+                        images/
+                            pattern-subagents.png
+                            oneshot-skills.png
+                            multidomain-handoffs.png
+                            oneshot-router.png
+                            oneshot-subagents.png
+                            pattern-handoffs.png
+                            pattern-skills.png
+                            multidomain-router.png
+                            pattern-router.png
+                            oneshot-handoffs.png
+                            multidomain-subagents.png
+                            multidomain-skills.png
+                        mermaid/
+                            pattern-handoffs.mmd
+                            oneshot-router.mmd
+                            oneshot-subagents.mmd
+                            multidomain-handoffs.mmd
+                            pattern-subagents.mmd
+                            oneshot-skills.mmd
+                            multidomain-skills.mmd
+                            pattern-router.mmd
+                            multidomain-subagents.mmd
+                            oneshot-handoffs.mmd
+                            multidomain-router.mmd
+                            pattern-skills.mmd
+                    streaming/
+                        overview.mdx
+                        frontend.mdx
+                    errors/
+                        INVALID_PROMPT_INPUT.mdx
+                        MESSAGE_COERCION_FAILURE.mdx
+                        MODEL_RATE_LIMIT.mdx
+                        INVALID_TOOL_RESULTS.mdx
+                        MODEL_NOT_FOUND.mdx
+                        OUTPUT_PARSING_FAILURE.mdx
+                        MODEL_AUTHENTICATION.mdx
+                images/
+                    approve-or-reject.png
+                    re_play.png
+                    replay.png
+                    assistants.png
+                    prompt_chain.png
+                    lg_studio.png
+                    diagram-part-2.png
+                    thread_diagram.png
+                    byoc_architecture.png
+                    agent_workflow.png
+                    diagram-part-1.png
+                    select_different_version.png
+                    studio_hitl.gif
+                    agent.png
+                    authentication.png
+                    studio_playground.png
+                    wordmark_dark.svg
+                    middleware_final.png
+                    studio_create-agent.png
+                    self_hosted_control_plane_architecture.png
+                    studio_graph_with_configuration.png
+                    checkpoints.jpg
+                    gen_ui.gif
+                    web-voyager.excalidraw.jpg
+                    basic-chatbot.png
+                    response.png
+                    studio_fork.gif
+                    customer-support-bot-4.png
+                    studio_input_poster.png
+                    values_vs_updates.png
+                    edit-graph-state-simple.png
+                    self_hosted_data_plane_architecture.png
+                    edit_created_assistant.png
+                    human_in_loop_parallel.png
+                    parallelization.png
+                    langgraph_platform_deployment_architecture.png
+                    brave-shields.png
+                    base-chat-ui.mp4
+                    tnt_llm.png
+                    wordmark_light.svg
+                    no_auth.png
+                    part-3-diagram.png
+                    tool-call-review.png
+                    langgraph_studio.png
+                    update-profile.png
+                    studio_tools.gif
+                    click_create_assistant.png
+                    evaluator_optimizer.png
+                    studio_usage_poster.png
+                    create_assistant_view.png
+                    approval.png
+                    graph_diagram.png
+                    breakpoints.png
+                    core_agent_loop.png
+                    supervisor.png
+                    double_texting.png
+                    graph_api_image_8.png
+                    hot_path_vs_background.png
+                    get_state.jpg
+                    graph_api_image_9.png
+                    mcp.png
+                    graph_api_image_4.png
+                    agent_types.png
+                    architectures.png
+                    wait_for_input.png
+                    request.png
+                    routing.png
+                    see_new_version.png
+                    graph_api_image_5.png
+                    favicon.png
+                    graph_api_image_7.png
+                    part-4-diagram.png
+                    forking.png
+                    worker.png
+                    checkpoints_full_story.jpg
+                    studio_forks_poster.png
+                    studio_state.gif
+                    langgraph_cloud_architecture.png
+                    shared_state.png
+                    short-vs-long.png
+                    graph_api_image_6.png
+                    graph_api_image_2.png
+                    part-1-diagram.png
+                    d38d1f2b-0f4c-4707-b531-a3c749de987f.png
+                    output.png
+                    screenshot_2024_02_14_3_43_58_pm.png
+                    studio_node_configuration.png
+                    filter.png
+                    sql-agent-langgraph.png
+                    generative_ui_sample.jpg
+                    edit_graph_state.png
+                    interrupt-chat-ui.mp4
+                    graph_api_image_3.png
+                    create_new_version.png
+                    swarm.png
+                    tot.png
+                    studio_datasets.jpg
+                    graph_api_image_1.png
+                    studio_threads_poster.png
+                    langgraph.png
+                    tool_call.png
+                    challenge.png
+                    quick_start_studio.png
+                    benchmark.png
+                    see_version_history.png
+                    augmented_llm.png
+                    static-interrupt.png
+                    fast_parrot.png
+                    create_assistant.png
+                    authorization.png
+                    lg_platform.png
+                    subgraph.png
+                    graph_api_image_11.png
+                    summary.png
+                    chatbot-with-tools.png
+                    410e0089-2ab8-46bb-a61a-827187fd46b3.png
+                    memory.png
+                    part-2-diagram.png
+                    graph_api_image_10.png
+                    update-instructions.png
+                    react_diagrams.png
+                    multi-turn-conversation.png
+                    autogen-output.png
+                    diagram.png
+                    run_in_studio.png
+                    studio_screenshot.png
+                    multi-output.png
+                    agentic-rag-output.png
+                    usaco.png
+                    update-list.png
+                    deepagents/
+                        summarization.png
+                        deepagents-cli.png
+                        deepagents-langsmith.png
+                        offloading-inputs.png
+                        offloading-results.png
+                contributing/
+                    publish-langgraph.mdx
+                    comarketing.mdx
+                    overview.mdx
+                    integrations-langchain.mdx
+                    documentation.mdx
+                    code.mdx
+                    standard-tests-langchain.mdx
+                    implement-langchain.mdx
+                    publish-langchain.mdx
+                    integrations-langgraph.mdx
+                    guide/
+                        tools.mdx
+                        vector-stores.mdx
+                        embeddings.mdx
+                        chat.mdx
+                        retrievers.mdx
+                integrations/
+                    splitters/
+                        recursive_text_splitter.mdx
+                        code_splitter.mdx
+                        index.mdx
+                        split_by_token.mdx
+                        character_text_splitter.mdx
+                concepts/
+                    memory.mdx
+                    products.mdx
+                    context.mdx
+                javascript/
+                    releases/
+                        langgraph-v1.mdx
+                        langchain-v1.mdx
+                        changelog.mdx
+                    integrations/
+                        middleware/
+                            index.mdx
+                            anthropic.mdx
+                        text_embedding/
+                            azure_openai.mdx
+                            gradient_ai.mdx
+                            tencent_hunyuan.mdx
+                            google_generative_ai.mdx
+                            mistralai.mdx
+                            nomic.mdx
+                            ibm.mdx
+                            hugging_face_inference.mdx
+                            premai.mdx
+                            index.mdx
+                            openai.mdx
+                            zhipuai.mdx
+                            bedrock.mdx
+                            bytedance_doubao.mdx
+                            fireworks.mdx
+                            tensorflow.mdx
+                            baidu_qianfan.mdx
+                            alibaba_tongyi.mdx
+                            voyageai.mdx
+                            pinecone.mdx
+                            minimax.mdx
+                            google_vertex_ai.mdx
+                            TEMPLATE.mdx
+                            deepinfra.mdx
+                            jina.mdx
+                            mixedbread_ai.mdx
+                            togetherai.mdx
+                            cloudflare_ai.mdx
+                            transformers.mdx
+                            cohere.mdx
+                            ollama.mdx
+                            llama_cpp.mdx
+                        retrievers/
+                            vespa-retriever.mdx
+                            hyde.mdx
+                            azion-edgesql.mdx
+                            zep-retriever.mdx
+                            zep-cloud-retriever.mdx
+                            supabase-hybrid.mdx
+                            time-weighted-retriever.mdx
+                            bedrock-knowledge-bases.mdx
+                            chatgpt-retriever-plugin.mdx
+                            chaindesk-retriever.mdx
+                            index.mdx
+                            dria.mdx
+                            kendra-retriever.mdx
+                            TEMPLATE.mdx
+                            tavily.mdx
+                            exa.mdx
+                            bm25.mdx
+                            alchemystai-retriever.mdx
+                            metal-retriever.mdx
+                            arxiv-retriever.mdx
+                            self_query/
+                                hanavector_self_query.mdx
+                        tools/
+                            sfn_agent.mdx
+                            duckduckgo_search.mdx
+                            serpapi.mdx
+                            vectorstore.mdx
+                            searxng.mdx
+                            searchapi.mdx
+                            google_routes.mdx
+                            tavily_map.mdx
+                            sql.mdx
+                            google_scholar.mdx
+                            ibm.mdx
+                            composio.mdx
+                            google_places.mdx
+                            wikipedia.mdx
+                            stagehand.mdx
+                            exa_search.mdx
+                            azure_dynamic_sessions.mdx
+                            json.mdx
+                            index.mdx
+                            openai.mdx
+                            mcp_toolbox.mdx
+                            tavily_crawl.mdx
+                            google_trends.mdx
+                            connery.mdx
+                            jigsawstack.mdx
+                            aiplugin-tool.mdx
+                            connery_toolkit.mdx
+                            goat.mdx
+                            dalle.mdx
+                            wolframalpha.mdx
+                            tavily_extract.mdx
+                            stackexchange.mdx
+                            google.mdx
+                            webbrowser.mdx
+                            TEMPLATE.mdx
+                            openapi.mdx
+                            anthropic.mdx
+                            decodo.mdx
+                            pyinterpreter.mdx
+                            falkordb.mdx
+                            discord_tool.mdx
+                            zapier_agent.mdx
+                            tavily_search.mdx
+                            google_gmail.mdx
+                            tavily_search_community.mdx
+                            clicksend.mdx
+                            lambda_agent.mdx
+                            google_calendar.mdx
+                        llm_caching/
+                            index.mdx
+                            azure_cosmosdb_nosql.mdx
+                        chat/
+                            cloudflare_workersai.mdx
+                            tencent_hunyuan.mdx
+                            google_generative_ai.mdx
+                            ollama_functions.mdx
+                            ni_bittensor.mdx
+                            ibm.mdx
+                            bedrock_converse.mdx
+                            xai.mdx
+                            premai.mdx
+                            groq.mdx
+                            index.mdx
+                            openai.mdx
+                            prompt_layer_openai.mdx
+                            zhipuai.mdx
+                            bedrock.mdx
+                            novita.mdx
+                            fireworks.mdx
+                            mistral.mdx
+                            deepseek.mdx
+                            baidu_qianfan.mdx
+                            alibaba_tongyi.mdx
+                            minimax.mdx
+                            baidu_wenxin.mdx
+                            google_vertex_ai.mdx
+                            fake.mdx
+                            google.mdx
+                            yandex.mdx
+                            TEMPLATE.mdx
+                            web_llm.mdx
+                            azure.mdx
+                            openrouter.mdx
+                            anthropic.mdx
+                            togetherai.mdx
+                            friendli.mdx
+                            moonshot.mdx
+                            cohere.mdx
+                            arcjet.mdx
+                            ollama.mdx
+                            deep_infra.mdx
+                            llama_cpp.mdx
+                            cerebras.mdx
+                            perplexity.mdx
+                        callbacks/
+                            upstash_ratelimit_callback.mdx
+                            index.mdx
+                            datadog_tracer.mdx
+                        providers/
+                            microsoft.mdx
+                            daytona.mdx
+                            aws.mdx
+                            supadata.mdx
+                            overview.mdx
+                            openai.mdx
+                            modal.mdx
+                            google.mdx
+                            node-vfs.mdx
+                            openrouter.mdx
+                            anthropic.mdx
+                            all_providers.mdx
+                            deno.mdx
+                        stores/
+                            file_system.mdx
+                            vercel_kv_storage.mdx
+                            ioredis_storage.mdx
+                            index.mdx
+                            cassandra_storage.mdx
+                            in_memory.mdx
+                            upstash_redis_storage.mdx
+                        document_compressors/
+                            cohere_rerank.mdx
+                            ibm.mdx
+                            mixedbread_ai.mdx
+                        vectorstores/
+                            myscale.mdx
+                            sap_hanavector.mdx
+                            azion-edgesql.mdx
+                            typeorm.mdx
+                            mongodb_atlas.mdx
+                            supabase.mdx
+                            neo4jvector.mdx
+                            voy.mdx
+                            closevector.mdx
+                            vectara.mdx
+                            zep_cloud.mdx
+                            typesense.mdx
+                            azure_cosmosdb_mongodb.mdx
+                            index.mdx
+                            convex.mdx
+                            zep.mdx
+                            hnswlib.mdx
+                            couchbase_search.mdx
+                            vercel_postgres.mdx
+                            tigris.mdx
+                            weaviate.mdx
+                            clickhouse.mdx
+                            singlestore.mdx
+                            elasticsearch.mdx
+                            libsql.mdx
+                            cloudflare_vectorize.mdx
+                            milvus.mdx
+                            qdrant.mdx
+                            opensearch.mdx
+                            pinecone.mdx
+                            rockset.mdx
+                            astradb.mdx
+                            google_cloudsql_pg.mdx
+                            neon.mdx
+                            couchbase_query.mdx
+                            azure_cosmosdb_nosql.mdx
+                            mariadb.mdx
+                            turbopuffer.mdx
+                            momento_vector_index.mdx
+                            lancedb.mdx
+                            upstash.mdx
+                            TEMPLATE.mdx
+                            memory.mdx
+                            analyticdb.mdx
+                            usearch.mdx
+                            xata.mdx
+                            googlevertexai.mdx
+                            pgvector.mdx
+                            faiss.mdx
+                            redis.mdx
+                            chroma.mdx
+                            cassandra.mdx
+                            hanavector.mdx
+                            azure_aisearch.mdx
+                            prisma.mdx
+                        document_transformers/
+                            html-to-text.mdx
+                            index.mdx
+                            openai_metadata_tagger.mdx
+                            mozilla_readability.mdx
+                        document_loaders/
+                            index.mdx
+                            file_loaders/
+                                docx.mdx
+                                subtitles.mdx
+                                jsonlines.mdx
+                                json.mdx
+                                index.mdx
+                                unstructured.mdx
+                                openai_whisper_audio.mdx
+                                notion_markdown.mdx
+                                text.mdx
+                                csv.mdx
+                                chatgpt.mdx
+                                epub.mdx
+                                pdf.mdx
+                                multi_file.mdx
+                                directory.mdx
+                                pptx.mdx
+                            web_loaders/
+                                figma.mdx
+                                web_playwright.mdx
+                                hn.mdx
+                                college_confidential.mdx
+                                s3.mdx
+                                serpapi.mdx
+                                apify_dataset.mdx
+                                firecrawl.mdx
+                                recursive_url_loader.mdx
+                                searchapi.mdx
+                                github.mdx
+                                web_puppeteer.mdx
+                                airtable.mdx
+                                confluence.mdx
+                                azure_blob_storage_container.mdx
+                                index.mdx
+                                browserbase.mdx
+                                langsmith.mdx
+                                spider.mdx
+                                jira.mdx
+                                gitbook.mdx
+                                assemblyai_audio_transcription.mdx
+                                google_cloudsql_pg.mdx
+                                sort_xyz_blockchain.mdx
+                                youtube.mdx
+                                couchbase.mdx
+                                pdf.mdx
+                                imsdb.mdx
+                                sitemap.mdx
+                                azure_blob_storage_file.mdx
+                                soniox.mdx
+                                sonix_audio_transcription.mdx
+                                taskade.mdx
+                                web_cheerio.mdx
+                                notionapi.mdx
+                                google_cloud_storage.mdx
+                        graphs/
+                            sap_hana_rdf_graph.mdx
+                        llms/
+                            cloudflare_workersai.mdx
+                            raycast.mdx
+                            chrome_ai.mdx
+                            gradient_ai.mdx
+                            huggingface_inference.mdx
+                            ni_bittensor.mdx
+                            ibm.mdx
+                            ai21.mdx
+                            index.mdx
+                            openai.mdx
+                            writer.mdx
+                            prompt_layer_openai.mdx
+                            bedrock.mdx
+                            fireworks.mdx
+                            jigsawstack.mdx
+                            mistral.mdx
+                            google_vertex_ai.mdx
+                            aleph_alpha.mdx
+                            yandex.mdx
+                            aws_sagemaker.mdx
+                            azure.mdx
+                            friendli.mdx
+                            together.mdx
+                            cohere.mdx
+                            arcjet.mdx
+                            ollama.mdx
+                            replicate.mdx
+                            deep_infra.mdx
+                            llama_cpp.mdx
+                            layerup_security.mdx
+                        chains/
+                            sap_hana_sparql_qa_chain.mdx
+                    migrate/
+                        langgraph-v1.mdx
+                        langchain-v1.mdx
+                deepagents/
+                    acp.mdx
+                    comparison.mdx
+                    overview.mdx
+                    customization.mdx
+                    data-analysis.mdx
+                    harness.mdx
+                    data-locations.mdx
+                    long-term-memory.mdx
+                    backends.mdx
+                    sandboxes.mdx
+                    skills.mdx
+                    human-in-the-loop.mdx
+                    quickstart.mdx
+                    subagents.mdx
+                    cli/
+                        overview.mdx
+                        providers.mdx
+                    streaming/
+                        overview.mdx
+                        frontend.mdx
+                reference/
+                    langchain-python.mdx
+                    langgraph-javascript.mdx
+                    langchain-javascript.mdx
+                    deepagents-javascript.mdx
+                    overview.mdx
+                    langgraph-python.mdx
+                    integrations-python.mdx
+                    deepagents-python.mdx
+            preview/
+                README.mdx
     dogfood_repos/
         adk-samples/
             LICENSE
@@ -5620,53 +9151,6 @@ agent-cockpit/
                 a2a_evaluation.ipynb
                 a2a_quickstart.ipynb
                 task_vs_message.ipynb
-    remotion/
-        src/
-            index.tsx
-            Root.tsx
-            Day22/
-                index.tsx
-                TemplatesScene.tsx
-                ProblemScene.tsx
-                OutroScene.tsx
-                CICDScene.tsx
-                styles.ts
-                MetricsScene.tsx
-                EvalConceptScene.tsx
-                TitleScene.tsx
-                FileTreeScene.tsx
-                EvalRunScene.tsx
-                ScaffoldScene.tsx
-                components/
-                    TerminalBlock.tsx
-                    FileTree.tsx
-                    ScoreBar.tsx
-            EvolveDemo/
-                MCPScene.tsx
-                index.tsx
-                EvolveDeepDiveScene.tsx
-                CertifyScene.tsx
-                TerminalScene.tsx
-                StandaloneEvolveStoryDemo.tsx
-                StandaloneExplainerDemo.tsx
-                StandaloneLadderDemo.tsx
-                StandaloneCertifyDemo.tsx
-                AgentOpsCockpitDemo.tsx
-                StoryCard.tsx
-                ExplainerScene.tsx
-                StandaloneUpgradeStoryDemo.tsx
-                EvolveSampleScene.tsx
-                StandaloneEvolveDeepDiveDemo.tsx
-                UpgradeScene.tsx
-                ClosingScene.tsx
-                LadderScene.tsx
-                TitleScene.tsx
-                StandaloneUpgradeDemo.tsx
-                StandaloneCertifyStoryDemo.tsx
-                StandaloneMCPDemo.tsx
-            GettingStartedDemo/
-                GettingStartedScene.tsx
-                StandaloneGettingStartedDemo.tsx
     dogfood/
         adk-samples/
             LICENSE
@@ -19780,8 +23264,9 @@ agent-cockpit/
                 a2a_quickstart.ipynb
                 task_vs_message.ipynb
     my_super_agent/
-        requirements.txt
-        agent.py
+    dist_release/
+        agentops_cockpit-1.4.7-py3-none-any.whl
+        agentops_cockpit-1.4.7.tar.gz
     src/
         App.tsx
         main.tsx
@@ -19988,6 +23473,43 @@ agent-cockpit/
 ---
 
 ## 📄 Source Code Consolidation
+
+
+### FILE: `check_gcp_status.py`
+---
+```python
+import vertexai
+from google.cloud import storage
+from vertexai.preview import reasoning_engines
+
+project_id = "YOUR_PROJECT_ID"
+location = "us-central1"
+
+vertexai.init(project=project_id, location=location)
+
+def check_status():
+    print(f"Checking status for project: {project_id}")
+    
+    # 1. Check Buckets
+    storage_client = storage.Client(project=project_id)
+    buckets = list(storage_client.list_buckets())
+    print("\nBuckets:")
+    for b in buckets:
+        print(f" - {b.name}")
+    
+    # 2. Check Reasoning Engines
+    print("\nReasoning Engines:")
+    try:
+        engines = reasoning_engines.ReasoningEngine.list()
+        for e in engines:
+            print(f" - {e.display_name} ({e.resource_name})")
+    except Exception as e:
+        print(f"Error listing reasoning engines: {e}")
+
+if __name__ == "__main__":
+    check_status()
+
+```
 
 
 ### FILE: `starter_pack_pyproject.toml`
@@ -20235,13 +23757,13 @@ lint:
 register-gemini-enterprise:
 	@uvx agent-starter-pack@0.35.1 register-gemini-enterprise
 # ==============================================================================
-# Autonomous Hub Hierarchy (v2.0.10 CLI)
+# Autonomous Hub Hierarchy (v1.6 CLI)
 # ==============================================================================
 
 cockpit: ## 🕹️ Mission Control: Master Dashboard & Fleet Status
 	@PYTHONPATH=src uv run cockpit cockpit --path $(if $(P),$(P),.)
 
-bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt autonomous libraries
+bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt Autonomous libraries
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
@@ -20269,12 +23791,12 @@ audit-arch: ## 🏗️ Strategy Pillar: Architecture Design Review
 arch-review: audit-arch ## [Alias] Architecture Design Review
 
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
-	@PYTHONPATH=src uv run cockpit evolve --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
 
-deploy-autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy cockpit --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+deploy-Autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
+	@PYTHONPATH=src uv run cockpit deploy Autonomous --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
-deploy-prod: deploy-autonomous ## [Alias] Production Deployment
+deploy-prod: deploy-Autonomous ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
 	@PYTHONPATH=src uv run cockpit fleet status
@@ -20307,11 +23829,11 @@ upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
 
 lab-bootstrap: ## Setup the 'Broken Agent' for the Cockpit Lab
-	@echo "🧪 Bootstrapping Rogue Agent for viral lab..."
+	@echo "🧪 Bootstrapping broken agent for lab..."
 	@mkdir -p my_super_agent
-	@echo 'import os\nimport vertexai\nfrom fastapi import FastAPI\n\n# 🚩 SecOps Violation: Hardcoded development keys in plaintext\nos.environ["GEMINI_API_KEY"] = "AIzaSy_ROGUE_KEY_8172648"\n\napp = FastAPI(title="Rogue AI Agent")\n\n# 🚩 Data Privacy Violation: Unmasked PII extraction\ndef extract_customer_data(user_ssn: str, email: str):\n    print(f"DEBUG: Processing user {email} with SSN {user_ssn}") \n    return {"status": "extracted"}\n\n@app.post("/agent/execute")\nasync def execute_task(user_prompt: str):\n    # 🚩 FinOps Nightmare: Massive system prompt injected on EVERY call (No Context Caching)\n    system_rules = "You are a helpful assistant. " * 5000 \n    \n    # 🚩 Security Risk: Raw prompt concatenation (SQL/Prompt Injection vulnerability)\n    unsafe_prompt = f"{system_rules}\\nUser asked: {user_prompt}"\n    \n    # 🚩 SRE Nightmare: No @retry, no timeouts, no backoff. If Google APIs hiccup, the agent dies.\n    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")\n    response = model.generate_content(unsafe_prompt)\n    \n    return {"agent_response": response.text}\n' > my_super_agent/agent.py
-	@echo "google-cloud-aiplatform\nfastapi\nuvicorn\ntenacity\npydantic" > my_super_agent/requirements.txt
-	@echo "✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent"
+	@echo 'import os\nimport vertexai\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n# INTENTIONAL DEBT: No retries, no timeouts, no structured types, PII exposure\ndef get_user_data(email: str):\n    return f"Extracting PII: {email}"\n\n@app.get("/task")\ndef solve_task(q: str):\n    # MISSING: Context Caching\n    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")\n    return model.generate_content(q).text\n' > my_super_agent/agent.py
+	@echo "google-cloud-aiplatform\nfastapi\nuvicorn" > my_super_agent/requirements.txt
+	@echo "✅ Lab environment ready in ./my_super_agent"
 
 ```
 
@@ -20420,7 +23942,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.12"
+version = "2.0.10"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -20506,7 +24028,7 @@ include = [
 [tool.pytest.ini_options]
 pythonpath = [".", "src", "functions", "scripts"]
 testpaths = ["tests", "src/agent_ops_cockpit/tests"]
-norecursedirs = ["tests/legacy", "dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist", "docs_temp", "langchain_cockpit_publishing", "my_super_agent"]
+norecursedirs = ["tests/legacy", "dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist", "docs_temp", "langchain_cockpit_publishing"]
 asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",
@@ -20528,8 +24050,7 @@ exclude = [
     "dist",
     "build",
     "*.js",
-    "*.razor.js",
-    "my_super_agent"
+    "*.razor.js"
 ]
 
 [tool.ruff.lint]
@@ -20573,6 +24094,40 @@ deployment:
   args: ["agentops-cockpit", "mcp"]
   env:
     COCKPIT_MODE: Autonomous
+
+```
+
+
+### FILE: `debug_paradigm.py`
+---
+```python
+import ast
+import os
+import sys
+
+# Ensure we can import from src
+sys.path.insert(0, os.path.join(os.getcwd(), 'src'))
+
+from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
+
+auditor = ParadigmAuditor()
+
+def debug_audit(name, content, file_path):
+    print(f"--- {name} ---")
+    tree = ast.parse(content)
+    findings = auditor.audit(tree, content, file_path)
+    print(f"Findings count: {len(findings)}")
+    for f in findings:
+        print(f" - {f.title}")
+
+# Test P6
+debug_audit("P6", "from google.adk import Agent\nquery = 'Calculate average value'\n# RAG search below\nresults = search(query)", "math_rag.py")
+
+# Test P7
+debug_audit("P7", "from google.adk import Agent\nprompt = 'Instructions: format this text with regex: ' + text", "etl.py")
+
+# Test P12
+debug_audit("P12", "from google.adk import Agent\n" + "def tool_" + "(): pass\ndef tool_".join([str(i) for i in range(30)]) + "(): pass", "bloat.py")
 
 ```
 
@@ -20664,6 +24219,45 @@ def register():
 
 if __name__ == "__main__":
     register()
+
+```
+
+
+### FILE: `fix_versions.py`
+---
+```python
+import os
+
+files_to_fix = []
+with open('files_to_fix.txt', 'r') as f:
+    files_to_fix = [line.strip() for line in f if line.strip()]
+
+versions_to_replace = {
+    '1.6.7': '2.0.7',
+    '1.6.6': '2.0.7',
+    '1.3.5': '2.0.7'
+}
+
+for file_path in files_to_fix:
+    if not os.path.exists(file_path):
+        continue
+    if any(file_path.endswith(ext) for ext in ['.pyc', '.png', '.exe', '.gz', '.zip', '.pyo', '.so', '.dylib']):
+        continue
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        original_content = content
+        for old, new in versions_to_replace.items():
+            content = content.replace(old, new)
+            
+        if content != original_content:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Fixed: {file_path}")
+    except Exception as e:
+        print(f"Error fixing {file_path}: {e}")
 
 ```
 
@@ -20911,6 +24505,23 @@ finops:
 ```
 
 
+### FILE: `a2ui_bridge.py`
+---
+```python
+# Cockpit v2.0.7: Unified A2UI Interaction Bridge
+# Maps backend agent logic to frontend GenUI surfaces.
+
+def push_surface(content: str, surface_id: str = "main"):
+    """
+    Pushes rich content to the A2UI layer for proactive user interaction.
+    """
+    print(f"🎭 [A2UI PUSH] Surface: {surface_id} | Content: {content[:50]}...")
+    # Implementation for Firebase / GKE Push notifications
+    return {"status": "PUSHED", "surface_id": surface_id}
+
+```
+
+
 ### FILE: `lab-tutorial-agent/agent_engine_deploy.py`
 ---
 ```python
@@ -21130,97 +24741,9 @@ def telemetry(req: https_fn.Request) -> https_fn.Response:
 ```
 
 
-### FILE: `.cleanup_archive/check_gcp_status.py`
+### FILE: `docs_temp/Makefile`
 ---
-```python
-import vertexai
-from google.cloud import storage
-from vertexai.preview import reasoning_engines
-
-project_id = "YOUR_PROJECT_ID"
-location = "us-central1"
-
-vertexai.init(project=project_id, location=location)
-
-def check_status():
-    print(f"Checking status for project: {project_id}")
-    
-    # 1. Check Buckets
-    storage_client = storage.Client(project=project_id)
-    buckets = list(storage_client.list_buckets())
-    print("\nBuckets:")
-    for b in buckets:
-        print(f" - {b.name}")
-    
-    # 2. Check Reasoning Engines
-    print("\nReasoning Engines:")
-    try:
-        engines = reasoning_engines.ReasoningEngine.list()
-        for e in engines:
-            print(f" - {e.display_name} ({e.resource_name})")
-    except Exception as e:
-        print(f"Error listing reasoning engines: {e}")
-
-if __name__ == "__main__":
-    check_status()
-
-```
-
-
-### FILE: `.cleanup_archive/debug_paradigm.py`
----
-```python
-import ast
-import os
-import sys
-
-# Ensure we can import from src
-sys.path.insert(0, os.path.join(os.getcwd(), 'src'))
-
-from agent_ops_cockpit.ops.auditors.paradigm import ParadigmAuditor
-
-auditor = ParadigmAuditor()
-
-def debug_audit(name, content, file_path):
-    print(f"--- {name} ---")
-    tree = ast.parse(content)
-    findings = auditor.audit(tree, content, file_path)
-    print(f"Findings count: {len(findings)}")
-    for f in findings:
-        print(f" - {f.title}")
-
-# Test P6
-debug_audit("P6", "from google.adk import Agent\nquery = 'Calculate average value'\n# RAG search below\nresults = search(query)", "math_rag.py")
-
-# Test P7
-debug_audit("P7", "from google.adk import Agent\nprompt = 'Instructions: format this text with regex: ' + text", "etl.py")
-
-# Test P12
-debug_audit("P12", "from google.adk import Agent\n" + "def tool_" + "(): pass\ndef tool_".join([str(i) for i in range(30)]) + "(): pass", "bloat.py")
-
-```
-
-
-### FILE: `.cleanup_archive/a2ui_bridge.py`
----
-```python
-# Cockpit v2.0.7: Unified A2UI Interaction Bridge
-# Maps backend agent logic to frontend GenUI surfaces.
-
-def push_surface(content: str, surface_id: str = "main"):
-    """
-    Pushes rich content to the A2UI layer for proactive user interaction.
-    """
-    print(f"🎭 [A2UI PUSH] Surface: {surface_id} | Content: {content[:50]}...")
-    # Implementation for Firebase / GKE Push notifications
-    return {"status": "PUSHED", "surface_id": surface_id}
-
-```
-
-
-### FILE: `.cleanup_archive/docs_temp/Makefile`
----
-```cleanup_archive/docs_temp/Makefile
+```docs_temp/Makefile
 .PHONY: all dev build format lint test install clean lint_md lint_md_fix broken-links build-references preview-references format-check
 
 # Default target
@@ -21342,7 +24865,7 @@ help:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pyproject.toml`
+### FILE: `docs_temp/pyproject.toml`
 ---
 ```toml
 [project]
@@ -21483,7 +25006,7 @@ convention = "google"
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/__init__.py`
+### FILE: `docs_temp/pipeline/__init__.py`
 ---
 ```python
 """Documentation build pipeline.
@@ -21495,7 +25018,7 @@ including file watching, building, and serving capabilities.
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/cli.py`
+### FILE: `docs_temp/pipeline/cli.py`
 ---
 ```python
 """CLI commands for the docs pipeline.
@@ -21856,7 +25379,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/__main__.py`
+### FILE: `docs_temp/pipeline/__main__.py`
 ---
 ```python
 """Main entry point for the docs pipeline CLI."""
@@ -21869,7 +25392,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/preprocessors/link_map.py`
+### FILE: `docs_temp/pipeline/preprocessors/link_map.py`
 ---
 ```python
 """Link mapping for cross-reference resolution across different scopes.
@@ -22470,7 +25993,7 @@ SCOPE_LINK_MAPS = {
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/preprocessors/__init__.py`
+### FILE: `docs_temp/pipeline/preprocessors/__init__.py`
 ---
 ```python
 """Markdown preprocessors for documentation pipeline."""
@@ -22482,7 +26005,7 @@ __all__ = ["preprocess_markdown"]
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/preprocessors/handle_auto_links.py`
+### FILE: `docs_temp/pipeline/preprocessors/handle_auto_links.py`
 ---
 ```python
 """Logic to identify and transform cross-reference links in markdown files.
@@ -22703,7 +26226,7 @@ def replace_autolinks(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/preprocessors/markdown_preprocessor.py`
+### FILE: `docs_temp/pipeline/preprocessors/markdown_preprocessor.py`
 ---
 ```python
 """Markdown preprocessor for handling cross-references and conditional blocks.
@@ -22816,7 +26339,7 @@ def preprocess_markdown(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/highlights.py`
+### FILE: `docs_temp/pipeline/tools/highlights.py`
 ---
 ```python
 """Support code blocks with highlight comments in Markdown."""
@@ -22902,7 +26425,7 @@ def highlight_code_blocks(markdown: str) -> str:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/__init__.py`
+### FILE: `docs_temp/pipeline/tools/__init__.py`
 ---
 ```python
 """Tools for managing documentation files."""
@@ -22910,7 +26433,7 @@ def highlight_code_blocks(markdown: str) -> str:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/links.py`
+### FILE: `docs_temp/pipeline/tools/links.py`
 ---
 ```python
 """Move documentation files while automatically updating references.
@@ -23500,7 +27023,7 @@ __all__ = ["drop_suffix_from_links", "move_file_with_link_updates"]
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/parser.py`
+### FILE: `docs_temp/pipeline/tools/parser.py`
 ---
 ```python
 """Simplified Markdown parser for mapping custom commands to Mintlify syntax.
@@ -24337,7 +27860,7 @@ def to_mint(markdown: str, file_path: str | None = None) -> str:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/partner_pkg_table.py`
+### FILE: `docs_temp/pipeline/tools/partner_pkg_table.py`
 ---
 ```python
 """Populates the Python integrations landing page.
@@ -24582,7 +28105,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/lexer.py`
+### FILE: `docs_temp/pipeline/tools/lexer.py`
 ---
 ```python
 """Markdown lexer for tokenizing markdown text."""
@@ -24719,7 +28242,7 @@ __all__ = ["Token", "TokenType", "lex"]
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/docusaurus_parser.py`
+### FILE: `docs_temp/pipeline/tools/docusaurus_parser.py`
 ---
 ```python
 """Docusaurus to Mintlify migration parser.
@@ -25085,7 +28608,7 @@ def convert_docusaurus_to_mintlify(content: str, file_path: Path | None = None) 
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/notebook/convert.py`
+### FILE: `docs_temp/pipeline/tools/notebook/convert.py`
 ---
 ```python
 import ast
@@ -25468,7 +28991,7 @@ def convert_notebook(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/tools/notebook/__init__.py`
+### FILE: `docs_temp/pipeline/tools/notebook/__init__.py`
 ---
 ```python
 """Tooling to support notebooks in the pipeline."""
@@ -25476,7 +28999,7 @@ def convert_notebook(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/core/__init__.py`
+### FILE: `docs_temp/pipeline/core/__init__.py`
 ---
 ```python
 """Pipeline core components package."""
@@ -25484,7 +29007,7 @@ def convert_notebook(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/core/builder.py`
+### FILE: `docs_temp/pipeline/core/builder.py`
 ---
 ```python
 """Documentation builder implementation."""
@@ -26370,7 +29893,7 @@ class DocumentationBuilder:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/core/watcher.py`
+### FILE: `docs_temp/pipeline/core/watcher.py`
 ---
 ```python
 """File watcher implementation.
@@ -26827,7 +30350,7 @@ class FileWatcher:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/commands/build.py`
+### FILE: `docs_temp/pipeline/commands/build.py`
 ---
 ```python
 """Build command implementation."""
@@ -26888,7 +30411,7 @@ def build_command(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/commands/__init__.py`
+### FILE: `docs_temp/pipeline/commands/__init__.py`
 ---
 ```python
 """Pipeline commands package."""
@@ -26896,7 +30419,7 @@ def build_command(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/pipeline/commands/dev.py`
+### FILE: `docs_temp/pipeline/commands/dev.py`
 ---
 ```python
 """Development command implementation.
@@ -27050,7 +30573,7 @@ async def dev_command(
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/convert_pip_to_codegroup.py`
+### FILE: `docs_temp/scripts/convert_pip_to_codegroup.py`
 ---
 ```python
 """Convert standalone `pip install` code blocks to CodeGroup with both pip and uv.
@@ -27300,7 +30823,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/check_removed_pages_redirects.py`
+### FILE: `docs_temp/scripts/check_removed_pages_redirects.py`
 ---
 ```python
 #!/usr/bin/env python3
@@ -27488,7 +31011,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/__init__.py`
+### FILE: `docs_temp/scripts/__init__.py`
 ---
 ```python
 """Scripts."""
@@ -27496,7 +31019,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/update_mdx.py`
+### FILE: `docs_temp/scripts/update_mdx.py`
 ---
 ```python
 import glob
@@ -27538,7 +31061,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/check_pr_imports.py`
+### FILE: `docs_temp/scripts/check_pr_imports.py`
 ---
 ```python
 #!/usr/bin/env python3
@@ -28014,7 +31537,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/packages_yml_get_downloads.py`
+### FILE: `docs_temp/scripts/packages_yml_get_downloads.py`
 ---
 ```python
 """Update downloads count in packages.yml from pepy.tech badge numbers."""
@@ -28103,7 +31626,7 @@ with PACKAGE_YML.open("w") as f:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/scripts/check_import_mappings.py`
+### FILE: `docs_temp/scripts/check_import_mappings.py`
 ---
 ```python
 #!/usr/bin/env python3
@@ -28365,7 +31888,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/pnpm-lock.yaml`
+### FILE: `docs_temp/reference/pnpm-lock.yaml`
 ---
 ```yaml
 lockfileVersion: '9.0'
@@ -31848,9 +35371,9 @@ snapshots:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/Makefile`
+### FILE: `docs_temp/reference/python/Makefile`
 ---
-```cleanup_archive/docs_temp/reference/python/Makefile
+```docs_temp/reference/python/Makefile
 .PHONY: dev-install prod-install config-status build serve-clean-docs serve-docs
 # .PHONY: build-docs serve-clean-docs serve-docs format-docs lint-docs tests
 
@@ -31935,7 +35458,7 @@ help:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/pyproject.toml`
+### FILE: `docs_temp/reference/python/pyproject.toml`
 ---
 ```toml
 [project]
@@ -32154,7 +35677,7 @@ deepagents = { git = "https://github.com/langchain-ai/deepagents.git", subdirect
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/pyproject.prod.toml`
+### FILE: `docs_temp/reference/python/pyproject.prod.toml`
 ---
 ```toml
 [project]
@@ -32373,7 +35896,7 @@ deepagents = { git = "https://github.com/langchain-ai/deepagents.git", subdirect
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/serve_subset.py`
+### FILE: `docs_temp/reference/python/serve_subset.py`
 ---
 ```python
 """MkDocs Documentation Subset Server.
@@ -32973,7 +36496,7 @@ if __name__ == "__main__":
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/pyproject.dev.toml`
+### FILE: `docs_temp/reference/python/pyproject.dev.toml`
 ---
 ```toml
 [project]
@@ -33202,7 +36725,7 @@ deepagents = { path = "../../../deepagents/libs/deepagents", editable = true }
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/python/docs/javascripts/shortcuts.js`
+### FILE: `docs_temp/reference/python/docs/javascripts/shortcuts.js`
 ---
 ```js
 // TODO at some point add cmd + k to open search?
@@ -33210,7 +36733,7 @@ deepagents = { path = "../../../deepagents/libs/deepagents", editable = true }
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/javascript/pnpm-lock.yaml`
+### FILE: `docs_temp/reference/javascript/pnpm-lock.yaml`
 ---
 ```yaml
 lockfileVersion: '9.0'
@@ -34801,7 +38324,7 @@ snapshots:
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/javascript/build.ts`
+### FILE: `docs_temp/reference/javascript/build.ts`
 ---
 ```typescript
 import { execSync } from "child_process";
@@ -35408,7 +38931,7 @@ if (require.main === module) {
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/reference/javascript/plugins/gtm.ts`
+### FILE: `docs_temp/reference/javascript/plugins/gtm.ts`
 ---
 ```typescript
 import { Application, JSX, ParameterType, RendererEvent } from "typedoc";
@@ -35495,7 +39018,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ```
 
 
-### FILE: `.cleanup_archive/docs_temp/src/language-toggle.js`
+### FILE: `docs_temp/src/language-toggle.js`
 ---
 ```js
 /**
@@ -35641,34 +39164,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Run initial check in case user landed here via language toggle
   checkRedirect();
 })();
-
-```
-
-
-### FILE: `remotion/src/Day22/styles.ts`
----
-```typescript
-export const COLORS = {
-  bg: '#0a0a1a',
-  bgLight: '#111128',
-  bgCode: '#1a1a2e',
-  text: '#ffffff',
-  textMuted: '#94a3b8',
-  blue: '#4285F4',
-  green: '#34A853',
-  yellow: '#FBBC05',
-  red: '#EA4335',
-  codeBorder: '#2d2d4a',
-  codeText: '#e2e8f0',
-  codeKeyword: '#7dd3fc',
-  codeString: '#86efac',
-  codeNumber: '#fbbf24',
-};
-
-export const FONT = {
-  sans: 'Inter, system-ui, sans-serif',
-  mono: '"Fira Code", "JetBrains Mono", monospace',
-};
 
 ```
 

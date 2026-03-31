@@ -179,8 +179,8 @@ upgrade: ## Upgrade all packages to latest stable versions
 	uv sync --upgrade
 
 lab-bootstrap: ## Setup the 'Broken Agent' for the Cockpit Lab
-	@echo "🧪 Bootstrapping broken agent for lab..."
+	@echo "🧪 Bootstrapping Rogue Agent for viral lab..."
 	@mkdir -p my_super_agent
-	@echo 'import os\nimport vertexai\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n# INTENTIONAL DEBT: No retries, no timeouts, no structured types, PII exposure\ndef get_user_data(email: str):\n    return f"Extracting PII: {email}"\n\n@app.get("/task")\ndef solve_task(q: str):\n    # MISSING: Context Caching\n    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")\n    return model.generate_content(q).text\n' > my_super_agent/agent.py
-	@echo "google-cloud-aiplatform\nfastapi\nuvicorn" > my_super_agent/requirements.txt
-	@echo "✅ Lab environment ready in ./my_super_agent"
+	@echo 'import os\nimport vertexai\nfrom fastapi import FastAPI\n\n# 🚩 SecOps Violation: Hardcoded development keys in plaintext\nos.environ["GEMINI_API_KEY"] = "AIzaSy_ROGUE_KEY_8172648"\n\napp = FastAPI(title="Rogue AI Agent")\n\n# 🚩 Data Privacy Violation: Unmasked PII extraction\ndef extract_customer_data(user_ssn: str, email: str):\n    print(f"DEBUG: Processing user {email} with SSN {user_ssn}") \n    return {"status": "extracted"}\n\n@app.post("/agent/execute")\nasync def execute_task(user_prompt: str):\n    # 🚩 FinOps Nightmare: Massive system prompt injected on EVERY call (No Context Caching)\n    system_rules = "You are a helpful assistant. " * 5000 \n    \n    # 🚩 Security Risk: Raw prompt concatenation (SQL/Prompt Injection vulnerability)\n    unsafe_prompt = f"{system_rules}\\nUser asked: {user_prompt}"\n    \n    # 🚩 SRE Nightmare: No @retry, no timeouts, no backoff. If Google APIs hiccup, the agent dies.\n    model = vertexai.generative_models.GenerativeModel("gemini-1.5-pro")\n    response = model.generate_content(unsafe_prompt)\n    \n    return {"agent_response": response.text}\n' > my_super_agent/agent.py
+	@echo "google-cloud-aiplatform\nfastapi\nuvicorn\ntenacity\npydantic" > my_super_agent/requirements.txt
+	@echo "✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent"

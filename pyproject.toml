@@ -90,7 +90,7 @@ include = [
 [tool.pytest.ini_options]
 pythonpath = [".", "src", "functions", "scripts"]
 testpaths = ["tests", "src/agent_ops_cockpit/tests"]
-norecursedirs = ["tests/legacy", "dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist", "docs_temp", "langchain_cockpit_publishing"]
+norecursedirs = ["tests/legacy", "dogfood", ".*", "cv_dist", "node_modules", "venv", ".venv", "build", "dist", "docs_temp", "langchain_cockpit_publishing", "my_super_agent"]
 asyncio_mode = "auto"
 markers = [
     "asyncio: mark test as asyncio-based",
@@ -112,7 +112,8 @@ exclude = [
     "dist",
     "build",
     "*.js",
-    "*.razor.js"
+    "*.razor.js",
+    "my_super_agent"
 ]
 
 [tool.ruff.lint]
