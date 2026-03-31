@@ -1503,11 +1503,46 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
                                  continue
                         
                         # Apply specialized logic
-                        if 'Resiliency' in title or 'Backoff' in title:
-                            rem.apply_resiliency(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                        # Apply specialized logic
+                        title_lower = title.lower()
+                        finding_mock = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num)
+                        
+                        if 'resiliency' in title_lower or 'backoff' in title_lower:
+                            rem.apply_resiliency(finding_mock)
                             applied_count += 1
-                        elif 'Timeout' in title or 'Zombie' in title:
-                            rem.apply_timeouts(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                        elif 'timeout' in title_lower or 'zombie' in title_lower:
+                            rem.apply_timeouts(finding_mock)
+                            applied_count += 1
+                        elif 'caching' in title_lower or 'cache' in title_lower:
+                            rem.apply_caching(finding_mock)
+                            applied_count += 1
+                        elif 'hardening' in title_lower or 'poka-yoke' in title_lower:
+                            rem.apply_tool_hardening(finding_mock)
+                            applied_count += 1
+                        elif 'compaction' in title_lower or 'history' in title_lower:
+                            rem.apply_context_compaction(finding_mock)
+                            applied_count += 1
+                        elif 'reflection' in title_lower:
+                            rem.apply_cockpit_reflection(finding_mock)
+                            applied_count += 1
+                        elif 'mcp' in title_lower or 'leakage' in title_lower or 'gate' in title_lower:
+                            rem.apply_mcp_gating(finding_mock)
+                            applied_count += 1
+                        elif 'privilege' in title_lower or 'shadow env' in title_lower or 'credential risk' in title_lower:
+                            rem.apply_privilege_gate(finding_mock)
+                            applied_count += 1
+                        elif 'abstraction' in title_lower or 'monocultural' in title_lower:
+                            rem.apply_cloud_abstraction(finding_mock)
+                            applied_count += 1
+                        elif 'rag' in title_lower or 'retrieval' in title_lower:
+                            rem.apply_passive_retrieval(finding_mock)
+                            applied_count += 1
+                        elif 'split' in title_lower or 'monolith' in title_lower or 'structural' in title_lower:
+                            rem.apply_structural_split(finding_mock)
+                            applied_count += 1
+                        else:
+                            # Fallback inject architecture note
+                            rem.apply_structural_split(finding_mock)
                             applied_count += 1
     
     for _path, rem in remediators.items():
