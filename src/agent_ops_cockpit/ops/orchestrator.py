@@ -633,6 +633,27 @@ class CockpitOrchestrator:
         verdict_lines = self.generate_executive_summary(developer_actions)
         verdict_text = " ".join(verdict_lines).replace('**', '')
 
+        # v2.0.7 Cockpit FinOps: Projected Opex Impact for HTML
+        all_findings_text = "\n".join([r.get('output', '') for r in self.results.values()])
+        from agent_ops_cockpit.ops.auditors.base import AuditFinding
+        from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
+        finops_auditor = FinOpsAuditor()
+        
+        mock_findings = []
+        if any(x in all_findings_text.lower() for x in ['retry', 'resiliency']):
+            mock_findings.append(AuditFinding(category="💰 FinOps", title="Resiliency Hardening", description="..", impact="HIGH", roi="High"))
+        if any(x in all_findings_text.lower() for x in ['logging', 'tracing', 'telemetry']):
+            mock_findings.append(AuditFinding(category="💰 FinOps", title="Telemetry Influx", description="..", impact="MEDIUM", roi="Medium"))
+        if 'caching' in all_findings_text.lower():
+            mock_findings.append(AuditFinding(category="💰 FinOps", title="Caching Optimization", description="..", impact="HIGH", roi="High"))
+        
+        impact = finops_auditor.simulate_opex_impact(100.0, mock_findings)
+        opex_delta = impact['delta']
+        opex_drivers = ", ".join(impact['drivers']) if impact['drivers'] else "Baseline"
+        opex_class = "delta-pos" if opex_delta < 0 else "delta-neg" if opex_delta > 0 else "delta-zero"
+        opex_sign = "-" if opex_delta < 0 else "+" if opex_delta > 0 else ""
+        opex_text = f"{opex_sign}{abs(opex_delta):.1f}%"
+
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -785,6 +806,15 @@ class CockpitOrchestrator:
                     <div class="metric-card">
                         <div class="metric-label">Critical Findings</div>
                         <div class="metric-value" style="color:{'var(--cockpit-red)' if critical_count > 0 else 'var(--cockpit-slate)'}">{critical_count}</div>
+                    </div>
+                    <div class="metric-card" style="border-left: 4px solid var(--cockpit-amber);">
+                        <div class="metric-label">💰 Economist Persona: Opex Delta</div>
+                        <div class="metric-value">
+                            <span class="{opex_class}">{opex_text}</span>
+                        </div>
+                        <div style="font-size: 13px; color: var(--cockpit-grey-500); margin-top: 8px;">
+                            <strong>Drivers:</strong> {opex_drivers}
+                        </div>
                     </div>
                 </div>
 
@@ -1482,6 +1512,9 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     
     for _path, rem in remediators.items():
         if branch:
+            html_diff = rem.save_html_diff()
+            if html_diff:
+                console.print(f"📊 [cyan]Generated Side-by-Side Analysis:[/] {html_diff}")
             b_name = rem.save_to_branch()
             if b_name:
                 branches.append(b_name)

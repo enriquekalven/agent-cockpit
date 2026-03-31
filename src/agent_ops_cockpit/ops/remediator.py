@@ -340,6 +340,38 @@ def decider_should_rag(query: str) -> bool:
             f.write(diff)
         return patch_path
 
+    def save_html_diff(self) -> str:
+        """Generates a side-by-side HTML diff report for easy analysis."""
+        new_content = self._get_new_content()
+        if new_content == self.content:
+            return ""
+            
+        html_diff = difflib.HtmlDiff().make_file(
+            self.content.splitlines(keepends=True),
+            new_content.splitlines(keepends=True),
+            fromdesc=f"Original: {os.path.basename(self.file_path)}",
+            todesc=f"Evolved: {os.path.basename(self.file_path)}",
+            context=False,
+            numlines=3
+        )
+        
+        diff_dir = os.path.join(os.getcwd(), '.cockpit', 'evidence_lake', 'diffs')
+        os.makedirs(diff_dir, exist_ok=True)
+        
+        file_slug = os.path.basename(self.file_path)
+        timestamp = datetime.now().strftime('%H%M%S')
+        diff_path = os.path.join(diff_dir, f"{file_slug}_evolution_{timestamp}.html")
+        
+        # Add basic styling improvements to the default difflib HTML
+        styled_html = html_diff.replace(
+            '<style type="text/css">',
+            '<style type="text/css">\n    body { font-family: "Courier New", monospace; background-color: #0f172a; color: #f8fafc; }\n    table.diff { width: 100%; border-collapse: collapse; }\n    table.diff th { background-color: #1e293b; padding: 10px; border: 1px solid #334155; }\n    table.diff td { padding: 4px 8px; border: 1px solid #334155; }\n    .diff_add { background-color: #064e3b; }\n    .diff_chg { background-color: #422006; }\n    .diff_sub { background-color: #7f1d1d; }\n'
+        )
+        
+        with open(diff_path, 'w', encoding='utf-8') as f:
+            f.write(styled_html)
+        return diff_path
+
     def save_to_branch(self) -> str:
         """Creates a new git branch and commits the changes."""
         import subprocess

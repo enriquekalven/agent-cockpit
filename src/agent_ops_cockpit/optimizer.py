@@ -282,7 +282,7 @@ def audit(file_path: str=typer.Argument('agent.py', help='Path to the agent code
         from rich.markup import escape
         syntax = Syntax(opt.diff, 'python', theme='monokai', line_numbers=False)
         console.print(syntax)
-        console.print(escape(f'ACTION: {file_path}:1 | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})'))
+        console.print(escape(f'ACTION: {file_path} | Optimization: {opt.title} | {opt.description} (Est. {opt.savings})'))
         do_apply = False
 
         if apply_fix:
