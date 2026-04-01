@@ -403,6 +403,22 @@ class CodeRemediator:
         except ImportError:
             pass
 
+    def _apply_module_injection_cst(self, finding, injected_code, check_str):
+        if check_str in self.content:
+            return
+        try:
+            import libcst as cst
+            class ModuleInjection(cst.CSTTransformer):
+                def leave_Module(self, original_node, updated_node):
+                    parsed = cst.parse_module(injected_code)
+                    new_body = list(updated_node.body)
+                    new_body.extend(parsed.body)
+                    return updated_node.with_changes(body=tuple(new_body))
+            self._apply_cst_transformer(ModuleInjection())
+        except ImportError:
+            # Fallback if libcst is missing
+            self._add_edit(len(self.lines), len(self.lines[-1]) if self.lines else 0, len(self.lines), len(self.lines[-1]) if self.lines else 0, '\n' + injected_code)
+
     def apply_structural_split(self, finding):
         """
         v2.0.7 Architectural Evolution: Suggests splitting oversized agents.
