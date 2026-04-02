@@ -1559,6 +1559,8 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
             b_name = rem.save_to_branch()
             if b_name:
                 branches.append(b_name)
+            else:
+                rem.save()
         else:
             rem.save()
             

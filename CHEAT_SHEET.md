@@ -12,7 +12,7 @@ Whether you want a long-term install or a quick one-off run.
 | **Zero-Install (uvx)** | `uvx agentops-cockpit <command>` | Remote/CI execution without installing. |
 | **Dev Setup** | `make install` | Clone and sync for local contributors. |
 
-> 💡 **Pro-Tip**: You can use `ops`, `aops`, or `agent-ops` interchangeably with `cockpit`. For example, `ops report` is the same as `cockpit audit report`.
+> 💡 **Pro-Tip**: You can use `ops`, `uvx agentops-cockpit`, or `uvx agentops-cockpit` interchangeably with `cockpit`. For example, `uvx agentops-cockpit audit report` is the same as `cockpit audit report`.
 
 ---
 
@@ -22,21 +22,21 @@ Follow this path to take an agent from prototype to enterprise-grade.
 | Sequence | uvx / CLI Command | make Shortcut | Purpose |
 | :--- | :--- | :--- | :--- |
 | **1. Explore**| `cockpit` | `make cockpit` | Launch Master Dashboard & Fleet Status. |
-| **2. Modernize**| `cockpit mcp blueprint` | `make mcp-blueprint` | Generate MCP Wrappers for Legacy Tools. |
-| **3. Certify** | `cockpit certify` | `make certify` | Production Readiness Certification. |
-| **4. Audit** | `ops report` | `make audit` | Deep Persona SME scan: Sec, ROI, & Arch. |
-| **5. Fix** | `cockpit fix evolve` | `make apply-fixes` | Autonomous remediation & code hardening. |
-| **6. Deploy** | `cockpit deploy cockpit`| `make deploy-prod`| End-to-End: Audit -> Fix -> Deploy. |
-| **7. Monitor**| `cockpit fleet status` | `make fleet-status` | View global production state. |
+| **2. Modernize**| `uvx agentops-cockpit mcp blueprint` | `make mcp-blueprint` | Generate MCP Wrappers for Legacy Tools. |
+| **3. Certify** | `uvx agentops-cockpit certify` | `uvx agentops-cockpit certify` | Production Readiness Certification. |
+| **4. Audit** | `uvx agentops-cockpit audit report` | `uvx agentops-cockpit audit report` | Deep Persona SME scan: Sec, ROI, & Arch. |
+| **5. Fix** | `uvx agentops-cockpit evolve` | `uvx agentops-cockpit evolve` | Autonomous remediation & code hardening. |
+| **6. Deploy** | `uvx agentops-cockpit deploy prep`| `uvx agentops-cockpit deploy prep`| End-to-End: Audit -> Fix -> Deploy. |
+| **7. Monitor**| `uvx agentops-cockpit fleet status` | `uvx agentops-cockpit fleet status` | View global production state. |
 
 ---
 
 ## ⚙️ 3. Developer Tooling (The Inner Loop)
 Shortcuts for local development and testing.
 
-- **`make dev`**: 🎭 Launches the unified local stack (Face + Gateway).
+- **`uvx agentops-cockpit cockpit`**: 🎭 Launches the unified local stack (Face + Gateway).
 - **`make playground`**: 🎡 Starts the interactive agent sandbox.
-- **`make test`**: 🧪 Runs unit and integration tests.
+- **`uvx agentops-cockpit test`**: 🧪 Runs unit and integration tests.
 - **`make eval`**: 🧗 Launches ADK-based quality evaluations.
 - **`make upgrade`**: 🚀 Syncs all packages to latest stable cockpit versions.
 
@@ -67,12 +67,12 @@ Manage your agents once they are live in the wild.
 | Action | Command / Shortcut |
 | :--- | :--- | :--- |
 | **Mission Control** | `cockpit` |
-| **Master Audit** | `ops report` |
-| **Apply All Fixes** | `make apply-fixes` |
-| **Certify Project** | `cockpit certify` |
-| **Modernize Tools** | `make arch-review` |
+| **Master Audit** | `uvx agentops-cockpit audit report` |
+| **Apply All Fixes** | `uvx agentops-cockpit evolve` |
+| **Certify Project** | `uvx agentops-cockpit certify` |
+| **Modernize Tools** | `uvx agentops-cockpit audit arch` |
 | **Bypass Registry** | `cockpit audit report --public` |
-| **System Diagnosis** | `cockpit sys doctor` |
+| **System Diagnosis** | `uvx agentops-cockpit sys doctor` |
 
 ---
 

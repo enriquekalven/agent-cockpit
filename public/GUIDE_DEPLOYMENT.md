@@ -1,4 +1,4 @@
-# 🚀 Technical Guide: One-Click Deploy (`make deploy-prod`)
+# 🚀 Technical Guide: One-Click Deploy (`uvx agentops-cockpit deploy prep`)
 
 The **One-Click Deploy** is the ultimate operational command that transforms your local source code into a globally distributed agent stack on Google Cloud.
 
@@ -6,12 +6,12 @@ The **One-Click Deploy** is the ultimate operational command that transforms you
 
 ### Basic Deployment
 ```bash
-make deploy-prod
+uvx agentops-cockpit deploy prep
 ```
 
 ### Advanced Parameters
 ```bash
-agent-ops deploy --name my-production-agent --region us-east1
+uvx agentops-cockpit deploy --name my-production-agent --region us-east1
 ```
 
 ---
@@ -20,7 +20,7 @@ agent-ops deploy --name my-production-agent --region us-east1
 
 | Flag | Default | Description |
 | :--- | :--- | :--- |
-| `--name` | `agent-ops-backend` | The name of the service in Google Cloud Run. |
+| `--name` | `uvx agentops-cockpit-backend` | The name of the service in Google Cloud Run. |
 | `--region` | `us-central1` | The GCP data center where your agent will reside. |
 
 ---

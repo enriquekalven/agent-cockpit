@@ -1,7 +1,7 @@
 # 🤝 Technical Guide: Agentic Interoperability (A2X)
 ## The "Standardized Ecosystem" Standard (v2.0.17 Autonomous Core)
 
-The `make arch-review` (via InteropAuditor) command activates the **Agent Architect SME**. This persona specializes in **Agentic Interoperability (A2X)**, ensuring that your agent doesn't exist in a vacuum. It forces alignment with the industry's emerging standards: **MCP**, **A2UI**, **UCP**, and **AP2**.
+The `uvx agentops-cockpit audit arch` (via InteropAuditor) command activates the **Agent Architect SME**. This persona specializes in **Agentic Interoperability (A2X)**, ensuring that your agent doesn't exist in a vacuum. It forces alignment with the industry's emerging standards: **MCP**, **A2UI**, **UCP**, and **AP2**.
 
 | Protocol | Purpose | Implementation Detail |
 | :--- | :--- | :--- |

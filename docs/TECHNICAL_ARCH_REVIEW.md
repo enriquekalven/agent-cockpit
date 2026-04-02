@@ -1,7 +1,7 @@
 # 🏛️ Technical Guide: Cockpit Architecture Review
 ## The "Structural Wisdom" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report --mode deep` command activates the **Architect Principal SME**. In the Cockpit Evolution, this persona has been elevated to the **Cockpit Standard**, moving beyond tactical linting to **Reasoning about Intent vs. Implementation** across the multi-cloud Agentic stack.
+The `uvx agentops-cockpit audit report --mode deep` command activates the **Architect Principal SME**. In the Cockpit Evolution, this persona has been elevated to the **Cockpit Standard**, moving beyond tactical linting to **Reasoning about Intent vs. Implementation** across the multi-cloud Agentic stack.
 
 ---
 

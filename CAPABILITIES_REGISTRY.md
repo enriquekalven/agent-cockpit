@@ -13,7 +13,7 @@ This registry defines the mandatory features and "build-gates" that must be main
 | **CAP-007** | **Cockpit Config** | Support for local exclusions and entry points via `cockpit.yaml`.| `test_discovery.py` | major |
 | **CAP-008** | **Version Sync** | Guaranteed version parity between Python CLI and Web Face. | `test_version_sync.py` | minor |
 | **CAP-009** | **Trinity Structure** | Presence of `/src/agent_ops_cockpit` (Engine) and `/src/a2ui` (Face). | `test_ops_core.py` | blocker |
-| **CAP-010** | **CLI Parity** | `agent-ops report` is the master command for all audits. | `test_arch_review.py` | major |
+| **CAP-010** | **CLI Parity** | `uvx agentops-cockpit audit report` is the master command for all audits. | `test_arch_review.py` | major |
 | **CAP-011** | **Maturity Wisdom Store** | Dynamic architectural patterns and compatibility rules for Judge of Judges. | `test_maturity_auditor.py` | major |
 | **CAP-012** | **Cockpit Fleet Pipeline** | End-to-end orchestration (Audit -> Fix -> Hydrate -> Deploy -> Register). | `test_cockpit_pipeline.py` | blocker |
 | **CAP-013** | **Multi-Cloud Simulation** | Battle-test factory for GCP, AWS, and Azure deployment assets. | `test_cockpit_ops.py` | blocker |

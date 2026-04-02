@@ -10,8 +10,8 @@
 All agents operating in the Cockpit must adhere to the following security protocols.
 
 ## 1. Authentication
-All internal API calls MUST use the **Cockpit Identity (JWT)** issued during `agent-ops certify`.
-- **Validation**: `agent-ops audit security` verifies that `Authorization` headers are present and valid.
+All internal API calls MUST use the **Cockpit Identity (JWT)** issued during `uvx agentops-cockpit certify`.
+- **Validation**: `uvx agentops-cockpit audit security` verifies that `Authorization` headers are present and valid.
 
 ## 2. PII Scrubbing
 Before data leaves the local VPC, it MUST pass through the **Cockpit Proxy**.

@@ -12,7 +12,7 @@ Our mission is to become the **Industry Standard Logic Layer** for production AI
 *Focus: Cost-reduction and high-fidelity reasoning.*
 - [x] **Predictive Token Costing (PTC)**: Simulate "Context Window Waste" and provide "What-If" ROI simulations (v2.0.7 Premium Insights Opex Simulation).
 - [x] **Triple-State Situational Analysis**: Version-aware optimization for Legacy vs Modern SDKs.
-- [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) with the official `agentops-cockpit certify` operational checklist.
+- [x] **Agent "Cockpit Score" & Certification**: A single grade (A-F) with the official `agentops-uvx agentops-cockpit certify` operational checklist.
 - [x] **Strategic Paradigm Alignment**: Detect architectural mismatches (RAG for Math) and **Structural Monoliths** (v2.0.7 Premium Insights).
 - [x] **"One Command" Cockpitty**: Unified the entry point into the Master Cockpit Dashboard.
 - [x] **Engineering Resilience (Venv Isolation)**: Automatic isolated audit execution environment (v2.0.7 Premium Insights).

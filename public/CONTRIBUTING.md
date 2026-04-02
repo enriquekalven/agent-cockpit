@@ -40,16 +40,16 @@ npm install
 Don't wait for CI/CD to tell you there's a problem. Run the **Master Cockpit Audit** locally.
 
 ### Local Development
-- `make dev`: Starts the local Engine + Face stack.
-- `make audit`: Runs the **Quick Safe-Build** (Secrets, Reliability).
-- `make audit-deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
-- `make arch-review`: Runs the v2.0.17 Autonomous Architect review.
+- `uvx agentops-cockpit cockpit`: Starts the local Engine + Face stack.
+- `uvx agentops-cockpit audit report`: Runs the **Quick Safe-Build** (Secrets, Reliability).
+- `uvx agentops-cockpit audit report --mode deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
+- `uvx agentops-cockpit audit arch`: Runs the v2.0.17 Autonomous Architect review.
 - `make maturity`: Runs the **Expertise Matrix** dashboard.
 
 ### Specialized Audits
-- `make red-team`: Runs the Adversarial Evaluator against the codebase.
-- `make finops`: Analyzes token efficiency and semantic caching TCO.
-- `make rag-truth`: Audits RAG pipelines for grounding and citation fidelity.
+- `uvx agentops-cockpit audit security`: Runs the Adversarial Evaluator against the codebase.
+- `uvx agentops-cockpit audit roi`: Analyzes token efficiency and semantic caching TCO.
+- `uvx agentops-cockpit audit quality`: Audits RAG pipelines for grounding and citation fidelity.
 
 ---
 
@@ -74,8 +74,8 @@ We use a **Multi-Persona Governance Board**. If you are adding a new feature, co
 
 ## 🔍 Pull Request Checklist
 Before submitting a PR, ensure:
-1.  [ ] Your code passes `make audit` with a score > 90.
-2.  [ ] You have run `make red-team` if adding new reasoning logic.
+1.  [ ] Your code passes `uvx agentops-cockpit audit report` with a score > 90.
+2.  [ ] You have run `uvx agentops-cockpit audit security` if adding new reasoning logic.
 3.  [ ] You have updated `CHANGELOG.md` with your changes.
 4.  [ ] Documentation in `/docs` reflects any new command or policy.
 

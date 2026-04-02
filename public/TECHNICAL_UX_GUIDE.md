@@ -1,8 +1,8 @@
 ---
 ## 🎭 Technical Guide: Face Auditor & Cockpit UX (A2UI, AGUI, MCP)
-## The "Cockpit Experience" Standard (v2.0.17 Autonomous Core Evolution)
+## The "Cockpit Experience" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report` and `cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Governance Framework, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions across **A2UI**, **AGUI**, and **MCP Apps UI** ecosystems.
+The `uvx agentops-cockpit audit report` and `uvx agentops-cockpit certify` commands activate the **UX Principal SME**. This persona specializes in the **Face** pillar of the Governance Framework, ensuring that your agent's frontend is a dynamic, A2UI-compliant **Generative Interface (GenUI)**. A premium agent must provide transparent reasoning and seamless surface transitions across **A2UI**, **AGUI**, and **MCP Apps UI** ecosystems.
 
 ---
 
@@ -11,9 +11,9 @@ The `ops report` and `cockpit certify` commands activate the **UX Principal SME*
 | Command | Alias / Shortcut | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
 | **Mission Control** | `cockpit` | Fleet-wide UX health. | Master Mission Control. |
-| **Component Scan**| `ops report` | Scans for `surfaceId` mapping. | **UX SME Reasoning**. |
-| **Certify Project** | `cockpit certify` | Final production validation. | Cockpit Goal Alignment. |
-| **UI Scaffolding** | `make apply-fixes` | Injects A2UI surface logic. | **The Closer Engine**. |
+| **Component Scan**| `uvx agentops-cockpit audit report` | Scans for `surfaceId` mapping. | **UX SME Reasoning**. |
+| **Certify Project** | `uvx agentops-cockpit certify` | Final production validation. | Cockpit Goal Alignment. |
+| **UI Scaffolding** | `uvx agentops-cockpit evolve` | Injects A2UI surface logic. | **The Closer Engine**. |
 | **MCP Blueprint** | `ops mcp blueprint` | Universal tool UI generation. | **MCP Apps UI**. |
 
 ---
@@ -25,7 +25,7 @@ The UX SME evaluates your frontend architecture across four critical GenUI pilla
 ### 1. 🤝 A2UI & AGUI Protocol (Surface Handshake)
 *   **The "Brain-to-UI" Protocol**: The `A2UIProtocol` defines how the **Engine** requests a specific **Face** surface.
 *   **AGUI (Agentic Graphical User Interface)**: The next-generation evolution of A2UI, optimized for **Gemini Multimodal Live** and high-fidelity video/audio streaming.
-*   **Implementation**: Using `cockpit create trinity`, developers scaffold a registry where the Brain targets "Surface Addresses" via JSON:
+*   **Implementation**: Using `uvx agentops-cockpit create trinity`, developers scaffold a registry where the Brain targets "Surface Addresses" via JSON:
     ```json
     {
       "action": "RENDER_SURFACE",
@@ -45,14 +45,14 @@ The UX SME evaluates your frontend architecture across four critical GenUI pilla
 *   **Implementation**: High-impact tools are autonomously gated behind **A2UI Approval Modals**. The agent must receive a manual human `confirm` before proceeding.
 
 ### 🛰️ 4. MCP Apps UI (Unified Discovery)
-*   **New in v2.0.17 Autonomous Core**: The agent can now "Query" the UI for available surfaces across the **Model Context Protocol (MCP)** tool ecosystem.
+*   **New in v2.0.10 Autonomous Core**: The agent can now "Query" the UI for available surfaces across the **Model Context Protocol (MCP)** tool ecosystem.
 *   **Implementation**: Handled via the **MCP Hub** and the **Cockpit Gateway** metadata channel, enabling cross-framework tool/UI interoperability.
 
 ---
 
 ## 📊 Comparison: Standard UI vs. Cockpit UX
 
-| Vector | Legacy Bot UI | v2.0.17 Autonomous Core Cockpit A2UI/AGUI |
+| Vector | Legacy Bot UI | v2.0.10 Autonomous Core Cockpit A2UI/AGUI |
 | :--- | :--- | :--- |
 | **Operational Logic** | Pull-based (Static). | **Push-based (Agent dispatched)**. |
 | **Reasoning Visibility**| Hidden. | **Live Thought Streaming.** |
@@ -63,7 +63,7 @@ The UX SME evaluates your frontend architecture across four critical GenUI pilla
 
 ## 📈 The UX Defensibility Score
 
-The UX SME provides a quantitative **GenUI Readiness Score** in every `ops report`:
+The UX SME provides a quantitative **GenUI Readiness Score** in every `uvx agentops-cockpit audit report`:
 
 1.  **A2UI Registry Depth**: Validates that the Brain has a "map" of all available UI surfaces.
 2.  **Latency Tolerance**: Measures the "Wait-Experience" quality via Skeleton coverage.
@@ -77,7 +77,7 @@ The UX SME provides a quantitative **GenUI Readiness Score** in every `ops repor
 If your frontend fails the UX audit, the Principal SME recommends:
 *   **Surface Unification**: Wrap root components in `A2UIProvider` to enable "Agent-to-UI" message passing.
 *   **Thought Streaming**: Implement `ThoughtStream` components to handle real-time logic-layer telemetry.
-*   **HITL Scaffolding**: Use `make apply-fixes` to autonomously inject confirmation gates for high-risk tool calls.
+*   **HITL Scaffolding**: Use `uvx agentops-cockpit evolve` to autonomously inject confirmation gates for high-risk tool calls.
 
 ---
-*Generated by the AgentOps Cockpit. Cockpit Experience Division (v2.0.17 Autonomous Core).*
+*Generated by the AgentOps Cockpit. Cockpit Experience Division (v2.0.10 Autonomous Core).*

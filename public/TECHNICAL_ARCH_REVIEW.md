@@ -1,7 +1,7 @@
 # 🏛️ Technical Guide: Autonomous Architect Review v2.0.17 Autonomous Core
 ## The "Ecosystem Expansion" Standard
 
-The `make arch-review` engine has evolved into an **Autonomous Architect SME**. In v1.4, this persona oversees the **PR Scorecard CI/CD Action** and the **MCP Tool Store**, ensuring that every tool integration is secure, compliant, and documented.
+The `uvx agentops-cockpit audit arch` engine has evolved into an **Autonomous Architect SME**. In v1.4, this persona oversees the **PR Scorecard CI/CD Action** and the **MCP Tool Store**, ensuring that every tool integration is secure, compliant, and documented.
 
 ---
 
@@ -9,10 +9,10 @@ The `make arch-review` engine has evolved into an **Autonomous Architect SME**. 
 
 | Command | Lifecycle Phase | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| `make arch-review` | **Evaluation** | Runs autonomous scan and generates ADR. | `arch_review.py` SME Orchestration |
+| `uvx agentops-cockpit audit arch` | **Evaluation** | Runs autonomous scan and generates ADR. | `arch_review.py` SME Orchestration |
 | `ops mcp` | **Governance** | v1.4: Registry for governed MCP tool integrations. | `mcp_store.py` (Tool Governance) |
 | `ops workbench` | **Evolution** | v1.4: TUI-based review of synthesized patches. | `workbench.py` (Patch Workbench) |
-| `make apply-fixes` | **Execution** | Trigger AST-based code synthesis. | `remediator.py` (The "Closer" Engine) |
+| `uvx agentops-cockpit evolve` | **Execution** | Trigger AST-based code synthesis. | `remediator.py` (The "Closer" Engine) |
 
 ---
 

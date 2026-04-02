@@ -53,8 +53,11 @@ const PILLAR_NAV = [
 ];
 
 const STACK_OPTIONS = [
+  { id: 'adk', label: 'Google ADK', icon: '🔺' },
+  { id: 'vertexai', label: 'Vertex AI (Reasoning Engine)', icon: '☁️' },
   { id: 'standalone', label: 'Standalone Python', icon: '🐍' },
-  { id: 'langgraph', label: 'LangGraph', icon: '🦜' },
+  { id: 'langchain', label: 'LangChain', icon: '🦜' },
+  { id: 'langgraph', label: 'LangGraph', icon: '🕸️' },
   { id: 'crewai', label: 'CrewAI / Swarm', icon: '🐝' },
   { id: 'autogen', label: 'Microsoft AutoGen', icon: '🤖' },
 ];

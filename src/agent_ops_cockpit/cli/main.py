@@ -633,7 +633,7 @@ def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the a
 @app.command(name="upgrade")
 def autonomous_upgrade(
     path: Annotated[str, typer.Option('--path', '-p', help='Path to the repository/workspace')] = '.',
-    docs_url: Annotated[str, typer.Option('--docs-url', '-d', help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
+    docs_url: Annotated[str, typer.Argument(help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
 ):
     """Autonomous Refactoring: Pull new docs and rewrite the codebase in a Git Sandbox."""
     import asyncio

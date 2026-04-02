@@ -8,9 +8,11 @@ import { StandaloneExplainerDemo } from './EvolveDemo/StandaloneExplainerDemo';
 import { AgentOpsCockpitDemo } from './EvolveDemo/AgentOpsCockpitDemo';
 import { StandaloneEvolveDeepDiveDemo } from './EvolveDemo/StandaloneEvolveDeepDiveDemo';
 import { StandaloneGettingStartedDemo } from './GettingStartedDemo/StandaloneGettingStartedDemo';
+import { StandaloneViralLabDemo } from './GettingStartedDemo/StandaloneViralLabDemo';
 import { StandaloneEvolveStoryDemo } from './EvolveDemo/StandaloneEvolveStoryDemo';
 import { StandaloneCertifyStoryDemo } from './EvolveDemo/StandaloneCertifyStoryDemo';
 import { StandaloneUpgradeStoryDemo } from './EvolveDemo/StandaloneUpgradeStoryDemo';
+import { StandaloneQwiklabsDemo } from './EvolveDemo/StandaloneQwiklabsDemo';
 
 export const RemotionRoot = () => {
   return (
@@ -83,6 +85,22 @@ export const RemotionRoot = () => {
         id="GettingStarted-Walkthrough"
         component={StandaloneGettingStartedDemo}
         durationInFrames={790}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="ViralLabDemo-RogueAgent"
+        component={StandaloneViralLabDemo}
+        durationInFrames={800}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Qwiklabs-SOL331-Demo"
+        component={StandaloneQwiklabsDemo}
+        durationInFrames={1900}
         fps={30}
         width={1920}
         height={1080}

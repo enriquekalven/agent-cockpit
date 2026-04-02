@@ -1,7 +1,7 @@
 # 🏛️ Cockpit Technical Design Document (TDD)
 **Generated**: March 31, 2026 14:25
 **Standard**: Google Well-Architected for Agents (v2.0.7)
-**GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
+**GitHub**: [enriquekalven/agentops-cockpit](https://github.com/enriquekalven/agentops-cockpit)
 **PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
 **Face**: [agent-cockpit.web.app](https://agent-cockpit.web.app)
 

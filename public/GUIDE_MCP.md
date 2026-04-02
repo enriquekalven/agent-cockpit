@@ -1,4 +1,4 @@
-# 📡 Technical Guide: Enterprise MCP Server (`agent-ops-mcp`)
+# 📡 Technical Guide: Enterprise MCP Server (`uvx agentops-cockpit-mcp`)
 
 The **AgentOps Cockpit** can be deployed as a **Model Context Protocol (MCP)** server. This allows enterprise LLMs (e.g., Claude, Gemini) to natively use the Cockpit's auditing tools as part of their reasoning loop.
 
@@ -7,7 +7,7 @@ The **AgentOps Cockpit** can be deployed as a **Model Context Protocol (MCP)** s
 ### Individual Usage (Zero-Install)
 You can run the MCP server instantly via `uvx`:
 ```bash
-uvx agentops-cockpit agent-ops-mcp
+uvx agentops-cockpit-mcp
 ```
 
 ### Enterprise Configuration (Claude Desktop)
@@ -16,9 +16,9 @@ To give Claude Desktop access to the Cockpit, add this to your `claude_desktop_c
 ```json
 {
   "mcpServers": {
-    "agent-ops-cockpit": {
+    "agentops-cockpit": {
       "command": "uvx",
-      "args": ["agentops-cockpit", "agent-ops-mcp"]
+      "args": ["agentops-cockpit", "uvx agentops-cockpit-mcp"]
     }
   }
 }

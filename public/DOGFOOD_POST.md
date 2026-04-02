@@ -9,7 +9,7 @@ Last week, we hit our most significant milestone yet: **v1.3 "Antigravity."** To
 ---
 
 ## 🚦 The "Phase 0" Reality Check
-When we ran the first `make audit` on our hardening branch, the **Executive Risk Scorecard** didn't hold back:
+When we ran the first `uvx agentops-cockpit audit report` on our hardening branch, the **Executive Risk Scorecard** didn't hold back:
 
 > 🚨 **Risk Alert**: Health score (14.3%) is below configured threshold (80%). Strategic remediation required.
 > 📉 **Maturity Velocity**: -85.7% Compliance Change.
@@ -60,9 +60,9 @@ After three days of iterative "Hill Climbing" (using our own `quality_climber.py
 *   **Maturity Velocity**: +85.7% (The Great Recovery)
 
 ### 📈 Why this matters for you
-When you run `uvx agentops-cockpit report`, you aren't just running a script. You are running a governance engine that has been battle-tested against its own complexity. 
+When you run `uvx agentops-cockpit audit report`, you aren't just running a script. You are running a governance engine that has been battle-tested against its own complexity. 
 
 We eat the dogfood so that when your agents hit production, they are **Well-Architected by Design**.
 
 ---
-*Ready to audit your fleet? Run `make audit-deep` today.*
+*Ready to audit your fleet? Run `uvx agentops-cockpit audit report --mode deep` today.*

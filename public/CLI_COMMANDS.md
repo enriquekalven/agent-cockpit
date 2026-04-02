@@ -6,19 +6,19 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ## 🏛️ Governance Commands
 
-### `make audit`
+### `uvx agentops-cockpit audit report`
 **The Quick Safe-Build (15-30s).**
 - **Action**: Orchestrates all essential governance modules in parallel: Arch Review → Secrets → Token Optimization → Fast Red-Team.
 - **Output**: Generates a high-speed verification report.
 - **When to use**: Continuous development and local testing.
 
-### `make audit-deep`
+### `uvx agentops-cockpit audit report --mode deep`
 **The Master Cockpit Auditor (2-5m).**
 - **Action**: Comprehensive benchmarking including full Red-Team, Quality Hill Climbing, and Load Testing.
 - **Output**: Generates the `cockpit_final_report.md` master benchmarking log.
 - **When to use**: Production-gate audits and final compliance checks.
 
-### `make arch-review`
+### `uvx agentops-cockpit audit arch`
 **The Google Well-Architected Auditor.**
 - **Action**: Audits your design against Google's best practices.
 - **Intelligence**: Automatically detects your stack (**Go, Python, NodeJS, Streamlit, Angular, Lit**) and applies specialized checklists.
@@ -29,12 +29,12 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 - **Action**: Scans the entire codebase for hardcoded API keys, tokens, and service accounts.
 - **Goal**: Prevent sensitive leakages before code is pushed to version control.
 
-### `make red-team`
+### `uvx agentops-cockpit audit security`
 **The Adversarial Evaluator.**
 - **Action**: Launches a self-hacking attack on your agent's system instructions.
 - **Goal**: Detect prompt injections, PII leaks, and instruction overrides.
 
-### `make ui-audit` (New!)
+### `uvx agentops-cockpit audit face` (New!)
 **The Face Auditor.**
 - **Action**: Analyzes your frontend (React, Angular, Streamlit) for A2UI protocol compliance and accessibility.
 - **Goal**: Ensures your agentic interface is responsive and inclusive.
@@ -43,7 +43,7 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ## 📉 Optimization Commands
 
-### `agent-ops audit` (CLI Tool)
+### `uvx agentops-cockpit audit` (CLI Tool)
 **The Heuristic Auditor.**
 - **Action**: Analyzes prompt length and identifies Context Caching opportunities.
 - **Language Aware**: Provides specific Go and NodeJS performance tips.
@@ -59,12 +59,12 @@ The AgentOps Cockpit is designed for automation. Use these commands to manage yo
 
 ## 🚀 Deployment Commands
 
-### `make dev`
+### `uvx agentops-cockpit cockpit`
 Starts the local development stack:
 - **Backend (Engine)**: FastAPI/ADK running at `localhost:8000`.
 - **Frontend (Face)**: Vite dev server running at `localhost:5173`.
 
-### `make deploy-prod`
+### `uvx agentops-cockpit deploy prep`
 **The Production Readiness Auditor (v2.0.17).**
 1. Runs the **v2.0.17 Deep System Audit**.
 2. Executes **Stress Testing** (Load Baseline).
@@ -75,7 +75,7 @@ Starts the local development stack:
 
 ## 🧬 Scaffolding
 
-### `agent-ops create <name>`
+### `uvx agentops-cockpit create <name>`
 **The Project Generator.**
 - **Options**:
     - `--ui`: Choose your template (`a2ui`, `agui`, `flutter`, `lit`).

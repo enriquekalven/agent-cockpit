@@ -1,7 +1,7 @@
 # 🧗 Technical Guide: AI Quality & Evaluation
 ## The "Ecosystem Expansion" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report --mode deep` and `cockpit certify` commands activate the **Quality Principal SME**. In the Cockpit Evolution, this persona focuses on **Reasoning Stability** and **RAG Fidelity**, ensuring that agents are as honest as they are intelligent.
+The `uvx agentops-cockpit audit report --mode deep` and `uvx agentops-cockpit certify` commands activate the **Quality Principal SME**. In the Cockpit Evolution, this persona focuses on **Reasoning Stability** and **RAG Fidelity**, ensuring that agents are as honest as they are intelligent.
 
 ---
 
@@ -9,10 +9,10 @@ The `ops report --mode deep` and `cockpit certify` commands activate the **Quali
 
 | Command | Alias / Shortcut | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| **Fidelity Audit** | `ops report` | Scans for grounding & citations. | **Quality SME Reasoning**. |
-| **Iterative Meta-Eval**| `ops report --mode deep` | Runs the **Hill Climbing** loop. | `quality_climber.py` |
-| **Certify Project** | `cockpit certify` | Final production validation. | Cockpit Goal Alignment. |
-| **Trajectory Fix** | `make apply-fixes`| Injects reasoning constraints. | **The Closer Engine**. |
+| **Fidelity Audit** | `uvx agentops-cockpit audit report` | Scans for grounding & citations. | **Quality SME Reasoning**. |
+| **Iterative Meta-Eval**| `uvx agentops-cockpit audit report --mode deep` | Runs the **Hill Climbing** loop. | `quality_climber.py` |
+| **Certify Project** | `uvx agentops-cockpit certify` | Final production validation. | Cockpit Goal Alignment. |
+| **Trajectory Fix** | `uvx agentops-cockpit evolve`| Injects reasoning constraints. | **The Closer Engine**. |
 
 ---
 
@@ -75,7 +75,7 @@ The `QualityClimber` defines the search space across several hyperparameters:
 ## 🚀 SME Remediation Strategy
 If your agent fails the Quality audit, the SME recommends:
 *   **Self-Correction**: Inject logic that forces the agent to cross-reference tool outputs with the original intent.
-*   **Tighten Constraints**: Use `make apply-fixes` to autonomously inject "Mandatory Retrieval" requirements into the system prompt.
+*   **Tighten Constraints**: Use `uvx agentops-cockpit evolve` to autonomously inject "Mandatory Retrieval" requirements into the system prompt.
 *   **Evidence Pinning**: Force the agent to include **Evidence Packet** IDs in its internal Chain of Thought.
 
 ---

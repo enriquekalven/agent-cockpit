@@ -30,5 +30,5 @@ We follow the **Google Well-Architected** principle of Least Privilege and OpenA
 
 ```bash
 # Verify your agent safety before deployment
-make red-team
+uvx agentops-cockpit audit security
 ```

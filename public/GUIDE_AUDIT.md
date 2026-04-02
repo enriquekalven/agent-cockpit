@@ -1,4 +1,4 @@
-# 🕹️ Technical Guide: Master Audit (`make audit`)
+# 🕹️ Technical Guide: Master Audit (`uvx agentops-cockpit audit report`)
 
 The **Master Audit** is the primary entry point for verifying the production-readiness of your AI agent. It orchestrates multiple specialized auditors to provide a high-level "Cockpit Score."
 
@@ -10,14 +10,14 @@ The **Master Audit** is the primary entry point for verifying the production-rea
 
 ### Local Installation
 ```bash
-make audit         # Quick Safe-Build (Sub-second feedback)
-make audit-deep    # Deep System Audit (Full benchmarks)
+uvx agentops-cockpit audit report         # Quick Safe-Build (Sub-second feedback)
+uvx agentops-cockpit audit report --mode deep    # Deep System Audit (Full benchmarks)
 ```
 
 ### Portable (Zero-Install)
 ```bash
-uvx agentops-cockpit report --mode quick
-uvx agentops-cockpit report --mode deep
+uvx agentops-cockpit audit report --mode quick
+uvx agentops-cockpit audit report --mode deep
 ```
 
 ---
@@ -39,4 +39,4 @@ uvx agentops-cockpit report --mode deep
 The audit generates a unified Markdown report at **`cockpit_final_report.md`**.
 
 ### Usage in CI/CD
-We recommend integrating `make audit` into your GitHub Actions (provided in `.github/workflows/main.yml`) to block PRs that fail governance or security checks.
+We recommend integrating `uvx agentops-cockpit audit report` into your GitHub Actions (provided in `.github/workflows/main.yml`) to block PRs that fail governance or security checks.

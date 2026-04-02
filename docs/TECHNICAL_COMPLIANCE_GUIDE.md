@@ -1,7 +1,7 @@
 # ⚖️ Technical Guide: Cockpit Compliance & Policy
 ## The "A2A Trust" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report` and `cockpit certify` commands activate the **Compliance Principal SME**. This persona is responsible for the **Governance-as-Code (GaC)** pillar, ensuring that your agents follow organizational policies, maintain legal defensibility, and handle data with absolute cockpitty.
+The `uvx agentops-cockpit audit report` and `uvx agentops-cockpit certify` commands activate the **Compliance Principal SME**. This persona is responsible for the **Governance-as-Code (GaC)** pillar, ensuring that your agents follow organizational policies, maintain legal defensibility, and handle data with absolute cockpitty.
 
 ---
 
@@ -9,10 +9,10 @@ The `ops report` and `cockpit certify` commands activate the **Compliance Princi
 
 | Command | Alias / Shortcut | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
-| **Audit Trail** | `ops report --archive` | Generates traceable Evidence Packets. | **Compliance SME Reasoning**. |
-| **Policy Check** | `ops report` | Validates against `cockpit.yaml` rules. | GaC Framework. |
-| **Certify Project** | `cockpit certify` | Final production compliance badge. | Cockpit Standard. |
-| **Mirror PII** | `make apply-fixes`| Injects Cockpit Gateway scrubbing. | **The Closer Engine**. |
+| **Audit Trail** | `uvx agentops-cockpit audit report --archive` | Generates traceable Evidence Packets. | **Compliance SME Reasoning**. |
+| **Policy Check** | `uvx agentops-cockpit audit report` | Validates against `cockpit.yaml` rules. | GaC Framework. |
+| **Certify Project** | `uvx agentops-cockpit certify` | Final production compliance badge. | Cockpit Standard. |
+| **Mirror PII** | `uvx agentops-cockpit evolve`| Injects Cockpit Gateway scrubbing. | **The Closer Engine**. |
 
 ---
 
@@ -35,7 +35,7 @@ The `ops report` and `cockpit certify` commands activate the **Compliance Princi
 
 ### 3. 📜 Governance-as-Code (GaC)
 *   **Vector**: Shifting from reactive policy engines to proactive, AST-aware structural enforcement.
-*   **Implementation**: Policies are defined in `cockpit.yaml` and enforced during the `ops report` cycle. No agent enters production without passing the GaC gate.
+*   **Implementation**: Policies are defined in `cockpit.yaml` and enforced during the `uvx agentops-cockpit audit report` cycle. No agent enters production without passing the GaC gate.
 
 ---
 
@@ -59,7 +59,7 @@ The Compliance SME ensures consistent policy enforcement across GCP, AWS, and Az
 
 ## 🚀 SME Remediation Strategy
 If your agent fails the Compliance audit, the SME recommends:
-*   **Gateway Injection**: Use `make apply-fixes` to autonomously inject the Cockpit Gateway sidecar into your project.
+*   **Gateway Injection**: Use `uvx agentops-cockpit evolve` to autonomously inject the Cockpit Gateway sidecar into your project.
 *   **Evidence Pinning**: Force your agent logic to use the `EvidencePacket` class for all cross-agent communication.
 *   **Policy Tightening**: Adjust your `cockpit.yaml` threshold to ensure zero tolerance for PII leaks.
 

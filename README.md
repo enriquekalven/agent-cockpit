@@ -48,15 +48,15 @@ The Cockpit is designed for high-velocity fleet management. If you are overwhelm
 
 ```bash
 # 🕹️ Master Audit: Launch the Governing Board & Personal SME Review
-ops report
+uvx agentops-cockpit audit report
 ```
 
 ### 🏹 The Cockpit Workflow
-1. **Explore**: `cockpit` (Launch the Mission Control Dashboard)
-2. **Audit**: `ops report` (Deep SME Reasoning Review)
-3. **Remediate**: `make apply-fixes` (Autonomous code hardening via the **Closer Engine**)
-4. **Evolve (Viral)**: `ops evolve` (Autonomously refactor and upgrade your framework logic)
-5. **Deploy**: `ops deploy cockpit` (Multi-cloud Factory Deployment)
+1. **Explore**: `uvx agentops-cockpit cockpit` (Launch the Mission Control Dashboard)
+2. **Audit**: `uvx agentops-cockpit audit report` (Deep SME Reasoning Review)
+3. **Evolve (Viral)**: `uvx agentops-cockpit evolve` (Autonomously refactor and upgrade your framework logic)
+4. **Deploy**: `uvx agentops-cockpit deploy prep` (Multi-cloud Factory Deployment)
+5. **Certify**: `uvx agentops-cockpit certify` (Production Readiness Certification)
 
 ## 🗺️ Project Roadmap
 - [x] **v2.0.10**: Autonomous Core (GC-Style Reporting, Fleet Dashboard v2, Anomaly Metadata).

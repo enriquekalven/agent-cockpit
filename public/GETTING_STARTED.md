@@ -34,11 +34,11 @@ The Face layer uses the **A2UI Protocol** to transform reasoning into rich visua
 ## 🔍 4. The "Aha!" Moment: Your First Audit
 
 ```bash
-make audit
+uvx agentops-cockpit audit report
 ```
 1.  **Architecture Review**: Detects your framework and grades it against the [**Cockpit Architecture**](./COCKPIT_ARCHITECTURE.md).
 2.  **Secret Scanner**: AST-based scan for hardcoded credentials.
-3.  **Auto-Remediation**: Run `make apply-fixes` to automatically harden your code with `@retry` decorators and timeouts using the v1.4 **Closer Engine**.
+3.  **Auto-Remediation**: Run `uvx agentops-cockpit evolve` to automatically harden your code with `@retry` decorators and timeouts using the v1.4 **Closer Engine**.
 4.  **Validation Automation**: Run `/validate` to enforce 100% SME consensus and regression safety.
 
 ---
@@ -50,7 +50,7 @@ The Cockpit now includes a mandatory **Governance & Regression Framework**:
 - **Discovery Engine v1.3**: Automatically respects `.gitignore` and isolates library noise using `cockpit.yaml`.
 
 > 🛠️ **Dev Tip**: If you encounter a `401 Unauthorized` registry error while running `uvx`, bypass it with the **Public Failover**:  
-> `UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit report`
+> `UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit audit report`
 
 ## 🩺 4. The "Pre-flight" Check (v2.0.17)
 Before launching a major fleet audit, verify your environment and credentials:

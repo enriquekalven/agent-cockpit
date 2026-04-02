@@ -18,7 +18,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **🔍 Granular Anomaly Detection**: Enhanced the `AnomalySME` auditor with professional metadata fields including Session ID, Detector type, Region, and Confidence scores.
 - **🧠 Executive Summary v2.0**: Refined the Cockpit Auditor persona to provide more actionable, high-stakes implementation roadmaps for production-ready agents.
 
-- **🏅 Production Readiness Certification**: Formalized the `cockpit certify` command with multi-cloud pre-flight checks.
+- **🏅 Production Readiness Certification**: Formalized the `uvx agentops-cockpit certify` command with multi-cloud pre-flight checks.
 - **🚀 Zero2Hero Automation**: End-to-end release workflow from validation to multi-registry publishing.
 - **🛡️ Cockpit Hardening**: Implemented `max_fix_files` Blast Radius Guard (v2.0.4) to prevent PR Exhaustion.
 - **🎨 Style Alignment**: Synchronized `ruff` linter with Google Python Style Guide (80-character limit).
@@ -182,7 +182,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Discovery: Recursive Intelligence**: Support for `targets: []` in `cockpit.yaml` for multi-entry point fleets and template placeholder isolation (`{{...}}`).
 - **Operations: Auth Doctor (diagnose)**: New pre-flight command to diagnose GCP ADC credentials and environment health before audits.
 - **Artifacts: Cockpit Directory (.cockpit/)**: Centralized all audit evidence, reports, SARIF objects, and lake snaphosts into a hidden root directory.
-- **Orchestration: Modular SME Filtering**: Introduced `--only` and `--skip` flags for high-precision category selection (e.g., `ops report --only security`).
+- **Orchestration: Modular SME Filtering**: Introduced `--only` and `--skip` flags for high-precision category selection (e.g., `uvx agentops-cockpit audit report --only security`).
 - **Governance: GaC Orcas RFC Integration**: Formalized the "Governance as Code" standard for ADK, moving from passive plugins to mandatory AST-aware architectural gates.
 - **Reporting: SME Executive Summary**: Enhanced terminal output with a stack-ranked "Principal SME Executive Summary" panel and "Key Findings" table.
 
@@ -217,7 +217,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Orchestration: Smart Discovery Engine**: Full support for `.cockpitignore` and heuristic brain detection across complex folder structures.
 - **UX: Interactive Fleet Healing (Dry Run)**: New `--dry-run` flag for auto-remediation to safely preview fixes via "Dry Run Dashboard" console outputs.
 - **Dependency: Centralized Configuration**: Refactored CLI and Engine to use a unified `Config` provider.
-- **Unified Trinity Binaries**: Standardized on `ops` and `aops` aliases for rapid command execution.
+- **Unified Trinity Binaries**: Standardized on `ops` and `uvx agentops-cockpit` aliases for rapid command execution.
 
 ## [0.9.9] - 2026-02-04
 
@@ -232,7 +232,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 
 ### 🕹️ The Cockpitty Update
 - **Cockpit Gate Enforcement**: Integrated mandatory build-time audits into `Dockerfile` and Cloud Run deployments, ensuring only "Well-Architected" code reaches production.
-- **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `agent-ops` CLI, and `uvx` simulations for all 10 persona lenses.
+- **Command Trinity Parity**: Programmatically verified command equivalence across `make`, `uvx agentops-cockpit` CLI, and `uvx` simulations for all 10 persona lenses.
 - **Operational Introduction**: Launched a high-level documentation landing page (`INTRODUCTION.md`) separate from technical guides for strategic stakeholder onboarding.
 - **Discovery Engine v2.0.0**: Introduced `cockpit.yaml` support for granular exclusion patterns, suppressing noise in internal tests and external libraries.
 - **Multi-Framework Ecosystem**: Explicitly added support and documentation for **LangGraph**, **CrewAI**, and **Autogen** to the v2.0.0 audit standard.
@@ -288,7 +288,7 @@ All notable changes to the **AgentOps Cockpit** will be documented in this file.
 - **Quick-Safe Build Pipeline**: Added `--quick` mode to the auditor, resulting in a **12x reduction in dev-loop latency** (from 1.8s down to 0.15s) by optimizing situational evidence fetching.
 
 ### 🛠️ Fixes & Enhancements
-- **Master Orchestrator Integration**: `make audit` now defaults to Quick Mode for instantaneous feedback.
+- **Master Orchestrator Integration**: `uvx agentops-cockpit audit report` now defaults to Quick Mode for instantaneous feedback.
 - **Reliability Suite Update**: Added support for high-velocity build flags.
 - **SDK Citation Evidence**: Live fetching of GitHub release notes (Atom feeds) for real-time compliance citations in Deep Mode.
 

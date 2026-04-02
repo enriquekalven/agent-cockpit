@@ -8,7 +8,7 @@ This document outlines the vision to transform the **AgentOps Cockpit** from an 
 **Status: ✅ COMPLETED (v2.0.0)**
 Zero-touch architectural evolution via AST rewriting.
 
-## 🧪 2. "Digital Twin" Load Testing (`make simulation-run`)
+## 🧪 2. "Digital Twin" Load Testing (`uvx agentops-cockpit test --load`)
 **Status: ✅ COMPLETED (v2.0.0)**
 Stress-testing agents with synthetic adversarial traffic.
 

@@ -1,7 +1,7 @@
 # 🚀 Technical Guide: Deployment & CI/CD Cockpit Gates
 ## The "Production Readiness" Standard (v2.0.17 Autonomous Core)
 
-Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments. The Cockpit automates this through the `make deploy-prod` command.
+Deploying a "Well-Architected" agent requires orchestration across two primary Google Cloud environments. The Cockpit automates this through the `uvx agentops-cockpit deploy prep` command.
 
 ---
 
@@ -22,10 +22,10 @@ Recommended for high-intensity or specialized isolation workloads.
 ---
 
 ## 🏗️ Production Readiness Audit Sequence
-`make deploy-prod` executes the following high-fidelity benchmarking pipeline before you push to the cloud:
+`uvx agentops-cockpit deploy prep` executes the following high-fidelity benchmarking pipeline before you push to the cloud:
 
 ### Stage 1: v2.0.17 Deep System Audit
-Runs `make audit-deep`.
+Runs `uvx agentops-cockpit audit report --mode deep`.
 - **RAG Fidelity SME**: Validates citation accuracy and grounding logic.
 - **Red Team Principal**: Full adversarial probing for multilingual jailbreaks.
 - **Economic Architect**: Token density and model-tier optimization pivots.
@@ -55,7 +55,7 @@ Executes `make load-test`.
 ## 🛡️ v1.3: Deep System Audit
 For production-gate promotion, move from "Safe-Build" to "Deep Audit":
 ```bash
-make audit-deep
+uvx agentops-cockpit audit report --mode deep
 ```
 - Full Adversarial Red-Teaming.
 - Iterative Quality Hill Climbing.

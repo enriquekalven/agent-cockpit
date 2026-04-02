@@ -39,7 +39,7 @@ A real-time sidecar logic layer that governs inter-agent traffic.
 
 ## 🛠️ The "Closer Engine" Remediation standard
 
-When the developer runs `make apply-fixes` (alias for `cockpit fix evolve`), the **Closer Engine** transforms legacy "Spaghetti Agents" into Cockpit-grade logic:
+When the developer runs `uvx agentops-cockpit evolve` (alias for `uvx agentops-cockpit evolve`), the **Closer Engine** transforms legacy "Spaghetti Agents" into Cockpit-grade logic:
 
 ### The "Spaghetti" Input
 ```python

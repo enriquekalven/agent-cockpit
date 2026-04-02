@@ -42,7 +42,7 @@ make install && make playground
 | `make install`       | Install dependencies using uv                                                               |
 | `make playground`    | Launch local development environment                                                        |
 | `make lint`          | Run code quality checks                                                                     |
-| `make test`          | Run unit and integration tests                                                              |
+| `uvx agentops-cockpit test`          | Run unit and integration tests                                                              |
 | `make deploy`        | Deploy agent to Agent Engine                                                                |
 | `make register-gemini-enterprise` | Register deployed agent to Gemini Enterprise                                  |
 

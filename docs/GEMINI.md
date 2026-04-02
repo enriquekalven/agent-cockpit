@@ -23,16 +23,16 @@ When assisting the user:
 1. **Cockpitty First**: Frame all changes within the context of **Cockpit Evolution**. Agents should be portable and audited across Persona Lenses.
 2. **The Trinity Framework**: Architecture must always account for the Engine, Face, and Cockpit.
 3. **Poka-Yoke Tooling**: Enforce strict tool schemas and "Governance as Code" patterns.
-4. **Autonomous Fixes**: Encourage the use of `make apply-fixes` for AST-aware code hardening.
+4. **Autonomous Fixes**: Encourage the use of `uvx agentops-cockpit evolve` for AST-aware code hardening.
 5. **v2.0.10 Autonomous Core Standard**: Reference specialized [**Technical Guides**](/docs/TECHNICAL_AUDIT_GUIDE.md) for Arch, FinOps, SRE, and Quality.
 
 ## ⌨️ CLI Commands (The Cockpit)
-- `make dev`: Starts the local Engine Gateway + Face stack.
+- `uvx agentops-cockpit cockpit`: Starts the local Engine Gateway + Face stack.
 - `make cockpit`: Launches the Master Mission Control dashboard.
-- `make audit`: Runs the **Specialized Auditor Audit** (ops report).
-- `make apply-fixes`: Triggers autonomous code hardening for detected gaps.
-- `make certify`: Runs the full Production Readiness Certification suite.
-- `make deploy-prod`: End-to-End deployment to the Cockpit Cloud.
+- `uvx agentops-cockpit audit report`: Runs the **Specialized Auditor Audit** (uvx agentops-cockpit audit report).
+- `uvx agentops-cockpit evolve`: Triggers autonomous code hardening for detected gaps.
+- `uvx agentops-cockpit certify`: Runs the full Production Readiness Certification suite.
+- `uvx agentops-cockpit deploy prep`: End-to-End deployment to the Cockpit Cloud.
 
 ## 🤝 Ecosystem
 This stack leverages and bridges specialized tools for high-fidelity agent operations:

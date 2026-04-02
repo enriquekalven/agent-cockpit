@@ -97,7 +97,7 @@ class CodeRemediator:
                     if self.found:
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == self.target_line:
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         self.found = True
                         dummy = cst.parse_module("@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))\ndef f(): pass")
                         retry_dec = dummy.body[0].decorators[0]
@@ -133,7 +133,7 @@ class CodeRemediator:
                     if getattr(self, 'found', False):
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == self.target_line:
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         self.found = True
                         new_kw = cst.Arg(
                             keyword=cst.Name("timeout"), 
@@ -180,7 +180,7 @@ class CodeRemediator:
                     if self.found:
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == getattr(self, 'target_line', 0):
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         if isinstance(original_node.func, cst.Name) and original_node.func.value in ['Agent', 'App', 'LlmAgent']:
                             self.found = True
                             
@@ -231,7 +231,7 @@ class CodeRemediator:
                     if getattr(self, 'found', False):
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == self.target_line:
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         self.found = True
                         new_body_elements = [cst.SimpleStatementLine(body=[])] if not updated_node.body.body else list(updated_node.body.body)
                         dummy = cst.parse_statement("'''POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.'''\n")
@@ -281,7 +281,7 @@ class CodeRemediator:
                     if getattr(self, 'found', False):
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == getattr(self, 'target_line', 0):
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         self.found = True
                         dummy = cst.parse_module(f"{decorator_code}\ndef dummy_f(): pass")
                         new_dec = dummy.body[0].decorators[0]
@@ -391,7 +391,7 @@ class CodeRemediator:
                     if getattr(self, 'found', False):
                         return updated_node
                     pos = self.get_metadata(PositionProvider, original_node)
-                    if pos and pos.start.line == self.target_line:
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
                         if isinstance(original_node.func, cst.Name) and original_node.func.value == 'retrieve':
                             self.found = True
                             dummy = cst.parse_expression("decider_should_rag(query) and dummy_func()")
@@ -471,11 +471,11 @@ class CodeRemediator:
 
     def save(self):
         new_content = self._get_new_content()
+        from rich.console import Console
+        Console().print(f"DEBUG: Saving {self.file_path}. Content len: {len(new_content)}")
         try:
             with open(self.file_path, 'r', encoding='utf-8', errors='replace') as f:
                 disk_content = f.read()
-            if new_content == disk_content:
-                return False
         except Exception:
             pass
         with open(self.file_path, 'w', encoding='utf-8') as f:
@@ -532,7 +532,8 @@ class CodeRemediator:
         """Creates a new git branch and commits the changes."""
         import subprocess
         new_content = self._get_new_content()
-        if new_content == self.content:
+        original = getattr(self, 'original_content', self.content)
+        if new_content == original:
             return ""
         
         branch_name = f"cockpit-hardening-{datetime.now().strftime('%H%M%S')}"
