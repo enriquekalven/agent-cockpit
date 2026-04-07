@@ -1427,7 +1427,7 @@ To transition this agent to production-hardened status, follow these prioritized
    - 📍 Location: `/Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/eval/__init__.py:1`
    - ✨ Recommended Fix: No active monitoring for Time to
 
-> 💡 **Automation Tip**: Run `make apply-fixes` to trigger the LLM-Synthesized PR factory for high-confidence remediations.
+> 💡 **Automation Tip**: Run `uvx agentops-cockpit evolve` to trigger the LLM-Synthesized PR factory for high-confidence remediations.
 
 ## 📜 Evidence Bridge: Research & Citations
 | Knowledge Pillar | Source | Evidence Summary |
@@ -1550,8 +1550,8 @@ Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 │                                                                                                                                                              │
 │ 🚀 v1.3 Strategic Recommendations (Autonomous)                                                                                                               │
 │                                                                                                                                                              │
-│  1 Context-Aware Patching: Run make apply-fixes to trigger the LLM-Synthesized PR factory.                                                                   │
-│  2 Digital Twin Load Test: Run make simulation-run (Roadmap v1.3) to verify reasoning stability under high latency.                                          │
+│  1 Context-Aware Patching: Run uvx agentops-cockpit evolve to trigger the LLM-Synthesized PR factory.                                                                   │
+│  2 Digital Twin Load Test: Run uvx agentops-cockpit test --load (Roadmap v1.3) to verify reasoning stability under high latency.                                          │
 │  3 Multi-Cloud Exit Strategy: Pivot hardcoded IDs to abstraction layers to resolve detected Vendor Lock-in.                                                  │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 

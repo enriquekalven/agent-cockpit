@@ -2,8 +2,8 @@
 
 First off, thank you for helping us build the future of **Autonomous Agent Operations**! 🚀 Evolving the **Trinity** standard requires high-fidelity engineering and the discipline of a professional logic layer.
 
-## 🏛️ v2.0.10 Vision: The "Ecosystem Expansion"
-In v2.0.10, we have evolved beyond simple compliance into a **Lifecycle Management Platform**. We are building the **Autonomous Patching Engine**—a system that not only detects architectural gaps but synthesizes remediation across RAG pipelines, analytical DBs (BigQuery/Snowflake), and multi-cloud architectures.
+## 🏛️ v2.0.17 Vision: The "Ecosystem Expansion"
+In v2.0.17, we have evolved beyond simple compliance into a **Lifecycle Management Platform**. We are building the **Autonomous Patching Engine**—a system that not only detects architectural gaps but synthesizes remediation across RAG pipelines, analytical DBs (BigQuery/Snowflake), and multi-cloud architectures.
 
 ## 🏗️ Architecture Philosophy
 We strictly follow the **Trinity Model**:
@@ -40,16 +40,16 @@ npm install
 Don't wait for CI/CD to tell you there's a problem. Run the **Master Cockpit Audit** locally.
 
 ### Local Development
-- `make dev`: Starts the local Engine + Face stack.
-- `make audit`: Runs the **Quick Safe-Build** (Secrets, Reliability).
-- `make audit-deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
-- `make arch-review`: Runs the v2.0.10 Autonomous Architect review.
+- `uvx agentops-cockpit cockpit`: Starts the local Engine + Face stack.
+- `uvx agentops-cockpit audit report`: Runs the **Quick Safe-Build** (Secrets, Reliability).
+- `uvx agentops-cockpit audit report --mode deep`: Runs the **Master Cockpit Audit** (Hill Climbing, Benchmarks).
+- `uvx agentops-cockpit audit arch`: Runs the v2.0.17 Autonomous Architect review.
 - `make maturity`: Runs the **Expertise Matrix** dashboard.
 
 ### Specialized Audits
-- `make red-team`: Runs the Adversarial Evaluator against the codebase.
-- `make finops`: Analyzes token efficiency and semantic caching TCO.
-- `make rag-truth`: Audits RAG pipelines for grounding and citation fidelity.
+- `uvx agentops-cockpit audit security`: Runs the Adversarial Evaluator against the codebase.
+- `uvx agentops-cockpit audit roi`: Analyzes token efficiency and semantic caching TCO.
+- `uvx agentops-cockpit audit quality`: Audits RAG pipelines for grounding and citation fidelity.
 
 ---
 
@@ -74,8 +74,8 @@ We use a **Multi-Persona Governance Board**. If you are adding a new feature, co
 
 ## 🔍 Pull Request Checklist
 Before submitting a PR, ensure:
-1.  [ ] Your code passes `make audit` with a score > 90.
-2.  [ ] You have run `make red-team` if adding new reasoning logic.
+1.  [ ] Your code passes `uvx agentops-cockpit audit report` with a score > 90.
+2.  [ ] You have run `uvx agentops-cockpit audit security` if adding new reasoning logic.
 3.  [ ] You have updated `CHANGELOG.md` with your changes.
 4.  [ ] Documentation in `/docs` reflects any new command or policy.
 

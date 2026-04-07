@@ -31,7 +31,7 @@ The Interop SME evaluates your architecture across four critical "A2X" pillars:
 
 ### 1. 🛠️ Tool Interop (MCP Protocol)
 *   **The MCP Store**: Instead of point-to-point tool calls, the Cockpit encourages a hub-and-spoke model via the `mcp list` and `mcp install` commands.
-*   **Implementation**: Tools are modernized into MCP-compliant servers using `cockpit mcp blueprint`.
+*   **Implementation**: Tools are modernized into MCP-compliant servers using `uvx agentops-cockpit mcp blueprint`.
 *   **Strategic ROI**: Universal tool discovery. Any MCP-native agent can consume your tools securely.
 
 ### 2. 🎭 Experience Interop (A2UI)
@@ -65,7 +65,7 @@ The Interop SME evaluates your architecture across four critical "A2X" pillars:
 ## 🚀 SME Remediation Strategy
 
 If your ecosystem fails the Interop audit, the SME recommends:
-*   **MCP Blueprinting**: Wrap legacy tool logic in an MCP server using `cockpit mcp blueprint`.
+*   **MCP Blueprinting**: Wrap legacy tool logic in an MCP server using `uvx agentops-cockpit mcp blueprint`.
 *   **Surface Mapping**: Ensure every tool-return statement is mapped to a `surfaceId` in the **A2UI Registry**.
 *   **A2A Evidence Packs**: Implement signed reasoning traces for all inter-persona transfers.
 

@@ -40,6 +40,33 @@ from .documenter import TDDGenerator  # noqa: E402
 
 console = Console()
 
+def parse_action_line(line: str) -> 'AuditFinding':
+    action_str = line.replace('ACTION:', '').strip()
+    
+    if '| IPC_PAYLOAD:' in action_str:
+        json_payload = action_str.split('| IPC_PAYLOAD:')[1].strip()
+        try:
+            return AuditFinding.model_validate_json(json_payload)
+        except Exception:
+            pass
+            
+    legacy_str = action_str.split('| IPC_PAYLOAD:')[0] if '| IPC_PAYLOAD:' in action_str else action_str
+    parts = legacy_str.split(' | ')
+    
+    file_path = parts[0].split(':')[0] if len(parts) > 0 else ""
+    line_num = int(parts[0].split(':')[1]) if len(parts) > 0 and ':' in parts[0] else 0
+    title = parts[1] if len(parts) > 1 else ""
+    description = parts[2] if len(parts) > 2 else ""
+    
+    return AuditFinding(
+        category="Legacy",
+        title=title.strip(),
+        description=description.strip(),
+        line_number=line_num,
+        file_path=file_path.strip(),
+        impact="HIGH",
+        roi="Legacy Fix"
+    )
 
 class CockpitOrchestrator:
     """
@@ -356,7 +383,10 @@ class CockpitOrchestrator:
             if data['output']:
                 for line in data['output'].split('\n'):
                     if 'ACTION:' in line:
-                        developer_actions.append(line.replace('ACTION:', '').strip())
+                        finding = parse_action_line(line)
+                        if finding.title:
+                            location = f"{finding.file_path}:{finding.line_number}" if finding.line_number else finding.file_path
+                            developer_actions.append(f"{location} | {finding.title} | {finding.description}")
                     if 'SOURCE:' in line:
                         developer_sources.append(line.replace('SOURCE:', '').strip())
         
@@ -488,28 +518,22 @@ class CockpitOrchestrator:
             output = data.get('output', '')
             for line in output.split('\n'):
                 if 'ACTION:' in line:
-                    parts = line.replace('ACTION:', '').strip().split(' | ')
-                    if len(parts) >= 3:
-                        file_path = parts[0].split(':')[0]
-                        finding_title = parts[1]
-                        current_id = hashlib.md5(f'{module_name}:{finding_title}'.encode()).hexdigest()[:8]
-                        if current_id == issue_id or issue_id in finding_title.lower().replace(' ', '_'):
-                            console.print(f"🔧 [bold green]Targeted Fix:[/bold green] Applying remediation for '{finding_title}' in {file_path}")
-                            remediator = CodeRemediator(file_path)
-                            if 'resiliency' in finding_title.lower() or 'retry' in finding_title.lower():
-                                from .auditors.base import AuditFinding
-                                f = AuditFinding(title=finding_title, description='', category='', line_number=int(parts[0].split(':')[1]) if ':' in parts[0] else 1, file_path=file_path)
-                                remediator.apply_resiliency(f)
+                    finding = parse_action_line(line)
+                    if finding.title:
+                        current_id = hashlib.md5(f'{module_name}:{finding.title}'.encode()).hexdigest()[:8]
+                        if current_id == issue_id or issue_id in finding.title.lower().replace(' ', '_'):
+                            console.print(f"🔧 [bold green]Targeted Fix:[/bold green] Applying remediation for '{finding.title}' in {finding.file_path}")
+                            remediator = CodeRemediator(finding.file_path)
+                            if 'resiliency' in finding.title.lower() or 'retry' in finding.title.lower():
+                                remediator.apply_resiliency(finding)
                                 remediator.save()
                                 found = True
-                            elif 'zombie' in finding_title.lower() or 'timeout' in finding_title.lower():
-                                from .auditors.base import AuditFinding
-                                f = AuditFinding(title=finding_title, description='', category='', line_number=int(parts[0].split(':')[1]) if ':' in parts[0] else 1, file_path=file_path)
-                                remediator.apply_timeouts(f)
+                            elif 'zombie' in finding.title.lower() or 'timeout' in finding.title.lower():
+                                remediator.apply_timeouts(finding)
                                 remediator.save()
                                 found = True
                             if found:
-                                console.print(f'✅ [bold green]Fixed {finding_title} successfully.[/bold green]')
+                                console.print(f'✅ [bold green]Fixed {finding.title} successfully.[/bold green]')
                                 return True
         console.print(f"[yellow]⚠️ Could not find a matching automated fix for issue ID '{issue_id}'.[/yellow]")
         return False
@@ -1024,18 +1048,11 @@ class CockpitOrchestrator:
                 output = mod_data.get('output', '')
                 for line in output.split('\n'):
                     if 'ACTION:' in line:
-                        parts = line.replace('ACTION:', '').strip().split(' | ')
-                        if len(parts) >= 3:
-                            file_info = parts[0].split(':')
-                            findings.append(AuditFinding(
-                                category=module_name,
-                                title=parts[1],
-                                description=parts[2],
-                                impact="HIGH",
-                                roi="Remediation",
-                                line_number=int(file_info[1]) if len(file_info) > 1 else 1,
-                                file_path=file_info[0]
-                            ))
+                        finding = parse_action_line(line)
+                        if finding.title:
+                            if finding.category == "Legacy":
+                                finding.category = module_name
+                            findings.append(finding)
             return findings
 
     def get_compliance_map(self, category: str) -> str:
@@ -1229,7 +1246,6 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     
     # NEW: Apply autonomous remediations if requested
     if apply_fixes:
-        from .auditors.base import AuditFinding
         from .remediator import CodeRemediator
         
         developer_actions = []
@@ -1237,81 +1253,78 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
             if data['output']:
                 for line in data['output'].split('\n'):
                     if 'ACTION:' in line:
-                        developer_actions.append({'module': name, 'action': line.replace('ACTION:', '').strip()})
+                        finding = parse_action_line(line)
+                        if finding.title:
+                            developer_actions.append({'module': name, 'finding': finding})
         
         remediators = {}
         max_fix_files = config.get('max_fix_files', 10)
         fix_files_count = 0
         
         for item in developer_actions:
-            parts = item['action'].split(' | ')
-            if len(parts) >= 2:
-                file_path_info = parts[0].split(':')
-                file_path = file_path_info[0]
-                line_num = int(file_path_info[1]) if len(file_path_info) > 1 else 1
-                title = parts[1]
-                
-                if os.path.isabs(file_path):
-                    full_path = file_path
-                else:
-                    full_path = os.path.abspath(os.path.join(target_path, file_path))
-                
-                if not os.path.exists(full_path) or not os.path.isfile(full_path):
+            finding = item['finding']
+            file_path = finding.file_path
+            title = finding.title
+            
+            if os.path.isabs(file_path):
+                full_path = file_path
+            else:
+                full_path = os.path.abspath(os.path.join(target_path, file_path))
+            
+            if not os.path.exists(full_path) or not os.path.isfile(full_path):
+                continue
+            
+            if full_path not in remediators:
+                # BLAST RADIUS GUARD: Prevent PR Exhaustion (40K lines issue)
+                if fix_files_count >= max_fix_files:
+                    console.print(f"⚠️ [bold yellow]Blast Radius Guard:[/] Skipping {os.path.basename(full_path)} to prevent PR Exhaustion (Limit: {max_fix_files} files).")
                     continue
-                
-                if full_path not in remediators:
-                    # BLAST RADIUS GUARD: Prevent PR Exhaustion (40K lines issue)
-                    if fix_files_count >= max_fix_files:
-                        console.print(f"⚠️ [bold yellow]Blast Radius Guard:[/] Skipping {os.path.basename(full_path)} to prevent PR Exhaustion (Limit: {max_fix_files} files).")
+                remediators[full_path] = CodeRemediator(full_path)
+                fix_files_count += 1
+            
+            rem = remediators[full_path]
+            if interactive:
+                from rich.prompt import Confirm
+                console.print(f"\n🧠 [bold green]Architect's Dialogue:[/] Remediation needed for [bold cyan]'{title}'[/bold cyan] in {os.path.basename(full_path)}")
+                rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Cockpitty and SOC2 compliance."
+                console.print(f"[dim]{rationale}[/dim]")
+                if not Confirm.ask("Apply this remediation?"):
+                    console.print("⏭️  [yellow]Skipping remediation per architect request.[/yellow]")
+                    continue
+            
+            if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
+                rem.apply_resiliency(finding)
+            elif any(x in title.lower() for x in ['timeout', 'zombie']):
+                rem.apply_timeouts(finding)
+            elif any(x in title.lower() for x in ['caching', 'context-cache']):
+                rem.apply_caching(finding)
+            elif any(x in title.lower() for x in ['hallucination', 'poka-yoke', 'literal']):
+                rem.apply_tool_hardening(finding)
+            elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
+                # Autonomous Scaffolding
+                from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+                lang = DiscoveryEngine(os.path.dirname(full_path)).detect_language()
+                engine_path = rem.scaffold_policy_engine(os.path.dirname(full_path), language=lang)
+                console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] {os.path.basename(engine_path)} created in {os.path.dirname(full_path)}")
+            elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
+                # Auto-Instrumentation
+                rem.eject_telemetry_lib(os.path.dirname(full_path))
+                console.print("📡 [bold green]Telemetry Ejected:[/bold green] lib/logger.ts and lib/trace.ts created.")
+            elif any(x in title.lower() for x in ['lateral', 'over-privilege', 'privilege']):
+                # Code-First Security Hardening
+                rem.apply_privilege_gate(finding)
+                console.print(f"🛡️  [bold green]Privilege Gate Injected:[/bold green] Added tool_privilege_check to {os.path.basename(full_path)}")
+            elif any(x in title.lower() for x in ['passive', 'retrieval', 'rag']):
+                rem.apply_passive_retrieval(finding)
+                console.print(f"🌉 [bold green]Managed RAG Refactor:[/bold green] Injected decider logic to {os.path.basename(full_path)}")
+            if any(x in title.lower() for x in ['monolith', 'structural', 'size', 'legacy', 'monolithic', 'split']):
+                # CORDON PATTERN: Protect against PR Exhaustion and Destructive Changes
+                if not interactive and not os.environ.get('FORCE_EVOLUTION'):
+                        console.print(f"🛡️  [bold yellow]Cordon Gate:[/] Skipping high-impact structural split for [bold]{os.path.basename(full_path)}[/]. Run with --interactive to approve.")
                         continue
-                    remediators[full_path] = CodeRemediator(full_path)
-                    fix_files_count += 1
                 
-                rem = remediators[full_path]
-                finding = AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num, file_path=full_path)
-                
-                if interactive:
-                    from rich.prompt import Confirm
-                    console.print(f"\n🧠 [bold green]Architect's Dialogue:[/] Remediation needed for [bold cyan]'{title}'[/bold cyan] in {os.path.basename(full_path)}")
-                    rationale = f"Rationale: This fix addresses {title} by injecting standardized patterns to ensure Cockpitty and SOC2 compliance."
-                    console.print(f"[dim]{rationale}[/dim]")
-                    if not Confirm.ask("Apply this remediation?"):
-                        console.print("⏭️  [yellow]Skipping remediation per architect request.[/yellow]")
-                        continue
-                
-                if any(x in title.lower() for x in ['resiliency', 'retry', 'backoff']):
-                    rem.apply_resiliency(finding)
-                elif any(x in title.lower() for x in ['timeout', 'zombie']):
-                    rem.apply_timeouts(finding)
-                elif any(x in title.lower() for x in ['caching', 'context-cache']):
-                    rem.apply_caching(finding)
-                elif any(x in title.lower() for x in ['hallucination', 'poka-yoke', 'literal']):
-                    rem.apply_tool_hardening(finding)
-                elif any(x in title.lower() for x in ['policy', 'arithmetic', 'logic']):
-                    # Autonomous Scaffolding
-                    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-                    lang = DiscoveryEngine(os.path.dirname(full_path)).detect_language()
-                    engine_path = rem.scaffold_policy_engine(os.path.dirname(full_path), language=lang)
-                    console.print(f"🏗️  [bold green]Policy Scaffolding Generated:[/bold green] {os.path.basename(engine_path)} created in {os.path.dirname(full_path)}")
-                elif any(x in title.lower() for x in ['logging', 'tracing', 'telemetry', 'signal']):
-                    # Auto-Instrumentation
-                    rem.eject_telemetry_lib(os.path.dirname(full_path))
-                    console.print("📡 [bold green]Telemetry Ejected:[/bold green] lib/logger.ts and lib/trace.ts created.")
-                elif any(x in title.lower() for x in ['lateral', 'over-privilege', 'privilege']):
-                    # Code-First Security Hardening
-                    rem.apply_privilege_gate(finding)
-                    console.print(f"🛡️  [bold green]Privilege Gate Injected:[/bold green] Added tool_privilege_check to {os.path.basename(full_path)}")
-                elif any(x in title.lower() for x in ['passive', 'retrieval', 'rag']):
-                    rem.apply_passive_retrieval(finding)
-                    console.print(f"🌉 [bold green]Managed RAG Refactor:[/bold green] Injected decider logic to {os.path.basename(full_path)}")
-                if any(x in title.lower() for x in ['monolith', 'structural', 'size', 'legacy', 'monolithic', 'split']):
-                    # CORDON PATTERN: Protect against PR Exhaustion and Destructive Changes
-                    if not interactive and not os.environ.get('FORCE_EVOLUTION'):
-                         console.print(f"🛡️  [bold yellow]Cordon Gate:[/] Skipping high-impact structural split for [bold]{os.path.basename(full_path)}[/]. Run with --interactive to approve.")
-                         continue
-                    
-                    rem.apply_structural_split(finding)
-                    console.print(f"🏗️  [bold green]Architectural Split Scaffold:[/bold green] Injected modular router recommendation to {os.path.basename(full_path)}")
+                rem.apply_structural_split(finding)
+                console.print(f"🏗️  [bold green]Architectural Split Scaffold:[/bold green] Injected modular router recommendation to {os.path.basename(full_path)}")
 
         for path, rem in remediators.items():
             if dry_run:
@@ -1411,20 +1424,18 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
     all_findings_text = "\n".join([r.get('output', '') for r in orchestrator.results.values()])
     finops_auditor = None
     # Find FinOps auditor from steps (simplified)
-    from agent_ops_cockpit.ops.auditors.base import AuditFinding
     from agent_ops_cockpit.ops.auditors.finops import FinOpsAuditor
     finops_auditor = FinOpsAuditor()
     
-    # Mock some findings to pass to simulator based on text
-    mock_findings = []
-    if any(x in all_findings_text.lower() for x in ['retry', 'resiliency']):
-        mock_findings.append(AuditFinding(category="💰 FinOps", title="Resiliency Hardening", description="..", impact="HIGH", roi="High"))
-    if any(x in all_findings_text.lower() for x in ['logging', 'tracing', 'telemetry']):
-        mock_findings.append(AuditFinding(category="💰 FinOps", title="Telemetry Influx", description="..", impact="MEDIUM", roi="Medium"))
-    if 'caching' in all_findings_text.lower():
-        mock_findings.append(AuditFinding(category="💰 FinOps", title="Caching Optimization", description="..", impact="HIGH", roi="High"))
+    real_findings = []
+    for line in all_findings_text.split('\n'):
+        if 'ACTION:' in line:
+            finding = parse_action_line(line)
+            if finding.title:
+                finding.category = "💰 FinOps"
+                real_findings.append(finding)
     
-    impact = finops_auditor.simulate_opex_impact(100.0, mock_findings) # 100 as base%
+    impact = finops_auditor.simulate_opex_impact(100.0, real_findings) # 100 as base%
     delta_str = f"[green]-{abs(impact['delta']):.1f}%[/green]" if impact['delta'] < 0 else f"[red]+{impact['delta']:.1f}%[/red]"
     
     console.print("\n💰 [bold cyan]Economist Persona: Opex Simulation[/bold cyan]")
@@ -1451,7 +1462,6 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
     # OR better: run_audit already populates the evidence lake.
     orchestrator = CockpitOrchestrator()
     
-    from .auditors.base import AuditFinding
     from .remediator import CodeRemediator
     
     remediators = {}
@@ -1477,13 +1487,11 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
         if data['output']:
             for line in data['output'].split('\n'):
                 if 'ACTION:' in line:
-                    parts = line.replace('ACTION:', '').strip().split(' | ')
-                    if len(parts) >= 2:
-                        file_path = parts[0].split(':')[0]
-                        line_num = int(parts[0].split(':')[1]) if ':' in parts[0] else 1
-                        title = parts[1]
+                    finding = parse_action_line(line)
+                    if finding.title:
+                        title = finding.title
                         
-                        full_path = os.path.abspath(os.path.join(target_path, file_path))
+                        full_path = os.path.abspath(os.path.join(target_path, finding.file_path))
                         if not os.path.exists(full_path) or not os.path.isfile(full_path):
                             continue
                         
@@ -1503,11 +1511,44 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
                                  continue
                         
                         # Apply specialized logic
-                        if 'Resiliency' in title or 'Backoff' in title:
-                            rem.apply_resiliency(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                        title_lower = title.lower()
+                        
+                        if 'resiliency' in title_lower or 'backoff' in title_lower:
+                            rem.apply_resiliency(finding)
                             applied_count += 1
-                        elif 'Timeout' in title or 'Zombie' in title:
-                            rem.apply_timeouts(AuditFinding(category='', title=title, description='', impact='', roi='', line_number=line_num))
+                        elif 'timeout' in title_lower or 'zombie' in title_lower:
+                            rem.apply_timeouts(finding)
+                            applied_count += 1
+                        elif 'caching' in title_lower or 'cache' in title_lower:
+                            rem.apply_caching(finding)
+                            applied_count += 1
+                        elif 'hardening' in title_lower or 'poka-yoke' in title_lower:
+                            rem.apply_tool_hardening(finding)
+                            applied_count += 1
+                        elif 'compaction' in title_lower or 'history' in title_lower:
+                            rem.apply_context_compaction(finding)
+                            applied_count += 1
+                        elif 'reflection' in title_lower:
+                            rem.apply_cockpit_reflection(finding)
+                            applied_count += 1
+                        elif 'mcp' in title_lower or 'leakage' in title_lower or 'gate' in title_lower:
+                            rem.apply_mcp_gating(finding)
+                            applied_count += 1
+                        elif 'privilege' in title_lower or 'shadow env' in title_lower or 'credential risk' in title_lower:
+                            rem.apply_privilege_gate(finding)
+                            applied_count += 1
+                        elif 'abstraction' in title_lower or 'monocultural' in title_lower:
+                            rem.apply_cloud_abstraction(finding)
+                            applied_count += 1
+                        elif 'rag' in title_lower or 'retrieval' in title_lower:
+                            rem.apply_passive_retrieval(finding)
+                            applied_count += 1
+                        elif 'split' in title_lower or 'monolith' in title_lower or 'structural' in title_lower:
+                            rem.apply_structural_split(finding)
+                            applied_count += 1
+                        else:
+                            # Fallback inject architecture note
+                            rem.apply_structural_split(finding)
                             applied_count += 1
     
     for _path, rem in remediators.items():
@@ -1518,6 +1559,8 @@ def run_autonomous_evolution(target_path: str='.', branch: bool=True):
             b_name = rem.save_to_branch()
             if b_name:
                 branches.append(b_name)
+            else:
+                rem.save()
         else:
             rem.save()
             

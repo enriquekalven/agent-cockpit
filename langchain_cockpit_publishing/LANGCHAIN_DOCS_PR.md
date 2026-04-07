@@ -1,6 +1,6 @@
 # LangChain Integration: AgentOps Cockpit
 
-> [AgentOps Cockpit](https://github.com/enriquekalven/agent-ops-cockpit) is a production-grade governance and observability platform for AI agents.
+> [AgentOps Cockpit](https://github.com/enriquekalven/agentops-cockpit) is a production-grade governance and observability platform for AI agents.
 
 ## Why use Cockpit with LangChain?
 

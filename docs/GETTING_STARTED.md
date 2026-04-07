@@ -1,19 +1,17 @@
 # 🚀 Quickstart: Cockpit AgentOps
 ## The "Cockpit Evolution" (v2.0.10 Autonomous Core Autonomous Core)
 
-"From `pip install` to `Well-Architected` in 60 seconds."
+"From zero to `Well-Architected` in 60 seconds."
 
 ---
 
 ## ⚡ 1. Install & Scaffold
 
-```bash
-pip install agentops-cockpit --upgrade
-```
+The Cockpit is built for zero-install portability via `uvx`:
 
 ### Create a new Cockpit project (A2UI/React/FastAPI)
 ```bash
-cockpit create trinity --name my-cockpit-agent
+uvx agentops-cockpit create trinity --name my-cockpit-agent
 ```
 *This instantly scaffolds the **Governance Framework**: Engine, Face, and Cockpit.*
 
@@ -34,11 +32,11 @@ The Face layer uses the **A2UI Protocol** to transform reasoning into rich visua
 ## 🔍 4. The "Aha!" Moment: Your First Audit
 
 ```bash
-ops report
+uvx agentops-cockpit audit report
 ```
 1.  **SME Probing**: Detects your framework and grades it against the **v2.0.10 Autonomous Core Governing Board** standards.
 2.  **Secret Scanner**: AST-based scan for hardcoded credentials.
-3.  **Auto-Remediation**: Run `make apply-fixes` to automatically harden your codebase with **Cockpit SME** advice.
+3.  **Auto-Remediation**: Run `uvx agentops-cockpit evolve` to autonomously harden your codebase with **Cockpit SME** patching Engine.
 
 ---
 
@@ -48,12 +46,12 @@ The Cockpit now includes a mandatory **Governing Board** of SMEs:
 - **Autonomous Scaffolding**: Automatically logic gates risky tools behind **HITL (Human-in-the-Loop)** modals via A2UI.
 - **Silent Registry Resilience**: Automatically fails over to public PyPI mirrors if corporate registries are unreachable.
 
-> 🛠️ **Dev Tip**: You can use `ops`, `aops`, or `agent-ops` as aliases for `cockpit`. For example, `ops report` is the preferred way to run a Master Audit.
+> 🛠️ **Dev Tip**: Rely on `uvx agentops-cockpit` for all operations. It ensures you are always running the latest, most secure version of the autonomous CLI without package conflicts.
 
 ## 🩺 5. The "Cockpit Doctor"
 Before launching a major fleet deployment, verify your cross-cloud credentials:
 ```bash
-ops sys doctor
+uvx agentops-cockpit sys doctor
 ```
 This diagnostic sweep checks your GCP, AWS, and Azure access to ensure zero-failure deployments via the **Cockpit Bridge**.
 

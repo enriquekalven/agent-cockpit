@@ -14,5 +14,5 @@ We’re so excited for you to try it out!
 **Help us test this governance package, submit feedback thank you!** 💖
 
 ---
-*Ready to start your own journey? Run `make audit` and let us know what you think!*
+*Ready to start your own journey? Run `uvx agentops-cockpit audit report` and let us know what you think!*
 

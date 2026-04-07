@@ -23,7 +23,7 @@ Version 1.9.0 represents a major evolutionary leap for the AgentOps Cockpit. By 
 - **Methods**:
   - `apply_cockpit_reflection`: Injects the reflection loop and necessary imports.
   - `apply_mcp_gating`: Injects the HITL gate into destructive tool definitions.
-- **Paradigm Shift**: The `make apply-fixes` command now performs structural architectural hardening, not just syntax cleanup.
+- **Paradigm Shift**: The `uvx agentops-cockpit evolve` command now performs structural architectural hardening, not just syntax cleanup.
 
 ## 3. Operational Maturity
 - **Unified Logic**: Merged the best practices from custom hardening scripts (`reflection_patch.py`, `mcp_patch.py`) into the core `agent_ops_cockpit.ops` package.

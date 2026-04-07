@@ -77,9 +77,7 @@ class PreflightEngine:
         """Verify cloud-specific CLI tools and authentication."""
         import subprocess
         
-        if os.environ.get("COCKPIT_SIMULATION") == "true":
-            return True, f"SIMULATION MOCK: {target_cloud} Identity Verified"
-            
+
         if target_cloud == "google":
             if not shutil.which("gcloud"):
                 return False, "Missing 'gcloud' CLI."
@@ -123,9 +121,7 @@ class PreflightEngine:
         import json
         import subprocess
         
-        if os.environ.get("COCKPIT_SIMULATION") == "true":
-            return True, f"SIMULATION MOCK: {target_cloud} Project Capability Active"
-            
+
         if target_cloud == "google":
             try:
                 # 1. Get Project ID
@@ -148,6 +144,26 @@ class PreflightEngine:
                     return False, f"Billing is DISABLED for project {project_id}."
                 
                 return True, f"Project {project_id} (Billing OK, Vertex OK)"
+            except Exception as e:
+                return False, f"Cloud readiness check failed: {str(e)}"
+        
+        elif target_cloud == "aws":
+            try:
+                # Check for Bedrock access (list foundation models)
+                res = subprocess.run(["aws", "bedrock", "list-foundation-models", "--output", "json"], capture_output=True, text=True)
+                if res.returncode != 0:
+                    return False, "Cannot list AWS Bedrock models. Check permissions."
+                return True, "AWS Bedrock API OK"
+            except Exception as e:
+                return False, f"Cloud readiness check failed: {str(e)}"
+        
+        elif target_cloud == "azure":
+            try:
+                # Check for Azure OpenAI access
+                res = subprocess.run(["az", "cognitiveservices", "account", "list", "--output", "json"], capture_output=True, text=True)
+                if res.returncode != 0:
+                    return False, "Cannot list Azure Cognitive Services. Check subscription/permissions."
+                return True, "Azure Cognitive Services OK"
             except Exception as e:
                 return False, f"Cloud readiness check failed: {str(e)}"
         

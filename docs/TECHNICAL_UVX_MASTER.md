@@ -1,58 +1,88 @@
-# ⌨️ Master Guide: Cockpit UVX Automation
-## Portable Governance & Automation (v2.0.10 Autonomous Core Evolution)
+# ⌨️ Master Guide: AgentOps UVX Commands
+## Portable Governance & Automation (v2.0.17 Autonomous Core)
 
-This document provides a consolidated reference for all **`uvx`** commands available in the Cockpit ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing remote repositories.
+This document provides a consolidated reference for all **`uvx`** commands available in the AgentOps ecosystem. `uvx` allows you to run these tools instantly without a local installation, making them ideal for CI/CD pipelines, ephemeral environments, and auditing external repositories.
 
-The primary package is **`agentops-cockpit`**, which exposes the **`ops`** and **`cockpit`** command surfaces.
+The primary package is **`agentops-cockpit`**, which exposes the **`agentops-cockpit`** binaries.
 
 ---
 
-## 🏗️ The Cockpit Command Surface (Portable)
-We have simplified the command surface into logical hubs for high-fidelity automation.
+## 🏗️ Master Orchestration
+Run the full range of AgentOps intelligence against any project or file.
+
+| Command | Objective | Mode/Flags |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit cockpit` | **Mission Control** | Main dashboard for fleet-wide visibility. |
+| `uvx agentops-cockpit audit report` | **Full Master Audit** | `--mode quick` (default) or `deep` |
+| `uvx agentops-cockpit sys version` | **Version Check** | Display current CLI and Engine version. |
+| `uvx agentops-cockpit sys doctor`| **System Check** | Verify GCP Auth, API keys, and environment paths. |
+| `uvx agentops-cockpit audit maturity`| **Maturity Matrix**| Expert competency and persona status dashboard. |
+
+---
+
+## 🏛️ Architecture & Interop
+Audit designs against the Google Well-Architected Framework and Multi-Cloud Maturity Store.
+
+| Command | Objective | Flags |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit audit arch`| **Architecture Review**| Semantic Paradigm Auditor. |
+| `uvx agentops-cockpit mcp-server` | **MCP Hub** | Launch the Cockpit as an MCP server. |
+
+---
+
+## 🧗 AI Quality & Evaluation
+Iterative science for the reasoning layer.
 
 | Command | Objective | Impact |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit ops report` | **Master Audit** | Launch the **Governing Board** (Multi-Persona SME Reasoning). |
-| `uvx agentops-cockpit ops report --mode deep` | **Deep Eval** | Iterative Hill Climbing and trajectory analysis. |
-| `uvx agentops-cockpit ops sys doctor` | **Health Check** | Verify environment paths, multi-cloud auth, and SDK stability. |
-| `uvx agentops-cockpit cockpit certify` | **Certification** | Generate a Production Readiness Badge for the current project. |
-| `uvx agentops-cockpit fix evolve` | **Remediation** | Autonomous code hardening via the **Closer Engine**. |
+| `uvx agentops-cockpit audit quality`| **Hill Climbing** | Quality optimization loop. |
+| `uvx agentops-cockpit test unit` | **Unit Regression** | Runs core reliability suite (pytest). |
+| `uvx agentops-cockpit test smoke` | **Persona Journey** | Validates the "Face" pillar via interactive pipelines. |
 
 ---
 
-## 🧗 Remote SRE & Fleet Management
-Initialize and manage fleets across multi-cloud boundaries using zero-install commands.
+## 🚩 Security & Policy
+Adversarial audits and declarative guardrail enforcement.
 
-| Command | Objective | Key Impact |
+| Command | Objective | Flags |
 | :--- | :--- | :--- |
-| `uvx agentops-cockpit create trinity` | **Scaffolder** | Bootstrap a unified Engine + Face + Cockpit repo. |
-| `uvx agentops-cockpit fleet status` | **SRE Dashboard** | Live stateful registry of the active agentic estate. |
-| `uvx agentops-cockpit deploy cockpit` | **Factory** | End-to-End: Audit -> Fix -> Global Multi-Cloud Deploy. |
+| `uvx agentops-cockpit audit security` | **Adversarial Audit** | Brand Safety Playbook checks (Payload Splitting, Tone). |
+| `uvx agentops-cockpit audit policy` | **Guardrail Check** | Validate queries against the Policy Engine. |
 
 ---
 
-## 🛡️ Registry Resilience & Failover Logic
-If you encounter a **401 Unauthorized** error during `uvx` (common in restricted VPN environments), the Cockpit automatically attempts a **Path-Based Failover** to public mirrors.
+## 💰 FinOps & Infrastructure
+Economic engineering and performance benchmarking.
+
+| Command | Objective | Flags |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit audit roi` | **ROI Waterfall** | OpEx simulation and efficiency pivots. |
+| `uvx agentops-cockpit test simulate-test` | **Stress Benchmarking** | LLM latency and concurrency stress-testing. |
+
+---
+
+## 🎭 UX/UI & A2UI Protocol
+Auditing the "Face" pillar for protocol compliance.
+
+| Command | Objective | Impact |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit audit face` | **Face Auditor** | Scans frontend code for A2UI / AGUI / MCP alignment. |
+
+---
+
+## 🚀 Scaffolding & Deployment
+Initialize new projects and push to Google Cloud.
+
+| Command | Objective | Flags |
+| :--- | :--- | :--- |
+| `uvx agentops-cockpit create trinity` | **Trinity Scaffolder** | Fast-path initialization of Engine + Face + Cockpit. |
+| `uvx agentops-cockpit deploy prep` | **End-to-End Factory** | Audit -> Fix -> Hydrate -> Deploy in one command. |
+
+---
 
 ```bash
-# Manual Override if needed:
-UV_INDEX_URL=https://pypi.org/simple uvx agentops-cockpit ops report
+uvx agentops-cockpit audit report --mode deep
 ```
 
 ---
-
-## 🚀 CI/CD Integration Example
-Add this to your `.github/workflows/cockpit-gate.yml` to enforce the **v2.0.10 Autonomous Core Cockpit Standard**:
-
-```yaml
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Cockpit Audit
-        run: uvx agentops-cockpit ops report
-```
-
----
-*Generated by the AgentOps Cockpit. Global Automation Division (v2.0.10 Autonomous Core Autonomous Core).*
+*Generated by the AgentOps Cockpit. Global Automation Division (v2.0.17 Autonomous Core).*

@@ -1,4 +1,4 @@
-# 🔍 Technical Guide: AgentOps Cockpit (`make audit`)
+# 🔍 Technical Guide: AgentOps Cockpit (`uvx agentops-cockpit audit report`)
 
 The **AgentOps Cockpit** is a code-level auditor that identifies waste, legacy patterns, and cost-reduction opportunities in your agent's source code.
 
@@ -6,8 +6,8 @@ The **AgentOps Cockpit** is a code-level auditor that identifies waste, legacy p
 
 ### Local Installation
 ```bash
-make audit         # Interactive audit
-agent-ops audit src/agent_ops_cockpit/agent.py --quick
+uvx agentops-cockpit audit report         # Interactive audit
+uvx agentops-cockpit audit src/agent_ops_cockpit/agent.py --quick
 ```
 
 ### Portable (Zero-Install)

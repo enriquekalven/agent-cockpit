@@ -8,7 +8,7 @@
 ```text
 agent-cockpit/
     cockpit_export_20260217_1137.json
-    cockpit_export_20260216_1255.json
+    cockpit_export_202.0.17_1255.json
     Dockerfile.temp
     cockpit_export_20260313_1547.json
     cockpit_export_20260219_0801.json
@@ -25,8 +25,8 @@ agent-cockpit/
     cockpit_export_20260218_2210.json
     cockpit_export_20260217_2347.json
     cockpit_export_20260223_1019.json
-    cockpit_export_20260316_1102.json
-    cockpit_export_20260316_2240.json
+    cockpit_export_202.0.17_1102.json
+    cockpit_export_202.0.17_2240.json
     evidence_lake.json
     cockpit_export_20260218_2338.json
     tsconfig.node.json
@@ -37,10 +37,10 @@ agent-cockpit/
     INDUSTRY_HARDENING_v2.0_FINAL.md
     index.html
     cockpit_export_20260218_2339.json
-    cockpit_export_20260316_2241.json
-    cockpit_export_20260316_1103.json
+    cockpit_export_202.0.17_2241.json
+    cockpit_export_202.0.17_1103.json
     STRATEGIC_MEMO_v2.0.md
-    cockpit_export_20260216_1258.json
+    cockpit_export_202.0.17_1258.json
     cockpit_export_20260218_2211.json
     AGENT_OPS_STORY.md
     cockpit_final_report.md
@@ -91,7 +91,7 @@ agent-cockpit/
     cockpit_export_20260226_0925.json
     cockpit_export_20260217_1825.json
     MANIFEST.in
-    cockpit_export_20260316_2226.json
+    cockpit_export_202.0.17_2226.json
     audit_raw.txt
     cockpit_export_20260214_0754.json
     cockpit_export_20260318_0848.json
@@ -107,7 +107,7 @@ agent-cockpit/
     README.md
     CAPABILITIES_REGISTRY.md
     cockpit_export_20260317_1248.json
-    cockpit_export_20260316_2244.json
+    cockpit_export_202.0.17_2244.json
     smithery.yaml
     cockpit_export_20260218_2347.json
     debug_paradigm.py
@@ -129,7 +129,7 @@ agent-cockpit/
     package-lock.json
     package.json
     cockpit_export_20260217_1133.json
-    cockpit_export_20260316_2225.json
+    cockpit_export_202.0.17_2225.json
     cockpit_export_20260217_1021.json
     register_to_ge.py
     cockpit_export_20260303_1547.json
@@ -184,13 +184,13 @@ agent-cockpit/
     DOGFOOD_POST.md
     Dockerfile.original
     cockpit_export_20260218_2340.json
-    cockpit_export_20260316_1101.json
+    cockpit_export_202.0.17_1101.json
     cockpit_export_20260313_1548.json
     mcp-config.json
-    cockpit_export_20260316_2243.json
+    cockpit_export_202.0.17_2243.json
     cockpit_export_20260217_1456.json
     cockpit_export_20260313_1552.json
-    cockpit_export_20260316_2222.json
+    cockpit_export_202.0.17_2222.json
     cockpit_export_20260217_2348.json
     cockpit_export_20260303_0829.json
     cockpit_export_20260224_2144.json
@@ -11238,7 +11238,7 @@ agent-cockpit/
                                     20251202_001343_scene-03.mp4
                                     script.md
                                     video_script.json
-                                    20251202_001615_scene-04.mp4
+                                    20251202.0.1715_scene-04.mp4
                                 copywriting/
                                     social_posts.json
                                     hero_message.md
@@ -23767,13 +23767,13 @@ bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt Auto
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
-	@PYTHONPATH=src uv run cockpit certify --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run uvx agentops-cockpit certify --path $(if $(P),$(P),.)
 
 mcp-blueprint: ## 🛰️ Modernize: Generate MCP Server Wrappers for Legacy Tools
-	@PYTHONPATH=src uv run cockpit mcp blueprint --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run uvx agentops-cockpit mcp blueprint --path $(if $(P),$(P),.)
 
 create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
-	@PYTHONPATH=src uv run cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
+	@PYTHONPATH=src uv run uvx agentops-cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
 
 audit-report: ## 🛡️ Master Audit: Deep scan across Security, Reliability, and Strategy Pillars
 	@PYTHONPATH=src uv run cockpit audit report --path $(if $(P),$(P),.)
@@ -23791,7 +23791,7 @@ audit-arch: ## 🏗️ Strategy Pillar: Architecture Design Review
 arch-review: audit-arch ## [Alias] Architecture Design Review
 
 apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit report
-	@PYTHONPATH=src uv run cockpit fix evolve --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run uvx agentops-cockpit evolve --path $(if $(P),$(P),.)
 
 deploy-Autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
 	@PYTHONPATH=src uv run cockpit deploy Autonomous --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
@@ -23799,7 +23799,7 @@ deploy-Autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
 deploy-prod: deploy-Autonomous ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
-	@PYTHONPATH=src uv run cockpit fleet status
+	@PYTHONPATH=src uv run uvx agentops-cockpit fleet status
 
 fleet-mothball: ## FinOps: Scale fleet to zero
 	@PYTHONPATH=src uv run cockpit fleet mothball --cloud $(CLOUD)
@@ -23993,16 +23993,16 @@ eval = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/enriquekalven/agent-ops-cockpit"
-"Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
+"Homepage" = "https://github.com/enriquekalven/agentops-cockpit"
+"Bug Tracker" = "https://github.com/enriquekalven/agentops-cockpit/issues"
 
 [project.scripts]
 cockpit = "agent_ops_cockpit.cli.main:app"
 agentops-cockpit = "agent_ops_cockpit.cli.main:app"
 ops = "agent_ops_cockpit.cli.main:app"
-aops = "agent_ops_cockpit.cli.main:app"
-agent-ops = "agent_ops_cockpit.cli.main:app"
-agent-ops-mcp = "agent_ops_cockpit.mcp_server:main"
+uvx agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+uvx agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+uvx agentops-cockpit-mcp = "agent_ops_cockpit.mcp_server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agent_ops_cockpit"]
@@ -24070,10 +24070,10 @@ dev = [
 ### FILE: `smithery.yaml`
 ---
 ```yaml
-name: agent-ops-cockpit
+name: agentops-cockpit
 version: 2.0.4
 description: The Autonomous Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
-repository: https://github.com/enriquekalven/agent-ops-cockpit
+repository: https://github.com/enriquekalven/agentops-cockpit
 license: MIT
 author: enriquekalven
 tools:
@@ -24469,7 +24469,7 @@ export const enforcePolicy = async (action: string): Promise<InteractionGate> =>
 ---
 ```yaml
 project:
-  name: "agent-ops-cockpit"
+  name: "agentops-cockpit"
   version: "2.0.4"
   max_fix_files: 5
 
@@ -24848,7 +24848,7 @@ preview-references: check-pnpm
 
 help:
 	@echo "Available commands:"
-	@echo "  make dev                - Start development mode with file watching and mint dev"
+	@echo "  uvx agentops-cockpit cockpit                - Start development mode with file watching and mint dev"
 	@echo "  make build              - Build documentation to ./build directory"
 	@echo "  make broken-links       - Check for broken links in built documentation"
 	@echo "  make build-references   - Build reference docs"
@@ -24857,7 +24857,7 @@ help:
 	@echo "  make lint               - Lint code"
 	@echo "  make lint_md            - Lint markdown files"
 	@echo "  make lint_md_fix        - Lint and fix markdown files"
-	@echo "  make test               - Run tests"
+	@echo "  uvx agentops-cockpit test               - Run tests"
 	@echo "  make install            - Install dependencies"
 	@echo "  make clean              - Clean build artifacts"
 	@echo "  make help               - Show this help message"
@@ -24897,8 +24897,8 @@ test = [
     "pytest-mock>=3.14.0",
     "pytest-socket>=0.7.0",
     "pytest-timeout>=2.3.1",
-    "types-pyyaml>=6.0.12.20250516",
-    "types-tqdm>=4.67.0.20250516",
+    "types-pyyaml>=6.0.12.202.0.17",
+    "types-tqdm>=4.67.0.202.0.17",
     "types-requests>=2.32.4.20250913",
 ]
 
@@ -35452,7 +35452,7 @@ help:
 	@echo "  serve-docs       - Serve the documentation for local development (faster)"
 	@echo ""
 	@echo "Typical workflows:"
-	@echo "  Development:  make dev-install && make serve-docs"
+	@echo "  Development:  uvx agentops-cockpit cockpit-install && make serve-docs"
 	@echo "  Production:   make prod-install && make build"
 
 ```
@@ -39302,7 +39302,7 @@ class CockpitCallbackHandler(BaseCallbackHandler):
     def __init__(self, app_name: str = "langchain-agent"):
         self.app_name = app_name
         self.findings = []
-        # In a standalone package, we might need to import these from the main agent-ops-cockpit 
+        # In a standalone package, we might need to import these from the main agentops-cockpit 
         # or have them as lightweight dependencies. For the scaffold, we'll keep it clean.
         try:
             from agent_ops_cockpit.ops.pii_scrubber import PIIScrubber

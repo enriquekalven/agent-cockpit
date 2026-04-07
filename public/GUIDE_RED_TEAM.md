@@ -1,4 +1,4 @@
-# 🛡️ Technical Guide: Red Team Security (`make red-team`)
+# 🛡️ Technical Guide: Red Team Security (`uvx agentops-cockpit audit security`)
 
 The **Red Team Auditor** is an adversarial evaluator that launches ethical "self-attacks" against your agent to identify vulnerabilities before they are exploited by users.
 
@@ -6,13 +6,13 @@ The **Red Team Auditor** is an adversarial evaluator that launches ethical "self
 
 ### Local Installation
 ```bash
-make red-team      # Audit the default src/agent_ops_cockpit/agent.py
-agent-ops red-team path/to/agent.py
+uvx agentops-cockpit audit security      # Audit the default src/agent_ops_cockpit/agent.py
+uvx agentops-cockpit audit security path/to/agent.py
 ```
 
 ### Portable (Zero-Install)
 ```bash
-uvx agentops-cockpit red-team src/agent_ops_cockpit/agent.py
+uvx agentops-cockpit audit security src/agent_ops_cockpit/agent.py
 ```
 
 ---

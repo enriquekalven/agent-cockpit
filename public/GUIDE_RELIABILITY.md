@@ -11,7 +11,7 @@
 ### Local Installation
 ```bash
 make quality-baseline  # Run baseline audit
-agent-ops quality-baseline --steps 10
+uvx agentops-cockpit quality-baseline --steps 10
 ```
 
 ### Portable (Zero-Install)

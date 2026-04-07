@@ -14,14 +14,14 @@ Every audit result and remediation is authored by a panel of **Principal SME Per
 
 ## 🌉 Cockpit Bridge (Multi-Cloud Orchestration)
 The Cockpit abstracts the underlying cloud provider, allowing you to govern agents across GCP, AWS, and Azure from a single interface.
-- **Unified Auth**: Single-command credential validation via `ops sys doctor`.
+- **Unified Auth**: Single-command credential validation via `uvx agentops-cockpit sys doctor`.
 - **Cloud Mobility**: Move an agent audited on Vertex AI to AWS Bedrock with zero code changes in the governance layer.
 
 ## 🛡️ Cockpit Gateway (The Guardian)
 A real-time sidecar logic layer that governs inter-agent and agent-to-user traffic.
 - **Real-time PII Scrubbing**: Automatically detects and masks sensitive data in transit.
 - **A2A Evidence Packets**: Cryptographically signs reasoning traces to ensure trust in multi-agent swarms.
-- **Guardrail Injection**: Run `make apply-fixes` to autonomously inject these gates into your codebase.
+- **Guardrail Injection**: Run `uvx agentops-cockpit evolve` to autonomously inject these gates into your codebase.
 
 ## 🧠 Semantic distributed cache (Distributed Caching)
 The distributed cache is a specialized middleware that prevents redundant LLM calls across your entire fleet.

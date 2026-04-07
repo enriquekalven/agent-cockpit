@@ -19,7 +19,7 @@ from adk import Tool
 
 @Tool
 def search_docs(query: str):
-    """Searches the knowledge base for agent-ops documentation."""
+    """Searches the knowledge base for uvx agentops-cockpit documentation."""
     return get_search_results(query)
 ```
 

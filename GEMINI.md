@@ -1198,7 +1198,7 @@ db_creds = json.loads(os.environ.get("DB_PASS", "{}"))
 Once evaluation thresholds are met, run tests before deployment:
 
 ```bash
-make test
+uvx agentops-cockpit test
 ```
 
 If tests fail, fix issues and run again until all tests pass.
@@ -1382,7 +1382,7 @@ gh run watch RUN_ID --repo OWNER/REPO
 | Command | Purpose |
 |---------|---------|
 | `make playground` | Interactive local testing |
-| `make test` | Run unit and integration tests |
+| `uvx agentops-cockpit test` | Run unit and integration tests |
 | `make eval` | Run evaluation against evalsets |
 | `make eval-all` | Run all evalsets |
 | `make lint` | Check code quality |

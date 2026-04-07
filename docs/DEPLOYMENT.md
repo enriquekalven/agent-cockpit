@@ -1,7 +1,7 @@
 # 🚀 Technical Guide: Deployment & CI/CD Cockpit Gates
 ## The "Production Readiness" Standard (v2.0.10 Autonomous Core Cockpit Evolution)
 
-Deploying a "Well-Architected" agent requires orchestration across the **Cockpit Cloud Bridge**. The Cockpit automates this through the `make deploy-prod` command (alias for `cockpit deploy cockpit`).
+Deploying a "Well-Architected" agent requires orchestration across the **Cockpit Cloud Bridge**. The Cockpit automates this through the `uvx agentops-cockpit deploy prep` command (alias for `uvx agentops-cockpit deploy prep`).
 
 ---
 
@@ -24,7 +24,7 @@ The v2.0.10 Autonomous Core logic layer supports three primary cloud targets:
 ---
 
 ## 🏗️ Production Readiness Audit Sequence
-`make deploy-prod` executes the following high-fidelity benchmarking pipeline before hydration:
+`uvx agentops-cockpit deploy prep` executes the following high-fidelity benchmarking pipeline before hydration:
 
 ### Stage 1: v2.0.10 Autonomous Core Cockpit SME Audit
 - **RAG Fidelity SME**: Validates citation accuracy and grounding.
@@ -56,7 +56,7 @@ Executes `make load-test`.
 ## 🛡️ v2.0.10 Autonomous Core: Specialized Auditor Audit
 For production-gate promotion, move from "Quick Scan" to "Deep Audit":
 ```bash
-make audit
+uvx agentops-cockpit audit report
 ```
 - Full Adversarial Red-Teaming.
 - Iterative Quality Hill Climbing.

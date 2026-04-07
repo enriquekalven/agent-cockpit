@@ -7,7 +7,7 @@ Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you
 
 ## 🛡️ Security & Adversarial SRE
 - [ ] **Secret Governance**: Run `make scan-secrets` to verify zero hardcoded tokens.
-- [ ] **Red Team Evaluation**: Run `make red-team` to verify resistance against multilingual jailbreaks and gaslighting. [**Read Red Team Guide**](TECHNICAL_REDTEAM_GUIDE.md)
+- [ ] **Red Team Evaluation**: Run `uvx agentops-cockpit audit security` to verify resistance against multilingual jailbreaks and gaslighting. [**Read Red Team Guide**](TECHNICAL_REDTEAM_GUIDE.md)
 - [ ] **Cockpit Gate**: Ensure CI/CD includes mandatory blocking audit gates (Score > 90).
 
 ## 🧗 Governance & Regression
@@ -17,7 +17,7 @@ Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you
 
 ## 🧗 Quality & Reasoning
 - [ ] **Hill Climbing**: Run `make quality-baseline` to reach the Global Peak of your prompt's performance. [**Read Quality Guide**](TECHNICAL_QUALITY_GUIDE.md)
-- [ ] **Digital Twin Test**: Run `make simulation-run` to prove reasoning holds up under 100x user load. [**Read Architect Guide**](TECHNICAL_ARCH_REVIEW.md)
+- [ ] **Digital Twin Test**: Run `uvx agentops-cockpit test --load` to prove reasoning holds up under 100x user load. [**Read Architect Guide**](TECHNICAL_ARCH_REVIEW.md)
 
 ## 💰 FinOps & Optimization
 - [ ] **Reasoning Density**: Verify that quality gains are ROI-positive relative to token spend. [**Read FinOps Guide**](TECHNICAL_FINOPS_GUIDE.md)
@@ -36,8 +36,8 @@ Before moving your agent from "Demo" to "Production" on Google Cloud, ensure you
 ---
 
 ## 🚀 Production Readiness Audit
-1.  **Autonomous Review**: Run `make arch-review` and apply AST-based fixes via `make apply-fixes`.
-2.  **Readiness Audit**: Run `make deploy-prod` (Mode: Master Audit). Review the **Evidence Lake** partitions before manual promotion.
+1.  **Autonomous Review**: Run `uvx agentops-cockpit audit arch` and apply AST-based fixes via `uvx agentops-cockpit evolve`.
+2.  **Readiness Audit**: Run `uvx agentops-cockpit deploy prep` (Mode: Master Audit). Review the **Evidence Lake** partitions before manual promotion.
 3.  **Governance Gate**: Verify that the Cockpit Score in `.cockpit/report.md` is > 90.
 
 ---

@@ -76,8 +76,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.10</span>
-          <span className="banner-text"><b>v2.0.10 Autonomous Core:</b> Autonomous Evolution Hub, Autonomous Core Engine, and MCP Hub 2.0.</span>
+          <span className="banner-tag">STABLE v2.0.17</span>
+          <span className="banner-text"><b>v2.0.17 Autonomous Core:</b> Autonomous Evolution Hub, Autonomous Core Engine, and MCP Hub 2.0.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">

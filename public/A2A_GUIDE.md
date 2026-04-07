@@ -52,7 +52,7 @@ On the Cockpit, every A2A transmission is automatically:
 ## ⚡ Get Started with A2A
 Use the Cockpit CLI to verify your multi-agent communication:
 ```bash
-agent-ops audit --mode swarm --file multi_agent_entry.py
+uvx agentops-cockpit audit --mode swarm --file multi_agent_entry.py
 ```
 
 *This standard is being proposed to the Google Well-Architected Framework for AI Agents committee.*

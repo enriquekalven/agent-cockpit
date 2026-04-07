@@ -1,7 +1,6 @@
 import ast
 import difflib
 import os
-import re
 from datetime import datetime
 
 import libcst as cst
@@ -47,6 +46,7 @@ class CodeRemediator:
         self.file_path = file_path
         with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
             self.content = f.read()
+        self.original_content = self.content
         self.lines = self.content.splitlines(keepends=True)
         try:
             # We use AST to find coordinates, but string-patching for the actual fix.
@@ -59,82 +59,189 @@ class CodeRemediator:
         """Register a surgical edit (1-indexed lines, 0-indexed columns)."""
         self.edits.append({'sl': sl, 'sc': sc, 'el': el, 'ec': ec, 'rep': rep})
 
+    def _apply_cst_transformer(self, transformer):
+        try:
+            import libcst as cst
+            from libcst.metadata import MetadataWrapper
+            module = cst.parse_module(self.content)
+            wrapper = MetadataWrapper(module)
+            modified_module = wrapper.visit(transformer)
+            self.content = modified_module.code
+            self.lines = self.content.splitlines(keepends=True)
+            self.tree = ast.parse(self.content)
+        except Exception as e:
+            print(f"LibCST Transformation Failed: {e}")
+
     def apply_resiliency(self, finding):
-        """Injects @retry and imports if missing surgically."""
-        if not self.tree:
-            return
-        
-        # 1. Surgical Import Injection
-        if 'tenacity' not in self.content:
-            # Insert at top, but after potential shebang
-            insert_line = 1
-            if self.lines and self.lines[0].startswith('#!'):
-                insert_line = 2
-            self._add_edit(insert_line, 0, insert_line, 0, "from tenacity import retry, wait_exponential, stop_after_attempt\n")
-        
-        # 2. Surgical Decorator Injection
-        for node in ast.walk(self.tree):
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                # Match by line number range
-                is_target = node.lineno == finding.line_number or (node.lineno <= finding.line_number <= (getattr(node, 'end_lineno', node.lineno)))
-                if is_target:
-                    # Avoid double-injection
-                    if any(isinstance(d, ast.Call) and getattr(getattr(d, 'func', None), 'id', '') == 'retry' for d in node.decorator_list):
-                        continue
-                    
-                    # Calculate indentation
-                    line = self.lines[node.lineno-1]
-                    indent = line[:len(line) - len(line.lstrip())]
-                    decorator = f"{indent}@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))\n"
-                    self._add_edit(node.lineno, 0, node.lineno, 0, decorator)
-                    break
+        """Injects @retry and imports if missing using LibCST AST rewriting directly."""
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
+            
+            class ResiliencyTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line, module_code):
+                    self.target_line = target_line
+                    self.found = False
+                    self.added_import = 'tenacity' in module_code
+                
+                def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+                    if not self.added_import:
+                        import_stmt = cst.parse_statement("from tenacity import retry, wait_exponential, stop_after_attempt\n")
+                        new_body = [import_stmt] + list(updated_node.body)
+                        return updated_node.with_changes(body=tuple(new_body))
+                    return updated_node
+
+                def _apply_retry(self, original_node, updated_node):
+                    if self.found:
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        self.found = True
+                        dummy = cst.parse_module("@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))\ndef f(): pass")
+                        retry_dec = dummy.body[0].decorators[0]
+                        new_decorators = list(updated_node.decorators)
+                        new_decorators.insert(0, retry_dec)
+                        return updated_node.with_changes(decorators=new_decorators)
+                    return updated_node
+
+                def leave_FunctionDef(self, original_node, updated_node):
+                    return self._apply_retry(original_node, updated_node)
+
+                def leave_AsyncFunctionDef(self, original_node, updated_node):
+                    return self._apply_retry(original_node, updated_node)
+            
+            self._apply_cst_transformer(ResiliencyTransformer(finding.line_number, self.content))
+        except ImportError:
+            pass
         
     def apply_timeouts(self, finding):
         """Adds timeout=10 to async calls surgically."""
-        if not self.tree:
-            return
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.Call) and node.lineno == finding.line_number:
-                if hasattr(node, 'end_lineno') and hasattr(node, 'end_col_offset'):
-                    # Insert before the closing parenthesis ')'
-                    prefix = ", " if (node.args or node.keywords) else ""
-                    self._add_edit(node.end_lineno, node.end_col_offset - 1, node.end_lineno, node.end_col_offset - 1, f"{prefix}timeout=10")
-                    break
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
+            
+            class TimeoutTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line):
+                    self.target_line = target_line
+                    self.found = False
+
+                def leave_Call(self, original_node, updated_node):
+                    if getattr(self, 'found', False):
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        self.found = True
+                        new_kw = cst.Arg(
+                            keyword=cst.Name("timeout"), 
+                            equal=cst.AssignEqual(whitespace_before=cst.SimpleWhitespace(''), whitespace_after=cst.SimpleWhitespace('')), 
+                            value=cst.Integer("10")
+                        )
+                        new_args = list(updated_node.args)
+                        if not any(arg.keyword and arg.keyword.value == "timeout" for arg in new_args):
+                            new_args.append(new_kw)
+                        return updated_node.with_changes(args=tuple(new_args))
+                    return updated_node
+
+            self._apply_cst_transformer(TimeoutTransformer(finding.line_number))
+        except ImportError:
+            pass
 
     def apply_caching(self, finding):
         """Injects ContextCacheConfig into Agent/App constructors surgically."""
-        if not self.tree:
-            return
-        has_import = 'ContextCacheConfig' in self.content
-        if not has_import:
-            self._add_edit(1, 0, 1, 0, """try:
-    from google.adk.agents.context_cache_config import ContextCacheConfig
-except (ImportError, AttributeError, ModuleNotFoundError):
-    ContextCacheConfig = None\n""")
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
             
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.Call):
-                if isinstance(node.func, ast.Name) and node.func.id in ['Agent', 'App', 'LlmAgent']:
-                    if not any(k.arg == 'context_cache_config' for k in node.keywords):
-                        prefix = ", " if (node.args or node.keywords) else ""
-                        conf = f"{prefix}context_cache_config=ContextCacheConfig(min_tokens=2048, ttl_seconds=600)"
-                        self._add_edit(node.end_lineno, node.end_col_offset - 1, node.end_lineno, node.end_col_offset - 1, conf)
+            class CachingTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line, module_code):
+                    self.target_line = target_line
+                    self.found = False
+                    self.added_import = 'ContextCacheConfig' in module_code
+                
+                def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+                    if not self.added_import:
+                        import_stmt = cst.parse_statement(
+                            "try:\n"
+                            "    from google.adk.agents.context_cache_config import ContextCacheConfig\n"
+                            "except (ImportError, AttributeError, ModuleNotFoundError):\n"
+                            "    ContextCacheConfig = None\n"
+                        )
+                        new_body = [import_stmt] + list(updated_node.body)
+                        return updated_node.with_changes(body=tuple(new_body))
+                    return updated_node
+
+                def leave_Call(self, original_node, updated_node):
+                    if self.found:
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        if isinstance(original_node.func, cst.Name) and original_node.func.value in ['Agent', 'App', 'LlmAgent']:
+                            self.found = True
+                            
+                            val = cst.Call(
+                                func=cst.Name("ContextCacheConfig"),
+                                args=[
+                                    cst.Arg(keyword=cst.Name("min_tokens"), value=cst.Integer("2048")),
+                                    cst.Arg(keyword=cst.Name("ttl_seconds"), value=cst.Integer("600"))
+                                ]
+                            )
+                            new_kw = cst.Arg(
+                                keyword=cst.Name("context_cache_config"), 
+                                equal=cst.AssignEqual(whitespace_before=cst.SimpleWhitespace(''), whitespace_after=cst.SimpleWhitespace('')),
+                                value=val
+                            )
+                            new_args = list(updated_node.args)
+                            if not any(arg.keyword and arg.keyword.value == "context_cache_config" for arg in new_args):
+                                new_args.append(new_kw)
+                            return updated_node.with_changes(args=tuple(new_args))
+                    return updated_node
+
+            self._apply_cst_transformer(CachingTransformer(finding.line_number, self.content))
+        except ImportError:
+            pass
 
     def apply_tool_hardening(self, finding):
         """Injects Poka-Yoke pattern for tool definitions surgically."""
-        if not self.tree:
-            return
-        if 'from typing import Literal' not in self.content:
-            self._add_edit(1, 0, 1, 0, "from typing import Literal\n")
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
             
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.FunctionDef) and node.lineno == finding.line_number:
-                if node.body:
-                    first_stmt = node.body[0]
-                    line = self.lines[first_stmt.lineno-1]
-                    indent = line[:len(line) - len(line.lstrip())]
-                    comment = f"{indent}# POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.\n"
-                    self._add_edit(first_stmt.lineno, 0, first_stmt.lineno, 0, comment)
+            class PokaYokeTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line, module_code):
+                    self.target_line = target_line
+                    self.found = False
+                    self.added_import = 'from typing import Literal' in module_code
+                
+                def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+                    if not self.added_import:
+                        import_stmt = cst.parse_statement("from typing import Literal\n")
+                        new_body = [import_stmt] + list(updated_node.body)
+                        return updated_node.with_changes(body=tuple(new_body))
+                    return updated_node
+
+                def leave_FunctionDef(self, original_node, updated_node):
+                    if getattr(self, 'found', False):
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        self.found = True
+                        new_body_elements = [cst.SimpleStatementLine(body=[])] if not updated_node.body.body else list(updated_node.body.body)
+                        dummy = cst.parse_statement("'''POKA-YOKE: Use Literal types for categorical parameters to prevent model hallucination.'''\n")
+                        new_body_elements.insert(0, dummy)
+                        return updated_node.with_changes(body=updated_node.body.with_changes(body=tuple(new_body_elements)))
+                    return updated_node
+
+            self._apply_cst_transformer(PokaYokeTransformer(finding.line_number, self.content))
+        except ImportError:
+            pass
 
     def apply_context_compaction(self, finding):
         """Injects a skeleton Context Compaction strategy surgically."""
@@ -150,85 +257,102 @@ except (ImportError, AttributeError, ModuleNotFoundError):
                 break
         self._add_edit(insert_line, 0, insert_line, 0, compaction_code)
 
+    def _apply_decorator_cst(self, finding, decorator_code, import_code, import_check_str):
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
+            
+            class GenericDecoratorTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line, module_code):
+                    self.target_line = target_line
+                    self.found = False
+                    self.added_import = import_check_str in module_code
+                
+                def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+                    if not self.added_import:
+                        import_stmt = cst.parse_statement(import_code)
+                        new_body = [import_stmt] + list(updated_node.body)
+                        return updated_node.with_changes(body=tuple(new_body))
+                    return updated_node
+
+                def _apply_decorator(self, original_node, updated_node):
+                    if getattr(self, 'found', False):
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        self.found = True
+                        dummy = cst.parse_module(f"{decorator_code}\ndef dummy_f(): pass")
+                        new_dec = dummy.body[0].decorators[0]
+                        if any(d.decorator == new_dec.decorator for d in updated_node.decorators):
+                            return updated_node
+                        new_decorators = list(updated_node.decorators)
+                        new_decorators.insert(0, new_dec)
+                        return updated_node.with_changes(decorators=new_decorators)
+                    return updated_node
+
+                def leave_FunctionDef(self, original_node, updated_node):
+                    return self._apply_decorator(original_node, updated_node)
+
+                def leave_AsyncFunctionDef(self, original_node, updated_node):
+                    return self._apply_decorator(original_node, updated_node)
+
+            self._apply_cst_transformer(GenericDecoratorTransformer(finding.line_number, self.content))
+        except ImportError:
+            pass
+
     def apply_cockpit_reflection(self, finding):
         """Injects Cockpit Reflection loop surgically."""
-        if 'cockpit_reflection' not in self.content:
-            self._add_edit(1, 0, 1, 0, "from reflection_engine import cockpit_reflection\n")
-        
-        for node in ast.walk(self.tree):
-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.lineno == finding.line_number:
-                # Avoid double decoration
-                if any('reflection' in str(ast.dump(d)).lower() for d in node.decorator_list):
-                    continue
-                line = self.lines[node.lineno-1]
-                indent = line[:len(line) - len(line.lstrip())]
-                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@cockpit_reflection\n")
+        self._apply_decorator_cst(
+            finding, 
+            "@cockpit_reflection", 
+            "from reflection_engine import cockpit_reflection\n", 
+            "cockpit_reflection"
+        )
 
     def apply_mcp_gating(self, finding):
         """Injects MCP Tool Gate surgically."""
-        if 'mcp_tool_gate' not in self.content:
-            self._add_edit(1, 0, 1, 0, "from mcp_gate import mcp_tool_gate\n")
-            
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.FunctionDef) and node.lineno == finding.line_number:
-                if any('gate' in str(ast.dump(d)).lower() for d in node.decorator_list):
-                    continue
-                line = self.lines[node.lineno-1]
-                indent = line[:len(line) - len(line.lstrip())]
-                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@mcp_tool_gate(require_confirmation=True)\n")
+        self._apply_decorator_cst(
+            finding, 
+            "@mcp_tool_gate(require_confirmation=True)", 
+            "from mcp_gate import mcp_tool_gate\n", 
+            "mcp_tool_gate"
+        )
 
     def apply_privilege_gate(self, finding):
         """Injects tool_privilege_check decorator surgically."""
-        if 'tool_privilege_check' not in self.content:
-            self._add_edit(1, 0, 1, 0, "from agent_ops_cockpit.ops.guardrails import tool_privilege_check\n")
-            
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.FunctionDef) and node.lineno == finding.line_number:
-                # Avoid double decoration
-                if any('privilege' in str(ast.dump(d)).lower() for d in node.decorator_list):
-                    continue
-                line = self.lines[node.lineno-1]
-                indent = line[:len(line) - len(line.lstrip())]
-                self._add_edit(node.lineno, 0, node.lineno, 0, f"{indent}@tool_privilege_check(required_scope='admin')\n")
+        self._apply_decorator_cst(
+            finding, 
+            "@tool_privilege_check(required_scope='admin')", 
+            "from agent_ops_cockpit.ops.guardrails import tool_privilege_check\n", 
+            "tool_privilege_check"
+        )
 
     def apply_cloud_abstraction(self, finding):
         """Injects a provider-agnostic bridge to eliminate monocultural bias."""
-        if 'CloudBridge' in self.content:
-            return
-        bridge_code = """
-class CloudBridge:
-    \"\"\"
-    v2.0 Cockpit Bridge: Abstracts provider-specific calls (AWS/Azure) 
-    to enable Multi-Cloud mobility and local failover.
-    \"\"\"
-    @staticmethod
-    def call_model(provider: str, model: str, payload: dict):
-        print(f"🌉 [BRIDGE] Routing request to {provider} ({model})")
-        # Logic to route to LiteLLM or ADK
-        return {"status": "success", "provider": provider}
-"""
-        # Insert after potential imports
-        insert_line = 1
-        for node in self.tree.body if self.tree else []:
-            if isinstance(node, (ast.Import, ast.ImportFrom)):
-                insert_line = node.end_lineno + 1
-            else:
-                break
-        self._add_edit(insert_line, 0, insert_line, 0, bridge_code)
+        self._apply_module_injection_cst(
+            finding,
+            "class CloudBridge:\n    '''Abstracted Cloud SDK Wrapper for Multi-Cloud Compliance.'''\n    def upload(self, bucket, data):\n        pass\n",
+            "class CloudBridge"
+        )
 
     def apply_manifest_drift_fix(self, finding):
-        """Auto-upgrades deprecated frontier models in JSON manifests."""
-        new_content = self.content
-        updates = [
-            (r'gpt-3\.5', 'gpt-4o'),
-            (r'claude-2', 'claude-3-5-sonnet-latest'),
-            (r'gemini-1\.0', 'gemini-2.0-flash')
-        ]
-        for old, new in updates:
-            new_content = re.sub(old, new, new_content, flags=re.I)
-        
-        if new_content != self.content:
-            self.edits = [{'sl': 1, 'sc': 0, 'el': len(self.lines), 'ec': len(self.lines[-1]) if self.lines else 0, 'rep': new_content}]
+        """Upgrades manifest JSON or Py configs safely."""
+        try:
+            import re
+            new_content = re.sub(r'gpt-3\.5(-turbo)?', 'gpt-4o-mini', self.content, flags=re.I)
+            new_content = re.sub(r'gemini-1\.0(-\w+)?', 'gemini-2.0-flash', new_content, flags=re.I)
+            new_content = re.sub(r'claude-2', 'claude-3-5-haiku', new_content, flags=re.I)
+            self.content = new_content
+            self.lines = self.content.splitlines(keepends=True)
+            import ast
+            try:
+                self.tree = ast.parse(self.content)
+            except SyntaxError:
+                self.tree = None
+        except Exception:
+            pass
 
     def apply_mcp_validation(self, finding):
         """Injects mandatory capability block into malformed MCP manifests."""
@@ -238,41 +362,62 @@ class CloudBridge:
             self._add_edit(2, 0, 2, 0, '  "capabilities": {"tools": {}},\n')
 
     def apply_passive_retrieval(self, finding):
-        """
-        [Strategic Pivot] Injects concrete RAG decider logic (NL-to-Decision pattern).
-        Replaces 'Passive RAG' with a managed routing layer to optimize token cost.
-        """
-        if 'def decider_should_rag' in self.content:
-            return
+        """Injects Passive Retrieval logic surgically."""
+        try:
+            import libcst as cst
+            from libcst.metadata import PositionProvider
             
-        logic = '''
-def decider_should_rag(query: str) -> bool:
-    """
-    v2.0.7 Cockpit Logic: Managed RAG routing.
-    Determines if the query requires external knowledge or can be handled by the base model.
-    """
-    rag_keywords = ["latest", "current", "news", "price", "stock", "documentation", "how to"]
-    return any(word in query.lower() for word in rag_keywords)
-'''
-        # Insert at the end of the imports
-        insert_line = 1
-        for node in (self.tree.body if self.tree else []):
-            if isinstance(node, (ast.Import, ast.ImportFrom)):
-                insert_line = node.end_lineno + 1
-            else:
-                break
-        self._add_edit(insert_line, 0, insert_line, 0, logic)
-        
-        # Also try to find the LLM call and wrap it with the decider if possible
-        for node in ast.walk(self.tree):
-            if isinstance(node, ast.Call) and node.lineno == finding.line_number:
-                # This is a bit complex for a regex/string patcher, but we can inject a comment 
-                # next to the line as a 'Functional Guide'
-                line = self.lines[node.lineno-1]
-                indent = line[:len(line) - len(line.lstrip())]
-                guide = f"{indent}# v2.0.7 Logic: if decider_should_rag(query): pass # Apply RAG here\n"
-                self._add_edit(node.lineno, 0, node.lineno, 0, guide)
-                break
+            class PassiveRetrievalTransformer(cst.CSTTransformer):
+                METADATA_DEPENDENCIES = (PositionProvider,)
+                
+                def __init__(self, target_line, module_code):
+                    self.target_line = target_line
+                    self.found = False
+                    self.added_already = 'def decider_should_rag' in module_code
+                
+                def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
+                    new_body = list(updated_node.body)
+                    if not self.added_already:
+                        decider_code = "def decider_should_rag(query: str) -> bool:\n    '''Fast semantic routing to avoid RAG inference waste.'''\n    return 'report' in query or 'data' in query\n"
+                        injected_stmt = cst.parse_statement(decider_code)
+                        idx = 0
+                        for i, stmt in enumerate(new_body):
+                            if isinstance(stmt, (cst.SimpleStatementLine)) and any(isinstance(n, (cst.Import, cst.ImportFrom)) for n in stmt.body):
+                                idx = i + 1
+                        new_body.insert(idx, injected_stmt)
+                    return updated_node.with_changes(body=tuple(new_body))
+
+                def leave_Call(self, original_node, updated_node):
+                    if getattr(self, 'found', False):
+                        return updated_node
+                    pos = self.get_metadata(PositionProvider, original_node)
+                    if pos and (self.target_line <= 1 or pos.start.line <= self.target_line <= pos.end.line):
+                        if isinstance(original_node.func, cst.Name) and original_node.func.value == 'retrieve':
+                            self.found = True
+                            dummy = cst.parse_expression("decider_should_rag(query) and dummy_func()")
+                            new_node = dummy.with_changes(right=updated_node)
+                            return new_node
+                    return updated_node
+
+            self._apply_cst_transformer(PassiveRetrievalTransformer(finding.line_number, self.content))
+        except ImportError:
+            pass
+
+    def _apply_module_injection_cst(self, finding, injected_code, check_str):
+        if check_str in self.content:
+            return
+        try:
+            import libcst as cst
+            class ModuleInjection(cst.CSTTransformer):
+                def leave_Module(self, original_node, updated_node):
+                    parsed = cst.parse_module(injected_code)
+                    new_body = list(updated_node.body)
+                    new_body.extend(parsed.body)
+                    return updated_node.with_changes(body=tuple(new_body))
+            self._apply_cst_transformer(ModuleInjection())
+        except ImportError:
+            # Fallback if libcst is missing
+            self._add_edit(len(self.lines), len(self.lines[-1]) if self.lines else 0, len(self.lines), len(self.lines[-1]) if self.lines else 0, '\n' + injected_code)
 
     def apply_structural_split(self, finding):
         """
@@ -284,7 +429,11 @@ def decider_should_rag(query: str) -> bool:
 # E.g., Use an Orchestrator/Router pattern to delegate to poi_agent or booking_agent.
 # This improves reasoning accuracy and reduces TTFT (Time To First Token).
 '''
-        self._add_edit(1, 0, 1, 0, router_code)
+        self._apply_module_injection_cst(
+            finding,
+            "class ActionRouter:\n    '''Separation of Concerns: Routes instructions instead of monolithic tool calling.'''\n    def route(self, intent: str):\n        pass\n" + router_code,
+            "class ActionRouter"
+        )
 
     def _get_new_content(self):
         """Apply edits in reverse order to original string content."""
@@ -311,8 +460,9 @@ def decider_should_rag(query: str) -> bool:
 
     def get_diff(self) -> str:
         new_content = self._get_new_content()
+        original = getattr(self, 'original_content', self.content)
         diff = difflib.unified_diff(
-            self.content.splitlines(keepends=True),
+            original.splitlines(keepends=True),
             new_content.splitlines(keepends=True),
             fromfile=f'a/{self.file_path}',
             tofile=f'b/{self.file_path}'
@@ -321,9 +471,14 @@ def decider_should_rag(query: str) -> bool:
 
     def save(self):
         new_content = self._get_new_content()
-        if new_content == self.content:
-            return False
-        with open(self.file_path, 'w') as f:
+        from rich.console import Console
+        Console().print(f"DEBUG: Saving {self.file_path}. Content len: {len(new_content)}")
+        try:
+            with open(self.file_path, 'r', encoding='utf-8', errors='replace') as f:
+                disk_content = f.read()
+        except Exception:
+            pass
+        with open(self.file_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
         return True
 
@@ -343,11 +498,12 @@ def decider_should_rag(query: str) -> bool:
     def save_html_diff(self) -> str:
         """Generates a side-by-side HTML diff report for easy analysis."""
         new_content = self._get_new_content()
-        if new_content == self.content:
+        original = getattr(self, 'original_content', self.content)
+        if new_content == original:
             return ""
             
         html_diff = difflib.HtmlDiff().make_file(
-            self.content.splitlines(keepends=True),
+            original.splitlines(keepends=True),
             new_content.splitlines(keepends=True),
             fromdesc=f"Original: {os.path.basename(self.file_path)}",
             todesc=f"Evolved: {os.path.basename(self.file_path)}",
@@ -376,7 +532,8 @@ def decider_should_rag(query: str) -> bool:
         """Creates a new git branch and commits the changes."""
         import subprocess
         new_content = self._get_new_content()
-        if new_content == self.content:
+        original = getattr(self, 'original_content', self.content)
+        if new_content == original:
             return ""
         
         branch_name = f"cockpit-hardening-{datetime.now().strftime('%H%M%S')}"

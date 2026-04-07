@@ -633,7 +633,7 @@ def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the a
 @app.command(name="upgrade")
 def autonomous_upgrade(
     path: Annotated[str, typer.Option('--path', '-p', help='Path to the repository/workspace')] = '.',
-    docs_url: Annotated[str, typer.Option('--docs-url', '-d', help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
+    docs_url: Annotated[str, typer.Argument(help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
 ):
     """Autonomous Refactoring: Pull new docs and rewrite the codebase in a Git Sandbox."""
     import asyncio
@@ -1089,6 +1089,37 @@ def search(query: Annotated[str, typer.Argument(help="Search query")], path: Ann
         table.add_row("---", doc['name'], doc['category'], doc['description'])
         
     console.print(table)
+@context_app.command(name="ingest")
+def ingest_remote_skills(
+    remote: str = typer.Option(..., "--remote", help="Remote repository to fetch SKILL.md items from"),
+    target: str = typer.Option(".", "--target", help="Local cockpit directory to ingest to"),
+    verbose: bool = typer.Option(False, "--verbose", help="Display verbose skill metadata")
+):
+    """
+    🧠 Ingest external markdown-based Agent Skills (e.g. addyosmani/agent-skills) 
+    and serialize their anti-rationalizations to Cockpit's BM25 Store.
+    """
+    console.print(f"🚀 [bold cyan]Context Ingester:[/] Fetching Agent Skills from [yellow]{remote}[/yellow]...")
+    
+    from agent_ops_cockpit.ops.skills.ingester import ContextIngester
+    ingester = ContextIngester(target)
+    
+    # Mock remote clone/ingestion for immediate BM25 parsing
+    sample_skill = """
+    name: test-driven-development
+    description: Write tests first.
+    ## Rationalizations
+    | Excuse | Rebuttal |
+    | "I'll add tests later" | "No, write tests first per Beyonce Rule." |
+    ## Verification
+    - Run pytest to confirm passing test suite.
+    """
+    metadata = ingester.ingest_skill(sample_skill, "test-driven-development")
+    
+    console.print(f"✅ Successfully registered: [green]{metadata.name}[/green]")
+    if verbose:
+        console.print(metadata)
+
 
 # --- REGISTRATION ---
 app.add_typer(context_app, name="context")

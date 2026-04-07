@@ -26,7 +26,7 @@ response = llm.invoke(user_input)
     1.  **AST Analysis**: Identifies `user_input` as a raw variable passing directly to an LLM node.
     2.  **Logic Trace**: No call to a "scrubber" or **Cockpit Gateway** sidecar detected.
     3.  **Semantic Context**: Identifies "TODO" comment as an active risk rather than a feature.
-*   **Remediation**: Inject `agent-ops-gateway` PII Scrubber before `llm.invoke`.
+*   **Remediation**: Inject `uvx agentops-cockpit-gateway` PII Scrubber before `llm.invoke`.
 
 ---
 

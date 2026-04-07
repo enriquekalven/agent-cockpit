@@ -14,12 +14,12 @@
 ### 1. The Engine (Logic)
 *   **Role**: Reasoning, Tool Selection, MCP Connectivity.
 *   **Standard**: [Cockpit ADK](https://github.com/a2aproject/adk) & Cockpit AI.
-*   **Operations**: Governed by `agent-ops report`.
+*   **Operations**: Governed by `uvx agentops-cockpit audit report`.
 
 ### 2. The Face (User Interface)
 *   **Role**: GenUI Rendering, Surface Dispatching, A2UI Protocol.
 *   **Standard**: [A2UI Spec](https://a2ui.org).
-*   **Operations**: Verified by `agent-ops ui-audit`.
+*   **Operations**: Verified by `uvx agentops-cockpit audit face`.
 
 ### 3. The Cockpit (Agent Operations)
 *   **Role**: Caching, Privacy Scrubbing, FinOps, Observability.
@@ -59,5 +59,5 @@ By using the Cockpit, you are automatically building toward four critical pillar
 
 Run the Architecture Review now to see how your current repo stacks up:
 ```bash
-ops report --path .
+uvx agentops-cockpit audit report --path .
 ```

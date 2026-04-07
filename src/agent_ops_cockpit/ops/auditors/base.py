@@ -13,40 +13,28 @@ import re
 from abc import ABC, abstractmethod
 from typing import List
 
+from pydantic import BaseModel, Field
 
-class AuditFinding:
+
+class AuditFinding(BaseModel):
     """
     Representation of a single architectural or tactical finding.
-    
-    Attributes:
-        category: The hub category (Security, FinOps, Architecture, etc.)
-        title: Short descriptive title of the issue.
-        description: Detailed explanation and strategic move.
-        impact: Qualitative assessment of the risk (LOW, MEDIUM, HIGH, CRITICAL).
-        roi: The business value or technical gain from fixing the issue.
-        line_number: Source code line where the issue was detected.
-        file_path: Absolute or relative path to the file.
-        severity: Quantitative urgency for remediation.
+    Now serialized using Pydantic for robust Inter-Process Communication (IPC).
     """
-    def __init__(
-        self, 
-        category: str, 
-        title: str, 
-        description: str, 
-        impact: str, 
-        roi: str, 
-        line_number: int = 0, 
-        file_path: str = "", 
-        severity: str = "MEDIUM"
-    ):
-        self.category = category
-        self.title = title
-        self.description = description
-        self.impact = impact
-        self.roi = roi
-        self.line_number = line_number
-        self.file_path = file_path
-        self.severity = severity
+    category: str = Field(description="The hub category (Security, FinOps, Architecture, etc.)")
+    title: str = Field(description="Short descriptive title of the issue.")
+    description: str = Field(description="Detailed explanation and strategic move.")
+    impact: str = Field(default="MEDIUM", description="Qualitative assessment of the risk.")
+    roi: str = Field(default="N/A", description="The business value or technical gain.")
+    line_number: int = Field(default=0, description="Source code line where the issue was detected.")
+    file_path: str = Field(default="", description="Path to the file.")
+    severity: str = Field(default="MEDIUM", description="Quantitative urgency for remediation.")
+
+    def emit_ipc(self):
+        """Prints the JSON representation for the orchestrator to parse, alongside the legacy string fallback."""
+        payload = self.model_dump_json()
+        print(f"ACTION: {self.file_path}:{self.line_number or 1} | {self.title} | {self.description} | IPC_PAYLOAD: {payload}")
+
 
 class BaseAuditor(ABC):
     """
@@ -141,7 +129,15 @@ class BaseAuditor(ABC):
                         resp = event.content.parts[0].text
                 return "YES" in resp.upper()
 
-            return asyncio.run(_check())
+            try:
+                asyncio.get_running_loop()
+                # If an event loop is currently running (e.g., pytest-asyncio or FastAPI),
+                # we cannot use asyncio.run() without blocking the loop or raising RuntimeError.
+                # Since Auditor is a sync hook, we degrade gracefully to heuristic/False.
+                return False
+            except RuntimeError:
+                # No running event loop, safe to execute
+                return asyncio.run(_check())
         except Exception:
             # Fallback to False (conservative) if model fails
             return False

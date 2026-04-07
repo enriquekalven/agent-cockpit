@@ -7761,7 +7761,7 @@ agent-cockpit/
                                     20251202_001343_scene-03.mp4
                                     script.md
                                     video_script.json
-                                    20251202_001615_scene-04.mp4
+                                    20251202.0.1715_scene-04.mp4
                                 copywriting/
                                     social_posts.json
                                     hero_message.md
@@ -20252,13 +20252,13 @@ bootstrap: ## 🏗️ Project Setup: Initialize Cockpit manifests and adopt auto
 	@PYTHONPATH=src uv run cockpit cockpit bootstrap --path $(if $(P),$(P),.)
 
 certify: ## 🏅 Production Readiness Badge: Run Full Pre-flight & Regression
-	@PYTHONPATH=src uv run cockpit certify --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run uvx agentops-cockpit certify --path $(if $(P),$(P),.)
 
 mcp-blueprint: ## 🛰️ Modernize: Generate MCP Server Wrappers for Legacy Tools
-	@PYTHONPATH=src uv run cockpit mcp blueprint --path $(if $(P),$(P),.)
+	@PYTHONPATH=src uv run uvx agentops-cockpit mcp blueprint --path $(if $(P),$(P),.)
 
 create-trinity: ## Scaffold a unified Cockpit project (Engine + Face)
-	@PYTHONPATH=src uv run cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
+	@PYTHONPATH=src uv run uvx agentops-cockpit create trinity --project-name $(if $(NAME),$(NAME),my-agent)
 
 audit-report: ## 🛡️ Master Audit: Deep scan across Security, Reliability, and Strategy Pillars
 	@PYTHONPATH=src uv run cockpit audit report --path $(if $(P),$(P),.)
@@ -20279,12 +20279,12 @@ apply-fixes: ## 🔧 Autonomous Remediation: Apply target fixes from audit repor
 	@PYTHONPATH=src uv run cockpit evolve --path $(if $(P),$(P),.)
 
 deploy-autonomous: ## End-to-End Factory (Audit -> Fix -> Deploy)
-	@PYTHONPATH=src uv run cockpit deploy cockpit --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
+	@PYTHONPATH=src uv run uvx agentops-cockpit deploy prep --path $(if $(P),$(P),.) --target $(if $(TARGET),$(TARGET),google)
 
 deploy-prod: deploy-autonomous ## [Alias] Production Deployment
 
 fleet-status: ## Display stateful registry of deployed agents
-	@PYTHONPATH=src uv run cockpit fleet status
+	@PYTHONPATH=src uv run uvx agentops-cockpit fleet status
 
 fleet-mothball: ## FinOps: Scale fleet to zero
 	@PYTHONPATH=src uv run cockpit fleet mothball --cloud $(CLOUD)
@@ -20478,16 +20478,16 @@ eval = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/enriquekalven/agent-ops-cockpit"
-"Bug Tracker" = "https://github.com/enriquekalven/agent-ops-cockpit/issues"
+"Homepage" = "https://github.com/enriquekalven/agentops-cockpit"
+"Bug Tracker" = "https://github.com/enriquekalven/agentops-cockpit/issues"
 
 [project.scripts]
 cockpit = "agent_ops_cockpit.cli.main:app"
 agentops-cockpit = "agent_ops_cockpit.cli.main:app"
 ops = "agent_ops_cockpit.cli.main:app"
-aops = "agent_ops_cockpit.cli.main:app"
-agent-ops = "agent_ops_cockpit.cli.main:app"
-agent-ops-mcp = "agent_ops_cockpit.mcp_server:main"
+uvx agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+uvx agentops-cockpit = "agent_ops_cockpit.cli.main:app"
+uvx agentops-cockpit-mcp = "agent_ops_cockpit.mcp_server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agent_ops_cockpit"]
@@ -20556,10 +20556,10 @@ dev = [
 ### FILE: `smithery.yaml`
 ---
 ```yaml
-name: agent-ops-cockpit
+name: agentops-cockpit
 version: 2.0.4
 description: The Autonomous Governance Layer for AI Agents. Audits Reasoning Traces for PII, ASI-XX (Security), FinOps, and Architectural Integrity.
-repository: https://github.com/enriquekalven/agent-ops-cockpit
+repository: https://github.com/enriquekalven/agentops-cockpit
 license: MIT
 author: enriquekalven
 tools:
@@ -20882,7 +20882,7 @@ export const enforcePolicy = async (action: string): Promise<InteractionGate> =>
 ---
 ```yaml
 project:
-  name: "agent-ops-cockpit"
+  name: "agentops-cockpit"
   version: "2.0.4"
   max_fix_files: 5
 
@@ -21332,7 +21332,7 @@ preview-references: check-pnpm
 
 help:
 	@echo "Available commands:"
-	@echo "  make dev                - Start development mode with file watching and mint dev"
+	@echo "  uvx agentops-cockpit cockpit                - Start development mode with file watching and mint dev"
 	@echo "  make build              - Build documentation to ./build directory"
 	@echo "  make broken-links       - Check for broken links in built documentation"
 	@echo "  make build-references   - Build reference docs"
@@ -21341,7 +21341,7 @@ help:
 	@echo "  make lint               - Lint code"
 	@echo "  make lint_md            - Lint markdown files"
 	@echo "  make lint_md_fix        - Lint and fix markdown files"
-	@echo "  make test               - Run tests"
+	@echo "  uvx agentops-cockpit test               - Run tests"
 	@echo "  make install            - Install dependencies"
 	@echo "  make clean              - Clean build artifacts"
 	@echo "  make help               - Show this help message"
@@ -21381,8 +21381,8 @@ test = [
     "pytest-mock>=3.14.0",
     "pytest-socket>=0.7.0",
     "pytest-timeout>=2.3.1",
-    "types-pyyaml>=6.0.12.20250516",
-    "types-tqdm>=4.67.0.20250516",
+    "types-pyyaml>=6.0.12.202.0.17",
+    "types-tqdm>=4.67.0.202.0.17",
     "types-requests>=2.32.4.20250913",
 ]
 
@@ -31936,7 +31936,7 @@ help:
 	@echo "  serve-docs       - Serve the documentation for local development (faster)"
 	@echo ""
 	@echo "Typical workflows:"
-	@echo "  Development:  make dev-install && make serve-docs"
+	@echo "  Development:  uvx agentops-cockpit cockpit-install && make serve-docs"
 	@echo "  Production:   make prod-install && make build"
 
 ```
@@ -35814,7 +35814,7 @@ class CockpitCallbackHandler(BaseCallbackHandler):
     def __init__(self, app_name: str = "langchain-agent"):
         self.app_name = app_name
         self.findings = []
-        # In a standalone package, we might need to import these from the main agent-ops-cockpit 
+        # In a standalone package, we might need to import these from the main agentops-cockpit 
         # or have them as lightweight dependencies. For the scaffold, we'll keep it clean.
         try:
             from agent_ops_cockpit.ops.pii_scrubber import PIIScrubber

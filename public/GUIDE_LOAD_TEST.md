@@ -8,7 +8,7 @@ The **Load Tester** is a high-concurrency stress tool designed to measure the pe
 ```bash
 make load-test       # Runs with default parameters
 # Custom configuration:
-agent-ops load-test --url http://api.agent.com/query --requests 100 --concurrency 10
+uvx agentops-cockpit load-test --url http://api.agent.com/query --requests 100 --concurrency 10
 ```
 
 ### Portable (Zero-Install)

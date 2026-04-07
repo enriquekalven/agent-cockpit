@@ -29,7 +29,7 @@ Inspired by `agentic-radar`, the **Manifest Auditor** scans `package.json`, `pyp
 2.  **Vulnerable SDKs**: Specific versions of LangChain, Requests, or YAML parsers that have known agent-to-agent SSRF or RCE vulnerabilities.
 
 ## 🕹️ Autonomous Fixes
-The Cockpit doesn't just find these issues—it fixes them. Using `make apply-fixes`, you can automatically:
+The Cockpit doesn't just find these issues—it fixes them. Using `uvx agentops-cockpit evolve`, you can automatically:
 - Wrap high-risk tools in a `governance_gate` decorator.
 - Inject sanitization logic into data ingestion pipelines.
 - Update vulnerable dependencies to their safest Cockpit equivalents.

@@ -9,7 +9,7 @@ Do you have the "Category Killer" grade, or is your agent just a script with a f
 ### **🎯 The Mission: Roast Your Agent**
 Unleash the full SME council on your most complex repository. We’re hunting for:
 1.  **SME Roasts**: Did our digital principals (SecOps, FinOps, Architect) find the skeletons in your `src/`?
-2.  **The Auto-Heal Flex**: Did `make apply-fixes` actually land a PR-worthy patch, or did it hallucinate a new library?
+2.  **The Auto-Heal Flex**: Did `uvx agentops-cockpit evolve` actually land a PR-worthy patch, or did it hallucinate a new library?
 3.  **Persona Vibes**: Does the **Red Team** sound like a hacker, or your high school principal?
 
 ---
@@ -20,17 +20,17 @@ Unleash the full SME council on your most complex repository. We’re hunting fo
 The fastest way to see if your agent is actually production-ready. 
 ```bash
 # ⚡ Quick Roast: See the red flags in seconds
-uvx agentops-cockpit report --mode quick
+uvx agentops-cockpit audit report --mode quick
 
 # 🧠 Deep Intelligence: Full benchmarks & stress-testing
-uvx agentops-cockpit report --mode deep
+uvx agentops-cockpit audit report --mode deep
 ```
 
 #### **Level 2: The Full Orchestrator (Hardened Mode)**
 For the developers who want to apply auto-remediation patches and hit that 100/100 score.
 ```bash
 pip install agentops-cockpit
-agent-ops report --workspace --heal --sim
+uvx agentops-cockpit audit report --workspace --heal --sim
 ```
 
 ---
@@ -51,7 +51,7 @@ jobs:
       - name: Run Master Audit
         run: |
           # Use uvx for zero-config execution in CI
-          npx uvx agentops-cockpit report --mode quick --plain
+          npx uvx agentops-cockpit audit report --mode quick --plain
 ```
 *Note: The Cockpit returns Exit Code 3 if SME gates are rejected, blocking the PR until fixes are applied.*
 
@@ -63,7 +63,7 @@ The Cockpit isn't just a scanner; it's a **Model Context Protocol (MCP)** server
 **How to start the server:**
 ```bash
 # Start the stdio-based MCP server
-agent-ops mcp-server
+uvx agentops-cockpit mcp-server
 ```
 
 **Exposed Tools:**
@@ -80,22 +80,22 @@ Pick your lane and see if you can survive the audit:
 
 #### **🔐 The Shadow Guardian (Red Team)**
 *   **Mission**: Try to jailbreak your own agent using the Cockpit.
-*   **Command**: `uvx agentops-cockpit report --only security`
+*   **Command**: `uvx agentops-cockpit audit report --only security`
 *   **Viral Moment**: Catching a **PII Leak** before the lawyers do. 🛡️
 
 #### **💰 The Token Reaper (FinOps)**
 *   **Mission**: Find the "Loop of Death" burning your cloud credits.
-*   **Command**: `uvx agentops-cockpit report --only finops`
+*   **Command**: `uvx agentops-cockpit audit report --only finops`
 *   **Viral Moment**: Reducing inference TCO by 90% with one caching config. 💸
 
 #### **🧗 The Truth-Sayer (RAG & Quality)**
 *   **Mission**: Kill the hallucinations.
-*   **Command**: `uvx agentops-cockpit report --only quality`
+*   **Command**: `uvx agentops-cockpit audit report --only quality`
 *   **Viral Moment**: Achieving **Zero-Shot Grounding** perfection. ✨
 
 #### **🏛️ The Cockpit Architect (SRE & Infra)**
 *   **Mission**: Modernize your stack from REST to MCP.
-*   **Command**: `uvx agentops-cockpit report --only reliability`
+*   **Command**: `uvx agentops-cockpit audit report --only reliability`
 *   **Viral Moment**: Pivoting to gRPC and watching your tail latency flatline. 🚀
 
 ---

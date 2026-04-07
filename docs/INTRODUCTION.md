@@ -18,7 +18,7 @@ Every agent in this stack is built on the **Trinity Architecture**, ensuring a h
 For immediate high-fidelity evaluation of any repository, utilize the portable governance layer:
 
 ```bash
-uvx agentops-cockpit ops report
+uvx agentops-cockpit audit report
 ```
 *This command auto-discovers agents, enforces **v2.0.10 Autonomous Core compliance gates**, and generates a Principal-grade HTML report with **Maturity Radar Charts**—zero installation required.*
 

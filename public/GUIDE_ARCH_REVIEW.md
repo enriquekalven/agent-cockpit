@@ -1,4 +1,4 @@
-# 🏛️ Technical Guide: Architecture Review (`make arch-review`)
+# 🏛️ Technical Guide: Architecture Review (`uvx agentops-cockpit audit arch`)
 
 The **Architecture Review** tool audits your agent's repository against the **Google Well-Architected Framework for Agents**. It identifies design gaps across security, scalability, and lifecycle management.
 
@@ -6,8 +6,8 @@ The **Architecture Review** tool audits your agent's repository against the **Go
 
 ### Local Installation
 ```bash
-make arch-review     # Scans the current directory
-agent-ops arch-review --path /path/to/project
+uvx agentops-cockpit audit arch     # Scans the current directory
+uvx agentops-cockpit audit arch --path /path/to/project
 ```
 
 ### Portable (Zero-Install)

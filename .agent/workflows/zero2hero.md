@@ -30,7 +30,7 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
    - **PyPI**: Ensure `PYPI_TOKEN` is exported in the shell.
 5. **Synchronize Wisdom Store**: 
    - **Automated Pulse**: Run `agentops-cockpit fleet watch` to ingest the latest research signals and ecosystem patterns into the intelligence core.
-   - **Context Hub Core**: Run `agent-ops context build` (automated via `sync_docs.py`) to synchronize governance skills and architectural guidelines into the dynamic BM25 search index.
+   - **Context Hub Core**: Run `uvx agentops-cockpit context build` (automated via `sync_docs.py`) to synchronize governance skills and architectural guidelines into the dynamic BM25 search index.
    - **Manual Verification**: 
      - Update `src/agent_ops_cockpit/ops/maturity_patterns.json` (Architectural heuristics).
      - Update `src/agent_ops_cockpit/ops/policies.json` (Governance rules).
@@ -51,7 +51,7 @@ This workflow automates the end-to-end productionization of the AgentOps Cockpit
     - **Capabilities Verification**: Run `PYTHONPATH=src:. uv run pytest src/agent_ops_cockpit/tests/test_capabilities_gate.py` to ensure all 19+ "Distinguished Fellow" capabilities are still active and tested.
     - **No-Regression Check**: Verify that `CAPABILITIES_REGISTRY.md` has not been downgraded or core mission descriptions overwritten.
 11. **The Autonomous Gate (SITL Hard-Gate)**:
-    - Run `agentops-cockpit certify` and ensure the **Autonomous Score is > 90**. 
+    - Run `agentops-uvx agentops-cockpit certify` and ensure the **Autonomous Score is > 90**. 
     - *Logic Check*: If any "Blocker" capability (CAP-001, CAP-004, CAP-006, etc.) fails, the release MUST be aborted.
 12. **Full Regression Suite**: 
     `PYTHONPATH=src:. uv run pytest` (Comprehensive 215-item sweep).

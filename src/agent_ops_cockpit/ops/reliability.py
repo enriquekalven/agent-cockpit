@@ -128,45 +128,51 @@ def run_smoke_test():
             return '[green]PASS[/green]' if res.returncode == 0 else '[red]FAIL[/red]'
         except Exception:
             return '[red]FAIL[/red]'
+    try:
+        with open('Makefile', 'r') as f:
+            makefile_content = f.read()
+    except FileNotFoundError:
+        makefile_content = ""
+
     console.print('👨‍💻 [bold]Verifying Builder Journey...[/bold]')
     builder_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'create', 'trinity', '--help'])
-    builder_make = '[green]PASS[/green]' if 'create-trinity:' in open('Makefile').read() else '[yellow]N/A[/yellow]'
+    builder_make = '[green]PASS[/green]' if 'create-trinity:' in makefile_content else '[yellow]N/A[/yellow]'
     builder_uvx = builder_cli
     table.add_row('The Builder', 'Project Scaffolding', builder_make, builder_cli, builder_uvx)
 
     console.print('🏛️ [bold]Verifying Strategist Journey...[/bold]')
     arch_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'audit', 'arch', '--help'])
-    arch_make = '[green]PASS[/green]' if 'audit-arch:' in open('Makefile').read() else '[red]FAIL[/red]'
+    arch_make = '[green]PASS[/green]' if 'audit-arch:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The Strategist', 'Architecture Review', arch_make, arch_cli, arch_cli)
 
     console.print('🚩 [bold]Verifying Guardian Journey...[/bold]')
     sec_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'audit', 'security', '--help'])
-    sec_make = '[green]PASS[/green]' if 'audit-security:' in open('Makefile').read() else '[red]FAIL[/red]'
+    sec_make = '[green]PASS[/green]' if 'audit-security:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The Guardian', 'Security & Red Team', sec_make, sec_cli, sec_cli)
 
     console.print('⚖️ [bold]Verifying Controller Journey...[/bold]')
     gov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'audit', 'report', '--help'])
-    gov_make = '[green]PASS[/green]' if 'audit-report:' in open('Makefile').read() else '[red]FAIL[/red]'
+    gov_make = '[green]PASS[/green]' if 'audit-report:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The Controller', 'Master Audit / Compliance', gov_make, gov_cli, gov_cli)
 
     console.print('🤖 [bold]Verifying Automator Journey...[/bold]')
     auto_cli = gov_cli
-    auto_make = '[green]PASS[/green]' if 'audit-deep:' in open('Makefile').read() else '[red]FAIL[/red]'
+    auto_make = '[green]PASS[/green]' if 'audit-deep:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The Automator', 'CI/CD Portable Ops', auto_make, auto_cli, auto_cli)
 
     console.print('🌊 [bold]Verifying Cockpit Journey...[/bold]')
     sov_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'deploy', 'cockpit', '--help'])
-    sov_make = '[green]PASS[/green]' if 'deploy-cockpit:' in open('Makefile').read() else '[red]FAIL[/red]'
+    sov_make = '[green]PASS[/green]' if 'deploy-cockpit:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The Cockpit', 'Multi-Cloud Factory', sov_make, sov_cli, sov_cli)
 
     console.print('🛰️ [bold]Verifying SRE Journey...[/bold]')
     sre_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'fleet', 'status', '--help'])
-    sre_make = '[green]PASS[/green]' if 'fleet-status:' in open('Makefile').read() else '[red]FAIL[/red]'
+    sre_make = '[green]PASS[/green]' if 'fleet-status:' in makefile_content else '[red]FAIL[/red]'
     table.add_row('The SRE', 'Lifecycle & FinOps', sre_make, sre_cli, sre_cli)
 
     console.print('🛡️ [bold]Verifying Sentinel Journey...[/bold]')
     sentinel_cli = check_cmd([sys.executable, '-m', 'agent_ops_cockpit.cli.main', 'fleet', 'anomaly', '--help'])
-    sentinel_make = '[green]PASS[/green]' if 'fleet-anomaly:' in open('Makefile').read() else '[yellow]N/A[/yellow]'
+    sentinel_make = '[green]PASS[/green]' if 'fleet-anomaly:' in makefile_content else '[yellow]N/A[/yellow]'
     table.add_row('The Sentinel', 'Anomaly & Enforcement', sentinel_make, sentinel_cli, sentinel_cli)
 
     # --- DEEP FUNCTIONAL AUDIT (v2.0.7 Upgrade) ---

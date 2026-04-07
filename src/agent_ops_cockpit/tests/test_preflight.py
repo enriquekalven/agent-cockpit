@@ -1,3 +1,6 @@
+from unittest.mock import patch, MagicMock
+import os
+import pytest
 from agent_ops_cockpit.ops.preflight import PreflightEngine
 
 def test_preflight_registry_check():
@@ -27,8 +30,19 @@ def test_preflight_env_check(tmp_path):
     assert success is True
     assert "Found environment config" in detail
 
-def test_preflight_run_all(monkeypatch):
+def mock_subprocess_check_output(cmd, *args, **kwargs):
+    if "get-value" in cmd:
+        return "mock-project"
+    if "services" in cmd:
+        return '[{"config": {"name": "aiplatform.googleapis.com"}}]'
+    return 'mock-account@example.com'
+
+@patch('shutil.which')
+@patch('subprocess.check_output', side_effect=mock_subprocess_check_output)
+@patch('subprocess.run')
+def test_preflight_run_all(mock_run, mock_check_output, mock_which, monkeypatch):
+    mock_which.return_value = '/usr/bin/gcloud'
+    mock_run.return_value.returncode = 0
+    mock_run.return_value.stdout = '{"billingEnabled": true}'
     engine = PreflightEngine()
-    # Mock simulation mode for environmental independence
-    monkeypatch.setenv("COCKPIT_SIMULATION", "true")
     assert engine.run_all() is True

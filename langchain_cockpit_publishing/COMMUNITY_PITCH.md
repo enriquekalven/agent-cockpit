@@ -12,8 +12,8 @@ We just released a new callback integration for **AgentOps Cockpit** (v2.0.4 Aut
 
 We're focusing on "Governance as Code" — helping developers detect PII, monitor token density, and gate destructive tools automatically within their chains and graphs.
 
-- **Check it out:** https://github.com/enriquekalven/agent-ops-cockpit
-- **Docs:** https://github.com/enriquekalven/agent-ops-cockpit/blob/main/docs/LANGCHAIN_INTEGRATION.md
+- **Check it out:** https://github.com/enriquekalven/agentops-cockpit
+- **Docs:** https://github.com/enriquekalven/agentops-cockpit/blob/main/docs/LANGCHAIN_INTEGRATION.md
 
 Would love to hear any feedback on how we can better support LangGraph's cyclic state governance!
 
@@ -35,7 +35,7 @@ AgentOps Cockpit is a distribution focused on Agentic Governance (The Autonomous
 
 We've already scaffolded the partner package and would love to be listed in the "Governance, Monitoring, and Operations" category.
 
-**Repository:** https://github.com/enriquekalven/agent-ops-cockpit
+**Repository:** https://github.com/enriquekalven/agentops-cockpit
 **Integration Path:** `src/agent_ops_cockpit/integrations/langchain.py`
 
 Thanks!

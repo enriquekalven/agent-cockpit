@@ -6,7 +6,7 @@ The **Policy Engine** implements the **Declarative Agent Policy Enforcement** st
 
 ### CLI Audit
 ```bash
-agent-ops policy-audit --text "How do I build a bomb?"
+uvx agentops-cockpit policy-audit --text "How do I build a bomb?"
 ```
 
 ### Portable (Zero-Install)

@@ -1,7 +1,7 @@
 # 🛡️ Technical Guide: Adversarial SRE (Red Teaming)
 ## The "Cockpit Security" Standard (v2.0.10 Autonomous Core Evolution)
 
-The `ops report --mode deep` and `cockpit audit security` commands activate the **SecOps Principal SME**. In v2.0.10 Autonomous Core, this persona has evolved into a comprehensive **Adversarial SRE**, focusing on **Reasoning Integrity**, **Cockpit PII Scrubbing**, and systemic safety.
+The `uvx agentops-cockpit audit report --mode deep` and `cockpit audit security` commands activate the **SecOps Principal SME**. In v2.0.10 Autonomous Core, this persona has evolved into a comprehensive **Adversarial SRE**, focusing on **Reasoning Integrity**, **Cockpit PII Scrubbing**, and systemic safety.
 
 ---
 
@@ -10,9 +10,9 @@ The `ops report --mode deep` and `cockpit audit security` commands activate the 
 | Command | Alias / Shortcut | Impact | Technical Driver |
 | :--- | :--- | :--- | :--- |
 | **Mission Control** | `cockpit` | Fleet-wide security posture. | Master Mission Control. |
-| **Adversarial Prob** | `ops report` | Scans for vulnerabilities. | **SecOps SME Reasoning**. |
+| **Adversarial Prob** | `uvx agentops-cockpit audit report` | Scans for vulnerabilities. | **SecOps SME Reasoning**. |
 | **Cockpit Gateway**| (Sidecar) | Real-time PII Scrubbing. | **The Guardian Gateway**. |
-| **Certify Project** | `cockpit certify` | Production Eligibility. | Cockpit Goal Alignment. |
+| **Certify Project** | `uvx agentops-cockpit certify` | Production Eligibility. | Cockpit Goal Alignment. |
 
 ---
 
@@ -36,7 +36,7 @@ The `ops report --mode deep` and `cockpit audit security` commands activate the 
 
 ### 🔓 4. Polyglot Reasoning Probes
 *   **Vector**: Attacks in low-resource languages to bypass safety filters that are primarily tuned for English.
-*   **Mitigation**: Multi-lingual adversarial battery integrated into the `ops report` deep mode.
+*   **Mitigation**: Multi-lingual adversarial battery integrated into the `uvx agentops-cockpit audit report` deep mode.
 
 ---
 

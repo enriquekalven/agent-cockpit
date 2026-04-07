@@ -38,7 +38,7 @@ The integration automatically activates three SME personas:
 Audit findings from the LangChain traces are automatically added to the **Evidence Lake**. Use the Cockpit CLI to view the health of your fleet:
 
 ```bash
-ops report --view-lake
+uvx agentops-cockpit audit report --view-lake
 ```
 
 ---
