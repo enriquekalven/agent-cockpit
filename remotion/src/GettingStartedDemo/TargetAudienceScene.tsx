@@ -93,7 +93,7 @@ export const TargetAudienceScene: React.FC = () => {
       overflow: 'hidden'
     }}>
       {/* Audio Backdrop */}
-      <Audio src={staticFile('background_beat.mp3')} volume={0.4} />
+      <Audio src={staticFile('background_beat.wav')} volume={0.4} />
 
       {/* Beautiful Moving Ambient Light Source */}
       <div style={{
