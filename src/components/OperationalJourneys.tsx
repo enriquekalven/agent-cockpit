@@ -64,7 +64,7 @@ Ready to roll. Run 'uvx agentops-cockpit cockpit' to start.`
     persona: 'Quality Lead',
     icon: <Activity size={24} />,
     color: '#06b6d4',
-    description: 'v2.0.17: RAG Fidelity Auditing, Hill Climbing, and reasoning-based optimization.',
+    description: 'v2.0.17: RAG Fidelity, Hill Climbing, and full-spectrum test-driven development (aligns with Addy Osmani Code Reviewer & Test Engineer personas).',
     docs: [
       { name: 'Quality & Eval Guide', path: '/docs/quality-guide' },
       { name: 'RAG Truth-Sayer SME', path: '/docs/quality-guide' }
@@ -88,7 +88,7 @@ Ready to roll. Run 'uvx agentops-cockpit cockpit' to start.`
     persona: 'Security Specialist',
     icon: <Shield size={24} />,
     color: '#ef4444',
-    description: 'v2.0.17: Brand Safety Playbook hardening against advanced adversarial attacks.',
+    description: 'v2.0.17: Brand Safety Playbook hardening and adversarial checks (aligns with Addy Osmani Security Auditor persona).',
     docs: [
       { name: 'Brand Safety Playbook', path: '/docs/redteam-guide' },
       { name: 'Red Team Audits', path: '/docs/redteam-guide' }
