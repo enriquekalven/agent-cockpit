@@ -64,7 +64,7 @@ Ready to roll. Run 'uvx agentops-cockpit cockpit' to start.`
     persona: 'Quality Lead',
     icon: <Activity size={24} />,
     color: '#06b6d4',
-    description: 'v2.0.17: RAG Fidelity, Hill Climbing, and full-spectrum test-driven development (aligns with Addy Osmani Code Reviewer & Test Engineer personas).',
+    description: 'v2.0.18: RAG Fidelity, Hill Climbing, and full-spectrum test-driven development (aligns with Addy Osmani Code Reviewer & Test Engineer personas).',
     docs: [
       { name: 'Quality & Eval Guide', path: '/docs/quality-guide' },
       { name: 'RAG Truth-Sayer SME', path: '/docs/quality-guide' }
@@ -88,7 +88,7 @@ Ready to roll. Run 'uvx agentops-cockpit cockpit' to start.`
     persona: 'Security Specialist',
     icon: <Shield size={24} />,
     color: '#ef4444',
-    description: 'v2.0.17: Brand Safety Playbook hardening and adversarial checks (aligns with Addy Osmani Security Auditor persona).',
+    description: 'v2.0.18: Brand Safety Playbook hardening and adversarial checks (aligns with Addy Osmani Security Auditor persona).',
     docs: [
       { name: 'Brand Safety Playbook', path: '/docs/redteam-guide' },
       { name: 'Red Team Audits', path: '/docs/redteam-guide' }
@@ -99,7 +99,7 @@ Ready to roll. Run 'uvx agentops-cockpit cockpit' to start.`
     ],
     command: 'uvx agentops-cockpit audit security',
     diagram: '/assets/persona_guardian.png',
-    output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0.17
+    output: `🛡️ RED TEAM: BRAND SAFETY AUDIT v2.0.18
 🕵️ Testing Payload Splitting: [Attempt 1/10] -> BLOCKED
 🕵️ Checking Tone of Voice: [Adversarial probe: Neutral] -> PASS
 🕵️ Domain Sensitivity: [Legal/Finance probes] -> SAFE
