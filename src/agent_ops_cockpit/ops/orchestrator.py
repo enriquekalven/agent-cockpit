@@ -1193,7 +1193,16 @@ def run_audit(mode: str='quick', target_path: str='.', title: str='QUICK SAFE-BU
         arch_cmd = [sys.executable, '-m', f'{base_mod}.ops.arch_review', 'audit', '--path', target_path]
         if verbose:
             arch_cmd.append('--verbose')
-        steps = [('Architecture Review', arch_cmd), ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']), ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]), ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args), ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]), ('Frontend Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]), ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path])]
+        steps = [
+            ('Architecture Review', arch_cmd),
+            ('Policy Enforcement', [sys.executable, '-m', f'{base_mod}.ops.policy_engine']),
+            ('Secret Scanner', [sys.executable, '-m', f'{base_mod}.ops.secret_scanner', 'scan', target_path]),
+            ('Token Optimization', [sys.executable, '-m', f'{base_mod}.optimizer', 'audit'] + token_opt_args),
+            ('Reliability (Quick)', [sys.executable, '-m', f'{base_mod}.ops.reliability', 'audit', '--quick', '--path', target_path]),
+            ('Frontend Auditor', [sys.executable, '-m', f'{base_mod}.ops.ui_auditor', 'audit', target_path]),
+            ('RAG Fidelity Audit', [sys.executable, '-m', f'{base_mod}.ops.rag_audit', 'audit', '--path', target_path]),
+            ('Skill-Based Red Teaming', [sys.executable, '-m', f'{base_mod}.eval.run_skills_eval', 'run', target_path])
+        ]
         
         # v2.0.7: Plug-and-Play Auditor SDK
         plugin_steps = orchestrator._discover_plugins(target_path)

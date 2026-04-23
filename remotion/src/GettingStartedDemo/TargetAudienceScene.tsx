@@ -93,7 +93,7 @@ export const TargetAudienceScene: React.FC = () => {
       overflow: 'hidden'
     }}>
       {/* Audio Backdrop */}
-      <Audio src={staticFile('background_beat.wav')} volume={0.4} />
+      <Audio src={staticFile('bgm-corporate.mp3')} volume={0.3} />
 
       {/* Beautiful Moving Ambient Light Source */}
       <div style={{
@@ -125,7 +125,7 @@ export const TargetAudienceScene: React.FC = () => {
             WebkitTextFillColor: 'transparent',
             marginBottom: '24px'
           }}>
-            Beyond the Vibe.
+            AgentOps Cockpit
           </div>
           <div style={{ fontSize: '32px', color: '#94a3b8', fontWeight: 500, letterSpacing: '0.1em' }}>
             Evolving Individual Contributor Agents into Enterprise Operational Fleets.

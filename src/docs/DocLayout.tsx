@@ -49,6 +49,12 @@ const PILLAR_NAV = [
       { id: 'prd', label: 'The PRD', path: '/docs/prd', icon: <BookOpen size={18} /> },
       { id: 'roadmap', label: 'Roadmap', path: '/docs/roadmap', icon: <Activity size={18} /> },
     ]
+  },
+  {
+    title: '📺 Guides & Media',
+    items: [
+      { id: 'guides', label: 'Video Guides', path: '/docs/guides', icon: <BookOpen size={18} /> },
+    ]
   }
 ];
 

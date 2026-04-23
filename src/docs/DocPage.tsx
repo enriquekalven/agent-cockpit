@@ -26,6 +26,7 @@ const DOC_FILES: Record<string, string> = {
   'audit-scenarios': '/AUDIT_SCENARIOS.md',
   'prd': '/PRD.md',
   'gemini': '/GEMINI.md',
+  'guides': '/GUIDES.md',
 };
 
 export const DocPage: React.FC = () => {

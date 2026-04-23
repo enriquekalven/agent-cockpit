@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.18"
+version = "2.0.19"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
@@ -28,6 +28,8 @@ dependencies = [
     "packaging>=23.0",
     "tenacity>=8.0.0",
     "pytest>=8.0.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-timeout>=2.3.1",
     "langchain>=0.2.0",
     "crewai>=1.0.0",
     "langgraph>=1.0.8",
@@ -42,6 +44,13 @@ dependencies = [
     "requests>=2.31.0",
     "libcst>=1.1.0",
     "PyJWT>=2.8.0",
+    "autogen>=0.2.0",
+    "semantic-kernel>=1.0.0",
+    "mirascope>=1.0.0",
+    "dspy>=2.4.0",
+    "e2b-code-interpreter>=0.1.0",
+    "litellm>=1.0.0",
+    "haystack-ai>=2.0.0",
 ]
 
 [project.optional-dependencies]

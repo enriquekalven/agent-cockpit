@@ -97,6 +97,7 @@ export function Home() {
           <nav className="nav-links">
             <Link to="/docs" className="nav-link">Documentation</Link>
             <Link to="/docs/google-architecture" className="nav-link">Framework</Link>
+            <Link to="/media" className="nav-link">Media</Link>
             <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md" className="nav-link">Changelog</a>
             <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" rel="noopener noreferrer" className="nav-icon-link">
               <Github size={20} />

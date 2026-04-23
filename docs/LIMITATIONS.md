@@ -1,5 +1,5 @@
 # 🚧 Technical Limitations & Market Positioning
-## The "Cockpit Evolution" Context (v2.0.10 Autonomous Core)
+## The "Cockpit Evolution" Context (v2.0.18 Autonomous Core)
 
 While the **AgentOps Cockpit** is a powerful "Mission Control" for Cockpit AI Agents, it is designed for **Development Velocity** and **Governance-as-Code**, not as a replacement for specialized enterprise engineering suites.
 
@@ -38,7 +38,7 @@ While the **AgentOps Cockpit** is a powerful "Mission Control" for Cockpit AI Ag
 
 ---
 
-## 🛠️ Summary of Limitations (v2.0.10 Autonomous Core)
+## 🛠️ Summary of Limitations (v2.0.18 Autonomous Core)
 
 1.  **Multi-Cloud Dependency**: While the **Cockpit Bridge** abstracts logic, deployment still requires valid cloud-native credentials/IAM for target regions.
 2.  **Environment Visibility**: The Cockpit audits the *code* and *manifest*. It cannot see live cloud infrastructure states (e.g., if an AWS Security Group is misconfigured).

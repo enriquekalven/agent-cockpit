@@ -1,7 +1,7 @@
 {
   "name": "agent-ops-cockpit",
   "private": true,
-  "version": "2.0.18",
+  "version": "2.0.19",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,23 +23,24 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.438",
+    "@remotion/google-fonts": "^4.0.438",
+    "@remotion/media": "^4.0.438",
+    "@remotion/transitions": "^4.0.438",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^8.55.0",
     "@typescript-eslint/parser": "^8.55.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "canvas-confetti": "^1.9.4",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "@remotion/cli": "^4.0.438",
-    "@remotion/google-fonts": "^4.0.438",
-    "@remotion/transitions": "^4.0.438",
-    "@remotion/media": "^4.0.438",
-    "remotion": "^4.0.438",
-    "canvas-confetti": "^1.9.4",
     "konami-code-js": "^0.8.3",
-    "@types/canvas-confetti": "^1.9.0"
+    "promptfoo": "^0.121.7",
+    "remotion": "^4.0.438",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
   }
 }

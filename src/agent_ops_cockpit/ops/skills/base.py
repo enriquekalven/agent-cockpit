@@ -13,6 +13,7 @@ class SkillMetadata(BaseModel):
     critical_score: float = 0.5  # Default weight for BM25
     rationalizations: List[Dict[str, str]] = []
     verification_gates: List[str] = []
+    promptfoo_config: Dict = {}
 
 class GovernanceSkill(abc.ABC):
     """
@@ -36,21 +37,29 @@ class GovernanceSkill(abc.ABC):
     def parse_skill_md(cls, content: str, filename: str = "unknown") -> SkillMetadata:
         """
         Parses a SKILL.md format file containing Process, Rationalizations, and Verification.
+        Also extracts Promptfoo JSON config if present.
         """
+        import json
         lines = content.splitlines()
         name = filename.replace(".md", "").replace("SKILL", "custom-skill")
         description = "Imported custom skill"
         category = "agent-skills"
         rationalizations = []
         verification_gates = []
+        promptfoo_config = {}
         
         current_section = None
+        json_lines = []
+        in_json_block = False
+        
         for line in lines:
             lower = line.lower().strip()
             if lower.startswith("## rationalizations") or lower.startswith("### rationalizations"):
                 current_section = "rationalizations"
             elif lower.startswith("## verification") or lower.startswith("### verification"):
                 current_section = "verification"
+            elif lower.startswith("## promptfoo integration") or lower.startswith("### promptfoo integration"):
+                current_section = "promptfoo"
             elif lower.startswith("## ") or lower.startswith("### "):
                 current_section = "other"
                 
@@ -62,12 +71,28 @@ class GovernanceSkill(abc.ABC):
             elif current_section == "verification" and line.startswith("- "):
                 verification_gates.append(line.replace("- ", "").strip())
                 
+            elif current_section == "promptfoo":
+                if "```json" in line:
+                    in_json_block = True
+                    continue
+                elif "```" in line and in_json_block:
+                    in_json_block = False
+                    try:
+                        promptfoo_config = json.loads("\n".join(json_lines))
+                    except Exception:
+                        pass # Ignore invalid JSON for now
+                    continue
+                    
+                if in_json_block:
+                    json_lines.append(line)
+                
         return SkillMetadata(
             name=name,
             description=description,
             category=category,
             rationalizations=rationalizations,
-            verification_gates=verification_gates
+            verification_gates=verification_gates,
+            promptfoo_config=promptfoo_config
         )
 
     def to_markdown(self) -> str:

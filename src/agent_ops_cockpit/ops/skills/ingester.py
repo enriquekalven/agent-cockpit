@@ -19,6 +19,7 @@ class ContextIngester:
         """
         Takes a SKILL.md file, parses verification/rationalizations,
         and injects them into the BM25 Context Store files.
+        Also saves Promptfoo config for runtime execution.
         """
         metadata = GovernanceSkill.parse_skill_md(content, filename=name)
         
@@ -63,6 +64,14 @@ class ContextIngester:
         
         with open(self.watchlist_path, "w") as f:
             json.dump(watchlist, f, indent=2)
+            
+        # 3. Save Promptfoo config if present
+        if metadata.promptfoo_config:
+            skills_dir = os.path.join(self.cockpit_dir, ".cockpit", "promptfoo_skills")
+            os.makedirs(skills_dir, exist_ok=True)
+            skill_config_path = os.path.join(skills_dir, f"{metadata.name}.json")
+            with open(skill_config_path, "w") as f:
+                json.dump(metadata.promptfoo_config, f, indent=2)
             
         return metadata
 

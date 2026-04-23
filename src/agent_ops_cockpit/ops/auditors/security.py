@@ -62,7 +62,7 @@ class SecurityAuditor(BaseAuditor):
                     title=title,
                     description="""Detected `eval()`, `exec()`, or un-sanitized client-side injection.
 [bold red]ASI-03 Risk:[/bold red] Agent-generated content could contain malicious code executed by the host.
-[bold green]RECOMMENDATION:[/bold green] Pivot to a **Python Sandbox** or **DOMPurify** for UI rendering.""",
+[bold green]RECOMMENDATION:[/bold green] Pivot to an **E2B Sandbox** for secure execution or use **DOMPurify** for UI rendering.""",
                     impact="CRITICAL",
                     roi="Eliminates Remote Code Execution (RCE) and XSS pathways.",
                     file_path=file_path
@@ -131,7 +131,7 @@ class SecurityAuditor(BaseAuditor):
                     title=title,
                     description="""Detected system-level shell execution or MCP access without isolation.
 [bold red]ASI-04 Risk:[/bold red] Compromised agents can move laterally across the host network/filesystem.
-[bold green]RECOMMENDATION:[/bold green] Use **GVisor** or **Docker Sandboxes** for tool execution.""",
+[bold green]RECOMMENDATION:[/bold green] Use **E2B Sandboxes**, **GVisor**, or **Docker Sandboxes** for tool execution.""",
                     impact="CRITICAL",
                     roi="Isolates the blast radius of any individual agent compromise.",
                     file_path=file_path

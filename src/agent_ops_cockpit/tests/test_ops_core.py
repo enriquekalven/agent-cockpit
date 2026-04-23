@@ -7,8 +7,8 @@ from typer.testing import CliRunner
 from agent_ops_cockpit.config import config
 
 def test_version_ssot():
-    """Ensure the version is consistent across the platform."""
-    assert config.VERSION == "2.0.17"
+    """Verify that the single source of truth version is consistent."""
+    assert config.VERSION == "2.0.19"
 
 
 def test_pii_scrubber():
