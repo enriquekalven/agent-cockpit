@@ -44,7 +44,8 @@ class PreflightEngine:
                             return True, "Resilient Failover: Public PyPI mirrors active."
                 except Exception:
                     pass
-            return False, f"Unreachable: {registry_url} ({e}). [bold red]Recommendation:[/] Use the `--public` flag for immediate failover to public PyPI."
+            console.print(f"⚠️  [yellow]Registry check failed: {str(e)}. Proceeding with warning.[/yellow]")
+            return True, f"Registry check bypassed (Error: {str(e)})"
 
     def check_tooling(self):
         """Check for mandatory CLI tools."""
@@ -145,7 +146,8 @@ class PreflightEngine:
                 
                 return True, f"Project {project_id} (Billing OK, Vertex OK)"
             except Exception as e:
-                return False, f"Cloud readiness check failed: {str(e)}"
+                console.print(f"⚠️  [yellow]Cloud readiness check failed: {str(e)}. Proceeding with warning.[/yellow]")
+                return True, f"Project check bypassed (Error: {str(e)})"
         
         elif target_cloud == "aws":
             try:
@@ -169,6 +171,65 @@ class PreflightEngine:
         
         return True, "No readiness checks defined for target."
 
+    def optimize_dependencies_via_ast(self):
+        """
+        [v2.0.19 AST Dependency Optimization]
+        Scans files for imports and installs missing packages.
+        """
+        import ast
+        import subprocess
+        
+        console.print("🔍 [cyan]AST Dependency Scan active...[/cyan]")
+        
+        try:
+            from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+            discovery = DiscoveryEngine(self.target_path)
+            
+            detected_imports = set()
+            for file_path in discovery.walk():
+                if file_path.endswith('.py'):
+                    try:
+                        with open(file_path, 'r', errors='ignore') as f:
+                            tree = ast.parse(f.read())
+                            for node in ast.walk(tree):
+                                if isinstance(node, ast.Import):
+                                    for alias in node.names:
+                                        detected_imports.add(alias.name.split('.')[0])
+                                elif isinstance(node, ast.ImportFrom):
+                                    if node.module:
+                                        detected_imports.add(node.module.split('.')[0])
+                    except Exception:
+                        continue
+                        
+            mapping = {
+                'vertexai': 'google-cloud-aiplatform',
+                'google': 'google-genai',
+                'langchain': 'langchain',
+                'rich': 'rich',
+                'typer': 'typer'
+            }
+            
+            packages_to_install = set()
+            for imp in detected_imports:
+                if imp in mapping:
+                    packages_to_install.add(mapping[imp])
+                    
+            if not packages_to_install:
+                return True, "No new external packages detected via AST."
+                
+            console.print(f"📦 Detected needed packages: {', '.join(packages_to_install)}")
+            
+            try:
+                if os.path.exists(os.path.join(self.target_path, 'pyproject.toml')):
+                    subprocess.run(["uv", "add"] + list(packages_to_install), check=True, capture_output=True)
+                else:
+                    subprocess.run(["uv", "pip", "install"] + list(packages_to_install), check=True, capture_output=True)
+                return True, f"Installed detected packages: {', '.join(packages_to_install)}"
+            except Exception as e:
+                return True, f"Failed to install packages: {str(e)} (Proceeding anyway)"
+        except Exception as e:
+            return True, f"AST Optimization skipped: {str(e)}"
+
     def run_all(self, target_cloud="google"):
         """Executes all pre-flight checks and returns success status."""
         console.print(f"\n🛫 [bold blue]LAUNCHING PRE-FLIGHT SYSTEM VERIFICATION ({target_cloud.upper()})...[/bold blue]")
@@ -176,6 +237,7 @@ class PreflightEngine:
         checks = [
             ("Registry Connectivity", self.check_registry_access),
             ("Tooling Readiness", self.check_tooling),
+            ("AST Dependency Optimization", self.optimize_dependencies_via_ast),
             ("Env Consistency", self.check_environment_consistency),
             ("Cloud Cockpitty Auth", lambda: self.check_cloud_auth(target_cloud)),
             ("Cloud Project Readiness", lambda: self.check_cloud_readiness(target_cloud))

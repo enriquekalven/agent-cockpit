@@ -51,6 +51,8 @@ dependencies = [
     "e2b-code-interpreter>=0.1.0",
     "litellm>=1.0.0",
     "haystack-ai>=2.0.0",
+    "google-genai>=1.73.1",
+    "google-cloud-aiplatform>=1.148.1",
 ]
 
 [project.optional-dependencies]
