@@ -54,7 +54,14 @@ def parse_action_line(line: str) -> 'AuditFinding':
     parts = legacy_str.split(' | ')
     
     file_path = parts[0].split(':')[0] if len(parts) > 0 else ""
-    line_num = int(parts[0].split(':')[1]) if len(parts) > 0 and ':' in parts[0] else 0
+    line_num = 0
+    if len(parts) > 0 and ':' in parts[0]:
+        try:
+            raw_line = parts[0].split(':')[1].strip()
+            digits = ''.join([c for c in raw_line if c.isdigit()])
+            line_num = int(digits) if digits else 0
+        except Exception:
+            line_num = 0
     title = parts[1] if len(parts) > 1 else ""
     description = parts[2] if len(parts) > 2 else ""
     

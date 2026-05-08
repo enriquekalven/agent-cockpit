@@ -38,3 +38,10 @@ policies:
     title: FORBIDDEN_TOPICS
     severity: MEDIUM
     topics: ["medical advice", "legal advice", "financial predictions", "internal server details"]
+
+  - id: POL-006
+    title: NATURAL_LANGUAGE_RULES
+    severity: HIGH
+    rules:
+      - "The agent must never display internal token weights or model temperature fields in the main dashboard UI."
+      - "The agent must always prompt for explicit user agreement or confirmation before finalizing any codebase release execution."

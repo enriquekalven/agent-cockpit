@@ -1,7 +1,7 @@
 # 🏛️ Cockpit Technical Design Document (TDD)
-**Generated**: March 31, 2026 14:25
+**Generated**: May 08, 2026 08:41
 **Standard**: Google Well-Architected for Agents (v2.0.7)
-**GitHub**: [enriquekalven/agentops-cockpit](https://github.com/enriquekalven/agentops-cockpit)
+**GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
 **PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
 **Face**: [agent-cockpit.web.app](https://agent-cockpit.web.app)
 
@@ -28,9 +28,6 @@ The system follows the **Governance Framework** framework: Engine (Reasoning), F
 - **Status**: ✅ HARDENED
 
 #### 🛠️ SME Findings:
-- ✅ **Policy Enforcement**: Policy Source: governance.yaml
-Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
-SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
 - ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
 │ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
 ╰───────────────────────────────────────────────╯
@@ -41,10 +38,22 @@ Targeting:
 ╰───────────────────────────────────╯
 Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 📊 Token...
+- ✅ **Skill-Based Red Teaming**: 🚀 SKILL-BASED RED TEAMING INITIALIZED
+ℹ️ No skill-based Promptfoo configs found at 
+/Users/enriq/Documents/git/agent-cockpit/.cockpit/promptfoo_skills
+...
 - ✅ **Load Test (Baseline)**: 🕵️  Endpoint Handshake: Verifying https://agent-cockpit.web.app/...
 ⚠️  HANDSHAKE WARNING: Target returned HTML instead of API data. This looks like
 a dashboard, not an agent.
 ⚠️  Proceeding with load...
+- ✅ **Policy Enforcement**: Policy Source: governance.yaml
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
+- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression S...
 - ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
 │ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
 ╰────────────────────────────────────╯
@@ -62,11 +71,6 @@ Detected...
 │ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.8 │
 ╰─────────────────────────────────────────────────────────────╯
 Detected...
-- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
-│ 🛡️ RELIABILITY AUDIT (QUICK) │
-╰──────────────────────────────╯
-🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
-📈 Verifying Regression S...
 - ✅ **Quality Hill Climbing**: ╭─────────────────────────────────────────────────────────────╮
 │ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
 │ Optimizing Reasoning Density & Tool Trajectory Stability... │
@@ -75,13 +79,137 @@ Detected...
 │ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
 ╰───────────────────────────────────────╯
 Scanning directory: /Users/enriq/Documents/git/agent-cockpit
-📝 Scanned 56 f...
+📝 Scanned 62 f...
 
 ### Agent: global_summary
 - **Cockpit Score**: 0.0%
 - **Status**: ⚠️ GAPS DETECTED
 
 #### 🛠️ SME Findings:
+
+### Agent: my_super_agent
+- **Cockpit Score**: 75.0%
+- **Status**: ⚠️ GAPS DETECTED
+
+#### 🛠️ SME Findings:
+- ✅ **Secret Scanner**: ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...
+- ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...
+- ❌ **Red Team (Fast)**: ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/git/agent-cockpit...
+- ❌ **Token Optimization**: ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/git/agent-cockpit/my_super_agent/agent.py
+📊 Token Metric...
+- ✅ **Policy Enforcement**: Policy Source: governance.yaml
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
+- ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
+╰───────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit/my_super_agent...
+- ✅ **Architecture Review**: ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.8 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...
+- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in 
+/Users/enriq/Documents/git/agent-cockpit/my_super_agent...
+📈 Verify...
+
+### Agent: my_super_agent
+- **Cockpit Score**: 75.0%
+- **Status**: ⚠️ GAPS DETECTED
+
+#### 🛠️ SME Findings:
+- ✅ **Policy Enforcement**: Policy Source: governance.yaml
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
+- ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...
+- ❌ **Red Team (Fast)**: ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/my_super_agent/agent.py
+❌ [...
+- ❌ **Token Optimization**: ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/my_super_agent/agent.py
+📊 Token Metrics: ~186 prompt tokens detect...
+- ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
+╰───────────────────────────────────────╯
+Scanning directory: /Users/enriq/my_super_agent
+📝 Scanned 0 frontend files....
+- ✅ **Secret Scanner**: ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...
+- ✅ **Architecture Review**: ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.8 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...
+- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/my_super_agent...
+📈 Verifying Regression Suite Coverage...
+
+### Agent: my_super_agent
+- **Cockpit Score**: 75.0%
+- **Status**: ⚠️ GAPS DETECTED
+
+#### 🛠️ SME Findings:
+- ✅ **Secret Scanner**: ╭──────────────────────────────────────────────╮
+│ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
+╰──────────────────────────────────────────────╯
+✅ PASS: No hardcoded credentials detected in matched p...
+- ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
+│ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
+╰────────────────────────────────────╯
+✅ No RAG-specific risks detected or no RAG pattern found.
+...
+- ✅ **Policy Enforcement**: Policy Source: governance.yaml
+Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
+SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
+- ❌ **Red Team (Fast)**: ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: /Users/enriq/Documents/lab/my_super_agen...
+- ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
+╰───────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/lab/my_super_agent
+📝 Scanned 0 f...
+- ❌ **Token Optimization**: ╭───────────────────────────────────╮
+│ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
+╰───────────────────────────────────╯
+Target: /Users/enriq/Documents/lab/my_super_agent/agent.py
+📊 Token Metrics: ~186 prompt...
+- ✅ **Architecture Review**: ╭─────────────────────────────────────────────────────────────╮
+│ 🏛️ GOOGLE VERTEX AI / ADK: ENTERPRISE ARCHITECT REVIEW v1.8 │
+╰─────────────────────────────────────────────────────────────╯
+Detected...
+- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/lab/my_super_agent...
+📈 Verifying Regression ...
 
 ---
 
