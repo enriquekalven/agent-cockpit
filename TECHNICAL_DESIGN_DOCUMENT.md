@@ -1,5 +1,5 @@
 # 🏛️ Cockpit Technical Design Document (TDD)
-**Generated**: May 08, 2026 08:41
+**Generated**: July 08, 2026 10:13
 **Standard**: Google Well-Architected for Agents (v2.0.7)
 **GitHub**: [enriquekalven/agent-ops-cockpit](https://github.com/enriquekalven/agent-ops-cockpit)
 **PyPI**: [agentops-cockpit](https://pypi.org/project/agentops-cockpit/)
@@ -28,20 +28,20 @@ The system follows the **Governance Framework** framework: Engine (Reasoning), F
 - **Status**: ✅ HARDENED
 
 #### 🛠️ SME Findings:
-- ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
-│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
-╰───────────────────────────────────────────────╯
-Targeting: 
-/Users/enriq/Documents/git/agent-cockpi...
+- ✅ **Skill-Based Red Teaming**: 🚀 SKILL-BASED RED TEAMING INITIALIZED
+ℹ️ No skill-based Promptfoo configs found at 
+/Users/enriq/Documents/git/agent-cockpit/.cockpit/promptfoo_skills
+...
 - ✅ **Token Optimization**: ╭───────────────────────────────────╮
 │ 🔍 GCP AGENT OPS: OPTIMIZER AUDIT │
 ╰───────────────────────────────────╯
 Target: /Users/enriq/Documents/git/agent-cockpit/src/agent_ops_cockpit/agent.py
 📊 Token...
-- ✅ **Skill-Based Red Teaming**: 🚀 SKILL-BASED RED TEAMING INITIALIZED
-ℹ️ No skill-based Promptfoo configs found at 
-/Users/enriq/Documents/git/agent-cockpit/.cockpit/promptfoo_skills
-...
+- ✅ **Red Team Security (Full)**: ╭───────────────────────────────────────────────╮
+│ 🚩 RED TEAM EVALUATION: SELF-HACK INITIALIZED │
+╰───────────────────────────────────────────────╯
+Targeting: 
+/Users/enriq/Documents/git/agent-cockpi...
 - ✅ **Load Test (Baseline)**: 🕵️  Endpoint Handshake: Verifying https://agent-cockpit.web.app/...
 ⚠️  HANDSHAKE WARNING: Target returned HTML instead of API data. This looks like
 a dashboard, not an agent.
@@ -49,16 +49,21 @@ a dashboard, not an agent.
 - ✅ **Policy Enforcement**: Policy Source: governance.yaml
 Caught Expected Violation: GOVERNANCE - Input contains forbidden topic: 'medical advice'.
 SOURCE: Declarative Guardrails | https://cloud.google.com/architecture/framewor...
-- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
-│ 🛡️ RELIABILITY AUDIT (QUICK) │
-╰──────────────────────────────╯
-🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
-📈 Verifying Regression S...
 - ✅ **RAG Fidelity Audit**: ╭────────────────────────────────────╮
 │ 🧗 RAG TRUTH-SAYER: FIDELITY AUDIT │
 ╰────────────────────────────────────╯
 ✅ No RAG-specific risks detected or no RAG pattern found.
 ...
+- ✅ **Reliability (Quick)**: ╭──────────────────────────────╮
+│ 🛡️ RELIABILITY AUDIT (QUICK) │
+╰──────────────────────────────╯
+🧪 Running Unit Tests (pytest) in /Users/enriq/Documents/git/agent-cockpit...
+📈 Verifying Regression S...
+- ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
+│ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
+╰───────────────────────────────────────╯
+Scanning directory: /Users/enriq/Documents/git/agent-cockpit
+📝 Scanned 62 f...
 - ✅ **Secret Scanner**: ╭──────────────────────────────────────────────╮
 │ 🔍 SECRET SCANNER: CREDENTIAL LEAK DETECTION │
 ╰──────────────────────────────────────────────╯
@@ -75,11 +80,6 @@ Detected...
 │ 🧗 QUALITY HILL CLIMBING v1.3: EVALUATION SCIENCE           │
 │ Optimizing Reasoning Density & Tool Trajectory Stability... │
 ╰────────...
-- ✅ **Frontend Auditor**: ╭───────────────────────────────────────╮
-│ 🎭 FACE AUDITOR: GENUI COMPONENT SCAN │
-╰───────────────────────────────────────╯
-Scanning directory: /Users/enriq/Documents/git/agent-cockpit
-📝 Scanned 62 f...
 
 ### Agent: global_summary
 - **Cockpit Score**: 0.0%

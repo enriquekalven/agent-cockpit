@@ -1,10 +1,9 @@
+import json
 import os
 import sys
-import json
-import subprocess
+
 from rich.console import Console
 from rich.table import Table
-import sys
 
 console = Console()
 

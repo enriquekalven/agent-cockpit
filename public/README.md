@@ -1,4 +1,4 @@
-# 🕹️ AgentOps Cockpit (v2.0.19 Autonomous Core)
+# 🕹️ AgentOps Cockpit (v2.0.20 Autonomous Core)
 
 <div align="center">
   <img src="public/assets/trinity_v2.png" alt="AgentOps Cockpit Trinity" width="100%" />
@@ -15,7 +15,7 @@
   <br />
   <img src="https://img.shields.io/github/stars/enriquekalven/agent-cockpit?style=for-the-badge&color=ffd700" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/license/enriquekalven/agent-cockpit?style=for-the-badge&color=007bff" alt="License" />
-  <img src="https://img.shields.io/badge/Cockpit-v2.0.19-10b981?style=for-the-badge" alt="Cockpit v2.0.19" />
+  <img src="https://img.shields.io/badge/Cockpit-v2.0.20-10b981?style=for-the-badge" alt="Cockpit v2.0.20" />
   <img src="https://img.shields.io/badge/A2A_Standard-Enabled-10b981?style=for-the-badge" alt="A2A Standard" />
 
 </div>
@@ -33,7 +33,7 @@
 Most AI templates stop at a single Python script. **The AgentOps Cockpit** is for developers moving into production. It provides framework-agnostic governance, multi-cloud mobility, and real-time security for the entire agentic ecosystem.
 
 - **🏛️ The Governing Board**: Every repository is audited by a panel of [**Principal SME Personas**](docs/TECHNICAL_AUDIT_GUIDE.md) (SecOps, FinOps, SRE, Architect) using **SME Reasoning**.
-- **📊 Premium Visual Dashboards**: v2.0.19 introduces AST-aware precision scanning and Vertex AI-style fleet dashboards.
+- **📊 Premium Visual Dashboards**: v2.0.20 introduces AST-aware precision scanning and Vertex AI-style fleet dashboards.
 
 - **🌉 Cockpit Bridge**: Multi-cloud orchestration layer for GCP, AWS, and Azure.
 - **The Cockpit**: Python CLI, **Cockpit Gateway**, Semantic Caching, Red Team Eval.

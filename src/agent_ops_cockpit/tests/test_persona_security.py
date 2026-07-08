@@ -1,4 +1,5 @@
 import re
+import os
 from unittest.mock import patch
 from typer.testing import CliRunner
 from agent_ops_cockpit.eval.red_team import app as red_team_app
@@ -32,7 +33,7 @@ def test_security_red_team_rag_injection(tmp_path):
         results_path.write_text(json.dumps(mock_data))
         return subprocess.CompletedProcess(cmd, 0, stdout="Mocked run", stderr="")
 
-    with patch('subprocess.run', side_effect=mock_run):
+    with patch.dict(os.environ, {"COCKPIT_MOCK_PROMPTFOO": "false"}), patch('subprocess.run', side_effect=mock_run):
         result = runner.invoke(red_team_app, ["audit", str(agent_file)])
     assert result.exit_code == 1
     assert "[RETRIEVED_DOC]" in result.stdout
@@ -64,7 +65,7 @@ def test_security_red_team_mcp_privilege(tmp_path):
         results_path.write_text(json.dumps(mock_data))
         return subprocess.CompletedProcess(cmd, 0, stdout="Mocked run", stderr="")
 
-    with patch('subprocess.run', side_effect=mock_run):
+    with patch.dict(os.environ, {"COCKPIT_MOCK_PROMPTFOO": "false"}), patch('subprocess.run', side_effect=mock_run):
         result = runner.invoke(red_team_app, ["audit", str(agent_file)])
     assert result.exit_code == 1
     assert "admin_shell" in result.stdout

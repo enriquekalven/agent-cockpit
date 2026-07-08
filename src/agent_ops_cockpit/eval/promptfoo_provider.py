@@ -1,10 +1,12 @@
-import os
-import sys
 import asyncio
 import importlib.util
+import os
+import sys
+
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types as genai_types
+
 
 def call_api(prompt, options, context):
     # Get agent path from env var
@@ -28,7 +30,7 @@ def call_api(prompt, options, context):
         agent = None
         from google.adk.agents import Agent
         
-        for name, obj in module.__dict__.items():
+        for _name, obj in module.__dict__.items():
             if isinstance(obj, Agent):
                 agent = obj
                 break

@@ -149,7 +149,7 @@ class GuardrailPolicyEngine:
                 
             try:
                 with open(file_path, 'r', errors='ignore') as f:
-                    content = f.read()
+                    _ = f.read()
             except Exception:
                 continue
                 

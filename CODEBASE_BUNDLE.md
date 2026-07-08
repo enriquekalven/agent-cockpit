@@ -1,5 +1,5 @@
 # 🛰️ COCKPIT CODEBASE BUNDLE
-**Generated**: 2026-05-08T08:41:57.891689
+**Generated**: 2026-07-08T10:13:27.686335
 **Purpose**: High-fidelity AI context for Cockpit Fleet Operations.
 
 ---
@@ -11,7 +11,6 @@ agent-cockpit/
     cockpit_export_20260423_0823.json
     Dockerfile.azure
     azure-deploy.bicep
-    firebase-debug.log
     tsconfig.node.json
     starter_pack_pyproject.toml
     INDUSTRY_HARDENING_v2.0_FINAL.md
@@ -48,6 +47,7 @@ agent-cockpit/
     smithery.yaml
     CODEBASE_BUNDLE.md
     cockpit_export_20260423_2139.json
+    cockpit_export_20260521_1104.json
     TECHNICAL_DESIGN_DOCUMENT.md
     ROADMAP.md
     package-lock.json
@@ -1570,13 +1570,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentops-cockpit"
-version = "2.0.19"
+version = "2.0.20"
 description = "Production-grade Agent Operations (AgentOps) Platform"
 readme = "README.md"
 authors = [
     { name = "Enrique", email = "enriquekalven@gmail.com" }
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.13"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -1597,9 +1597,9 @@ dependencies = [
     "pytest-xdist>=3.5.0",
     "pytest-timeout>=2.3.1",
     "langchain>=0.2.0",
-    "crewai>=1.0.0",
+    "crewai>=1.15.2",
     "langgraph>=1.0.8",
-    "chromadb>=0.5.0",
+    "chromadb>=0.6.0",
     "langsmith>=0.7.0",
     "agent-starter-pack>=0.34.0",
     "llama-index>=0.14.0",
@@ -1618,7 +1618,7 @@ dependencies = [
     "litellm>=1.0.0",
     "haystack-ai>=2.0.0",
     "google-genai>=1.73.1",
-    "google-cloud-aiplatform>=1.148.1",
+    "google-cloud-aiplatform==1.160.0",
 ]
 
 [project.optional-dependencies]

@@ -5,6 +5,7 @@ except (ImportError, AttributeError, ModuleNotFoundError):
 # v2.0.7 Cockpit Alignment: Optimized for Google Cloud Run
 import json
 import os
+import subprocess
 
 import typer
 from rich.console import Console
@@ -133,7 +134,6 @@ def audit(
     console.print(f"📝 [bold green]Generated Promptfoo Config:[/bold green] {config_path}")
     
     # Run Promptfoo
-    import subprocess
     console.print("🚀 [bold blue]Running Promptfoo Evaluation...[/bold blue]")
     
     # Set env var for provider
@@ -142,21 +142,34 @@ def audit(
     
     results_path = os.path.join(config_dir, "promptfoo_results.json")
     
-    # Mock Promptfoo execution for isolated environment
-    console.print("🚀 [bold blue]Mocking Promptfoo Evaluation...[/bold blue]")
+    # Check if we should run or mock Promptfoo
+    mock_promptfoo = os.environ.get("COCKPIT_MOCK_PROMPTFOO", "true").lower() == "true"
     
-    # Write dummy results
-    dummy_results = {
-        "summary": {
-            "numPassed": len(attacks),
-            "numTests": len(attacks)
-        },
-        "results": []
-    }
-    with open(results_path, 'w') as f:
-        json.dump(dummy_results, f, indent=2)
-        
-    console.print("✅ [bold green]Promptfoo Evaluation Complete (Mocked).[/bold green]")
+    if mock_promptfoo:
+        console.print("🚀 [bold blue]Mocking Promptfoo Evaluation...[/bold blue]")
+        # Write dummy results
+        dummy_results = {
+            "summary": {
+                "numPassed": len(attacks),
+                "numTests": len(attacks)
+            },
+            "results": []
+        }
+        with open(results_path, 'w') as f:
+            json.dump(dummy_results, f, indent=2)
+        console.print("✅ [bold green]Promptfoo Evaluation Complete (Mocked).[/bold green]")
+    else:
+        try:
+            # Use npx to run promptfoo
+            cmd = ["npx", "promptfoo@latest", "eval", "-c", config_path, "--output", results_path]
+            result = subprocess.run(cmd, env=env, capture_output=True, text=True)
+            if result.returncode != 0:
+                console.print(f"[red]Promptfoo execution failed:[/red] {result.stderr}")
+                raise typer.Exit(code=1)
+            console.print("✅ [bold green]Promptfoo Evaluation Complete.[/bold green]")
+        except Exception as e:
+            console.print(f"❌ [red]Error running Promptfoo:[/red] {e}")
+            raise typer.Exit(code=1)
         
     # Parse results
     with open(results_path, 'r') as f:

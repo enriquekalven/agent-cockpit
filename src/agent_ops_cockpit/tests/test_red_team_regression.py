@@ -3,7 +3,7 @@ import json
 import tempfile
 import pytest
 from agent_ops_cockpit.eval.red_team import audit
-import click
+import typer
 
 def test_red_team_v2_coverage():
     """Verify Red Team Auditor v2.0 correctly detects new brand safety vectors."""
@@ -44,8 +44,8 @@ def test_red_team_v2_coverage():
             return subprocess.CompletedProcess(cmd, 0, stdout="Mocked run", stderr="")
 
         from unittest.mock import patch
-        with patch('subprocess.run', side_effect=mock_run):
-            with pytest.raises((click.exceptions.Exit, SystemExit)):
+        with patch.dict(os.environ, {"COCKPIT_MOCK_PROMPTFOO": "false"}), patch('subprocess.run', side_effect=mock_run):
+            with pytest.raises(typer.Exit):
                 audit(agent_path)
                 
         # Verify regression file exists in .cockpit

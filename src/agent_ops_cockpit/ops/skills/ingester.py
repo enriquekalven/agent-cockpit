@@ -1,7 +1,8 @@
 import json
 import os
-from typing import Dict, List
+
 from agent_ops_cockpit.ops.skills.base import GovernanceSkill, SkillMetadata
+
 
 class ContextIngester:
     """
