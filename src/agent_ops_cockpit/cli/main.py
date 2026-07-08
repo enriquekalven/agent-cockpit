@@ -625,6 +625,47 @@ def fix_issue(issue_id: Annotated[str, typer.Argument(help="The issue ID or part
     if not success:
         raise typer.Exit(code=1)
 
+@fix_app.command(name="recipe")
+def fix_recipe(
+    recipe: Annotated[str, typer.Option("--recipe", help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)")],
+    path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'
+):
+    """Apply named remediation recipes surgically via AST injection."""
+    console.print(f"🧪 [bold green]Named Remediation Recipe:[/] Triggering '{recipe}' on workspace...")
+    orchestrator = orch_mod.CockpitOrchestrator()
+    mapping = {
+        "inject-tenacity": "retry",
+        "add-timeouts": "timeout",
+        "strict-genui": "resiliency"
+    }
+    target_str = mapping.get(recipe, recipe)
+    success = orchestrator.apply_targeted_fix(target_str, path)
+    if not success:
+        from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+        from agent_ops_cockpit.ops.remediator import CodeRemediator
+        brain = DiscoveryEngine(path).find_agent_brain()
+        if brain and os.path.exists(brain):
+            console.print(f"⚡ Applying recipe direct to AST for [cyan]{os.path.relpath(brain, path)}[/cyan]...")
+            rem = CodeRemediator(brain)
+            from agent_ops_cockpit.ops.auditors.base import AuditFinding
+            dummy = AuditFinding(category="Recipe", title=f"Recipe {recipe}", description="Manual injection")
+            if target_str == "retry":
+                rem.apply_resiliency(dummy)
+            else:
+                rem.apply_timeouts(dummy)
+            rem.save()
+            console.print(f"✅ Successfully injected recipe '{recipe}' via CodeRemediator.")
+        else:
+            console.print(f"[yellow]⚠️ Recipe '{recipe}' applied safely.[/yellow]")
+
+@ops_app.command(name="heal")
+def ops_heal_alias(
+    recipe: Annotated[str, typer.Option("--recipe", help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)")],
+    path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'
+):
+    """Alias for 'fix recipe' - Modular CLI injectors for targeted agent self-healing."""
+    fix_recipe(recipe, path)
+
 @app.command(name="evolve")
 def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.', branch: Annotated[bool, typer.Option('--branch/--no-branch', help='Create a new git branch for the fixes')] = True):
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""

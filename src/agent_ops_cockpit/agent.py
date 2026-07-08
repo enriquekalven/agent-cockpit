@@ -57,6 +57,7 @@ try:
 except ImportError:
     def retry(*args, **kwargs):
         def decorator(f):
+            @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
             @functools.wraps(f)
             async def wrapper(*a, **k): return await f(*a, **k)
             return wrapper

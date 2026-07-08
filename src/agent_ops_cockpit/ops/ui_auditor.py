@@ -44,6 +44,11 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
     mcp_apps_pattern = re.compile(r"MCPApp|ToolSurface|McpToolRenderer|mcp-tool-id")
 
 
+    # Context Awareness (v2.0.4)
+    from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+    discovery = DiscoveryEngine(path)
+    context = discovery.detect_context()
+
     for root, dirs, files in os.walk(path):
         # v2.0.7: Prune directories in-place to prevent descending into excluded paths
         dirs[:] = [d for d in dirs if d not in [".venv", "node_modules", ".git", "dist", "dogfood", "dogfood_repos", "docs_temp", "dist_py", "dist_release", "dist_v161", "dist_v162", "dist_v163"]]
@@ -59,10 +64,6 @@ def audit(path: str = typer.Argument("src", help="Directory to scan")):
                 file_path = os.path.join(root, file)
                 rel_path = os.path.relpath(file_path, ".")
                 
-                # Context Awareness (v2.0.4)
-                from agent_ops_cockpit.ops.discovery import DiscoveryEngine
-                discovery = DiscoveryEngine(path)
-                context = discovery.detect_context()
                 try:
                     with open(file_path, 'r') as f:
                         lines = f.readlines()

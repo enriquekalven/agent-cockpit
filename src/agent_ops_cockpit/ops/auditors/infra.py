@@ -35,7 +35,7 @@ class InfraAuditor(BaseAuditor):
             
             if 'memory' not in content.lower() and 'cpu' not in content.lower():
                 findings.append(AuditFinding(
-                    title="SRE Warning: Missing Resource Consternation",
+                    title="SRE Warning: Missing Resource Constraints",
                     description="Dockerfile/Manifest lacks resource limits. Risk of OOM kills.",
                     category="🏗️ Architecture",
                     impact="Medium",

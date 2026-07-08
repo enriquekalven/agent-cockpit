@@ -1,3 +1,4 @@
+import { TargetAudienceScene } from './GettingStartedDemo/TargetAudienceScene';
 import { Composition } from 'remotion';
 import { EvolveDemo } from './EvolveDemo';
 import { StandaloneUpgradeDemo } from './EvolveDemo/StandaloneUpgradeDemo';
@@ -17,6 +18,14 @@ import { StandaloneQwiklabsDemo } from './EvolveDemo/StandaloneQwiklabsDemo';
 export const RemotionRoot = () => {
   return (
     <>
+      <Composition
+        id="TargetAudience-Cockpit-vs-VibeCoding"
+        component={TargetAudienceScene}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="EvolveDemo"
         component={EvolveDemo}

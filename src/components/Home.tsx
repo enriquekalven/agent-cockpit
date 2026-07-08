@@ -76,8 +76,8 @@ export function Home() {
       {/* Latest Release Banner */}
       <div className="release-banner">
         <div className="banner-content">
-          <span className="banner-tag">STABLE v2.0.17</span>
-          <span className="banner-text"><b>v2.0.17 Autonomous Core:</b> Autonomous Evolution Hub, Autonomous Core Engine, and MCP Hub 2.0.</span>
+          <span className="banner-tag">STABLE v2.0.20</span>
+          <span className="banner-text"><b>v2.0.20 Autonomous Core:</b> Autonomous Evolution Hub, Autonomous Core Engine, and MCP Hub 2.0.</span>
           <div className="flex gap-4">
             <Link to="/docs" className="banner-link">View Docs <ChevronRight size={14} /></Link>
             <div className="flex items-center gap-2">
@@ -97,6 +97,7 @@ export function Home() {
           <nav className="nav-links">
             <Link to="/docs" className="nav-link">Documentation</Link>
             <Link to="/docs/google-architecture" className="nav-link">Framework</Link>
+            <Link to="/media" className="nav-link">Media</Link>
             <a href="https://github.com/enriquekalven/agent-cockpit/blob/main/CHANGELOG.md" className="nav-link">Changelog</a>
             <a href="https://github.com/enriquekalven/agent-cockpit" target="_blank" rel="noopener noreferrer" className="nav-icon-link">
               <Github size={20} />

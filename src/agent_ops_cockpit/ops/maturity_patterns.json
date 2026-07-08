@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-04-07T16:02:03.849536",
-  "version": "1.4.0407",
+  "last_updated": "2026-07-08T08:58:51.850310",
+  "version": "1.4.0708",
   "patterns": [
     {
       "id": "MP-001",
@@ -474,6 +474,22 @@
       "rationale": "Production monitors shouldn't fail due to reporting logic errors. Explicit escaping ensures that raw agent telemetry doesn't conflict with console formatting syntax.",
       "impact": "MEDIUM",
       "source": "cockpit Stability Hardening (v2.0.8)"
+    },
+    {
+      "id": "MP-041",
+      "category": "ARCHITECTURE",
+      "title": "Extended Thinking Budget & Recursive Reasoning",
+      "indicators": [
+        "thinking_budget",
+        "extended_thinking",
+        "max_thinking_tokens",
+        "recursive_reasoning",
+        "thinking"
+      ],
+      "recommendation": "Leverage Extended Thinking Modes (e.g., Claude 3.7/4.6, Gemini 2.0/3.0 Thinking) for complex reasoning paths. Configure a 'Thinking Budget' dynamically: for simple orchestration, keep budget at 0; for complex validation/planning, set budget >= 1024 tokens. Ensure handling of extra output latency.",
+      "rationale": "Frontier models now support dynamic extended thinking (recursive loops). Relying on raw generation without thinking for complex tasks is legacy architecture.",
+      "impact": "HIGH",
+      "source": "Anthropic Claude 3.7/4.6 Spec & Gemini Thinking Guidelines (July 2026)"
     }
   ],
   "compatibility_constraints": [

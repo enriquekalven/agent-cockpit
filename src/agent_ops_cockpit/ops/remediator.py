@@ -475,7 +475,7 @@ class CodeRemediator:
         Console().print(f"DEBUG: Saving {self.file_path}. Content len: {len(new_content)}")
         try:
             with open(self.file_path, 'r', encoding='utf-8', errors='replace') as f:
-                disk_content = f.read()
+                _ = f.read()
         except Exception:
             pass
         with open(self.file_path, 'w', encoding='utf-8') as f:

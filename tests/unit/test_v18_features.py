@@ -24,7 +24,7 @@ def test_infra_auditor_dockerfile():
     findings = auditor.audit(None, content, "Dockerfile")
     
     assert any("Security Risk: Container Running as Root" in f.title for f in findings)
-    assert any("SRE Warning: Missing Resource Consternation" in f.title for f in findings)
+    assert any("SRE Warning: Missing Resource Constraints" in f.title for f in findings)
 
 def test_infra_auditor_terraform():
     auditor = InfraAuditor()

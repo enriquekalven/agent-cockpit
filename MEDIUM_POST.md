@@ -81,7 +81,7 @@ Check out the live demo at: [https://agent-cockpit.web.app](https://agent-cockpi
 
 ### Get Involved
 
-The "Agent Era" demands a new way of thinking about the frontend. We’re just scratchng the surface of what’s possible with adaptive UIs. 
+The "Agent Era" demands a new way of thinking about the frontend. We’re just scratching the surface of what’s possible with adaptive UIs. 
 
 - **GitHub**: [enriquekalven/agent-ui-starter-pack](https://github.com/enriquekalven/agent-ui-starter-pack)
 - **PyPI**: `pip install agent-starter-pack`
