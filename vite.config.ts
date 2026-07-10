@@ -6,6 +6,10 @@ export default defineConfig({
   server: {
     port: 8888,
   },
+  build: {
+    outDir: "dist-web",
+    emptyOutDir: true,
+  },
   optimizeDeps: {
     entries: ['index.html'],
   }
