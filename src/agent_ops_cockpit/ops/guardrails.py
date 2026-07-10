@@ -15,13 +15,13 @@ class SafetyGate:
     [Cockpit Tooling] Official Safety SDK for AgentOps.
     Synchronized with Cockpit Audit findings to provide active defense.
     """
-    
+
     # Common PII Patterns (Base Library)
     PII_PATTERNS = {
-        "email": r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+',
-        "ipv4": r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b',
+        "email": r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
+        "ipv4": r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b",
         "api_key": r'(?:api_key|secret|token|password|auth|key)[\s:=]+[\'"]?([a-zA-Z0-9\-_]{16,})[\'"]?',
-        "github_token": r'ghp_[a-zA-Z0-9]{36}'
+        "github_token": r"ghp_[a-zA-Z0-9]{36}",
     }
 
     @staticmethod
@@ -30,7 +30,9 @@ class SafetyGate:
         if mode == "pii":
             scrubbed = text
             for _name, pattern in SafetyGate.PII_PATTERNS.items():
-                scrubbed = re.sub(pattern, "[REDACTED]", scrubbed, flags=re.IGNORECASE)
+                scrubbed = re.sub(
+                    pattern, "[REDACTED]", scrubbed, flags=re.IGNORECASE
+                )
             return scrubbed
         return text
 
@@ -43,78 +45,178 @@ class SafetyGate:
             "timestamp": timestamp,
             "action": action,
             "status": status,
-            "metadata": metadata or {}
+            "metadata": metadata or {},
         }
         # In production, this targets Cloud Logging or a secure evidence lake
         print(f"📡 [AUDIT] {json.dumps(log_entry)}")
 
     @staticmethod
-    def validate_prompt(prompt: str, forbidden_patterns: Optional[List[str]] = None) -> bool:
+    def validate_prompt(
+        prompt: str, forbidden_patterns: Optional[List[str]] = None
+    ) -> bool:
         """Validates a prompt against common injection patterns."""
         injections = [
             r"ignore previous instructions",
             r"ignore all previous",
             r"system prompt",
             r"you are now a",
-            r"output the full prompt"
+            r"output the full prompt",
         ]
         check_list = injections + (forbidden_patterns or [])
         prompt_lower = prompt.lower()
         for pattern in check_list:
             if re.search(pattern, prompt_lower):
-                SafetyGate.audit_log("prompt_validation", "REJECTED", {"pattern": pattern})
+                SafetyGate.audit_log(
+                    "prompt_validation", "REJECTED", {"pattern": pattern}
+                )
                 return False
         return True
 
     @staticmethod
     def tool_privilege_check(required_scope: str = "restricted"):
         """Decorator to enforce scope-based execution for sensitive tools."""
+
         def decorator(func):
             from functools import wraps
+
             @wraps(func)
             def wrapper(*args, **kwargs):
-                allowed_scope = os.environ.get("AGENT_EXECUTION_SCOPE", "restricted")
+                allowed_scope = os.environ.get(
+                    "AGENT_EXECUTION_SCOPE", "restricted"
+                )
                 if required_scope == "admin" and allowed_scope != "admin":
-                    SafetyGate.audit_log(f"tool_execution:{func.__name__}", "DENIED", {"required": required_scope, "actual": allowed_scope})
-                    raise PermissionError(f"🛑 [Cockpitty Breach] Tool '{func.__name__}' requires 'admin' scope.")
-                SafetyGate.audit_log(f"tool_execution:{func.__name__}", "ALLOWED")
+                    SafetyGate.audit_log(
+                        f"tool_execution:{func.__name__}",
+                        "DENIED",
+                        {"required": required_scope, "actual": allowed_scope},
+                    )
+                    raise PermissionError(
+                        f"🛑 [Cockpitty Breach] Tool '{func.__name__}' requires 'admin' scope."
+                    )
+                SafetyGate.audit_log(
+                    f"tool_execution:{func.__name__}", "ALLOWED"
+                )
                 return func(*args, **kwargs)
+
             return wrapper
+
         return decorator
 
     @staticmethod
-    def hitl_gate(action_name: str):
-        """[WIP] Manual Approval Gate (HITL) for high-stakes actions."""
+    def hitl_gate(action_name: str, callback: Optional[callable] = None):
+        """
+        Manual Approval Gate (HITL) for high-stakes actions.
+        Prompts via interactive CLI in TTY, or invokes callback if provided.
+        """
+
         def decorator(func):
             from functools import wraps
+
             @wraps(func)
             def wrapper(*args, **kwargs):
-                print(f"🧠 [HITL] Approval required for: {action_name}")
-                # simulate approval in v2.0.7
-                if os.environ.get("COCKPIT_AUTO_APPROVE", "false") == "true":
+                print(
+                    f"🧠 [HITL] Approval required for action: [bold cyan]{action_name}[/bold cyan]"
+                )
+
+                # 1. Check CI/CD / Automated override
+                if (
+                    os.environ.get("COCKPIT_AUTO_APPROVE", "false").lower()
+                    == "true"
+                ):
+                    SafetyGate.audit_log(f"hitl:{action_name}", "AUTO_APPROVED")
                     return func(*args, **kwargs)
-                raise InterruptedError(f"⏳ [HITL] Pending approval for action: {action_name}")
+
+                # 2. Invoke Callback if provided
+                if callback:
+                    try:
+                        approved = callback(
+                            action_name, func.__name__, *args, **kwargs
+                        )
+                        if approved:
+                            SafetyGate.audit_log(
+                                f"hitl:{action_name}", "CALLBACK_APPROVED"
+                            )
+                            return func(*args, **kwargs)
+                        else:
+                            SafetyGate.audit_log(
+                                f"hitl:{action_name}", "CALLBACK_REJECTED"
+                            )
+                            raise InterruptedError(
+                                f"🛑 [HITL Rejected] Callback denied action: {action_name}"
+                            )
+                    except Exception as e:
+                        SafetyGate.audit_log(
+                            f"hitl:{action_name}",
+                            "CALLBACK_ERROR",
+                            {"error": str(e)},
+                        )
+                        raise
+
+                # 3. Interactive CLI Fallback using rich.prompt.Confirm
+                import sys
+
+                if sys.stdout.isatty():
+                    try:
+                        from rich.prompt import Confirm
+
+                        approved = Confirm.ask(
+                            f"Do you want to authorize the execution of [bold magenta]{func.__name__}[/bold magenta]?",
+                            default=False,
+                        )
+                        if approved:
+                            SafetyGate.audit_log(
+                                f"hitl:{action_name}", "CLI_APPROVED"
+                            )
+                            return func(*args, **kwargs)
+                        else:
+                            SafetyGate.audit_log(
+                                f"hitl:{action_name}", "CLI_REJECTED"
+                            )
+                            raise InterruptedError(
+                                f"🛑 [HITL Rejected] User denied action in CLI: {action_name}"
+                            )
+                    except ImportError:
+                        print(
+                            "⚠️  [HITL Warning] Rich not available for interactive prompt."
+                        )
+                        raise InterruptedError(
+                            f"⏳ [HITL] Pending manual approval for action: {action_name}"
+                        )
+
+                # 4. Non-interactive Blocking Error
+                SafetyGate.audit_log(f"hitl:{action_name}", "BLOCKING_REJECTED")
+                raise InterruptedError(
+                    f"⏳ [HITL] Pending manual approval (Non-interactive session) for: {action_name}"
+                )
+
             return wrapper
+
         return decorator
+
 
 # Export names for backward compatibility and clean SDK usage
 SafetyGateSDK = SafetyGate()
+
 
 # Backward compatibility (Instance methods for tests)
 class _LegacyGuardrails(SafetyGate):
     def scrub_pii(self, text, replacement="[REDACTED]"):
         return self.sanitize(text, mode="pii")
-    
+
     def wrap_agent_call(self, agent_func):
         def wrapper(prompt: str, *args, **kwargs):
             if not self.validate_prompt(prompt):
-                 raise ValueError("🚩 [Guardrail Violation] Unauthorized prompt injection detected.")
+                raise ValueError(
+                    "🚩 [Guardrail Violation] Unauthorized prompt injection detected."
+                )
             result = agent_func(prompt, *args, **kwargs)
             return self.sanitize(result)
+
         return wrapper
 
+
 guardrails = _LegacyGuardrails()
-CockpitGuardrails = _LegacyGuardrails 
+CockpitGuardrails = _LegacyGuardrails
 sanitize = SafetyGate.sanitize
 scrub_pii = guardrails.scrub_pii
 tool_privilege_check = SafetyGate.tool_privilege_check

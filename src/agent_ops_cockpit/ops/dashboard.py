@@ -14,18 +14,22 @@ from agent_ops_cockpit.config import config
 
 console = Console()
 
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+)
 def generate_fleet_dashboard(results: dict):
     """Generates a Google Cloud grade fleet dashboard."""
     total = len(results) or 1
     passed_count = sum((1 for r in results.values() if r == 0))
-    compliance_score = (passed_count / total * 100)
-    
+    compliance_score = passed_count / total * 100
+
     suspicious_agents = total - passed_count
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     version = config.VERSION
     repo_name = os.path.basename(os.getcwd())
-    
+
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -105,14 +109,14 @@ def generate_fleet_dashboard(results: dict):
                 <h2 style="font-size:16px; font-weight:600; margin-bottom:16px; color:var(--cockpit-slate);">Agent Fleet Inventory</h2>
                 <div class="agent-grid">
     """
-    
+
     for agent, success in results.items():
         name = os.path.basename(agent)
         status_text = "Healthy" if success == 0 else "Anomalous"
         status_class = "status-pass" if success == 0 else "status-fail"
         agent_hash = hashlib.md5(os.path.abspath(agent).encode()).hexdigest()
         report_url = f"evidence_lake/{agent_hash}/report.html"
-        
+
         html += f"""
                     <div class="agent-card">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -125,7 +129,7 @@ def generate_fleet_dashboard(results: dict):
                         </div>
                     </div>
         """
-        
+
     html += """
                 </div>
             </div>
@@ -133,11 +137,15 @@ def generate_fleet_dashboard(results: dict):
     </body>
     </html>
     """
-    
-    dashboard_path = os.path.join(os.getcwd(), '.cockpit', 'fleet_dashboard.html')
+
+    dashboard_path = os.path.join(
+        os.getcwd(), ".cockpit", "fleet_dashboard.html"
+    )
     output_dir = os.path.dirname(dashboard_path)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir, exist_ok=True)
-    with open(dashboard_path, 'w') as f:
+    with open(dashboard_path, "w") as f:
         f.write(html)
-    console.print(f'📄 [bold blue]Premium Fleet Dashboard generated at {dashboard_path}[/bold blue]')
+    console.print(
+        f"📄 [bold blue]Premium Fleet Dashboard generated at {dashboard_path}[/bold blue]"
+    )

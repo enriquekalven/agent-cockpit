@@ -1,0 +1,33 @@
+{
+  "name": "secops_pii_discovery",
+  "title": "Evolving High-Fidelity PII & Secret Heuristics",
+  "problem_description": "Discover a dictionary of optimal Regex patterns and string indicators that accurately classify PII (emails, SSNs, IPv4) and leaked Cloud/LLM API credentials (AWS Secret Access Keys, Stripe, GCP JSONs, OpenAI API keys) in raw codebase and chat completion traces, minimizing false positives on benign Python and JavaScript code variables.",
+  "metric_name": "f1_score",
+  "metric_direction": "maximize",
+  "eval_inputs": {
+    "benchmark_suite": "secops_v1"
+  },
+  "language": "python",
+  "allowed_imports": [
+    "re",
+    "json",
+    "math",
+    "typing"
+  ],
+  "forbidden_imports": [],
+  "initial_program_description": "Define a standalone Python dictionary named 'PATTERNS' and a function 'scrub(text)' and 'audit_report(text)' that detects and counts PII and secret leaks across 8+ standard and advanced categories.",
+  "evolve_block_description": "The 'PATTERNS' dictionary value mappings (keys: EMAIL, PHONE, SSN, IPV4, AWS_KEY, STRIPE_KEY, GCP_KEY, OPENAI_KEY; values: valid optimized Python re.compile regex string patterns).",
+  "evaluation_strategy": "PARTIAL_CREDIT",
+  "timeout_seconds": 30,
+  "rungs": null,
+  "python_version": ">=3.11",
+  "dependencies": [],
+  "source_file": "src/agent_ops_cockpit/ops/pii_scrubber.py",
+  "source_code": "    PATTERNS = {\n        \"EMAIL\": r\"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\",\n        \"PHONE\": r\"\\b(?:\\+?1[-. ]?)?\\(?([2-9][0-8][0-9])\\)?[-. ]?([2-9][0-9]{2})[-. ]?([0-9]{4})\\b\",\n        \"CREDIT_CARD\": r\"\\b(?:\\d{4}[ -]?){3}\\d{4}\\b\",\n        \"SSN\": r\"\\b\\d{3}-\\d{2}-\\d{4}\\b\",\n        \"IPV4\": r\"\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b\",\n    }",
+  "source_files": null,
+  "constraints": [
+    "Must output valid, syntactically correct Python Regex patterns.",
+    "Must avoid re.compile or memory leaks by using valid escaping.",
+    "Must maintain 100% precision on benign variable names containing 'key', 'secret', or 'email'."
+  ]
+}

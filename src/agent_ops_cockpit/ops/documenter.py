@@ -9,20 +9,29 @@ class TDDGenerator:
     Generates a professional, high-fidelity Technical Design Document (TDD).
     """
 
-    def __init__(self, root_path: str = '.'):
+    def __init__(self, root_path: str = "."):
         self.root_path = os.path.abspath(root_path)
-        self.evidence_path = os.path.join(self.root_path, '.cockpit', 'evidence_lake.json')
+        self.evidence_path = os.path.join(
+            self.root_path, ".cockpit", "evidence_lake.json"
+        )
         # Check if evidence lake exists in parent if not in current
         if not os.path.exists(self.evidence_path):
-             parent_evidence = os.path.join(os.path.dirname(self.root_path), '.cockpit', 'evidence_lake.json')
-             if os.path.exists(parent_evidence):
-                 self.evidence_path = parent_evidence
-                 
-        self.registry_path = os.path.join(os.path.dirname(self.evidence_path), 'gemini_enterprise_registry.json')
+            parent_evidence = os.path.join(
+                os.path.dirname(self.root_path),
+                ".cockpit",
+                "evidence_lake.json",
+            )
+            if os.path.exists(parent_evidence):
+                self.evidence_path = parent_evidence
+
+        self.registry_path = os.path.join(
+            os.path.dirname(self.evidence_path),
+            "gemini_enterprise_registry.json",
+        )
 
     def _load_evidence(self):
         if os.path.exists(self.evidence_path):
-            with open(self.evidence_path, 'r') as f:
+            with open(self.evidence_path, "r") as f:
                 data = json.load(f)
                 if isinstance(data, list):
                     evidence = {}
@@ -31,7 +40,9 @@ class TDDGenerator:
                             # The evidence lake can contain both agent data and metadata
                             # Agent data follows the pattern: { "/abs/path": { ... } }
                             for k, v in item.items():
-                                if isinstance(v, dict) and ('results' in v or 'target_path' in v):
+                                if isinstance(v, dict) and (
+                                    "results" in v or "target_path" in v
+                                ):
                                     evidence[k] = v
                     return evidence
                 return data
@@ -40,7 +51,7 @@ class TDDGenerator:
     def _load_registry(self):
         registry = []
         if os.path.exists(self.registry_path):
-            with open(self.registry_path, 'r') as f:
+            with open(self.registry_path, "r") as f:
                 for line in f:
                     if line.strip():
                         try:
@@ -53,46 +64,65 @@ class TDDGenerator:
         evidence = self._load_evidence()
         registry = self._load_registry()
         timestamp = datetime.now().strftime("%B %d, %Y %H:%M")
-        
+
         # Gathering dynamic metadata
         github_url = "https://github.com/enriquekalven/agent-ops-cockpit"
         pypi_url = "https://pypi.org/project/agentops-cockpit/"
         firebase_url = "https://agent-cockpit.web.app"
-        
+
         # 1. Agent Status & Detailed Specs
         agent_sections = ""
         for path, data in evidence.items():
             name = os.path.basename(path)
-            health = data.get('summary', {}).get('health', 1.0) * 100
+            health = data.get("summary", {}).get("health", 1.0) * 100
             status_text = "PASSED" if health >= 90 else "GAPS DETECTED"
             status_class = "status-pass" if health >= 90 else "status-fail"
-            
+
             findings = ""
-            for module, result in data.get('results', {}).items():
-                status_icon = "●" if result.get('success') else "■"
-                status_color = "#10b981" if result.get('success') else "#ef4444"
-                
+            for module, result in data.get("results", {}).items():
+                status_icon = "●" if result.get("success") else "■"
+                status_color = "#10b981" if result.get("success") else "#ef4444"
+
                 findings += f"""
                 <div class="finding-row">
                     <div class="finding-status" style="color: {status_color};">{status_icon}</div>
                     <div class="finding-module">{module}</div>
-                    <div class="finding-detail">{str(result.get('output', 'N/A'))[:200]}...</div>
+                    <div class="finding-detail">{str(result.get("output", "N/A"))[:200]}...</div>
                 </div>"""
 
             runtime = "Cockpit Cockpit Runtime (Enterprise Mesh)"
             iam_roles = [
-                {"role": "cockpit.agent.executor", "desc": "Access to local reasoning engine and cockpit tools."},
-                {"role": "cockpit.telemetry.writer", "desc": "Write application logs to Cockpit Evidence Lake."},
-                {"role": "cockpit.registry.reader", "desc": "Pull container images from local cockpit registry."}
+                {
+                    "role": "cockpit.agent.executor",
+                    "desc": "Access to local reasoning engine and cockpit tools.",
+                },
+                {
+                    "role": "cockpit.telemetry.writer",
+                    "desc": "Write application logs to Cockpit Evidence Lake.",
+                },
+                {
+                    "role": "cockpit.registry.reader",
+                    "desc": "Pull container images from local cockpit registry.",
+                },
             ]
             networking = [
                 {"type": "Internal IP", "val": "10.0.0.1"},
                 {"type": "Protocol", "val": "gRPC / REST (Cockpit Bridge)"},
-                {"type": "Exposure", "val": "Cockpit Mesh (Layer 7 mTLS)"}
+                {"type": "Exposure", "val": "Cockpit Mesh (Layer 7 mTLS)"},
             ]
 
-            iam_list_html = "".join([f"<li><strong>{r['role']}</strong><br/><small>{r['desc']}</small></li>" for r in iam_roles])
-            net_html = "".join([f"<div class='spec-item'><span>{n['type']}</span><strong>{n['val']}</strong></div>" for n in networking])
+            iam_list_html = "".join(
+                [
+                    f"<li><strong>{r['role']}</strong><br/><small>{r['desc']}</small></li>"
+                    for r in iam_roles
+                ]
+            )
+            net_html = "".join(
+                [
+                    f"<div class='spec-item'><span>{n['type']}</span><strong>{n['val']}</strong></div>"
+                    for n in networking
+                ]
+            )
 
             agent_sections += f"""
             <div id="agent-{name}" class="agent-card">
@@ -137,10 +167,10 @@ class TDDGenerator:
         for reg in registry:
             registry_rows += f"""
             <tr>
-                <td><code>{reg.get('id', 'N/A')}</code></td>
-                <td>{reg.get('display_name', 'N/A')}</td>
-                <td><a href="{reg.get('api_spec', '#')}" class="text-link">OpenAPI Spec ↗</a></td>
-                <td><span class="pill">{reg.get('provider', 'N/A')}</span></td>
+                <td><code>{reg.get("id", "N/A")}</code></td>
+                <td>{reg.get("display_name", "N/A")}</td>
+                <td><a href="{reg.get("api_spec", "#")}" class="text-link">OpenAPI Spec ↗</a></td>
+                <td><span class="pill">{reg.get("provider", "N/A")}</span></td>
             </tr>"""
 
         html = f"""<!DOCTYPE html>
@@ -402,8 +432,10 @@ class TDDGenerator:
     </script>
 </body>
 </html>"""
-        output_file = os.path.join(self.root_path, 'TECHNICAL_DESIGN_DOCUMENT.html')
-        with open(output_file, 'w') as f:
+        output_file = os.path.join(
+            self.root_path, "TECHNICAL_DESIGN_DOCUMENT.html"
+        )
+        with open(output_file, "w") as f:
             f.write(html)
         return output_file
 
@@ -414,7 +446,7 @@ class TDDGenerator:
         """
         evidence = self._load_evidence()
         timestamp = datetime.now().strftime("%B %d, %Y %H:%M")
-        
+
         md = [
             "# 🏛️ Cockpit Technical Design Document (TDD)",
             f"**Generated**: {timestamp}",
@@ -439,23 +471,27 @@ class TDDGenerator:
 
         for path, data in evidence.items():
             name = os.path.basename(path)
-            health = data.get('summary', {}).get('health', 0) * 100
+            health = data.get("summary", {}).get("health", 0) * 100
             status = "✅ HARDENED" if health >= 90 else "⚠️ GAPS DETECTED"
-            
+
             md.append(f"\n### Agent: {name}")
             md.append(f"- **Cockpit Score**: {health:.1f}%")
             md.append(f"- **Status**: {status}")
             md.append("\n#### 🛠️ SME Findings:")
-            
-            for module, result in data.get('results', {}).items():
-                icon = "✅" if result.get('success') else "❌"
-                md.append(f"- {icon} **{module}**: {str(result.get('output', 'N/A'))[:200]}...")
+
+            for module, result in data.get("results", {}).items():
+                icon = "✅" if result.get("success") else "❌"
+                md.append(
+                    f"- {icon} **{module}**: {str(result.get('output', 'N/A'))[:200]}..."
+                )
 
         md.append("\n---")
         md.append("\n*Generated by the AgentOps Cockpit Documenter v2.0.7.*")
-        
-        output_file = os.path.join(self.root_path, 'TECHNICAL_DESIGN_DOCUMENT.md')
-        with open(output_file, 'w') as f:
+
+        output_file = os.path.join(
+            self.root_path, "TECHNICAL_DESIGN_DOCUMENT.md"
+        )
+        with open(output_file, "w") as f:
             f.write("\n".join(md))
         return output_file
 
@@ -465,56 +501,83 @@ class TDDGenerator:
         Useful for long-context LLMs and rapid onboarding.
         """
         from agent_ops_cockpit.ops.discovery import DiscoveryEngine
+
         discovery = DiscoveryEngine(self.root_path)
-        
+
         bundle = [
             "# 🛰️ COCKPIT CODEBASE BUNDLE",
             f"**Generated**: {datetime.now().isoformat()}",
             "**Purpose**: High-fidelity AI context for Cockpit Fleet Operations.",
-            "\n---\n"
+            "\n---\n",
         ]
-        
+
         # Add File Tree
         bundle.append("## 📂 Repository Structure\n```text")
         # Simplified tree
         for root, dirs, files in os.walk(self.root_path):
             # Ignore hidden dirs and some common weights/venv
-            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', 'dist', 'build', '__pycache__']]
-            level = root.replace(self.root_path, '').count(os.sep)
-            indent = ' ' * 4 * (level)
+            dirs[:] = [
+                d
+                for d in dirs
+                if not d.startswith(".")
+                and d not in ["node_modules", "dist", "build", "__pycache__"]
+            ]
+            level = root.replace(self.root_path, "").count(os.sep)
+            indent = " " * 4 * (level)
             bundle.append(f"{indent}{os.path.basename(root)}/")
-            subindent = ' ' * 4 * (level + 1)
+            subindent = " " * 4 * (level + 1)
             for f in files:
-                if not f.startswith('.'):
+                if not f.startswith("."):
                     bundle.append(f"{subindent}{f}")
         bundle.append("```\n\n---\n")
 
         # Consolidate Files (Gittodoc Pattern)
         bundle.append("## 📄 Source Code Consolidation\n")
-        
+
         for file_path in discovery.walk(self.root_path):
             # Filter for meaningful source files
-            if not file_path.endswith(('.py', '.ts', '.js', '.yaml', '.prompt', '.md', 'toml', 'Makefile')):
+            if not file_path.endswith(
+                (
+                    ".py",
+                    ".ts",
+                    ".js",
+                    ".yaml",
+                    ".prompt",
+                    ".md",
+                    "toml",
+                    "Makefile",
+                )
+            ):
                 continue
-            if 'node_modules' in file_path or 'dist' in file_path or '.cockpit' in file_path:
+            if (
+                "node_modules" in file_path
+                or "dist" in file_path
+                or ".cockpit" in file_path
+            ):
                 continue
-                
+
             rel_path = os.path.relpath(file_path, self.root_path)
             bundle.append(f"\n### FILE: `{rel_path}`")
             bundle.append("---")
-            
-            ext = rel_path.split('.')[-1]
-            lang = 'python' if ext == 'py' else 'typescript' if ext == 'ts' else ext
-            
+
+            ext = rel_path.split(".")[-1]
+            lang = (
+                "python"
+                if ext == "py"
+                else "typescript"
+                if ext == "ts"
+                else ext
+            )
+
             bundle.append(f"```{lang}")
             try:
-                with open(file_path, 'r') as f:
+                with open(file_path, "r") as f:
                     bundle.append(f.read())
             except Exception as e:
                 bundle.append(f"Error reading file: {e}")
             bundle.append("```\n")
 
-        output_file = os.path.join(self.root_path, 'CODEBASE_BUNDLE.md')
-        with open(output_file, 'w') as f:
+        output_file = os.path.join(self.root_path, "CODEBASE_BUNDLE.md")
+        with open(output_file, "w") as f:
             f.write("\n".join(bundle))
         return output_file

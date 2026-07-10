@@ -9,6 +9,7 @@ from .cockpit import CockpitOrchestrator
 
 console = Console()
 
+
 class CockpitSimulator:
     """
     Cockpit Battle-Testing Suite (v2.0.7).
@@ -18,19 +19,23 @@ class CockpitSimulator:
     def __init__(self):
         self.tmp_dir = tempfile.mkdtemp(prefix="cockpit_sim_")
         console.print("🧪 [bold cyan]Initializing Cockpit Simulation Hub...[/]")
-        console.print(f"📂 Simulation Workspace: [yellow]{self.tmp_dir}[/yellow]")
+        console.print(
+            f"📂 Simulation Workspace: [yellow]{self.tmp_dir}[/yellow]"
+        )
 
     def _prepare_mock_agent(self, name="sim-agent"):
         agent_path = os.path.join(self.tmp_dir, name)
         os.makedirs(agent_path, exist_ok=True)
-        
+
         # Create a generic non-hardened agent
         with open(os.path.join(agent_path, "agent.py"), "w") as f:
-            f.write("import os\ndef solve_task(text):\n    return f'Solved: {text}'\n")
-            
+            f.write(
+                "import os\ndef solve_task(text):\n    return f'Solved: {text}'\n"
+            )
+
         with open(os.path.join(agent_path, "requirements.txt"), "w") as f:
             f.write("google-adk\nfastapi\n")
-            
+
         return agent_path
 
     async def run_battle_test(self):
@@ -40,19 +45,21 @@ class CockpitSimulator:
 
         os.environ["COCKPIT_SIMULATION"] = "true"
         for cloud in clouds:
-            console.print(f"\n--- 🌊 [bold magenta]BATTLE TESTING CLOUD: {cloud.upper()}[/] ---")
+            console.print(
+                f"\n--- 🌊 [bold magenta]BATTLE TESTING CLOUD: {cloud.upper()}[/] ---"
+            )
             agent_path = self._prepare_mock_agent(f"agent-{cloud}")
-            
+
             orchestrator = CockpitOrchestrator(target_cloud=cloud)
             # Run the pipeline (mocking the deployment step for AWS/Azure to avoid external calls)
             # Note: The pipeline already handles local asset generation
             res = await orchestrator.run_pipeline(agent_path, fleet=False)
-            
+
             # Verify Hydration Assets
             verification = self._verify_hydration(agent_path, cloud)
             results[cloud] = {
                 "pipeline_status": "SUCCESS" if res else "FAILED",
-                "hydration_verified": verification
+                "hydration_verified": verification,
             }
 
         os.environ.pop("COCKPIT_SIMULATION")
@@ -67,39 +74,56 @@ class CockpitSimulator:
         if cloud == "google":
             exists = os.path.exists(os.path.join(path, "Dockerfile.gcp"))
         elif cloud == "aws":
-            exists = os.path.exists(os.path.join(path, "Dockerfile.aws")) and os.path.exists(os.path.join(path, "aws-sam.json"))
+            exists = os.path.exists(
+                os.path.join(path, "Dockerfile.aws")
+            ) and os.path.exists(os.path.join(path, "aws-sam.json"))
         elif cloud == "azure":
-            exists = os.path.exists(os.path.join(path, "Dockerfile.azure")) and os.path.exists(os.path.join(path, "azure-deploy.json"))
-        
+            exists = os.path.exists(
+                os.path.join(path, "Dockerfile.azure")
+            ) and os.path.exists(os.path.join(path, "azure-deploy.json"))
+
         if exists:
-            console.print(f"  ✅ [green]Hydration Verified for {cloud} (Assets Present)[/]")
+            console.print(
+                f"  ✅ [green]Hydration Verified for {cloud} (Assets Present)[/]"
+            )
         else:
-            console.print(f"  ❌ [red]Hydration Failed for {cloud} (Assets Missing)[/]")
+            console.print(
+                f"  ❌ [red]Hydration Failed for {cloud} (Assets Missing)[/]"
+            )
         return exists
 
     def _print_results(self, results):
-        console.print("\n" + "="*50)
+        console.print("\n" + "=" * 50)
         console.print("🏆 [bold cyan]Cockpit Battle-Test Summary[/]")
-        console.print("="*50)
+        console.print("=" * 50)
         for cloud, data in results.items():
-            status = "[green]PASS[/]" if data["pipeline_status"] == "SUCCESS" and data["hydration_verified"] else "[red]FAIL[/]"
+            status = (
+                "[green]PASS[/]"
+                if data["pipeline_status"] == "SUCCESS"
+                and data["hydration_verified"]
+                else "[red]FAIL[/]"
+            )
             console.print(f"• {cloud.upper()}: {status}")
-        console.print("="*50)
+        console.print("=" * 50)
+
 
 if __name__ == "__main__":
     sim = CockpitSimulator()
     asyncio.run(sim.run_battle_test())
 
+
 class ToolProxy:
     """
     [MOCKING DEPTH GAP] The Tool Proxy (Mocking Engine).
-    Wraps external API calls during simulation to inject failures, 
+    Wraps external API calls during simulation to inject failures,
     latency, or malformed data to test agent resiliency.
     """
-    
+
     def __init__(self, mode: str = "nominal"):
         self.mode = mode
-        console.print(f"🛠️ [bold cyan]AgentOps Tool Proxy active in {mode.upper()} mode.[/bold cyan]")
+        console.print(
+            f"🛠️ [bold cyan]AgentOps Tool Proxy active in {mode.upper()} mode.[/bold cyan]"
+        )
 
     def execute_mock_tool(self, tool_name: str, args: dict):
         """
@@ -107,15 +131,33 @@ class ToolProxy:
         """
         if self.mode == "chaos":
             import random
-            failure = random.choice(["500 Internal Server Error", "Timeout (30s)", "Malformed JSON Response", "Rate Limit Exceeded"])
-            console.print(f"🔥 [red][CHAOS] Injecting failure into {tool_name}: {failure}[/red]")
+
+            failure = random.choice(
+                [
+                    "500 Internal Server Error",
+                    "Timeout (30s)",
+                    "Malformed JSON Response",
+                    "Rate Limit Exceeded",
+                ]
+            )
+            console.print(
+                f"🔥 [red][CHAOS] Injecting failure into {tool_name}: {failure}[/red]"
+            )
             return {"status": "error", "message": failure}
-        
+
         if self.mode == "latency":
-             import time
-             console.print(f"⏳ [yellow][LATENCY] Delaying {tool_name} by 2.5s...[/yellow]")
-             time.sleep(2.5)
-        
+            import time
+
+            console.print(
+                f"⏳ [yellow][LATENCY] Delaying {tool_name} by 2.5s...[/yellow]"
+            )
+            time.sleep(2.5)
+
         console.print(f"🔌 [dim]Proxied Tool Call: {tool_name}({args})[/dim]")
-        return {"status": "success", "data": f"Simulated output for {tool_name}"}
+        return {
+            "status": "success",
+            "data": f"Simulated output for {tool_name}",
+        }
+
+
 # Cockpit Alignment: Integrating secret_manager and vault.

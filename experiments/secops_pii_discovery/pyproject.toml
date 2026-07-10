@@ -1,0 +1,9 @@
+[project]
+name = "secops_pii_discovery"
+version = "0.1.0"
+description = "Evolving High-Fidelity PII & Secret Heuristics"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest",
+    "pytest-asyncio"
+]

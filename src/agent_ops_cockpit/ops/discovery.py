@@ -2,6 +2,7 @@
 Pillar: Project Discovery
 Primary Objective: Explicit discovery of agentic 'Brains' via manifests (cockpit.yaml) and high-fidelity heuristics.
 """
+
 try:
     # ContextCacheConfig check (unused in discovery)
     pass
@@ -22,16 +23,43 @@ class DiscoveryEngine:
     Centralized discovery service for the AgentOps Cockpit.
     Aggregates .gitignore, .cockpitignore, and default SRE exclusions to traverse deep hierarchies.
     """
+
     DEFAULT_EXCLUSIONS = {
-        'tests', 'test', 'mocks', 'mock', 'eval', 'evalsets', 'benchmarks',
-        '.git', 'node_modules', 'venv', '.venv', '.build_venv', '.pyenv', '__pycache__', 
-        'dist', 'build', '.pytest_cache', '.mypy_cache', 'cockpit_artifacts', 
-        'cockpit_final_report_*.md', 'cockpit_report.html', 'evidence_lake', 
-        'evidence_lake.json', 'cockpit_audit.sarif', 'fleet_dashboard.html', 
-        '.agent', '.cockpit', '.gcloud', '.firebase', 'conftest.py', 'test_*.py', '*_test.py'
+        "tests",
+        "test",
+        "mocks",
+        "mock",
+        "eval",
+        "evalsets",
+        "benchmarks",
+        ".git",
+        "node_modules",
+        "venv",
+        ".venv",
+        ".build_venv",
+        ".pyenv",
+        "__pycache__",
+        "dist",
+        "build",
+        ".pytest_cache",
+        ".mypy_cache",
+        "cockpit_artifacts",
+        "cockpit_final_report_*.md",
+        "cockpit_report.html",
+        "evidence_lake",
+        "evidence_lake.json",
+        "cockpit_audit.sarif",
+        "fleet_dashboard.html",
+        ".agent",
+        ".cockpit",
+        ".gcloud",
+        ".firebase",
+        "conftest.py",
+        "test_*.py",
+        "*_test.py",
     }
 
-    def __init__(self, root_path: str='.'):
+    def __init__(self, root_path: str = "."):
         self.root_path = os.path.abspath(root_path)
         self.ignore_patterns = self._load_gitignore()
         self.cockpit_ignore = self._load_cockpitignore()
@@ -39,15 +67,15 @@ class DiscoveryEngine:
 
     def _load_gitignore(self) -> List[str]:
         patterns = []
-        gitignore_path = os.path.join(self.root_path, '.gitignore')
+        gitignore_path = os.path.join(self.root_path, ".gitignore")
         if os.path.exists(gitignore_path):
             try:
-                with open(gitignore_path, 'r', errors='ignore') as f:
+                with open(gitignore_path, "r", errors="ignore") as f:
                     for line in f:
                         line = line.strip()
-                        if line and (not line.startswith('#')):
-                            if line.endswith('/'):
-                                patterns.append(line + '*')
+                        if line and (not line.startswith("#")):
+                            if line.endswith("/"):
+                                patterns.append(line + "*")
                             patterns.append(line)
             except Exception:
                 pass
@@ -55,15 +83,15 @@ class DiscoveryEngine:
 
     def _load_cockpitignore(self) -> List[str]:
         patterns = []
-        ignore_path = os.path.join(self.root_path, '.cockpitignore')
+        ignore_path = os.path.join(self.root_path, ".cockpitignore")
         if os.path.exists(ignore_path):
             try:
-                with open(ignore_path, 'r', errors='ignore') as f:
+                with open(ignore_path, "r", errors="ignore") as f:
                     for line in f:
                         line = line.strip()
-                        if line and (not line.startswith('#')):
-                            if line.endswith('/'):
-                                patterns.append(line + '*')
+                        if line and (not line.startswith("#")):
+                            if line.endswith("/"):
+                                patterns.append(line + "*")
                             patterns.append(line)
             except Exception:
                 pass
@@ -74,47 +102,63 @@ class DiscoveryEngine:
         Simple YAML-lite parser for cockpit.yaml to avoid external dependencies.
         """
         config = {}
-        config_path = os.path.join(self.root_path, 'cockpit.yaml')
+        config_path = os.path.join(self.root_path, "cockpit.yaml")
         if not os.path.exists(config_path):
             return config
         try:
-            with open(config_path, 'r', errors='ignore') as f:
+            with open(config_path, "r", errors="ignore") as f:
                 content = f.read()
-                entry_match = re.search('entry_point:\\s*[\'\\"]?(.+?)[\'\\"]?\\s*$', content, re.MULTILINE)
+                entry_match = re.search(
+                    "entry_point:\\s*['\\\"]?(.+?)['\\\"]?\\s*$",
+                    content,
+                    re.MULTILINE,
+                )
                 if entry_match:
-                    config['entry_point'] = entry_match.group(1).strip()
-                threshold_match = re.search('threshold:\\s*(\\d+)', content)
+                    config["entry_point"] = entry_match.group(1).strip()
+                threshold_match = re.search("threshold:\\s*(\\d+)", content)
                 if threshold_match:
-                    config['threshold'] = int(threshold_match.group(1))
-                
-                max_fix_match = re.search('max_fix_files:\\s*(\\d+)', content)
+                    config["threshold"] = int(threshold_match.group(1))
+
+                max_fix_match = re.search("max_fix_files:\\s*(\\d+)", content)
                 if max_fix_match:
-                    config['max_fix_files'] = int(max_fix_match.group(1))
+                    config["max_fix_files"] = int(max_fix_match.group(1))
 
                 def parse_list(key, text):
-                    inline = re.search(f'{key}:\\s*\\[(.*?)\\]', text, re.DOTALL)
+                    inline = re.search(
+                        f"{key}:\\s*\\[(.*?)\\]", text, re.DOTALL
+                    )
                     if inline:
-                        items = inline.group(1).split(',')
-                        return [i.strip().strip('\'"') for i in items if i.strip()]
-                    multi = re.search(f'{key}:\\s*\\n((?:\\s*-\\s*.+\\n?)+)', text)
+                        items = inline.group(1).split(",")
+                        return [
+                            i.strip().strip("'\"") for i in items if i.strip()
+                        ]
+                    multi = re.search(
+                        f"{key}:\\s*\\n((?:\\s*-\\s*.+\\n?)+)", text
+                    )
                     if multi:
-                        items = re.findall('^\\s*-\\s*(.+)$', multi.group(1), re.MULTILINE)
-                        return [i.strip().strip('\'"') for i in items]
+                        items = re.findall(
+                            "^\\s*-\\s*(.+)$", multi.group(1), re.MULTILINE
+                        )
+                        return [i.strip().strip("'\"") for i in items]
                     return []
-                config['exclude'] = parse_list('exclude', content)
-                config['targets'] = parse_list('targets', content)
+
+                config["exclude"] = parse_list("exclude", content)
+                config["targets"] = parse_list("targets", content)
         except Exception:
             pass
         return config
 
-    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+    @retry(
+        wait=wait_exponential(multiplier=1, min=4, max=10),
+        stop=stop_after_attempt(3),
+    )
     def should_ignore(self, path: str) -> bool:
         """
         Determines if a path should be ignored based on defaults, .gitignore, and config.
         """
         path_abs = os.path.abspath(path)
         rel_path = os.path.relpath(path_abs, self.root_path)
-        if rel_path == '.':
+        if rel_path == ".":
             return False
         parts = rel_path.split(os.sep)
         for part in parts:
@@ -124,26 +168,30 @@ class DiscoveryEngine:
                 if fnmatch.fnmatch(part, pattern):
                     return True
         for pattern in self.ignore_patterns:
-            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(os.path.basename(path), pattern):
+            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(
+                os.path.basename(path), pattern
+            ):
                 return True
-            if pattern.endswith('/*') and rel_path.startswith(pattern[:-2]):
+            if pattern.endswith("/*") and rel_path.startswith(pattern[:-2]):
                 return True
         for pattern in self.cockpit_ignore:
-            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(os.path.basename(path), pattern):
+            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(
+                os.path.basename(path), pattern
+            ):
                 return True
-            if pattern.endswith('/*') and rel_path.startswith(pattern[:-2]):
+            if pattern.endswith("/*") and rel_path.startswith(pattern[:-2]):
                 return True
-        user_excludes = self.config.get('exclude', [])
+        user_excludes = self.config.get("exclude", [])
         for pattern in user_excludes:
             if fnmatch.fnmatch(rel_path, pattern):
                 return True
-            if pattern.endswith('/*') and rel_path.startswith(pattern[:-1]):
+            if pattern.endswith("/*") and rel_path.startswith(pattern[:-1]):
                 return True
-            if pattern.endswith('/') and rel_path.startswith(pattern):
+            if pattern.endswith("/") and rel_path.startswith(pattern):
                 return True
             if rel_path.startswith(pattern + os.sep):
                 return True
-        if '{{' in rel_path and '}}' in rel_path:
+        if "{{" in rel_path and "}}" in rel_path:
             return True
         return False
 
@@ -154,12 +202,21 @@ class DiscoveryEngine:
         """
         discovered = []
         # cockpit.yaml is the primary manifest for Manifest-First Discovery
-        indicators = ["cockpit.yaml", "agent.py", "main.py", "demo.py", "pyproject.toml", "package.json", "mcp-config.json", "*.ipynb"]
+        indicators = [
+            "cockpit.yaml",
+            "agent.py",
+            "main.py",
+            "demo.py",
+            "pyproject.toml",
+            "package.json",
+            "mcp-config.json",
+            "*.ipynb",
+        ]
         for root, dirs, files in os.walk(self.root_path):
             if self.should_ignore(root):
                 dirs[:] = []
                 continue
-                
+
             if any(ind in files for ind in indicators):
                 abs_root = os.path.abspath(root)
                 # Check for redundancy
@@ -167,26 +224,35 @@ class DiscoveryEngine:
                     discovered.append(abs_root)
         return discovered
 
-    def walk(self, start_path: Optional[str]=None) -> Generator[str, None, None]:
+    def walk(
+        self, start_path: Optional[str] = None
+    ) -> Generator[str, None, None]:
         """
         Yields file paths while respecting all ignore rules.
         """
         base_search = os.path.abspath(start_path or self.root_path)
         for root, dirs, files in os.walk(base_search):
-            dirs[:] = [d for d in dirs if not self.should_ignore(os.path.join(root, d))]
+            dirs[:] = [
+                d for d in dirs if not self.should_ignore(os.path.join(root, d))
+            ]
             for file in files:
                 file_path = os.path.join(root, file)
                 if not self.should_ignore(file_path):
                     # Skip template files (v2.0.5)
-                    if '{{' in file_path or '{%' in file_path:
+                    if "{{" in file_path or "{%" in file_path:
                         continue
-                    
+
                     # Heuristic check for content-based template detection
                     try:
                         # Only check first 1kb for performance
-                        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        with open(
+                            file_path, "r", encoding="utf-8", errors="ignore"
+                        ) as f:
                             head = f.read(1024)
-                            if '{{cookiecutter' in head or '{% if cookiecutter' in head:
+                            if (
+                                "{{cookiecutter" in head
+                                or "{% if cookiecutter" in head
+                            ):
                                 continue
                     except Exception:
                         pass
@@ -200,7 +266,14 @@ class DiscoveryEngine:
         path_abs = os.path.abspath(path)
         rel_path = os.path.relpath(path_abs, self.root_path)
         parts = rel_path.split(os.sep)
-        library_indicators = {'venv', '.venv', 'site-packages', 'node_modules', 'dist', 'build'}
+        library_indicators = {
+            "venv",
+            ".venv",
+            "site-packages",
+            "node_modules",
+            "dist",
+            "build",
+        }
         return any((part in library_indicators for part in parts))
 
     def detect_language(self) -> str:
@@ -208,19 +281,23 @@ class DiscoveryEngine:
         Identifies the primary language of the agent silo.
         v2.1: Supports Python and TypeScript detection.
         """
-        if os.path.exists(os.path.join(self.root_path, 'pyproject.toml')) or os.path.exists(os.path.join(self.root_path, 'requirements.txt')):
-            return 'python'
-        if os.path.exists(os.path.join(self.root_path, 'package.json')) or os.path.exists(os.path.join(self.root_path, 'tsconfig.json')):
-            return 'typescript'
-        
+        if os.path.exists(
+            os.path.join(self.root_path, "pyproject.toml")
+        ) or os.path.exists(os.path.join(self.root_path, "requirements.txt")):
+            return "python"
+        if os.path.exists(
+            os.path.join(self.root_path, "package.json")
+        ) or os.path.exists(os.path.join(self.root_path, "tsconfig.json")):
+            return "typescript"
+
         # Heuristic check for .py vs .ts files in root
         files = os.listdir(self.root_path)
-        if any(f.endswith('.py') for f in files):
-            return 'python'
-        if any(f.endswith(('.ts', '.tsx', '.js', '.jsx')) for f in files):
-            return 'typescript'
-        
-        return 'python' # Default to Python for Cockpit Agents
+        if any(f.endswith(".py") for f in files):
+            return "python"
+        if any(f.endswith((".ts", ".tsx", ".js", ".jsx")) for f in files):
+            return "typescript"
+
+        return "python"  # Default to Python for Cockpit Agents
 
     def detect_context(self) -> dict:
         """
@@ -228,48 +305,73 @@ class DiscoveryEngine:
         Prioritizes cockpit.yaml over heuristic scanning.
         """
         context = {
-            'cloud': self.config.get('cloud', 'google'), 
-            'framework': self.config.get('framework', 'fastapi'),
-            'is_containerized': False,
-            'has_secrets_risk': False,
-            'protocol': self.config.get('protocol', None)
+            "cloud": self.config.get("cloud", "google"),
+            "framework": self.config.get("framework", "fastapi"),
+            "is_containerized": False,
+            "has_secrets_risk": False,
+            "protocol": self.config.get("protocol", None),
         }
-        
+
         # Check for Dockerfile
-        if os.path.exists(os.path.join(self.root_path, 'Dockerfile')):
-            context['is_containerized'] = True
-            
+        if os.path.exists(os.path.join(self.root_path, "Dockerfile")):
+            context["is_containerized"] = True
+
         # Scan files for indicators
         for file_path in self.walk():
             filename = os.path.basename(file_path)
-            
+
             # Protocol Detection
             if "mcp" in filename.lower() or "mcp" in file_path.lower():
-                context['protocol'] = 'mcp'
-            if "a2ui" in filename.lower() or "a2ui" in file_path.lower() or "a2a" in filename.lower():
-                context['protocol'] = 'a2ui'
+                context["protocol"] = "mcp"
+            if (
+                "a2ui" in filename.lower()
+                or "a2ui" in file_path.lower()
+                or "a2a" in filename.lower()
+            ):
+                context["protocol"] = "a2ui"
 
             # Framework Detection
-            if filename in ['requirements.txt', 'pyproject.toml', 'package.json'] or file_path.endswith(('.py', '.ts', '.js', '.cs')):
+            if filename in [
+                "requirements.txt",
+                "pyproject.toml",
+                "package.json",
+            ] or file_path.endswith((".py", ".ts", ".js", ".cs")):
                 try:
-                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    with open(
+                        file_path, "r", encoding="utf-8", errors="ignore"
+                    ) as f:
                         content = f.read()
-                        if 'flask' in content.lower():
-                            context['framework'] = 'flask'
-                        if 'django' in content.lower():
-                            context['framework'] = 'django'
-                        if 'express' in content.lower() or 'next' in content.lower():
-                            context['framework'] = 'nextjs'
-                        
+                        if "flask" in content.lower():
+                            context["framework"] = "flask"
+                        if "django" in content.lower():
+                            context["framework"] = "django"
+                        if (
+                            "express" in content.lower()
+                            or "next" in content.lower()
+                        ):
+                            context["framework"] = "nextjs"
+
                         # Cloud Detection
-                        if 'boto3' in content or 'aws' in content.lower() or 'amazon' in content.lower() or 'bedrock' in content.lower():
-                            context['cloud'] = 'aws'
-                        elif 'azure' in content.lower() or 'semantic-kernel' in content.lower():
-                            context['cloud'] = 'azure'
-                        
+                        if (
+                            "boto3" in content
+                            or "aws" in content.lower()
+                            or "amazon" in content.lower()
+                            or "bedrock" in content.lower()
+                        ):
+                            context["cloud"] = "aws"
+                        elif (
+                            "azure" in content.lower()
+                            or "semantic-kernel" in content.lower()
+                        ):
+                            context["cloud"] = "azure"
+
                         # Secret Risks (Hardcoded patterns)
-                        if re.search(r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9\-_]{10,}[\'"]', content, re.I):
-                            context['has_secrets_risk'] = True
+                        if re.search(
+                            r'(api[_-]key|secret|password|access[_-]token)\s*=\s*[\'"][a-zA-Z0-9\-_]{10,}[\'"]',
+                            content,
+                            re.I,
+                        ):
+                            context["has_secrets_risk"] = True
                 except Exception:
                     continue
         return context
@@ -279,37 +381,51 @@ class DiscoveryEngine:
         Identifies the core agent file using config, heuristics, and AST analysis.
         v1.4: Supports multi-target discovery and template placeholder awareness.
         """
-        if 'targets' in self.config and self.config['targets']:
-            candidate = os.path.join(self.root_path, self.config['targets'][0])
+        if "targets" in self.config and self.config["targets"]:
+            candidate = os.path.join(self.root_path, self.config["targets"][0])
             if os.path.exists(candidate):
                 return candidate
-        if 'entry_point' in self.config:
-            candidate = os.path.join(self.root_path, self.config['entry_point'])
+        if "entry_point" in self.config:
+            candidate = os.path.join(self.root_path, self.config["entry_point"])
             if os.path.exists(candidate):
                 return candidate
-        priorities = ['src/agent_ops_cockpit/agent.py', 'agent.py', 'agent/agent.py', 'main.py', 'demo.py', '__main__.py', 'app.py', 'index.ts', 'index.js', 'main.ts', 'main.js', 'main.go', 'src/agent.py']
+        priorities = [
+            "src/agent_ops_cockpit/agent.py",
+            "agent.py",
+            "agent/agent.py",
+            "main.py",
+            "demo.py",
+            "__main__.py",
+            "app.py",
+            "index.ts",
+            "index.js",
+            "main.ts",
+            "main.js",
+            "main.go",
+            "src/agent.py",
+        ]
         for p in priorities:
             path = os.path.join(self.root_path, p)
             if os.path.exists(path):
                 return path
         best_candidate = None
         for file_path in self.walk():
-            if not file_path.endswith('.py'):
+            if not file_path.endswith(".py"):
                 continue
-            if 'agent_ops_cockpit/ops' in file_path:
+            if "agent_ops_cockpit/ops" in file_path:
                 continue
             try:
-                with open(file_path, 'r', errors='ignore') as f:
+                with open(file_path, "r", errors="ignore") as f:
                     content = f.read()
                     tree = ast.parse(content)
                     weight = 0
-                    if 'vertexai' in content:
+                    if "vertexai" in content:
                         weight += 10
-                    if 'langchain' in content:
+                    if "langchain" in content:
                         weight += 5
-                    if 'agent_ops_cockpit' in content:
+                    if "agent_ops_cockpit" in content:
                         weight += 20
-                    if 'Agent' in content or 'agent =' in content:
+                    if "Agent" in content or "agent =" in content:
                         weight += 2
                     for node in ast.walk(tree):
                         if isinstance(node, (ast.Import, ast.ImportFrom)):
@@ -318,7 +434,18 @@ class DiscoveryEngine:
                                 modules = [alias.name for alias in node.names]
                             elif node.module:
                                 modules = [node.module]
-                            if any((m and ('vertexai' in m or 'langchain' in m or 'google.cloud' in m or ('agent_ops_cockpit' in m)) for m in modules)):
+                            if any(
+                                (
+                                    m
+                                    and (
+                                        "vertexai" in m
+                                        or "langchain" in m
+                                        or "google.cloud" in m
+                                        or ("agent_ops_cockpit" in m)
+                                    )
+                                    for m in modules
+                                )
+                            ):
                                 weight += 15
                     if weight > 30:
                         return file_path
@@ -329,4 +456,6 @@ class DiscoveryEngine:
                 continue
         if best_candidate:
             return best_candidate[0]
-        return os.path.join(self.root_path, 'agent.py')# Cockpit Policy Alignment: policy, governance, compliance active.
+        return os.path.join(
+            self.root_path, "agent.py"
+        )  # Cockpit Policy Alignment: policy, governance, compliance active.

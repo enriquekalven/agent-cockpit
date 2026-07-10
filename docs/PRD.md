@@ -1,6 +1,6 @@
 # 📄 Product Requirements Document (PRD): AgentOps Cockpit
 
-**Version**: 2.0.7 (The Cockpit Orchestrator)
+**Version**: 2.0.31 (The Cockpit Orchestrator)
 **Status**: Autonomous Core / Production-Ready
 **Owner**: Enrique Kalven & Agentic AI Engineering Team
 
@@ -9,7 +9,7 @@
 ## 1. Executive Summary
 The **AgentOps Cockpit** is a production-grade operations and governance platform for AI agents. It addresses the "Day 2" challenges of agentic development: cost management, security hardening, architectural alignment, and operational visibility. By implementing the **Governance Framework** (Engine, Face, Cockpit), it provides developers with a framework-agnostic "Mission Control" to transition agents from prototypes to reliable production services.
 
-The **v2.0.0 "Cockpit Orchestrator" Milestone** focuses on industry-scale hardening across multi-provider repos, the **Cockpit Cloud Bridge** for provider abstraction, and autonomous remediation of "Monocultural Bias" and "Manifest Drift".
+The **v2.0.31 "Cockpit Orchestrator" Milestone** focuses on industry-scale hardening across multi-provider repos, the **Cockpit Cloud Bridge** for provider abstraction, and autonomous remediation of "Monocultural Bias" and "Manifest Drift".
 
 ---
 
@@ -37,19 +37,19 @@ As AI agent fleets scale from single-digit prototypes to hundreds of production 
   - *Outcome:* The cockpit detects a 401 Unauthorized from the private registry and automatically fails over to the Public PyPI Mirror, unblocking the audit session.
 - **CUJ 2: Fleet-Scale Workspace Audit**
   - *User:* Platform Architect.
-  - *Action:* Runs `uvx agentops-cockpit audit report --workspace` at the root of a 400+ agent monorepo.
+  - *Action:* Runs `uvx agentops-cockpit audit --workspace` at the root of a 400+ agent monorepo.
   - *Outcome:* The **Smart Discovery Engine** respects `.cockpitignore`, audits all agents in parallel, and saves results to a **Partitioned Evidence Lake**.
 - **CUJ 3: Automated Security Gate (CI/CD)**
   - *User:* DevOps Engineer.
-  - *Action:* Integration of `uvx agentops-cockpit audit report --format json` into a GitHub Action.
+  - *Action:* Integration of `uvx agentops-cockpit audit --format json` into a GitHub Action.
   - *Outcome:* Pipeline automatically fails with `EXIT 1` when a hardcoded secret is detected, or `EXIT 2` for architecture violations, while allowing `EXIT 0` for informational warnings.
 - **CUJ 4: Dry-Run Remediation (Auto-Healing)**
   - *User:* AI Engineer.
-  - *Action:* Runs `uvx agentops-cockpit audit report --apply-fixes --dry-run`.
+  - *Action:* Runs `uvx agentops-cockpit audit --apply-fixes --dry-run`.
   - *Outcome:* Views a "Dry Run Dashboard" in the console showing exactly which decorators (e.g., `@retry`) would be injected, without modifying production code until approved.
 - **CUJ 5: Enterprise Database Audit**
   - *User:* Data Engineer / Quality SME.
-  - *Action:* Runs `uvx agentops-cockpit audit maturity` to see database capabilities, or `rag-truth`.
+  - *Action:* Runs `uvx agentops-cockpit audit` to see database capabilities.
   - *Outcome:* The auditor detects unbounded queries in BigQuery/Snowflake and non-transactional writes in Firestore/Spanner, providing high-fidelity remediations.
 
 ---
@@ -57,23 +57,23 @@ As AI agent fleets scale from single-digit prototypes to hundreds of production 
 ## 5. Functional Requirements
 ### R1: Resilient Registry Resolver (Network Resilience)
 - **Automatic Failover**: Must detect 401/403 registry errors and retry using public mirrors (PyPI).
-- **Registry Awareness**: The `diagnose` command must verify connectivity to core indices.
+- **Registry Awareness**: The `uvx agentops-cockpit doctor` command must verify connectivity to core indices.
 
 ### R2: Partitioned Evidence Lake (Scalability)
 - **Partitioning**: Must move from a single `evidence_lake.json` to agent-specific folder partitioning (`evidence_lake/{agent_hash}/latest.json`).
 - **Parallel Performance**: Support simultaneous writes from concurrent processes without file locking contention.
 
 ### R3: Smart Discovery Engine (Orchestration)
-- **Hieuristic Detection**: Must identify the agent "brain" across `agent/agent.py`, `src/main.py`, etc.
+- **Heuristic Detection**: Must identify the agent "brain" across `agent/agent.py`, `src/main.py`, etc.
 - **Exclusion Logic**: Must respect `.cockpitignore` and `cockpit.yaml` "Cockpit Gates" to skip non-essential directories.
 - **Database Probing**: Must detect and audit enterprise data stacks (BigQuery, Snowflake, Databricks, Firestore, Spanner).
 
 ### R6: Maturity Expertise Matrix (Visibility)
 - **Persona Status**: Must display expertise levels across SME personas (SecOps, FinOps, SRE, Architect, Quality, UX).
-- **Control Plane**: Must provide a high-fidelity TUI dashboard via `audit-maturity`.
+- **Control Plane**: Must provide a high-fidelity TUI dashboard via the `uvx agentops-cockpit audit` command's maturity reporting capabilities.
 
 ### R4: Severity-Based Exit Codes (Governance)
-- **Deterministic Blocking**: 
+- **Deterministic Blocking**:
   - `EXIT 0`: Pass
   - `EXIT 1`: Security Critical (Secrets)
   - `EXIT 2`: Architecture/Policy Violation
@@ -95,20 +95,20 @@ As AI agent fleets scale from single-digit prototypes to hundreds of production 
 ## 7. Technical Stack
 - **Engine**: Python 3.10+, FastAPI.
 - **Config**: Centralized `config.py` Single Source of Truth.
-- **CLI**: Typer + Rich (Standardized Binary: `uvx agentops-cockpit`, `ops`, `uvx agentops-cockpit`).
+- **CLI**: Typer + Rich (Standardized Binary: `uvx agentops-cockpit`).
 - **Protocols**: Model Context (MCP), A2UI, UCP, AP2.
 - **Storage**: Multi-tier Evidence Lake (Local Partitioned + Cloud Aggregated).
-- **UI**: React 18 / Vite / A2UI (v2.0.0 standards).
+- **UI**: React 18 / Vite / A2UI (v2.0.31 standards).
 
 ---
 
 ## 8. Roadmap: The Antigravity Path
 - **v1.0.0**: [x] The Governance & Regression Framework.
-- **v2.0.0.0**: [x] The Autonomous Architect (Mobile-Hardened).
-- **v2.0.0.0**: [x] The Ecosystem Expansion (RAG Truth, ROI Waterfall, MCP).
-- **v2.0.0**: [x] Maturity Expertise Matrix, Enterprise Database Auditing.
-- **v2.0.0**: [x] The Cockpit Orchestrator (Multi-Cloud Bridge, Industry Hardening).
+- **v2.0.31**: [x] The Autonomous Architect (Mobile-Hardened).
+- **v2.0.31**: [x] The Ecosystem Expansion (RAG Truth, ROI Waterfall, MCP).
+- **v2.0.31**: [x] Maturity Expertise Matrix, Enterprise Database Auditing.
+- **v2.0.31**: [x] The Cockpit Orchestrator (Multi-Cloud Bridge, Industry Hardening).
 - **v3.0.0 (Upcoming)**: [ ] A2A Inter-Agent Simulation, Token Traffic Control.
 
 ---
-*Generated by the AgentOps Cockpit Orchestrator (v2.0.18 Autonomous Core).*
+*Generated by the AgentOps Cockpit Orchestrator (v2.0.31 Autonomous Core).*

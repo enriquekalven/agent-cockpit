@@ -3,6 +3,7 @@ Pillar: Fleet Intelligence
 SME Persona: Principal AI Architect
 Objective: Provides real-time Slack notifications for operational events.
 """
+
 import logging
 import os
 from typing import Any, Dict, Optional
@@ -10,12 +11,11 @@ from typing import Any, Dict, Optional
 import requests
 from google.adk.tools import ToolContext
 
-logger = logging.getLogger('slack_tool')
+logger = logging.getLogger("slack_tool")
+
 
 def send_slack_message(
-    channel: str,
-    message: str,
-    tool_context: Optional[ToolContext] = None
+    channel: str, message: str, tool_context: Optional[ToolContext] = None
 ) -> Dict[str, Any]:
     """
     Sends a message to a Slack channel.
@@ -23,7 +23,7 @@ def send_slack_message(
     Args:
         channel: The channel name or ID.
         message: The message text to send.
-    
+
     Returns:
         A dictionary containing the status and response from Slack.
     """
@@ -33,27 +33,28 @@ def send_slack_message(
         return {
             "status": "simulated",
             "message": f"[SIMULATED] Sent to {channel}: {message}",
-            "warning": "SLACK_BOT_TOKEN_MISSING"
+            "warning": "SLACK_BOT_TOKEN_MISSING",
         }
 
     try:
         url = "https://slack.com/api/chat.postMessage"
         headers = {
             "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
-        payload = {
-            "channel": channel,
-            "text": message
-        }
-        
+        payload = {"channel": channel, "text": message}
+
         response = requests.post(url, headers=headers, json=payload, timeout=10)
         result = response.json()
-        
+
         if result.get("ok"):
-            return {"status": "success", "channel": channel, "ts": result.get("ts")}
+            return {
+                "status": "success",
+                "channel": channel,
+                "ts": result.get("ts"),
+            }
         else:
             return {"status": "error", "message": result.get("error")}
-            
+
     except Exception as e:
         return {"status": "error", "message": str(e)}

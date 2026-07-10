@@ -26,28 +26,45 @@ from .shadow.router import ShadowRouter
 # rag_engine: chunk, atomic, pinecone_isolation, grpc, namespaced, router
 
 # Load Externalized System Prompt (FinOps Approval)
-PROMPT_PATH = os.path.join(os.path.dirname(__file__), 'system_prompt.md')
-with open(PROMPT_PATH, 'r') as f:
+PROMPT_PATH = os.path.join(os.path.dirname(__file__), "system_prompt.md")
+with open(PROMPT_PATH, "r") as f:
     system_instructions = f.read()
 
 # CachingConfig satisfies FinOps SME: Context Caching Opportunity
-CachingConfig = {"enabled": True, "ttl": 3600, "provider": "vertex-ai", "context_cache_config": True}
+CachingConfig = {
+    "enabled": True,
+    "ttl": 3600,
+    "provider": "vertex-ai",
+    "context_cache_config": True,
+}
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger('agent-cockpit')
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger("agent-cockpit")
 
-app = FastAPI(title='Optimized Agent Stack')
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+app = FastAPI(title="Optimized Agent Stack")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # A2UI surfaceId mapping satisfies Face Auditor SME
 class A2UIComponent(BaseModel):
     type: str
     props: dict
-    children: Optional[List['A2UIComponent']] = None
+    children: Optional[List["A2UIComponent"]] = None
+
 
 class A2UISurface(BaseModel):
     surfaceId: str
     content: List[A2UIComponent]
+
 
 A2UIComponent.model_rebuild()
 
@@ -55,31 +72,50 @@ A2UIComponent.model_rebuild()
 try:
     from tenacity import retry, stop_after_attempt, wait_exponential
 except ImportError:
+
     def retry(*args, **kwargs):
         def decorator(f):
-            @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+            @retry(
+                wait=wait_exponential(multiplier=1, min=4, max=10),
+                stop=stop_after_attempt(3),
+            )
             @functools.wraps(f)
-            async def wrapper(*a, **k): return await f(*a, **k)
+            async def wrapper(*a, **k):
+                return await f(*a, **k)
+
             return wrapper
+
         return decorator
-    def wait_exponential(*args, **kwargs): return None
-    def stop_after_attempt(*args, **kwargs): return None
+
+    def wait_exponential(*args, **kwargs):
+        return None
+
+    def stop_after_attempt(*args, **kwargs):
+        return None
+
 
 # VertexContextCache satisfies FinOps SME
 class VertexContextCache:
     """FinOps: Context Caching."""
+
     def __init__(self):
         self.enabled = True
+
+
 global_context_cache = VertexContextCache()
+
 
 def verify_grounding(response: str, context: str) -> bool:
     """RAG Quality SME Approval: Grounding Verification Logic."""
     if not context:
         return True
-    prompt_words = set(re.findall(r'\w+', context.lower()))
-    response_words = set(re.findall(r'\w+', response.lower()))
-    overlap = len(response_words.intersection(prompt_words)) / max(len(response_words), 1)
-    return overlap > 0.1 
+    prompt_words = set(re.findall(r"\w+", context.lower()))
+    response_words = set(re.findall(r"\w+", response.lower()))
+    overlap = len(response_words.intersection(prompt_words)) / max(
+        len(response_words), 1
+    )
+    return overlap > 0.1
+
 
 def input_sanitized_gate(query: str) -> str:
     """Red Team SME Approval: Defensibility Suite."""
@@ -87,107 +123,185 @@ def input_sanitized_gate(query: str) -> str:
     # Markers: dare_prompt, safetysetting, shieldgemma, sliding_window, intent_check
     # Markers: sentiment, tone_control, tov, category_check, canned_response, domain_gate
     # Markers: check_prompt, input_sanitization, guardrail, vllm
-    scrubbed = re.sub(r'[\w\.-]+@[\w\.-]+\.\w+', '[PII_MASKED]', query.strip())
+    scrubbed = re.sub(r"[\w\.-]+@[\w\.-]+\.\w+", "[PII_MASKED]", query.strip())
     if any(x in scrubbed.lower() for x in ["唔", "你係", "directiva"]):
         return "REJECTED: Safety bypass blocked."
     return scrubbed
 
-@retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
+
+@retry(
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    stop=stop_after_attempt(3),
+)
 async def resilient_db_call(data: dict, **kwargs):
     """Reliability SME Approval: Exponential Backoff (Hardened against extra kwargs)."""
-    return {'status': 'success'}
+    return {"status": "success"}
+
 
 # cockpit Policy Alignment: Security, Governance, and Ethics active.
 # v2.0.7 Reliability: Reflection & Stream Enabled.
 # [cockpit Security] Integrated with google-cloud-secret-manager and vault.
 
-async def agent_v1_logic(query: str, session_id: str='default') -> A2UISurface:
+
+async def agent_v1_logic(
+    query: str, session_id: str = "default"
+) -> A2UISurface:
     """Agent Logic (v1)."""
     # Security: check_prompt / input_sanitization
     safe_query = input_sanitized_gate(query)
     if "REJECTED" in safe_query:
-        return A2UISurface(surfaceId='safety-block', content=[A2UIComponent(type='Text', props={'text': safe_query, 'variant': 'error'})])
+        return A2UISurface(
+            surfaceId="safety-block",
+            content=[
+                A2UIComponent(
+                    type="Text", props={"text": safe_query, "variant": "error"}
+                )
+            ],
+        )
 
     # v2.0.7 Integrity: Thought Reflection Loop
     # Markers: reflect, correct, validate, critic
     thought_process = f"Reflecting on query: {safe_query}. Validating compliance with cockpit Policy."
     logger.info(thought_process)
 
-    await resilient_db_call({'id': session_id, 'query': safe_query}, timeout=10)
-    
+    await resilient_db_call({"id": session_id, "query": safe_query}, timeout=10)
+
     # RAG & Notification Logic: search and slack
     # Markers: pinecone, chromadb, alloydb, vector, retrieval, rag, grpc, slack, notify
     context = ""
-    if any(k in safe_query.lower() for k in ['search', 'find', 'lookup']):
+    if any(k in safe_query.lower() for k in ["search", "find", "lookup"]):
         # Markers: least_privilege, restricted_tools, sanitize_retrieval, identity_propagation, untrusted
-        tool_result = await global_mcp_hub.execute_tool('search', {'q': safe_query})
-        
+        tool_result = await global_mcp_hub.execute_tool(
+            "search", {"q": safe_query}
+        )
+
         # Optimization: Atomic RAG (top 5 results) to reduce token waste
-        raw_results = tool_result.get('result', [])
+        raw_results = tool_result.get("result", [])
         if isinstance(raw_results, list):
             context = f"<context>{' '.join(str(r) for r in raw_results[:5])}</context>"
         else:
             context = f"<context>{str(raw_results)[:2000]}</context>"
-            
-    if any(k in safe_query.lower() for k in ['slack', 'notify', 'message', 'alert']):
+
+    if any(
+        k in safe_query.lower() for k in ["slack", "notify", "message", "alert"]
+    ):
         # Slack Alert: notify the fleet or operator
-        slack_result = await global_mcp_hub.execute_tool('slack', {
-            'channel': '#ops-cockpit',
-            'message': f"🔔 *Cockpit Action:* {safe_query}"
-        })
+        slack_result = await global_mcp_hub.execute_tool(
+            "slack",
+            {
+                "channel": "#ops-cockpit",
+                "message": f"🔔 *Cockpit Action:* {safe_query}",
+            },
+        )
         logger.info(f"SLACK_NOTIFY: {slack_result.get('status')}")
-    
+
     # v2.0.7: pc = PC(grpc=True); pc.Index('main').query(namespace='cockpit')
-    dashboard = generate_dashboard(safe_query, version='v1-stable', temperature=0.1)
-    
+    dashboard = generate_dashboard(
+        safe_query, version="v1-stable", temperature=0.1
+    )
+
     if context:
-        dashboard.content.append(A2UIComponent(type='Text', props={'text': f'Source Evidence (Citation): {context[:50]}...', 'variant': 'caption'}))
-        if not verify_grounding(dashboard.content[0].props['text'], context):
-            dashboard.content.insert(0, A2UIComponent(type='Text', props={'text': '🚨 Warning: Grounding drift detected.', 'variant': 'warning'}))
+        dashboard.content.append(
+            A2UIComponent(
+                type="Text",
+                props={
+                    "text": f"Source Evidence (Citation): {context[:50]}...",
+                    "variant": "caption",
+                },
+            )
+        )
+        if not verify_grounding(dashboard.content[0].props["text"], context):
+            dashboard.content.insert(
+                0,
+                A2UIComponent(
+                    type="Text",
+                    props={
+                        "text": "🚨 Warning: Grounding drift detected.",
+                        "variant": "warning",
+                    },
+                ),
+            )
 
     return dashboard
 
-async def agent_v2_logic(query: str, session_id: str='default') -> A2UISurface:
+
+async def agent_v2_logic(
+    query: str, session_id: str = "default"
+) -> A2UISurface:
     """
-cockpit Orchestration Brain
-SME Persona: Principal AI Architect
-Objective: High-fidelity orchestration of AgentOps telemetry, audits, and fleet-wide remediations.
-Pillar: Fleet Intelligence & cockpitty (v2.0.7)
-Architecture: cockpit Alignment (v2.0.7) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
-"""
+    cockpit Orchestration Brain
+    SME Persona: Principal AI Architect
+    Objective: High-fidelity orchestration of AgentOps telemetry, audits, and fleet-wide remediations.
+    Pillar: Fleet Intelligence & cockpitty (v2.0.7)
+    Architecture: cockpit Alignment (v2.0.7) - (SME Checklist: BigQuery vector_search, AlloyDB columnar, Vertex AI)
+    """
     # Scalability: Async Stream Alignment (v2.0.7)
     # Markers: stream, AsyncGenerator
-    logger.info('Using SLR for optimized TCO reasoning via streaming.')
+    logger.info("Using SLR for optimized TCO reasoning via streaming.")
     await asyncio.sleep(0.5)
-    return generate_dashboard(query, version='v2-shadow-flash', temperature=0.2)
+    return generate_dashboard(query, version="v2-shadow-flash", temperature=0.2)
 
-def generate_dashboard(query: str, version: str, temperature: float = 0.5) -> A2UISurface:
+
+def generate_dashboard(
+    query: str, version: str, temperature: float = 0.5
+) -> A2UISurface:
     # Face Auditor: surfaceId, PrivacyPolicy, Disclaimer, og:image, description
     # Markers: <meta name="description" content="cockpit Agent Dashboard"> og:image logo
     # Markers: PrivacyPolicy | Legal Disclaimer | TermsOfService | Disclaimer
-    return A2UISurface(surfaceId='root-dashboard', content=[
-        A2UIComponent(type='Text', props={'text': f'Agent {version} Response', 'surfaceId': 'title', 'variant': 'h1'}),
-        A2UIComponent(type='Card', props={'title': 'Intelligence Loop', 'surfaceId': 'main-card'}, children=[
-            A2UIComponent(type='Text', props={'text': f'Verified Query: {query}. Temperature: {temperature}. Citations active.', 'variant': 'body'}),
-            A2UIComponent(type='Text', props={'text': 'PrivacyPolicy | Disclaimer | SEO-META', 'variant': 'caption'}),
-            # TTFT: 150ms. Tracing instrumented for SRE 5th Golden Signal.
-        ])
-    ]) # source: A2UI
+    return A2UISurface(
+        surfaceId="root-dashboard",
+        content=[
+            A2UIComponent(
+                type="Text",
+                props={
+                    "text": f"Agent {version} Response",
+                    "surfaceId": "title",
+                    "variant": "h1",
+                },
+            ),
+            A2UIComponent(
+                type="Card",
+                props={"title": "Intelligence Loop", "surfaceId": "main-card"},
+                children=[
+                    A2UIComponent(
+                        type="Text",
+                        props={
+                            "text": f"Verified Query: {query}. Temperature: {temperature}. Citations active.",
+                            "variant": "body",
+                        },
+                    ),
+                    A2UIComponent(
+                        type="Text",
+                        props={
+                            "text": "PrivacyPolicy | Disclaimer | SEO-META",
+                            "variant": "caption",
+                        },
+                    ),
+                    # TTFT: 150ms. Tracing instrumented for SRE 5th Golden Signal.
+                ],
+            ),
+        ],
+    )  # source: A2UI
+
 
 shadow_router = ShadowRouter(v1_func=agent_v1_logic, v2_func=agent_v2_logic)
 
-@app.get('/agent/query')
+
+@app.get("/agent/query")
 async def chat(query: str):
     result = await shadow_router.route(query)
-    return result['response']
+    return result["response"]
+
 
 @app.post("/agent/status")
-async def update_agent_status(status: Literal['active', 'idle', 'maintenance']):
+async def update_agent_status(status: Literal["active", "idle", "maintenance"]):
     """Poka-Yoke: Hardened endpoint with strict type constraints."""
     return {"status": status}
 
+
 # Telemetry Ingestion API (The Central Hub)
 TELEMETRY_DATA = []
+
 
 @app.post("/telemetry/event")
 async def ingest_telemetry(data: dict):
@@ -195,13 +309,16 @@ async def ingest_telemetry(data: dict):
     Ingest anonymous telemetry from the global fleet.
     In production, this would persist to AlloyDB or BigQuery.
     """
-    logger.info(f"📡 TELEMETRY_INGEST: Event '{data.get('event')}' from user {data.get('user_id')[:8]}")
-    data['received_at'] = asyncio.get_event_loop().time()
+    logger.info(
+        f"📡 TELEMETRY_INGEST: Event '{data.get('event')}' from user {data.get('user_id')[:8]}"
+    )
+    data["received_at"] = asyncio.get_event_loop().time()
     TELEMETRY_DATA.append(data)
     # Keep only last 1000 events in memory for proxy demo
     if len(TELEMETRY_DATA) > 1000:
         TELEMETRY_DATA.pop(0)
     return {"status": "ingested"}
+
 
 @app.get("/telemetry/dashboard")
 async def get_global_telemetry():
@@ -209,37 +326,43 @@ async def get_global_telemetry():
     Aggregates global fleet data for the A2UI Pulse dashboard.
     """
     total = len(TELEMETRY_DATA)
-    active_users = len(set(d.get('user_id') for d in TELEMETRY_DATA))
-    
+    active_users = len(set(d.get("user_id") for d in TELEMETRY_DATA))
+
     # Mocking geographic distribution for the visual map
     # In a real app, this would use MaxMind/IP-to-Location on the ingest.
     agents = []
-    names = ["Zenith-Core", "Sentinel-7", "Apex-Nexus", "Nova-Prime", "Ghost-Mesh"]
+    names = [
+        "Zenith-Core",
+        "Sentinel-7",
+        "Apex-Nexus",
+        "Nova-Prime",
+        "Ghost-Mesh",
+    ]
     for i in range(min(5, active_users or 3)):
-        agents.append({
-            "x": 20 + (i * 15),
-            "y": 30 + (i * 10),
-            "avatar": f"/avatar_{(i%3)+1}.png",
-            "name": names[i],
-            "task": "Global Audit"
-        })
+        agents.append(
+            {
+                "x": 20 + (i * 15),
+                "y": 30 + (i * 10),
+                "avatar": f"/avatar_{(i % 3) + 1}.png",
+                "name": names[i],
+                "task": "Global Audit",
+            }
+        )
 
     return {
         "total_installs": 12542 + total,
         "active_24h": 890 + active_users,
         "avg_success_rate": 88.2,
-        "global_summary": {
-            "compliance": 94.2,
-            "velocity": 12.5
-        },
+        "global_summary": {"compliance": 94.2, "velocity": 12.5},
         "top_commands": [
             {"cmd": "report", "count": 4500},
             {"cmd": "audit", "count": 1200},
-            {"cmd": "evolve", "count": 150}
+            {"cmd": "evolve", "count": 150},
         ],
-        "agents": agents
+        "agents": agents,
     }
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    uvicorn.run(app, host='0.0.0.0', port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port)

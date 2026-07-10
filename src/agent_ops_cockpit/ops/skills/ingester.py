@@ -9,10 +9,12 @@ class ContextIngester:
     Parses standard Addy Osmani SKILL.md files and serializes their constraints
     into Cockpit's internal watchlist.json and policies.json.
     """
-    
+
     def __init__(self, cockpit_dir: str):
         self.cockpit_dir = os.path.abspath(cockpit_dir)
-        self.ops_dir = os.path.join(self.cockpit_dir, "src", "agent_ops_cockpit", "ops")
+        self.ops_dir = os.path.join(
+            self.cockpit_dir, "src", "agent_ops_cockpit", "ops"
+        )
         self.watchlist_path = os.path.join(self.ops_dir, "watchlist.json")
         self.policies_path = os.path.join(self.ops_dir, "policies.json")
 
@@ -23,7 +25,7 @@ class ContextIngester:
         Also saves Promptfoo config for runtime execution.
         """
         metadata = GovernanceSkill.parse_skill_md(content, filename=name)
-        
+
         # 1. Write behavioral policies to policies.json
         if os.path.exists(self.policies_path):
             with open(self.policies_path, "r") as f:
@@ -33,18 +35,20 @@ class ContextIngester:
                     policies = {}
         else:
             policies = {}
-            
+
         new_rules = []
         for rat in metadata.rationalizations:
-            new_rules.append(f"Fight excuse: '{rat['excuse']}' -> {rat['rebuttal']}")
+            new_rules.append(
+                f"Fight excuse: '{rat['excuse']}' -> {rat['rebuttal']}"
+            )
         for gate in metadata.verification_gates:
             new_rules.append(f"Require verification: {gate}")
-            
+
         policies[metadata.name] = {
             "description": metadata.description,
-            "rules": new_rules
+            "rules": new_rules,
         }
-        
+
         with open(self.policies_path, "w") as f:
             json.dump(policies, f, indent=2)
 
@@ -57,22 +61,25 @@ class ContextIngester:
                     watchlist = {}
         else:
             watchlist = {}
-            
+
         watchlist[f"skill:{metadata.name}"] = {
             "category": "agent-skills-behavioral",
-            "constraints": new_rules
+            "constraints": new_rules,
         }
-        
+
         with open(self.watchlist_path, "w") as f:
             json.dump(watchlist, f, indent=2)
-            
+
         # 3. Save Promptfoo config if present
         if metadata.promptfoo_config:
-            skills_dir = os.path.join(self.cockpit_dir, ".cockpit", "promptfoo_skills")
+            skills_dir = os.path.join(
+                self.cockpit_dir, ".cockpit", "promptfoo_skills"
+            )
             os.makedirs(skills_dir, exist_ok=True)
-            skill_config_path = os.path.join(skills_dir, f"{metadata.name}.json")
+            skill_config_path = os.path.join(
+                skills_dir, f"{metadata.name}.json"
+            )
             with open(skill_config_path, "w") as f:
                 json.dump(metadata.promptfoo_config, f, indent=2)
-            
-        return metadata
 
+        return metadata

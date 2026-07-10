@@ -16,8 +16,11 @@ from rich.table import Table
 
 from agent_ops_cockpit.ops.discovery import DiscoveryEngine
 
-app = typer.Typer(help="Secret Scanner: Detects hardcoded credentials and leaks.")
+app = typer.Typer(
+    help="Secret Scanner: Detects hardcoded credentials and leaks."
+)
 console = Console()
+
 
 def _calculate_entropy(data: str) -> float:
     """Calculates the Shannon entropy of a string (higher = more likely to be a random secret)."""
@@ -29,6 +32,7 @@ def _calculate_entropy(data: str) -> float:
         if p_x > 0:
             entropy += -p_x * math.log(p_x, 2)
     return entropy
+
 
 # Common Secret Patterns
 SECRET_PATTERNS = {
@@ -43,27 +47,39 @@ SECRET_PATTERNS = {
     "Hardcoded API Variable": r"(?i)(api_key|client_secret|token)\s*=\s*['\"][a-zA-Z0-9_-]{10,}['\"]",
 }
 
+
 @app.command()
 def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
     """
     Scans the codebase for hardcoded secrets, API keys, and credentials.
     """
-    console.print(Panel.fit("🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]", border_style="yellow"))
-    
+    console.print(
+        Panel.fit(
+            "🔍 [bold yellow]SECRET SCANNER: CREDENTIAL LEAK DETECTION[/bold yellow]",
+            border_style="yellow",
+        )
+    )
+
     discovery = DiscoveryEngine(path)
     context = discovery.detect_context()
-    "Google Cloud" if context['cloud'] == 'google' else context['cloud'].upper()
-    secret_manager = "AWS Secrets Manager" if context['cloud'] == 'aws' else "Google Cloud Secret Manager"
-    
+    "Google Cloud" if context["cloud"] == "google" else context["cloud"].upper()
+    secret_manager = (
+        "AWS Secrets Manager"
+        if context["cloud"] == "aws"
+        else "Google Cloud Secret Manager"
+    )
+
     findings = []
-    
+
     for file_path in discovery.walk(path):
         # Filter by relevant extensions
-        if not file_path.endswith((".py", ".env", ".ts", ".js", ".json", ".yaml", ".yml")):
+        if not file_path.endswith(
+            (".py", ".env", ".ts", ".js", ".json", ".yaml", ".yml")
+        ):
             continue
-            
+
         is_lib = discovery.is_library_file(file_path)
-        
+
         try:
             with open(file_path, "r", errors="ignore") as f:
                 lines = f.readlines()
@@ -74,16 +90,28 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                             # 1. Check for inline ignore
                             issue_slug = secret_name.lower().replace(" ", "-")
                             if "# cockpit-ignore" in line:
-                                comment_part = line.split("# cockpit-ignore")[1].lower()
-                                if issue_slug in comment_part or "all" in comment_part:
+                                comment_part = line.split("# cockpit-ignore")[
+                                    1
+                                ].lower()
+                                if (
+                                    issue_slug in comment_part
+                                    or "all" in comment_part
+                                ):
                                     continue
-                            
+
                             # 2. Check for whole-file ignore (first 10 lines)
                             is_ignored_file = False
                             for j in range(min(10, len(lines))):
                                 if "# cockpit-ignore" in lines[j]:
-                                    comment_part = lines[j].split("# cockpit-ignore")[1].lower()
-                                    if issue_slug in comment_part or "all" in comment_part:
+                                    comment_part = (
+                                        lines[j]
+                                        .split("# cockpit-ignore")[1]
+                                        .lower()
+                                    )
+                                    if (
+                                        issue_slug in comment_part
+                                        or "all" in comment_part
+                                    ):
                                         is_ignored_file = True
                                         break
                             if is_ignored_file:
@@ -91,29 +119,39 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
 
                             # 3. Entropy & Verification Layer (v2.0.7)
                             secret_value = match.group(0)
-                            
+
                             # Placeholder Blacklist (v2.0.5)
-                            if all(c == secret_value[0] for c in secret_value) or \
-                               secret_value.lower() in ["abcdef0123456789abcdef0123456789", "1234567890abcdef1234567890abcdef", "your_api_key"]:
+                            if all(
+                                c == secret_value[0] for c in secret_value
+                            ) or secret_value.lower() in [
+                                "abcdef0123456789abcdef0123456789",
+                                "1234567890abcdef1234567890abcdef",
+                                "your_api_key",
+                            ]:
                                 continue
-                                
+
                             entropy = _calculate_entropy(secret_value)
-                            
+
                             # Threshold for a secret is usually > 3.5 bits for random strings
                             # Low-entropy strings (like '01010101') are rarely real keys
-                            if entropy < 3.2 and secret_name not in ["GCP Service Account", "Placeholder Credential"]:
+                            if entropy < 3.2 and secret_name not in [
+                                "GCP Service Account",
+                                "Placeholder Credential",
+                            ]:
                                 continue
 
                             # Library Isolation: Skip hits in known libraries to reduce false positives
                             if is_lib:
                                 continue
-                                
-                            findings.append({
-                                "file": os.path.relpath(file_path, path),
-                                "line": i + 1,
-                                "type": secret_name,
-                                "content": line.strip()[:50] + "..."
-                            })
+
+                            findings.append(
+                                {
+                                    "file": os.path.relpath(file_path, path),
+                                    "line": i + 1,
+                                    "type": secret_name,
+                                    "content": line.strip()[:50] + "...",
+                                }
+                            )
         except Exception:
             continue
 
@@ -130,22 +168,34 @@ def scan(path: str = typer.Argument(".", help="Directory to scan for secrets")):
                 finding["file"],
                 str(finding["line"]),
                 finding["type"],
-                "Move to Secret Manager"
+                "Move to Secret Manager",
             )
             # Orchestrator parsing
-            console.print(escape(f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to {secret_manager} or .env file."))
-            
+            console.print(
+                escape(
+                    f"ACTION: {finding['file']}:{finding['line']} | Found {finding['type']} leak | Move this credential to {secret_manager} or .env file."
+                )
+            )
+
         console.print("\n", table)
-        console.print(f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks.")
-        console.print(f"💡 [bold green]Recommendation:[/bold green] Use {secret_manager} or environment variables for all tokens.")
+        console.print(
+            f"\n❌ [bold red]FAIL:[/bold red] Found {len(findings)} potential credential leaks."
+        )
+        console.print(
+            f"💡 [bold green]Recommendation:[/bold green] Use {secret_manager} or environment variables for all tokens."
+        )
         raise typer.Exit(code=1)
     else:
-        console.print("✅ [bold green]PASS:[/bold green] No hardcoded credentials detected in matched patterns.")
+        console.print(
+            "✅ [bold green]PASS:[/bold green] No hardcoded credentials detected in matched patterns."
+        )
+
 
 @app.command()
 def version():
     """Show the version of the Secret Scanner."""
-    console.print('[bold cyan]v2.0.7[/bold cyan]')
+    console.print("[bold cyan]v2.0.7[/bold cyan]")
+
 
 if __name__ == "__main__":
     app()

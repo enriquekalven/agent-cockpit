@@ -36,77 +36,141 @@ from agent_ops_cockpit.ops import rag_audit as rag_mod
 from agent_ops_cockpit.ops import reliability as rel_mod
 from agent_ops_cockpit.ops import watcher as watch_mod
 from agent_ops_cockpit.ops import workbench as workbench_mod
-from agent_ops_cockpit.ops.context import bm25 as context_bm25
 from agent_ops_cockpit.ops.context import registry as context_reg
 from agent_ops_cockpit.telemetry import telemetry
 
-app = typer.Typer(help='🕹️ AgentOps Cockpit: The Cockpit Fleet Governance Platform.', no_args_is_help=False)
-audit_app = typer.Typer(help="🛡️ Audit Hub: Verify security, quality, arch, and compliance.")
+app = typer.Typer(
+    help="🕹️ AgentOps Cockpit: The Cockpit Fleet Governance Platform.",
+    no_args_is_help=False,
+)
+audit_app = typer.Typer(
+    help="🛡️ Audit Hub: Verify security, quality, arch, and compliance."
+)
 
 # --- MASTER HUB ---
-cockpit_app = typer.Typer(help="🚀 Cockpit: Manage your agent fleet and project health.")
+cockpit_app = typer.Typer(
+    help="🚀 Cockpit: Manage your agent fleet and project health."
+)
+
 
 @cockpit_app.callback(invoke_without_command=True)
-def cockpit_main(ctx: typer.Context, path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+def cockpit_main(
+    ctx: typer.Context,
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """🚀 Mission Control: The 'One Command' to manage your entire agent fleet."""
     if ctx.invoked_subcommand is None:
         dashboard = master_mod.MasterCockpit(path)
         dashboard.render_landing()
 
+
 @cockpit_app.command()
-def bootstrap(path: Annotated[str, typer.Option("--path", "-p", help="Path to project")] = "."):
+def bootstrap(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to project")
+    ] = ".",
+):
     """🏗️ Bootstrap: Explicitly initialize Cockpit manifests and adopt cockpit libraries."""
-    console.print(Panel.fit('🏗️ [bold blue]COCKPIT BOOTSTRAP: PROJECT INITIALIZATION[/bold blue]', border_style='blue'))
-    
+    console.print(
+        Panel.fit(
+            "🏗️ [bold blue]COCKPIT BOOTSTRAP: PROJECT INITIALIZATION[/bold blue]",
+            border_style="blue",
+        )
+    )
+
     # 1. Create cockpit.yaml if missing
-    config_path = os.path.join(path, 'cockpit.yaml')
+    config_path = os.path.join(path, "cockpit.yaml")
     if not os.path.exists(config_path):
-        with open(config_path, 'w') as f:
-            f.write("# AgentOps Cockpit Manifest\nversion: 2.0.7\nentry_point: agent.py\ncloud: google\nframework: fastapi\n")
+        with open(config_path, "w") as f:
+            f.write(
+                "# AgentOps Cockpit Manifest\nversion: 2.0.7\nentry_point: agent.py\ncloud: google\nframework: fastapi\n"
+            )
         console.print("✅ Created [bold]cockpit.yaml[/bold]")
     else:
         console.print("⌛ [dim]cockpit.yaml already exists. Skipping.[/dim]")
 
     # 2. Create .cockpit directory
-    dot_cockpit = os.path.join(path, '.cockpit')
+    dot_cockpit = os.path.join(path, ".cockpit")
     if not os.path.exists(dot_cockpit):
         os.makedirs(dot_cockpit)
         console.print("✅ Created [bold].cockpit/[/bold] artifact store.")
 
     # 3. Adopt libraries (Cockpit Scaffolding)
     from agent_ops_cockpit.ops.migration import MigrationEngine
+
     engine = MigrationEngine(path)
     engine.generate_scaffolding(path)
-    console.print("✅ Generated [bold]Cockpit Scaffolding[/bold] (policy_engine.ts, etc.)")
-    
-    console.print("\n✨ [bold green]Project bootstrapped successfully.[/bold green] Run [blue]cockpit audit[/blue] to begin.")
-fleet_app = typer.Typer(help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling.")
-deploy_app = typer.Typer(help="🚀 Deployment Hub: Project hydration, migration, and cloud factory.")
-fix_app = typer.Typer(help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis.")
-test_app = typer.Typer(help="🧪 Reliability Hub: Unit tests and Persona smoke tests.")
-sys_app = typer.Typer(help="🩺 System Hub: Health diagnosis and version tracking.")
-ops_app = typer.Typer(help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers.")
-create_app = typer.Typer(help="🏗️ Scaffolding Hub: Project initialization and UI creation.")
-context_app = typer.Typer(help="🧠 Context Hub: Manage agent knowledge, skills, and annotations.")
+    console.print(
+        "✅ Generated [bold]Cockpit Scaffolding[/bold] (policy_engine.ts, etc.)"
+    )
+
+    console.print(
+        "\n✨ [bold green]Project bootstrapped successfully.[/bold green] Run [blue]cockpit audit[/blue] to begin."
+    )
+
+
+fleet_app = typer.Typer(
+    help="🛰️ Fleet Hub: Day 2 Ops, Health Tracking, and FinOps scaling."
+)
+deploy_app = typer.Typer(
+    help="🚀 Deployment Hub: Project hydration, migration, and cloud factory."
+)
+fix_app = typer.Typer(
+    help="🔧 Evolution Hub: Targeted fixes and autonomous code synthesis."
+)
+test_app = typer.Typer(
+    help="🧪 Reliability Hub: Unit tests and Persona smoke tests."
+)
+sys_app = typer.Typer(
+    help="🩺 System Hub: Health diagnosis and version tracking."
+)
+ops_app = typer.Typer(
+    help="🛡️ Operations Hub: Observability bridges, Shadow Routing, and Runtime Watchers."
+)
+create_app = typer.Typer(
+    help="🏗️ Scaffolding Hub: Project initialization and UI creation."
+)
+context_app = typer.Typer(
+    help="🧠 Context Hub: Manage agent knowledge, skills, and annotations."
+)
+release_app = typer.Typer(
+    help="🚀 Release Hub: Autonomous versioning, changelogs, and global deployment."
+)
+
 
 # --- LEGACY REDIRECTS (v2.0.1 Smart Aliasing) ---
 @app.command(name="report", hidden=True)
 def legacy_report(
     ctx: typer.Context,
-    mode: str = 'quick',
-    path: str = '.',
-    workspace: bool = typer.Option(False, "--workspace", "-w", help="Scan and audit all agents in the workspace"),
-    heal: bool = typer.Option(False, "--heal", help="Deprecated: Use --apply-fixes instead")
+    mode: str = "quick",
+    path: str = ".",
+    workspace: bool = typer.Option(
+        False,
+        "--workspace",
+        "-w",
+        help="Scan and audit all agents in the workspace",
+    ),
+    heal: bool = typer.Option(
+        False, "--heal", help="Deprecated: Use --apply-fixes instead"
+    ),
 ):
     """[DEPRECATED] Master Architect: Auto-aliasing to 'audit report'."""
-    console.print("🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]...")
+    console.print(
+        "🔄 [bold yellow]Master Architect:[/] Auto-aliasing legacy 'report' to [bold blue]'audit report'[/bold blue]..."
+    )
     if heal:
-        console.print("🔧 [dim]Detected legacy --heal flag. Mapping to --apply-fixes...[/dim]")
-    
+        console.print(
+            "🔧 [dim]Detected legacy --heal flag. Mapping to --apply-fixes...[/dim]"
+        )
+
     # Forward the call to audit report
     report(mode=mode, path=path, workspace=workspace, apply_fixes=heal)
 
+
 console = Console()
+
 
 @app.callback(invoke_without_command=True)
 def callback(ctx: typer.Context):
@@ -115,125 +179,257 @@ def callback(ctx: typer.Context):
         dashboard = master_mod.MasterCockpit(".")
         dashboard.render_landing()
     else:
-        telemetry.track_event_sync("cli_command", {"command": ctx.invoked_subcommand})
+        telemetry.track_event_sync(
+            "cli_command", {"command": ctx.invoked_subcommand}
+        )
+
 
 # --- SYSTEM HUB ---
 @sys_app.command()
 def version():
     """Show the version of the Optimized Agent Stack CLI."""
-    console.print(f'[bold cyan]agent-ops CLI v{config.VERSION}[/bold cyan]')
+    console.print(f"[bold cyan]agent-ops CLI v{config.VERSION}[/bold cyan]")
+
 
 @sys_app.command(name="doctor")
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+)
 def diagnose():
     """Diagnose your AgentOps environment for common issues (Env vars, SDKs, Paths)."""
-    console.print(Panel.fit('🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS (DOCTOR)[/bold blue]', border_style='blue'))
-    cockpit_dir = os.path.join(os.getcwd(), '.cockpit')
+    console.print(
+        Panel.fit(
+            "🩺 [bold blue]AGENTOPS COCKPIT: SYSTEM DIAGNOSIS (DOCTOR)[/bold blue]",
+            border_style="blue",
+        )
+    )
+    cockpit_dir = os.path.join(os.getcwd(), ".cockpit")
     has_cockpit = os.path.exists(cockpit_dir)
-    table = Table(show_header=True, header_style='bold magenta')
-    table.add_column('Check', style='cyan')
-    table.add_column('Status', style='bold')
-    table.add_column('Recommendation', style='dim')
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("Check", style="cyan")
+    table.add_column("Status", style="bold")
+    table.add_column("Recommendation", style="dim")
     try:
         import google.auth
+
         _, project = google.auth.default()
-        table.add_row('GCP Auth (ADC)', f'[green]PASSED ({project})[/green]', 'Authenticated')
+        table.add_row(
+            "GCP Auth (ADC)",
+            f"[green]PASSED ({project})[/green]",
+            "Authenticated",
+        )
     except Exception:
-        table.add_row('GCP Auth (ADC)', '[red]REAUTHENTICATION NEEDED[/red]', "Run 'gcloud auth application-default login'")
+        table.add_row(
+            "GCP Auth (ADC)",
+            "[red]REAUTHENTICATION NEEDED[/red]",
+            "Run 'gcloud auth application-default login'",
+        )
     if has_cockpit:
-        table.add_row('Artifact Store', '[green].cockpit/ (Detected)[/green]', 'Cockpit data path OK')
+        table.add_row(
+            "Artifact Store",
+            "[green].cockpit/ (Detected)[/green]",
+            "Cockpit data path OK",
+        )
     else:
-        table.add_row('Artifact Store', '[yellow]NOT INITIALIZED[/yellow]', "Run 'agent-ops audit report' to bootstrap")
+        table.add_row(
+            "Artifact Store",
+            "[yellow]NOT INITIALIZED[/yellow]",
+            "Run 'agent-ops audit report' to bootstrap",
+        )
     try:
         import urllib.request
-        with urllib.request.urlopen(config.PUBLIC_PYPI_URL, timeout=2) as response:
+
+        with urllib.request.urlopen(
+            config.PUBLIC_PYPI_URL, timeout=2
+        ) as response:
             if response.status == 200:
-                table.add_row('Registry Access', '[green]CONNECTED[/green]', 'Public PyPI reachable')
+                table.add_row(
+                    "Registry Access",
+                    "[green]CONNECTED[/green]",
+                    "Public PyPI reachable",
+                )
     except Exception:
-        table.add_row('Registry Access', '[yellow]OFFLINE / RESTRICTED[/yellow]', 'Check VPN or use --public')
-    if os.path.exists('src/agent_ops_cockpit/agent.py') or os.path.exists('src/a2ui'):
-        table.add_row('Trinity Structure', '[green]VERIFIED[/green]', 'Engine/Face folders present')
+        table.add_row(
+            "Registry Access",
+            "[yellow]OFFLINE / RESTRICTED[/yellow]",
+            "Check VPN or use --public",
+        )
+    if os.path.exists("src/agent_ops_cockpit/agent.py") or os.path.exists(
+        "src/a2ui"
+    ):
+        table.add_row(
+            "Trinity Structure",
+            "[green]VERIFIED[/green]",
+            "Engine/Face folders present",
+        )
     else:
-        table.add_row('Trinity Structure', '[yellow]NON-STANDARD[/yellow]', 'Running from external agent home')
+        table.add_row(
+            "Trinity Structure",
+            "[yellow]NON-STANDARD[/yellow]",
+            "Running from external agent home",
+        )
     console.print(table)
-    console.print("\n✨ [bold blue]Diagnosis complete. Run 'agent-ops audit report' for a deep audit.[/bold blue]")
+    console.print(
+        "\n✨ [bold blue]Diagnosis complete. Run 'agent-ops audit report' for a deep audit.[/bold blue]"
+    )
+
 
 @sys_app.command(name="upgrade")
 def upgrade_cockpit():
     """Check for and install the latest version of the AgentOps Cockpit."""
-    console.print(Panel.fit('🚀 [bold blue]AGENTOPS COCKPIT: COCKPIT UPGRADE ENGINE[/bold blue]', border_style='blue'))
-    console.print(f"Current Local Version: [bold cyan]v{config.VERSION}[/bold cyan]")
-    
+    console.print(
+        Panel.fit(
+            "🚀 [bold blue]AGENTOPS COCKPIT: COCKPIT UPGRADE ENGINE[/bold blue]",
+            border_style="blue",
+        )
+    )
+    console.print(
+        f"Current Local Version: [bold cyan]v{config.VERSION}[/bold cyan]"
+    )
+
     try:
         import json
         import urllib.request
-        with urllib.request.urlopen("https://pypi.org/pypi/agentops-cockpit/json", timeout=3) as response:
+
+        with urllib.request.urlopen(
+            "https://pypi.org/pypi/agentops-cockpit/json", timeout=3
+        ) as response:
             if response.status == 200:
                 data = json.load(response)
-                latest_version = data['info']['version']
-                console.print(f"Latest PyPI Version:  [bold green]v{latest_version}[/bold green]")
-                
+                latest_version = data["info"]["version"]
+                console.print(
+                    f"Latest PyPI Version:  [bold green]v{latest_version}[/bold green]"
+                )
+
                 if latest_version != config.VERSION:
-                    console.print("\n✨ [bold yellow]A new version is available![/bold yellow]")
+                    console.print(
+                        "\n✨ [bold yellow]A new version is available![/bold yellow]"
+                    )
                     console.print("To upgrade, run the following Hero Command:")
-                    console.print(Panel(f"[bold green]pip install --upgrade agentops-cockpit --index-url {config.PUBLIC_PYPI_URL}[/bold green]", border_style="cyan"))
+                    console.print(
+                        Panel(
+                            f"[bold green]pip install --upgrade agentops-cockpit --index-url {config.PUBLIC_PYPI_URL}[/bold green]",
+                            border_style="cyan",
+                        )
+                    )
                 else:
-                    console.print("\n✅ [bold green]You are running the latest version. No action needed.[/bold green]")
+                    console.print(
+                        "\n✅ [bold green]You are running the latest version. No action needed.[/bold green]"
+                    )
     except Exception as e:
-        console.print(f"\n[bold yellow]⚠️ Could not reach PyPI to verify version:[/bold yellow] {str(e)}")
+        console.print(
+            f"\n[bold yellow]⚠️ Could not reach PyPI to verify version:[/bold yellow] {str(e)}"
+        )
         console.print("You can manually attempt an upgrade using:")
-        console.print(Panel("[bold green]pip install --upgrade agentops-cockpit[/bold green]", border_style="dim"))
+        console.print(
+            Panel(
+                "[bold green]pip install --upgrade agentops-cockpit[/bold green]",
+                border_style="dim",
+            )
+        )
 
 
 # --- AUDIT HUB ---
 
+
 @sys_app.command(name="models")
 def list_models():
     """List accessible Gemini models and their capabilities in the current landscape."""
-    console.print(Panel.fit('🧠 [bold blue]AGENTOPS COCKPIT: MODEL CAPABILITY DISCOVERY[/bold blue]', border_style='blue'))
+    console.print(
+        Panel.fit(
+            "🧠 [bold blue]AGENTOPS COCKPIT: MODEL CAPABILITY DISCOVERY[/bold blue]",
+            border_style="blue",
+        )
+    )
     try:
         from google.genai import Client
+
         client = Client()
         models = client.models.list()
-        
+
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("Model ID", style="cyan")
         table.add_column("Capabilities", style="dim")
         table.add_column("Max Tokens", justify="right")
-        
+
         for m in models:
             # Filter for common Gemini models unless verbose
             if "gemini" in m.name.lower():
-                methods = ", ".join([meth.split(":")[0] for meth in m.supported_generation_methods])
+                methods = ", ".join(
+                    [
+                        meth.split(":")[0]
+                        for meth in m.supported_generation_methods
+                    ]
+                )
                 table.add_row(m.name, methods, str(m.output_token_limit))
-        
+
         console.print(table)
-        console.print("\n✨ [dim]Capabilities: generate_content, count_tokens, embed_content, etc.[/dim]")
+        console.print(
+            "\n✨ [dim]Capabilities: generate_content, count_tokens, embed_content, etc.[/dim]"
+        )
     except Exception as e:
         console.print(f"[bold red]Discovery Failed:[/bold red] {str(e)}")
-        console.print("[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]")
+        console.print(
+            "[dim]Hint: Ensure GOOGLE_API_KEY is set or run 'gcloud auth application-default login'.[/dim]"
+        )
+
 
 @app.command(name="certify")
-def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent project to certify")] = ".", 
-                  no_interactive: Annotated[bool, typer.Option("--no-interactive", help="Run in non-interactive mode")] = False,
-                  interactive: Annotated[bool, typer.Option("--interactive", "-i", help="Ask for confirmation before applying fixes")] = False):
+def certification(
+    path: Annotated[
+        str,
+        typer.Option(
+            "--path", "-p", help="Path to the agent project to certify"
+        ),
+    ] = ".",
+    no_interactive: Annotated[
+        bool,
+        typer.Option("--no-interactive", help="Run in non-interactive mode"),
+    ] = False,
+    interactive: Annotated[
+        bool,
+        typer.Option(
+            "--interactive",
+            "-i",
+            help="Ask for confirmation before applying fixes",
+        ),
+    ] = False,
+):
     """
     Launch the 'Cockpit Certification' checklist.
     Runs Pre-flight, Deep Audit (Security/Load), and Full Regression (Unit/Smoke).
     """
-    console.print(Panel.fit('🏅 [bold blue]AGENTOPS COCKPIT: PRODUCTION READINESS CERTIFICATION[/bold blue]', border_style='blue'))
-    
+    console.print(
+        Panel.fit(
+            "🏅 [bold blue]AGENTOPS COCKPIT: PRODUCTION READINESS CERTIFICATION[/bold blue]",
+            border_style="blue",
+        )
+    )
+
     # 1. Environment Pre-flight
     if not pre_mod.run_preflight(target_path=path, target_cloud="google"):
-        console.print("\n[bold red]CERTIFICATION DENIED:[/bold red] Pre-flight environment check failed.")
+        console.print(
+            "\n[bold red]CERTIFICATION DENIED:[/bold red] Pre-flight environment check failed."
+        )
         raise typer.Exit(code=1)
 
     # 2. Deep Functional & Security Audit
-    console.print("\n🛰️ [bold blue]Step 2: Deep Functional, Security & Load Audit...[/bold blue]")
-    audit_exit_code = orch_mod.run_audit(mode='deep', target_path=path, title='PRODUCTION CERTIFICATION AUDIT', apply_fixes=True, interactive=interactive)
-    
+    console.print(
+        "\n🛰️ [bold blue]Step 2: Deep Functional, Security & Load Audit...[/bold blue]"
+    )
+    audit_exit_code = orch_mod.run_audit(
+        mode="deep",
+        target_path=path,
+        title="PRODUCTION CERTIFICATION AUDIT",
+        apply_fixes=True,
+        interactive=interactive,
+    )
+
     # 3. Full Regression Suite (Unit + Smoke Tests)
-    console.print("\n🧪 [bold blue]Step 3: Full Regression Suite (Unit + Smoke tests)...[/bold blue]")
+    console.print(
+        "\n🧪 [bold blue]Step 3: Full Regression Suite (Unit + Smoke tests)...[/bold blue]"
+    )
     try:
         rel_mod.run_regression_suite()
         regression_passed = True
@@ -242,17 +438,23 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
         regression_passed = False
 
     # 4. Final Verdict
-    console.print("\n" + "="*80)
+    console.print("\n" + "=" * 80)
     if audit_exit_code == 0 and regression_passed:
-        console.print(Panel.fit("🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.", border_style="green"))
-        
+        console.print(
+            Panel.fit(
+                "🏆 [bold green]CERTIFICATION GRANTED[/bold green]\nAgent is ready for Production Deployment to Google Cloud / AWS.",
+                border_style="green",
+            )
+        )
+
         # v2.0.7: Generate Cockpit Certificate (Cryptographic Proof)
         import hashlib
+
         cert_data = f"CERTIFICATE:v2.0.7|PATH:{os.path.abspath(path)}|TIME:{datetime.now().isoformat()}"
         proof = hashlib.sha256(cert_data.encode()).hexdigest()
-        
-        cert_path = os.path.join(path, '.cockpit', 'cockpit_certificate.txt')
-        with open(cert_path, 'w') as f:
+
+        cert_path = os.path.join(path, ".cockpit", "cockpit_certificate.txt")
+        with open(cert_path, "w") as f:
             f.write("--- 🏛️ COCKPIT CERTIFICATE v2.0.7 ---\n")
             f.write(f"ISSUED TO: {os.path.basename(os.path.abspath(path))}\n")
             f.write(f"TIMESTAMP: {datetime.now().isoformat()}\n")
@@ -260,15 +462,21 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
             f.write("PILARS: Security, Reliability, Architecture, FinOps\n")
             f.write(f"PROOF: {proof}\n")
             f.write("--------------------------------------\n")
-            f.write("\nThis agent has passed all Cockpit Audit gates and is cleared for high-stakes autonomous operations.")
-        
-        console.print(f"📜 [bold cyan]Cockpit Certificate Generated:[/bold cyan] {cert_path}")
+            f.write(
+                "\nThis agent has passed all Cockpit Audit gates and is cleared for high-stakes autonomous operations."
+            )
+
+        console.print(
+            f"📜 [bold cyan]Cockpit Certificate Generated:[/bold cyan] {cert_path}"
+        )
         console.print(f"🔑 [dim]Cryptographic Proof: {proof[:16]}...[/dim]")
-        
+
         # v2.0.7: Cockpit Attestation (JWT for inter-agent handshake)
         # In actual production, this would use a HSM or Cloud Key Management Service.
         # Here we use a standard Cockpit Secret for the build env.
-        secret = os.environ.get("COCKPIT_COCKPIT_SECRET", "super-secret-cockpit-key-v202")
+        secret = os.environ.get(
+            "COCKPIT_COCKPIT_SECRET", "super-secret-cockpit-key-v202"
+        )
         payload = {
             "iss": "AgentOps Cockpit",
             "sub": os.path.basename(os.path.abspath(path)),
@@ -276,169 +484,371 @@ def certification(path: Annotated[str, typer.Option("--path", "-p", help="Path t
             "exp": datetime.now() + timedelta(days=90),
             "status": "CERTIFIED_PRODUCTION_READY",
             "proof": proof,
-            "pillars": ["Security", "Reliability", "Architecture", "FinOps"]
+            "pillars": ["Security", "Reliability", "Architecture", "FinOps"],
         }
         token = jwt.encode(payload, secret, algorithm="HS256")
-        token_path = os.path.join(path, '.cockpit', 'cockpit_identity.jwt')
-        with open(token_path, 'w') as f:
+        token_path = os.path.join(path, ".cockpit", "cockpit_identity.jwt")
+        with open(token_path, "w") as f:
             f.write(token)
-        
-        console.print(f"🛡️  [bold green]Cockpit Identity Issued (MuTI):[/bold green] {token_path}")
-        console.print("🧩 [dim]This JWT enables Mutual-TLS-for-Intelligence handshakes.[/dim]")
+
+        console.print(
+            f"🛡️  [bold green]Cockpit Identity Issued (MuTI):[/bold green] {token_path}"
+        )
+        console.print(
+            "🧩 [dim]This JWT enables Mutual-TLS-for-Intelligence handshakes.[/dim]"
+        )
     else:
-        console.print(Panel.fit("🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.", border_style="red"))
-        console.print("[dim]Review the coaching reports above and in the .cockpit/ directory for remediation steps.[/dim]")
+        console.print(
+            Panel.fit(
+                "🛑 [bold red]CERTIFICATION DENIED[/bold red]\nCritical gaps detected in Security, Reliability or Logic.",
+                border_style="red",
+            )
+        )
+        console.print(
+            "[dim]Review the coaching reports above and in the .cockpit/ directory for remediation steps.[/dim]"
+        )
         raise typer.Exit(code=2)
+
 
 @audit_app.command()
 def report(
-    mode: Annotated[str, typer.Option('--mode', '-m', help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks")] = 'quick',
-    path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent or workspace to audit')] = '.',
-    workspace: Annotated[bool, typer.Option('--workspace', '-w', help='Scan and audit all agents in the workspace')] = False,
-    apply_fixes: Annotated[bool, typer.Option('--apply-fixes', '-f', '--heal', help='Automatically apply recommended fixes (Auto-Remediation)')] = False,
-    sim: Annotated[bool, typer.Option('--sim', help='Run in simulation mode (Synthetic SME reasoning)')] = False,
-    public: Annotated[bool, typer.Option('--public', help='Force use of public PyPI for registry checks (handles 401 errors)')] = False,
-    output_format: Annotated[str, typer.Option('--format', help="Output format: 'text', 'json', 'sarif'")] = 'text',
-    plain: Annotated[bool, typer.Option('--plain', help='Use plain output without complex Unicode boxes')] = False,
-    dry_run: Annotated[bool, typer.Option('--dry-run', help='Simulate fixes without applying them (Dry Run Dashboard)')] = False,
-    interactive: Annotated[bool, typer.Option('--interactive', '-i', help='Ask for confirmation before applying each fix')] = False,
-    only: Annotated[Optional[List[str]], typer.Option('--only', help='Only run specific categories (e.g. security, finops)')] = None,
-    skip: Annotated[Optional[List[str]], typer.Option('--skip', help='Skip specific categories')] = None,
-    verbose: Annotated[bool, typer.Option('--verbose', '-v', help='Enable verbose output for debugging')] = False
+    mode: Annotated[
+        str,
+        typer.Option(
+            "--mode",
+            "-m",
+            help="Audit mode: 'quick' for essential checks, 'deep' for full benchmarks",
+        ),
+    ] = "quick",
+    path: Annotated[
+        str,
+        typer.Option(
+            "--path", "-p", help="Path to the agent or workspace to audit"
+        ),
+    ] = ".",
+    workspace: Annotated[
+        bool,
+        typer.Option(
+            "--workspace",
+            "-w",
+            help="Scan and audit all agents in the workspace",
+        ),
+    ] = False,
+    apply_fixes: Annotated[
+        bool,
+        typer.Option(
+            "--apply-fixes",
+            "-f",
+            "--heal",
+            help="Automatically apply recommended fixes (Auto-Remediation)",
+        ),
+    ] = False,
+    sim: Annotated[
+        bool,
+        typer.Option(
+            "--sim", help="Run in simulation mode (Synthetic SME reasoning)"
+        ),
+    ] = False,
+    public: Annotated[
+        bool,
+        typer.Option(
+            "--public",
+            help="Force use of public PyPI for registry checks (handles 401 errors)",
+        ),
+    ] = False,
+    output_format: Annotated[
+        str,
+        typer.Option("--format", help="Output format: 'text', 'json', 'sarif'"),
+    ] = "text",
+    plain: Annotated[
+        bool,
+        typer.Option(
+            "--plain", help="Use plain output without complex Unicode boxes"
+        ),
+    ] = False,
+    dry_run: Annotated[
+        bool,
+        typer.Option(
+            "--dry-run",
+            help="Simulate fixes without applying them (Dry Run Dashboard)",
+        ),
+    ] = False,
+    interactive: Annotated[
+        bool,
+        typer.Option(
+            "--interactive",
+            "-i",
+            help="Ask for confirmation before applying each fix",
+        ),
+    ] = False,
+    only: Annotated[
+        Optional[List[str]],
+        typer.Option(
+            "--only",
+            help="Only run specific categories (e.g. security, finops)",
+        ),
+    ] = None,
+    skip: Annotated[
+        Optional[List[str]],
+        typer.Option("--skip", help="Skip specific categories"),
+    ] = None,
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            "--verbose", "-v", help="Enable verbose output for debugging"
+        ),
+    ] = False,
 ):
     """Launch AgentOps Master Audit (Arch, Quality, Security, Cost)."""
     if public:
-        os.environ['UV_INDEX_URL'] = 'https://pypi.org/simple'
-        console.print('🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]')
+        os.environ["UV_INDEX_URL"] = "https://pypi.org/simple"
+        console.print(
+            "🌐 [bold cyan]Switching to Public Registry Failover (PyPI)[/bold cyan]"
+        )
     if workspace:
-        console.print(f'🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]')
-        success = orch_mod.workspace_audit(root_path=path, mode=mode, sim=sim, apply_fixes=apply_fixes, dry_run=dry_run, only=only, skip=skip, interactive=interactive)
+        console.print(
+            f"🕹️ [bold blue]Launching {mode.upper()} WORKSPACE Audit (v{config.VERSION})...[/bold blue]"
+        )
+        success = orch_mod.workspace_audit(
+            root_path=path,
+            mode=mode,
+            sim=sim,
+            apply_fixes=apply_fixes,
+            dry_run=dry_run,
+            only=only,
+            skip=skip,
+            interactive=interactive,
+        )
         if not success:
             raise typer.Exit(code=3)
     else:
         pre_mod.run_preflight(path)
-        console.print(f'🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]')
-        exit_code = orch_mod.run_audit(mode=mode, target_path=path, apply_fixes=apply_fixes, sim=sim, output_format=output_format, dry_run=dry_run, only=only, skip=skip, plain=plain, verbose=verbose, interactive=interactive)
+        console.print(
+            f"🕹️ [bold blue]Launching {mode.upper()} System Audit (v{config.VERSION})...[/bold blue]"
+        )
+        exit_code = orch_mod.run_audit(
+            mode=mode,
+            target_path=path,
+            apply_fixes=apply_fixes,
+            sim=sim,
+            output_format=output_format,
+            dry_run=dry_run,
+            only=only,
+            skip=skip,
+            plain=plain,
+            verbose=verbose,
+            interactive=interactive,
+        )
         if exit_code != 0:
             raise typer.Exit(code=exit_code)
 
+
 @audit_app.command()
-def security(path: Annotated[str, typer.Argument(help='Directory to scan')] = '.'):
+def security(
+    path: Annotated[str, typer.Argument(help="Directory to scan")] = ".",
+):
     """Run security audit including Red Team and Secret Scanning."""
-    console.print('🚩 [bold red]Launching Security Audit (Red Team + Secrets)...[/bold red]')
+    console.print(
+        "🚩 [bold red]Launching Security Audit (Red Team + Secrets)...[/bold red]"
+    )
     from agent_ops_cockpit.ops import secret_scanner as secret_mod
+
     secret_mod.scan(path)
     red_mod.audit(path)
 
+
 @audit_app.command()
-def quality(path: str='.'):
+def quality(path: str = "."):
     """Run Hill Climbing quality optimization."""
     quality_mod.audit(path)
 
+
 @audit_app.command()
-def arch(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
+def arch(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """Architecture Design Review (v2.0+ compliant)."""
     arch_mod.audit(path)
 
+
 @audit_app.command()
-def context(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
+def context(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """Visualize Token window usage (Static vs Turn-based)."""
     from agent_ops_cockpit.ops.auditors.context_auditor import ContextSME
+
     auditor = ContextSME()
     auditor.audit(path)
 
+
 @audit_app.command()
-def document(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
+def document(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """[Task 2] Professional TDD Generator (PDF/HTML)."""
     generator = doc_mod.TDDGenerator(path)
     h_out = generator.generate_tdd_html()
     m_out = generator.generate_tdd_markdown()
     b_out = generator.generate_codebase_bundle()
-    console.print(f"📄 [bold green]Technical Design Document (HTML):[/bold green] {h_out}")
-    console.print(f"📝 [bold green]Technical Design Document (MD):  [/bold green] {m_out}")
-    console.print(f"📦 [bold green]Cockpit Codebase Bundle:      [/bold green] {b_out}")
+    console.print(
+        f"📄 [bold green]Technical Design Document (HTML):[/bold green] {h_out}"
+    )
+    console.print(
+        f"📝 [bold green]Technical Design Document (MD):  [/bold green] {m_out}"
+    )
+    console.print(
+        f"📦 [bold green]Cockpit Codebase Bundle:      [/bold green] {b_out}"
+    )
+
 
 @audit_app.command()
-def policy(input_text: Annotated[Optional[str], typer.Option('--text', '-t', help='Input text to validate')] = None):
+def policy(
+    input_text: Annotated[
+        Optional[str],
+        typer.Option("--text", "-t", help="Input text to validate"),
+    ] = None,
+):
     """Audit declarative guardrails (Forbidden topics, HITL)."""
-    console.print('🛡️ [bold green]Launching Guardrail Policy Audit...[/bold green]')
+    console.print(
+        "🛡️ [bold green]Launching Guardrail Policy Audit...[/bold green]"
+    )
     engine = policy_mod.GuardrailPolicyEngine()
     if input_text:
         try:
             engine.validate_input(input_text)
-            console.print('✅ [bold green]Input Passed Validation.[/bold green]')
+            console.print(
+                "✅ [bold green]Input Passed Validation.[/bold green]"
+            )
         except policy_mod.PolicyViolation as e:
-            console.print(f'❌ [bold red]Violation Detected:[/bold red] {e.category} - {e.message}')
+            console.print(
+                f"❌ [bold red]Violation Detected:[/bold red] {e.category} - {e.message}"
+            )
     else:
         report = engine.get_audit_report()
-        console.print(f"📋 [bold cyan]Policy Engine Status:[/bold cyan] {report['policy_active']}")
-        console.print(f"🚫 [bold]Forbidden Topics:[/bold] {report['forbidden_topics_count']}")
-        console.print(f"🤝 [bold]HITL Tools:[/bold] {', '.join(report['hitl_tools'])}")
+        console.print(
+            f"📋 [bold cyan]Policy Engine Status:[/bold cyan] {report['policy_active']}"
+        )
+        console.print(
+            f"🚫 [bold]Forbidden Topics:[/bold] {report['forbidden_topics_count']}"
+        )
+        console.print(
+            f"🤝 [bold]HITL Tools:[/bold] {', '.join(report['hitl_tools'])}"
+        )
+
 
 @audit_app.command()
 def maturity():
     """Display the Expertise Matrix for personas and frameworks."""
     audit_maturity()
 
+
 @audit_app.command()
-def email(recipient: Annotated[str, typer.Argument(help='Recipient email address')]):
+def email(
+    recipient: Annotated[str, typer.Argument(help="Recipient email address")],
+):
     """Email the latest audit report."""
-    console.print(f'📡 [bold blue]Preparing to email audit report to {recipient}...[/bold blue]')
+    console.print(
+        f"📡 [bold blue]Preparing to email audit report to {recipient}...[/bold blue]"
+    )
     orchestrator = orch_mod.CockpitOrchestrator()
-    if not os.path.exists('cockpit_final_report.md'):
-        console.print("[red]❌ Error: Run 'agent-ops audit report' first.[/red]")
+    if not os.path.exists("cockpit_final_report.md"):
+        console.print(
+            "[red]❌ Error: Run 'agent-ops audit report' first.[/red]"
+        )
         return
     orchestrator.send_email_report(recipient)
 
+
 @audit_app.command()
-def face(path: Annotated[str, typer.Option('--path', help='Path to Frontend folder')] = 'src'):
+def face(
+    path: Annotated[
+        str, typer.Option("--path", help="Path to Frontend folder")
+    ] = "src",
+):
     """Audit the Global Frontend (Face Layer) for AG UI, React, or CopilotKit alignment."""
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
+
     ui_mod.audit(path)
+
 
 # --- OPERATIONS HUB ---
 @ops_app.command()
 def export(target: str = "local", format: str = "json"):
     """[OBSERVABILITY BRIDGE] Export telemetry traces to 3rd party hubs (Arize, LangSmith)."""
-    console.print(f"📡 [bold blue]AgentOps Export: Exporting traces to {target} ({format})...[/bold blue]")
+    console.print(
+        f"📡 [bold blue]AgentOps Export: Exporting traces to {target} ({format})...[/bold blue]"
+    )
     res = telemetry.export_traces(format=format, target_hub=target)
     if res["status"] == "success":
-        console.print(f"✅ [bold green]Export Complete![/bold green] {res.get('file', res.get('message'))}")
+        console.print(
+            f"✅ [bold green]Export Complete![/bold green] {res.get('file', res.get('message'))}"
+        )
     else:
-        console.print(f"❌ [bold red]Export Failed:[/bold red] {res['message']}")
+        console.print(
+            f"❌ [bold red]Export Failed:[/bold red] {res['message']}"
+        )
+
 
 @ops_app.command()
 def shadow_routing(diversion: float = 0.05):
     """[DIVERSION GAP] Activate the Production Shadow Router for live traffic analysis."""
     from agent_ops_cockpit.ops import shadow as shadow_mod
+
     shadow_mod.ProductionShadowRouter(diversion_percent=diversion)
-    console.print("✨ [bold]Shadow Router in standby.[/bold] Listening for diversion signals...")
+    console.print(
+        "✨ [bold]Shadow Router in standby.[/bold] Listening for diversion signals..."
+    )
+
 
 @ops_app.command()
 def watch_ops():
     """[RUNTIME HUB] Launch the Operational Watcher for LLM-driven runtime interpretation."""
     watch_mod.run_operational_watch()
 
+
 @ops_app.command()
 def gateway(port: int = 8000):
     """🛡️ Cockpit Gateway: Launch the local sidecar for PII Scrubbing and Cost Routing."""
     from agent_ops_cockpit.ops import gateway as gateway_mod
-    console.print(Panel.fit('🛡️ [bold blue]COCKPIT GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...', border_style='blue'))
+
+    console.print(
+        Panel.fit(
+            "🛡️ [bold blue]COCKPIT GATEWAY: LOCAL SIDECAR[/bold blue]\nListening for agent completions on localhost:8000...",
+            border_style="blue",
+        )
+    )
     gateway_mod.start_gateway(port=port)
+
 
 @ops_app.command()
 def simulate_ops(mode: str = "nominal"):
     """[CHAOS ENGINE] Battle-test agent tools with Chaos/Latency proxy injections."""
     from agent_ops_cockpit.ops import simulator as sim_mod
+
     proxy = sim_mod.ToolProxy(mode=mode)
     proxy.execute_mock_tool("search_api", {"query": "Cockpit Audit"})
 
+
 @audit_app.command()
-def shadow_analysis(base: Annotated[str, typer.Argument(help="Path to base agent/report")], candidate: Annotated[str, typer.Argument(help="Path to candidate agent/report")]):
+def shadow_analysis(
+    base: Annotated[str, typer.Argument(help="Path to base agent/report")],
+    candidate: Annotated[
+        str, typer.Argument(help="Path to candidate agent/report")
+    ],
+):
     """Shadow Mode: Differential reasoning analysis (V1 vs V2)."""
     from agent_ops_cockpit.ops import shadow as shadow_mod
+
     runner = shadow_mod.ShadowRunner(base, candidate)
     runner.run_differential()
+
 
 # --- FLEET HUB ---
 @fleet_app.command(name="status")
@@ -447,50 +857,100 @@ def fleet_status():
     orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.list_fleet()
 
+
 @fleet_app.command(name="map")
-def fleet_map(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'):
+def fleet_map(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """🛰️ Fleet Map: High-fidelity visual topology of the agent estate."""
     orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.render_fleet_map(path)
 
+
 @fleet_app.command()
-def mothball(cloud: Annotated[Optional[str], typer.Option('--cloud', help='Specific cloud to mothball')] = None):
+def mothball(
+    cloud: Annotated[
+        Optional[str],
+        typer.Option("--cloud", help="Specific cloud to mothball"),
+    ] = None,
+):
     """Scale fleet to zero to stop incurring costs."""
     orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.mothball_fleet(cloud)
 
+
 @fleet_app.command()
-def resume(cloud: Annotated[Optional[str], typer.Option('--cloud', help='Specific cloud to resume')] = None):
+def resume(
+    cloud: Annotated[
+        Optional[str], typer.Option("--cloud", help="Specific cloud to resume")
+    ] = None,
+):
     """Resume a mothballed fleet."""
     orchestrator = cockpit_mod.CockpitOrchestrator()
     orchestrator.resume_fleet(cloud)
 
+
 @fleet_app.command()
-def tunnel(path: Annotated[str, typer.Option('--path', '-p', help='Path to local agent')] = '.', port: Annotated[int, typer.Option('--port', help='Local port')] = 8080):
+def tunnel(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to local agent")
+    ] = ".",
+    port: Annotated[int, typer.Option("--port", help="Local port")] = 8080,
+):
     """Mocks a production registration for a local agent (GE Bridge)."""
-    console.print(f"🌉 [bold magenta]Establishing Local-to-Cloud Bridge for port {port}...[/bold magenta]")
+    console.print(
+        f"🌉 [bold magenta]Establishing Local-to-Cloud Bridge for port {port}...[/bold magenta]"
+    )
     orchestrator = cockpit_mod.CockpitOrchestrator()
     agent_name = os.path.basename(os.path.abspath(path))
     engine = migrate_mod.MigrationEngine(path)
     tunnel_url = f"http://localhost:{port}"
     engine.auto_register_to_gemini(agent_name, a2a_proxy=True)
-    orchestrator.fleet_manager.register_agent(name=agent_name, path=path, cloud="local-tunnel", endpoint=tunnel_url, version=config.VERSION)
-    console.print(f"✅ [green]Tunnel Active:[/] Gemini Enterprise now sees [bold]{agent_name}[/] at {tunnel_url}")
+    orchestrator.fleet_manager.register_agent(
+        name=agent_name,
+        path=path,
+        cloud="local-tunnel",
+        endpoint=tunnel_url,
+        version=config.VERSION,
+    )
+    console.print(
+        f"✅ [green]Tunnel Active:[/] Gemini Enterprise now sees [bold]{agent_name}[/] at {tunnel_url}"
+    )
+
 
 @fleet_app.command(name="anomaly")
-def anomaly_check(name: Annotated[str, typer.Option(help='Agent name to audit')], sim_rogue: Annotated[bool, typer.Option('--rogue', help='Simulate rogue PII exfiltration')] = False):
+def anomaly_check(
+    name: Annotated[str, typer.Option(help="Agent name to audit")],
+    sim_rogue: Annotated[
+        bool, typer.Option("--rogue", help="Simulate rogue PII exfiltration")
+    ] = False,
+):
     """Detect Tool Misuse and Rogue behavior in live telemetry."""
     telemetry_data = [
-        {"timestamp": datetime.now().isoformat(), "tool_calls": 12, "payload": "Normal reasoning loop"},
+        {
+            "timestamp": datetime.now().isoformat(),
+            "tool_calls": 12,
+            "payload": "Normal reasoning loop",
+        },
     ]
     if sim_rogue:
-        telemetry_data.append({"timestamp": datetime.now().isoformat(), "tool_calls": 1, "payload": "Extracting PII: user@example.com"})
+        telemetry_data.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "tool_calls": 1,
+                "payload": "Extracting PII: user@example.com",
+            }
+        )
     orchestrator = cockpit_mod.CockpitOrchestrator()
-    report = orchestrator.fleet_manager.monitor_agent_anomaly(name, telemetry_data)
+    report = orchestrator.fleet_manager.monitor_agent_anomaly(
+        name, telemetry_data
+    )
     from agent_ops_cockpit.ops.auditors.anomaly_auditor import AnomalySME
+
     auditor = AnomalySME()
     auditor.display_report(report)
-
 
 
 @fleet_app.command(name="watch")
@@ -498,215 +958,496 @@ def watch_fleet():
     """Track ecosystem updates (ADK, LangChain, etc.) in real-time."""
     watch_mod.run_watch()
 
+
 @fleet_app.command(name="shadow-roi")
-def fleet_shadow_roi(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to benchmark')] = '.'):
+def fleet_shadow_roi(
+    path: Annotated[
+        str,
+        typer.Option(
+            "--path", "-p", help="Path to look for agents to benchmark"
+        ),
+    ] = ".",
+):
     """🔦 Shadow ROI: Interactive benchmarking to find optimal model tiers."""
     from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+
     bench = ReliabilityBenchmarker(path)
     asyncio.run(bench.shadow_benchmark_roi())
 
+
 # --- DEPLOY HUB ---
 @deploy_app.command()
-def cockpit(path: Annotated[str, typer.Option("--path", "-p", help="Path to the agent/workspace")] = ".", fleet: Annotated[bool, typer.Option("--fleet", help="Process all agents in the workspace")] = True, target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud Platform: google, aws, azure")] = "google"):
+def cockpit(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the agent/workspace")
+    ] = ".",
+    fleet: Annotated[
+        bool,
+        typer.Option("--fleet", help="Process all agents in the workspace"),
+    ] = True,
+    target: Annotated[
+        str,
+        typer.Option(
+            "--target", "-t", help="Target Cloud Platform: google, aws, azure"
+        ),
+    ] = "google",
+):
     """End-to-End Agent Factory: Audit -> Fix -> Hydrate -> Deploy."""
     orchestrator = cockpit_mod.CockpitOrchestrator(target_cloud=target)
     asyncio.run(orchestrator.run_pipeline(path, fleet=fleet))
 
+
 @deploy_app.command()
-def migrate(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to migrate')] = '.', target: Annotated[str, typer.Option('--target', '-t', help='Target Cloud Platform: google, aws, azure')] = 'google'):
+def migrate(
+    path: Annotated[
+        str,
+        typer.Option("--path", "-p", help="Path to look for agents to migrate"),
+    ] = ".",
+    target: Annotated[
+        str,
+        typer.Option(
+            "--target", "-t", help="Target Cloud Platform: google, aws, azure"
+        ),
+    ] = "google",
+):
     """Move agents to Google Cloud, AWS, or Azure."""
     engine = migrate_mod.MigrationEngine(path)
     results = engine.run_migration_loop(target_cloud=target.lower())
     if not results:
-        console.print(f"[yellow]No migration candidates found for target: {target}[/yellow]")
+        console.print(
+            f"[yellow]No migration candidates found for target: {target}[/yellow]"
+        )
     else:
         for r in results:
-            reg_info = f" | Registry: [bold magenta]{r['registry']}[/bold magenta]" if r['cloud'] == 'google' else ""
-            console.print(f"✅ [bold green]Migrated:[/bold green] {r['agent']} -> [bold cyan]{target.upper()}[/bold cyan] ({', '.join(r['assets'])}){reg_info}")
+            reg_info = (
+                f" | Registry: [bold magenta]{r['registry']}[/bold magenta]"
+                if r["cloud"] == "google"
+                else ""
+            )
+            console.print(
+                f"✅ [bold green]Migrated:[/bold green] {r['agent']} -> [bold cyan]{target.upper()}[/bold cyan] ({', '.join(r['assets'])}){reg_info}"
+            )
+
 
 @deploy_app.command()
-def register(path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace or agent to register')] = '.', a2a: Annotated[bool, typer.Option('--a2a', help='Enable A2A (Agent-to-Agent) bridge for cross-cloud agents')] = False):
+def register(
+    path: Annotated[
+        str,
+        typer.Option(
+            "--path", "-p", help="Path to workspace or agent to register"
+        ),
+    ] = ".",
+    a2a: Annotated[
+        bool,
+        typer.Option(
+            "--a2a",
+            help="Enable A2A (Agent-to-Agent) bridge for cross-cloud agents",
+        ),
+    ] = False,
+):
     """Register agent fleet as native Vertex AI Tools."""
     engine = migrate_mod.MigrationEngine(path)
-    console.print(f"📡 [bold blue]Gemini Enterprise: Fleet Registration Initialized for {path}...[/bold blue]")
+    console.print(
+        f"📡 [bold blue]Gemini Enterprise: Fleet Registration Initialized for {path}...[/bold blue]"
+    )
     if a2a:
-        console.print("🌉 [bold magenta]Mode: A2A Bridge Enabled (Multi-Cloud Interop)[/bold magenta]")
-    
+        console.print(
+            "🌉 [bold magenta]Mode: A2A Bridge Enabled (Multi-Cloud Interop)[/bold magenta]"
+        )
+
     # We walk the discovery engine for all py files and attempt registration
     count = 0
     for file_path in engine.discovery.walk():
-        if not file_path.endswith('.py'):
+        if not file_path.endswith(".py"):
             continue
-        base_name = os.path.basename(file_path).replace('.py', '')
-        if base_name in ['agent', 'main', 'app']:
-             # Use parent directory name for better visibility
-             name = os.path.basename(os.path.dirname(file_path)).lower().replace('_', '-')
+        base_name = os.path.basename(file_path).replace(".py", "")
+        if base_name in ["agent", "main", "app"]:
+            # Use parent directory name for better visibility
+            name = (
+                os.path.basename(os.path.dirname(file_path))
+                .lower()
+                .replace("_", "-")
+            )
         else:
-             name = base_name.lower().replace('_', '-')
-        
+            name = base_name.lower().replace("_", "-")
+
         # If a2a is enabled, we register even if not explicitly on GCP (via bridge)
         url = engine.auto_register_to_gemini(name, a2a_proxy=a2a)
         if url:
-            label = "Registered (Agent Engine)" if not a2a else "Registered (A2A Bridge)"
-            console.print(f"✅ [bold green]{label}:[/bold green] {name} -> {url}")
+            label = (
+                "Registered (Agent Engine)"
+                if not a2a
+                else "Registered (A2A Bridge)"
+            )
+            console.print(
+                f"✅ [bold green]{label}:[/bold green] {name} -> {url}"
+            )
             count += 1
-    
+
     if count == 0:
-        console.print("[yellow]No services found to register. Ensure agents are deployed or use --a2a for cross-cloud bridge.[/yellow]")
+        console.print(
+            "[yellow]No services found to register. Ensure agents are deployed or use --a2a for cross-cloud bridge.[/yellow]"
+        )
     else:
-        console.print(f"\n✨ [bold green]Successfully on-boarded {count} agents to Gemini Enterprise (Agent Engine / A2A).[/bold green]")
+        console.print(
+            f"\n✨ [bold green]Successfully on-boarded {count} agents to Gemini Enterprise (Agent Engine / A2A).[/bold green]"
+        )
+
 
 @deploy_app.command(name="prep")
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def deploy_prep(path: Annotated[str, typer.Option('--path', help='Path to agent/workspace')] = '.', target: Annotated[str, typer.Option('--target', help='Primary target cloud')] = 'google'):
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+)
+def deploy_prep(
+    path: Annotated[
+        str, typer.Option("--path", help="Path to agent/workspace")
+    ] = ".",
+    target: Annotated[
+        str, typer.Option("--target", help="Primary target cloud")
+    ] = "google",
+):
     """Generate multi-cloud deployment assets without forced deployment."""
-    console.print(Panel.fit('🚀 [bold green]PRODUCTION READINESS FACTORY[/bold green]', border_style='green'))
-    
+    console.print(
+        Panel.fit(
+            "🚀 [bold green]PRODUCTION READINESS FACTORY[/bold green]",
+            border_style="green",
+        )
+    )
+
     # Step 1: Deep Audit & Auto-Remediation
-    console.print('\n[bold]Step 1: Deep Cockpitty Audit & Auto-Fix[/bold]')
-    orch_mod.run_audit(mode='deep', target_path=path, apply_fixes=True)
-    
+    console.print("\n[bold]Step 1: Deep Cockpitty Audit & Auto-Fix[/bold]")
+    orch_mod.run_audit(mode="deep", target_path=path, apply_fixes=True)
+
     # Step 2: Multi-Cloud Asset Generation (Hydration)
-    console.print('\n[bold]Step 2: Hydrating Multi-Cloud Deployment Assets[/bold]')
+    console.print(
+        "\n[bold]Step 2: Hydrating Multi-Cloud Deployment Assets[/bold]"
+    )
     engine = migrate_mod.MigrationEngine(path)
-    engine.generate_deployment_assets(path, target_cloud='google')
-    engine.generate_deployment_assets(path, target_cloud='aws')
-    engine.generate_deployment_assets(path, target_cloud='azure')
-    
+    engine.generate_deployment_assets(path, target_cloud="google")
+    engine.generate_deployment_assets(path, target_cloud="aws")
+    engine.generate_deployment_assets(path, target_cloud="azure")
+
     # Step 3: Frontend Build Verification
-    console.print('\n[bold]Step 4: A2UI Face Preparation (npm run build)[/bold]')
+    console.print(
+        "\n[bold]Step 4: A2UI Face Preparation (npm run build)[/bold]"
+    )
     try:
-        subprocess.run(['npm', 'run', 'build'], check=True, capture_output=True)
+        subprocess.run(["npm", "run", "build"], check=True, capture_output=True)
         console.print("✅ A2UI Build Artifacts Ready (./dist)")
     except Exception:
-        console.print("⚠️  Frontend build skipped or failed. Ensure node_modules are installed.")
+        console.print(
+            "⚠️  Frontend build skipped or failed. Ensure node_modules are installed."
+        )
 
     # Step 4: Staging Gemini Enterprise Registration
-    console.print('\n[bold]Step 5: Staging Gemini Enterprise Tool Registry[/bold]')
+    console.print(
+        "\n[bold]Step 5: Staging Gemini Enterprise Tool Registry[/bold]"
+    )
     # We stage the registration manifest even if not yet deployed
-    reg_path = os.path.join('.cockpit', 'gemini_enterprise_registry.json')
+    reg_path = os.path.join(".cockpit", "gemini_enterprise_registry.json")
     import json
+
     manifest = {
         "timestamp": datetime.now().isoformat(),
         "agent": os.path.basename(path),
         "status": "PRODUCTION_READY",
         "endpoints": ["cloud-run", "app-runner", "container-apps"],
-        "registration_mode": "native"
+        "registration_mode": "native",
     }
-    with open(reg_path, 'w') as f:
+    with open(reg_path, "w") as f:
         json.dump(manifest, f, indent=4)
-    console.print(f"📦 Registration manifest staged at: [cyan]{reg_path}[/cyan]")
+    console.print(
+        f"📦 Registration manifest staged at: [cyan]{reg_path}[/cyan]"
+    )
 
-    console.print(Panel(
-        "[bold green]FLEET IS PRODUCTION READY[/bold green]\n\n"
-        "1. [bold]Google Cloud:[/bold] Dockerfile.gcp ready.\n"
-        "2. [bold]AWS App Runner:[/bold] Dockerfile.aws + aws-apprunner.json ready.\n"
-        "3. [bold]Azure Container Apps:[/bold] Dockerfile.azure + azure-deploy.bicep ready.\n"
-        "4. [bold]Gemini Enterprise:[/bold] Run [dim]make register[/dim] after cloud push.\n\n"
-        "[dim]Note: Direct 'cloud run deploy' is deferred to your CI/CD pipeline.[/dim]",
-        title="Artifact Factory Results", border_style="green"
-    ))
+    console.print(
+        Panel(
+            "[bold green]FLEET IS PRODUCTION READY[/bold green]\n\n"
+            "1. [bold]Google Cloud:[/bold] Dockerfile.gcp ready.\n"
+            "2. [bold]AWS App Runner:[/bold] Dockerfile.aws + aws-apprunner.json ready.\n"
+            "3. [bold]Azure Container Apps:[/bold] Dockerfile.azure + azure-deploy.bicep ready.\n"
+            "4. [bold]Gemini Enterprise:[/bold] Run [dim]make register[/dim] after cloud push.\n\n"
+            "[dim]Note: Direct 'cloud run deploy' is deferred to your CI/CD pipeline.[/dim]",
+            title="Artifact Factory Results",
+            border_style="green",
+        )
+    )
+
 
 @deploy_app.command()
 def simulate_deploy():
     """Battle-test the Cockpit Pipeline across GCP, AWS, and Azure."""
     from agent_ops_cockpit.ops import simulator
+
     sim = simulator.CockpitSimulator()
     asyncio.run(sim.run_battle_test())
 
+
 # --- EVOLUTION HUB ---
 @fix_app.command(name="issue")
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
-def fix_issue(issue_id: Annotated[str, typer.Argument(help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')")], path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.'):
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+)
+def fix_issue(
+    issue_id: Annotated[
+        str,
+        typer.Argument(
+            help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"
+        ),
+    ],
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the agent/workspace")
+    ] = ".",
+):
     """Apply a targeted fix for a specific audit finding."""
-    console.print(f'🔧 [bold blue]Attempting targeted fix for: {issue_id}...[/bold blue]')
+    console.print(
+        f"🔧 [bold blue]Attempting targeted fix for: {issue_id}...[/bold blue]"
+    )
     orchestrator = orch_mod.CockpitOrchestrator()
     success = orchestrator.apply_targeted_fix(issue_id, path)
     if not success:
         raise typer.Exit(code=1)
 
+
 @fix_app.command(name="recipe")
 def fix_recipe(
-    recipe: Annotated[str, typer.Option("--recipe", help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)")],
-    path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'
+    recipe: Annotated[
+        str,
+        typer.Option(
+            "--recipe",
+            help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)",
+        ),
+    ],
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
 ):
     """Apply named remediation recipes surgically via AST injection."""
-    console.print(f"🧪 [bold green]Named Remediation Recipe:[/] Triggering '{recipe}' on workspace...")
+    console.print(
+        f"🧪 [bold green]Named Remediation Recipe:[/] Triggering '{recipe}' on workspace..."
+    )
     orchestrator = orch_mod.CockpitOrchestrator()
     mapping = {
         "inject-tenacity": "retry",
         "add-timeouts": "timeout",
-        "strict-genui": "resiliency"
+        "strict-genui": "resiliency",
     }
     target_str = mapping.get(recipe, recipe)
     success = orchestrator.apply_targeted_fix(target_str, path)
     if not success:
         from agent_ops_cockpit.ops.discovery import DiscoveryEngine
         from agent_ops_cockpit.ops.remediator import CodeRemediator
+
         brain = DiscoveryEngine(path).find_agent_brain()
         if brain and os.path.exists(brain):
-            console.print(f"⚡ Applying recipe direct to AST for [cyan]{os.path.relpath(brain, path)}[/cyan]...")
+            console.print(
+                f"⚡ Applying recipe direct to AST for [cyan]{os.path.relpath(brain, path)}[/cyan]..."
+            )
             rem = CodeRemediator(brain)
             from agent_ops_cockpit.ops.auditors.base import AuditFinding
-            dummy = AuditFinding(category="Recipe", title=f"Recipe {recipe}", description="Manual injection")
+
+            dummy = AuditFinding(
+                category="Recipe",
+                title=f"Recipe {recipe}",
+                description="Manual injection",
+            )
             if target_str == "retry":
                 rem.apply_resiliency(dummy)
             else:
                 rem.apply_timeouts(dummy)
             rem.save()
-            console.print(f"✅ Successfully injected recipe '{recipe}' via CodeRemediator.")
+            console.print(
+                f"✅ Successfully injected recipe '{recipe}' via CodeRemediator."
+            )
         else:
-            console.print(f"[yellow]⚠️ Recipe '{recipe}' applied safely.[/yellow]")
+            console.print(
+                f"[yellow]⚠️ Recipe '{recipe}' applied safely.[/yellow]"
+            )
+
 
 @ops_app.command(name="heal")
 def ops_heal_alias(
-    recipe: Annotated[str, typer.Option("--recipe", help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)")],
-    path: Annotated[str, typer.Option('--path', '-p', help='Path to workspace')] = '.'
+    recipe: Annotated[
+        str,
+        typer.Option(
+            "--recipe",
+            help="Named recipe to apply (inject-tenacity, add-timeouts, strict-genui)",
+        ),
+    ],
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
 ):
     """Alias for 'fix recipe' - Modular CLI injectors for targeted agent self-healing."""
     fix_recipe(recipe, path)
 
+
 @app.command(name="evolve")
-def evolve(path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.', branch: Annotated[bool, typer.Option('--branch/--no-branch', help='Create a new git branch for the fixes')] = True):
+def evolve(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the agent/workspace")
+    ] = ".",
+    branch: Annotated[
+        bool,
+        typer.Option(
+            "--branch/--no-branch", help="Create a new git branch for the fixes"
+        ),
+    ] = True,
+):
     """Autonomous Evolution: Surgically fixes gaps and creates a hardened branch."""
     orch_mod.run_autonomous_evolution(path, branch=branch)
 
+
+@release_app.command(name="zero2hero")
+def release_zero2hero(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the workspace root")
+    ] = ".",
+    version: Annotated[
+        str,
+        typer.Option(
+            "--version", "-v", help="Target semantic version (e.g. 2.0.21)"
+        ),
+    ] = None,
+):
+    """🚀 zero2hero: End-to-end autonomous quality gates and release publishing."""
+    import asyncio
+
+    from agent_ops_cockpit.ops.zero2hero import Zero2HeroEngine
+
+    engine = Zero2HeroEngine(workspace_path=path, target_version=version)
+    asyncio.run(engine.execute_release(version))
+
+
+@test_app.command(name="drift")
+def test_drift(
+    agent_dir: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the agent directory")
+    ] = "economic_research",
+    app_name: Annotated[
+        str,
+        typer.Option(
+            "--app-name", "-n", help="Name of the ADK App to evaluate"
+        ),
+    ] = "Economic_Research_Agent",
+):
+    """🕵️  10-Turn Drift Test: Simulate and analyze multi-turn interaction for persona erosion."""
+    import asyncio
+    import importlib.util
+    import sys
+
+    agent_path = os.path.abspath(agent_dir)
+    sys.path.insert(0, agent_path)
+
+    try:
+        # Dynamically load the agent from agent.py
+        spec = importlib.util.spec_from_file_location(
+            "dynamic_agent", os.path.join(agent_path, "agent.py")
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        target_agent = None
+        if hasattr(module, "era_agent"):
+            target_agent = module.era_agent
+        elif hasattr(module, "agent"):
+            if hasattr(module.agent, "root_agent"):
+                target_agent = module.agent.root_agent
+            else:
+                target_agent = module.agent
+        elif hasattr(module, "export_agent"):
+            app_instance = module.export_agent.get_app()
+            target_agent = app_instance.root_agent
+
+        if not target_agent:
+            console.print(
+                f"❌ [red]Error:[/] Could not find root_agent or export_agent in {agent_path}/agent.py"
+            )
+            return
+
+        from agent_ops_cockpit.eval.drift import DriftEvaluator
+
+        evaluator = DriftEvaluator(target_agent=target_agent, app_name=app_name)
+        asyncio.run(evaluator.run_simulation())
+
+    except Exception as e:
+        console.print(
+            f"❌ [red]Failed to load or execute agent drift simulation:[/] {e}"
+        )
+
+
 @app.command(name="upgrade")
 def autonomous_upgrade(
-    path: Annotated[str, typer.Option('--path', '-p', help='Path to the repository/workspace')] = '.',
-    docs_url: Annotated[str, typer.Argument(help='URL pointing to the new architectural standard or engineering docs')] = "https://example.com/docs"
+    path: Annotated[
+        str,
+        typer.Option("--path", "-p", help="Path to the repository/workspace"),
+    ] = ".",
+    docs_url: Annotated[
+        str,
+        typer.Argument(
+            help="URL pointing to the new architectural standard or engineering docs"
+        ),
+    ] = "https://example.com/docs",
 ):
     """Autonomous Refactoring: Pull new docs and rewrite the codebase in a Git Sandbox."""
     import asyncio
 
     from agent_ops_cockpit.ops.upgrader import run_autonomous_upgrade
+
     asyncio.run(run_autonomous_upgrade(path, docs_url))
 
+
 @app.command(name="finops")
-def root_finops(path: Annotated[str, typer.Option('--path', '-p', help='Path to look for agents to benchmark')] = '.'):
+def root_finops(
+    path: Annotated[
+        str,
+        typer.Option(
+            "--path", "-p", help="Path to look for agents to benchmark"
+        ),
+    ] = ".",
+):
     """💰 FinOps: Interactive benchmarking to find optimal model tiers for maximum ROI."""
     from agent_ops_cockpit.ops.benchmarker import ReliabilityBenchmarker
+
     bench = ReliabilityBenchmarker(path)
     import asyncio
+
     asyncio.run(bench.shadow_benchmark_roi())
+
 
 @fix_app.command(name="reason")
 def fix_reason(
-    issue_id: Annotated[str, typer.Argument(help="The issue ID to provide reasoning for")],
-    reason: Annotated[str, typer.Option("--msg", "-m", help="Reasoning for ignoring or overriding the finding")],
-    path: Annotated[str, typer.Option('--path', '-p', help='Path to the agent/workspace')] = '.'
+    issue_id: Annotated[
+        str, typer.Argument(help="The issue ID to provide reasoning for")
+    ],
+    reason: Annotated[
+        str,
+        typer.Option(
+            "--msg",
+            "-m",
+            help="Reasoning for ignoring or overriding the finding",
+        ),
+    ],
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to the agent/workspace")
+    ] = ".",
 ):
     """The Architect's Dialogue: Provide a justification to override an audit finding."""
-    console.print(f'💬 [bold blue]Architect\'s Dialogue Initialized for: {issue_id}...[/bold blue]')
+    console.print(
+        f"💬 [bold blue]Architect's Dialogue Initialized for: {issue_id}...[/bold blue]"
+    )
     orchestrator = orch_mod.CockpitOrchestrator()
-    
+
     # v2.0.7: Verify the reasoning using the Semantic Auditor
-    console.print(f"🧐 [magenta]Verifying justification:[/magenta] \"{reason}\"")
-    
+    console.print(f'🧐 [magenta]Verifying justification:[/magenta] "{reason}"')
+
     # We use the BaseAuditor's semantic_verify
     from agent_ops_cockpit.ops.auditors.security import SecurityAuditor
+
     auditor = SecurityAuditor()
-    
+
     # Find the finding in the latest report
     findings = orchestrator.load_latest_findings(path)
     target = None
@@ -714,24 +1455,35 @@ def fix_reason(
         if issue_id in f.title or issue_id in f.description:
             target = f
             break
-            
+
     if not target:
-         console.print(f"[red]❌ Error: Could not find finding matching '{issue_id}' in the latest report.[/red]")
-         return
+        console.print(
+            f"[red]❌ Error: Could not find finding matching '{issue_id}' in the latest report.[/red]"
+        )
+        return
 
     is_valid = auditor.semantic_verify(
-        reason, 
-        f"Does this technical justification logically address the following audit finding: '{target.title}'? The user claims they have handled it elsewhere or it is a false positive."
+        reason,
+        f"Does this technical justification logically address the following audit finding: '{target.title}'? The user claims they have handled it elsewhere or it is a false positive.",
     )
-    
+
     if is_valid:
-        console.print("✅ [bold green]Justification Accepted.[/bold green] 'Judge of Judges' signed off.")
+        console.print(
+            "✅ [bold green]Justification Accepted.[/bold green] 'Judge of Judges' signed off."
+        )
         # Mark as ignored in the evidence lake for future runs
         orchestrator.ignore_finding(target.title, reason, path)
-        console.print(f"📜 [dim]Finding '{target.title}' will be suppressed in future audits.[/dim]")
+        console.print(
+            f"📜 [dim]Finding '{target.title}' will be suppressed in future audits.[/dim]"
+        )
     else:
-        console.print("❌ [bold red]Justification Rejected.[/bold red] The Architect disagrees with your reasoning.")
-        console.print("[dim]Please implement the recommended fix or provide a stronger technical justification.[/dim]")
+        console.print(
+            "❌ [bold red]Justification Rejected.[/bold red] The Architect disagrees with your reasoning."
+        )
+        console.print(
+            "[dim]Please implement the recommended fix or provide a stronger technical justification.[/dim]"
+        )
+
 
 # --- RELIABILITY HUB ---
 @test_app.command(name="unit")
@@ -739,84 +1491,172 @@ def reliability_unit_test():
     """Run core unit tests (pytest)."""
     rel_mod.run_tests()
 
+
 @test_app.command()
 def smoke():
     """Run E2E Persona 'Pipes' Validation."""
     rel_mod.run_smoke_test()
+
 
 @test_app.command()
 def regression():
     """Full Regression Suite: Unit Tests + Smoke Tests + A2UI Compliance."""
     rel_mod.run_regression_suite()
 
+
 @test_app.command()
 def simulate_test():
     """Stress-test reasoning depth with Persona-based User Simulation."""
     rel_mod.run_user_simulation()
 
+
 # --- SCAFFOLDING HUB ---
 @create_app.command(name="trinity")
-def create_trinity(project_name: Annotated[str, typer.Argument(help='The name of the new project')] = 'my-agent'):
+def create_trinity(
+    project_name: Annotated[
+        str, typer.Argument(help="The name of the new project")
+    ] = "my-agent",
+):
     """Scaffold a unified Cockpit project (Engine + Face)."""
     # Readiness Check
     if not pre_mod.run_preflight(target_cloud="google"):
-        console.print("\n[bold red]FATAL: Project environment is not production-ready.[/bold red]")
-        console.print("[dim]Please resolve the BLOCKED checks above before scaffolding.[/dim]")
+        console.print(
+            "\n[bold red]FATAL: Project environment is not production-ready.[/bold red]"
+        )
+        console.print(
+            "[dim]Please resolve the BLOCKED checks above before scaffolding.[/dim]"
+        )
         raise typer.Exit(code=1)
 
-    console.print(Panel.fit(f'🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]', border_style='green'))
+    console.print(
+        Panel.fit(
+            f"🚀 [bold green]AGENTOPS COCKPIT: TRINITY INITIALIZATION[/bold green]\nProject: [bold cyan]{project_name}[/bold cyan]",
+            border_style="green",
+        )
+    )
     try:
-        console.print('🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)')
-        console.print(f'   [dim]Running: uvx agent-starter-pack create adk_a2ui_base --name {project_name}[/dim]')
-        console.print('🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)')
-        console.print(f'   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]')
-        console.print('🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)')
-        console.print('   [dim]Injecting Evidence Lake, Master Audit Suite, and Cockpit Policies...[/dim]')
-        console.print(Panel(f'✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v{config.VERSION} compliant[/dim]', title='[bold green]Project Initialized[/bold green]', border_style='green', expand=False))
+        console.print(
+            "🧠 [bold blue]Pillar 1: The Engine[/bold blue] (Logic/Tools)"
+        )
+        console.print(
+            f"   [dim]Running: uvx agent-starter-pack create adk_a2ui_base --name {project_name}[/dim]"
+        )
+        console.print(
+            "🎭 [bold purple]Pillar 2: The Face[/bold purple] (A2UI Interface)"
+        )
+        console.print(
+            f"   [dim]Running: uvx agent-ui-starter-pack create a2ui --name {project_name}[/dim]"
+        )
+        console.print(
+            "🕹️ [bold green]Pillar 3: The Cockpit[/bold green] (Ops/Governance)"
+        )
+        console.print(
+            "   [dim]Injecting Evidence Lake, Master Audit Suite, and Cockpit Policies...[/dim]"
+        )
+        console.print(
+            Panel(
+                f"✅ [bold green]Trinity Scaffolding Complete![/bold green]\n\n[bold]Next Steps:[/bold]\n1. [dim]cd {project_name}[/dim]\n2. [dim]make dev[/dim]\n3. [dim]uvx agentops-cockpit audit report[/dim]\n\n[dim]Architecture: Trinity v{config.VERSION} compliant[/dim]",
+                title="[bold green]Project Initialized[/bold green]",
+                border_style="green",
+                expand=False,
+            )
+        )
 
     except Exception as e:
-        console.print(f'[bold red]Initialization failed:[/bold red] {e}')
+        console.print(f"[bold red]Initialization failed:[/bold red] {e}")
+
 
 @create_app.command(name="face")
-def create_face(project_name: Annotated[str, typer.Argument(help='The name of the new project')], ui: Annotated[str, typer.Option('-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)')] = 'a2ui', copilotkit: Annotated[bool, typer.Option('--copilotkit', help='Enable extra CopilotKit features for AGUI')] = False):
+def create_face(
+    project_name: Annotated[
+        str, typer.Argument(help="The name of the new project")
+    ],
+    ui: Annotated[
+        str,
+        typer.Option(
+            "-ui", "--ui", help="UI Template (a2ui, agui, flutter, lit)"
+        ),
+    ] = "a2ui",
+    copilotkit: Annotated[
+        bool,
+        typer.Option(
+            "--copilotkit", help="Enable extra CopilotKit features for AGUI"
+        ),
+    ] = False,
+):
     """Scaffold a new Agent UI project. Defaults to A2UI (React/Vite)."""
     # Readiness Check
     if not pre_mod.run_preflight(target_cloud="google"):
-         console.print("\n[bold red]FATAL: Project environment is not production-ready.[/bold red]")
-         raise typer.Exit(code=1)
-    
-    console.print(Panel(f'🚀 [bold green]Creating project:[/bold green] [bold cyan]{project_name}[/bold cyan]', expand=False))
+        console.print(
+            "\n[bold red]FATAL: Project environment is not production-ready.[/bold red]"
+        )
+        raise typer.Exit(code=1)
+
+    console.print(
+        Panel(
+            f"🚀 [bold green]Creating project:[/bold green] [bold cyan]{project_name}[/bold cyan]",
+            expand=False,
+        )
+    )
     if os.path.exists(project_name):
-        console.print(f"[bold red]Error:[/bold red] Directory '{project_name}' already exists.")
+        console.print(
+            f"[bold red]Error:[/bold red] Directory '{project_name}' already exists."
+        )
         raise typer.Exit(code=1)
     try:
-        console.print('📦 Initializing with Trinity Stack (FastAPI + React + ADK)')
-        if ui == 'agui' or copilotkit:
-            console.print('✨ [bold yellow]Note:[/bold yellow] AG UI / CopilotKit selected. Using high-fidelity template.')
-        elif ui == 'flutter':
-            console.print('💙 [bold blue]Note:[/bold blue] Flutter selected. Scaffolding GenUI SDK bridge logic.')
-        elif ui == 'lit':
-            console.print('🔥 [bold orange1]Note:[/bold orange1] Lit selected. Scaffolding Web Components base.')
-        console.print(f'📡 Cloning template from [cyan]{config.REPO_URL}[/cyan]...')
-        subprocess.run(['git', 'clone', '--depth', '1', config.REPO_URL, project_name], check=True, capture_output=True)
-        shutil.rmtree(os.path.join(project_name, '.git'))
-        console.print('🔧 Initializing new git repository...')
-        subprocess.run(['git', 'init'], cwd=project_name, check=True, capture_output=True)
-        start_cmd = 'npm run dev'
-        if ui == 'flutter':
-            start_cmd = 'flutter run'
-        console.print(Panel(f"✅ [bold green]Success![/bold green] Project [bold cyan]{project_name}[/bold cyan] created.\n\n[bold]Quick Start:[/bold]\n  1. [dim]cd[/dim] {project_name}\n  2. [dim]{('npm install' if ui != 'flutter' else 'flutter pub get')}[/dim]\n  3. [dim]agent-ops audit report[/dim]\n  4. [dim]{start_cmd}[/dim]\n\nConfiguration: UI=[bold cyan]{ui}[/bold cyan], CopilotKit=[bold cyan]{('Enabled' if copilotkit else 'Disabled')}[/bold cyan]\n[dim]Leveraging patterns from GoogleCloudPlatform/agent-starter-pack[/dim]", title='[bold green]Project Scaffolding Complete[/bold green]', expand=False, border_style='green'))
+        console.print(
+            "📦 Initializing with Trinity Stack (FastAPI + React + ADK)"
+        )
+        if ui == "agui" or copilotkit:
+            console.print(
+                "✨ [bold yellow]Note:[/bold yellow] AG UI / CopilotKit selected. Using high-fidelity template."
+            )
+        elif ui == "flutter":
+            console.print(
+                "💙 [bold blue]Note:[/bold blue] Flutter selected. Scaffolding GenUI SDK bridge logic."
+            )
+        elif ui == "lit":
+            console.print(
+                "🔥 [bold orange1]Note:[/bold orange1] Lit selected. Scaffolding Web Components base."
+            )
+        console.print(
+            f"📡 Cloning template from [cyan]{config.REPO_URL}[/cyan]..."
+        )
+        subprocess.run(
+            ["git", "clone", "--depth", "1", config.REPO_URL, project_name],
+            check=True,
+            capture_output=True,
+        )
+        shutil.rmtree(os.path.join(project_name, ".git"))
+        console.print("🔧 Initializing new git repository...")
+        subprocess.run(
+            ["git", "init"], cwd=project_name, check=True, capture_output=True
+        )
+        start_cmd = "npm run dev"
+        if ui == "flutter":
+            start_cmd = "flutter run"
+        console.print(
+            Panel(
+                f"✅ [bold green]Success![/bold green] Project [bold cyan]{project_name}[/bold cyan] created.\n\n[bold]Quick Start:[/bold]\n  1. [dim]cd[/dim] {project_name}\n  2. [dim]{('npm install' if ui != 'flutter' else 'flutter pub get')}[/dim]\n  3. [dim]agent-ops audit report[/dim]\n  4. [dim]{start_cmd}[/dim]\n\nConfiguration: UI=[bold cyan]{ui}[/bold cyan], CopilotKit=[bold cyan]{('Enabled' if copilotkit else 'Disabled')}[/bold cyan]\n[dim]Leveraging patterns from GoogleCloudPlatform/agent-starter-pack[/dim]",
+                title="[bold green]Project Scaffolding Complete[/bold green]",
+                expand=False,
+                border_style="green",
+            )
+        )
     except subprocess.CalledProcessError as e:
-        console.print(f'[bold red]Error during git operation:[/bold red] {(e.stderr.decode() if e.stderr else str(e))}')
+        console.print(
+            f"[bold red]Error during git operation:[/bold red] {(e.stderr.decode() if e.stderr else str(e))}"
+        )
         raise typer.Exit(code=1)
+
 
 @create_app.command(name="rogue-agent")
 def create_rogue_agent():
     """Setup the 'Broken Agent' for the Cockpit Lab."""
     console.print("🧪 Bootstrapping Rogue Agent for viral lab...")
     os.makedirs("my_super_agent", exist_ok=True)
-    
-    agent_code = '''import os
+
+    agent_code = """import os
 import vertexai
 from fastapi import FastAPI
 
@@ -843,7 +1683,7 @@ async def execute_task(user_prompt: str):
     response = model.generate_content(unsafe_prompt)
     
     return {"agent_response": response.text}
-'''
+"""
     with open("my_super_agent/agent.py", "w") as f:
         f.write(agent_code)
 
@@ -857,18 +1697,29 @@ pydantic
         f.write(reqs)
 
     with open("my_super_agent/.cockpitignore", "w") as f:
-        f.write("*\n# Cordon Pattern (Shadow Bypass) active\n# This directory is excluded from automated Cockpit secret and security scanners.\n")
+        f.write(
+            "*\n# Cordon Pattern (Shadow Bypass) active\n# This directory is excluded from automated Cockpit secret and security scanners.\n"
+        )
 
-    console.print("✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent")
+    console.print(
+        "✅ Viral Lab environment ready. The Rogue Agent is live in ./my_super_agent"
+    )
+
 
 # --- LEGACY ALIASES (Non-breaking) ---
 
 
 @app.command(name="reliability", hidden=True)
-def legacy_reliability(smoke: Annotated[bool, typer.Option('--smoke', help='Run End-to-End Persona Smoke Tests')] = False):
+def legacy_reliability(
+    smoke: Annotated[
+        bool, typer.Option("--smoke", help="Run End-to-End Persona Smoke Tests")
+    ] = False,
+):
     """[DEPRECATED] Use 'test smoke' or 'test unit' instead."""
     cmd = "test smoke" if smoke else "test unit"
-    console.print(f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]")
+    console.print(
+        f"🔄 [bold blue]Legacy command detected. Running '{cmd}' on your behalf...[/bold blue]"
+    )
     if smoke:
         rel_mod.run_smoke_test()
     else:
@@ -877,161 +1728,300 @@ def legacy_reliability(smoke: Annotated[bool, typer.Option('--smoke', help='Run 
 
 @app.command(name="audit", hidden=True)
 def legacy_audit(
-    file_path: Annotated[str, typer.Argument(help='Path to the agent code to audit')] = 'agent.py', 
-    interactive: Annotated[bool, typer.Option('--interactive/--no-interactive', '-i', help='Run in interactive mode')] = True, 
-    quick: Annotated[bool, typer.Option('--quick', '-q', help='Skip live evidence fetching for faster execution')] = False,
-    heal: Annotated[bool, typer.Option('--heal', help='Automatically apply fixes')] = False
+    file_path: Annotated[
+        str, typer.Argument(help="Path to the agent code to audit")
+    ] = "agent.py",
+    interactive: Annotated[
+        bool,
+        typer.Option(
+            "--interactive/--no-interactive",
+            "-i",
+            help="Run in interactive mode",
+        ),
+    ] = True,
+    quick: Annotated[
+        bool,
+        typer.Option(
+            "--quick",
+            "-q",
+            help="Skip live evidence fetching for faster execution",
+        ),
+    ] = False,
+    heal: Annotated[
+        bool, typer.Option("--heal", help="Automatically apply fixes")
+    ] = False,
 ):
     """[DEPRECATED] Use 'audit report' or 'audit interactive' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit report' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit report' on your behalf...[/bold blue]"
+    )
     opt_mod.audit(file_path, interactive, quick=quick)
 
 
 @app.command(name="fix", hidden=True)
-def legacy_fix(issue_id: str=typer.Argument(..., help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')"), path: str=typer.Option('.', '--path', '-p', help='Path to the agent/workspace')):
+def legacy_fix(
+    issue_id: str = typer.Argument(
+        ...,
+        help="The issue ID or partial title to fix (e.g. 'caching' or '89ed850')",
+    ),
+    path: str = typer.Option(
+        ".", "--path", "-p", help="Path to the agent/workspace"
+    ),
+):
     """[DEPRECATED] Use 'fix issue' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fix issue' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fix issue' on your behalf...[/bold blue]"
+    )
     fix_issue(issue_id, path)
 
 
 @app.command(name="red-team", hidden=True)
-def legacy_red_team(agent_path: Annotated[str, typer.Argument(help='Path to the agent code to audit')] = 'src/agent_ops_cockpit/agent.py'):
+def legacy_red_team(
+    agent_path: Annotated[
+        str, typer.Argument(help="Path to the agent code to audit")
+    ] = "src/agent_ops_cockpit/agent.py",
+):
     """[DEPRECATED] Use 'audit security' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]"
+    )
     red_mod.audit(agent_path)
 
 
 @app.command(name="cockpit", hidden=True)
 def legacy_cockpit(
-    path: Annotated[str, typer.Option("--path", "-p", help="Path to agent or workspace")] = ".", 
-    target: Annotated[str, typer.Option("--target", "-t", help="Target Cloud: google, aws, azure")] = "google",
-    fleet: Annotated[bool, typer.Option("--fleet", help="Run for all agents in the path")] = False
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to agent or workspace")
+    ] = ".",
+    target: Annotated[
+        str,
+        typer.Option("--target", "-t", help="Target Cloud: google, aws, azure"),
+    ] = "google",
+    fleet: Annotated[
+        bool, typer.Option("--fleet", help="Run for all agents in the path")
+    ] = False,
 ):
     """[DEPRECATED] Use 'deploy cockpit' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy cockpit' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'deploy cockpit' on your behalf...[/bold blue]"
+    )
     cockpit(path, fleet, target)
 
 
 @app.command(name="document", hidden=True)
-def legacy_document(path: str=typer.Option('.', '--path', '-p', help='Path to workspace')):
+def legacy_document(
+    path: str = typer.Option(".", "--path", "-p", help="Path to workspace"),
+):
     """[DEPRECATED] Use 'audit document' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit document' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit document' on your behalf...[/bold blue]"
+    )
     document(path)
 
 
 @app.command(name="register", hidden=True)
-def legacy_register(path: str=typer.Option('.', '--path', '-p', help='Path to workspace or agent to register'), fleet: bool=typer.Option(True, '--fleet', help='Register all production-ready agents in the workspace'), a2a: bool=typer.Option(False, '--a2a', help='Enable A2A (Agent-to-Agent) bridge for cross-cloud agents')):
+def legacy_register(
+    path: str = typer.Option(
+        ".", "--path", "-p", help="Path to workspace or agent to register"
+    ),
+    fleet: bool = typer.Option(
+        True,
+        "--fleet",
+        help="Register all production-ready agents in the workspace",
+    ),
+    a2a: bool = typer.Option(
+        False,
+        "--a2a",
+        help="Enable A2A (Agent-to-Agent) bridge for cross-cloud agents",
+    ),
+):
     """[DEPRECATED] Use 'deploy register' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy register' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'deploy register' on your behalf...[/bold blue]"
+    )
     register(path, a2a)
 
 
 @app.command(name="fleet-status", hidden=True)
 def legacy_fleet_status():
     """[DEPRECATED] Use 'fleet status' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet status' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet status' on your behalf...[/bold blue]"
+    )
     fleet_status()
 
 
 @app.command(name="mothball", hidden=True)
-def legacy_mothball(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to mothball')):
+def legacy_mothball(
+    cloud: Optional[str] = typer.Option(
+        None, "--cloud", help="Specific cloud to mothball"
+    ),
+):
     """[DEPRECATED] Use 'fleet mothball' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet mothball' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet mothball' on your behalf...[/bold blue]"
+    )
     mothball(cloud)
 
 
 @app.command(name="resume", hidden=True)
-def legacy_resume(cloud: Optional[str] = typer.Option(None, '--cloud', help='Specific cloud to resume')):
+def legacy_resume(
+    cloud: Optional[str] = typer.Option(
+        None, "--cloud", help="Specific cloud to resume"
+    ),
+):
     """[DEPRECATED] Use 'fleet resume' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet resume' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet resume' on your behalf...[/bold blue]"
+    )
     resume(cloud)
 
 
 @app.command(name="tunnel", hidden=True)
-def legacy_tunnel(path: str=typer.Option('.', '--path', '-p', help='Path to local agent'),
-           port: int=typer.Option(8080, '--port', help='Local port the agent is running on')):
+def legacy_tunnel(
+    path: str = typer.Option(".", "--path", "-p", help="Path to local agent"),
+    port: int = typer.Option(
+        8080, "--port", help="Local port the agent is running on"
+    ),
+):
     """[DEPRECATED] Use 'fleet tunnel' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet tunnel' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet tunnel' on your behalf...[/bold blue]"
+    )
     tunnel(path, port)
 
 
 @app.command(name="anomaly-check", hidden=True)
-def anomaly_check_deprecated(name: str=typer.Option(..., help='Agent name to audit'), 
-                  sim_rogue: bool=typer.Option(False, '--rogue', help='Simulate rogue PII exfiltration')):
+def anomaly_check_deprecated(
+    name: str = typer.Option(..., help="Agent name to audit"),
+    sim_rogue: bool = typer.Option(
+        False, "--rogue", help="Simulate rogue PII exfiltration"
+    ),
+):
     """[DEPRECATED] Use 'fleet anomaly' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet anomaly' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet anomaly' on your behalf...[/bold blue]"
+    )
     anomaly_check(name, sim_rogue)
 
 
 @app.command(hidden=True)
-def deploy_prep_alias(path: str=typer.Option('.', '--path', help='Path to agent/workspace'), target: str=typer.Option('google', '--target', help='Primary target cloud')):
+def deploy_prep_alias(
+    path: str = typer.Option(".", "--path", help="Path to agent/workspace"),
+    target: str = typer.Option(
+        "google", "--target", help="Primary target cloud"
+    ),
+):
     """[DEPRECATED] Use 'deploy prep' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy prep' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'deploy prep' on your behalf...[/bold blue]"
+    )
 
     deploy_prep(path, target)
+
 
 @app.command(name="simulate-cockpit", hidden=True)
 def legacy_simulate_cockpit():
     """[DEPRECATED] Use 'deploy simulate' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'deploy simulate' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'deploy simulate' on your behalf...[/bold blue]"
+    )
 
     simulate_deploy()
 
+
 @app.command(name="email-report", hidden=True)
-def legacy_email_report(recipient: str=typer.Argument(...)):
+def legacy_email_report(recipient: str = typer.Argument(...)):
     """[DEPRECATED] Use 'audit email' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit email' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit email' on your behalf...[/bold blue]"
+    )
 
     email(recipient)
 
+
 @app.command(name="face", hidden=True)
-def legacy_face(path: str='src'):
+def legacy_face(path: str = "src"):
     """[DEPRECATED] Use 'audit face' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit face' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit face' on your behalf...[/bold blue]"
+    )
 
     from agent_ops_cockpit.ops import ui_auditor as ui_mod
+
     ui_mod.audit(path)
 
+
 @app.command(name="secrets", hidden=True)
-def legacy_secrets(path: str=typer.Argument('.', help='Directory to scan')):
+def legacy_secrets(path: str = typer.Argument(".", help="Directory to scan")):
     """[DEPRECATED] Use 'audit security' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'audit security' on your behalf...[/bold blue]"
+    )
 
     from agent_ops_cockpit.ops import secret_scanner as secret_mod
+
     secret_mod.scan(path)
+
 
 @app.command(name="doctor", hidden=True)
 def legacy_doctor():
     """[DEPRECATED] Use 'sys doctor' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'sys doctor' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'sys doctor' on your behalf...[/bold blue]"
+    )
 
     diagnose()
 
+
 @app.command(name="init", hidden=True)
-def legacy_init(project_name: str=typer.Argument('my-agent', help='The name of the new project')):
+def legacy_init(
+    project_name: str = typer.Argument(
+        "my-agent", help="The name of the new project"
+    ),
+):
     """[DEPRECATED] Use 'create agent' or 'create face' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'create trinity' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'create trinity' on your behalf...[/bold blue]"
+    )
 
     create_trinity(project_name)
 
+
 @app.command(name="create", hidden=True)
-def legacy_create(project_name: str=typer.Argument(..., help='The name of the new project'), ui: str=typer.Option('a2ui', '-ui', '--ui', help='UI Template (a2ui, agui, flutter, lit)'), copilotkit: bool=typer.Option(False, '--copilotkit', help='Enable extra CopilotKit features for AGUI')):
+def legacy_create(
+    project_name: str = typer.Argument(..., help="The name of the new project"),
+    ui: str = typer.Option(
+        "a2ui", "-ui", "--ui", help="UI Template (a2ui, agui, flutter, lit)"
+    ),
+    copilotkit: bool = typer.Option(
+        False, "--copilotkit", help="Enable extra CopilotKit features for AGUI"
+    ),
+):
     """[DEPRECATED] Use 'create face' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'create face' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'create face' on your behalf...[/bold blue]"
+    )
 
     create_face(project_name, ui, copilotkit)
+
 
 @app.command(name="smoke-test", hidden=True)
 def legacy_smoke_test():
     """[DEPRECATED] Use 'test smoke' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'test smoke' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'test smoke' on your behalf...[/bold blue]"
+    )
 
     rel_mod.run_smoke_test()
+
 
 @app.command(hidden=True)
 def watch_legacy():
     """[DEPRECATED] Use 'fleet watch' instead."""
-    console.print("🔄 [bold blue]Legacy command detected. Running 'fleet watch' on your behalf...[/bold blue]")
+    console.print(
+        "🔄 [bold blue]Legacy command detected. Running 'fleet watch' on your behalf...[/bold blue]"
+    )
 
     watch_mod.run_watch()
 
@@ -1042,109 +2032,227 @@ def audit_maturity():
     [DEPRECATED] Use 'audit maturity' instead.
     Expertise Matrix: Display the Cockpit's maturity levels across personas, frameworks, and platforms.
     """
-    console.print(Panel.fit(f"🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v{config.VERSION})[/bold blue]", border_style="blue"))
+    console.print(
+        Panel.fit(
+            f"🕹️ [bold blue]AGENTOPS COCKPIT: MATURITY EXPERTISE MATRIX (v{config.VERSION})[/bold blue]",
+            border_style="blue",
+        )
+    )
 
-    
     # 1. Persona Matrix
-    persona_table = Table(title="👩‍round Principal SME Personas", show_header=True, header_style="bold magenta")
+    persona_table = Table(
+        title="👩‍round Principal SME Personas",
+        show_header=True,
+        header_style="bold magenta",
+    )
     persona_table.add_column("Persona", style="cyan")
     persona_table.add_column("Mandate", style="dim")
     persona_table.add_column("Expertise Level", style="bold green")
-    
-    persona_table.add_row("🛡️ Security Pillar", "Zero-Trust & Cockpitty", "MASTER")
-    persona_table.add_row("🛡️ Reliability Pillar", "Resiliency & Performance", "PRINCIPAL")
-    persona_table.add_row("🏗️ Strategy Pillar", "Paradigm & FinOps", "DISTINGUISHED")
-    
+
+    persona_table.add_row(
+        "🛡️ Security Pillar", "Zero-Trust & Cockpitty", "MASTER"
+    )
+    persona_table.add_row(
+        "🛡️ Reliability Pillar", "Resiliency & Performance", "PRINCIPAL"
+    )
+    persona_table.add_row(
+        "🏗️ Strategy Pillar", "Paradigm & FinOps", "DISTINGUISHED"
+    )
+
     console.print(persona_table)
 
     # 2. Ecosystem Support Matrix
-    eco_table = Table(title="🏗️ Supported Ecosystem & Protocols", show_header=True, header_style="bold yellow")
+    eco_table = Table(
+        title="🏗️ Supported Ecosystem & Protocols",
+        show_header=True,
+        header_style="bold yellow",
+    )
     eco_table.add_column("Category", style="yellow")
     eco_table.add_column("Frameworks / Platforms", style="cyan")
     eco_table.add_column("Knowledge Depth", style="dim")
 
-    eco_table.add_row("Orchestration", "LangGraph, CrewAI, ADK, AutoGen, LlamaIndex", "Deep AST Probing")
-    eco_table.add_row("Cloud (GCP)", "Vertex AI, Cloud Run, GKE, Firebase, BigQuery", "Native Integration")
-    eco_table.add_row("Cloud (AWS/Az)", "Bedrock, Azure OpenAI, IAM Federation", "Architecture Alignment")
-    eco_table.add_row("Protocols", "Model Context (MCP), A2UI, UCP, AP2", "Protocol Enforcement")
-    eco_table.add_row("Databases (Vector)", "Chroma, Pinecone, Weaviate, AlloyDB", "Retrieval Auditing")
-    eco_table.add_row("Databases (Enterprise)", "BigQuery, Snowflake, Databricks, Redshift", "Analytical Integration")
-    eco_table.add_row("Databases (OLTP/NoSQL)", "Cloud SQL, Firestore, Spanner", "State Persistence Audit")
-    
+    eco_table.add_row(
+        "Orchestration",
+        "LangGraph, CrewAI, ADK, AutoGen, LlamaIndex",
+        "Deep AST Probing",
+    )
+    eco_table.add_row(
+        "Cloud (GCP)",
+        "Vertex AI, Cloud Run, GKE, Firebase, BigQuery",
+        "Native Integration",
+    )
+    eco_table.add_row(
+        "Cloud (AWS/Az)",
+        "Bedrock, Azure OpenAI, IAM Federation",
+        "Architecture Alignment",
+    )
+    eco_table.add_row(
+        "Protocols",
+        "Model Context (MCP), A2UI, UCP, AP2",
+        "Protocol Enforcement",
+    )
+    eco_table.add_row(
+        "Databases (Vector)",
+        "Chroma, Pinecone, Weaviate, AlloyDB",
+        "Retrieval Auditing",
+    )
+    eco_table.add_row(
+        "Databases (Enterprise)",
+        "BigQuery, Snowflake, Databricks, Redshift",
+        "Analytical Integration",
+    )
+    eco_table.add_row(
+        "Databases (OLTP/NoSQL)",
+        "Cloud SQL, Firestore, Spanner",
+        "State Persistence Audit",
+    )
+
     console.print(eco_table)
 
     # 3. Research & Wisdom Sources
-    wisdom_table = Table(title="🧠 Maturity Wisdom Sources (The Knowledge Base)", show_header=True, header_style="bold green")
+    wisdom_table = Table(
+        title="🧠 Maturity Wisdom Sources (The Knowledge Base)",
+        show_header=True,
+        header_style="bold green",
+    )
     wisdom_table.add_column("Source", style="green")
     wisdom_table.add_column("Integration", style="cyan")
-    
-    wisdom_table.add_row("Google Well-Architected", "Full alignment with AI/ML Pillar (v1.3)")
+
+    wisdom_table.add_row(
+        "Google Well-Architected", "Full alignment with AI/ML Pillar (v1.3)"
+    )
     wisdom_table.add_row("OWASP LLM Top 10", "Real-time vulnerability mapping")
-    wisdom_table.add_row("AI Brand Safety Playbook", "Declarative safety threshold audits")
-    wisdom_table.add_row("ArXiv (cs.AI)", "Latest research in Self-Reflexion & ToT")
-    
+    wisdom_table.add_row(
+        "AI Brand Safety Playbook", "Declarative safety threshold audits"
+    )
+    wisdom_table.add_row(
+        "ArXiv (cs.AI)", "Latest research in Self-Reflexion & ToT"
+    )
+
     console.print(wisdom_table)
-    console.print("\n✨ [bold blue]The Cockpit is currently operating at Maturity Level 4 (Autonomous Governance).[/bold blue]")
+    console.print(
+        "\n✨ [bold blue]The Cockpit is currently operating at Maturity Level 4 (Autonomous Governance).[/bold blue]"
+    )
+
 
 @app.command()
 def mcp_server():
     """
     Launch the Cockpit as a Model Context Protocol (MCP) server.
     """
-    console.print('📡 [bold blue]Launching AgentOps Cockpit MCP Server...[/bold blue]')
+    console.print(
+        "📡 [bold blue]Launching AgentOps Cockpit MCP Server...[/bold blue]"
+    )
     import asyncio
 
     from agent_ops_cockpit import mcp_server as mcp_mod
+
     asyncio.run(mcp_mod.main())
+
 
 # --- CONTEXT HUB ---
 @context_app.command()
-def build(path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = "."):
+def build(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
     """🧠 Index knowledge: Build the BM25 registry from public/*.md and docs/*.md."""
-    console.print(Panel.fit('🧠 [bold blue]COCKPIT CONTEXT: REGISTRY BUILD[/bold blue]', border_style='blue'))
+    console.print(
+        Panel.fit(
+            "🧠 [bold blue]COCKPIT CONTEXT: REGISTRY BUILD[/bold blue]",
+            border_style="blue",
+        )
+    )
     registry = context_reg.ContextRegistry(path)
     docs = registry.build_registry()
-    console.print(f"✅ Indexed [bold green]{len(docs)}[/bold green] knowledge nodes.")
-    console.print("📦 Registry saved to: [cyan].cockpit/context_registry.json[/cyan]")
+    console.print(
+        f"✅ Indexed [bold green]{len(docs)}[/bold green] knowledge nodes."
+    )
+    console.print(
+        "📦 Registry saved to: [cyan].cockpit/context_registry.json[/cyan]"
+    )
+
 
 @context_app.command()
-def search(query: Annotated[str, typer.Argument(help="Search query")], path: Annotated[str, typer.Option("--path", "-p", help="Path to workspace")] = ".", limit: int = 5):
-    """🔍 Knowledge Search: Find relevant governance guidelines using BM25."""
+def search(
+    query: Annotated[str, typer.Argument(help="Search query")],
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+    limit: int = 5,
+    vector: Annotated[
+        bool,
+        typer.Option(
+            "--vector",
+            "-v",
+            help="Enable Semantic Vector Router (falls back to Local Router if no API key)",
+        ),
+    ] = True,
+):
+    """🔍 Knowledge Search: Find relevant governance guidelines using BM25 or Dense Vectors."""
     registry = context_reg.ContextRegistry(path)
     docs = registry.load_registry()
     if not docs:
-        console.print("[yellow]⚠️ Registry is empty. Run 'agent-ops context build' first.[/yellow]")
+        console.print(
+            "[yellow]⚠️ Registry is empty. Run 'agent-ops context build' first.[/yellow]"
+        )
         return
-        
-    engine = context_bm25.BM25Engine()
+
+    if vector:
+        from agent_ops_cockpit.ops.context.vector_router import (
+            VectorSemanticRouter,
+        )
+
+        engine = VectorSemanticRouter(use_remote=True)
+    else:
+        from agent_ops_cockpit.ops.context import bm25
+
+        engine = bm25.BM25Engine()
+
     engine.build_index(docs)
     results = engine.search(query, limit=limit)
-    
-    table = Table(title=f"🔍 Results for: '{query}'", show_header=True, header_style="bold magenta")
+
+    table = Table(
+        title=f"🔍 {'🧠 Vector' if vector else '🔍 BM25'} Results for: '{query}'",
+        show_header=True,
+        header_style="bold magenta",
+    )
     table.add_column("Score", style="dim")
     table.add_column("Name", style="cyan")
     table.add_column("Category", style="green")
     table.add_column("Description")
-    
+
     for doc in results:
-        table.add_row("---", doc['name'], doc['category'], doc['description'])
-        
+        table.add_row("---", doc["name"], doc["category"], doc["description"])
+
     console.print(table)
+
+
 @context_app.command(name="ingest")
 def ingest_remote_skills(
-    remote: str = typer.Option(..., "--remote", help="Remote repository to fetch SKILL.md items from"),
-    target: str = typer.Option(".", "--target", help="Local cockpit directory to ingest to"),
-    verbose: bool = typer.Option(False, "--verbose", help="Display verbose skill metadata")
+    remote: str = typer.Option(
+        ..., "--remote", help="Remote repository to fetch SKILL.md items from"
+    ),
+    target: str = typer.Option(
+        ".", "--target", help="Local cockpit directory to ingest to"
+    ),
+    verbose: bool = typer.Option(
+        False, "--verbose", help="Display verbose skill metadata"
+    ),
 ):
     """
-    🧠 Ingest external markdown-based Agent Skills (e.g. addyosmani/agent-skills) 
+    🧠 Ingest external markdown-based Agent Skills (e.g. addyosmani/agent-skills)
     and serialize their anti-rationalizations to Cockpit's BM25 Store.
     """
-    console.print(f"🚀 [bold cyan]Context Ingester:[/] Fetching Agent Skills from [yellow]{remote}[/yellow]...")
-    
+    console.print(
+        f"🚀 [bold cyan]Context Ingester:[/] Fetching Agent Skills from [yellow]{remote}[/yellow]..."
+    )
+
     from agent_ops_cockpit.ops.skills.ingester import ContextIngester
+
     ingester = ContextIngester(target)
-    
+
     # Mock remote clone/ingestion for immediate BM25 parsing
     sample_skill = """
     name: test-driven-development
@@ -1156,17 +2264,120 @@ def ingest_remote_skills(
     - Run pytest to confirm passing test suite.
     """
     metadata = ingester.ingest_skill(sample_skill, "test-driven-development")
-    
+
     console.print(f"✅ Successfully registered: [green]{metadata.name}[/green]")
     if verbose:
         console.print(metadata)
+
+
+evolve_app = typer.Typer(
+    help="🧬 Meta-Evolutionary Architecture & Anti-Drift Engines"
+)
+
+
+@evolve_app.command(name="docs")
+def evolve_docs_command(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
+    """🧠 Self-Heal Documentation: Analyzes and fixes all MD discrepancies using Vertex AI."""
+    from agent_ops_cockpit.ops.architecture.doc_evolution import (
+        DocEvolutionEngine,
+    )
+
+    engine = DocEvolutionEngine(path)
+    results = engine.evolve_all_documentation()
+    for doc, status in results.items():
+        status_str = (
+            "[green]Healed[/green]"
+            if status
+            else "[red]Failed or Skipped[/red]"
+        )
+        console.print(f"- {doc}: {status_str}")
+
+
+@evolve_app.command(name="remediator")
+def evolve_remediator_command(
+    file_path: Annotated[
+        str, typer.Argument(help="Target Python file to refactor surgically")
+    ],
+    instruction: Annotated[
+        str, typer.Argument(help="Natural language LibCST refactoring prompt")
+    ],
+):
+    """🛠️ Meta-Remediate Code: Synthesizes, executes, and self-heals LibCST Transformers."""
+    from agent_ops_cockpit.ops.architecture.meta_remediator import (
+        MetaRemediator,
+    )
+
+    engine = MetaRemediator(".")
+    success = engine.evolve_and_remediate(file_path, instruction)
+    if success:
+        console.print("✅ [bold green]Meta-Remediation Complete.[/bold green]")
+    else:
+        console.print("❌ [bold red]Meta-Remediation Failed.[/bold red]")
+
+
+@evolve_app.command(name="drift-snapshot")
+def drift_snapshot_command(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
+    """🛡️ Drift Attestation Snapshot: Computes and saves structural syntax hashes."""
+    from agent_ops_cockpit.ops.architecture.drift import CodeDriftDetector
+
+    detector = CodeDriftDetector(path)
+    # Detect all .py files in src/
+    py_files = []
+    src_dir = os.path.join(path, "src")
+    if os.path.exists(src_dir):
+        for root, _, files in os.walk(src_dir):
+            for file in files:
+                if file.endswith(".py"):
+                    py_files.append(os.path.join(root, file))
+
+    detector.save_attestation(py_files)
+
+
+@evolve_app.command(name="drift-check")
+def drift_check_command(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+):
+    """🚨 Drift Attestation Check: Detects structural syntax divergence."""
+    from agent_ops_cockpit.ops.architecture.drift import CodeDriftDetector
+
+    detector = CodeDriftDetector(path)
+    drifts = detector.detect_drift()
+
+    if not drifts:
+        console.print(
+            "✅ [bold green]Zero Structural Drift Detected.[/bold green]"
+        )
+        return
+
+    table = Table(
+        title="🚨 Structural Drift Detected",
+        show_header=True,
+        header_style="bold red",
+    )
+    table.add_column("Relative Path", style="cyan")
+    table.add_column("Drift Status", style="yellow")
+
+    for fpath, status in drifts.items():
+        table.add_row(fpath, status)
+
+    console.print(table)
 
 
 # --- REGISTRATION ---
 app.add_typer(context_app, name="context")
 app.add_typer(cockpit_app, name="cockpit")
 app.add_typer(audit_app, name="audit")
-app.add_typer(audit_app, name="report", hidden=True) # Legacy aliasing
+app.add_typer(audit_app, name="report", hidden=True)  # Legacy aliasing
 app.add_typer(fleet_app, name="fleet")
 app.add_typer(deploy_app, name="deploy")
 app.add_typer(fix_app, name="fix")
@@ -1175,18 +2386,124 @@ app.add_typer(sys_app, name="sys")
 app.add_typer(ops_app, name="ops")
 app.add_typer(create_app, name="create")
 app.add_typer(create_app, name="init", hidden=True)
+app.add_typer(release_app, name="release")
+app.add_typer(evolve_app, name="evolve")
+
+
 @app.command(name="models")
 def top_level_models():
     """Alias for 'sys models' - List accessible Gemini models."""
     list_models()
 
+
 # Integrations
-app.add_typer(rag_mod.app, name='rag')
-audit_app.add_typer(roi_mod.app, name='roi')
-fix_app.add_typer(workbench_mod.app, name='workbench')
-app.add_typer(mcp_mod.app, name='mcp')
+app.add_typer(rag_mod.app, name="rag")
+audit_app.add_typer(roi_mod.app, name="roi")
+fix_app.add_typer(workbench_mod.app, name="workbench")
+app.add_typer(mcp_mod.app, name="mcp")
+
+
+@app.command(name="zero2hero")
+def zero2hero_command(
+    path: Annotated[
+        str, typer.Option("--path", "-p", help="Path to workspace")
+    ] = ".",
+    version: Annotated[
+        Optional[str],
+        typer.Option("--version", "-v", help="Explicit version bump to apply"),
+    ] = None,
+):
+    """🚀 Zero2Hero: Fully Automates the Productionization and Evolution Release Cycle."""
+    import asyncio
+
+    # We invoke either the upgrader or execute the full lifecycle!
+    # Wait, let's map it to run_autonomous_upgrade OR run_full_pipeline!
+    # Let's import Zero2HeroEngine
+    from agent_ops_cockpit.ops.zero2hero import (
+        Zero2HeroEngine,
+    )
+
+    async def _execute():
+        engine = Zero2HeroEngine(path, version)
+        console.print(
+            Panel(
+                "[bold green]🚀 Zero2Hero: Initializing Autonomous Release Engine[/bold green]"
+            )
+        )
+
+        # Stage 1: Build & Sync
+        console.print(
+            "🧠 [cyan]Phase 1: Evolving and Healing Documentation...[/cyan]"
+        )
+        from agent_ops_cockpit.ops.architecture.doc_evolution import (
+            DocEvolutionEngine,
+        )
+
+        doc_engine = DocEvolutionEngine(path)
+        doc_engine.evolve_all_documentation()
+
+        # Stage 2: Snapshot Drift Attestation
+        console.print(
+            "🛡️ [cyan]Phase 2: Snapshoting Structural Drift Attestation...[/cyan]"
+        )
+        from agent_ops_cockpit.ops.architecture.drift import CodeDriftDetector
+
+        drift_detector = CodeDriftDetector(path)
+        py_files = []
+        src_dir = os.path.join(path, "src")
+        if os.path.exists(src_dir):
+            for root, _, files in os.walk(src_dir):
+                for file in files:
+                    if file.endswith(".py"):
+                        py_files.append(os.path.join(root, file))
+        drift_detector.save_attestation(py_files)
+
+        # Stage 3: Bump Version
+        target_v = version
+        if not target_v:
+            # Extract patch and increment
+            from packaging import version as pkg_version
+
+            curr_v = engine.current_version
+            try:
+                parsed = pkg_version.parse(curr_v)
+                # Simplistic patch bump
+                target_v = f"{parsed.major}.{parsed.minor}.{parsed.micro + 1}"
+            except Exception:
+                target_v = "2.0.35"
+
+        engine.bump_version_strings(target_v)
+        await engine.generate_ai_changelog(target_v)
+
+        # Stage 4: Run Tests
+        console.print(
+            "🧪 [cyan]Phase 4: Running Full Regression Suite (pytest)...[/cyan]"
+        )
+        success, pytest_out = engine.run_shell("uv run pytest")
+        if not success:
+            console.print(
+                f"❌ [bold red]Regression Suite Failed![/bold red]\n{pytest_out}"
+            )
+            return
+
+        # Stage 5: Package
+        console.print(
+            "📦 [cyan]Phase 5: Minting Production Wheel and Tarball (uv build)...[/cyan]"
+        )
+        success_build, build_out = engine.run_shell("uv build")
+
+        console.print(
+            Panel(
+                f"🎉 [bold magenta]Zero2Hero Release v{target_v} Completed Successfully![/bold magenta]"
+            )
+        )
+
+    asyncio.run(_execute())
+
 
 def main():
     app()
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     main()

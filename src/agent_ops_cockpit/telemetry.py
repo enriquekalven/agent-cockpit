@@ -21,12 +21,17 @@ class TelemetryManager:
     cockpit Telemetry Manager for AgentOps Cockpit.
     Tracks usage metrics while respecting privacy and providing opt-out.
     """
-    
-    TELEMETRY_ENDPOINT = os.environ.get("AGENTOPS_TELEMETRY_URL", "https://agent-cockpit.web.app/api/telemetry/event")
+
+    TELEMETRY_ENDPOINT = os.environ.get(
+        "AGENTOPS_TELEMETRY_URL",
+        "https://agent-cockpit.web.app/api/telemetry/event",
+    )
     ENABLED_ENV_VAR = "AGENTOPS_TELEMETRY_ENABLED"
-    
+
     def __init__(self):
-        self.enabled = os.environ.get(self.ENABLED_ENV_VAR, "true").lower() == "true"
+        self.enabled = (
+            os.environ.get(self.ENABLED_ENV_VAR, "true").lower() == "true"
+        )
         self._session_id = str(uuid.uuid4())
         self._user_id = self._get_or_create_user_id()
 
@@ -34,14 +39,14 @@ class TelemetryManager:
         """Get a persistent anonymous user ID stored in .cockpit."""
         config_dir = os.path.join(os.path.expanduser("~"), ".cockpit")
         id_file = os.path.join(config_dir, "telemetry_id")
-        
+
         if os.path.exists(id_file):
             try:
                 with open(id_file, "r") as f:
                     return f.read().strip()
             except Exception:
                 pass
-        
+
         if not os.path.exists(config_dir):
             try:
                 os.makedirs(config_dir, exist_ok=True)
@@ -62,15 +67,15 @@ class TelemetryManager:
             "os_release": platform.release(),
             "python_version": platform.python_version(),
             "version": config.VERSION,
-            "arch": platform.machine()
+            "arch": platform.machine(),
         }
 
-    async def track_event(self, event_name: str, properties: Optional[Dict[str, Any]] = None):
+    async def track_event(
+        self, event_name: str, properties: Optional[Dict[str, Any]] = None
+    ):
         """Send an anonymous telemetry event."""
         if not self.enabled:
             return
-
-
 
         # Default Route: Firebase/Cloud Run
         payload = {
@@ -79,23 +84,21 @@ class TelemetryManager:
             "session_id": self._session_id,
             "timestamp": datetime.now().timestamp(),
             "properties": properties or {},
-            "context": self._get_system_info()
+            "context": self._get_system_info(),
         }
-
 
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(
-                    self.TELEMETRY_ENDPOINT,
-                    json=payload,
-                    timeout=2
+                    self.TELEMETRY_ENDPOINT, json=payload, timeout=2
                 ):
                     pass
         except Exception:
-
             pass
 
-    def track_event_sync(self, event_name: str, properties: Optional[Dict[str, Any]] = None):
+    def track_event_sync(
+        self, event_name: str, properties: Optional[Dict[str, Any]] = None
+    ):
         """Synchronous wrapper for track_event."""
         if not self.enabled:
             return
@@ -116,7 +119,10 @@ class TelemetryManager:
         import requests
 
         try:
-            r = requests.get("https://agent-cockpit.web.app/api/telemetry/dashboard", timeout=5)
+            r = requests.get(
+                "https://agent-cockpit.web.app/api/telemetry/dashboard",
+                timeout=5,
+            )
             if r.status_code == 200:
                 return r.json()
         except Exception:
@@ -131,9 +137,9 @@ class TelemetryManager:
             "top_commands": [
                 {"cmd": "evolve", "count": 2854900},
                 {"cmd": "upgrade", "count": 1423800},
-                {"cmd": "certify", "count": 894000}
+                {"cmd": "certify", "count": 894000},
             ],
-            "agents": []
+            "agents": [],
         }
 
     def get_agent_telemetry(self, agent_name: str) -> Dict[str, Any]:
@@ -141,8 +147,12 @@ class TelemetryManager:
         Fetch detailed telemetry for a specific agent.
         """
         import requests
+
         try:
-            r = requests.get(f"https://agent-cockpit.web.app/api/telemetry/agent/{agent_name}", timeout=5)
+            r = requests.get(
+                f"https://agent-cockpit.web.app/api/telemetry/agent/{agent_name}",
+                timeout=5,
+            )
             if r.status_code == 200:
                 return r.json()
         except Exception:
@@ -155,7 +165,7 @@ class TelemetryManager:
             "avg_latency": "0ms",
             "token_usage": "0",
             "cost_projected": "$0.00",
-            "recent_events": []
+            "recent_events": [],
         }
 
     def export_traces(self, format: str = "json", target_hub: str = "local"):
@@ -164,11 +174,15 @@ class TelemetryManager:
         Supports: Arize Phoenix, LangSmith, and standard JSON.
         """
         import glob
+
         trace_dir = os.path.join(os.getcwd(), ".cockpit", "traces")
         trace_files = glob.glob(os.path.join(trace_dir, "*.json"))
-        
+
         if not trace_files:
-            return {"status": "empty", "message": "No local traces found in .cockpit/traces/"}
+            return {
+                "status": "empty",
+                "message": "No local traces found in .cockpit/traces/",
+            }
 
         all_traces = []
         for f in trace_files:
@@ -179,18 +193,25 @@ class TelemetryManager:
                 pass
 
         if target_hub == "local":
-            output_file = f"cockpit_export_{datetime.now().strftime('%Y%m%d_%H%M')}.json"
+            output_file = (
+                f"cockpit_export_{datetime.now().strftime('%Y%m%d_%H%M')}.json"
+            )
             with open(output_file, "w") as f:
                 json.dump(all_traces, f, indent=2)
-            return {"status": "success", "file": output_file, "count": len(all_traces)}
+            return {
+                "status": "success",
+                "file": output_file,
+                "count": len(all_traces),
+            }
 
         # Mock push for Arize/LangSmith
         return {
-            "status": "success", 
-            "hub": target_hub, 
+            "status": "success",
+            "hub": target_hub,
             "count": len(all_traces),
-            "message": f"Pushing traces to {target_hub} API..."
+            "message": f"Pushing traces to {target_hub} API...",
         }
+
 
 telemetry = TelemetryManager()
 # cockpit Alignment: Integrating secret_manager and vault.

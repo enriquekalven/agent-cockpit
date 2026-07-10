@@ -12,7 +12,6 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 
 class HiveMindCache:
-
     def __init__(self, threshold=0.95):
         self.threshold = threshold
         self.store: Dict[str, Dict] = {}
@@ -28,9 +27,17 @@ class HiveMindCache:
 
     def put(self, query: str, response: str):
         query_hash = hashlib.md5(query.lower().strip().encode()).hexdigest()
-        self.store[query_hash] = {'query': query, 'response': response, 'cached_at': time.time()}
+        self.store[query_hash] = {
+            "query": query,
+            "response": response,
+            "cached_at": time.time(),
+        }
 
-@retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(3))
+
+@retry(
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    stop=stop_after_attempt(3),
+)
 def hive_mind(cache: HiveMindCache):
     """
     Middleware decorator for viral "one-line" semantic caching.
@@ -42,15 +49,24 @@ def hive_mind(cache: HiveMindCache):
         async def wrapper(query: str, *args, **kwargs):
             match = cache.get_match(query)
             if match:
-                print('🧠 [distributed cache] Semantic Hit! Latency Reduced to 0.1s.')
-                resp = match['response']
+                print(
+                    "🧠 [distributed cache] Semantic Hit! Latency Reduced to 0.1s."
+                )
+                resp = match["response"]
                 if isinstance(resp, dict):
-                    resp['_metadata'] = {'source': 'hive-mind-cache', 'savings': '100% tokens'}
+                    resp["_metadata"] = {
+                        "source": "hive-mind-cache",
+                        "savings": "100% tokens",
+                    }
                 return resp
-            print('🧪 [distributed cache] Cache Miss. Calling LLM...')
+            print("🧪 [distributed cache] Cache Miss. Calling LLM...")
             response = await func(query, *args, **kwargs)
             cache.put(query, response)
             return response
+
         return wrapper
+
     return decorator
+
+
 global_cache = HiveMindCache()
